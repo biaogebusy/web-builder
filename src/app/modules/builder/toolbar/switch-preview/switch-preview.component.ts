@@ -13,6 +13,7 @@ import { IPage } from '@core/interface/IAppConfig';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -26,6 +27,7 @@ export class SwitchPreviewComponent implements OnInit {
   private currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
   private builder = inject(BuilderState);
   private util = inject(UtilitiesService);
+  private translate = inject(TranslateService);
   private currentPage: IPage;
   private destroyRef = inject(DestroyRef);
   public currentPreview = signal<string>('none');
@@ -36,28 +38,28 @@ export class SwitchPreviewComponent implements OnInit {
         svg: 'undo-variant',
       },
       value: 'none',
-      label: '恢复',
+      label: 'BUILDER.SWITCH_PREVIEW.RESTORE',
     },
     {
       icon: {
         svg: 'tablet-cellphone',
       },
       value: 'xs-md',
-      label: '手机',
+      label: 'BUILDER.SWITCH_PREVIEW.PHONE',
     },
     {
       icon: {
         svg: 'tablet',
       },
       value: 'sm',
-      label: '平板',
+      label: 'BUILDER.SWITCH_PREVIEW.TABLET',
     },
     {
       icon: {
         svg: 'laptop',
       },
       value: 'md',
-      label: '笔记本',
+      label: 'BUILDER.SWITCH_PREVIEW.LAPTOP',
     },
   ];
 
@@ -70,7 +72,7 @@ export class SwitchPreviewComponent implements OnInit {
   onSwitch(preview: any): void {
     const { pathname } = window.location;
     if (!this.currentPage.body.length && !pathname.includes('/builder/chat/render')) {
-      this.util.openSnackbar('当前页面没有内容，请先拖动组件到编辑区创作');
+      this.util.openSnackbar(this.translate.instant('BUILDER.SWITCH_PREVIEW.EMPTY_PAGE'));
       return;
     }
     this.currentPreview.set(preview.value);

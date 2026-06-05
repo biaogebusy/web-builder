@@ -1,11 +1,11 @@
-@if (data?.toggle) {
+@if (data()?.toggle) {
   <mat-button-toggle-group
     class="toggle-group"
     (change)="onChange($event)"
     name="switchChart"
     aria-label="switch chart"
   >
-    @for (item of data.toggle; track item) {
+    @for (item of data().toggle; track item) {
       <mat-button-toggle value="{{ item.value }}">
         @if (item.icon) {
           <app-icon [content]="item.icon" />
@@ -18,5 +18,5 @@
 <div
   #echarts
   class="chart"
-  [style]="style"
+  [style]="style()"
 ></div>

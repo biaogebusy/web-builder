@@ -3,18 +3,18 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 const KEY_PATTERN = '^[-a-zA-Z0-9_]+$';
 
 const WIDTH_OPTIONS = [
-  { label: '小 (480px)', value: '480px' },
-  { label: '中 (800px)', value: '800px' },
-  { label: '大 (1000px)', value: '1000px' },
-  { label: '全屏 (95vw)', value: '95vw' },
-  { label: '自适应 (auto)', value: 'auto' },
+  { label: 'BUILDER.FACTORY.WIDTH_SMALL', value: '480px' },
+  { label: 'BUILDER.FACTORY.WIDTH_MEDIUM', value: '800px' },
+  { label: 'BUILDER.FACTORY.WIDTH_LARGE', value: '1000px' },
+  { label: 'BUILDER.FACTORY.WIDTH_FULL', value: '95vw' },
+  { label: 'BUILDER.FACTORY.WIDTH_AUTO', value: 'auto' },
 ];
 
 const HEIGHT_OPTIONS = [
-  { label: '自适应 (auto)', value: 'auto' },
-  { label: '中 (400px)', value: '400px' },
-  { label: '大 (600px)', value: '600px' },
-  { label: '满屏 (90vh)', value: '90vh' },
+  { label: 'BUILDER.FACTORY.HEIGHT_AUTO', value: 'auto' },
+  { label: 'BUILDER.FACTORY.HEIGHT_MEDIUM', value: '400px' },
+  { label: 'BUILDER.FACTORY.HEIGHT_LARGE', value: '600px' },
+  { label: 'BUILDER.FACTORY.HEIGHT_FULL', value: '90vh' },
 ];
 
 export function getCustomTemplate(widget: any): FormlyFieldConfig {
@@ -24,7 +24,7 @@ export function getCustomTemplate(widget: any): FormlyFieldConfig {
     fieldGroup: [
       {
         props: {
-          label: '自定义组件',
+          label: 'BUILDER.FACTORY.CUSTOM_WIDGET',
         },
         fieldGroup: [
           {
@@ -33,7 +33,7 @@ export function getCustomTemplate(widget: any): FormlyFieldConfig {
             className: 'w-full',
             defaultValue: widget.isAPI ?? false,
             props: {
-              label: 'API 数据来源',
+              label: 'BUILDER.FACTORY.API_SOURCE',
             },
           },
           {
@@ -52,7 +52,7 @@ export function getCustomTemplate(widget: any): FormlyFieldConfig {
       },
       {
         props: {
-          label: '弹窗',
+          label: 'BUILDER.FACTORY.DIALOG_TAB',
         },
         fieldGroup: [
           {
@@ -70,14 +70,14 @@ export function getCustomTemplate(widget: any): FormlyFieldConfig {
                   type: 'input',
                   className: 'w-full',
                   props: {
-                    label: '触发 key（对应 data-dialog="..." 的值）',
+                    label: 'BUILDER.FACTORY.DIALOG_KEY_LABEL',
                     required: true,
                     pattern: KEY_PATTERN,
-                    description: '支持字母、数字、_、-',
+                    description: 'BUILDER.FACTORY.DIALOG_KEY_DESC',
                   },
                   validation: {
                     messages: {
-                      pattern: '只允许字母、数字、_、-',
+                      pattern: 'BUILDER.FACTORY.DIALOG_KEY_PATTERN_ERR',
                     },
                   },
                 },
@@ -90,7 +90,7 @@ export function getCustomTemplate(widget: any): FormlyFieldConfig {
                       className: 'w-full',
                       defaultValue: 'auto',
                       props: {
-                        label: '宽度',
+                        label: 'BUILDER.FACTORY.WIDTH',
                         options: WIDTH_OPTIONS,
                       },
                     },
@@ -100,7 +100,7 @@ export function getCustomTemplate(widget: any): FormlyFieldConfig {
                       className: 'w-full',
                       defaultValue: 'auto',
                       props: {
-                        label: '高度',
+                        label: 'BUILDER.FACTORY.HEIGHT',
                         options: HEIGHT_OPTIONS,
                       },
                     },

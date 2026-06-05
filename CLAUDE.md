@@ -71,6 +71,7 @@ Angular SSR is configured with `@angular/ssr`. Entry point: `src/server.ts`. The
 - SCSS with TailwindCSS. Theme SCSS files are in `src/theme/` (included via `stylePreprocessorOptions`).
 - Angular Material theming with multiple switchable themes (stored in localStorage).
 - Components use SCSS files co-located with their `.ts` files.
+- **Prefer TailwindCSS `@apply` in component SCSS for layout, spacing, sizing, flex/grid, and typography utilities** — instead of hand-writing equivalent CSS properties. Example: `@apply flex justify-center items-center gap-3 p-3;` rather than `display: flex; justify-content: center; ...`. This keeps styles consistent with Tailwind's design tokens and matches the established pattern across the codebase (235+ usages). Reserve raw CSS for things Tailwind can't express cleanly (complex selectors, `::ng-deep` overrides, keyframes, Material system variables for colors/borders).
 - **Use Material system variables (`var(--mat-sys-*)`) for color/border in component styles by default** — avoid hardcoded hex/rgb values unless there is a special reason (e.g., third-party widget needs a fixed contrast). System tokens auto-adapt across themes.
   - Default theme: `src/theme/theme-config/_blue-colors.scss` (light, primary `#0049db`)
   - Dark theme: `src/theme/theme-config/_dark-colors.scss` (dark)
@@ -155,7 +156,28 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 
 ### Unified Widget Components
 
-- **Buttons**: Always use the unified `BtnComponent` from `@uiux/widgets/btn/btn.component` (selector: `app-btn`) instead of raw `<button mat-button>` / `<button>` elements. It accepts an `IBtn` content input and integrates with `RouteService`, `ReqRolesDirective`, `ContenteditDirective`, and `IconComponent` for consistent navigation, role gating, inline editing, and iconography across the app.
+**General rule**: When building combs or new components, prefer the atomic widgets in `@uiux/widgets/*` over raw HTML / Material elements whenever an equivalent widget exists. Widgets centralize inline editing (`ContenteditDirective`), role gating (`ReqRolesDirective`), routing (`RouteService`), theming via `--mat-sys-*` tokens, and accessibility behavior. Reaching for the underlying HTML/Material element should be a deliberate exception, not the default.
+
+Key widgets and what they replace:
+
+- **`app-btn`** (`widgets/btn/`) — replaces raw `<button mat-button>` / `<button>` / `<a>`-as-button. Accepts an `IBtn` content input.
+- **`app-icon`** (`widgets/icon/`) — replaces raw `<mat-icon>` / `<i class="fa-*">`. Unifies Material, SVG, and font-icon sources.
+- **`app-img`** (`widgets/img/`) — replaces raw `<img>`. Integrates `NgOptimizedImage`, lightbox, and responsive sources.
+- **`app-title`** (`widgets/title/`) — replaces ad-hoc `<h1>`–`<h6>` headings with style/level/alignment config.
+- **`app-text`** (`widgets/text/`) — replaces raw `<p>` / `innerHTML` blocks for rich text bodies (supports `SafeHtmlPipe`).
+- **`app-link`** (`widgets/link/`) — replaces raw `<a [routerLink]>` for CMS-driven links (handles internal/external, lang prefix, role gating).
+- **`app-card`** (`widgets/card/`) — replaces hand-rolled card markup.
+- **`app-media`** (`widgets/media/`) — replaces media-object compositions (img + body).
+- **`app-dialog`** (`widgets/dialog/`) — replaces direct `MatDialog.open()` usage for CMS-driven dialogs.
+- **`app-notify`** (`widgets/notify/`) — replaces ad-hoc `MatSnackBar` / alert markup.
+- **`app-pagination`** (`widgets/pagination/`) — replaces hand-rolled pagers / `MatPaginator` wiring.
+- **`app-loading`** / **`app-spinner`** (`widgets/loading/`, `widgets/spinner/`) — replaces ad-hoc loading states.
+- **`app-progress-bar`** / **`app-progress-group`** (`widgets/progress-bar/`, `widgets/progress-group/`) — replaces raw `<mat-progress-bar>`.
+- **`app-divider`** (`widgets/divider/`) — replaces raw `<mat-divider>` / `<hr>`.
+- **`app-dropdown-menu`** (`widgets/dropdown-menu/`) — replaces hand-built `MatMenu` triggers for CMS-driven menus.
+- **`app-feature-box`**, **`app-content-box`**, **`app-content-text-center`**, **`app-box`**, **`app-panel`**, **`app-sidebar`**, **`app-bg`**, **`app-bg-img`**, **`app-shape`**, **`app-spacer`** — layout/decoration primitives; prefer them over bespoke wrappers.
+
+Full inventory lives in `src/app/uiux/widgets/`. Before adding new markup, check if a widget already covers the need.
 
 ## State Management
 
@@ -176,3 +198,69 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Design services around a single responsibility
 - Use the `providedIn: 'root'` option for singleton services
 - Use the `inject()` function instead of constructor injection
+
+# CLAUDE.md
+
+Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
+
+**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
+
+## 1. Think Before Coding
+
+**Don't assume. Don't hide confusion. Surface tradeoffs.**
+
+Before implementing:
+- State your assumptions explicitly. If uncertain, ask.
+- If multiple interpretations exist, present them - don't pick silently.
+- If a simpler approach exists, say so. Push back when warranted.
+- If something is unclear, stop. Name what's confusing. Ask.
+
+## 2. Simplicity First
+
+**Minimum code that solves the problem. Nothing speculative.**
+
+- No features beyond what was asked.
+- No abstractions for single-use code.
+- No "flexibility" or "configurability" that wasn't requested.
+- No error handling for impossible scenarios.
+- If you write 200 lines and it could be 50, rewrite it.
+
+Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+
+## 3. Surgical Changes
+
+**Touch only what you must. Clean up only your own mess.**
+
+When editing existing code:
+- Don't "improve" adjacent code, comments, or formatting.
+- Don't refactor things that aren't broken.
+- Match existing style, even if you'd do it differently.
+- If you notice unrelated dead code, mention it - don't delete it.
+
+When your changes create orphans:
+- Remove imports/variables/functions that YOUR changes made unused.
+- Don't remove pre-existing dead code unless asked.
+
+The test: Every changed line should trace directly to the user's request.
+
+## 4. Goal-Driven Execution
+
+**Define success criteria. Loop until verified.**
+
+Transform tasks into verifiable goals:
+- "Add validation" → "Write tests for invalid inputs, then make them pass"
+- "Fix the bug" → "Write a test that reproduces it, then make it pass"
+- "Refactor X" → "Ensure tests pass before and after"
+
+For multi-step tasks, state a brief plan:
+```
+1. [Step] → verify: [check]
+2. [Step] → verify: [check]
+3. [Step] → verify: [check]
+```
+
+Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+
+---
+
+**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.

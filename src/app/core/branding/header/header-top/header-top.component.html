@@ -1,10 +1,10 @@
-@if (content) {
+@if (content(); as contentValue) {
   <div class="header-top">
     <div class="container">
       <div class="top-inner">
         <div class="left">
           <div class="hotline">
-            @for (item of content.banner.left; track item) {
+            @for (item of contentValue.banner.left; track item) {
               <div class="item">
                 @if (item.icon) {
                   <app-icon class="top-icon" [content]="item.icon" />
@@ -16,7 +16,7 @@
         </div>
         <div class="right">
           <app-github-star class="github" />
-          @for (item of content.banner.right; track item) {
+          @for (item of contentValue.banner.right; track item) {
             @if (item?.svg) {
               <a class="inv-icon style-v1" href="{{ item.href }}" target="_blank">
                 <span class="soc-name">{{ item.label }}</span>

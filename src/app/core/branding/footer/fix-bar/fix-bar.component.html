@@ -1,7 +1,7 @@
-@if (content) {
+@if (content(); as contentValue) {
   <div class="fix-bar">
     <div class="bar-inner">
-      @for (item of content; track item) {
+      @for (item of contentValue; track item) {
         @switch (item.type) {
           @case ('link') {
             <div

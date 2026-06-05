@@ -2,10 +2,11 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  Input,
   ViewChild,
   inject,
   signal,
+  ChangeDetectionStrategy,
+  input
 } from '@angular/core';
 import type { ICarouselBase } from '@core/interface/combs/ICarousel';
 import { ISwiper } from '@core/interface/widgets/ISwiper';
@@ -16,13 +17,14 @@ import { Subject } from 'rxjs';
 import { SwiperComponent } from '../swiper/swiper.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-carousel-1v2',
   templateUrl: './carousel1v2.component.html',
   styleUrls: ['./carousel1v2.component.scss'],
   imports: [TitleComponent, BtnComponent, SwiperComponent],
 })
 export class Carousel1v2Component implements AfterViewInit {
-  @Input() content: ICarouselBase;
+  readonly content = input.required<ICarouselBase>();
   swiper = signal<ISwiper>({ params: {}, elements: [], classes: '' });
   navigation$ = new Subject<number>();
   ele = inject(ElementRef);
@@ -41,7 +43,7 @@ export class Carousel1v2Component implements AfterViewInit {
           },
           elements: [],
         },
-        this.content.swiper
+        this.content().swiper
       )
     );
   }

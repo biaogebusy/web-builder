@@ -3,10 +3,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  Input,
   OnDestroy,
-  ViewChild,
   inject,
+  input,
+  viewChild
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { ContenteditDirective } from '@core/directive/contentedit.directive';
@@ -22,20 +22,22 @@ import { ScreenService } from '@core/service/screen.service';
   imports: [MatIconModule, ContenteditDirective, SafeHtmlPipe],
 })
 export class TitleComponent implements AfterViewInit, OnDestroy {
-  @Input() content: ITitle;
-  @ViewChild('title', { static: false }) title: ElementRef;
+  readonly content = input<ITitle>();
+  readonly title = viewChild<ElementRef>('title');
   private typed: any;
   private screenService = inject(ScreenService);
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      if (this.content?.typed?.enable) {
+      const content = this.content();
+      const titleEl = this.title();
+      if (content?.typed?.enable && titleEl) {
         import('typed.js').then(loader => {
           const { default: Typed } = loader;
-          const typedEle = this.title.nativeElement.querySelectorAll('strong')[0];
+          const typedEle = titleEl.nativeElement.querySelectorAll('strong')[0];
           this.typed = new Typed(typedEle, {
-            strings: this.content?.typed?.strings.map(item => item.label),
-            ...this.content?.typed?.config,
+            strings: content?.typed?.strings.map(item => item.label),
+            ...content?.typed?.config,
           });
         });
       }

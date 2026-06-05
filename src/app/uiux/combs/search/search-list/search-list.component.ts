@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy, output } from '@angular/core';
+import { Component, ChangeDetectionStrategy, output, input } from '@angular/core';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatDividerModule } from '@angular/material/divider';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -13,13 +13,13 @@ import { CustomTemplateComponent } from '@uiux/combs/other/custom-template/custo
   imports: [MatPaginatorModule, MatDividerModule, NgxPaginationModule, SpinnerComponent, CustomTemplateComponent],
 })
 export class SearchListComponent {
-  @Input() content: any[];
-  @Input() label: any;
-  @Input() pager: any;
-  @Input() loading: boolean;
-  @Input() template: string;
-  @Input() wrapperClasses: string;
-  @Input() colClasses: string;
+  readonly content = input<any[]>();
+  readonly label = input.required<any>();
+  readonly pager = input<any>();
+  readonly loading = input<boolean>();
+  readonly template = input<string>();
+  readonly wrapperClasses = input<string>();
+  readonly colClasses = input<string>();
 
   readonly pageChange = output<number>();
 

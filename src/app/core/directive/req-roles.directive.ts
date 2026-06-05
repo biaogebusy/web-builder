@@ -1,4 +1,4 @@
-import { DestroyRef, Directive, Input, TemplateRef, ViewContainerRef, inject } from '@angular/core';
+import { DestroyRef, Directive, TemplateRef, ViewContainerRef, effect, inject, input } from '@angular/core';
 import { UserService } from '@core/service/user.service';
 import { USER } from '@core/token/token-providers';
 import type { IUser } from '@core/interface/IUser';
@@ -9,8 +9,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   selector: '[reqRolesIf]',
 })
 export class ReqRolesDirective {
-  private currentUser$ = inject<Observable<IUser>>(USER);
+  readonly reqRolesIf = input<any>();
 
+  private currentUser$ = inject<Observable<IUser>>(USER);
   private userService = inject(UserService);
   private viewContainer = inject(ViewContainerRef);
   private templateRef = inject(TemplateRef<any>);
@@ -21,14 +22,15 @@ export class ReqRolesDirective {
     this.currentUser$.pipe(takeUntilDestroyed(this.destroyedRef)).subscribe(user => {
       this.user = user;
     });
-  }
 
-  @Input() set reqRolesIf(content: any) {
-    if (content && this.userService.checkShow(content, this.user)) {
-      this.viewContainer.clear();
-      this.viewContainer.createEmbeddedView(this.templateRef);
-    } else if (content && !this.userService.checkShow(content, this.user)) {
-      this.viewContainer.clear();
-    }
+    effect(() => {
+      const content = this.reqRolesIf();
+      if (content && this.userService.checkShow(content, this.user)) {
+        this.viewContainer.clear();
+        this.viewContainer.createEmbeddedView(this.templateRef);
+      } else if (content && !this.userService.checkShow(content, this.user)) {
+        this.viewContainer.clear();
+      }
+    });
   }
 }

@@ -1,11 +1,11 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
   OnInit,
   ChangeDetectorRef,
   DestroyRef,
   inject,
+  input
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { IDynamicMediaList } from '@core/interface/combs/IList';
@@ -23,7 +23,7 @@ import { ListComponent } from '../list/list.component';
   imports: [SidebarComponent, ListComponent],
 })
 export class DynamicMediaListComponent extends BaseComponent implements OnInit {
-  @Input() content: IDynamicMediaList;
+  readonly content = input.required<IDynamicMediaList>();
   list: any;
   links: any;
   loading = true;
@@ -44,14 +44,14 @@ export class DynamicMediaListComponent extends BaseComponent implements OnInit {
 
   getContent(): void {
     const params = [
-      `include=${this.getParams(this.content, 'include')}`,
-      `sort=${this.getParams(this.content, 'sort')}`,
+      `include=${this.getParams(this.content(), 'include')}`,
+      `sort=${this.getParams(this.content(), 'sort')}`,
       'jsonapi_include=1',
-      `page[limit]=${this.getParams(this.content, 'limit') || 20}`,
+      `page[limit]=${this.getParams(this.content(), 'limit') || 20}`,
     ].join('&');
     const path = '/api/v1/node';
     this.nodeService
-      .getNodes(path, `${this.getParams(this.content, 'type')}`, params)
+      .getNodes(path, `${this.getParams(this.content(), 'type')}`, params)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(res => {
         this.updateList(res);
@@ -68,12 +68,12 @@ export class DynamicMediaListComponent extends BaseComponent implements OnInit {
           href: link,
         },
         spacer: 'none',
-        showImage: this.content.showImage ?? true,
+        showImage: this.content().showImage ?? true,
         feature: {
           fullIcon: 'fullscreen',
           openIcon: 'open_in_new',
           link,
-          ratios: this.content.ratios || 'media-16-9',
+          ratios: this.content().ratios || 'media-16-9',
           img: {
             classes: 'object-fit',
             src: item.media?.field_media_image?.uri?.url,
@@ -84,7 +84,7 @@ export class DynamicMediaListComponent extends BaseComponent implements OnInit {
         category: item.category.name,
         body: item.body.summary || item.body.value,
         details: {
-          label: this.content.readMoreLabel || '查看更多',
+          label: this.content().readMoreLabel || '查看更多',
           href: link,
           style: 'style-v1',
           icon: 'open_in_new',

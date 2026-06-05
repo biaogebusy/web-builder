@@ -2,10 +2,12 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  Input,
+  DestroyRef,
   OnInit,
   inject,
+  input
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { isEmpty, omitBy, result } from 'lodash-es';
@@ -42,8 +44,9 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
   private formService = inject(FormService);
   private screenService = inject(ScreenService);
   private cd = inject(ChangeDetectorRef);
+  private destroyRef = inject(DestroyRef);
 
-  @Input() content: IDynamicCardList;
+  readonly content = input.required<IDynamicCardList>();
   keys: string;
   page: number;
   pager: IPager;
@@ -55,7 +58,7 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.router.queryParams.subscribe((query: any) => {
+      this.router.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((query: any) => {
         this.page = query.page || 0;
         const queryOpt = omitBy(
           Object.assign(
@@ -66,8 +69,9 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
           ),
           isEmpty
         );
-        if (this.content.sidebar) {
-          this.filterForm = this.initFormValueWithUrlQuery(queryOpt, this.content.sidebar);
+        const content = this.content();
+        if (content.sidebar) {
+          this.filterForm = this.initFormValueWithUrlQuery(queryOpt, content.sidebar);
           this.initForm(this.filterForm);
         }
         this.nodeSearch(queryOpt);
@@ -77,27 +81,32 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
 
   initForm(items: any[]): void {
     this.form = this.formService.toFormGroup(items);
-    this.form.valueChanges.pipe(debounceTime(1000), distinctUntilChanged()).subscribe(value => {
-      const params = Object.assign({ page: 0 }, value);
-      this.onSelectChange(params);
-    });
+    this.form.valueChanges
+      .pipe(debounceTime(1000), distinctUntilChanged(), takeUntilDestroyed(this.destroyRef))
+      .subscribe(value => {
+        const params = Object.assign({ page: 0 }, value);
+        this.onSelectChange(params);
+      });
   }
 
   nodeSearch(options: any): void {
     this.loading = true;
     const state = this.getParamsState(this.form?.value, options);
     const params = this.getApiParams(state);
-    this.nodeService.fetch(this.getParams(this.content, 'type'), params).subscribe(
-      data => {
-        this.updateList(data, this.form.value, options);
-        this.loading = false;
-        this.cd.detectChanges();
-      },
-      error => {
-        this.loading = false;
-        this.cd.detectChanges();
-      }
-    );
+    this.nodeService
+      .fetch(this.getParams(this.content(), 'type'), params)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(
+        data => {
+          this.updateList(data, this.form.value, options);
+          this.loading = false;
+          this.cd.detectChanges();
+        },
+        error => {
+          this.loading = false;
+          this.cd.detectChanges();
+        }
+      );
   }
 
   onSelectChange(options: any): void {
@@ -115,21 +124,21 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
     this.cd.detectChanges();
     this.nodes = data.rows.map((item: any) => {
       const link = item.url;
-      const title = result(item, this.getValue(this.content, 'fields', 'title'));
-      const subTitle = result(item, this.getValue(this.content, 'fields', 'subTitle'));
-      const body = result(item, this.getValue(this.content, 'fields', 'body'));
+      const title = result(item, this.getValue(this.content(), 'fields', 'title'));
+      const subTitle = result(item, this.getValue(this.content(), 'fields', 'subTitle'));
+      const body = result(item, this.getValue(this.content(), 'fields', 'body'));
       return {
         link: {
           label: title,
           href: link,
         },
         subTitle,
-        classes: this.content.shadow ? '' : 'card-no-shadow',
+        classes: this.content().shadow ? '' : 'card-no-shadow',
         feature: {
           fullIcon: 'fullscreen',
           openIcon: 'open_in_new',
           link,
-          ratios: this.content.ratios || 'media-4-3',
+          ratios: this.content().ratios || 'media-4-3',
           img: {
             classes: 'object-fit',
             src: item.image,

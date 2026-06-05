@@ -4,7 +4,7 @@ import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { environment } from 'src/environments/environment';
 import { Observable, lastValueFrom, of } from 'rxjs';
-import { catchError, map, shareReplay, tap } from 'rxjs/operators';
+import { catchError, map, shareReplay, take, tap } from 'rxjs/operators';
 import { isArray } from 'lodash-es';
 import { TagsService } from '@core/service/tags.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
@@ -64,7 +64,7 @@ export class ContentService extends ApiService {
   logContent(url: string): void {
     if (this.coreConfig?.log?.content?.enabel) {
       const { api } = this.coreConfig.log.content;
-      this.http.get(`${api}?location=${url}`).subscribe();
+      this.http.get(`${api}?location=${url}`).pipe(take(1)).subscribe();
     }
   }
 
@@ -81,8 +81,7 @@ export class ContentService extends ApiService {
     if (!this.coreConfigCache) {
       this.coreConfigCache = this.http.get<ICoreConfig>(configPath).pipe(
         catchError(error => {
-          console.log(error);
-          console.log('base json not found!');
+          console.error('base json not found:', error);
           return of({} as ICoreConfig);
         }),
         shareReplay(1)

@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -34,7 +34,7 @@ import { CardMetaComponent } from './card-meta/card-meta.component';
   ],
 })
 export class CardComponent {
-  @Input() content: ICard;
+  readonly content = input<ICard>();
   constructor() {}
 
 }

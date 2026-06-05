@@ -1,11 +1,11 @@
 import {
   Component,
   OnInit,
-  Input,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   inject,
   DestroyRef,
+  input
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { NodeService } from '@core/service/node.service';
@@ -35,7 +35,7 @@ export class FlagComponent extends BaseComponent implements OnInit {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   private user$ = inject<Observable<IUser>>(USER);
 
-  @Input() content: IFlag;
+  readonly content = input.required<IFlag>();
   config: ICoreFlag;
   flagging = false;
   user: IUser;
@@ -65,7 +65,7 @@ export class FlagComponent extends BaseComponent implements OnInit {
   get flaggingParams(): any {
     const params = [
       `filter[uid.id]=${this.user.id}`,
-      `filter[entity_id]=${this.getDeepValue(this.content, 'params.entity_id')}`,
+      `filter[entity_id]=${this.getDeepValue(this.content(), 'params.entity_id')}`,
     ].join('&');
     return params;
   }
@@ -93,16 +93,16 @@ export class FlagComponent extends BaseComponent implements OnInit {
     if (!this.flagging) {
       const data = {
         data: {
-          type: this.getParams(this.content, 'type'),
+          type: this.getParams(this.content(), 'type'),
           attributes: {
-            entity_type: this.getParams(this.content, 'entity_type'),
-            entity_id: this.getParams(this.content, 'entity_id'),
+            entity_type: this.getParams(this.content(), 'entity_type'),
+            entity_id: this.getParams(this.content(), 'entity_id'),
             global: false,
           },
           relationships: {
             flagged_entity: {
               data: {
-                type: this.getDeepValue(this.content, 'params.relationships.flagged_entity.type'),
+                type: this.getDeepValue(this.content(), 'params.relationships.flagged_entity.type'),
                 id: this.nodeId,
               },
             },
@@ -145,14 +145,14 @@ export class FlagComponent extends BaseComponent implements OnInit {
   }
 
   get nodeId(): string {
-    return this.getDeepValue(this.content, 'params.relationships.flagged_entity.id');
+    return this.getDeepValue(this.content(), 'params.relationships.flagged_entity.id');
   }
 
   get path(): string {
-    return `/api/v1${this.getPath(this.getParams(this.content, 'type'))}`;
+    return `/api/v1${this.getPath(this.getParams(this.content(), 'type'))}`;
   }
 
   get type(): string {
-    return this.getParams(this.content, 'type').split('--')[1];
+    return this.getParams(this.content(), 'type').split('--')[1];
   }
 }

@@ -1,8 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
   OnInit,
+  input
 } from '@angular/core';
 import type { ILocation } from '@core/interface/combs/IMap';
 import { TitleComponent } from '@uiux/widgets/title/title.component';
@@ -16,12 +16,12 @@ import { MapComponent } from '../map/map.component';
   imports: [TitleComponent, MapComponent],
 })
 export class LocationComponent implements OnInit {
-  @Input() content: ILocation;
+  readonly content = input.required<ILocation>();
 
   constructor() {}
 
   ngOnInit(): void {
-    this.content.elements = this.content.elements.map((item: any) => {
+    this.content().elements = this.content().elements.map((item: any) => {
       return {
         params: item.company,
       };

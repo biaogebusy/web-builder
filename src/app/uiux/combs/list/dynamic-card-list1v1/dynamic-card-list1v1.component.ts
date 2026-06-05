@@ -1,11 +1,13 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  DestroyRef,
   OnInit,
   ChangeDetectorRef,
   inject,
+  input
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NodeService } from '@core/service/node.service';
 import { RouteService } from '@core/service/route.service';
@@ -29,8 +31,9 @@ export class DynamicCardList1v1Component extends BaseComponent implements OnInit
   routerService = inject(RouteService);
   private screenService = inject(ScreenService);
   private cd = inject(ChangeDetectorRef);
+  private destroyRef = inject(DestroyRef);
 
-  @Input() content: IDynamicCardList1v1;
+  readonly content = input.required<IDynamicCardList1v1>();
 
   page: number;
   pager: IPager;
@@ -47,18 +50,21 @@ export class DynamicCardList1v1Component extends BaseComponent implements OnInit
     this.loading = true;
     const state = this.getParamsState({}, options);
     const params = this.getApiParams(state);
-    this.nodeService.fetch(this.getParams(this.content, 'type'), params).subscribe(
-      data => {
-        this.updateList(data);
-        this.loading = false;
-        this.cd.detectChanges();
-      },
-      error => {
-        console.log(error);
-        this.loading = false;
-        this.cd.detectChanges();
-      }
-    );
+    this.nodeService
+      .fetch(this.getParams(this.content(), 'type'), params)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(
+        data => {
+          this.updateList(data);
+          this.loading = false;
+          this.cd.detectChanges();
+        },
+        error => {
+          console.error(error);
+          this.loading = false;
+          this.cd.detectChanges();
+        }
+      );
   }
 
   updateList(data: any): void {
@@ -75,7 +81,7 @@ export class DynamicCardList1v1Component extends BaseComponent implements OnInit
           fullIcon: 'fullscreen',
           openIcon: 'open_in_new',
           link: item.url,
-          ratios: this.content.ratios || 'media-4-3',
+          ratios: this.content().ratios || 'media-4-3',
           img: {
             classes: 'object-fit',
             src: item.image,

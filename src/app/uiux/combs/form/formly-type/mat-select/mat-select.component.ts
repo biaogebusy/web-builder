@@ -1,11 +1,13 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   OnInit,
-  ViewChild,
   inject,
   signal,
+  viewChild
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AsyncPipe } from '@angular/common';
 import { ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
 import { MatSelect, MatSelectModule } from '@angular/material/select';
@@ -38,7 +40,7 @@ import * as mdi from '@mdi/js';
   ],
 })
 export class MatSelectComponent extends FieldType<FieldTypeConfig> implements OnInit {
-  @ViewChild('select') select: MatSelect;
+  readonly select = viewChild<MatSelect>('select');
   /** control for the MatSelect filter keyword multi-selection */
   public searchCtrl: UntypedFormControl = new UntypedFormControl();
   /** list of banks filtered by search keyword */
@@ -46,6 +48,7 @@ export class MatSelectComponent extends FieldType<FieldTypeConfig> implements On
   public matOptions = signal<any>([]);
   fieldConfig: any;
   private nodeService = inject(NodeService);
+  private destroyRef = inject(DestroyRef);
   constructor() {
     super();
   }
@@ -60,9 +63,11 @@ export class MatSelectComponent extends FieldType<FieldTypeConfig> implements On
     }
     this.setOptions();
     // listen for search field value changes
-    this.searchCtrl.valueChanges.subscribe(() => {
-      this.filterMulti();
-    });
+    this.searchCtrl.valueChanges
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.filterMulti();
+      });
   }
 
   getOptionsFromApi(): void {
@@ -87,7 +92,8 @@ export class MatSelectComponent extends FieldType<FieldTypeConfig> implements On
             return of({
               rows: [],
             });
-          })
+          }),
+          takeUntilDestroyed(this.destroyRef)
         )
         .subscribe(res => {
           this.setOptions(res.rows);
@@ -120,7 +126,7 @@ export class MatSelectComponent extends FieldType<FieldTypeConfig> implements On
       // the form control (i.e. _initializeSelection())
       // this needs to be done after the filteredBanks are loaded initially
       // and after the mat-option elements are available
-      this.select.compareWith = (a: any, b: any) => a && b && a.label === b.label;
+      this.select()!.compareWith = (a: any, b: any) => a && b && a.label === b.label;
     });
   }
 

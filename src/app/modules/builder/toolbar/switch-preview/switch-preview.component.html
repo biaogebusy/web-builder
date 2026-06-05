@@ -1,4 +1,4 @@
-<div class="switch-preview" [matTooltip]="'切换设备'">
+<div class="switch-preview" [matTooltip]="'BUILDER.SWITCH_PREVIEW.TOOLTIP' | translate">
   <button
     [class]="currentPreview()"
     aria-label="switch preview"
@@ -24,7 +24,7 @@
           <mat-icon color="primary"> radio_button_checked </mat-icon>
         }
         <div class="preview-item">
-          <span>{{ item.label }}</span>
+          <span>{{ item.label | translate }}</span>
           <app-icon [content]="item.icon" />
         </div>
       </button>

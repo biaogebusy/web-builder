@@ -1,10 +1,12 @@
 import {
   Component,
+  DestroyRef,
   OnInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   inject,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
@@ -47,9 +49,10 @@ export class UserComponent implements OnInit {
   cd = inject(ChangeDetectorRef);
   userService = inject(UserService);
   screenService = inject(ScreenService);
+  private destroyRef = inject(DestroyRef);
 
   constructor() {
-    this.user$.subscribe(user => {
+    this.user$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(user => {
       this.user = user;
     });
   }
@@ -57,21 +60,26 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.getUser();
-      this.userService.userSub$.subscribe(user => {
-        if (!user) {
-          setTimeout(() => {
-            this.route.navigate(['/me/login']);
-          }, 2000);
-        } else {
-          window.location.reload();
-        }
-      });
+      this.userService.userSub$
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(user => {
+          if (!user) {
+            setTimeout(() => {
+              this.route.navigate(['/me/login']);
+            }, 2000);
+          } else {
+            window.location.reload();
+          }
+        });
     }
   }
 
   getUser(): any {
     const people = {};
-    this.userService.getUserById(this.user.current_user.uid).subscribe(res => {
+    this.userService
+      .getUserById(this.user.current_user.uid)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(res => {
       const info = res.data[0];
       if (!info) {
         return;

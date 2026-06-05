@@ -1,15 +1,15 @@
-@if (content) {
+@if (content(); as contentValue) {
   <div class="showcase-3-v4">
-    @if (content) {
-      <app-title [attr.data-path]="'title'" [content]="content.title" />
+    @if (contentValue) {
+      <app-title [attr.data-path]="'title'" [content]="contentValue.title" />
       <div class="showcase-inner">
         <div class="elements-col">
-          @for (item of content.elements; track item; let i = $index) {
+          @for (item of contentValue.elements; track item; let i = $index) {
             <app-box [attr.data-path]="'elements.' + i" [content]="item" />
           }
         </div>
         <div class="img-col">
-          <app-img [attr.data-path]="'img'" class="m-left-sm" [content]="content.img" />
+          <app-img [attr.data-path]="'img'" class="m-left-sm" [content]="contentValue.img" />
         </div>
       </div>
     }

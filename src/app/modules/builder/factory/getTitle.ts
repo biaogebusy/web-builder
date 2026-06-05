@@ -7,7 +7,7 @@ export function getTitle(widget: any): FormlyFieldConfig {
     fieldGroup: [
       {
         props: {
-          label: '样式',
+          label: 'BUILDER.FACTORY.STYLE_TAB',
         },
         fieldGroup: [
           {
@@ -16,26 +16,26 @@ export function getTitle(widget: any): FormlyFieldConfig {
             className: 'w-full',
             defaultValue: widget.style,
             props: {
-              label: '风格',
+              label: 'BUILDER.FACTORY.STYLE_VARIANT',
               options: [
                 {
-                  label: '无',
+                  label: 'BUILDER.FACTORY.NONE',
                   value: 'none',
                 },
                 {
-                  label: 'V1',
+                  label: 'BUILDER.FACTORY.VARIANT_V1',
                   value: 'style-v1',
                 },
                 {
-                  label: 'V3',
+                  label: 'BUILDER.FACTORY.VARIANT_V3',
                   value: 'style-v3',
                 },
                 {
-                  label: 'V4',
+                  label: 'BUILDER.FACTORY.VARIANT_V4',
                   value: 'style-v4',
                 },
                 {
-                  label: 'V5',
+                  label: 'BUILDER.FACTORY.VARIANT_V5',
                   value: 'style-v5',
                 },
               ],
@@ -47,26 +47,26 @@ export function getTitle(widget: any): FormlyFieldConfig {
             className: 'w-full',
             defaultValue: widget.classes,
             props: {
-              label: '大小',
+              label: 'BUILDER.FACTORY.SIZE_LABEL',
               options: [
                 {
-                  label: '无',
+                  label: 'BUILDER.FACTORY.NONE',
                   value: '',
                 },
                 {
-                  label: '1级',
+                  label: 'BUILDER.FACTORY.LEVEL_1',
                   value: 'mat-headline-1 bold',
                 },
                 {
-                  label: '2级',
+                  label: 'BUILDER.FACTORY.LEVEL_2',
                   value: 'mat-headline-2 bold',
                 },
                 {
-                  label: '3级',
+                  label: 'BUILDER.FACTORY.LEVEL_3',
                   value: 'mat-headline-3 bold',
                 },
                 {
-                  label: '4级',
+                  label: 'BUILDER.FACTORY.LEVEL_4',
                   value: 'mat-headline-4 bold',
                 },
               ],
@@ -76,7 +76,7 @@ export function getTitle(widget: any): FormlyFieldConfig {
       },
       {
         props: {
-          label: '特效',
+          label: 'BUILDER.FACTORY.EFFECTS',
         },
         fieldGroup: [
           {
@@ -87,7 +87,7 @@ export function getTitle(widget: any): FormlyFieldConfig {
                 type: 'toggle',
                 defaultValue: widget?.typed?.enable ?? false,
                 props: {
-                  label: '开启打字效果',
+                  label: 'BUILDER.FACTORY.TYPED_EFFECT',
                 },
               },
               {
@@ -98,7 +98,7 @@ export function getTitle(widget: any): FormlyFieldConfig {
                     type: 'toggle',
                     defaultValue: widget?.typed?.config?.loop,
                     props: {
-                      label: '循环',
+                      label: 'BUILDER.FACTORY.LOOP',
                     },
                   },
                   {
@@ -106,7 +106,7 @@ export function getTitle(widget: any): FormlyFieldConfig {
                     type: 'input',
                     defaultValue: widget?.typed?.config?.typeSpeed ?? 120,
                     props: {
-                      label: '速度',
+                      label: 'BUILDER.FACTORY.TYPE_SPEED',
                       min: 10,
                       max: 1000,
                       step: 2,
@@ -131,7 +131,7 @@ export function getTitle(widget: any): FormlyFieldConfig {
                         },
                       },
                       props: {
-                        label: '文字',
+                        label: 'BUILDER.FACTORY.TEXT',
                       },
                     },
                   ],

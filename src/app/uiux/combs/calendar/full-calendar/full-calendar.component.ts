@@ -1,11 +1,11 @@
 import {
   Component,
-  Input,
   OnInit,
   ChangeDetectorRef,
   ChangeDetectionStrategy,
   inject,
   DestroyRef,
+  input
 } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { ScreenService } from '@core/service/screen.service';
@@ -32,7 +32,7 @@ import { CalendarComponent } from '../calendar/calendar.component';
   imports: [ReactiveFormsModule, TextComponent, FormlyComponent, CalendarComponent],
 })
 export class FullCalendarComponent extends BaseComponent implements OnInit {
-  @Input() readonly content: IFullCalendar;
+  readonly content = input.required<IFullCalendar>();
   public options: CalendarOptions;
   private theme: any;
   public form = new UntypedFormGroup({});
@@ -56,10 +56,10 @@ export class FullCalendarComponent extends BaseComponent implements OnInit {
   }
 
   initCalendar(): void {
-    this.options = Object.assign(this.calendarState.default, this.content.calendar.options, {
+    this.options = Object.assign(this.calendarState.default, this.content().calendar.options, {
       datesSet: this.handleDates.bind(this),
     });
-    this.theme = this.content?.calendar?.theme || {};
+    this.theme = this.content()?.calendar?.theme || {};
     this.cd.detectChanges();
   }
 
@@ -73,10 +73,11 @@ export class FullCalendarComponent extends BaseComponent implements OnInit {
     }
     const state = this.getParamsState(this.form.value, options);
     const params = this.getApiParams(state);
-    const api = this.content?.calendar?.api ?? '';
+    const api = this.content()?.calendar?.api ?? '';
     this.initCalendar();
-    if (this.content.calendar?.options?.events) {
-      this.options.events = this.content.calendar.options.events;
+    const content = this.content();
+    if (content.calendar?.options?.events) {
+      this.options.events = content.calendar.options.events;
       this.initEvents();
       this.cd.detectChanges();
       return;
@@ -120,7 +121,7 @@ export class FullCalendarComponent extends BaseComponent implements OnInit {
 
   initEvents(): void {
     this.options.eventClick = (info: any) => {
-      if (this.content.calendar?.drawer) {
+      if (this.content().calendar?.drawer) {
         this.contentState.drawerOpened$.next(true);
         this.contentState.drawerLoading$.next(true);
         this.cd.detectChanges();
@@ -154,7 +155,6 @@ export class FullCalendarComponent extends BaseComponent implements OnInit {
 
       case 'timeGridWeek':
         const endDate = this.calendarState.getPreviousDay(dates.end);
-        console.log(endDate);
         this.form.patchValue({
           'date-type': 'week',
           'date': `${formatDate(dates.startStr, 'y-MM-dd', 'en-US')}`,

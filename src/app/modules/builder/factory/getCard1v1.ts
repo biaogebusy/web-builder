@@ -7,7 +7,7 @@ export function getCard1v1(widget: any): FormlyFieldConfig {
     fieldGroup: [
       {
         props: {
-          label: '卡片 1v1',
+          label: 'BUILDER.FACTORY.CARD_1V1_TAB',
         },
         fieldGroup: [
           {
@@ -18,8 +18,8 @@ export function getCard1v1(widget: any): FormlyFieldConfig {
                 type: 'input',
                 defaultValue: widget?.link.label,
                 props: {
-                  label: '标题',
-                  placeholder: '请输入标题',
+                  label: 'BUILDER.FACTORY.TITLE',
+                  placeholder: 'BUILDER.FACTORY.TITLE_PLACEHOLDER',
                 },
               },
               {
@@ -27,8 +27,8 @@ export function getCard1v1(widget: any): FormlyFieldConfig {
                 type: 'input',
                 defaultValue: widget?.link.href,
                 props: {
-                  label: '链接',
-                  placeholder: '请输入链接',
+                  label: 'BUILDER.FACTORY.LINK',
+                  placeholder: 'BUILDER.FACTORY.LINK_PLACEHOLDER',
                 },
               },
             ],
@@ -38,8 +38,8 @@ export function getCard1v1(widget: any): FormlyFieldConfig {
             type: 'input',
             defaultValue: widget?.user,
             props: {
-              label: '用户',
-              placeholder: '请输入用户名',
+              label: 'BUILDER.FACTORY.USER',
+              placeholder: 'BUILDER.FACTORY.USERNAME_PLACEHOLDER',
             },
           },
           {
@@ -47,8 +47,8 @@ export function getCard1v1(widget: any): FormlyFieldConfig {
             type: 'input',
             defaultValue: widget?.time,
             props: {
-              label: '时间',
-              placeholder: '时间',
+              label: 'BUILDER.FACTORY.TIME',
+              placeholder: 'BUILDER.FACTORY.TIME',
               type: 'date',
             },
           },
@@ -58,7 +58,7 @@ export function getCard1v1(widget: any): FormlyFieldConfig {
             type: 'input',
             defaultValue: widget?.moreLabel,
             props: {
-              label: '更多',
+              label: 'BUILDER.FACTORY.MORE',
             },
           },
           {
@@ -69,8 +69,8 @@ export function getCard1v1(widget: any): FormlyFieldConfig {
                 type: 'input',
                 defaultValue: widget?.feature?.link,
                 props: {
-                  label: '链接',
-                  placeholder: '请输入链接',
+                  label: 'BUILDER.FACTORY.LINK',
+                  placeholder: 'BUILDER.FACTORY.LINK_PLACEHOLDER',
                 },
               },
               {
@@ -81,9 +81,9 @@ export function getCard1v1(widget: any): FormlyFieldConfig {
                     key: 'src',
                     defaultValue: widget?.feature?.img?.src,
                     props: {
-                      updateLabel: '更新图片',
-                      addLabel: '设置图片',
-                      deleteLabel: '删除',
+                      updateLabel: 'BUILDER.FACTORY.IMG_UPDATE',
+                      addLabel: 'BUILDER.FACTORY.IMG_ADD',
+                      deleteLabel: 'BUILDER.FACTORY.IMG_DELETE',
                       fileName: widget.feature.img.src.split('/').pop(),
                       alt: widget.alt ?? '',
                     },
@@ -95,7 +95,7 @@ export function getCard1v1(widget: any): FormlyFieldConfig {
                 type: 'select',
                 defaultValue: widget?.feature?.ratios,
                 props: {
-                  label: '图片比例',
+                  label: 'BUILDER.FACTORY.IMG_RATIO',
                   options: [
                     {
                       label: '1:1',
@@ -128,7 +128,7 @@ export function getCard1v1(widget: any): FormlyFieldConfig {
             className: '!hidden',
             defaultValue: '!overflow-visible',
             props: {
-              label: '容器Class',
+              label: 'BUILDER.FACTORY.CONTAINER_CLASS',
             },
           },
         ],

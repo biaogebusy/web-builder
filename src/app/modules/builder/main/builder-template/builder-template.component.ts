@@ -9,6 +9,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -29,6 +30,7 @@ export class BuilderTemplateComponent implements OnInit {
   private builderService = inject(BuilderService);
   private destroyRef = inject(DestroyRef);
   private coreConfig = inject(CORE_CONFIG);
+  private translate = inject(TranslateService);
 
   ngOnInit(): void {
     this.getTemplates();
@@ -83,7 +85,10 @@ export class BuilderTemplateComponent implements OnInit {
 
   onNewPage(page: any): void {
     this.dialog.closeAll();
-    this.util.openSnackbar(`正在加入${page.title}模板`, 'ok');
+    this.util.openSnackbar(
+      this.translate.instant('BUILDER.TEMPLATE.LOADING_TEMPLATE', { title: page.title }),
+      'ok'
+    );
     this.builder.loading$.next(true);
     this.builderService.loadPage({
       langcode: page.langcode,

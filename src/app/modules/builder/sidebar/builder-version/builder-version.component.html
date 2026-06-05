@@ -3,7 +3,7 @@
     <mat-expansion-panel [expanded]="true">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <span>历史记录 ({{ version?.length || 0 }})</span>
+          <span>{{ 'BUILDER.VERSION.HISTORY' | translate }} ({{ version?.length || 0 }})</span>
         </mat-panel-title>
       </mat-expansion-panel-header>
       <mat-list>
@@ -34,7 +34,7 @@
                 <app-btn
                   (click)="onDelete(i)"
                   class="delete"
-                  [matTooltip]="'删除'"
+                  [matTooltip]="'BUILDER.VERSION.DELETE' | translate"
                   [content]="{
                     mode: 'icon',
                     color: 'warn',
@@ -50,7 +50,7 @@
         <app-btn
           (click)="onClearHistory()"
           [content]="{
-            label: '清空所有',
+            label: 'BUILDER.VERSION.CLEAR_ALL' | translate,
             color: 'warn',
             icon: { svg: 'delete-empty-outline' },
           }"
@@ -58,7 +58,7 @@
         <app-btn
           (click)="onNewPage()"
           [content]="{
-            label: '新建草稿',
+            label: 'BUILDER.COMMON.NEW_DRAFT' | translate,
             color: 'primary',
             icon: { svg: 'pencil-plus', inline: true },
           }"

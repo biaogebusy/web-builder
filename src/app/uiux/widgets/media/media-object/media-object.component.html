@@ -1,41 +1,41 @@
-@if (content) {
-  <div class="media-object" [class.box-animate]="content.css3">
+@if (content(); as contentValue) {
+  <div class="media-object" [class.box-animate]="contentValue.css3">
     <div class="media-left">
-      @if (content.img) {
-        @if (content.img.src) {
-          <app-img [attr.data-path]="'img'" [content]="content.img" />
+      @if (contentValue.img) {
+        @if (contentValue.img.src) {
+          <app-img [attr.data-path]="'img'" [content]="contentValue.img" />
         }
       }
-      @if (content.icon) {
-        <app-icon [content]="content.icon" />
+      @if (contentValue.icon) {
+        <app-icon [content]="contentValue.icon" />
       }
-      @if (content.meta) {
+      @if (contentValue.meta) {
         <div
           contentedit="meta"
           class="meta"
-          [innerHTML]="content.meta | safeHtml"
+          [innerHTML]="contentValue.meta | safeHtml"
         ></div>
       }
     </div>
     <div class="media-body">
-      @if (content.title) {
+      @if (contentValue.title) {
         <div contentedit="title" class="title line-height-1 mat-h3">
-          {{ content.title }}
+          {{ contentValue.title }}
         </div>
       }
-      @if (content.link) {
-        <app-link [attr.data-path]="'link'" [content]="content.link" />
+      @if (contentValue.link) {
+        <app-link [attr.data-path]="'link'" [content]="contentValue.link" />
       }
-      @if (content.subTitle) {
+      @if (contentValue.subTitle) {
         <div contentedit="subTitle" class="sub-title">
-          {{ content.subTitle }}
+          {{ contentValue.subTitle }}
         </div>
       }
-      @if (content.content) {
+      @if (contentValue.content) {
         <div
           contentedit="content"
           class="media-content"
-          [innerHTML]="content.content | safeHtml"
+          [innerHTML]="contentValue.content | safeHtml"
         ></div>
       }
     </div>

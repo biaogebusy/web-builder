@@ -7,7 +7,7 @@ export function getDivider(widget: any): FormlyFieldConfig {
     fieldGroup: [
       {
         props: {
-          label: '分割线',
+          label: 'BUILDER.FACTORY.DIVIDER_TAB',
         },
         fieldGroup: [
           {
@@ -16,7 +16,7 @@ export function getDivider(widget: any): FormlyFieldConfig {
             className: 'w-full',
             defaultValue: widget?.inset,
             props: {
-              label: '缩进',
+              label: 'BUILDER.FACTORY.DIVIDER_INSET',
             },
           },
         ],

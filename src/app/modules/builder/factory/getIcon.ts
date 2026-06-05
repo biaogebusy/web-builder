@@ -7,7 +7,7 @@ export function getIcon(widget: any): FormlyFieldConfig {
     fieldGroup: [
       {
         props: {
-          label: '图标',
+          label: 'BUILDER.FACTORY.TAB_LABEL_ICON',
         },
         fieldGroup: [
           {
@@ -20,7 +20,7 @@ export function getIcon(widget: any): FormlyFieldConfig {
               search: true,
               options: [
                 {
-                  label: '无',
+                  label: 'BUILDER.FACTORY.NONE',
                   value: '',
                 },
               ],
@@ -31,22 +31,22 @@ export function getIcon(widget: any): FormlyFieldConfig {
             type: 'select',
             defaultValue: widget.color,
             props: {
-              label: '颜色',
+              label: 'BUILDER.FACTORY.COLOR',
               options: [
                 {
-                  label: '主色',
+                  label: 'BUILDER.FACTORY.MAIN_COLOR',
                   value: 'primary',
                 },
                 {
-                  label: '强调色',
+                  label: 'BUILDER.FACTORY.ACCENT_COLOR',
                   value: 'accent',
                 },
                 {
-                  label: '警告色',
+                  label: 'BUILDER.FACTORY.WARN_COLOR',
                   value: 'warn',
                 },
                 {
-                  label: '默认',
+                  label: 'BUILDER.FACTORY.DEFAULT_COLOR',
                   value: 'undefined',
                 },
               ],

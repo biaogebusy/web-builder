@@ -8,11 +8,12 @@ import {
   ElementRef,
   OnDestroy,
   OnInit,
-  ViewChild,
   afterEveryRender,
   inject,
   signal,
   DOCUMENT,
+  ChangeDetectionStrategy,
+  viewChild
 } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
@@ -27,9 +28,12 @@ import { Router } from '@angular/router';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 import { BuilderService } from '@core/service/builder.service';
+import { generatePath } from '@core/util/dom-path.util';
 import { LocalStorageService } from 'ngx-webstorage';
+import { TranslateService } from '@ngx-translate/core';
 import { DefaultPageComponent } from '../default-page/default-page.component';
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-builder-list',
   templateUrl: './builder-list.component.html',
   styleUrls: ['./builder-list.component.scss'],
@@ -40,7 +44,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   public currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
   public builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
 
-  @ViewChild('builderList', { static: false }) builderList: ElementRef;
+  readonly builderList = viewChild<ElementRef>('builderList');
   private markers: NodeListOf<Element>;
   public previewClass$: Observable<any>;
   private router = inject(Router);
@@ -49,6 +53,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   private destroyRef = inject(DestroyRef);
   private builderService = inject(BuilderService);
   private storage = inject(LocalStorageService);
+  private translate = inject(TranslateService);
   private ele = inject(ElementRef);
   private scrollableContainer: Element;
   public bcData = signal(false);
@@ -90,7 +95,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     setTimeout(() => {
       this.markers = this.doc.querySelectorAll('div[class^="gsap-marker"]');
       Array.from(this.markers).forEach(marker => {
-        this.builderList.nativeElement.append(marker);
+        this.builderList()!.nativeElement.append(marker);
       });
     }, 0);
 
@@ -110,7 +115,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   addNewSection(target: any, type: 'widget' | 'section', newSection: any): void {
     this.router.navigate(['/builder']);
-    const path = this.util.generatePath(target);
+    const path = generatePath(target);
     if (type === 'section') {
       this.builder.updatePageContentByPath(path, newSection, 'add');
       this.builder.closeRightDrawer$.next(true);
@@ -136,10 +141,10 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onPasteData(target: any): void {
     if (!this.bcData()) {
-      this.util.openSnackbar('请先复制组件', 'ok');
+      this.util.openSnackbar(this.translate.instant('BUILDER.LIST.COPY_FIRST'), 'ok');
       return;
     }
-    const path = this.util.generatePath(target);
+    const path = generatePath(target);
     this.builder.updatePageContentByPath(path, this.bcData(), 'add');
     this.storage.clear(this.builder.COPYCOMPONENTKEY);
   }

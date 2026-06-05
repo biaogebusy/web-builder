@@ -1,7 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { UtilitiesService } from '@core/service/utilities.service';
+import { take } from 'rxjs/operators';
+import { getFileType } from '@core/util/file-type.util';
 import { ContentState } from '@core/state/ContentState';
 import { ContentService } from './content.service';
 import { IPage } from '@core/interface/IAppConfig';
@@ -14,7 +15,6 @@ export class RouteService {
 
   private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
-  private util = inject(UtilitiesService);
   private contentService = inject(ContentService);
   private contentState = inject(ContentState);
 
@@ -35,7 +35,7 @@ export class RouteService {
       this.contentState.drawerOpened$.next(true);
       this.contentState.drawerLoading$.next(true);
       let widget = {};
-      if (this.util.getFileType(href) === 'picture') {
+      if (getFileType(href) === 'picture') {
         widget = {
           type: 'img',
           classes: 'object-fit',
@@ -61,10 +61,9 @@ export class RouteService {
       if (event) {
         event.preventDefault();
       }
-      console.log(widget);
       return;
     }
-    if (!this.util.getFileType(href)) {
+    if (!getFileType(href)) {
       if (href.startsWith('/print') || href.startsWith('/export') || href.startsWith('/manage')) {
         window.open(href, link.target || '_self');
         return;
@@ -84,14 +83,17 @@ export class RouteService {
     if (event.target.nodeName === 'A') {
       const target = event.target;
       const link = target.href.split(target.host)[1];
-      if (!this.util.getFileType(link)) {
+      if (!getFileType(link)) {
         if (target.rel === 'drawer') {
           this.contentState.drawerOpened$.next(true);
           this.contentState.drawerLoading$.next(true);
-          this.contentService.loadPageContent(link).subscribe((content: IPage) => {
-            this.contentState.drawerContent$.next(content);
-            this.contentState.drawerLoading$.next(false);
-          });
+          this.contentService
+            .loadPageContent(link)
+            .pipe(take(1))
+            .subscribe((content: IPage) => {
+              this.contentState.drawerContent$.next(content);
+              this.contentState.drawerLoading$.next(false);
+            });
           event.preventDefault();
           return;
         }

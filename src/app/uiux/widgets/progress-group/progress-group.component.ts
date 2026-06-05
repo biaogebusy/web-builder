@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input
 } from '@angular/core';
 import type { IProgressGroup } from '@core/interface/widgets/IWidgets';
 import { ProgressBarComponent } from '../progress-bar/progress-bar.component';
@@ -14,7 +14,7 @@ import { ProgressBarComponent } from '../progress-bar/progress-bar.component';
   imports: [ProgressBarComponent],
 })
 export class ProgressGroupComponent {
-  @Input() content: IProgressGroup;
+  readonly content = input<IProgressGroup>();
   constructor() {}
 
 }

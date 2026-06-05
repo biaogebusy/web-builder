@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component, Input, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, inject, ChangeDetectionStrategy, input } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { FormService } from '@core/service/form.service';
@@ -13,6 +14,7 @@ import { FormlyComponent } from '@uiux/combs/form/formly/formly.component';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-inverse',
   templateUrl: './inverse.component.html',
   styleUrls: ['./inverse.component.scss'],
@@ -33,13 +35,14 @@ import { MenuItemComponent } from '../menu-item/menu-item.component';
   },
 })
 export class InverseComponent {
-  @Input() content: any;
+  readonly content = input.required<any>();
   public form: UntypedFormGroup = new UntypedFormGroup({});
   public submited = false;
 
   private cd = inject(ChangeDetectorRef);
   public formService = inject(FormService);
   private util = inject(UtilitiesService);
+  private destroyRef = inject(DestroyRef);
 
   onSubmit(): void {
     if (this.form.invalid) {
@@ -47,19 +50,22 @@ export class InverseComponent {
     }
     this.submited = true;
     const data = this.formService.getwebFormData(
-      this.content.footerNewsletter.params,
+      this.content().footerNewsletter.params,
       this.form.value
     );
-    this.formService.submitWebForm(data).subscribe(
-      () => {
-        this.submited = false;
-        this.util.openSnackbar('成功订阅！');
-        this.cd.detectChanges();
-      },
-      error => {
-        this.submited = false;
-        this.util.openSnackbar(`Error: ${error.message}`);
-      }
-    );
+    this.formService
+      .submitWebForm(data)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(
+        () => {
+          this.submited = false;
+          this.util.openSnackbar('成功订阅！');
+          this.cd.detectChanges();
+        },
+        error => {
+          this.submited = false;
+          this.util.openSnackbar(`Error: ${error.message}`);
+        }
+      );
   }
 }

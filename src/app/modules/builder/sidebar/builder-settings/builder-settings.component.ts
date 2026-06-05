@@ -2,9 +2,9 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  Input,
   OnInit,
   inject,
+  input
 } from '@angular/core';
 import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
 import { Router } from '@angular/router';
@@ -17,7 +17,9 @@ import { NodeService } from '@core/service/node.service';
 import { TagsService } from '@core/service/tags.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
+import { getPageParams } from '@core/util/builder-page.util';
 import { BaseComponent } from '@uiux/base/base.widget';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
@@ -29,7 +31,7 @@ import { catchError, map } from 'rxjs/operators';
   imports: [ShareModule, WidgetsModule, MatPaginatorModule],
 })
 export class BuilderSettingsComponent extends BaseComponent implements OnInit {
-  @Input() content: any;
+  readonly content = input<any>();
   public content$: Observable<any[]>;
   public loading: boolean;
   public pager: IPager;
@@ -40,10 +42,11 @@ export class BuilderSettingsComponent extends BaseComponent implements OnInit {
   private util = inject(UtilitiesService);
   private tagsService = inject(TagsService);
   private router = inject(Router);
+  private translate = inject(TranslateService);
 
   constructor() {
     super();
-    this.tagsService.setTitle('应用全局配置管理');
+    this.tagsService.setTitle(this.translate.instant('BUILDER.SETTINGS.PAGE_TITLE'));
   }
 
   ngOnInit(): void {
@@ -59,7 +62,7 @@ export class BuilderSettingsComponent extends BaseComponent implements OnInit {
     this.content$ = this.nodeService.fetch('/api/v2/node/core', params).pipe(
       catchError(error => {
         if (error.status === 404) {
-          this.util.openSnackbar('请检查API是否已配置！', 'ok');
+          this.util.openSnackbar(this.translate.instant('BUILDER.SETTINGS.CHECK_API'), 'ok');
         }
         return of({
           rows: [],
@@ -89,7 +92,7 @@ export class BuilderSettingsComponent extends BaseComponent implements OnInit {
     this.builderService.openPageSetting(
       { uuid: page.uuid, langcode: page.langcode },
       '/api/v1/node/json',
-      this.builderService.getPageParams(['uid'])
+      getPageParams(['uid'])
     );
   }
 

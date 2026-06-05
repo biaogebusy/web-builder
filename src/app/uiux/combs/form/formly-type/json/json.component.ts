@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ElementRef, ViewChild, inject } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, ElementRef, inject, ChangeDetectionStrategy, viewChild } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
 import { ICoreConfig } from '@core/interface/IAppConfig';
 import { ScreenService } from '@core/service/screen.service';
@@ -9,6 +10,7 @@ import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 import { JsonEditorDialogComponent } from './json-editor-dialog.component';
 declare let window: any;
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-json',
   templateUrl: './json.component.html',
   styleUrl: './json.component.scss',
@@ -19,7 +21,8 @@ export class JsonFieldType extends FieldType<FieldTypeConfig> implements AfterVi
   private util = inject(UtilitiesService);
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   private dialog = inject(MatDialog);
-  @ViewChild('jsoneditor', { read: ElementRef }) editor: ElementRef;
+  private destroyRef = inject(DestroyRef);
+  readonly editor = viewChild('jsoneditor', { read: ElementRef });
 
   private editorInstance: any;
 
@@ -35,7 +38,7 @@ export class JsonFieldType extends FieldType<FieldTypeConfig> implements AfterVi
         await this.util.loadScriptWithoutAmd(jsoneditorJS);
       }
 
-      this.editorInstance = new window.JSONEditor(this.editor.nativeElement, {
+      this.editorInstance = new window.JSONEditor(this.editor()!.nativeElement, {
         mode: 'code',
         enableSort: false,
         enableTransform: false,
@@ -66,15 +69,18 @@ export class JsonFieldType extends FieldType<FieldTypeConfig> implements AfterVi
         label: this.props?.label,
       },
     });
-    ref.afterClosed().subscribe(result => {
-      if (result && 'value' in result) {
-        this.formControl.setValue(result.value);
-        if (this.editorInstance) {
-          try {
-            this.editorInstance.set(result.value);
-          } catch (e) {}
+    ref
+      .afterClosed()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(result => {
+        if (result && 'value' in result) {
+          this.formControl.setValue(result.value);
+          if (this.editorInstance) {
+            try {
+              this.editorInstance.set(result.value);
+            } catch (e) {}
+          }
         }
-      }
-    });
+      });
   }
 }

@@ -1,56 +1,42 @@
-import { Injectable, inject } from '@angular/core';
-import { Router, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { inject } from '@angular/core';
+import { CanActivateFn, Router } from '@angular/router';
+import { of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { UserService } from '@core/service/user.service';
-import { catchError, map, switchMap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { NodeService } from '@core/service/node.service';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { ICoreConfig } from '@core/interface/IAppConfig';
 import { ScreenService } from '@core/service/screen.service';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class AuthGuard {
-  private router = inject(Router);
-  private userService = inject(UserService);
-  private nodeService = inject(NodeService);
-  private screenService = inject(ScreenService);
+export const authGuard: CanActivateFn = (_route, state) => {
+  const router = inject(Router);
+  const userService = inject(UserService);
+  const screenService = inject(ScreenService);
+  const coreConfig = inject<ICoreConfig>(CORE_CONFIG);
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    // return true;
-    if (this.screenService.isPlatformBrowser() && environment.production) {
-      return this.nodeService.fetch(`/api/v3/landingPage`, 'content=/core/base').pipe(
-        switchMap((config: ICoreConfig) => {
-          const { authGuard, defaultFrontLoginPage } = config.guard;
-          if (authGuard || state.url.startsWith('/my')) {
-            return this.userService.getLoginState().pipe(
-              map(status => {
-                if (status) {
-                  return true;
-                } else {
-                  this.userService.logoutUser();
-                  this.router.navigate([defaultFrontLoginPage ?? '/me/login'], {
-                    queryParams: { returnUrl: state.url },
-                  });
-                  return false;
-                }
-              }),
-              catchError(() => {
-                this.router.navigate([defaultFrontLoginPage ?? '/me/login']);
-                return of(false);
-              })
-            );
-          } else {
-            return of(true);
-          }
-        })
-      );
-    } else {
-      return of(true);
-    }
+  if (!(screenService.isPlatformBrowser() && environment.production)) {
+    return of(true);
   }
-}
+
+  const { authGuard: needsAuth, defaultFrontLoginPage } = coreConfig.guard;
+  if (!needsAuth && !state.url.startsWith('/my')) {
+    return of(true);
+  }
+
+  return userService.getLoginState().pipe(
+    map(status => {
+      if (status) {
+        return true;
+      }
+      userService.logoutUser();
+      router.navigate([defaultFrontLoginPage ?? '/me/login'], {
+        queryParams: { returnUrl: state.url },
+      });
+      return false;
+    }),
+    catchError(() => {
+      router.navigate([defaultFrontLoginPage ?? '/me/login']);
+      return of(false);
+    })
+  );
+};

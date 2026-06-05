@@ -1,6 +1,6 @@
-@if (content) {
-  @if (content.elements.length > 0) {
-    @for (item of content.elements; track item) {
+@if (content(); as contentValue) {
+  @if (contentValue.elements.length > 0) {
+    @for (item of contentValue.elements; track item) {
       <app-media-object class="media-object-item" [content]="item" />
     }
   } @else {

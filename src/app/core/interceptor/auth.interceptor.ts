@@ -1,13 +1,13 @@
-import { Injectable, inject } from '@angular/core';
+import { inject } from '@angular/core';
 import {
-  HttpInterceptor,
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
   HttpErrorResponse,
+  HttpEvent,
+  HttpHandlerFn,
+  HttpInterceptorFn,
+  HttpRequest,
 } from '@angular/common/http';
-import { Observable, throwError, BehaviorSubject } from 'rxjs';
-import { catchError, filter, take, switchMap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, filter, switchMap, take } from 'rxjs/operators';
 import { UserService } from '@core/service/user.service';
 import { IUser } from '@core/interface/IUser';
 import { environment } from 'src/environments/environment';
@@ -15,112 +15,111 @@ import { environment } from 'src/environments/environment';
 const PROACTIVE_REFRESH_LEEWAY_MS = 30 * 1000;
 const ANONYMOUS_PATHS = ['/api/v3/otp/generate', '/api/v3/otp/login'];
 
-@Injectable()
-export class AuthInterceptor implements HttpInterceptor {
-  private userService = inject(UserService);
-  private isRefreshing = false;
-  private refreshTokenSubject = new BehaviorSubject<string | null>(null);
+let isRefreshing = false;
+const refreshTokenSubject = new BehaviorSubject<string | null>(null);
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (req.url.includes(environment.oauth.tokenUrl)) {
-      return next.handle(req);
-    }
+export const authInterceptor: HttpInterceptorFn = (req, next) => {
+  const userService = inject(UserService);
 
-    if (ANONYMOUS_PATHS.some(path => req.url.includes(path))) {
-      return next.handle(req);
-    }
-
-    if (req.headers.has('Authorization')) {
-      return next.handle(req).pipe(catchError(error => this.handleError(error, req, next)));
-    }
-
-    const storedUser = this.userService.getStoredUser();
-
-    if (!storedUser?.access_token) {
-      return next.handle(req).pipe(catchError(error => this.handleError(error, req, next)));
-    }
-
-    // SSR: never refresh; render anonymously when token already expired.
-    if (!this.userService.isBrowser) {
-      if (this.isExpired(storedUser)) {
-        return next.handle(req);
-      }
-      return next.handle(this.addToken(req, storedUser.access_token));
-    }
-
-    if (this.shouldProactivelyRefresh(storedUser)) {
-      return this.refreshAndRetry(req, next);
-    }
-
-    const authReq = this.addToken(req, storedUser.access_token);
-    return next.handle(authReq).pipe(catchError(error => this.handleError(error, req, next)));
+  if (req.url.includes(environment.oauth.tokenUrl)) {
+    return next(req);
   }
 
-  private isExpired(user: IUser): boolean {
-    return !!user.expires_at && Date.now() >= user.expires_at;
+  if (ANONYMOUS_PATHS.some(path => req.url.includes(path))) {
+    return next(req);
   }
 
-  private shouldProactivelyRefresh(user: IUser): boolean {
-    if (!user.expires_at || !user.refresh_token) {
-      return false;
+  if (req.headers.has('Authorization')) {
+    return next(req).pipe(catchError(error => handleError(error, req, next, userService)));
+  }
+
+  const storedUser = userService.getStoredUser();
+
+  if (!storedUser?.access_token) {
+    return next(req).pipe(catchError(error => handleError(error, req, next, userService)));
+  }
+
+  // SSR: never refresh; render anonymously when token already expired.
+  if (!userService.isBrowser) {
+    if (isExpired(storedUser)) {
+      return next(req);
     }
-    return Date.now() >= user.expires_at - PROACTIVE_REFRESH_LEEWAY_MS;
+    return next(addToken(req, storedUser.access_token));
   }
 
-  private addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
-    return req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+  if (shouldProactivelyRefresh(storedUser)) {
+    return refreshAndRetry(req, next, userService);
   }
 
-  private handleError(
-    error: HttpErrorResponse,
-    req: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-    if (
-      error.status === 401 &&
-      req.url.includes(environment.apiUrl) &&
-      this.userService.isBrowser
-    ) {
-      const storedUser = this.userService.getStoredUser();
-      if (storedUser?.refresh_token) {
-        return this.refreshAndRetry(req, next);
-      }
+  const authReq = addToken(req, storedUser.access_token);
+  return next(authReq).pipe(catchError(error => handleError(error, req, next, userService)));
+};
+
+function isExpired(user: IUser): boolean {
+  return !!user.expires_at && Date.now() >= user.expires_at;
+}
+
+function shouldProactivelyRefresh(user: IUser): boolean {
+  if (!user.expires_at || !user.refresh_token) {
+    return false;
+  }
+  return Date.now() >= user.expires_at - PROACTIVE_REFRESH_LEEWAY_MS;
+}
+
+function addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
+  return req.clone({
+    setHeaders: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
+function handleError(
+  error: HttpErrorResponse,
+  req: HttpRequest<any>,
+  next: HttpHandlerFn,
+  userService: UserService
+): Observable<HttpEvent<any>> {
+  if (error.status === 401 && req.url.includes(environment.apiUrl) && userService.isBrowser) {
+    const storedUser = userService.getStoredUser();
+    if (storedUser?.refresh_token) {
+      return refreshAndRetry(req, next, userService);
     }
-    return throwError(() => error);
   }
+  return throwError(() => error);
+}
 
-  private refreshAndRetry(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (!this.isRefreshing) {
-      this.isRefreshing = true;
-      this.refreshTokenSubject.next(null);
+function refreshAndRetry(
+  req: HttpRequest<any>,
+  next: HttpHandlerFn,
+  userService: UserService
+): Observable<HttpEvent<any>> {
+  if (!isRefreshing) {
+    isRefreshing = true;
+    refreshTokenSubject.next(null);
 
-      return this.userService.refreshAccessToken().pipe(
-        switchMap((tokenData: any) => {
-          this.isRefreshing = false;
-          if (!tokenData) {
-            this.userService.logoutUser();
-            return throwError(() => new Error('Token refresh failed'));
-          }
-          this.userService.applyRefreshedToken(tokenData);
-          this.refreshTokenSubject.next(tokenData.access_token);
-          return next.handle(this.addToken(req, tokenData.access_token));
-        }),
-        catchError(err => {
-          this.isRefreshing = false;
-          this.userService.logoutUser();
-          return throwError(() => err);
-        })
-      );
-    }
-
-    return this.refreshTokenSubject.pipe(
-      filter(token => token !== null),
-      take(1),
-      switchMap(token => next.handle(this.addToken(req, token!)))
+    return userService.refreshAccessToken().pipe(
+      switchMap((tokenData: any) => {
+        isRefreshing = false;
+        if (!tokenData) {
+          userService.logoutUser();
+          return throwError(() => new Error('Token refresh failed'));
+        }
+        userService.applyRefreshedToken(tokenData);
+        refreshTokenSubject.next(tokenData.access_token);
+        return next(addToken(req, tokenData.access_token));
+      }),
+      catchError(err => {
+        isRefreshing = false;
+        userService.logoutUser();
+        return throwError(() => err);
+      })
     );
   }
+
+  return refreshTokenSubject.pipe(
+    filter(token => token !== null),
+    take(1),
+    switchMap(token => next(addToken(req, token!)))
+  );
 }

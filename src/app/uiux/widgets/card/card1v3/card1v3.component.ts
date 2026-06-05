@@ -1,11 +1,11 @@
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import {
   Component,
-  Input,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   inject,
   output,
+  input
 } from '@angular/core';
 import { MatRippleModule } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -25,7 +25,7 @@ export class Card1v3Component {
   private dialog = inject(MatDialog);
   private cd = inject(ChangeDetectorRef);
 
-  @Input() content: ICard1v3;
+  readonly content = input<ICard1v3>();
   readonly selected = output<IMark>();
   selectedId: number;
 

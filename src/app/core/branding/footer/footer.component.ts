@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, ViewChild, ChangeDetectionStrategy, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, viewChild } from '@angular/core';
 import { MatAccordion } from '@angular/material/expansion';
 import { ScreenState } from '../../state/screen/ScreenState';
 import { BRANDING } from '@core/token/token-providers';
@@ -30,5 +30,5 @@ export class FooterComponent {
 
   panelOpenState = false;
 
-  @ViewChild(MatAccordion) accordion: MatAccordion;
+  readonly accordion = viewChild(MatAccordion);
 }

@@ -1,4 +1,5 @@
-import { Injectable, inject } from '@angular/core';
+import { DestroyRef, Injectable, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Subject, Observable, fromEvent, BehaviorSubject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
@@ -10,6 +11,7 @@ import { ScreenService } from '@core/service/screen.service';
 export class ScreenState {
   private breakpointObserver = inject(BreakpointObserver);
   private screenService = inject(ScreenService);
+  private destroyRef = inject(DestroyRef);
 
   public scroll$ = new BehaviorSubject<boolean>(true);
   public drawer$ = new Subject();
@@ -32,9 +34,11 @@ export class ScreenState {
   }
 
   initScreen(): any {
-    this.mqAlias$().subscribe(mq => {
-      this.viewPort = mq;
-    });
+    this.mqAlias$()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(mq => {
+        this.viewPort = mq;
+      });
   }
 
   mqAlias$(): Observable<string[]> {
@@ -71,8 +75,8 @@ export class ScreenState {
   }
 
   initBrowserEvents(): void {
-    const scroll = fromEvent(window, 'scroll')
-      .pipe(debounceTime(200))
+    fromEvent(window, 'scroll')
+      .pipe(debounceTime(200), takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
         this.scroll$.next(true);
       });

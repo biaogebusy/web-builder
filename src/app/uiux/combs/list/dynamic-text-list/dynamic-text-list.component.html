@@ -1,4 +1,4 @@
-@if (content) {
+@if (content(); as contentValue) {
   <div class="dynamic-text-list">
     <div class="container">
       @if (loading) {
@@ -16,8 +16,8 @@
           </h2>
           <div class="action">
             <a [routerLink]="item.link.href" mat-raised-button color="primary">
-              <mat-icon>{{ content.action.icon }}</mat-icon>
-              {{ content.action.label }}
+              <mat-icon>{{ contentValue.action.icon }}</mat-icon>
+              {{ contentValue.action.label }}
             </a>
             <button class="action-btn text-lighter" mat-button>{{ item.count }} 个人回答</button>
           </div>

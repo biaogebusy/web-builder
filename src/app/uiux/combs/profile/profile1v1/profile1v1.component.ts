@@ -3,9 +3,10 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  Input,
   OnInit,
   inject,
+  ChangeDetectionStrategy,
+  input
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
@@ -29,6 +30,7 @@ import { CommentFormComponent } from '@uiux/combs/node/comment/comment-form/comm
 import { CommentListComponent } from '@uiux/combs/node/comment/comment-list/comment-list.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-profile-1v1',
   templateUrl: './profile1v1.component.html',
   styleUrls: ['./profile1v1.component.scss'],
@@ -49,7 +51,7 @@ import { CommentListComponent } from '@uiux/combs/node/comment/comment-list/comm
 export class Profile1v1Component implements OnInit, AfterViewInit {
   coreConfig = inject<ICoreConfig>(CORE_CONFIG);
 
-  @Input() content: IProfile1v1;
+  readonly content = input.required<IProfile1v1>();
   comments: IComment[];
   avatar: IImg;
 
@@ -60,7 +62,8 @@ export class Profile1v1Component implements OnInit, AfterViewInit {
   private destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
-    if (!this.content?.avatar?.src) {
+    const content = this.content();
+    if (!content?.avatar?.src) {
       this.avatar = {
         src: this.coreConfig.defaultAvatar,
         alt: 'default avatar',
@@ -68,7 +71,7 @@ export class Profile1v1Component implements OnInit, AfterViewInit {
         height: 80,
       };
     } else {
-      this.avatar = this.content.avatar;
+      this.avatar = content.avatar;
     }
   }
 
@@ -85,7 +88,7 @@ export class Profile1v1Component implements OnInit, AfterViewInit {
   }
 
   getComments(timeStamp = 1): void {
-    const uuid = this.content.uuid;
+    const uuid = this.content().uuid;
     if (!uuid) {
       return;
     }

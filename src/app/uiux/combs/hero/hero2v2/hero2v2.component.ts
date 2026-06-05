@@ -1,7 +1,7 @@
 import {
   Component,
-  Input,
   ChangeDetectionStrategy,
+  input
 } from '@angular/core';
 import type { IHero2v2 } from '@core/interface/combs/IHero';
 import { TextComponent } from '@uiux/widgets/text/text.component';
@@ -14,6 +14,6 @@ import { TextComponent } from '@uiux/widgets/text/text.component';
   imports: [TextComponent],
 })
 export class Hero2v2Component {
-  @Input() content: IHero2v2;
+  readonly content = input.required<IHero2v2>();
   constructor() {}
 }

@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input
 } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { BgImgComponent } from '@uiux/widgets/bg-img/bg-img.component';
@@ -15,9 +15,9 @@ import { SpacerComponent } from '@uiux/widgets/spacer/spacer.component';
   imports: [ReactiveFormsModule, BgImgComponent, TextComponent, SpacerComponent],
 })
 export class SearchHeaderComponent {
-  @Input() content: any;
-  @Input() filterForm: any;
-  @Input() form: UntypedFormGroup;
+  readonly content = input<any>();
+  readonly filterForm = input<any>();
+  readonly form = input.required<UntypedFormGroup>();
 
   formControl: any;
 

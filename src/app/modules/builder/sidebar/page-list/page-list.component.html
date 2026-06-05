@@ -2,7 +2,7 @@
   <div class="reload">
     @if (!loading) {
       <app-btn
-        matTooltip="重置"
+        [matTooltip]="'BUILDER.PAGE_LIST.RESET' | translate"
         matTooltipPosition="above"
         (click)="onReload()"
         [content]="{
@@ -16,7 +16,7 @@
   </div>
   <app-title
     [content]="{
-      label: '管理列表',
+      label: 'BUILDER.PAGE_LIST.MANAGE_LIST' | translate,
       style: 'none',
       classes: 'p-y-xs !mb-0 bold text-lg',
     }"
@@ -70,7 +70,7 @@
                 class="block"
                 [matMenuTriggerFor]="menu"
                 [content]="{
-                  label: '编辑',
+                  label: 'BUILDER.PAGE_LIST.EDIT' | translate,
                   mode: 'stroked',
                   color: 'primary',
                 }"
@@ -78,30 +78,30 @@
               <mat-menu #menu="matMenu" class="overlay-btn-icon">
                 <button mat-menu-item (click)="loadPage(page)">
                   <app-icon [content]="{ svg: 'pencil' }" />
-                  <span>载入编辑</span>
+                  <span>{{ 'BUILDER.PAGE_LIST.LOAD_EDIT' | translate }}</span>
                 </button>
                 <button mat-menu-item (click)="copyPage(page)">
                   <app-icon [content]="{ svg: 'content-copy' }" />
-                  <span>复制页面</span>
+                  <span>{{ 'BUILDER.PAGE_LIST.COPY_PAGE' | translate }}</span>
                 </button>
                 @if (langs) {
                   @for (item of langs; track item) {
                     @if (!item.default && item.langCode !== page.langcode) {
                       <button mat-menu-item (click)="createLangVersion(page, item.langCode)">
                         <app-icon [content]="{ svg: 'translate' }" />
-                        <span>编辑{{ item.label }}</span>
+                        <span>{{ 'BUILDER.PAGE_LIST.EDIT_LANG' | translate: { label: item.label } }}</span>
                       </button>
                     }
                   }
                 }
                 <button mat-menu-item (click)="updateByJSON(page)">
                   <app-icon [content]="{ svg: 'code-json' }" />
-                  <span>页面JSON</span>
+                  <span>{{ 'BUILDER.PAGE_LIST.PAGE_JSON' | translate }}</span>
                 </button>
                 <mat-divider />
                 <button mat-menu-item (click)="updatePageSetting(page)">
                   <app-icon [content]="{ svg: 'cog' }" />
-                  <span>页面属性</span>
+                  <span>{{ 'BUILDER.PAGE_LIST.PAGE_PROPS' | translate }}</span>
                 </button>
               </mat-menu>
             </div>

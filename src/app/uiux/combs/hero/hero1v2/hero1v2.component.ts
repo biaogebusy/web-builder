@@ -2,9 +2,9 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  Input,
   ViewChild,
   inject,
+  input
 } from '@angular/core';
 import type { IHero1v2 } from '@core/interface/combs/IHero';
 import { SwiperComponent } from '@uiux/combs/carousel/swiper/swiper.component';
@@ -18,7 +18,7 @@ import { SwiperComponent } from '@uiux/combs/carousel/swiper/swiper.component';
 export class Hero1v2Component {
   private cd = inject(ChangeDetectorRef);
 
-  @Input() content: IHero1v2;
+  readonly content = input<IHero1v2>();
   index = 0;
 
 

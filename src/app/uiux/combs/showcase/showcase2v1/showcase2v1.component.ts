@@ -1,4 +1,5 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Input, inject } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, DestroyRef, inject, ChangeDetectionStrategy, input } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { IShowcase2v1 } from '@core/interface/combs/IShowcase';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { NodeService } from '@core/service/node.service';
@@ -8,21 +9,23 @@ import { of } from 'rxjs';
 import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
 import { TextComponent } from '@uiux/widgets/text/text.component';
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-showcase-2v1',
   templateUrl: './showcase2v1.component.html',
   styleUrls: ['./showcase2v1.component.scss'],
   imports: [TextComponent, DynamicComponentComponent],
 })
 export class Showcase2v1Component extends BaseComponent implements AfterViewInit {
-  @Input() content: IShowcase2v1;
+  readonly content = input.required<IShowcase2v1>();
   elements: ICard1v1[];
   private nodeService = inject(NodeService);
   private cd = inject(ChangeDetectorRef);
+  private destroyRef = inject(DestroyRef);
 
 
   ngAfterViewInit(): void {
-    const api = this.getParams(this.content, 'api');
-    const type = this.getParams(this.content, 'widget');
+    const api = this.getParams(this.content(), 'api');
+    const type = this.getParams(this.content(), 'widget');
     if (api) {
       this.nodeService
         .fetch(api, '')
@@ -37,7 +40,8 @@ export class Showcase2v1Component extends BaseComponent implements AfterViewInit
                 user: 'Johnson',
               },
             ]);
-          })
+          }),
+          takeUntilDestroyed(this.destroyRef)
         )
         .subscribe(res => {
           if (type === 'card-1v1') {
@@ -110,7 +114,7 @@ export class Showcase2v1Component extends BaseComponent implements AfterViewInit
           }
         });
     } else {
-      this.elements = this.content.elements;
+      this.elements = this.content().elements;
       this.cd.detectChanges();
     }
   }

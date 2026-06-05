@@ -2,10 +2,12 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  Input,
+  DestroyRef,
   OnInit,
   inject,
+  input
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { ScreenState } from '@core/state/screen/ScreenState';
@@ -30,19 +32,23 @@ import { AccordionMenuComponent } from '../../accordion-menu/accordion-menu.comp
   ],
 })
 export class MenuItemComponent implements OnInit {
-  @Input() content: any;
-  @Input() mobileMenu: any;
+  readonly content = input<any>();
+  readonly mobileMenu = input<any>();
   showXs: boolean;
   private screen = inject(ScreenState);
   private cd = inject(ChangeDetectorRef);
   private screenService = inject(ScreenService);
+  private destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.screen.mqAlias$().subscribe(alia => {
-        this.showXs = alia.includes('xs');
-        this.cd.detectChanges();
-      });
+      this.screen
+        .mqAlias$()
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(alia => {
+          this.showXs = alia.includes('xs');
+          this.cd.detectChanges();
+        });
     }
   }
 }

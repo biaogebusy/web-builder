@@ -9,7 +9,7 @@ import { IBranding } from '../interface/branding/IBranding';
 import { UserService } from '@core/service/user.service';
 import { IUser } from '@core/interface/IUser';
 import { INotify } from '@core/interface/widgets/IWidgets';
-import { map, startWith, switchMap } from 'rxjs/operators';
+import { map, startWith, switchMap, take } from 'rxjs/operators';
 import { NotifyService } from '@core/service/notify.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { ScreenService } from '@core/service/screen.service';
@@ -18,10 +18,11 @@ import { IManageAssets } from '@core/interface/manage/IManage';
 import { ILanguage } from '@core/interface/IEnvironment';
 import { CookieService } from 'ngx-cookie-service';
 import { ComponentService } from '@core/service/component.service';
-import { DOCUMENT, inject } from '@angular/core';
+import { DestroyRef, DOCUMENT, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 import { BuilderService } from '@core/service/builder.service';
-import { UtilitiesService } from '@core/service/utilities.service';
+import { getFileType } from '@core/util/file-type.util';
 
 export const THEMKEY = 'themeMode';
 export const DEBUG_ANIMATE_KEY = 'debugAnimate';
@@ -31,9 +32,10 @@ export function pageContentFactory(): Observable<IPage | object | boolean> {
   const activateRoute = inject(ActivatedRoute);
   const contentService = inject(ContentService);
   const contentState = inject(ContentState);
+  const destroyRef = inject(DestroyRef);
 
   const $pageContent = new BehaviorSubject<IPage | object | boolean>(false);
-  activateRoute.url.subscribe(async url => {
+  activateRoute.url.pipe(takeUntilDestroyed(destroyRef)).subscribe(async url => {
     const page = await contentService.loadPageContent().toPromise();
     if (page) {
       $pageContent.next(page);
@@ -46,16 +48,17 @@ export function pageContentFactory(): Observable<IPage | object | boolean> {
 export function builderFullScreenFactory(): Observable<boolean> {
   const router = inject(Router);
   const builder = inject(BuilderState);
+  const destroyRef = inject(DestroyRef);
   const isFull$ = new BehaviorSubject<boolean>(false);
 
-  router.events.subscribe(event => {
+  router.events.pipe(takeUntilDestroyed(destroyRef)).subscribe(event => {
     if (event instanceof NavigationEnd) {
       if (event.url.includes(BUILDERPATH)) {
         isFull$.next(false);
       }
     }
   });
-  builder.fullScreen$.subscribe(state => {
+  builder.fullScreen$.pipe(takeUntilDestroyed(destroyRef)).subscribe(state => {
     isFull$.next(state);
   });
   return isFull$;
@@ -67,6 +70,7 @@ export function builderCurrentPageFactory(): Observable<IPage | object | boolean
   const currentPage$ = new BehaviorSubject<IPage | object | boolean>(false);
   const storage = inject(LocalStorageService);
   const builderService = inject(BuilderService);
+  const destroyRef = inject(DestroyRef);
   const localVersion = storage.retrieve(versionKey);
 
   if (localVersion) {
@@ -77,12 +81,15 @@ export function builderCurrentPageFactory(): Observable<IPage | object | boolean
     currentPage$.next(currentPage);
   }
 
-  storage.observe(versionKey).subscribe((version: IPage[]) => {
-    if (version?.length > 0) {
-      const current = version.find((page: IPage) => page.current === true) || version[0];
-      currentPage$.next(current);
-    }
-  });
+  storage
+    .observe(versionKey)
+    .pipe(takeUntilDestroyed(destroyRef))
+    .subscribe((version: IPage[]) => {
+      if (version?.length > 0) {
+        const current = version.find((page: IPage) => page.current === true) || version[0];
+        currentPage$.next(current);
+      }
+    });
 
   return currentPage$;
 }
@@ -90,6 +97,7 @@ export function builderCurrentPageFactory(): Observable<IPage | object | boolean
 export function debugAnimateFactory(): Observable<boolean> {
   const builder = inject(BuilderState);
   const storage = inject(LocalStorageService);
+  const destroyRef = inject(DestroyRef);
   const debugAnimate$ = new BehaviorSubject<boolean>(false);
   const isDebugAnimate = storage.retrieve(DEBUG_ANIMATE_KEY);
   if (isDebugAnimate) {
@@ -102,7 +110,7 @@ export function debugAnimateFactory(): Observable<boolean> {
     builder.renderMarkers(isDebugAnimate);
   }, 2000);
 
-  builder.debugeAnimate$.subscribe(state => {
+  builder.debugeAnimate$.pipe(takeUntilDestroyed(destroyRef)).subscribe(state => {
     storage.store(DEBUG_ANIMATE_KEY, state);
     debugAnimate$.next(state);
   });
@@ -112,6 +120,7 @@ export function debugAnimateFactory(): Observable<boolean> {
 
 export function notifyFactory(coreConfig: ICoreConfig): Observable<INotify[] | object | boolean> {
   const notifyService = inject(NotifyService);
+  const destroyRef = inject(DestroyRef);
   const $notify = new BehaviorSubject<INotify[] | object | boolean>(false);
   const apis = coreConfig?.notify?.api;
 
@@ -144,7 +153,8 @@ export function notifyFactory(coreConfig: ICoreConfig): Observable<INotify[] | o
             lists = [...message];
           });
           return lists;
-        })
+        }),
+        takeUntilDestroyed(destroyRef)
       )
       .subscribe((res: INotify[]) => {
         $notify.next(res);
@@ -201,12 +211,13 @@ export function brandingFactory(): Observable<IBranding | object> {
 
 export function userFactory(): Observable<IUser | boolean> {
   const userService = inject(UserService);
+  const destroyRef = inject(DestroyRef);
   const user$ = new BehaviorSubject<IUser | boolean>(false);
   const stored = userService.getStoredUser();
   if (stored) {
     user$.next(stored);
   }
-  userService.userSub$.subscribe(user => {
+  userService.userSub$.pipe(takeUntilDestroyed(destroyRef)).subscribe(user => {
     user$.next(user);
   });
   return user$;
@@ -219,29 +230,34 @@ export function mediaAssetsFactory(): Observable<IManageAssets | boolean> {
   const userService = inject(UserService);
   const cookieService = inject(CookieService);
   const key = userService.localUserKey;
-  const util = inject(UtilitiesService);
+  const destroyRef = inject(DestroyRef);
   const assets$ = new BehaviorSubject<IManageAssets | boolean>(false);
   let noCache = false;
   if (cookieService.check(key)) {
     noCache = true;
   }
   // on form search change
-  contentState.mediaAssetsFormChange$.subscribe((value: any) => {
-    const params = nodeService.getApiParams({ ...value, noCache });
-    nodeService.fetch(api, params).subscribe(res => {
-      assets$.next({
-        rows: res.rows.map((item: any) => {
-          const type = util.getFileType(item.source);
-          return {
-            ...item,
-            src: type === 'svg' ? item.source : item.thumb,
-            title: decodeURIComponent(item.title),
-          };
-        }),
-        pager: nodeService.handlerPager(res.pager, res.rows.length),
-      });
+  contentState.mediaAssetsFormChange$
+    .pipe(takeUntilDestroyed(destroyRef))
+    .subscribe((value: any) => {
+      const params = nodeService.getApiParams({ ...value, noCache });
+      nodeService
+        .fetch(api, params)
+        .pipe(take(1))
+        .subscribe(res => {
+          assets$.next({
+            rows: res.rows.map((item: any) => {
+              const type = getFileType(item.source);
+              return {
+                ...item,
+                src: type === 'svg' ? item.source : item.thumb,
+                title: decodeURIComponent(item.title),
+              };
+            }),
+            pager: nodeService.handlerPager(res.pager, res.rows.length),
+          });
+        });
     });
-  });
 
   return assets$;
 }

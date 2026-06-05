@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, input } from '@angular/core';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { PAGE_CONTENT } from '@core/token/token-providers';
@@ -21,6 +21,6 @@ export class Hero2v3Component extends BaseComponent {
   screen = inject(ScreenState);
   pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);
 
-  @Input() content: IHero2v3;
+  readonly content = input.required<IHero2v3>();
 
 }

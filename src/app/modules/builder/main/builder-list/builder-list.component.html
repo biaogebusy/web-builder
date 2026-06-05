@@ -39,12 +39,12 @@
                     >
                       <div class="section-btn-content">
                         <app-icon class="mr-1" [content]="{ svg: 'plus' }" />
-                        <span>新增布局</span>
+                        <span>{{ 'BUILDER.LIST.ADD_SECTION' | translate }}</span>
                       </div>
                     </button>
                     <button
                       class="new-widget"
-                      matTooltip="选择组件"
+                      [matTooltip]="'BUILDER.LIST.SELECT_WIDGET' | translate"
                       mat-icon-button
                       [matMenuTriggerFor]="menu"
                     >
@@ -57,13 +57,13 @@
                       >
                         <div class="menu-item-content">
                           <app-icon [content]="{ svg: 'widgets-outline' }" />
-                          <span>选择组件</span>
+                          <span>{{ 'BUILDER.LIST.SELECT_WIDGET' | translate }}</span>
                         </div>
                       </button>
                       <button mat-menu-item (click)="onPasteData(actionBtn)">
                         <div class="menu-item-content">
                           <app-icon [content]="{ svg: 'content-paste' }" />
-                          <span>粘贴组件</span>
+                          <span>{{ 'BUILDER.LIST.PASTE_WIDGET' | translate }}</span>
                         </div>
                       </button>
                     </mat-menu>
@@ -99,21 +99,22 @@
 <mat-menu #menu="matMenu">
   <button mat-menu-item (click)="onNewPage()">
     <div class="menu-item-content">
-      <app-icon [content]="{ svg: 'pencil-plus', color: 'primary' }" /> <span>创建页面</span>
+      <app-icon [content]="{ svg: 'pencil-plus', color: 'primary' }" />
+      <span>{{ 'BUILDER.LIST.NEW_PAGE' | translate }}</span>
     </div>
   </button>
 
   <button mat-menu-item (click)="goBackUiux()">
     <div class="menu-item-content">
       <app-icon [content]="{ svg: 'youtube-subscription', color: 'primary' }" />
-      <span>查看组件</span>
+      <span>{{ 'BUILDER.LIST.VIEW_WIDGETS' | translate }}</span>
     </div>
   </button>
 
   <button mat-menu-item (click)="onClearHistory()">
     <div class="menu-item-content">
       <app-icon [content]="{ svg: 'delete-empty-outline', color: 'warn' }" />
-      <span>清空草稿</span>
+      <span>{{ 'BUILDER.COMMON.CLEAR_DRAFT' | translate }}</span>
     </div>
   </button>
 </mat-menu>

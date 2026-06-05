@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input
 } from '@angular/core';
 import type { ICarouselBase } from '@core/interface/combs/ICarousel';
 import { TitleComponent } from '@uiux/widgets/title/title.component';
@@ -15,6 +15,6 @@ import { SwiperComponent } from '../swiper/swiper.component';
   imports: [TitleComponent, SwiperComponent],
 })
 export class Carousel2v2Component {
-  @Input() content: ICarouselBase;
+  readonly content = input<ICarouselBase>();
   constructor() {}
 }

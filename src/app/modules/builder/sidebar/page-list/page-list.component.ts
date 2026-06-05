@@ -3,9 +3,9 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  Input,
   OnInit,
   inject,
+  input
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -24,8 +24,10 @@ import { TagsService } from '@core/service/tags.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_CURRENT_PAGE, USER } from '@core/token/token-providers';
+import { formatToExtraData, getPageParams } from '@core/util/builder-page.util';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { BaseComponent } from '@uiux/base/base.widget';
+import { TranslateService } from '@ngx-translate/core';
 import { merge } from 'lodash-es';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -42,7 +44,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
   private currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
   private user$ = inject<Observable<IUser>>(USER);
 
-  @Input() content: any;
+  readonly content = input<any>();
   public content$: Observable<IPageMeta[]>;
   public form = new FormGroup({
     page: new FormControl(0),
@@ -63,6 +65,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
   private builderService = inject(BuilderService);
   private destroyRef = inject(DestroyRef);
   private tagService = inject(TagsService);
+  private translate = inject(TranslateService);
   public user: IUser;
 
   public fields: FormlyFieldConfig[] = [
@@ -71,7 +74,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
       fieldGroup: [
         {
           props: {
-            label: '基础',
+            label: this.translate.instant('BUILDER.PAGE_LIST.BASIC'),
           },
           fieldGroup: [
             {
@@ -82,8 +85,8 @@ export class PageListComponent extends BaseComponent implements OnInit {
                   type: 'input',
                   className: 'col-span-12',
                   props: {
-                    label: '搜索标题',
-                    placeholder: '回车搜索',
+                    label: this.translate.instant('BUILDER.PAGE_LIST.SEARCH_TITLE'),
+                    placeholder: this.translate.instant('BUILDER.PAGE_LIST.SEARCH_PLACEHOLDER'),
                   },
                   modelOptions: {
                     updateOn: 'submit',
@@ -95,7 +98,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
         },
         {
           props: {
-            label: '高级',
+            label: this.translate.instant('BUILDER.PAGE_LIST.ADVANCED'),
           },
           fieldGroup: [
             {
@@ -108,10 +111,10 @@ export class PageListComponent extends BaseComponent implements OnInit {
                   props: {
                     api: '/api/v2/taxonomy/page_group',
                     nocache: true,
-                    label: '分类',
+                    label: this.translate.instant('BUILDER.PAGE_LIST.CATEGORY'),
                     options: [
                       {
-                        label: '全部',
+                        label: this.translate.instant('BUILDER.PAGE_LIST.ALL'),
                         value: null,
                       },
                     ],
@@ -122,10 +125,10 @@ export class PageListComponent extends BaseComponent implements OnInit {
                   type: 'select',
                   className: 'col-span-5',
                   props: {
-                    label: '语言',
+                    label: this.translate.instant('BUILDER.PAGE_LIST.LANGUAGE'),
                     options: [
                       {
-                        label: '全部',
+                        label: this.translate.instant('BUILDER.PAGE_LIST.ALL'),
                         value: '',
                       },
                       ...(this.langs
@@ -152,7 +155,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });
-    this.tagService.setTitle('着陆页管理');
+    this.tagService.setTitle(this.translate.instant('BUILDER.PAGE_LIST.PAGE_TITLE'));
   }
 
   ngOnInit(): void {
@@ -201,7 +204,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
     this.content$ = this.nodeService.fetch('/api/v2/node/landing-page', params).pipe(
       catchError(error => {
         if (error.status === 404) {
-          this.util.openSnackbar('请检查API是否已配置！', 'ok');
+          this.util.openSnackbar(this.translate.instant('BUILDER.SETTINGS.CHECK_API'), 'ok');
         }
         return of({
           rows: [],
@@ -231,7 +234,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
     this.builder.loading$.next(true);
     const { langcode, nid } = page;
     if (!nid) {
-      this.util.openSnackbar('请检查 LandingPage View 配置', 'ok');
+      this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_LIST.CHECK_LANDING_VIEW'), 'ok');
       return;
     }
     this.builderService.loadPage({ langcode, nid });
@@ -248,7 +251,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
   updateByJSON(page: any): void {
     const { langcode, nid } = page;
     if (!nid) {
-      this.util.openSnackbar('请检查 LandingPage View 配置', 'ok');
+      this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_LIST.CHECK_LANDING_VIEW'), 'ok');
       return;
     }
     this.builderService.loadPageJSON({ langcode, nid });
@@ -260,7 +263,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
     this.builderService.openPageSetting(
       page,
       '/api/v1/node/landing_page',
-      this.builderService.getPageParams(['uid', 'group', 'cover', 'cover.field_media_image'])
+      getPageParams(['uid', 'group', 'cover', 'cover.field_media_image'])
     );
   }
 
@@ -283,16 +286,22 @@ export class PageListComponent extends BaseComponent implements OnInit {
         this.builder.loading$.next(false);
         if (targetlang === page.langcode) {
           // 已有翻译
-          this.util.openSnackbar(`已有${page.label}语言页面，正在载入`, 'ok');
-          this.builder.loadNewPage(this.builderService.formatToExtraData(page));
+          this.util.openSnackbar(
+            this.translate.instant('BUILDER.PAGE_LIST.TRANSLATION_EXISTS', { label: page.label }),
+            'ok'
+          );
+          this.builder.loadNewPage(formatToExtraData(page));
         } else {
           // 复制一份，新建翻译
           this.util.openSnackbar(
-            `正在载入${currentPage.title}，请修改页面内容为${targetlang}语言`,
+            this.translate.instant('BUILDER.PAGE_LIST.LOADING_TRANSLATION', {
+              title: currentPage.title,
+              lang: targetlang,
+            }),
             'ok'
           );
           this.builder.loadNewPage(
-            this.builderService.formatToExtraData({
+            formatToExtraData({
               langcode: currentPage.langcode,
               ...page,
               translation: true,

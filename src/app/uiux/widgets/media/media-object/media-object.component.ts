@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input
 } from '@angular/core';
 import { ContenteditDirective } from '@core/directive/contentedit.directive';
 import type { IMediaObject } from '@core/interface/widgets/IMediaObject';
@@ -18,7 +18,7 @@ import { LinkComponent } from '../../link/link.component';
   imports: [ImgComponent, IconComponent, LinkComponent, ContenteditDirective, SafeHtmlPipe],
 })
 export class MediaObjectComponent {
-  @Input() content: IMediaObject;
+  readonly content = input<IMediaObject>();
   constructor() {}
 
 }

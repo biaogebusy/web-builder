@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, input } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -16,8 +16,8 @@ import { BtnComponent } from '@uiux/widgets/btn/btn.component';
   imports: [AsyncPipe, MatButtonModule, MatIconModule, ImgComponent, BtnComponent],
 })
 export class UserProfileComponent {
-  @Input() content: any;
-  @Input() userConfig$: Observable<IUserConfig>;
+  readonly content = input<any>();
+  readonly userConfig$ = input<Observable<IUserConfig>>();
   private userService = inject(UserService);
 
 

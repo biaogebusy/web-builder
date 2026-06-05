@@ -1,48 +1,48 @@
-<ng-container *reqRolesIf="content">
+<ng-container *reqRolesIf="content()">
   <!-- dialog -->
-  @if (content.dialog) {
-    <div *ngTemplateOutlet="action; context: { link: content }"></div>
+  @if (content().dialog) {
+    <div *ngTemplateOutlet="action; context: { link: content() }"></div>
   } @else {
     <!-- absolute link -->
-    @if (isAbsolute(content.href || '')) {
+    @if (isAbsolute(content().href || '')) {
       <a
         contentedit="label"
         [class]="classes"
-        [matTooltip]="content.tooltip?.message || ''"
-        [matTooltipPosition]="content.tooltip?.position || 'above'"
-        [href]="content.href || 'javascript:void(0);'"
-        [target]="content.target || '_self'"
-        [innerHTML]="content.label | safeHtml"
-        title="{{ content.label }}"
+        [matTooltip]="content().tooltip?.message || ''"
+        [matTooltipPosition]="content().tooltip?.position || 'above'"
+        [href]="content().href || 'javascript:void(0);'"
+        [target]="content().target || '_self'"
+        [innerHTML]="content().label | safeHtml"
+        title="{{ content().label }}"
         rel="noopener"
         (click)="nav($event)"
       ></a>
     } @else {
-      @if (content.href) {
+      @if (content().href) {
         <!-- drawer -->
-        @if (content.rel && content.rel === 'drawer') {
-          <div *ngTemplateOutlet="action; context: { link: content }"></div>
+        @if (content().rel && content().rel === 'drawer') {
+          <div *ngTemplateOutlet="action; context: { link: content() }"></div>
         } @else {
           <a
             contentedit="label"
-            [matTooltip]="content.tooltip?.message || ''"
-            [matTooltipPosition]="content.tooltip?.position || 'above'"
-            [routerLink]="[content.href]"
+            [matTooltip]="content().tooltip?.message || ''"
+            [matTooltipPosition]="content().tooltip?.position || 'above'"
+            [routerLink]="[content().href]"
             [routerLinkActive]="['active']"
-            [target]="content.target || '_self'"
+            [target]="content().target || '_self'"
             [routerLinkActiveOptions]="{ exact: true }"
-            [queryParams]="content.queryParams"
-            [fragment]="content.fragment"
+            [queryParams]="content().queryParams"
+            [fragment]="content().fragment"
             [class]="classes"
-            [innerHTML]="content.label | safeHtml"
-            [title]="content.label"
+            [innerHTML]="content().label | safeHtml"
+            [title]="content().label"
             (click)="nav($event)"
             >
           </a>
         }
         <!-- router link -->
       } @else {
-        <div *ngTemplateOutlet="action; context: { link: content }"></div>
+        <div *ngTemplateOutlet="action; context: { link: content() }"></div>
       }
     }
     <!-- relative link /node/1 -->
@@ -53,8 +53,8 @@
 <ng-template let-link="link" #action>
   <a
     contentedit="label"
-    [matTooltip]="content.tooltip?.message || ''"
-    [matTooltipPosition]="content.tooltip?.position || 'above'"
+    [matTooltip]="content().tooltip?.message || ''"
+    [matTooltipPosition]="content().tooltip?.position || 'above'"
     [class]="classes"
     href="javascript:void(0);"
     [target]="link.target || '_self'"

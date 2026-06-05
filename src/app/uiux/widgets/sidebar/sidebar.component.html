@@ -1,6 +1,6 @@
-@if (content) {
+@if (content(); as contentValue) {
   <div class="sidebar">
-    @for (item of content; track item) {
+    @for (item of contentValue; track item) {
       <app-dynamic-component [inputs]="item" />
     }
   </div>

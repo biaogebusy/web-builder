@@ -1,5 +1,5 @@
 <div class="card-page-grid">
-  @for (page of lists; track page.nid) {
+  @for (page of lists(); track page.nid) {
     <div
       class="page-card"
     >
@@ -8,7 +8,7 @@
       >
         <img
           class="cover-img"
-          src="{{ page.cover || params.defaultImg }}"
+          src="{{ page.cover || params().defaultImg }}"
           alt=""
         />
         <div class="actions">
@@ -16,7 +16,7 @@
             class="block"
             [matMenuTriggerFor]="menu"
             [content]="{
-              label: '编辑',
+              label: 'BUILDER.PAGE_LIST.EDIT' | translate,
               mode: 'raised',
               color: 'primary',
             }"
@@ -24,21 +24,21 @@
           <mat-menu #menu="matMenu" class="overlay-btn-icon">
             <button mat-menu-item (click)="loadPage(page)">
               <app-icon [content]="{ svg: 'pencil' }" />
-              <span>载入编辑</span>
+              <span>{{ 'BUILDER.PAGE_LIST.LOAD_EDIT' | translate }}</span>
             </button>
-            @if (langs) {
-              @for (item of langs; track item) {
+            @if (langs(); as langsValue) {
+              @for (item of langsValue; track item) {
                 @if (!item.default && item.langCode !== page.langcode) {
                   <button mat-menu-item (click)="createLangVersion(page, item.langCode)">
                     <app-icon [content]="{ svg: 'translate' }" />
-                    <span>编辑{{ item.label }}</span>
+                    <span>{{ 'BUILDER.PAGE_LIST.EDIT_LANG' | translate: { label: item.label } }}</span>
                   </button>
                 }
               }
             }
             <button mat-menu-item (click)="updatePage(page)">
               <app-icon [content]="{ svg: 'cog' }" />
-              <span>页面属性</span>
+              <span>{{ 'BUILDER.PAGE_LIST.PAGE_PROPS' | translate }}</span>
             </button>
           </mat-menu>
         </div>

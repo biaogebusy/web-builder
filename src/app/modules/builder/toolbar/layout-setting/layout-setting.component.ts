@@ -1,6 +1,6 @@
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 
-import { Component, DestroyRef, Input, inject, DOCUMENT } from '@angular/core';
+import { Component, DestroyRef, inject, DOCUMENT, ChangeDetectionStrategy, input } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
 import { ShareModule } from '@share/share.module';
@@ -11,29 +11,32 @@ import { IDialog } from '@core/interface/IDialog';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { TranslateService } from '@ngx-translate/core';
 import { cloneDeep, defaultsDeep, get } from 'lodash-es';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-layout-setting',
   templateUrl: './layout-setting.component.html',
   styleUrls: ['./layout-setting.component.scss'],
   imports: [ShareModule, WidgetsModule, FormModule, DragDropModule],
 })
 export class LayoutSettingComponent {
-  @Input() content: ILayoutSetting;
+  readonly content = input.required<ILayoutSetting>();
   public model: any = {};
 
   private doc = inject(DOCUMENT);
   private dialog = inject(MatDialog);
   private builder = inject(BuilderState);
   private destroyRef = inject(DestroyRef);
+  private translate = inject(TranslateService);
 
   onModelChange(value: any): void {
-    const { path } = this.content;
+    const { path } = this.content();
     let content: any = {};
     Object.keys(value).forEach(config => {
       if (config) {
-        content = defaultsDeep(value[config], this.content.content);
+        content = defaultsDeep(value[config], this.content().content);
       }
     });
     if (path) {
@@ -42,8 +45,8 @@ export class LayoutSettingComponent {
   }
 
   drop(event: CdkDragDrop<string[]>): void {
-    const { path, content } = this.content;
-    moveItemInArray(this.content.content.elements, event.previousIndex, event.currentIndex);
+    const { path, content } = this.content();
+    moveItemInArray(this.content().content.elements, event.previousIndex, event.currentIndex);
     if (path) {
       this.builder.updatePageContentByPath(path, content);
     }
@@ -51,28 +54,28 @@ export class LayoutSettingComponent {
 
   onCopy(elements: any[], index: number): void {
     const lists = [...elements];
-    const path = this.content.path;
+    const path = this.content().path;
     lists.splice(index, 0, cloneDeep(lists[index]));
     this.builder.updatePageContentByPath(`${path}.elements`, lists);
   }
 
   onDelete(elements: any[], index: number): void {
     const lists = [...elements];
-    const path = this.content.path;
+    const path = this.content().path;
     lists.splice(index, 1);
     this.builder.updatePageContentByPath(`${path}.elements`, lists);
   }
 
   applyAosAllTopComponent(animate: any): void {
     const config: IDialog = {
-      title: '一键应用动画',
-      noLabel: '取消',
-      yesLabel: '确定应用',
+      title: this.translate.instant('BUILDER.LAYOUT_SETTING.APPLY_ALL_TITLE'),
+      noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
+      yesLabel: this.translate.instant('BUILDER.COMMON.CONFIRM_APPLY'),
       inputData: {
         content: {
           type: 'text',
           fullWidth: true,
-          body: '将会把当前AOS的动画配置应用到页面最外层的所有一级组件，已有动画会被覆盖。',
+          body: this.translate.instant('BUILDER.LAYOUT_SETTING.APPLY_ALL_BODY'),
         },
       },
     };
@@ -95,7 +98,7 @@ export class LayoutSettingComponent {
     const {
       path,
       content: { type },
-    } = this.content;
+    } = this.content();
     // layout builder level
     if (path) {
       const jsonWidget: IJsoneditor = {
@@ -121,6 +124,6 @@ export class LayoutSettingComponent {
   }
 
   editorCode(): void {
-    this.builder.editorCode(this.content);
+    this.builder.editorCode(this.content());
   }
 }

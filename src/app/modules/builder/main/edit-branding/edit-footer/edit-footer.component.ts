@@ -30,6 +30,7 @@ import { ContentService } from '@core/service/content.service';
 import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { HasUnsavedChanges } from '@core/guards/unsaved-changes.guard';
+import { TranslateService } from '@ngx-translate/core';
 
 interface FooterMenuGroup {
   label: string;
@@ -128,6 +129,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
   private util = inject(UtilitiesService);
   private snackBar = inject(MatSnackBar);
   private destroyRef = inject(DestroyRef);
+  private translate = inject(TranslateService);
 
   hasUnsavedChanges(): boolean {
     return this.dirty();
@@ -145,7 +147,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
     this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
       const { uuid, langcode } = params;
       if (!uuid) {
-        this.util.openSnackbar('缺少节点参数，请从页面设置进入');
+        this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.MISSING_NODE'));
         return;
       }
       this.nodeUuid.set(uuid);
@@ -179,7 +181,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
           this.listenFormChanges();
         },
         error: () => {
-          this.util.openSnackbar('加载配置失败');
+          this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.LOAD_FAIL'));
           this.loading.set(false);
         },
       });
@@ -249,10 +251,10 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
             defaultValue: params.mode,
             className: 'w-full',
             props: {
-              label: '模式',
+              label: this.translate.instant('BUILDER.EDIT_BRANDING.MODE'),
               options: [
-                { label: '明亮', value: 'light' },
-                { label: '反色', value: 'inverse' },
+                { label: this.translate.instant('BUILDER.EDIT_BRANDING.LIGHT'), value: 'light' },
+                { label: this.translate.instant('BUILDER.EDIT_BRANDING.INVERSE'), value: 'inverse' },
               ],
             },
           },
@@ -260,7 +262,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
             key: 'shape',
             type: 'toggle',
             defaultValue: params.shape,
-            props: { label: '显示装饰形状' },
+            props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.SHOW_SHAPE') },
           },
         ],
       },
@@ -286,35 +288,35 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
             type: 'input',
             className: 'w-full',
             defaultValue: this.brandModel['src'],
-            props: { label: 'Logo 图片地址' },
+            props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.LOGO_URL') },
           },
           {
             key: 'alt',
             type: 'input',
             className: 'w-full',
             defaultValue: this.brandModel['alt'],
-            props: { label: '图片描述' },
+            props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.IMG_ALT') },
           },
           {
             key: 'href',
             type: 'input',
             className: 'w-full',
             defaultValue: this.brandModel['href'],
-            props: { label: '链接' },
+            props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.LINK_FIELD') },
           },
           {
             key: 'classes',
             type: 'input',
             className: 'w-full',
             defaultValue: this.brandModel['classes'],
-            props: { label: 'CSS 类' },
+            props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.CSS_CLASS') },
           },
           {
             key: 'summary',
             type: 'textarea',
             className: 'w-full',
             defaultValue: this.brandModel['summary'],
-            props: { label: '简介', rows: 3 },
+            props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.DESCRIPTION'), rows: 3 },
           },
         ],
       },
@@ -327,7 +329,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
       {
         key: 'social',
         type: 'repeat',
-        props: { addText: '添加社交链接' },
+        props: { addText: this.translate.instant('BUILDER.EDIT_BRANDING.ADD_SOCIAL') },
         fieldArray: {
           fieldGroupClassName: 'grid gap-0',
           fieldGroup: [
@@ -335,7 +337,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
               key: 'label',
               type: 'input',
               className: 'w-full',
-              props: { label: '标签', required: true },
+              props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.LABEL'), required: true },
             },
             {
               key: 'icon',
@@ -344,7 +346,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
                   key: 'svg',
                   type: 'input',
                   className: 'w-full',
-                  props: { label: '图标 SVG', required: true },
+                  props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.ICON_SVG'), required: true },
                 },
               ],
             },
@@ -352,7 +354,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
               key: 'href',
               type: 'input',
               className: 'w-full',
-              props: { label: '链接', required: true },
+              props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.LINK_FIELD'), required: true },
             },
           ],
         },
@@ -377,7 +379,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
             type: 'input',
             className: 'w-full',
             defaultValue: this.newsletterModel['label'],
-            props: { label: '标题' },
+            props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.FIELD_TITLE') },
           },
           {
             key: 'webform_id',
@@ -391,14 +393,14 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
             type: 'textarea',
             className: 'w-full',
             defaultValue: this.newsletterModel['summary'],
-            props: { label: '描述', rows: 2 },
+            props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.DESC'), rows: 2 },
           },
           {
             key: 'actionLabel',
             type: 'input',
             className: 'w-full',
             defaultValue: this.newsletterModel['actionLabel'],
-            props: { label: '按钮文本' },
+            props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.BTN_TEXT') },
           },
         ],
       },
@@ -417,14 +419,14 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
             type: 'input',
             className: 'w-full',
             defaultValue: this.bottomModel['left'],
-            props: { label: '左侧文本（支持 HTML）' },
+            props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.LEFT_HTML') },
           },
         ],
       },
       {
         key: 'right',
         type: 'repeat',
-        props: { addText: '添加底部链接' },
+        props: { addText: this.translate.instant('BUILDER.EDIT_BRANDING.ADD_FOOTER_LINK') },
         fieldArray: {
           fieldGroupClassName: 'grid gap-0',
           fieldGroup: [
@@ -432,13 +434,13 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
               key: 'label',
               type: 'input',
               className: 'w-full',
-              props: { label: '标签', required: true },
+              props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.LABEL'), required: true },
             },
             {
               key: 'href',
               type: 'input',
               className: 'w-full',
-              props: { label: '链接', required: true },
+              props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.LINK_FIELD'), required: true },
             },
           ],
         },
@@ -483,7 +485,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
 
   addMenuGroup(list: 'main' | 'mobile'): void {
     const source = list === 'main' ? this.menuItems : this.mobileMenuItems;
-    source.update(items => [...items, { label: '新分组', child: [] }]);
+    source.update(items => [...items, { label: this.translate.instant('BUILDER.EDIT_BRANDING.NEW_GROUP'), child: [] }]);
     this.onMenuChange();
   }
 
@@ -504,7 +506,11 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
       sig.set(-1);
     }
     this.onMenuChange();
-    const ref = this.snackBar.open(`已删除「${removed.label}」`, '撤销', { duration: 5000 });
+    const ref = this.snackBar.open(
+      this.translate.instant('BUILDER.EDIT_BRANDING.DELETED_TOAST', { label: removed.label }),
+      this.translate.instant('BUILDER.EDIT_BRANDING.UNDO'),
+      { duration: 5000 }
+    );
     ref
       .onAction()
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -522,7 +528,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
     const source = list === 'main' ? this.menuItems : this.mobileMenuItems;
     const items = [...source()];
     const children = [...(items[menuIndex].child ?? [])];
-    children.push({ label: '新链接', href: '' });
+    children.push({ label: this.translate.instant('BUILDER.EDIT_BRANDING.NEW_LINK'), href: '' });
     items[menuIndex] = { ...items[menuIndex], child: children };
     source.set(items);
     this.onMenuChange();
@@ -553,7 +559,11 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
     source.set(items);
     this.onMenuChange();
     if (removed) {
-      const ref = this.snackBar.open(`已删除「${removed.label}」`, '撤销', { duration: 5000 });
+      const ref = this.snackBar.open(
+        this.translate.instant('BUILDER.EDIT_BRANDING.DELETED_TOAST', { label: removed.label }),
+        this.translate.instant('BUILDER.EDIT_BRANDING.UNDO'),
+        { duration: 5000 }
+      );
       ref
         .onAction()
         .pipe(takeUntilDestroyed(this.destroyRef))
@@ -626,7 +636,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
 
   onSave(): void {
     if (!this.nodeUuid()) {
-      this.util.openSnackbar('未找到配置节点信息，无法保存');
+      this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.NOT_FOUND_NODE'));
       return;
     }
 
@@ -643,7 +653,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
         this.jsonError.set('');
       } catch {
         this.saving.set(false);
-        this.util.openSnackbar('JSON 格式错误，请修正后再保存', 'ok');
+        this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.JSON_FORMAT_ERROR'), 'ok');
         return;
       }
     }
@@ -662,12 +672,12 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
           this.saving.set(false);
           if (res) {
             this.dirty.set(false);
-            this.util.openSnackbar('Footer 配置更新成功！', 'ok');
+            this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.FOOTER_UPDATE_SUCCESS'), 'ok');
           }
         },
         error: () => {
           this.saving.set(false);
-          this.util.openSnackbar('更新失败，请重试');
+          this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.UPDATE_FAIL'));
         },
       });
   }

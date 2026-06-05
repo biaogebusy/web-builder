@@ -2,11 +2,12 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  Input,
   OnInit,
-  ViewChild,
   inject,
   signal,
+  ChangeDetectionStrategy,
+  input,
+  viewChild
 } from '@angular/core';
 import type { EChartsOption } from 'echarts/types/dist/shared';
 import { isArray } from 'lodash-es';
@@ -73,16 +74,18 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-chart',
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.scss'],
   imports: [MatButtonToggleModule, IconComponent],
 })
 export class ChartComponent implements OnInit, AfterViewInit {
-  @Input() content: EChartsOption;
-  @Input() data: any;
-  @Input() style: any;
-  @ViewChild('echarts', { read: ElementRef }) echarts: ElementRef;
+  readonly content = input.required<EChartsOption>();
+  readonly data = input<any>();
+  readonly style = input<any>();
+  readonly echarts = viewChild('echarts', { read: ElementRef });
+  private chart: any;
 
   private theme = signal<object>({});
   private screenService = inject(ScreenService);
@@ -93,24 +96,25 @@ export class ChartComponent implements OnInit, AfterViewInit {
         {
           color: ['#2E9BFF', '#987BE9', '#FAA16F', '#9DD094', '#FF6461'],
         },
-        this.data?.theme
+        this.data()?.theme
       )
     );
   }
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      const chart = echarts.init(this.echarts.nativeElement, this.theme());
-      chart.setOption(this.content);
+      this.chart = echarts.init(this.echarts()!.nativeElement, this.theme());
+      this.chart.setOption(this.content());
     }
   }
 
   onChange(chart: any): void {
-    if (isArray(this.content.series)) {
-      this.content.series.forEach((item: any) => {
+    const content = this.content();
+    if (isArray(content.series)) {
+      content.series.forEach((item: any) => {
         item.type = chart.value;
       });
-      this.content = { ...this.content };
+      this.chart?.setOption(this.content());
     }
   }
 }

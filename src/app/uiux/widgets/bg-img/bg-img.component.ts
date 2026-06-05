@@ -1,17 +1,18 @@
-import { Component, OnInit, Input, forwardRef, signal } from '@angular/core';
+import { Component, OnInit, forwardRef, signal, ChangeDetectionStrategy, input } from '@angular/core';
 import type { IBgImg } from '@core/interface/widgets/IBgImg';
 import { IImg } from '@core/interface/widgets/IImg';
 import { BgComponent } from '../bg/bg.component';
 import { ImgComponent } from '../img/img.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-bg-img',
   templateUrl: './bg-img.component.html',
   styleUrls: ['./bg-img.component.scss'],
   imports: [BgComponent, forwardRef(() => ImgComponent)],
 })
 export class BgImgComponent implements OnInit {
-  @Input() content: IBgImg;
+  readonly content = input.required<IBgImg>();
   public img = signal<IImg>({
     classes: '',
     src: '',
@@ -22,7 +23,7 @@ export class BgImgComponent implements OnInit {
         {
           classes: 'bg-cover',
         },
-        this.content.img
+        this.content().img
       )
     );
   }

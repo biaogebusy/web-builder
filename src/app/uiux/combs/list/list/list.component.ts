@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy, inject, output } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, output, input } from '@angular/core';
 import type { IShowcase3v3 } from '@core/interface/combs/IShowcase';
 import type { IPaginationLinks } from '@core/interface/widgets/IPaginationLinks';
 import { ScreenService } from '@core/service/screen.service';
@@ -24,10 +24,10 @@ import { Showcase3v3Component } from '@uiux/combs/showcase/showcase3v3/showcase3
 export class ListComponent {
   private screenService = inject(ScreenService);
 
-  @Input() content: IShowcase3v3[];
-  @Input() links: IPaginationLinks;
-  @Input() pager: any;
-  @Input() loading: boolean;
+  readonly content = input<IShowcase3v3[]>();
+  readonly links = input<IPaginationLinks>();
+  readonly pager = input<any>();
+  readonly loading = input<boolean>();
   readonly pageChange = output<string>();
   p = 1;
 

@@ -1,12 +1,14 @@
-import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { Component, DestroyRef, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ApiTestResult, ConfigCheckService } from '@core/service/config-check.service';
 import { API_CHECK_LIST } from './api-check-list';
+import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-config-check',
-  imports: [WidgetsModule],
+  imports: [ShareModule, WidgetsModule],
   templateUrl: './config-check.component.html',
   styleUrl: './config-check.component.scss',
 })
@@ -26,7 +28,6 @@ export class ConfigCheckComponent {
         this.results.set([...this.results(), result]);
         this.completedCount.update(count => count + 1);
       },
-      complete: () => console.log('done'),
     });
 
     this.configCheckService.startCheck();

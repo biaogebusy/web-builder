@@ -3,10 +3,11 @@ import {
   Component,
   DestroyRef,
   ElementRef,
-  Input,
   OnInit,
   inject,
   signal,
+  ChangeDetectionStrategy,
+  input
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
@@ -17,6 +18,7 @@ import type { IComponentToolbar } from '@core/interface/combs/IBuilder';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
+import { generatePath } from '@core/util/dom-path.util';
 import { getComponentSetting } from '@modules/builder/factory/getComponentSetting';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
@@ -27,6 +29,7 @@ import { BtnComponent } from '../../btn/btn.component';
 import { DividerComponent } from '../../divider/divider.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-component-toolbar',
   templateUrl: './component-toolbar.component.html',
   styleUrls: ['./component-toolbar.component.scss'],
@@ -38,7 +41,7 @@ import { DividerComponent } from '../../divider/divider.component';
 export class ComponentToolbarComponent implements OnInit, AfterViewInit {
   private currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
 
-  @Input() content: IComponentToolbar;
+  readonly content = input.required<IComponentToolbar>();
   public index = signal(0);
   public length = signal(0);
 
@@ -65,12 +68,13 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.type.set(this.content.type || this.content.content?.type || '');
-    this.component.set(this.type() ? this.content : this.content.content);
-    this.path.set(this.util.generatePath(this.ele.nativeElement));
+    const content = this.content();
+    this.type.set(content.type || content.content?.type || '');
+    this.component.set(this.type() ? content : content.content);
+    this.path.set(generatePath(this.ele.nativeElement));
     this.currentPage$.pipe(delay(500), takeUntilDestroyed(this.destroyRef)).subscribe(page => {
       this.currentPage = page;
-      this.path.set(this.util.generatePath(this.ele.nativeElement));
+      this.path.set(generatePath(this.ele.nativeElement));
       this.getIndex();
     });
   }
@@ -133,7 +137,7 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
         content: {
           type: 'text',
           fullWidth: true,
-          body: `是否要删除<strong class="text-black-500 text-primary">${this.content.type}</strong>组件？`,
+          body: `是否要删除<strong class="text-black-500 text-primary">${this.content().type}</strong>组件？`,
         },
       },
     };
@@ -142,12 +146,15 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
       width: '340px',
       data: config,
     });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.hiddenPicker();
-        this.builder.deleteComponent(this.path());
-      }
-    });
+    dialogRef
+      .afterClosed()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(result => {
+        if (result) {
+          this.hiddenPicker();
+          this.builder.deleteComponent(this.path());
+        }
+      });
   }
 
   hiddenPicker(): void {

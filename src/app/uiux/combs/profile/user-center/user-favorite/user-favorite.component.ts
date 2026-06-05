@@ -2,9 +2,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
-  Input,
   inject,
   DestroyRef,
+  input
 } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { NodeService } from '@core/service/node.service';
@@ -28,7 +28,7 @@ import { ListThinComponent } from '@uiux/combs/list/list/list-thin/list-thin.com
 export class UserFavoriteComponent implements OnInit {
   private user$ = inject<Observable<IUser>>(USER);
 
-  @Input() content: any;
+  readonly content = input<any>();
   lists$: Observable<IListThin[]>;
   id: string;
   loading: boolean;

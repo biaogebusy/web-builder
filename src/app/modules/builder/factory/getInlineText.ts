@@ -59,22 +59,22 @@ export function getInlineText(ele: any): FormlyFieldConfig {
             defaultValue: view.style.textAlign ?? 'start',
             className: 'col-span-6',
             props: {
-              label: '对齐',
+              label: 'BUILDER.FACTORY.TEXT_ALIGN',
               options: [
                 {
-                  label: '左',
+                  label: 'BUILDER.FACTORY.ALIGN_LEFT',
                   value: 'start',
                 },
                 {
-                  label: '中',
+                  label: 'BUILDER.FACTORY.ALIGN_CENTER',
                   value: 'center',
                 },
                 {
-                  label: '右',
+                  label: 'BUILDER.FACTORY.ALIGN_RIGHT',
                   value: 'end',
                 },
                 {
-                  label: '两端对齐',
+                  label: 'BUILDER.FACTORY.ALIGN_JUSTIFY',
                   value: 'justify',
                 },
               ],
@@ -86,7 +86,7 @@ export function getInlineText(ele: any): FormlyFieldConfig {
             defaultValue: view.style.lineHeight ?? 'normal',
             className: 'col-span-6',
             props: {
-              label: '行高',
+              label: 'BUILDER.FACTORY.LINE_HEIGHT',
               unit: '',
             },
           },
@@ -112,7 +112,7 @@ export function getInlineText(ele: any): FormlyFieldConfig {
             defaultValue: rgbToHex(view.style.color),
             className: 'col-span-6',
             props: {
-              label: '颜色',
+              label: 'BUILDER.FACTORY.COLOR',
               type: 'color',
             },
           },
@@ -122,7 +122,7 @@ export function getInlineText(ele: any): FormlyFieldConfig {
             defaultValue: rgbToHex(view.style.backgroundColor),
             className: 'col-span-6',
             props: {
-              label: '背景颜色',
+              label: 'BUILDER.FACTORY.BG_COLOR',
               type: 'color',
             },
           },

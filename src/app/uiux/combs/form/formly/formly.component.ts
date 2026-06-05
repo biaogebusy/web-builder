@@ -1,9 +1,10 @@
 import {
   AfterViewInit,
   Component,
-  Input,
   signal,
-  output
+  output,
+  ChangeDetectionStrategy,
+  input
 } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import type { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
@@ -15,18 +16,19 @@ interface IFormly {
 }
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-formly',
   templateUrl: './formly.component.html',
   styleUrls: ['./formly.component.scss'],
   imports: [ReactiveFormsModule, FormlyModule],
 })
 export class FormlyComponent implements AfterViewInit {
-  @Input() content: IFormly;
-  @Input() fields: FormlyFieldConfig[];
-  @Input() options: FormlyFormOptions = {};
-  @Input() form: UntypedFormGroup = new UntypedFormGroup({});
-  @Input() model: any = {};
-  @Input() classes: string | object;
+  readonly content = input<IFormly>();
+  readonly fields = input<FormlyFieldConfig[]>();
+  readonly options = input<FormlyFormOptions>({});
+  readonly form = input<UntypedFormGroup>(new UntypedFormGroup({}));
+  readonly model = input<any>({});
+  readonly classes = input<string | object>();
 
   readonly modelChange = output<any>();
 
@@ -34,8 +36,8 @@ export class FormlyComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     let config: FormlyFieldConfig[] = [];
-    const fields = this.content?.fields;
-    config = fields ?? this.fields;
+    const fields = this.content()?.fields;
+    config = fields ?? this.fields() ?? [];
     this.fieldsConfig.set(cloneDeep(config));
   }
 

@@ -1,5 +1,6 @@
-import { Location } from '@angular/common';
-import { Injectable, inject } from '@angular/core';
+import { Location, isPlatformBrowser } from '@angular/common';
+import { DestroyRef, Injectable, PLATFORM_ID, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router } from '@angular/router';
 
 @Injectable({
@@ -8,11 +9,13 @@ import { NavigationEnd, Router } from '@angular/router';
 export class NavigationService {
   private router = inject(Router);
   private location = inject(Location);
+  private platformId = inject(PLATFORM_ID);
+  private destroyRef = inject(DestroyRef);
 
   private history: string[] = [];
 
   public startSaveHistory(): void {
-    this.router.events.subscribe(event => {
+    this.router.events.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.history.push(event.urlAfterRedirects);
       }
@@ -40,6 +43,9 @@ export class NavigationService {
   }
 
   public get isIE(): boolean {
+    if (!isPlatformBrowser(this.platformId)) {
+      return false;
+    }
     return /msie\s|trident\/|edge\//i.test(window.navigator.userAgent);
   }
 }

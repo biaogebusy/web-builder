@@ -3,9 +3,9 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  Input,
   OnInit,
   inject,
+  input
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -21,6 +21,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { USER } from '@core/token/token-providers';
 import { BaseComponent } from '@uiux/base/base.widget';
+import { TranslateService } from '@ngx-translate/core';
 import { merge } from 'lodash-es';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -36,7 +37,7 @@ import { environment } from 'src/environments/environment';
 export class CardListComponent extends BaseComponent implements OnInit {
   private user$ = inject<Observable<IUser>>(USER);
 
-  @Input() content: ICardList;
+  readonly content = input.required<ICardList>();
   content$: Observable<IPageMeta[]>;
   form = new FormGroup({
     page: new FormControl(0),
@@ -52,6 +53,7 @@ export class CardListComponent extends BaseComponent implements OnInit {
   private util = inject(UtilitiesService);
   private nodeService = inject(NodeService);
   private destroyRef = inject(DestroyRef);
+  private translate = inject(TranslateService);
   public user: IUser;
 
   constructor() {
@@ -80,12 +82,12 @@ export class CardListComponent extends BaseComponent implements OnInit {
   fetchPage(params: string): void {
     const {
       params: { api },
-    } = this.content;
+    } = this.content();
     this.loading = true;
     this.content$ = this.nodeService.fetch(api, params).pipe(
       catchError(error => {
         if (error.status === 404) {
-          this.util.openSnackbar('请检查API是否已配置！', 'ok');
+          this.util.openSnackbar(this.translate.instant('BUILDER.SETTINGS.CHECK_API'), 'ok');
         }
         return of({
           rows: [],

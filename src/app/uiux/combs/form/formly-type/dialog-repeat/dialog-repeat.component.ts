@@ -4,6 +4,7 @@ import {
   computed,
   inject,
   signal,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
@@ -24,6 +25,7 @@ interface IScanStatus {
 }
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'formly-dialog-repeat',
   templateUrl: './dialog-repeat.component.html',
   styleUrls: ['./dialog-repeat.component.scss'],
@@ -108,9 +110,12 @@ export class DialogRepeatComponent extends FieldArrayType {
       width: '340px',
       data: config,
     });
-    ref.afterClosed().subscribe(result => {
-      if (result) this.remove(i);
-    });
+    ref
+      .afterClosed()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(result => {
+        if (result) this.remove(i);
+      });
   }
 
   onTest(i: number): void {

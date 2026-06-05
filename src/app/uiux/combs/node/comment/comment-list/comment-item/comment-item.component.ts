@@ -3,10 +3,11 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  Input,
   OnInit,
   inject,
   forwardRef,
+  ChangeDetectionStrategy,
+  input
 } from '@angular/core';
 import type { IBaseNode, IComment } from '@core/interface/node/INode';
 import { NodeService } from '@core/service/node.service';
@@ -23,6 +24,7 @@ import { CommentFormComponent } from '../../comment-form/comment-form.component'
 const COMMENT_GET_PATH = '/api/v1/comment';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-comment-item',
   templateUrl: './comment-item.component.html',
   styleUrls: ['./comment-item.component.scss'],
@@ -35,8 +37,8 @@ const COMMENT_GET_PATH = '/api/v1/comment';
   ],
 })
 export class CommentItemComponent implements OnInit, AfterViewInit {
-  @Input() content: IBaseNode;
-  @Input() comments: IComment[];
+  readonly content = input.required<IBaseNode>();
+  readonly comments = input<IComment[]>();
 
   currentId: string;
   showComment = true;
@@ -110,11 +112,12 @@ export class CommentItemComponent implements OnInit, AfterViewInit {
   }
 
   onDelete(id: string): void {
-    if (this.content.params) {
+    const content = this.content();
+    if (content.params) {
       this.loading = true;
       this.nodeService
         .deleteEntity(
-          `${COMMENT_GET_PATH}/${this.content.params.comment.attributes.field_name}`,
+          `${COMMENT_GET_PATH}/${content.params.comment.attributes.field_name}`,
           id
         )
         .pipe(takeUntilDestroyed())

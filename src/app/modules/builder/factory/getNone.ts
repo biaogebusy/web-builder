@@ -7,7 +7,7 @@ export function getNone(widget: any): FormlyFieldConfig {
     fieldGroup: [
       {
         props: {
-          label: '配置',
+          label: 'BUILDER.FACTORY.TAB_LABEL_PARAMS',
         },
         fieldGroup: [
           {

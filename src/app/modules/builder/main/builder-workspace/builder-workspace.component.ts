@@ -1,5 +1,5 @@
 
-import { AfterViewInit, Component, DestroyRef, inject, OnInit, DOCUMENT } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, inject, OnInit, DOCUMENT, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { RouterOutlet } from '@angular/router';
@@ -15,12 +15,14 @@ import { TagsService } from '@core/service/tags.service';
 import { ScreenService } from '@core/service/screen.service';
 import { TourService } from '@core/service/tour.service';
 import { IBuilderConfig } from '@core/interface/IBuilder';
+import { TranslateService } from '@ngx-translate/core';
 import { BuilderToolbarComponent } from '../../toolbar/builder-toolbar/builder-toolbar.component';
 import { BuilderVersionComponent } from '../../sidebar/builder-version/builder-version.component';
 import { BuilderShowcaseComponent } from '../builder-showcase/builder-showcase.component';
 import { BuilderListComponent } from '../builder-list/builder-list.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-builder-workspace',
   templateUrl: './builder-workspace.component.html',
   styleUrl: './builder-workspace.component.scss',
@@ -50,9 +52,10 @@ export class BuilderWorkspaceComponent implements AfterViewInit, OnInit {
   private tagService = inject(TagsService);
   private tourService = inject(TourService);
   private screenSerivce = inject(ScreenService);
+  private translate = inject(TranslateService);
 
   constructor() {
-    this.tagService.setTitle('工作区');
+    this.tagService.setTitle(this.translate.instant('BUILDER.WORKSPACE.PAGE_TITLE'));
   }
 
   ngOnInit(): void {
@@ -63,7 +66,7 @@ export class BuilderWorkspaceComponent implements AfterViewInit, OnInit {
       }
       this.builder.animateDisable$.next(true);
     } else {
-      this.utli.openSnackbar('请开启 Builder 功能！', 'ok');
+      this.utli.openSnackbar(this.translate.instant('BUILDER.WORKSPACE.ENABLE_BUILDER'), 'ok');
     }
   }
 

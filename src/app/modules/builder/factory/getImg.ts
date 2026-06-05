@@ -8,7 +8,7 @@ export function getImg(widget: any): FormlyFieldConfig {
     fieldGroup: [
       {
         props: {
-          label: '图片',
+          label: 'BUILDER.FACTORY.TAB_LABEL_IMG',
         },
         fieldGroupClassName: 'grid grid-cols-12 gap-3',
         fieldGroup: [
@@ -18,9 +18,9 @@ export function getImg(widget: any): FormlyFieldConfig {
             className: 'col-span-12',
             defaultValue: widget.src ?? '',
             props: {
-              updateLabel: '更新图片',
-              addLabel: '设置图片',
-              deleteLabel: '删除',
+              updateLabel: 'BUILDER.FACTORY.IMG_UPDATE',
+              addLabel: 'BUILDER.FACTORY.IMG_ADD',
+              deleteLabel: 'BUILDER.FACTORY.IMG_DELETE',
               fileName: widget.src.split('/').pop(),
               alt: widget.alt ?? '',
             },
@@ -31,7 +31,7 @@ export function getImg(widget: any): FormlyFieldConfig {
             className: 'col-span-12',
             defaultValue: widget.alt,
             props: {
-              label: 'Alt 描述',
+              label: 'BUILDER.FACTORY.ALT_DESC',
             },
           },
           {
@@ -83,7 +83,7 @@ export function getImg(widget: any): FormlyFieldConfig {
                 className: 'col-span-6',
                 defaultValue: widget?.style?.aspectRatio ?? 'auto',
                 props: {
-                  label: '宽高比',
+                  label: 'BUILDER.FACTORY.ASPECT_RATIO',
                   options: getAspectRatio,
                 },
               },
@@ -93,7 +93,7 @@ export function getImg(widget: any): FormlyFieldConfig {
                 className: 'col-span-6',
                 defaultValue: widget?.style?.objectFit ?? 'initial',
                 props: {
-                  label: '填充方式',
+                  label: 'BUILDER.FACTORY.FILL_TYPE',
                   options: getObjectFix,
                 },
               },
@@ -104,7 +104,7 @@ export function getImg(widget: any): FormlyFieldConfig {
             type: 'toggle',
             className: 'col-span-12',
             props: {
-              label: '是否链接',
+              label: 'BUILDER.FACTORY.IS_LINK',
             },
           },
           {
@@ -113,7 +113,7 @@ export function getImg(widget: any): FormlyFieldConfig {
             defaultValue: widget.href,
             type: 'input',
             props: {
-              label: '链接',
+              label: 'BUILDER.FACTORY.LINK',
             },
             hideExpression: '!model.isLink',
           },
@@ -126,11 +126,11 @@ export function getImg(widget: any): FormlyFieldConfig {
               label: 'target',
               options: [
                 {
-                  label: '新页面',
+                  label: 'BUILDER.FACTORY.NEW_PAGE',
                   value: '_blank',
                 },
                 {
-                  label: '当前页面',
+                  label: 'BUILDER.FACTORY.CURRENT_PAGE',
                   value: '_self',
                 },
               ],

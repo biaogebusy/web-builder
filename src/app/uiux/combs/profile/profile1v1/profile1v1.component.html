@@ -1,6 +1,6 @@
 <div class="profile-banner">
-  @if (content.bannerBg) {
-    <app-bg-img [content]="content.bannerBg" />
+  @if (content().bannerBg) {
+    <app-bg-img [content]="content().bannerBg" />
   }
 </div>
 <div class="profile-1v1 m-y">
@@ -10,16 +10,16 @@
         <div class="box p-y-sm p-x">
           <app-img [content]="avatar" />
           <h2 class="name-title mat-h2 m-bottom-0 two-line">
-            {{ content.name }}
+            {{ content().name }}
           </h2>
-          <div class="subTitle">{{ content.subTitle }}</div>
-          @if (content.actions) {
+          <div class="subTitle">{{ content().subTitle }}</div>
+          @if (content().actions) {
             <div class="actions">
               <button mat-icon-button aria-label="menu" [matMenuTriggerFor]="menu">
                 <mat-icon>more_vert</mat-icon>
               </button>
               <mat-menu #menu="matMenu" class="actions-menu">
-                @for (action of content.actions; track action) {
+                @for (action of content().actions; track action) {
                   <button mat-menu-item>
                     <app-dynamic-component [inputs]="action" />
                   </button>
@@ -29,16 +29,16 @@
           }
         </div>
         <mat-divider />
-        @if (content.details) {
+        @if (content().details) {
           <div class="left-item p-y-sm p-x-xs">
             <app-title
               [content]="{
-                label: content.details.label,
+                label: content().details.label,
                 style: 'style-v4',
               }"
             />
             <div class="list">
-              @for (item of content.details.elements; track item) {
+              @for (item of content().details.elements; track item) {
                 <div class="list-item">
                   <app-icon [content]="item.icon" />
                   <div class="label m-right-xs bold">{{ item.label }}:</div>
@@ -48,10 +48,10 @@
             </div>
           </div>
         }
-        @if (content.leftBottom) {
+        @if (content().leftBottom) {
           <div class="left-bottom p-y-sm p-x-sm">
             <div class="content">
-              @for (item of content.leftBottom; track item) {
+              @for (item of content().leftBottom; track item) {
                 <div class="item m-bottom">
                   <app-title [content]="item.title" />
                   <app-dynamic-component [inputs]="item" />
@@ -63,7 +63,7 @@
       </div>
       <div class="right col-span-12 md:col-span-9">
         <div class="content">
-          @for (item of content.content; track item) {
+          @for (item of content().content; track item) {
             <div class="item m-bottom">
               @if (!(item.empty && item.empty === true)) {
                 <app-title
@@ -79,12 +79,12 @@
         </div>
       </div>
     </div>
-    @if (content.params?.comment) {
+    @if (content().params?.comment) {
       <div class="comment-wrapper">
-        @if (content.params?.comment) {
-          <app-comment-form [content]="content" [type]="'add'" />
+        @if (content().params?.comment) {
+          <app-comment-form [content]="content()" [type]="'add'" />
         }
-        <app-comment-list [comments]="comments" [content]="content" />
+        <app-comment-list [comments]="comments" [content]="content()" />
       </div>
     }
   </div>

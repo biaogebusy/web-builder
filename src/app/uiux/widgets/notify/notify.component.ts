@@ -46,8 +46,6 @@ export class NotifyComponent {
     this.nodeService
       .deleteFlagging(item.action, [item])
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(res => {
-        console.log(res);
-      });
+      .subscribe();
   }
 }

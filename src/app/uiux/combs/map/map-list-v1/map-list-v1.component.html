@@ -10,10 +10,10 @@
         <div class="loading-wrap m-y">暂无相关数据</div>
       }
       <div class="map-list-head p-x-sm p-y-sm">
-        <app-title [content]="content.title" />
-        @if (content.meta) {
+        <app-title [content]="content().title" />
+        @if (content().meta) {
           <div class="meta">
-            @for (item of content.meta; track item) {
+            @for (item of content().meta; track item) {
               <div class="item">
                 <span>{{ item.label }}: </span>
                 <span
@@ -32,8 +32,8 @@
       </div>
     </div>
     <div class="map-wrapper">
-      @if (content.map) {
-        <app-map class="flex-12/12" [content]="{ city: content.map.city, elements: elements }" />
+      @if (content().map) {
+        <app-map class="flex-12/12" [content]="{ city: content().map.city, elements: elements }" />
       }
       @if (loading) {
         <div class="map-loading m-y">
@@ -41,9 +41,9 @@
         </div>
       }
     </div>
-    @if (content.sidebarRight) {
+    @if (content().sidebarRight) {
       <div class="sidebar-right md:flex-[0_1_600px]">
-        @for (item of content.sidebarRight; track item) {
+        @for (item of content().sidebarRight; track item) {
           <app-dynamic-component [inputs]="item" />
         }
       </div>

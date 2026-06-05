@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -16,8 +16,8 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 export class TermsServiceComponent {
   private dialog = inject(MatDialog);
 
-  @Input() content: any;
-  @Input() form: UntypedFormGroup;
+  readonly content = input.required<any>();
+  readonly form = input.required<UntypedFormGroup>();
   private dialogRef: any;
 
 
@@ -44,6 +44,6 @@ export class TermsServiceComponent {
   }
 
   get isValid(): boolean {
-    return this.form.controls[this.content.key].valid;
+    return this.form().controls[this.content().key].valid;
   }
 }

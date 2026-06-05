@@ -3,13 +3,12 @@ import { DOCUMENT, Injectable, PLATFORM_ID, REQUEST, inject } from '@angular/cor
 import { isPlatformBrowser } from '@angular/common';
 import { Observable, of, Subject, firstValueFrom } from 'rxjs';
 import { ApiService } from './api.service';
-import { map, catchError, switchMap } from 'rxjs/operators';
+import { map, catchError, switchMap, take } from 'rxjs/operators';
 import { TokenUser, IUser, IUserProfile } from '../interface/IUser';
 import { CryptoJSService } from './crypto-js.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { environment } from 'src/environments/environment';
-import { intersection } from 'lodash-es';
 import { CookieService } from 'ngx-cookie-service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -19,6 +18,13 @@ const loadDialogComponent = (): Promise<typeof DialogComponent> =>
   import('@uiux/widgets/dialog/dialog.component').then(m => m.DialogComponent);
 import { IDialog } from '@core/interface/IDialog';
 import { generateCodeChallenge, generateCodeVerifier, generateState } from '@core/util/pkce.util';
+import {
+  getCookieExpirationDate,
+  getTokenExpirationTime,
+  isMatchCurrentRole,
+  isTokenExpired,
+  parseServerCookie,
+} from '@core/util/auth-token.util';
 
 type AuthBroadcastMessage = { type: 'login' | 'logout' };
 
@@ -219,7 +225,7 @@ export class UserService extends ApiService {
               refresh_token: tokenData.refresh_token,
               token_type: tokenData.token_type,
               expires_in: tokenData.expires_in,
-              expires_at: this.getTokenExpirationTime(tokenData),
+              expires_at: getTokenExpirationTime(tokenData),
               current_user: {
                 uid: String(profile.uid),
                 name: profile.name || '',
@@ -238,9 +244,11 @@ export class UserService extends ApiService {
     const {
       current_user: { uid },
     } = data;
-    this.getCurrentUserById(uid, data).subscribe(user => {
-      this.loginUser(data, user);
-    });
+    this.getCurrentUserById(uid, data)
+      .pipe(take(1))
+      .subscribe(user => {
+        this.loginUser(data, user);
+      });
   }
 
   editingUser(user: IUser, data: any): any {
@@ -269,7 +277,7 @@ export class UserService extends ApiService {
       }
       return JSON.parse(this.cryptoJS.decrypt(raw));
     } catch (e) {
-      console.log('Failed to read stored user', e);
+      console.error('Failed to read stored user', e);
     }
     return null;
   }
@@ -282,25 +290,7 @@ export class UserService extends ApiService {
     if (!header) {
       return null;
     }
-    return this.parseServerCookie(header, name);
-  }
-
-  private parseServerCookie(header: string, name: string): string | null {
-    const pairs = header.split(/;\s*/);
-    for (const pair of pairs) {
-      const idx = pair.indexOf('=');
-      if (idx < 0) {
-        continue;
-      }
-      if (pair.slice(0, idx) === name) {
-        try {
-          return decodeURIComponent(pair.slice(idx + 1));
-        } catch {
-          return pair.slice(idx + 1);
-        }
-      }
-    }
-    return null;
+    return parseServerCookie(header, name);
   }
 
   applyRefreshedToken(tokenData: any): IUser | null {
@@ -311,7 +301,7 @@ export class UserService extends ApiService {
     stored.access_token = tokenData.access_token;
     stored.refresh_token = tokenData.refresh_token ?? stored.refresh_token;
     stored.expires_in = tokenData.expires_in;
-    stored.expires_at = this.getTokenExpirationTime(tokenData);
+    stored.expires_at = getTokenExpirationTime(tokenData);
     this.refreshLocalUser(stored);
     return stored;
   }
@@ -337,36 +327,6 @@ export class UserService extends ApiService {
     });
   }
 
-  getTokenExpirationTime(tokenData: any): number {
-    const expiresAt = this.getJwtExpirationTime(tokenData?.access_token);
-
-    return expiresAt ?? Date.now() + Number(tokenData?.expires_in || 0) * 1000;
-  }
-
-  private getJwtExpirationTime(accessToken?: string): number | null {
-    if (!accessToken) {
-      return null;
-    }
-
-    try {
-      const payload = accessToken.split('.')[1];
-      if (!payload) {
-        return null;
-      }
-      const normalizedPayload = payload.replace(/-/g, '+').replace(/_/g, '/');
-      const decodedPayload = JSON.parse(atob(normalizedPayload));
-      const exp = Number(decodedPayload?.exp);
-
-      return Number.isFinite(exp) ? exp * 1000 : null;
-    } catch {
-      return null;
-    }
-  }
-
-  isTokenExpired(user: IUser): boolean {
-    return !user.expires_at || Date.now() >= user.expires_at;
-  }
-
   refreshLocalUser(user: IUser): void {
     this.userSub$.next(user);
     this.setUserCookie(user);
@@ -386,16 +346,12 @@ export class UserService extends ApiService {
       }
       const currentUserRoles = user.current_user.roles;
       const uid = user.current_user.uid;
-      if (this.isMatchCurrentRole(roles, currentUserRoles) || uid === '1') {
+      if (isMatchCurrentRole(roles, currentUserRoles) || uid === '1') {
         return true;
       } else {
         return false;
       }
     }
-  }
-
-  isMatchCurrentRole(roles: string[], currentUserRoles: string[]): boolean {
-    return intersection(currentUserRoles, roles).length > 0;
   }
 
   loginUser(data: any, user: any): void {
@@ -561,25 +517,17 @@ export class UserService extends ApiService {
   }
 
   setUserCookie(user: IUser): void {
-    // console.log(user);
     // Druapl default cookie_lifetime 2000000，if change, need to keep same
     this.cookieService.set(this.localUserKey, this.cryptoJS.encrypt(JSON.stringify(user)), {
-      expires: this.getCookieExpirationDate(this.coreConfig.cookieLifetime ?? 2000000),
+      expires: getCookieExpirationDate(this.coreConfig.cookieLifetime ?? 2000000),
       path: '/',
       sameSite: 'Lax',
     });
   }
 
-  getCookieExpirationDate(seconds: number): Date {
-    const now = new Date();
-    const expirationTime = new Date(now.getTime() + seconds * 1000);
-
-    return expirationTime;
-  }
-
   getLoginState(): Observable<boolean> {
     const storedUser = this.getStoredUser();
-    if (!storedUser || !storedUser.access_token || this.isTokenExpired(storedUser)) {
+    if (!storedUser || !storedUser.access_token || isTokenExpired(storedUser)) {
       return of(false);
     } else {
       return of(true);

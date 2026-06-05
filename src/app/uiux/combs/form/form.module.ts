@@ -2,12 +2,13 @@ import { NgModule } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { BaseModule } from '@uiux/base/base.module';
-import { FormlyModule } from '@ngx-formly/core';
+import { FormlyModule, FormlyFieldConfig, ConfigOption, FORMLY_CONFIG } from '@ngx-formly/core';
 import { FormlyMatToggleModule } from '@ngx-formly/material/toggle';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
 import { FormlyMatSliderModule } from '@ngx-formly/material/slider';
+import { TranslateService } from '@ngx-translate/core';
 import { DatepickerComponent } from './datepicker/datepicker.component';
 import { DateRangeComponent } from './formly-type/date-range/date-range.component';
 import { ImgPickerComponent } from './formly-type/img-picker/img-picker.component';
@@ -44,6 +45,75 @@ const standaloneComponents = [
 ];
 
 const components = [...standaloneComponents];
+
+const TRANSLATABLE_PROPS = [
+  'label',
+  'placeholder',
+  'description',
+  'addText',
+  'updateLabel',
+  'addLabel',
+  'deleteLabel',
+  'tooltip',
+] as const;
+const TRANSLATION_KEY_RE = /^[A-Z][A-Z0-9_]*(\.[A-Z0-9_]+)+$/;
+
+export function registerTranslateExtension(translate: TranslateService): ConfigOption {
+  return {
+    validationMessages: [
+      {
+        name: 'required',
+        message: () => translate.instant('BUILDER.FORM_VALIDATION.REQUIRED'),
+      },
+      {
+        name: 'max',
+        message: () => translate.instant('BUILDER.FORM_VALIDATION.MAX'),
+      },
+      {
+        name: 'min',
+        message: () => translate.instant('BUILDER.FORM_VALIDATION.MIN'),
+      },
+    ],
+    extensions: [
+      {
+        name: 'translate',
+        extension: {
+          prePopulate(field: FormlyFieldConfig) {
+            const props = field.props as any;
+            if (props && !props._translated) {
+              props._translated = true;
+              for (const key of TRANSLATABLE_PROPS) {
+                const value = props[key];
+                if (typeof value === 'string' && TRANSLATION_KEY_RE.test(value)) {
+                  props[key] = translate.instant(value);
+                }
+              }
+              if (Array.isArray(props.options)) {
+                props.options = props.options.map((opt: any) => {
+                  if (opt && typeof opt.label === 'string' && TRANSLATION_KEY_RE.test(opt.label)) {
+                    return { ...opt, label: translate.instant(opt.label) };
+                  }
+                  return opt;
+                });
+              }
+            }
+            const messages = (field as any).validation?.messages;
+            if (messages && !messages._translated) {
+              messages._translated = true;
+              for (const key of Object.keys(messages)) {
+                if (key === '_translated') continue;
+                const value = messages[key];
+                if (typeof value === 'string' && TRANSLATION_KEY_RE.test(value)) {
+                  messages[key] = () => translate.instant(value);
+                }
+              }
+            }
+          },
+        },
+      },
+    ],
+  };
+}
 
 @NgModule({
   imports: [
@@ -92,20 +162,19 @@ const components = [...standaloneComponents];
           component: JsonFieldType,
         },
       ],
-      validationMessages: [
-        { name: 'required', message: '该字段必填' },
-        {
-          name: 'max',
-          message: '不能超过最大值',
-        },
-        {
-          name: 'min',
-          message: '不能小于最小值',
-        },
-      ],
     }),
   ],
-  providers: [MatDatepickerModule, provideNativeDateAdapter(), { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' }],
+  providers: [
+    MatDatepickerModule,
+    provideNativeDateAdapter(),
+    { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' },
+    {
+      provide: FORMLY_CONFIG,
+      multi: true,
+      useFactory: registerTranslateExtension,
+      deps: [TranslateService],
+    },
+  ],
   exports: [...components],
 })
 export class FormModule extends BaseModule {

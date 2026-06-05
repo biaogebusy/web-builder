@@ -1,4 +1,4 @@
-import { Component, forwardRef, inject } from '@angular/core';
+import { Component, forwardRef, inject, ChangeDetectionStrategy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -8,6 +8,7 @@ import { BtnComponent } from '../btn/btn.component';
 import { DynamicComponentComponent } from '../builder/dynamic-component/dynamic-component.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-dialog',
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.scss'],

@@ -3,9 +3,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
-  Input,
   OnInit,
   inject,
+  input
 } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -23,6 +23,7 @@ import { DialogService } from '@core/service/dialog.service';
 import { ContentService } from '@core/service/content.service';
 import { ContentState } from '@core/state/ContentState';
 import { USER } from '@core/token/token-providers';
+import { getFileType } from '@core/util/file-type.util';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { Observable } from 'rxjs';
 import { DialogComponent } from '../dialog/dialog.component';
@@ -44,7 +45,7 @@ import { DialogComponent } from '../dialog/dialog.component';
 export class LinkComponent extends BaseComponent implements OnInit {
   private user$ = inject<Observable<IUser>>(USER);
 
-  @Input() content: ILink;
+  readonly content = input.required<ILink>();
   public classes: any;
   private dialogRef: MatDialogRef<any>;
   private user: IUser;
@@ -66,7 +67,7 @@ export class LinkComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!this.content) {
+    if (!this.content()) {
       return;
     }
     this.getClasses();
@@ -77,18 +78,19 @@ export class LinkComponent extends BaseComponent implements OnInit {
   }
 
   nav(event: any): any {
-    if (this.content.dialog) {
+    const contentValue = this.content();
+    if (contentValue.dialog) {
       event.preventDefault();
       event.stopPropagation();
-      this.openDialog(this.content.dialog);
+      this.openDialog(contentValue.dialog);
       return false;
     }
 
-    if (this.content?.rel === 'drawer') {
+    if (contentValue?.rel === 'drawer') {
       this.contentState.drawerOpened$.next(true);
       this.contentState.drawerLoading$.next(true);
       this.contentService
-        .loadPageContent(this.content.href)
+        .loadPageContent(contentValue.href)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((content: IPage) => {
           this.contentState.drawerLoading$.next(false);
@@ -97,10 +99,10 @@ export class LinkComponent extends BaseComponent implements OnInit {
       return false;
     }
 
-    if (this.content.href && this.content.href.includes(':id')) {
+    if (contentValue.href && contentValue.href.includes(':id')) {
       if (this.user) {
         const id = this.user.current_user.uid;
-        const url = this.content.href.replace(':id', id);
+        const url = contentValue.href.replace(':id', id);
         this.router.navigate([url]);
         return;
       }
@@ -125,26 +127,30 @@ export class LinkComponent extends BaseComponent implements OnInit {
       },
     });
     if (dialog?.afterClosed) {
-      this.dialogRef.afterClosed().subscribe(() => {
-        const after = dialog.afterClosed;
-        if (after?.success) {
-          this.util.openSnackbar(after?.success?.label, 'Ok');
-        }
-        if (after?.emit) {
-          this.dialogService.closeDialog();
-        }
-      });
+      this.dialogRef
+        .afterClosed()
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(() => {
+          const after = dialog.afterClosed;
+          if (after?.success) {
+            this.util.openSnackbar(after?.success?.label, 'Ok');
+          }
+          if (after?.emit) {
+            this.dialogService.closeDialog();
+          }
+        });
     }
     this.dialogService.handlerIframe(this.dialog);
   }
 
   getClasses(): void {
     const obj: any = {};
-    if (this.content.classes) {
-      obj[this.content.classes] = true;
+    const content = this.content();
+    if (content.classes) {
+      obj[content.classes] = true;
     }
-    if (this.content.href) {
-      const type = this.util.getFileType(this.content.href);
+    if (content.href) {
+      const type = getFileType(content.href);
       obj[type] = type || false;
     }
     this.classes = obj;

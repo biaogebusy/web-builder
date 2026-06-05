@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input
 } from '@angular/core';
 import type { IShowcase2v2 } from '@core/interface/combs/IShowcase';
 import { CardComponent } from '@uiux/widgets/card/card.component';
@@ -15,7 +15,7 @@ import { TextComponent } from '@uiux/widgets/text/text.component';
   imports: [TextComponent, CardComponent],
 })
 export class Showcase2v2Component {
-  @Input() content: IShowcase2v2;
+  readonly content = input<IShowcase2v2>();
   constructor() {}
 
 }

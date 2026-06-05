@@ -3,10 +3,10 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  Input,
   OnInit,
   inject,
   signal,
+  input
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -25,7 +25,7 @@ import { cloneDeep } from 'lodash-es';
   imports: [ShareModule, WidgetsModule, DragDropModule],
 })
 export class BuilderPanelComponent implements OnInit {
-  @Input() content: IBuilderComponent[];
+  readonly content = input<IBuilderComponent[]>();
   public builder = inject(BuilderState);
   private cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);

@@ -1,36 +1,36 @@
-@if (content) {
+@if (content(); as contentValue) {
   <div
     class="card-1v6"
-    [class]="content.classes"
+    [class]="contentValue.classes"
   >
     <div class="card-inner">
       <h2
         class="title bold"
         [contentedit]="'title.label'"
-        [class]="content.title.classes"
-        [innerHTML]="content.title.label | safeHtml"
+        [class]="contentValue.title.classes"
+        [innerHTML]="contentValue.title.label | safeHtml"
       ></h2>
       <div class="meta">
         <div
           [contentedit]="'prefix'"
           class="mat-headline-4 !mb-0"
-          [innerHTML]="content.prefix | safeHtml"
+          [innerHTML]="contentValue.prefix | safeHtml"
         ></div>
         <div
           [contentedit]="'number'"
           class="mat-headline-2 !mb-0"
-          [innerHTML]="content.number | safeHtml"
+          [innerHTML]="contentValue.number | safeHtml"
         ></div>
         <div
           [contentedit]="'suffix'"
           class="suffix mat-headline-4 !mb-0"
-          [innerHTML]="content.suffix | safeHtml"
+          [innerHTML]="contentValue.suffix | safeHtml"
         ></div>
       </div>
-      <div [contentedit]="'body'" class="content" [innerHTML]="content.body | safeHtml"></div>
-      @if (content.actions) {
-        <div class="actions gap-3 flex justify-{{ content.actionsAlign }} items-center">
-          @for (action of content.actions; track action; let i = $index) {
+      <div [contentedit]="'body'" class="content" [innerHTML]="contentValue.body | safeHtml"></div>
+      @if (contentValue.actions) {
+        <div class="actions gap-3 flex justify-{{ contentValue.actionsAlign }} items-center">
+          @for (action of contentValue.actions; track action; let i = $index) {
             <app-dynamic-component [attr.data-path]="'actions.' + i" [inputs]="action" />
           }
         </div>

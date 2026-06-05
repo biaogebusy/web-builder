@@ -1,11 +1,11 @@
 import { AsyncPipe } from '@angular/common';
 import {
   Component,
-  Input,
   ChangeDetectorRef,
   ChangeDetectionStrategy,
   inject,
   signal,
+  input
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,7 +14,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { IDialog } from '@core/interface/IDialog';
 import type { IUser } from '@core/interface/IUser';
 import { UserService } from '@core/service/user.service';
-import { UtilitiesService } from '@core/service/utilities.service';
 import { USER } from '@core/token/token-providers';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { Observable } from 'rxjs';
@@ -29,18 +28,17 @@ import { Observable } from 'rxjs';
 export class UserMenuComponent {
   public user$ = inject<Observable<IUser>>(USER);
 
-  @Input() content: any[];
+  readonly content = input<any[]>();
 
   private dialog = inject(MatDialog);
   private cd = inject(ChangeDetectorRef);
   private userService = inject(UserService);
-  private uti = inject(UtilitiesService);
 
   public name = signal<string>('');
 
   constructor() {
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
-      this.name.set(this.uti.getIndexTitle(user.display_name || 'N'));
+      this.name.set((user.display_name || 'N').substring(0, 1));
     });
   }
 

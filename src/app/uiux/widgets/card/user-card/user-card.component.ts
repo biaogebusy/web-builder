@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { ChangeDetectorRef, Component, DestroyRef, Input, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, OnInit, inject, ChangeDetectionStrategy, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -19,6 +19,7 @@ import { MediaObjectComponent } from '../../media/media-object/media-object.comp
 import { UserCardCountComponent } from './user-card-count/user-card-count.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-user-card',
   templateUrl: './user-card.component.html',
   styleUrls: ['./user-card.component.scss'],
@@ -36,7 +37,7 @@ export class UserCardComponent extends BaseComponent implements OnInit {
   user$ = inject<Observable<IUser>>(USER);
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
 
-  @Input() content: IUserCard;
+  readonly content = input.required<IUserCard>();
   profile: IMediaObject;
   count: IUserCount[];
   user: IUser;
@@ -79,9 +80,10 @@ export class UserCardComponent extends BaseComponent implements OnInit {
   }
 
   getCount(): void {
-    const api = this.getParams(this.content, 'api');
-    if (this.content.count) {
-      this.count = this.content.count;
+    const api = this.getParams(this.content(), 'api');
+    const content = this.content();
+    if (content.count) {
+      this.count = content.count;
       this.cd.detectChanges();
     } else if (api) {
       this.getContentFormApi(api);
@@ -120,11 +122,13 @@ export class UserCardComponent extends BaseComponent implements OnInit {
 
   handleDialogClosed(api: string): void {
     if (this.dialogService.dialogState$) {
-      this.dialogService.dialogState$.subscribe(state => {
-        if (!state) {
-          this.getContentFormApi(api);
-        }
-      });
+      this.dialogService.dialogState$
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(state => {
+          if (!state) {
+            this.getContentFormApi(api);
+          }
+        });
     }
   }
 }

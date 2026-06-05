@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input
 } from '@angular/core';
 import type { IMediaObjectGroup } from '@core/interface/widgets/IMediaObject';
 import { MediaObjectComponent } from '../media-object/media-object.component';
@@ -14,7 +14,7 @@ import { MediaObjectComponent } from '../media-object/media-object.component';
   imports: [MediaObjectComponent],
 })
 export class MediaObjectGroupComponent {
-  @Input() content: IMediaObjectGroup;
+  readonly content = input<IMediaObjectGroup>();
   constructor() {}
 
 }

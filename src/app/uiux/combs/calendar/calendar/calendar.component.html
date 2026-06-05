@@ -1,10 +1,10 @@
 <div class="calendar">
-  @if (loading) {
+  @if (loading()) {
     <div class="loading-inner">
       <app-loading />
     </div>
   }
   @if (isBrowser) {
-    <full-calendar #calendar [options]="options" />
+    <full-calendar #calendar [options]="options()" />
   }
 </div>

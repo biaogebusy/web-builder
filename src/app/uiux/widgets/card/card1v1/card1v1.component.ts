@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { ContenteditDirective } from '@core/directive/contentedit.directive';
 import type { ICard1v1 } from '@core/interface/widgets/ICard';
@@ -8,6 +8,7 @@ import { FeatureBoxComponent } from '../../feature-box/feature-box.component';
 import { LinkComponent } from '../../link/link.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-card-1v1',
   templateUrl: './card1v1.component.html',
   styleUrls: ['./card1v1.component.scss'],
@@ -21,6 +22,6 @@ import { LinkComponent } from '../../link/link.component';
   ],
 })
 export class Card1v1Component {
-  @Input() content: ICard1v1;
+  readonly content = input.required<ICard1v1>();
 
 }

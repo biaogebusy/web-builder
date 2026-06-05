@@ -1,14 +1,15 @@
-import { Component, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 import type { ITextHero } from '@core/interface/widgets/IText';
 import { DynamicComponentComponent } from '../builder/dynamic-component/dynamic-component.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-text-hero',
   templateUrl: './text-hero.component.html',
   styleUrls: ['./text-hero.component.scss'],
   imports: [DynamicComponentComponent],
 })
 export class TextHeroComponent {
-  @Input() content: ITextHero;
+  readonly content = input<ITextHero>();
 
 }

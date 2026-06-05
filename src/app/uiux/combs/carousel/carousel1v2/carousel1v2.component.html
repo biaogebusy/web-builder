@@ -1,8 +1,8 @@
-@if (content) {
+@if (content(); as contentValue) {
   <div class="carousel-1-v2">
     <div class="head">
-      @if (content.title) {
-        <app-title [attr.data-path]="'title'" [content]="content.title" />
+      @if (contentValue.title) {
+        <app-title [attr.data-path]="'title'" [content]="contentValue.title" />
       }
       <div class="actions">
         <app-btn

@@ -1,10 +1,10 @@
-@if (getParams(content, 'mode') === 'horizontal') {
+@if (getParams(content(), 'mode') === 'horizontal') {
   <mat-horizontal-stepper
-    [linear]="getParams(content, 'linear')"
-    [labelPosition]="getParams(content, 'labelPosition')"
+    [linear]="getParams(content(), 'linear')"
+    [labelPosition]="getParams(content(), 'labelPosition')"
     #stepper
   >
-    @for (step of content.steps; track step) {
+    @for (step of content().steps; track step) {
       <mat-step [color]="step.color" [completed]="step.completed">
         <ng-template matStepLabel>{{ step.label }}</ng-template>
         @if (step.elements) {
@@ -17,9 +17,9 @@
   </mat-horizontal-stepper>
 }
 
-@if (getParams(content, 'mode') === 'vertical') {
-  <mat-vertical-stepper [linear]="getParams(content, 'linear')" #stepper>
-    @for (step of content.steps; track step) {
+@if (getParams(content(), 'mode') === 'vertical') {
+  <mat-vertical-stepper [linear]="getParams(content(), 'linear')" #stepper>
+    @for (step of content().steps; track step) {
       <mat-step [color]="step.color" [completed]="step.completed">
         <ng-template matStepLabel>{{ step.label }}</ng-template>
         @if (step.elements) {
