@@ -3,12 +3,14 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ApiService } from './api.service';
 import { BUILDER_CONFIG } from '@core/token/token-providers';
 import type { IPage } from '@core/interface/IAppConfig';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription, timer } from 'rxjs';
 import { UtilitiesService } from './utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { NodeService } from './node.service';
-import { catchError, take, tap } from 'rxjs/operators';
+import { catchError, filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
+import { LocalStorageService } from 'ngx-webstorage';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { ContentService } from './content.service';
@@ -24,6 +26,10 @@ import {
   getPageParams,
 } from '@core/util/builder-page.util';
 
+const BUILDERPATH = '/builder';
+const VERSION_KEY = 'version';
+const VERSION_CHECK_INTERVAL = 30000;
+
 @Injectable({
   providedIn: 'root',
 })
@@ -36,7 +42,11 @@ export class BuilderService extends ApiService {
   private nodeService = inject(NodeService);
   private contentService = inject(ContentService);
   private destroyRef = inject(DestroyRef);
+  private router = inject(Router);
+  private storage = inject(LocalStorageService);
   private builderConfig: IBuilderConfig;
+  private versionCheckSub?: Subscription;
+  private versionDialogOpen = false;
 
   constructor() {
     super();
@@ -149,46 +159,77 @@ export class BuilderService extends ApiService {
   }
 
   checkIsLatestPage(checkPage: IPage): void {
-    if (!checkPage) {
+    if (!checkPage?.nid) {
       return;
     }
-    const { langcode, nid, changed, uuid, title } = checkPage;
-    if (nid && changed && uuid) {
-      const lang = getApiLang(langcode);
-      this.nodeService
-        .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', lang)
-        .pipe(take(1))
-        .subscribe((page: IPage) => {
-          if (Number(changed) < Number(page.changed)) {
-            const config: IDialog = {
-              title: `当前页面不是最新版本`,
-              titleClasses: 'text-red-500',
-              yesLabel: '确认更新',
-              noLabel: '取消',
-              inputData: {
-                content: {
-                  type: 'text',
-                  fullWidth: true,
-                  body: `是否要拉取<strong class="text-black-500">[${title}]</strong>最新的更新覆盖当前页面？`,
-                },
-              },
-            };
-            const dialogRef = this.dialog.open(DialogComponent, {
-              width: '340px',
-              data: config,
-            });
+    this.versionCheckSub?.unsubscribe();
+    this.versionCheckSub = timer(0, VERSION_CHECK_INTERVAL)
+      .pipe(
+        filter(() => this.router.url.includes(BUILDERPATH) && !this.versionDialogOpen),
+        map(() => this.getLocalCurrentPage()),
+        filter((localPage): localPage is IPage => Boolean(localPage?.nid)),
+        switchMap(localPage => {
+          const lang = getApiLang(localPage.langcode);
+          return this.nodeService.fetch(`/api/v3/landingPage/json/${localPage.nid}`, 'noCache=1', lang).pipe(
+            map((serverPage: IPage) => ({ localPage, serverPage })),
+            catchError(() => of(null))
+          );
+        }),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe(result => {
+        if (!result) {
+          return;
+        }
+        const { localPage, serverPage } = result;
+        const localChanged = Number(localPage.changed);
+        const serverChanged = Number(serverPage?.changed);
+        if (!Number.isFinite(localChanged) || !Number.isFinite(serverChanged)) {
+          return;
+        }
+        if (localChanged < serverChanged) {
+          this.promptLatestUpdate(localPage, serverPage);
+        }
+      });
+  }
 
-            dialogRef
-              .afterClosed()
-              .pipe(take(1))
-              .subscribe(result => {
-                if (result) {
-                  this.builder.loadNewPage(formatToExtraData(page));
-                }
-              });
-          }
-        });
+  private getLocalCurrentPage(): IPage | undefined {
+    const version = this.storage.retrieve(VERSION_KEY);
+    if (!isArray(version)) {
+      return undefined;
     }
+    return version.find((page: IPage) => page.current === true);
+  }
+
+  private promptLatestUpdate(localPage: IPage, serverPage: IPage): void {
+    const config: IDialog = {
+      title: `当前页面不是最新版本`,
+      titleClasses: 'text-red-500',
+      yesLabel: '确认更新',
+      noLabel: '取消',
+      inputData: {
+        content: {
+          type: 'text',
+          fullWidth: true,
+          body: `是否要拉取<strong class="text-black-500">[${localPage.title}]</strong>最新的更新覆盖当前页面？`,
+        },
+      },
+    };
+    this.versionDialogOpen = true;
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '340px',
+      data: config,
+    });
+
+    dialogRef
+      .afterClosed()
+      .pipe(take(1))
+      .subscribe(result => {
+        this.versionDialogOpen = false;
+        if (result) {
+          this.builder.loadNewPage(formatToExtraData(serverPage));
+        }
+      });
   }
 
   loadNodeJson(page: { langcode?: string; nid: string; uuid: string; schemaType: string }): void {
