@@ -143,18 +143,47 @@ export class ManageMediaComponent implements OnInit {
   }
 
   onDelete(uuid: string): void {
-    if (uuid) {
-      this.loading.set(true);
-      this.manageService
-        .deleteMedia(uuid)
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(() => {
-          this.loading.set(false);
-          this.onSearch(this.form.value);
-        });
-    } else {
+    if (!uuid) {
       this.util.openSnackbar(this.translate.instant('MANAGE.MEDIA.MISSING_UUID'), 'ok');
+      return;
     }
+    this.confirmDelete('MANAGE.MEDIA.CONFIRM_DELETE_BODY')
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(confirmed => {
+        if (!confirmed) {
+          return;
+        }
+        this.loading.set(true);
+        this.manageService
+          .deleteMedia(uuid)
+          .pipe(takeUntilDestroyed(this.destroyRef))
+          .subscribe(() => {
+            this.loading.set(false);
+            this.onSearch(this.form.value);
+          });
+      });
+  }
+
+  confirmDelete(bodyKey: string, params?: Record<string, unknown>): Observable<boolean> {
+    const config: IDialog = {
+      title: this.translate.instant('MANAGE.MEDIA.CONFIRM_DELETE_TITLE'),
+      titleClasses: 'text-red-500',
+      noLabel: this.translate.instant('MANAGE.MEDIA.CANCEL'),
+      yesLabel: this.translate.instant('MANAGE.MEDIA.CONFIRM'),
+      inputData: {
+        content: {
+          type: 'text',
+          fullWidth: true,
+          body: this.translate.instant(bodyKey, params),
+        },
+      },
+    };
+    return this.dialog
+      .open(DialogComponent, {
+        width: '340px',
+        data: config,
+      })
+      .afterClosed();
   }
 
   onChange(checked: boolean, uuid: string): void {
@@ -187,6 +216,16 @@ export class ManageMediaComponent implements OnInit {
   }
 
   bulkDelete(lists: string[]): void {
+    this.confirmDelete('MANAGE.MEDIA.CONFIRM_BULK_DELETE_BODY', { count: lists.length })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(confirmed => {
+        if (confirmed) {
+          this.runBulkDelete(lists);
+        }
+      });
+  }
+
+  runBulkDelete(lists: string[]): void {
     const totalFiles = lists.length;
 
     from(lists)

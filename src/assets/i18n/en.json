@@ -33,7 +33,12 @@
       "EMPTY_DESC": "No media resources yet",
       "MISSING_UUID": "Did you forget to configure the UUID?",
       "ALL_DELETED": "All deleted",
-      "PATH_COPIED": "Image path copied"
+      "PATH_COPIED": "Image path copied",
+      "CONFIRM_DELETE_TITLE": "Delete media",
+      "CONFIRM_DELETE_BODY": "Delete this media file? This action cannot be undone.",
+      "CONFIRM_BULK_DELETE_BODY": "Delete the {{count}} selected media files? This action cannot be undone.",
+      "CONFIRM": "Delete",
+      "CANCEL": "Cancel"
     }
   },
   "BUILDER": {

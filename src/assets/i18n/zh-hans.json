@@ -33,7 +33,12 @@
       "EMPTY_DESC": "当前没有任何媒体资源",
       "MISSING_UUID": "是否忘记了配置UUID？",
       "ALL_DELETED": "已全部删除",
-      "PATH_COPIED": "图片路径已复制"
+      "PATH_COPIED": "图片路径已复制",
+      "CONFIRM_DELETE_TITLE": "删除媒体",
+      "CONFIRM_DELETE_BODY": "是否要删除该媒体文件？此操作不可恢复。",
+      "CONFIRM_BULK_DELETE_BODY": "是否要删除选中的 {{count}} 个媒体文件？此操作不可恢复。",
+      "CONFIRM": "确认删除",
+      "CANCEL": "取消"
     }
   },
   "BUILDER": {
