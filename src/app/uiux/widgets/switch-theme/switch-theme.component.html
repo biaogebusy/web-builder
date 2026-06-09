@@ -15,6 +15,11 @@
           <span matListItemTitle>{{ theme.name }}</span>
         </button>
       }
+      <mat-divider />
+      <button aria-label="custom theme" mat-menu-item (click)="onCustomTheme()">
+        <mat-icon matListItemIcon>tune</mat-icon>
+        <span matListItemTitle>自定义主题</span>
+      </button>
     </mat-menu>
   </div>
 }

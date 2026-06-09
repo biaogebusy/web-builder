@@ -34,6 +34,7 @@
     "@fullcalendar/daygrid": "^6.1.13",
     "@fullcalendar/list": "^6.1.13",
     "@fullcalendar/timegrid": "^6.1.13",
+    "@material/material-color-utilities": "^0.3.0",
     "@mdi/angular-material": "^7.0.96",
     "@mdi/js": "^7.4.47",
     "@ngx-formly/core": "^7.0.0",
