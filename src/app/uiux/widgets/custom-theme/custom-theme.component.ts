@@ -15,6 +15,7 @@ import {
   ThemeVariant,
 } from '@core/service/theme.service';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { IconComponent } from '../icon/icon.component';
 import { BtnComponent } from '../btn/btn.component';
 
@@ -59,12 +60,13 @@ const HEX_RE = /^#([0-9a-f]{6})$/i;
   styleUrls: ['./custom-theme.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'app-custom-theme' },
-  imports: [IconComponent, BtnComponent, MatMenuModule],
+  imports: [IconComponent, BtnComponent, MatMenuModule, TranslateModule],
 })
 export class CustomThemeComponent implements OnInit {
   private themeService = inject(ThemeService);
   private storage = inject(LocalStorageService);
   private util = inject(UtilitiesService);
+  private translate = inject(TranslateService);
 
   readonly seed = signal<string>('#0049db');
   readonly isDark = signal<boolean>(false);
@@ -72,18 +74,18 @@ export class CustomThemeComponent implements OnInit {
   readonly dirty = signal<boolean>(false);
 
   readonly presets: IPreset[] = [
-    { name: '靛蓝', seed: '#0049db' },
-    { name: '深青', seed: '#00696e' },
-    { name: '森绿', seed: '#006952' },
-    { name: '赭橙', seed: '#a33e0f' },
-    { name: '玫红', seed: '#ba1a4a' },
-    { name: 'royal', seed: '#911aaf' },
+    { name: 'CUSTOM_THEME.PRESETS.INDIGO', seed: '#0049db' },
+    { name: 'CUSTOM_THEME.PRESETS.TEAL', seed: '#00696e' },
+    { name: 'CUSTOM_THEME.PRESETS.GREEN', seed: '#006952' },
+    { name: 'CUSTOM_THEME.PRESETS.ORANGE', seed: '#a33e0f' },
+    { name: 'CUSTOM_THEME.PRESETS.ROSE', seed: '#ba1a4a' },
+    { name: 'CUSTOM_THEME.PRESETS.ROYAL', seed: '#911aaf' },
   ];
 
   readonly variants: IVariantOption[] = [
-    { value: 'content', label: '内容贴合' },
-    { value: 'tonalSpot', label: '柔和' },
-    { value: 'vibrant', label: '鲜艳' },
+    { value: 'content', label: 'CUSTOM_THEME.VARIANTS.CONTENT' },
+    { value: 'tonalSpot', label: 'CUSTOM_THEME.VARIANTS.TONAL_SPOT' },
+    { value: 'vibrant', label: 'CUSTOM_THEME.VARIANTS.VIBRANT' },
   ];
 
   readonly variantLabel = computed(
@@ -104,10 +106,10 @@ export class CustomThemeComponent implements OnInit {
   readonly pairs = computed<IPairSwatch[]>(() => {
     const p = this.palette();
     return [
-      { label: 'Primary', bg: p['primary'], fg: p['onPrimary'] },
-      { label: 'Secondary', bg: p['secondary'], fg: p['onSecondary'] },
-      { label: 'Tertiary', bg: p['tertiary'], fg: p['onTertiary'] },
-      { label: 'Error', bg: p['error'], fg: p['onError'] },
+      { label: 'CUSTOM_THEME.PAIRS.PRIMARY', bg: p['primary'], fg: p['onPrimary'] },
+      { label: 'CUSTOM_THEME.PAIRS.SECONDARY', bg: p['secondary'], fg: p['onSecondary'] },
+      { label: 'CUSTOM_THEME.PAIRS.TERTIARY', bg: p['tertiary'], fg: p['onTertiary'] },
+      { label: 'CUSTOM_THEME.PAIRS.ERROR', bg: p['error'], fg: p['onError'] },
     ];
   });
 
@@ -184,7 +186,7 @@ export class CustomThemeComponent implements OnInit {
     this.themeService.applyCustomTheme(this.seed(), this.isDark(), this.variant());
     this.themeService.saveCustomTheme(this.seed(), this.isDark(), this.variant());
     this.dirty.set(false);
-    this.util.openSnackbar('已应用自定义主题', 'ok');
+    this.util.openSnackbar(this.translate.instant('CUSTOM_THEME.SAVED_TOAST'), 'ok');
   }
 
   onReset(): void {
@@ -193,6 +195,6 @@ export class CustomThemeComponent implements OnInit {
     this.isDark.set(false);
     this.variant.set('content');
     this.dirty.set(false);
-    this.util.openSnackbar('已重置为默认主题', 'ok');
+    this.util.openSnackbar(this.translate.instant('CUSTOM_THEME.RESET_TOAST'), 'ok');
   }
 }

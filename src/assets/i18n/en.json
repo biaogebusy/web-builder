@@ -903,5 +903,45 @@
       "TITLE_TAB": "Title",
       "WIDGET_TAB": "Widget"
     }
+  },
+  "CUSTOM_THEME": {
+    "EYEBROW": "Theme",
+    "TITLE": "Custom palette",
+    "DESC": "Pick a primary color to generate a full palette per Material 3.",
+    "SEED_LABEL": "Primary",
+    "UNSAVED": "Unsaved",
+    "SEED_PICKER_ARIA": "Pick primary color",
+    "HEX_ARIA": "Hex color value",
+    "PRESETS_ARIA": "Preset primary colors",
+    "PRESETS": {
+      "INDIGO": "Indigo",
+      "TEAL": "Teal",
+      "GREEN": "Green",
+      "ORANGE": "Orange",
+      "ROSE": "Rose",
+      "ROYAL": "Royal"
+    },
+    "APPEARANCE": "Appearance",
+    "MODE_ARIA": "Light / dark mode",
+    "LIGHT": "Light",
+    "DARK": "Dark",
+    "SCHEME": "Color scheme",
+    "VARIANTS": {
+      "CONTENT": "Content",
+      "TONAL_SPOT": "Tonal spot",
+      "VIBRANT": "Vibrant"
+    },
+    "PREVIEW": "Preview",
+    "SURFACES_ARIA": "Surface levels",
+    "PAIRS": {
+      "PRIMARY": "Primary",
+      "SECONDARY": "Secondary",
+      "TERTIARY": "Tertiary",
+      "ERROR": "Error"
+    },
+    "RESET": "Reset",
+    "APPLY": "Apply theme",
+    "SAVED_TOAST": "Custom theme applied",
+    "RESET_TOAST": "Reset to default theme"
   }
 }

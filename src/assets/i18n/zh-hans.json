@@ -903,5 +903,45 @@
       "TITLE_TAB": "标题",
       "WIDGET_TAB": "组件"
     }
+  },
+  "CUSTOM_THEME": {
+    "EYEBROW": "主题",
+    "TITLE": "自定义配色",
+    "DESC": "选一个主色，按 Material 3 规范实时生成整套配色。",
+    "SEED_LABEL": "主色",
+    "UNSAVED": "未保存",
+    "SEED_PICKER_ARIA": "选择主色",
+    "HEX_ARIA": "十六进制颜色值",
+    "PRESETS_ARIA": "预设主色",
+    "PRESETS": {
+      "INDIGO": "靛蓝",
+      "TEAL": "深青",
+      "GREEN": "森绿",
+      "ORANGE": "赭橙",
+      "ROSE": "玫红",
+      "ROYAL": "皇家紫"
+    },
+    "APPEARANCE": "外观",
+    "MODE_ARIA": "明暗模式",
+    "LIGHT": "浅色",
+    "DARK": "深色",
+    "SCHEME": "配色方案",
+    "VARIANTS": {
+      "CONTENT": "内容贴合",
+      "TONAL_SPOT": "柔和",
+      "VIBRANT": "鲜艳"
+    },
+    "PREVIEW": "生成预览",
+    "SURFACES_ARIA": "表面层级",
+    "PAIRS": {
+      "PRIMARY": "主色",
+      "SECONDARY": "辅色",
+      "TERTIARY": "第三色",
+      "ERROR": "错误色"
+    },
+    "RESET": "重置",
+    "APPLY": "应用主题",
+    "SAVED_TOAST": "已应用自定义主题",
+    "RESET_TOAST": "已重置为默认主题"
   }
 }
