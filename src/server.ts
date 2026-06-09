@@ -5,6 +5,7 @@ import {
   writeResponseToNodeResponse,
 } from '@angular/ssr/node';
 import express from 'express';
+import expressStaticGzip from 'express-static-gzip';
 import qs from 'qs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -34,10 +35,15 @@ const angularApp = new AngularNodeAppEngine();
  * Serve static files from /browser
  */
 app.use(
-  express.static(browserDistFolder, {
-    maxAge: '1y',
+  expressStaticGzip(browserDistFolder, {
+    enableBrotli: true,
+    orderPreference: ['br', 'gz'],
     index: false,
-    redirect: false,
+    serveStatic: {
+      maxAge: '1y',
+      index: false,
+      redirect: false,
+    },
   })
 );
 

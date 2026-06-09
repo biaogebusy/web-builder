@@ -5,7 +5,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --configuration production",
+    "build": "ng build --configuration production && npm run precompress",
+    "precompress": "node scripts/precompress.mjs",
     "test": "ng test",
     "e2e": "ng e2e",
     "serve:ssr:xinshi": "node dist/server/server.mjs",
@@ -50,6 +51,7 @@
     "drupal-jsonapi-params": "^2.3.1",
     "echarts": "^5.6.0",
     "express": "^5.1.0",
+    "express-static-gzip": "^3.0.1",
     "gsap": "^3.11.3",
     "highlight.js": "^11.11.1",
     "intro.js": "^7.2.0",
