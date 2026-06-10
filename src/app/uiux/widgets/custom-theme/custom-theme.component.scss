@@ -287,13 +287,18 @@
 }
 
 /* ── Actions ──────────────────────────────── */
-.ct-actions {
-  @apply flex items-center;
+.ct-footer {
+  @apply flex flex-col;
   gap: 0.625rem;
   padding-top: 0.25rem;
 }
 
-.ct-actions app-btn {
+.ct-actions {
+  @apply flex flex-wrap items-center;
+  gap: 0.625rem;
+}
+
+.ct-footer app-btn {
   ::ng-deep button,
   ::ng-deep a {
     height: 42px;
@@ -303,7 +308,10 @@
 
 .ct-apply {
   @apply flex-1;
+}
 
+.ct-menu-trigger,
+.ct-apply {
   ::ng-deep > div {
     @apply w-full;
   }

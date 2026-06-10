@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DOCUMENT,
   OnInit,
   computed,
   inject,
@@ -8,6 +9,7 @@ import {
 } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { MatMenuModule } from '@angular/material/menu';
+import { take } from 'rxjs';
 import {
   CUSTOM_THEME_KEY,
   ICustomTheme,
@@ -15,6 +17,11 @@ import {
   ThemeVariant,
 } from '@core/service/theme.service';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { NodeService } from '@core/service/node.service';
+import { BuilderService } from '@core/service/builder.service';
+import { ScreenService } from '@core/service/screen.service';
+import { CORE_CONFIG } from '@core/token/token-providers';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { IconComponent } from '../icon/icon.component';
 import { BtnComponent } from '../btn/btn.component';
@@ -67,10 +74,24 @@ export class CustomThemeComponent implements OnInit {
   private storage = inject(LocalStorageService);
   private util = inject(UtilitiesService);
   private translate = inject(TranslateService);
+  private document = inject<Document>(DOCUMENT);
+  private nodeService = inject(NodeService);
+  private builderService = inject(BuilderService);
+  private screenService = inject(ScreenService);
+  private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
 
   readonly seed = signal<string>('#0049db');
   readonly isDark = signal<boolean>(false);
   readonly variant = signal<ThemeVariant>('content');
+  readonly saving = signal<boolean>(false);
+  // Resolved /core/base node; null until fetched. The backend-save button stays
+  // disabled while null so we never PATCH without a known target node.
+  private readonly coreBaseNode = signal<{
+    uuid: string;
+    langcode?: string;
+    config: Record<string, unknown>;
+  } | null>(null);
+  readonly canSaveBackend = computed(() => !!this.coreBaseNode());
   readonly dirty = signal<boolean>(false);
 
   readonly presets: IPreset[] = [
@@ -128,12 +149,36 @@ export class CustomThemeComponent implements OnInit {
   readonly outline = computed(() => this.palette()['outlineVariant']);
 
   ngOnInit(): void {
-    const custom = this.storage.retrieve(CUSTOM_THEME_KEY) as ICustomTheme | null;
+    // localStorage wins; fall back to the backend config so the picker reflects
+    // whatever theme is currently applied.
+    const local = this.storage.retrieve(CUSTOM_THEME_KEY) as ICustomTheme | null;
+    const custom = local?.seed ? local : this.coreConfig?.customTheme;
     if (custom?.seed) {
       this.seed.set(custom.seed);
       this.isDark.set(custom.isDark);
       this.variant.set(custom.variant ?? 'content');
     }
+    if (this.screenService.isPlatformBrowser()) {
+      this.resolveCoreBaseNode();
+    }
+  }
+
+  // Look up the /core/base node so the backend-save button has a target uuid.
+  private resolveCoreBaseNode(): void {
+    this.nodeService
+      .fetch('/api/v3/landingPage?content=/core/base', 'noCache=1')
+      .pipe(take(1))
+      .subscribe((res: any) => {
+        const uuid = res?.uuid ?? res?.data?.id;
+        if (!uuid) {
+          return;
+        }
+        this.coreBaseNode.set({
+          uuid,
+          langcode: res?.langcode ?? res?.data?.attributes?.langcode,
+          config: res,
+        });
+      });
   }
 
   onSeedChange(value: string): void {
@@ -187,6 +232,56 @@ export class CustomThemeComponent implements OnInit {
     this.themeService.saveCustomTheme(this.seed(), this.isDark(), this.variant());
     this.dirty.set(false);
     this.util.openSnackbar(this.translate.instant('CUSTOM_THEME.SAVED_TOAST'), 'ok');
+  }
+
+  // Export the generated palette as a :root CSS block for use outside the app.
+  onExportCss(): void {
+    const css = this.themeService.exportThemeCss(this.seed(), this.isDark(), this.variant());
+    const blob = new Blob([css], { type: 'text/css' });
+    const url = URL.createObjectURL(blob);
+    const anchor = this.document.createElement('a');
+    anchor.href = url;
+    anchor.download = 'custom-theme.css';
+    anchor.click();
+    URL.revokeObjectURL(url);
+    this.util.openSnackbar(this.translate.instant('CUSTOM_THEME.EXPORTED_TOAST'), 'ok');
+  }
+
+  // Copy the generated CSS variables to the clipboard.
+  onCopy(): void {
+    const css = this.themeService.exportThemeCss(this.seed(), this.isDark(), this.variant());
+    this.document.defaultView?.navigator.clipboard?.writeText(css).then(() => {
+      this.util.openSnackbar(this.translate.instant('CUSTOM_THEME.COPIED_TOAST'), 'ok');
+    });
+  }
+
+  // Persist the theme (seed config + full token map) into the /core/base node.
+  onSaveBackend(): void {
+    const node = this.coreBaseNode();
+    if (!node) {
+      return;
+    }
+    const customTheme: ICustomTheme = {
+      seed: this.seed(),
+      isDark: this.isDark(),
+      variant: this.variant(),
+      vars: this.themeService.generateThemeVars(this.seed(), this.isDark(), this.variant()),
+    };
+    const body = { ...node.config, customTheme };
+    this.saving.set(true);
+    this.builderService
+      .updateAttributes(
+        { uuid: node.uuid, langcode: node.langcode },
+        '/api/v1/node/json',
+        { body: JSON.stringify(body) },
+        {}
+      )
+      .pipe(take(1))
+      .subscribe(res => {
+        this.saving.set(false);
+        const key = res ? 'CUSTOM_THEME.SAVE_BACKEND_TOAST' : 'CUSTOM_THEME.SAVE_BACKEND_FAIL';
+        this.util.openSnackbar(this.translate.instant(key), 'ok');
+      });
   }
 
   onReset(): void {

@@ -941,7 +941,15 @@
     },
     "RESET": "重置",
     "APPLY": "应用主题",
+    "ACTIONS": "操作",
+    "EXPORT": "导出",
+    "COPY": "复制",
+    "SAVE_BACKEND": "保存到后台",
     "SAVED_TOAST": "已应用自定义主题",
-    "RESET_TOAST": "已重置为默认主题"
+    "RESET_TOAST": "已重置为默认主题",
+    "EXPORTED_TOAST": "主题已导出",
+    "COPIED_TOAST": "CSS 已复制到剪贴板",
+    "SAVE_BACKEND_TOAST": "主题已保存到后台配置",
+    "SAVE_BACKEND_FAIL": "保存失败，请重试"
   }
 }

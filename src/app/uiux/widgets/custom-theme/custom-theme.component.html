@@ -120,20 +120,47 @@
     </div>
   </section>
 
-  <footer class="ct-actions">
-    <app-btn
-      [content]="{ mode: 'stroked', label: 'CUSTOM_THEME.RESET' | translate }"
-      (btnClick)="onReset()"
-    />
-    <app-btn
-      class="ct-apply"
-      [content]="{
-        mode: 'flat',
-        color: 'primary',
-        label: 'CUSTOM_THEME.APPLY' | translate,
-        icon: { svg: 'check', inline: true },
-      }"
-      (btnClick)="onSave()"
-    />
+  <footer class="ct-footer">
+    <div class="ct-actions">
+      <app-btn
+        class="ct-menu-trigger"
+        [matMenuTriggerFor]="actionsMenu"
+        [content]="{
+          mode: 'stroked',
+          label: 'CUSTOM_THEME.ACTIONS' | translate,
+          icon: { svg: 'dots-horizontal', inline: true },
+        }"
+      />
+      <mat-menu #actionsMenu="matMenu" class="ct-menu">
+        <button type="button" mat-menu-item (click)="onExportCss()">
+          {{ 'CUSTOM_THEME.EXPORT' | translate }}
+        </button>
+        <button type="button" mat-menu-item (click)="onCopy()">
+          {{ 'CUSTOM_THEME.COPY' | translate }}
+        </button>
+        <button
+          type="button"
+          mat-menu-item
+          [disabled]="!canSaveBackend() || saving()"
+          (click)="onSaveBackend()"
+        >
+          {{ 'CUSTOM_THEME.SAVE_BACKEND' | translate }}
+        </button>
+      </mat-menu>
+      <app-btn
+        [content]="{ mode: 'stroked', label: 'CUSTOM_THEME.RESET' | translate }"
+        (btnClick)="onReset()"
+      />
+      <app-btn
+        class="ct-apply"
+        [content]="{
+          mode: 'flat',
+          color: 'primary',
+          label: 'CUSTOM_THEME.APPLY' | translate,
+          icon: { svg: 'check', inline: true },
+        }"
+        (btnClick)="onSave()"
+      />
+    </div>
   </footer>
 </div>

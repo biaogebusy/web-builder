@@ -1,5 +1,6 @@
 import { Injectable, inject, DOCUMENT } from '@angular/core';
-import { THEME } from '@core/token/token-providers';
+import { CORE_CONFIG, THEME } from '@core/token/token-providers';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { LocalStorageService } from 'ngx-webstorage';
 import {
   argbFromHex,
@@ -30,6 +31,9 @@ export interface ICustomTheme {
   seed: string;
   isDark: boolean;
   variant: ThemeVariant;
+  // Full resolved --mat-sys-* token map, persisted alongside the seed so the
+  // backend config can apply the palette directly without recomputing.
+  vars?: Record<string, string>;
 }
 
 // MaterialDynamicColors role -> --mat-sys-* CSS variable
@@ -92,6 +96,7 @@ export class ThemeService {
   private document = inject<Document>(DOCUMENT);
   private theme = inject(THEME);
   private storage = inject(LocalStorageService);
+  private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
 
   private get root(): HTMLElement {
     return this.document.getElementsByTagName('html')[0];
@@ -99,9 +104,16 @@ export class ThemeService {
 
   initTheme(): void {
     this.setTheme(this.theme);
-    const custom = this.storage.retrieve(CUSTOM_THEME_KEY) as ICustomTheme | null;
+    // localStorage wins (local debugging takes effect immediately); the backend
+    // config (/core/base customTheme) is the fallback when there is no local override.
+    const local = this.storage.retrieve(CUSTOM_THEME_KEY) as ICustomTheme | null;
+    const custom = local?.seed ? local : this.coreConfig?.customTheme;
     if (custom?.seed) {
-      this.applyCustomTheme(custom.seed, custom.isDark, custom.variant ?? 'content');
+      if (custom.vars) {
+        this.applyThemeVars(custom.vars, custom.isDark);
+      } else {
+        this.applyCustomTheme(custom.seed, custom.isDark, custom.variant ?? 'content');
+      }
     }
   }
 
@@ -134,6 +146,36 @@ export class ThemeService {
       acc[role as string] = this.roleHex(role, scheme);
       return acc;
     }, {});
+  }
+
+  // Full resolved --mat-sys-* token map for a seed, keyed by CSS variable name.
+  generateThemeVars(
+    seed: string,
+    isDark: boolean,
+    variant: ThemeVariant = 'content'
+  ): Record<string, string> {
+    const scheme = this.buildScheme(seed, isDark, variant);
+    return SYS_TOKEN_MAP.reduce<Record<string, string>>((acc, [role, cssVar]) => {
+      acc[cssVar] = this.roleHex(role, scheme);
+      return acc;
+    }, {});
+  }
+
+  // Apply a previously resolved token map directly, without recomputing the palette.
+  applyThemeVars(vars: Record<string, string>, isDark: boolean): void {
+    const root = this.root;
+    Object.entries(vars).forEach(([cssVar, value]) => root.style.setProperty(cssVar, value));
+    root.style.colorScheme = isDark ? 'dark' : 'light';
+  }
+
+  // Serialize the full M3 palette as a :root CSS block of --mat-sys-* tokens,
+  // ready to drop into a stylesheet outside the app.
+  exportThemeCss(seed: string, isDark: boolean, variant: ThemeVariant = 'content'): string {
+    const scheme = this.buildScheme(seed, isDark, variant);
+    const lines = SYS_TOKEN_MAP.map(
+      ([role, cssVar]) => `  ${cssVar}: ${this.roleHex(role, scheme)};`
+    );
+    return `:root {\n  color-scheme: ${isDark ? 'dark' : 'light'};\n${lines.join('\n')}\n}\n`;
   }
 
   private buildScheme(seed: string, isDark: boolean, variant: ThemeVariant): DynamicScheme {

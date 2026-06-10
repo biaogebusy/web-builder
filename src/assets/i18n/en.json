@@ -941,7 +941,15 @@
     },
     "RESET": "Reset",
     "APPLY": "Apply theme",
+    "ACTIONS": "Actions",
+    "EXPORT": "Export",
+    "COPY": "Copy",
+    "SAVE_BACKEND": "Save to backend",
     "SAVED_TOAST": "Custom theme applied",
-    "RESET_TOAST": "Reset to default theme"
+    "RESET_TOAST": "Reset to default theme",
+    "EXPORTED_TOAST": "Theme exported",
+    "COPIED_TOAST": "CSS copied to clipboard",
+    "SAVE_BACKEND_TOAST": "Theme saved to backend config",
+    "SAVE_BACKEND_FAIL": "Failed to save, please retry"
   }
 }
