@@ -470,11 +470,17 @@ export class CustomTemplateComponent implements AfterViewInit {
   }
 
   /**
-   * 代码编辑器已打开时，点击仅在编辑器中定位对应源码，不进入内联编辑，
-   * 避免重复弹窗及画布与编辑器的双向写入冲突。
+   * 代码编辑器已打开且属于当前组件时，点击仅在编辑器中定位对应源码，
+   * 不进入内联编辑，避免重复弹窗及画布与编辑器的双向写入冲突；
+   * 属于其他组件时关闭旧编辑器，继续当前组件的正常编辑流程。
    */
   private revealInOpenEditor(target: HTMLElement): boolean {
-    if (!this.dialog.getDialogById('code-editor-dialog')) {
+    const existing = this.dialog.getDialogById('code-editor-dialog');
+    if (!existing) {
+      return false;
+    }
+    if (this.builder.editingCodePath !== generatePath(this.ele.nativeElement)) {
+      existing.close();
       return false;
     }
     const source = this.content().html ?? '';

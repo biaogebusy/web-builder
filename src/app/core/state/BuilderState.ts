@@ -44,6 +44,8 @@ export class BuilderState {
   public selectedMedia$ = new Subject<ISelectedMedia>();
   public switchPreivew$ = new Subject<'xs' | 'sm' | 'md' | 'xs-md' | 'none'>();
   public revealCode$ = new Subject<string>();
+  // 当前代码编辑器正在编辑的组件路径
+  public editingCodePath: string | null = null;
 
   public loading$ = new BehaviorSubject<boolean>(true);
   public updateSuccess$ = new Subject<boolean>();
@@ -456,13 +458,21 @@ export class BuilderState {
     const { path, content } = component;
     let builderList: any;
     if (path && content?.type === 'custom-template') {
-      // 编辑器已打开时不重复弹出，仅在已开编辑器中定位
-      if (this.dialog.getDialogById('code-editor-dialog')) {
-        if (reveal) {
-          this.revealCode$.next(reveal);
+      const existing = this.dialog.getDialogById('code-editor-dialog');
+      if (existing) {
+        // 同一组件：不重复弹出，仅在已开编辑器中定位
+        if (this.editingCodePath === path) {
+          if (reveal) {
+            this.revealCode$.next(reveal);
+          }
+          return;
         }
+        // 其他组件：关闭旧编辑器后重新打开
+        existing.afterClosed().subscribe(() => this.editorCode(component, reveal));
+        existing.close();
         return;
       }
+      this.editingCodePath = path;
       const config: IDialog = {
         disableActions: true,
         inputData: {
@@ -499,6 +509,7 @@ export class BuilderState {
           });
 
         dialogRef.afterClosed().subscribe(() => {
+          this.editingCodePath = null;
           builderList.style.paddingBottom = '150px';
           this.fullScreen$.next(false);
         });
