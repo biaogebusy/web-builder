@@ -268,6 +268,71 @@ export class ManageMediaComponent implements OnInit {
     });
   }
 
+  onRename(item: IManageImg): void {
+    if (!item.uuid) {
+      this.util.openSnackbar(this.translate.instant('MANAGE.MEDIA.MISSING_UUID'), 'ok');
+      return;
+    }
+    const renameForm = new UntypedFormGroup({
+      name: new FormControl(item.title, { nonNullable: true }),
+    });
+    const renameModel = { name: item.title };
+    const config: IDialog = {
+      title: this.translate.instant('MANAGE.MEDIA.RENAME_TITLE'),
+      noLabel: this.translate.instant('MANAGE.MEDIA.CANCEL'),
+      yesLabel: this.translate.instant('MANAGE.MEDIA.SAVE'),
+      inputData: {
+        content: {
+          content: { type: 'formly' },
+          form: renameForm,
+          model: renameModel,
+          fields: [
+            {
+              type: 'input',
+              key: 'name',
+              props: {
+                appearance: 'fill',
+                label: this.translate.instant('MANAGE.MEDIA.RENAME_LABEL'),
+                description: this.translate.instant('MANAGE.MEDIA.RENAME_HINT'),
+                required: true,
+              },
+            },
+          ],
+        },
+      },
+    };
+    this.dialog
+      .open(DialogComponent, {
+        width: '420px',
+        data: config,
+      })
+      .afterClosed()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(confirmed => {
+        if (!confirmed) {
+          return;
+        }
+        const name = (renameForm.get('name')?.value ?? '').trim();
+        if (!name || name === item.title) {
+          return;
+        }
+        this.loading.set(true);
+        this.manageService
+          .updateMediaName(item.uuid, name)
+          .pipe(takeUntilDestroyed(this.destroyRef))
+          .subscribe({
+            next: () => {
+              this.util.openSnackbar(this.translate.instant('MANAGE.MEDIA.RENAMED'), 'ok');
+              this.onSearch(this.form.value);
+            },
+            error: () => {
+              this.loading.set(false);
+              this.util.openSnackbar(this.translate.instant('MANAGE.MEDIA.RENAME_FAILED'), 'ok');
+            },
+          });
+      });
+  }
+
   onCopy(item: IManageImg): void {
     this.util.copy(item.source || item.src || '');
     this.util.openSnackbar(this.translate.instant('MANAGE.MEDIA.PATH_COPIED'), 'ok');

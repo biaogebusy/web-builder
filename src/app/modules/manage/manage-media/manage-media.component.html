@@ -60,6 +60,17 @@
                     />
                     <app-btn
                       class="btn"
+                      [matTooltip]="'MANAGE.MEDIA.RENAME' | translate"
+                      matTooltipPosition="above"
+                      (click)="onRename(item)"
+                      [content]="{
+                        label: '',
+                        mode: 'icon',
+                        icon: { svg: 'pencil-outline' },
+                      }"
+                    />
+                    <app-btn
+                      class="btn"
                       [matTooltip]="'MANAGE.MEDIA.COPY_PATH' | translate"
                       matTooltipPosition="above"
                       (click)="onCopy(item)"

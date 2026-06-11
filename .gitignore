@@ -51,3 +51,4 @@ documentation.json
 
 /.angular
 /.claude/*.local.json
+/.claude/projects
