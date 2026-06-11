@@ -1,4 +1,13 @@
-import { Component, OnInit, inject, DestroyRef, signal, ChangeDetectionStrategy, input, viewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  inject,
+  DestroyRef,
+  signal,
+  ChangeDetectionStrategy,
+  input,
+  viewChild,
+} from '@angular/core';
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -104,12 +113,10 @@ export class ManageMediaComponent implements OnInit {
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.loading.set(true);
-      this.builderConfig
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(config => {
-          this.manageMediaConfig.set(config.manageMedia);
-          this.fields.set([...this.defaultField, ...config.manageMedia.sidebar.form]);
-        });
+      this.builderConfig.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(config => {
+        this.manageMediaConfig.set(config.manageMedia);
+        this.fields.set([...this.defaultField, ...config.manageMedia.sidebar.form]);
+      });
       this.onSearch({});
       this.form.valueChanges
         .pipe(takeUntilDestroyed(this.destroyRef), debounceTime(1000), distinctUntilChanged())
@@ -286,6 +293,7 @@ export class ManageMediaComponent implements OnInit {
           content: { type: 'formly' },
           form: renameForm,
           model: renameModel,
+          fullWidth: true,
           fields: [
             {
               type: 'input',
