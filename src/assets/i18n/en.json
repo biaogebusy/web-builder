@@ -163,6 +163,22 @@
       "EDIT_TEXT": "Edit text",
       "EDIT_IMG": "Edit image"
     },
+    "CODE_EDITOR": {
+      "EXPAND": "Expand",
+      "COLLAPSE": "Collapse",
+      "RESTORE": "Restore",
+      "DOCK_BOTTOM": "Dock to bottom",
+      "API_SOURCE": "API data source",
+      "CUSTOM_WIDGET": "Tailwind custom widget",
+      "VIEW_SYNTAX": "View syntax",
+      "SYNTAX_GUIDE": "Syntax guide",
+      "API_REQUIRED": "API data source requires an API URL"
+    },
+    "CUSTOM_TEMPLATE": {
+      "RENDER_ERROR": "Unexpected error, please check the configuration.",
+      "LOCATE_CHANGED": "Template content has changed and could not be located. Please use the template editor.",
+      "LOCATE_IMG_FAIL": "Could not uniquely locate the image in the source. Please use the template editor."
+    },
     "TEMPLATE": {
       "TIP_TOOLTIP": "Set the page category to 'Template' to add it here",
       "TEMPLATE_FILTER": "Template",

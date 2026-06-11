@@ -21,6 +21,7 @@ import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
 import { FormlyComponent } from '@uiux/combs/form/formly/formly.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-code-editor',
@@ -34,6 +35,7 @@ import { FormlyComponent } from '@uiux/combs/form/formly/formly.component';
     BtnComponent,
     LoadingComponent,
     FormlyComponent,
+    TranslateModule,
   ],
 })
 export class CodeEditorComponent implements OnInit {
@@ -75,6 +77,7 @@ export class CodeEditorComponent implements OnInit {
   private nodeService = inject(NodeService);
   public screenService = inject(ScreenService);
   private tagsService = inject(TagsService);
+  private translate = inject(TranslateService);
   public editing = signal<boolean>(false);
   public highlightedCode = signal<string>('');
   public builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
@@ -208,7 +211,10 @@ export class CodeEditorComponent implements OnInit {
       .subscribe(value => {
         const { api } = value;
         if (!api) {
-          this.util.openSnackbar('数据来源API，请填写API地址', 'ok');
+          this.util.openSnackbar(
+            this.translate.instant('BUILDER.CODE_EDITOR.API_REQUIRED'),
+            'ok'
+          );
           return;
         }
         const { path } = this.content();
@@ -241,7 +247,7 @@ export class CodeEditorComponent implements OnInit {
 
   showHelp(help?: string): void {
     const config: IDialog = {
-      title: '语法指南',
+      title: this.translate.instant('BUILDER.CODE_EDITOR.SYNTAX_GUIDE'),
       disableActions: true,
       inputData: {
         content: {

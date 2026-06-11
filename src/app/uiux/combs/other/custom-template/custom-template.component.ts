@@ -26,6 +26,7 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { BuilderState } from '@core/state/BuilderState';
 import { generatePath } from '@core/util/dom-path.util';
 import { ManageService } from '@core/service/manage.service';
+import { TranslateService } from '@ngx-translate/core';
 declare let Swiper: any;
 declare let echarts: any;
 @Component({
@@ -48,6 +49,7 @@ export class CustomTemplateComponent implements AfterViewInit {
   private dialog = inject(MatDialog);
   private builder = inject(BuilderState);
   private manageService = inject(ManageService);
+  private translate = inject(TranslateService);
   private dialogClickHandler?: (event: Event) => void;
   // 内联编辑：仅 builder 画布内的静态模板（非 API、无 Mustache 标签）
   private inCanvas = false;
@@ -92,10 +94,8 @@ export class CustomTemplateComponent implements AfterViewInit {
           this.pager.set(null);
           this.setupInlineEdit();
         } catch (e) {
-          this.renderView(
-            {},
-            `<div class="m-5 p-5 bg-red-100 rounded-lg">意外错误，请检查配置。</div>`
-          );
+          const error = this.translate.instant('BUILDER.CUSTOM_TEMPLATE.RENDER_ERROR');
+          this.renderView({}, `<div class="m-5 p-5 bg-red-100 rounded-lg">${error}</div>`);
           this.pager.set(null);
         }
       }
@@ -426,7 +426,10 @@ export class CustomTemplateComponent implements AfterViewInit {
     }
     const source = this.content().html ?? '';
     if (this.countOccurrences(source, pending.snippet) !== 1) {
-      this.util.openSnackbar('模板内容已变化，未能定位，请使用模板编辑', 'ok');
+      this.util.openSnackbar(
+        this.translate.instant('BUILDER.CUSTOM_TEMPLATE.LOCATE_CHANGED'),
+        'ok'
+      );
       return;
     }
     const index = source.indexOf(pending.snippet);
@@ -567,7 +570,10 @@ export class CustomTemplateComponent implements AfterViewInit {
       img.setAttribute('src', src);
       this.saveHtml(source.slice(0, index) + src + source.slice(index + oldSrc.length));
     } else {
-      this.util.openSnackbar('未能唯一定位图片源码，请使用模板编辑', 'ok');
+      this.util.openSnackbar(
+        this.translate.instant('BUILDER.CUSTOM_TEMPLATE.LOCATE_IMG_FAIL'),
+        'ok'
+      );
     }
   }
 

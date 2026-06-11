@@ -163,6 +163,22 @@
       "EDIT_TEXT": "编辑文本",
       "EDIT_IMG": "编辑图片"
     },
+    "CODE_EDITOR": {
+      "EXPAND": "展开",
+      "COLLAPSE": "收起",
+      "RESTORE": "恢复",
+      "DOCK_BOTTOM": "置底",
+      "API_SOURCE": "数据来源 API",
+      "CUSTOM_WIDGET": "Tailwind 自定义组件",
+      "VIEW_SYNTAX": "查看语法",
+      "SYNTAX_GUIDE": "语法指南",
+      "API_REQUIRED": "数据来源API，请填写API地址"
+    },
+    "CUSTOM_TEMPLATE": {
+      "RENDER_ERROR": "意外错误，请检查配置。",
+      "LOCATE_CHANGED": "模板内容已变化，未能定位，请使用模板编辑",
+      "LOCATE_IMG_FAIL": "未能唯一定位图片源码，请使用模板编辑"
+    },
     "TEMPLATE": {
       "TIP_TOOLTIP": "设置页面分类为模板即可加入到这里",
       "TEMPLATE_FILTER": "模板",
