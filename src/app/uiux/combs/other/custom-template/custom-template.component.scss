@@ -31,9 +31,12 @@
 .template.inline-editable,
 .template.locate-editable {
   ::ng-deep {
-    *:hover:not(:has(*:hover)):not(img, canvas, video, iframe, svg, svg *) {
+    *:hover:not(:has(*:hover)):not(canvas, video, iframe, svg, svg *) {
       outline: 1px dashed var(--mat-sys-primary);
       outline-offset: 2px;
+    }
+    img {
+      @apply cursor-pointer;
     }
     [contenteditable='true'] {
       @apply cursor-text;

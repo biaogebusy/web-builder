@@ -16,7 +16,7 @@ import { IPager } from '@core/interface/widgets/IWidgets';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { ScreenService } from '@core/service/screen.service';
-import { catchError, of } from 'rxjs';
+import { catchError, filter, of, take, takeUntil } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { ICoreConfig } from '@core/interface/IAppConfig';
@@ -25,6 +25,7 @@ import { IDialog } from '@core/interface/IDialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { BuilderState } from '@core/state/BuilderState';
 import { generatePath } from '@core/util/dom-path.util';
+import { ManageService } from '@core/service/manage.service';
 declare let Swiper: any;
 declare let echarts: any;
 @Component({
@@ -46,6 +47,7 @@ export class CustomTemplateComponent implements AfterViewInit {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   private dialog = inject(MatDialog);
   private builder = inject(BuilderState);
+  private manageService = inject(ManageService);
   private dialogClickHandler?: (event: Event) => void;
   // 内联编辑：仅 builder 画布内的静态模板（非 API、无 Mustache 标签）
   private inCanvas = false;
@@ -263,7 +265,16 @@ export class CustomTemplateComponent implements AfterViewInit {
     const target = (event.target as HTMLElement | null)?.closest?.(
       '[data-xs-i]'
     ) as HTMLElement | null;
-    if (!target || !this.template.contains(target) || !this.isEditableElement(target)) {
+    if (!target || !this.template.contains(target)) {
+      return;
+    }
+    if (target.tagName === 'IMG') {
+      event.preventDefault();
+      event.stopPropagation();
+      this.handleImgClick(target as HTMLImageElement);
+      return;
+    }
+    if (!this.isEditableElement(target)) {
       return;
     }
     event.preventDefault();
@@ -370,7 +381,16 @@ export class CustomTemplateComponent implements AfterViewInit {
 
   private onLocateClick = (event: Event): void => {
     const target = event.target as HTMLElement | null;
-    if (!target || !this.template.contains(target) || !this.isEditableElement(target)) {
+    if (!target || !this.template.contains(target)) {
+      return;
+    }
+    if (target.tagName === 'IMG') {
+      event.preventDefault();
+      event.stopPropagation();
+      this.handleImgClick(target as HTMLImageElement);
+      return;
+    }
+    if (!this.isEditableElement(target)) {
       return;
     }
     event.preventDefault();
@@ -467,9 +487,82 @@ export class CustomTemplateComponent implements AfterViewInit {
   }
 
   private fallbackReveal(target: HTMLElement, source: string): string | undefined {
+    const src = target.getAttribute('src') ?? '';
     const text = target.textContent?.trim().slice(0, 80) ?? '';
     const cls = target.classList[0] ?? '';
-    return [text, cls].find(c => !!c && source.includes(c));
+    return [src, text, cls].find(c => !!c && source.includes(c));
+  }
+
+  /**
+   * 图片点哪换哪：可定位时打开媒体库选图并精确替换源码中的 src，
+   * 无法定位（src 由数据生成/歧义）则打开代码编辑器定位。
+   */
+  private handleImgClick(img: HTMLImageElement): void {
+    if (this.revealInOpenEditor(img)) {
+      return;
+    }
+    const source = this.content().html ?? '';
+    const src = img.getAttribute('src') ?? '';
+    if (this.inlineEditable || (src && this.countOccurrences(source, src) === 1)) {
+      this.openImgPicker(img);
+    } else {
+      this.openCodeEditor(img, source);
+    }
+  }
+
+  private openImgPicker(img: HTMLImageElement): void {
+    const time = new Date();
+    const config: IDialog = {
+      disableActions: true,
+      inputData: {
+        content: {
+          type: 'manage-media',
+          time,
+          fullWidth: true,
+        },
+      },
+    };
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '85vw',
+      panelClass: this.manageService.mediaDialogClass,
+      data: config,
+    });
+    this.builder.selectedMedia$
+      .pipe(
+        filter(media => media.time === time),
+        take(1),
+        takeUntil(dialogRef.afterClosed()),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe(({ img: media }) => {
+        dialogRef.close();
+        this.replaceImgSrc(img, media.src);
+      });
+  }
+
+  private replaceImgSrc(img: HTMLImageElement, src: string): void {
+    const oldSrc = img.getAttribute('src') ?? '';
+    if (!src || src === oldSrc) {
+      return;
+    }
+    if (this.inlineEditable && this.pristine) {
+      const index = img.getAttribute('data-xs-i');
+      const target = index === null ? null : this.pristine.querySelector(`[data-xs-i="${index}"]`);
+      if (target) {
+        target.setAttribute('src', src);
+        img.setAttribute('src', src);
+        this.saveTemplate();
+        return;
+      }
+    }
+    const source = this.content().html ?? '';
+    if (oldSrc && this.countOccurrences(source, oldSrc) === 1) {
+      const index = source.indexOf(oldSrc);
+      img.setAttribute('src', src);
+      this.saveHtml(source.slice(0, index) + src + source.slice(index + oldSrc.length));
+    } else {
+      this.util.openSnackbar('未能唯一定位图片源码，请使用模板编辑', 'ok');
+    }
   }
 
   private openDialog(config: ICustomTemplateDialog): void {
