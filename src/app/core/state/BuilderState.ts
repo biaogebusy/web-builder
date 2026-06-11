@@ -43,6 +43,7 @@ export class BuilderState {
   public debugeAnimate$ = new Subject<boolean>();
   public selectedMedia$ = new Subject<ISelectedMedia>();
   public switchPreivew$ = new Subject<'xs' | 'sm' | 'md' | 'xs-md' | 'none'>();
+  public revealCode$ = new Subject<string>();
 
   public loading$ = new BehaviorSubject<boolean>(true);
   public updateSuccess$ = new Subject<boolean>();
@@ -451,10 +452,17 @@ export class BuilderState {
     this.showcase$.next(false);
   }
 
-  editorCode(component: IComponentToolbar): void {
+  editorCode(component: IComponentToolbar, reveal?: string): void {
     const { path, content } = component;
     let builderList: any;
     if (path && content?.type === 'custom-template') {
+      // 编辑器已打开时不重复弹出，仅在已开编辑器中定位
+      if (this.dialog.getDialogById('code-editor-dialog')) {
+        if (reveal) {
+          this.revealCode$.next(reveal);
+        }
+        return;
+      }
       const config: IDialog = {
         disableActions: true,
         inputData: {
@@ -463,6 +471,7 @@ export class BuilderState {
             path,
             content: get(this.currentPage.body, path),
             fullWidth: true,
+            reveal,
           },
         },
       };

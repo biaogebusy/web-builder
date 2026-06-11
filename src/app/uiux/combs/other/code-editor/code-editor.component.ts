@@ -78,6 +78,7 @@ export class CodeEditorComponent implements OnInit {
   public editing = signal<boolean>(false);
   public highlightedCode = signal<string>('');
   public builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
+  private editor: any;
 
   ngOnInit(): void {
     const { html, json: jsonValue = null, isAPI = false, api = '' } = this.content().content;
@@ -116,6 +117,10 @@ export class CodeEditorComponent implements OnInit {
     }
     this.onFormChange();
     this.onHTMLChange();
+
+    this.builder.revealCode$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(text => this.revealInEditor(text));
 
     this.dialog
       .getDialogById('code-editor-dialog')
@@ -168,6 +173,24 @@ export class CodeEditorComponent implements OnInit {
 
   onShowMore(): void {
     this.isMore.set(!this.isMore());
+  }
+
+  onEditorInit(editor: any): void {
+    this.editor = editor;
+    this.revealInEditor(this.content().reveal);
+  }
+
+  private revealInEditor(text?: string): void {
+    if (!text || !this.editor) {
+      return;
+    }
+    const matches =
+      this.editor.getModel()?.findMatches(text, false, false, false, null, false) ?? [];
+    if (matches.length) {
+      this.editor.setSelection(matches[0].range);
+      this.editor.revealRangeInCenter(matches[0].range);
+      this.editor.focus();
+    }
   }
 
   toggleCollapse(): void {

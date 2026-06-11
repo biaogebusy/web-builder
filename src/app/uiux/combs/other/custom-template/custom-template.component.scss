@@ -27,3 +27,18 @@
 .paginator {
   @apply bg-transparent;
 }
+
+.template.inline-editable,
+.template.locate-editable {
+  ::ng-deep {
+    *:hover:not(:has(*:hover)):not(img, canvas, video, iframe, svg, svg *) {
+      outline: 1px dashed var(--mat-sys-primary);
+      outline-offset: 2px;
+    }
+    [contenteditable='true'] {
+      @apply cursor-text;
+      outline: 2px solid var(--mat-sys-primary);
+      outline-offset: 2px;
+    }
+  }
+}

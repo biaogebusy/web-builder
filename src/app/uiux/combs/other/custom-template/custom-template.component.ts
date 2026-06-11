@@ -23,6 +23,8 @@ import { ICoreConfig } from '@core/interface/IAppConfig';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { IDialog } from '@core/interface/IDialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { BuilderState } from '@core/state/BuilderState';
+import { generatePath } from '@core/util/dom-path.util';
 declare let Swiper: any;
 declare let echarts: any;
 @Component({
@@ -43,10 +45,35 @@ export class CustomTemplateComponent implements AfterViewInit {
   private util = inject(UtilitiesService);
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   private dialog = inject(MatDialog);
+  private builder = inject(BuilderState);
   private dialogClickHandler?: (event: Event) => void;
+  // 内联编辑：仅 builder 画布内的静态模板（非 API、无 Mustache 标签）
+  private inCanvas = false;
+  private inlineEditable = false;
+  private pristine: HTMLElement | null = null;
+  // 源码定位编辑：画布内的 Mustache/API 模板，点选后在源码中唯一匹配
+  private locateBound = false;
+  private pendingEdit: { el: HTMLElement; snippet: string; mode: 'html' | 'text' } | null = null;
+
+  private static readonly NON_EDITABLE_TAGS = new Set([
+    'IMG',
+    'STYLE',
+    'SCRIPT',
+    'CANVAS',
+    'VIDEO',
+    'IFRAME',
+    'INPUT',
+    'TEXTAREA',
+    'SELECT',
+    'BR',
+    'HR',
+  ]);
 
   ngAfterViewInit(): void {
     this.template = this.ele.nativeElement.querySelector('.template');
+    const { isAPI, html } = this.content();
+    this.inCanvas = !!this.ele.nativeElement.closest('.component-item');
+    this.inlineEditable = this.inCanvas && !isAPI && !(html ?? '').includes('{{');
     const fontawesome = this.util.getLibraries('fontAwesome', 'cdn', 'style');
     this.util.loadStyle(fontawesome);
     this.render(this.content());
@@ -61,6 +88,7 @@ export class CustomTemplateComponent implements AfterViewInit {
         try {
           this.renderView(json, html);
           this.pager.set(null);
+          this.setupInlineEdit();
         } catch (e) {
           this.renderView(
             {},
@@ -153,9 +181,14 @@ export class CustomTemplateComponent implements AfterViewInit {
     });
     this.template.innerHTML = Mustache.render(sanitized, content);
     this.bindDialogTriggers();
+    this.setupLocateEdit();
   }
 
   private bindDialogTriggers(): void {
+    // 画布内点击用于内联/定位编辑，不触发弹窗（预览模式/前台不受影响）
+    if (this.inCanvas) {
+      return;
+    }
     if (this.dialogClickHandler) {
       this.template.removeEventListener('click', this.dialogClickHandler);
       this.dialogClickHandler = undefined;
@@ -201,6 +234,242 @@ export class CustomTemplateComponent implements AfterViewInit {
         this.dialogClickHandler = undefined;
       }
     });
+  }
+
+  /**
+   * 点哪改哪：给渲染后的元素打索引标记，并保留一份未被运行时库（swiper/echarts）
+   * 污染的净拷贝；编辑落点通过标记映射回净拷贝后整体序列化写回 widget.html。
+   */
+  private setupInlineEdit(): void {
+    if (!this.inlineEditable) {
+      return;
+    }
+    this.template.querySelectorAll('*').forEach((el, i) => {
+      el.setAttribute('data-xs-i', String(i));
+    });
+    this.pristine = this.template.cloneNode(true) as HTMLElement;
+    this.template.classList.add('inline-editable');
+    this.template.addEventListener('click', this.onEditClick);
+    this.template.addEventListener('focusout', this.onEditBlur);
+    this.template.addEventListener('paste', this.onEditPaste);
+    this.destroyRef.onDestroy(() => {
+      this.template.removeEventListener('click', this.onEditClick);
+      this.template.removeEventListener('focusout', this.onEditBlur);
+      this.template.removeEventListener('paste', this.onEditPaste);
+    });
+  }
+
+  private onEditClick = (event: Event): void => {
+    const target = (event.target as HTMLElement | null)?.closest?.(
+      '[data-xs-i]'
+    ) as HTMLElement | null;
+    if (!target || !this.template.contains(target) || !this.isEditableElement(target)) {
+      return;
+    }
+    event.preventDefault();
+    event.stopPropagation();
+    if (this.revealInOpenEditor(target)) {
+      return;
+    }
+    if (!target.isContentEditable) {
+      target.contentEditable = 'true';
+      target.focus();
+    }
+  };
+
+  private onEditBlur = (event: Event): void => {
+    const target = event.target as HTMLElement | null;
+    if (!target?.isContentEditable || !this.pristine) {
+      return;
+    }
+    target.contentEditable = 'false';
+    const index = target.getAttribute('data-xs-i');
+    if (index === null) {
+      return;
+    }
+    const source = this.pristine.querySelector(`[data-xs-i="${index}"]`);
+    if (!source || source.innerHTML === target.innerHTML) {
+      return;
+    }
+    source.innerHTML = target.innerHTML;
+    this.saveTemplate();
+  };
+
+  // 粘贴时清除剪切板格式，与 ContenteditDirective 行为一致
+  private onEditPaste = (event: Event): void => {
+    const target = event.target as HTMLElement | null;
+    if (!target?.isContentEditable) {
+      return;
+    }
+    event.preventDefault();
+    const clipboardData = (event as ClipboardEvent).clipboardData;
+    const selection = window.getSelection();
+    if (!clipboardData || !selection?.rangeCount) {
+      return;
+    }
+    const range = selection.getRangeAt(0);
+    range.deleteContents();
+    const textNode = document.createTextNode(clipboardData.getData('text/plain'));
+    range.insertNode(textNode);
+    range.selectNodeContents(textNode);
+    selection.removeAllRanges();
+    selection.addRange(range);
+  };
+
+  private isEditableElement(el: HTMLElement): boolean {
+    if (CustomTemplateComponent.NON_EDITABLE_TAGS.has(el.tagName)) {
+      return false;
+    }
+    if (el.closest('svg')) {
+      return false;
+    }
+    // 含运行时托管内容（图表、轮播结构）的容器整体不可编辑，需点击其内部文本
+    if (el.querySelector('canvas, svg, video, iframe, .swiper-slide, [data-echarts]')) {
+      return false;
+    }
+    return true;
+  }
+
+  private saveTemplate(): void {
+    if (!this.pristine) {
+      return;
+    }
+    const clean = this.pristine.cloneNode(true) as HTMLElement;
+    clean.querySelectorAll('[data-xs-i]').forEach(el => el.removeAttribute('data-xs-i'));
+    this.saveHtml(clean.innerHTML);
+  }
+
+  private saveHtml(html: string): void {
+    const path = generatePath(this.ele.nativeElement);
+    if (!path) {
+      return;
+    }
+    this.builder.updatePageContentByPath(`${path}.html`, html);
+  }
+
+  /**
+   * 源码定位编辑：渲染结果与源码不一致（Mustache/API）时，点选元素后
+   * 在 widget.html 源码中做唯一文本匹配——命中则就地编辑并精确替换该片段，
+   * 未命中（数据生成的内容/歧义）则打开代码编辑器并定位到最接近的位置。
+   */
+  private setupLocateEdit(): void {
+    if (!this.inCanvas || this.inlineEditable || this.locateBound) {
+      return;
+    }
+    this.locateBound = true;
+    this.template.classList.add('locate-editable');
+    this.template.addEventListener('click', this.onLocateClick);
+    this.template.addEventListener('focusout', this.onLocateBlur);
+    this.template.addEventListener('paste', this.onEditPaste);
+    this.destroyRef.onDestroy(() => {
+      this.template.removeEventListener('click', this.onLocateClick);
+      this.template.removeEventListener('focusout', this.onLocateBlur);
+      this.template.removeEventListener('paste', this.onEditPaste);
+    });
+  }
+
+  private onLocateClick = (event: Event): void => {
+    const target = event.target as HTMLElement | null;
+    if (!target || !this.template.contains(target) || !this.isEditableElement(target)) {
+      return;
+    }
+    event.preventDefault();
+    event.stopPropagation();
+    if (this.revealInOpenEditor(target)) {
+      return;
+    }
+    if (target.isContentEditable) {
+      return;
+    }
+    const source = this.content().html ?? '';
+    const match = this.findUniqueSnippet(target, source);
+    if (match) {
+      this.pendingEdit = { el: target, ...match };
+      target.contentEditable = 'true';
+      target.focus();
+    } else {
+      this.openCodeEditor(target, source);
+    }
+  };
+
+  private onLocateBlur = (event: Event): void => {
+    const target = event.target as HTMLElement | null;
+    const pending = this.pendingEdit;
+    if (!target?.isContentEditable || !pending || pending.el !== target) {
+      return;
+    }
+    target.contentEditable = 'false';
+    this.pendingEdit = null;
+    const updated = pending.mode === 'html' ? target.innerHTML : (target.textContent?.trim() ?? '');
+    if (updated === pending.snippet) {
+      return;
+    }
+    const source = this.content().html ?? '';
+    if (this.countOccurrences(source, pending.snippet) !== 1) {
+      this.util.openSnackbar('模板内容已变化，未能定位，请使用模板编辑', 'ok');
+      return;
+    }
+    const index = source.indexOf(pending.snippet);
+    this.saveHtml(source.slice(0, index) + updated + source.slice(index + pending.snippet.length));
+  };
+
+  private findUniqueSnippet(
+    el: HTMLElement,
+    source: string
+  ): { snippet: string; mode: 'html' | 'text' } | null {
+    const html = el.innerHTML;
+    if (html && this.countOccurrences(source, html) === 1) {
+      return { snippet: html, mode: 'html' };
+    }
+    const text = el.childElementCount === 0 ? (el.textContent?.trim() ?? '') : '';
+    if (text && this.countOccurrences(source, text) === 1) {
+      return { snippet: text, mode: 'text' };
+    }
+    return null;
+  }
+
+  private countOccurrences(source: string, snippet: string): number {
+    if (!snippet) {
+      return 0;
+    }
+    let count = 0;
+    let index = source.indexOf(snippet);
+    while (index !== -1 && count < 2) {
+      count++;
+      index = source.indexOf(snippet, index + snippet.length);
+    }
+    return count;
+  }
+
+  private openCodeEditor(target: HTMLElement, source: string): void {
+    const path = generatePath(this.ele.nativeElement);
+    if (!path) {
+      return;
+    }
+    this.builder.editorCode({ path, content: this.content() }, this.fallbackReveal(target, source));
+  }
+
+  /**
+   * 代码编辑器已打开时，点击仅在编辑器中定位对应源码，不进入内联编辑，
+   * 避免重复弹窗及画布与编辑器的双向写入冲突。
+   */
+  private revealInOpenEditor(target: HTMLElement): boolean {
+    if (!this.dialog.getDialogById('code-editor-dialog')) {
+      return false;
+    }
+    const source = this.content().html ?? '';
+    const reveal =
+      this.findUniqueSnippet(target, source)?.snippet ?? this.fallbackReveal(target, source);
+    if (reveal) {
+      this.builder.revealCode$.next(reveal);
+    }
+    return true;
+  }
+
+  private fallbackReveal(target: HTMLElement, source: string): string | undefined {
+    const text = target.textContent?.trim().slice(0, 80) ?? '';
+    const cls = target.classList[0] ?? '';
+    return [text, cls].find(c => !!c && source.includes(c));
   }
 
   private openDialog(config: ICustomTemplateDialog): void {

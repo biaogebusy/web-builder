@@ -202,6 +202,8 @@ export interface ICodeEditor {
     api?: string;
   };
   path: string;
+  /** 打开编辑器后定位并选中的源码片段 */
+  reveal?: string;
 }
 
 export interface IPageList {
