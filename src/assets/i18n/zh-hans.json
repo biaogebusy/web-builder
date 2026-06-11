@@ -159,7 +159,9 @@
       "ENABLE_BUILDER": "请开启 Builder 功能！"
     },
     "INLINE_EDITOR": {
-      "CLEAR_STYLES": "清空样式"
+      "CLEAR_STYLES": "清空样式",
+      "EDIT_TEXT": "编辑文本",
+      "EDIT_IMG": "编辑图片"
     },
     "TEMPLATE": {
       "TIP_TOOLTIP": "设置页面分类为模板即可加入到这里",

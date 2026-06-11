@@ -2,17 +2,18 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 import { getAspectRatio, getObjectFix } from './getCommon';
 
 export function getInlineImg(ele: any): FormlyFieldConfig[] {
+  const src = ele.getAttribute('src') ?? '';
   return [
     {
       type: 'img-picker',
       key: 'src',
-      defaultValue: ele.src,
+      defaultValue: src,
       className: 'mb-5',
       props: {
         updateLabel: 'BUILDER.FACTORY.IMG_UPDATE',
         addLabel: 'BUILDER.FACTORY.IMG_ADD',
         deleteLabel: 'BUILDER.FACTORY.IMG_DELETE',
-        fileName: ele.getAttribute('src').split('/').pop(),
+        fileName: src.split('/').pop(),
         alt: ele.getAttribute('alt'),
       },
     },
@@ -25,7 +26,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
             {
               type: 'input',
               key: 'width',
-              defaultValue: parseInt(ele.getAttribute('width')) ?? ele.width,
+              defaultValue: parseInt(ele.getAttribute('width')) || ele.width,
               className: 'col-span-6',
               props: {
                 label: 'W',
@@ -36,7 +37,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
               type: 'input',
               key: 'height',
               className: 'col-span-6',
-              defaultValue: parseInt(ele.getAttribute('height')) ?? ele.height,
+              defaultValue: parseInt(ele.getAttribute('height')) || ele.height,
               props: {
                 label: 'H',
                 type: 'number',

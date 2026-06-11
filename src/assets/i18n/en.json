@@ -159,7 +159,9 @@
       "ENABLE_BUILDER": "Please enable the Builder feature."
     },
     "INLINE_EDITOR": {
-      "CLEAR_STYLES": "Clear styles"
+      "CLEAR_STYLES": "Clear styles",
+      "EDIT_TEXT": "Edit text",
+      "EDIT_IMG": "Edit image"
     },
     "TEMPLATE": {
       "TIP_TOOLTIP": "Set the page category to 'Template' to add it here",
