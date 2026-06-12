@@ -11,6 +11,13 @@
   min-width: 800px;
   height: 100vh;
   top: 0;
+
+  // settings panels (e.g. custom theme) size to their own content
+  &:has(.app-custom-theme) {
+    min-width: 0;
+    max-width: 90vw;
+    width: auto;
+  }
 }
 
 .drawer-loading {

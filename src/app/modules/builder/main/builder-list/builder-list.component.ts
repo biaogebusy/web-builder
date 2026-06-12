@@ -23,7 +23,7 @@ import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_CONFIG, BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
 import { map as each, throttle } from 'lodash-es';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, skip } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { IBuilderConfig } from '@core/interface/IBuilder';
@@ -111,6 +111,23 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
         };
       })
     );
+
+    // loadPage 时 DynamicComponentComponent.loadComponent 是异步的，
+    // `data-aos` 通常在 afterEveryRender 的 throttle 窗口外才被设置，
+    // 导致 IntersectionObserver 没有挂到新元素上。这里在页面切换后再
+    // 显式触发一次观察，确保 AOS 能够正常播放。
+    this.currentPage$
+      .pipe(skip(1), takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        setTimeout(() => {
+          if (this.scrollableContainer) {
+            this.util.intersectionObserver(
+              '#builder-list [data-aos]',
+              this.scrollableContainer
+            );
+          }
+        }, 500);
+      });
   }
 
   addNewSection(target: any, type: 'widget' | 'section', newSection: any): void {

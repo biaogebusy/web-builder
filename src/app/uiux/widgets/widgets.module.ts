@@ -59,6 +59,7 @@ import { NotifyComponent } from './notify/notify.component';
 import { LogoComponent } from './img/logo/logo.component';
 import { GotopComponent } from './actions/gotop/gotop.component';
 import { SwitchThemeComponent } from './switch-theme/switch-theme.component';
+import { CustomThemeComponent } from './custom-theme/custom-theme.component';
 import { GithubStarComponent } from './github-star/github-star.component';
 import { DividerComponent } from './divider/divider.component';
 import { LoadingComponent } from './loading/loading.component';
@@ -82,6 +83,7 @@ const standaloneComponents = [
   PaginationLinksComponent,
   GithubStarComponent,
   SwitchThemeComponent,
+  CustomThemeComponent,
   BtnComponent,
   InlineLightboxComponent,
   ComponentToolbarComponent,

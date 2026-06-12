@@ -39,6 +39,20 @@ export class ManageService extends ApiService {
     );
   }
 
+  updateMediaName(uuid: string, name: string): Observable<any> {
+    return this.http.patch<any>(
+      `${this.apiUrl}/api/v1/media/image/${uuid}`,
+      {
+        data: {
+          type: 'media--image',
+          id: uuid,
+          attributes: { name },
+        },
+      },
+      this.optionsWithBearerToken()
+    );
+  }
+
   getUrlIncluded(item: any, included: any[]): string {
     const id = item.relationships.field_media_image.data.id;
     const obj = included.find(media => media.id === id);

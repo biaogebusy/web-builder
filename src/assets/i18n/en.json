@@ -33,7 +33,19 @@
       "EMPTY_DESC": "No media resources yet",
       "MISSING_UUID": "Did you forget to configure the UUID?",
       "ALL_DELETED": "All deleted",
-      "PATH_COPIED": "Image path copied"
+      "PATH_COPIED": "Image path copied",
+      "RENAME": "Rename",
+      "RENAME_TITLE": "Rename media",
+      "RENAME_LABEL": "Name",
+      "RENAME_HINT": "The name is used for keyword search",
+      "RENAMED": "Name updated",
+      "RENAME_FAILED": "Failed to update the name, please try again",
+      "SAVE": "Save",
+      "CONFIRM_DELETE_TITLE": "Delete media",
+      "CONFIRM_DELETE_BODY": "Delete this media file? This action cannot be undone.",
+      "CONFIRM_BULK_DELETE_BODY": "Delete the {{count}} selected media files? This action cannot be undone.",
+      "CONFIRM": "Delete",
+      "CANCEL": "Cancel"
     }
   },
   "BUILDER": {
@@ -147,7 +159,27 @@
       "ENABLE_BUILDER": "Please enable the Builder feature."
     },
     "INLINE_EDITOR": {
-      "CLEAR_STYLES": "Clear styles"
+      "CLEAR_STYLES": "Clear styles",
+      "EDIT_TEXT": "Edit text",
+      "EDIT_IMG": "Edit image"
+    },
+    "CODE_EDITOR": {
+      "EXPAND": "Expand",
+      "COLLAPSE": "Collapse",
+      "RESTORE": "Restore",
+      "DOCK_BOTTOM": "Dock to bottom",
+      "API_SOURCE": "API data source",
+      "CUSTOM_WIDGET": "Tailwind custom widget",
+      "VIEW_SYNTAX": "View syntax",
+      "SYNTAX_GUIDE": "Syntax guide",
+      "API_REQUIRED": "API data source requires an API URL",
+      "JS_TAB": "JS Logic",
+      "JS_TIP": "Admin only. Runs after page render: use root (component root element) and data (template data); return a function to clean up on re-render or destroy."
+    },
+    "CUSTOM_TEMPLATE": {
+      "RENDER_ERROR": "Unexpected error, please check the configuration.",
+      "LOCATE_CHANGED": "Template content has changed and could not be located. Please use the template editor.",
+      "LOCATE_IMG_FAIL": "Could not uniquely locate the image in the source. Please use the template editor."
     },
     "TEMPLATE": {
       "TIP_TOOLTIP": "Set the page category to 'Template' to add it here",
@@ -898,5 +930,53 @@
       "TITLE_TAB": "Title",
       "WIDGET_TAB": "Widget"
     }
+  },
+  "CUSTOM_THEME": {
+    "EYEBROW": "Theme",
+    "TITLE": "Custom palette",
+    "DESC": "Pick a primary color to generate a full palette per Material 3.",
+    "SEED_LABEL": "Primary",
+    "UNSAVED": "Unsaved",
+    "SEED_PICKER_ARIA": "Pick primary color",
+    "HEX_ARIA": "Hex color value",
+    "PRESETS_ARIA": "Preset primary colors",
+    "PRESETS": {
+      "INDIGO": "Indigo",
+      "TEAL": "Teal",
+      "GREEN": "Green",
+      "ORANGE": "Orange",
+      "ROSE": "Rose",
+      "ROYAL": "Royal"
+    },
+    "APPEARANCE": "Appearance",
+    "MODE_ARIA": "Light / dark mode",
+    "LIGHT": "Light",
+    "DARK": "Dark",
+    "SCHEME": "Color scheme",
+    "VARIANTS": {
+      "CONTENT": "Content",
+      "TONAL_SPOT": "Tonal spot",
+      "VIBRANT": "Vibrant"
+    },
+    "PREVIEW": "Preview",
+    "SURFACES_ARIA": "Surface levels",
+    "PAIRS": {
+      "PRIMARY": "Primary",
+      "SECONDARY": "Secondary",
+      "TERTIARY": "Tertiary",
+      "ERROR": "Error"
+    },
+    "RESET": "Reset",
+    "APPLY": "Apply theme",
+    "ACTIONS": "Actions",
+    "EXPORT": "Export",
+    "COPY": "Copy",
+    "SAVE_BACKEND": "Save to backend",
+    "SAVED_TOAST": "Custom theme applied",
+    "RESET_TOAST": "Reset to default theme",
+    "EXPORTED_TOAST": "Theme exported",
+    "COPIED_TOAST": "CSS copied to clipboard",
+    "SAVE_BACKEND_TOAST": "Theme saved to backend config",
+    "SAVE_BACKEND_FAIL": "Failed to save, please retry"
   }
 }

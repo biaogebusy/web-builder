@@ -74,6 +74,21 @@
   .toolbar-label {
     color: white;
   }
+  .editor-tabs {
+    @apply flex items-center gap-1 ml-2;
+    .tab-btn {
+      @apply px-3 py-1 text-sm rounded-full cursor-pointer border-0 bg-transparent;
+      color: rgb(255 255 255 / 70%);
+      &:hover {
+        color: white;
+      }
+      &.active {
+        @apply font-medium;
+        background-color: rgb(255 255 255 / 15%);
+        color: white;
+      }
+    }
+  }
   .btn-help {
     --mat-icon-button-state-layer-size: 24px;
     line-height: 0;

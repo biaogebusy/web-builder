@@ -10,7 +10,9 @@
         icon: { svg: isMore() ? 'chevron-up' : 'chevron-down' },
         disabled: isCollapse(),
       }"
-      matTooltip="{{ isMore() ? '展开' : '收起' }}"
+      [matTooltip]="
+        (isMore() ? 'BUILDER.CODE_EDITOR.EXPAND' : 'BUILDER.CODE_EDITOR.COLLAPSE') | translate
+      "
       matTooltipPosition="above"
     ></app-btn>
     <app-btn
@@ -21,12 +23,44 @@
         mode: 'icon',
         icon: { svg: isCollapse() ? 'tray-arrow-up' : 'tray-arrow-down' },
       }"
-      [matTooltip]="isCollapse() ? '恢复' : '置底'"
+      [matTooltip]="
+        (isCollapse() ? 'BUILDER.CODE_EDITOR.RESTORE' : 'BUILDER.CODE_EDITOR.DOCK_BOTTOM')
+          | translate
+      "
       matTooltipPosition="above"
     ></app-btn>
   </div>
   <div class="toolbar">
-    <div class="toolbar-label">{{ isAPI() ? '数据来源 API' : 'Tailwind 自定义组件' }}</div>
+    <div class="toolbar-label">
+      {{
+        (isAPI() ? 'BUILDER.CODE_EDITOR.API_SOURCE' : 'BUILDER.CODE_EDITOR.CUSTOM_WIDGET')
+          | translate
+      }}
+    </div>
+    @if (isAdmin()) {
+      <div class="editor-tabs">
+        <button
+          type="button"
+          class="tab-btn"
+          [class.active]="activeTab() === 'html'"
+          [attr.aria-pressed]="activeTab() === 'html'"
+          (click)="switchTab('html')"
+        >
+          HTML
+        </button>
+        <button
+          type="button"
+          class="tab-btn"
+          [class.active]="activeTab() === 'js'"
+          [attr.aria-pressed]="activeTab() === 'js'"
+          (click)="switchTab('js')"
+          [matTooltip]="'BUILDER.CODE_EDITOR.JS_TIP' | translate"
+          matTooltipPosition="above"
+        >
+          {{ 'BUILDER.CODE_EDITOR.JS_TAB' | translate }}
+        </button>
+      </div>
+    }
     @if (builderConfig?.codeEditor?.help) {
       <app-btn
         class="btn-help"
@@ -36,7 +70,7 @@
           icon: { svg: 'tooltip-question-outline' },
         }"
         (click)="showHelp(builderConfig?.codeEditor?.help)"
-        matTooltip="查看语法"
+        [matTooltip]="'BUILDER.CODE_EDITOR.VIEW_SYNTAX' | translate"
         matTooltipPosition="above"
       ></app-btn>
     }
@@ -51,12 +85,21 @@
       </div>
     }
     <div class="box editor-box col-span-12 {{ isAPI() ? 'md:col-span-9' : '' }}">
-      <ngx-monaco-editor
-        class="monaco-editor"
-        [options]="MonacoOptions"
-        [ngModel]="html()"
-        [formControl]="htmlForm"
-      />
+      @if (activeTab() === 'js' && isAdmin()) {
+        <ngx-monaco-editor
+          class="monaco-editor"
+          [options]="jsMonacoOptions"
+          [formControl]="jsForm"
+        />
+      } @else {
+        <ngx-monaco-editor
+          class="monaco-editor"
+          [options]="MonacoOptions"
+          [ngModel]="html()"
+          [formControl]="htmlForm"
+          (onInit)="onEditorInit($event)"
+        />
+      }
     </div>
     @if (editing()) {
       <div class="editing">

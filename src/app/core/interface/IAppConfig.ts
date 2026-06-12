@@ -2,6 +2,7 @@ import { IText } from '../interface/widgets/IText';
 import { IAmap } from '../interface/IAmap';
 import { IDownload } from './widgets/IDownload';
 import { IIcon } from './widgets/IIcon';
+import type { ICustomTheme } from '@core/service/theme.service';
 export interface IAppConfig {
   defTheme: string;
   config?: ICoreConfig | null;
@@ -65,6 +66,7 @@ export interface ICoreConfig {
     repo: string;
     token: string;
   };
+  customTheme?: ICustomTheme;
 }
 
 export interface INotifyConfig {

@@ -64,6 +64,7 @@ export class ComponentService {
         'media-meta',
         'content-box',
         'github-star',
+        'custom-theme',
         'progress-bar',
         'media-object',
         'dynamic-table',
