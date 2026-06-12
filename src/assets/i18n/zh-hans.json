@@ -172,7 +172,9 @@
       "CUSTOM_WIDGET": "Tailwind 自定义组件",
       "VIEW_SYNTAX": "查看语法",
       "SYNTAX_GUIDE": "语法指南",
-      "API_REQUIRED": "数据来源API，请填写API地址"
+      "API_REQUIRED": "数据来源API，请填写API地址",
+      "JS_TAB": "JS 逻辑",
+      "JS_TIP": "仅管理员可编辑。脚本在页面渲染后执行，可使用 root（组件根元素）与 data（模板数据），return 一个函数可在重渲染或销毁时清理。"
     },
     "CUSTOM_TEMPLATE": {
       "RENDER_ERROR": "意外错误，请检查配置。",

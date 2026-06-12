@@ -181,6 +181,8 @@ export interface ICustomTemplate extends ICombsBase {
   isAPI?: boolean;
   api?: string;
   dialogs?: ICustomTemplateDialog[];
+  /** 自定义 JS 逻辑（仅管理员可编辑），前台渲染后执行，可 return 清理函数 */
+  js?: string;
 }
 
 export interface ICustomTemplateDialog {
@@ -200,6 +202,7 @@ export interface ICodeEditor {
     json?: any;
     isAPI?: boolean;
     api?: string;
+    js?: string;
   };
   path: string;
   /** 打开编辑器后定位并选中的源码片段 */

@@ -172,7 +172,9 @@
       "CUSTOM_WIDGET": "Tailwind custom widget",
       "VIEW_SYNTAX": "View syntax",
       "SYNTAX_GUIDE": "Syntax guide",
-      "API_REQUIRED": "API data source requires an API URL"
+      "API_REQUIRED": "API data source requires an API URL",
+      "JS_TAB": "JS Logic",
+      "JS_TIP": "Admin only. Runs after page render: use root (component root element) and data (template data); return a function to clean up on re-render or destroy."
     },
     "CUSTOM_TEMPLATE": {
       "RENDER_ERROR": "Unexpected error, please check the configuration.",

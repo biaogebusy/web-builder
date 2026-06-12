@@ -13,7 +13,9 @@ import { Observable, of } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { MatDialog } from '@angular/material/dialog';
-import { BUILDER_CONFIG } from '@core/token/token-providers';
+import { BUILDER_CONFIG, USER } from '@core/token/token-providers';
+import type { IUser } from '@core/interface/IUser';
+import { UserService } from '@core/service/user.service';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { IDialog } from '@core/interface/IDialog';
 import { TagsService } from '@core/service/tags.service';
@@ -48,6 +50,11 @@ export class CodeEditorComponent implements OnInit {
   private api: string;
   public form = new UntypedFormGroup({});
   public htmlForm = new UntypedFormControl({});
+  public jsForm = new UntypedFormControl('');
+  public js = signal<string>('');
+  public activeTab = signal<'html' | 'js'>('html');
+  // 自定义 JS 仅管理员可见可编辑（前台会对所有访客执行，作者即信任边界）
+  public isAdmin = signal<boolean>(false);
   public model: any = {};
   public fields: FormlyFieldConfig[];
   public MonacoOptions = {
@@ -69,6 +76,7 @@ export class CodeEditorComponent implements OnInit {
     lightbulb: { enabled: true }, // 显示快速修复灯泡
     fontSize: 14,
   };
+  public jsMonacoOptions = { ...this.MonacoOptions, language: 'javascript' };
 
   private dialog = inject(MatDialog);
   private builder = inject(BuilderState);
@@ -78,17 +86,26 @@ export class CodeEditorComponent implements OnInit {
   public screenService = inject(ScreenService);
   private tagsService = inject(TagsService);
   private translate = inject(TranslateService);
+  private currentUser$ = inject<Observable<IUser>>(USER);
+  private userService = inject(UserService);
   public editing = signal<boolean>(false);
   public highlightedCode = signal<string>('');
   public builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
   private editor: any;
 
   ngOnInit(): void {
-    const { html, json: jsonValue = null, isAPI = false, api = '' } = this.content().content;
+    const { html, json: jsonValue = null, isAPI = false, api = '', js = '' } = this.content().content;
     this.html.set(html);
     this.json.set(jsonValue);
     this.isAPI.set(isAPI);
     this.api = (api ?? '').trim();
+    this.js.set(js ?? '');
+    this.jsForm.setValue(this.js(), { emitEvent: false });
+    this.currentUser$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(user => {
+      this.isAdmin.set(
+        this.userService.checkShow({ params: { reqRoles: ['administrator'] } }, user)
+      );
+    });
     if (this.isAPI() && this.api) {
       this.fields = [
         {
@@ -120,6 +137,7 @@ export class CodeEditorComponent implements OnInit {
     }
     this.onFormChange();
     this.onHTMLChange();
+    this.onJsChange();
 
     this.builder.revealCode$
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -161,6 +179,41 @@ export class CodeEditorComponent implements OnInit {
       });
   }
 
+  onJsChange(): void {
+    this.jsForm.valueChanges
+      .pipe(
+        tap(() => {
+          this.editing.set(true);
+        }),
+        debounceTime(2000),
+        distinctUntilChanged(),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe(js => {
+        this.updateJs(js);
+        this.editing.set(false);
+      });
+  }
+
+  switchTab(tab: 'html' | 'js'): void {
+    this.activeTab.set(tab);
+  }
+
+  updateJs(js: string): void {
+    const { path } = this.content();
+    if (!path) {
+      return;
+    }
+    const content = { ...get(this.builder.currentPage.body, path) };
+    if (js?.trim()) {
+      content.js = js;
+    } else {
+      delete content.js;
+    }
+    delete content.relationships;
+    this.builder.updatePageContentByPath(`${path}`, content);
+  }
+
   updateHtml(html: any): void {
     const { path } = this.content();
     if (path) {
@@ -171,6 +224,8 @@ export class CodeEditorComponent implements OnInit {
       // remove ai generator relationships
       delete content.relationships;
       this.builder.updatePageContentByPath(`${path}`, content);
+      // 同步快照，避免切换 HTML/JS 标签重建编辑器时回退到打开时的旧内容
+      this.html.set(html);
     }
   }
 

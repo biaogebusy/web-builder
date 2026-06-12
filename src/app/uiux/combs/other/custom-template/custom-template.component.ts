@@ -58,6 +58,8 @@ export class CustomTemplateComponent implements AfterViewInit {
   // 源码定位编辑：画布内的 Mustache/API 模板，点选后在源码中唯一匹配
   private locateBound = false;
   private pendingEdit: { el: HTMLElement; snippet: string; mode: 'html' | 'text' } | null = null;
+  // 自定义 JS 返回的清理函数，重渲染/销毁时调用
+  private jsCleanup: (() => void) | null = null;
 
   private static readonly NON_EDITABLE_TAGS = new Set([
     'IMG',
@@ -80,6 +82,7 @@ export class CustomTemplateComponent implements AfterViewInit {
     this.inlineEditable = this.inCanvas && !isAPI && !(html ?? '').includes('{{');
     const fontawesome = this.util.getLibraries('fontAwesome', 'cdn', 'style');
     this.util.loadStyle(fontawesome);
+    this.destroyRef.onDestroy(() => this.runJsCleanup());
     this.render(this.content());
   }
 
@@ -93,6 +96,7 @@ export class CustomTemplateComponent implements AfterViewInit {
           this.renderView(json, html);
           this.pager.set(null);
           this.setupInlineEdit();
+          this.runCustomJs(json ?? {});
         } catch (e) {
           const error = this.translate.instant('BUILDER.CUSTOM_TEMPLATE.RENDER_ERROR');
           this.renderView({}, `<div class="m-5 p-5 bg-red-100 rounded-lg">${error}</div>`);
@@ -165,6 +169,7 @@ export class CustomTemplateComponent implements AfterViewInit {
             if (rows && pager) {
               this.pager.set(this.nodeService.handlerPager(pager, rows.length));
             }
+            this.runCustomJs(res);
           }
         });
     }
@@ -236,6 +241,37 @@ export class CustomTemplateComponent implements AfterViewInit {
         this.dialogClickHandler = undefined;
       }
     });
+  }
+
+  /**
+   * 执行管理员配置的自定义 JS（content.js）。作者侧已按管理员角色门控（代码编辑器），
+   * 运行侧以 new Function 限定入参作用域执行：root 为模板根元素、data 为模板数据。
+   * 脚本可 return 一个函数，在重渲染（如分页）或组件销毁时清理（解绑事件、销毁实例）。
+   */
+  private runCustomJs(data: any): void {
+    const js = this.content().js;
+    if (!js?.trim()) {
+      return;
+    }
+    this.runJsCleanup();
+    try {
+      const fn = new Function('root', 'data', `'use strict';\n${js}`);
+      const cleanup = fn(this.template, data);
+      if (typeof cleanup === 'function') {
+        this.jsCleanup = cleanup;
+      }
+    } catch (e) {
+      console.error('[custom-template] custom JS error:', e);
+    }
+  }
+
+  private runJsCleanup(): void {
+    try {
+      this.jsCleanup?.();
+    } catch (e) {
+      console.error('[custom-template] custom JS cleanup error:', e);
+    }
+    this.jsCleanup = null;
   }
 
   /**
