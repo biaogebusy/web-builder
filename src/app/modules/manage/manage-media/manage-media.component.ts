@@ -1,4 +1,13 @@
-import { Component, OnInit, inject, DestroyRef, signal, ChangeDetectionStrategy, input, viewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  inject,
+  DestroyRef,
+  signal,
+  ChangeDetectionStrategy,
+  input,
+  viewChild,
+} from '@angular/core';
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -104,12 +113,10 @@ export class ManageMediaComponent implements OnInit {
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.loading.set(true);
-      this.builderConfig
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(config => {
-          this.manageMediaConfig.set(config.manageMedia);
-          this.fields.set([...this.defaultField, ...config.manageMedia.sidebar.form]);
-        });
+      this.builderConfig.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(config => {
+        this.manageMediaConfig.set(config.manageMedia);
+        this.fields.set([...this.defaultField, ...config.manageMedia.sidebar.form]);
+      });
       this.onSearch({});
       this.form.valueChanges
         .pipe(takeUntilDestroyed(this.destroyRef), debounceTime(1000), distinctUntilChanged())
@@ -143,18 +150,47 @@ export class ManageMediaComponent implements OnInit {
   }
 
   onDelete(uuid: string): void {
-    if (uuid) {
-      this.loading.set(true);
-      this.manageService
-        .deleteMedia(uuid)
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(() => {
-          this.loading.set(false);
-          this.onSearch(this.form.value);
-        });
-    } else {
+    if (!uuid) {
       this.util.openSnackbar(this.translate.instant('MANAGE.MEDIA.MISSING_UUID'), 'ok');
+      return;
     }
+    this.confirmDelete('MANAGE.MEDIA.CONFIRM_DELETE_BODY')
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(confirmed => {
+        if (!confirmed) {
+          return;
+        }
+        this.loading.set(true);
+        this.manageService
+          .deleteMedia(uuid)
+          .pipe(takeUntilDestroyed(this.destroyRef))
+          .subscribe(() => {
+            this.loading.set(false);
+            this.onSearch(this.form.value);
+          });
+      });
+  }
+
+  confirmDelete(bodyKey: string, params?: Record<string, unknown>): Observable<boolean> {
+    const config: IDialog = {
+      title: this.translate.instant('MANAGE.MEDIA.CONFIRM_DELETE_TITLE'),
+      titleClasses: 'text-red-500',
+      noLabel: this.translate.instant('MANAGE.MEDIA.CANCEL'),
+      yesLabel: this.translate.instant('MANAGE.MEDIA.CONFIRM'),
+      inputData: {
+        content: {
+          type: 'text',
+          fullWidth: true,
+          body: this.translate.instant(bodyKey, params),
+        },
+      },
+    };
+    return this.dialog
+      .open(DialogComponent, {
+        width: '340px',
+        data: config,
+      })
+      .afterClosed();
   }
 
   onChange(checked: boolean, uuid: string): void {
@@ -187,6 +223,16 @@ export class ManageMediaComponent implements OnInit {
   }
 
   bulkDelete(lists: string[]): void {
+    this.confirmDelete('MANAGE.MEDIA.CONFIRM_BULK_DELETE_BODY', { count: lists.length })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(confirmed => {
+        if (confirmed) {
+          this.runBulkDelete(lists);
+        }
+      });
+  }
+
+  runBulkDelete(lists: string[]): void {
     const totalFiles = lists.length;
 
     from(lists)
@@ -227,6 +273,72 @@ export class ManageMediaComponent implements OnInit {
       value: this.content(),
       time: this.content().time,
     });
+  }
+
+  onRename(item: IManageImg): void {
+    if (!item.uuid) {
+      this.util.openSnackbar(this.translate.instant('MANAGE.MEDIA.MISSING_UUID'), 'ok');
+      return;
+    }
+    const renameForm = new UntypedFormGroup({
+      name: new FormControl(item.title, { nonNullable: true }),
+    });
+    const renameModel = { name: item.title };
+    const config: IDialog = {
+      title: this.translate.instant('MANAGE.MEDIA.RENAME_TITLE'),
+      noLabel: this.translate.instant('MANAGE.MEDIA.CANCEL'),
+      yesLabel: this.translate.instant('MANAGE.MEDIA.SAVE'),
+      inputData: {
+        content: {
+          content: { type: 'formly' },
+          form: renameForm,
+          model: renameModel,
+          fullWidth: true,
+          fields: [
+            {
+              type: 'input',
+              key: 'name',
+              props: {
+                appearance: 'fill',
+                label: this.translate.instant('MANAGE.MEDIA.RENAME_LABEL'),
+                description: this.translate.instant('MANAGE.MEDIA.RENAME_HINT'),
+                required: true,
+              },
+            },
+          ],
+        },
+      },
+    };
+    this.dialog
+      .open(DialogComponent, {
+        width: '420px',
+        data: config,
+      })
+      .afterClosed()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(confirmed => {
+        if (!confirmed) {
+          return;
+        }
+        const name = (renameForm.get('name')?.value ?? '').trim();
+        if (!name || name === item.title) {
+          return;
+        }
+        this.loading.set(true);
+        this.manageService
+          .updateMediaName(item.uuid, name)
+          .pipe(takeUntilDestroyed(this.destroyRef))
+          .subscribe({
+            next: () => {
+              this.util.openSnackbar(this.translate.instant('MANAGE.MEDIA.RENAMED'), 'ok');
+              this.onSearch(this.form.value);
+            },
+            error: () => {
+              this.loading.set(false);
+              this.util.openSnackbar(this.translate.instant('MANAGE.MEDIA.RENAME_FAILED'), 'ok');
+            },
+          });
+      });
   }
 
   onCopy(item: IManageImg): void {

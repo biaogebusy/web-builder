@@ -13,7 +13,9 @@ import { Observable, of } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { MatDialog } from '@angular/material/dialog';
-import { BUILDER_CONFIG } from '@core/token/token-providers';
+import { BUILDER_CONFIG, USER } from '@core/token/token-providers';
+import type { IUser } from '@core/interface/IUser';
+import { UserService } from '@core/service/user.service';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { IDialog } from '@core/interface/IDialog';
 import { TagsService } from '@core/service/tags.service';
@@ -21,6 +23,7 @@ import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
 import { FormlyComponent } from '@uiux/combs/form/formly/formly.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-code-editor',
@@ -34,6 +37,7 @@ import { FormlyComponent } from '@uiux/combs/form/formly/formly.component';
     BtnComponent,
     LoadingComponent,
     FormlyComponent,
+    TranslateModule,
   ],
 })
 export class CodeEditorComponent implements OnInit {
@@ -46,6 +50,11 @@ export class CodeEditorComponent implements OnInit {
   private api: string;
   public form = new UntypedFormGroup({});
   public htmlForm = new UntypedFormControl({});
+  public jsForm = new UntypedFormControl('');
+  public js = signal<string>('');
+  public activeTab = signal<'html' | 'js'>('html');
+  // 自定义 JS 仅管理员可见可编辑（前台会对所有访客执行，作者即信任边界）
+  public isAdmin = signal<boolean>(false);
   public model: any = {};
   public fields: FormlyFieldConfig[];
   public MonacoOptions = {
@@ -67,6 +76,7 @@ export class CodeEditorComponent implements OnInit {
     lightbulb: { enabled: true }, // 显示快速修复灯泡
     fontSize: 14,
   };
+  public jsMonacoOptions = { ...this.MonacoOptions, language: 'javascript' };
 
   private dialog = inject(MatDialog);
   private builder = inject(BuilderState);
@@ -75,16 +85,27 @@ export class CodeEditorComponent implements OnInit {
   private nodeService = inject(NodeService);
   public screenService = inject(ScreenService);
   private tagsService = inject(TagsService);
+  private translate = inject(TranslateService);
+  private currentUser$ = inject<Observable<IUser>>(USER);
+  private userService = inject(UserService);
   public editing = signal<boolean>(false);
   public highlightedCode = signal<string>('');
   public builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
+  private editor: any;
 
   ngOnInit(): void {
-    const { html, json: jsonValue = null, isAPI = false, api = '' } = this.content().content;
+    const { html, json: jsonValue = null, isAPI = false, api = '', js = '' } = this.content().content;
     this.html.set(html);
     this.json.set(jsonValue);
     this.isAPI.set(isAPI);
     this.api = (api ?? '').trim();
+    this.js.set(js ?? '');
+    this.jsForm.setValue(this.js(), { emitEvent: false });
+    this.currentUser$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(user => {
+      this.isAdmin.set(
+        this.userService.checkShow({ params: { reqRoles: ['administrator'] } }, user)
+      );
+    });
     if (this.isAPI() && this.api) {
       this.fields = [
         {
@@ -116,6 +137,11 @@ export class CodeEditorComponent implements OnInit {
     }
     this.onFormChange();
     this.onHTMLChange();
+    this.onJsChange();
+
+    this.builder.revealCode$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(text => this.revealInEditor(text));
 
     this.dialog
       .getDialogById('code-editor-dialog')
@@ -153,6 +179,41 @@ export class CodeEditorComponent implements OnInit {
       });
   }
 
+  onJsChange(): void {
+    this.jsForm.valueChanges
+      .pipe(
+        tap(() => {
+          this.editing.set(true);
+        }),
+        debounceTime(2000),
+        distinctUntilChanged(),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe(js => {
+        this.updateJs(js);
+        this.editing.set(false);
+      });
+  }
+
+  switchTab(tab: 'html' | 'js'): void {
+    this.activeTab.set(tab);
+  }
+
+  updateJs(js: string): void {
+    const { path } = this.content();
+    if (!path) {
+      return;
+    }
+    const content = { ...get(this.builder.currentPage.body, path) };
+    if (js?.trim()) {
+      content.js = js;
+    } else {
+      delete content.js;
+    }
+    delete content.relationships;
+    this.builder.updatePageContentByPath(`${path}`, content);
+  }
+
   updateHtml(html: any): void {
     const { path } = this.content();
     if (path) {
@@ -163,11 +224,31 @@ export class CodeEditorComponent implements OnInit {
       // remove ai generator relationships
       delete content.relationships;
       this.builder.updatePageContentByPath(`${path}`, content);
+      // 同步快照，避免切换 HTML/JS 标签重建编辑器时回退到打开时的旧内容
+      this.html.set(html);
     }
   }
 
   onShowMore(): void {
     this.isMore.set(!this.isMore());
+  }
+
+  onEditorInit(editor: any): void {
+    this.editor = editor;
+    this.revealInEditor(this.content().reveal);
+  }
+
+  private revealInEditor(text?: string): void {
+    if (!text || !this.editor) {
+      return;
+    }
+    const matches =
+      this.editor.getModel()?.findMatches(text, false, false, false, null, false) ?? [];
+    if (matches.length) {
+      this.editor.setSelection(matches[0].range);
+      this.editor.revealRangeInCenter(matches[0].range);
+      this.editor.focus();
+    }
   }
 
   toggleCollapse(): void {
@@ -185,7 +266,10 @@ export class CodeEditorComponent implements OnInit {
       .subscribe(value => {
         const { api } = value;
         if (!api) {
-          this.util.openSnackbar('数据来源API，请填写API地址', 'ok');
+          this.util.openSnackbar(
+            this.translate.instant('BUILDER.CODE_EDITOR.API_REQUIRED'),
+            'ok'
+          );
           return;
         }
         const { path } = this.content();
@@ -218,7 +302,7 @@ export class CodeEditorComponent implements OnInit {
 
   showHelp(help?: string): void {
     const config: IDialog = {
-      title: '语法指南',
+      title: this.translate.instant('BUILDER.CODE_EDITOR.SYNTAX_GUIDE'),
       disableActions: true,
       inputData: {
         content: {

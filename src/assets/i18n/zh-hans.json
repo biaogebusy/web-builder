@@ -33,7 +33,19 @@
       "EMPTY_DESC": "当前没有任何媒体资源",
       "MISSING_UUID": "是否忘记了配置UUID？",
       "ALL_DELETED": "已全部删除",
-      "PATH_COPIED": "图片路径已复制"
+      "PATH_COPIED": "图片路径已复制",
+      "RENAME": "重命名",
+      "RENAME_TITLE": "修改媒体名称",
+      "RENAME_LABEL": "名称",
+      "RENAME_HINT": "名称将用于关键词搜索",
+      "RENAMED": "名称已更新",
+      "RENAME_FAILED": "名称更新失败，请重试",
+      "SAVE": "保存",
+      "CONFIRM_DELETE_TITLE": "删除媒体",
+      "CONFIRM_DELETE_BODY": "是否要删除该媒体文件？此操作不可恢复。",
+      "CONFIRM_BULK_DELETE_BODY": "是否要删除选中的 {{count}} 个媒体文件？此操作不可恢复。",
+      "CONFIRM": "确认删除",
+      "CANCEL": "取消"
     }
   },
   "BUILDER": {
@@ -147,7 +159,27 @@
       "ENABLE_BUILDER": "请开启 Builder 功能！"
     },
     "INLINE_EDITOR": {
-      "CLEAR_STYLES": "清空样式"
+      "CLEAR_STYLES": "清空样式",
+      "EDIT_TEXT": "编辑文本",
+      "EDIT_IMG": "编辑图片"
+    },
+    "CODE_EDITOR": {
+      "EXPAND": "展开",
+      "COLLAPSE": "收起",
+      "RESTORE": "恢复",
+      "DOCK_BOTTOM": "置底",
+      "API_SOURCE": "数据来源 API",
+      "CUSTOM_WIDGET": "Tailwind 自定义组件",
+      "VIEW_SYNTAX": "查看语法",
+      "SYNTAX_GUIDE": "语法指南",
+      "API_REQUIRED": "数据来源API，请填写API地址",
+      "JS_TAB": "JS 逻辑",
+      "JS_TIP": "仅管理员可编辑。脚本在页面渲染后执行，可使用 root（组件根元素）与 data（模板数据），return 一个函数可在重渲染或销毁时清理。"
+    },
+    "CUSTOM_TEMPLATE": {
+      "RENDER_ERROR": "意外错误，请检查配置。",
+      "LOCATE_CHANGED": "模板内容已变化，未能定位，请使用模板编辑",
+      "LOCATE_IMG_FAIL": "未能唯一定位图片源码，请使用模板编辑"
     },
     "TEMPLATE": {
       "TIP_TOOLTIP": "设置页面分类为模板即可加入到这里",
@@ -898,5 +930,53 @@
       "TITLE_TAB": "标题",
       "WIDGET_TAB": "组件"
     }
+  },
+  "CUSTOM_THEME": {
+    "EYEBROW": "主题",
+    "TITLE": "自定义配色",
+    "DESC": "选一个主色，按 Material 3 规范实时生成整套配色。",
+    "SEED_LABEL": "主色",
+    "UNSAVED": "未保存",
+    "SEED_PICKER_ARIA": "选择主色",
+    "HEX_ARIA": "十六进制颜色值",
+    "PRESETS_ARIA": "预设主色",
+    "PRESETS": {
+      "INDIGO": "靛蓝",
+      "TEAL": "深青",
+      "GREEN": "森绿",
+      "ORANGE": "赭橙",
+      "ROSE": "玫红",
+      "ROYAL": "皇家紫"
+    },
+    "APPEARANCE": "外观",
+    "MODE_ARIA": "明暗模式",
+    "LIGHT": "浅色",
+    "DARK": "深色",
+    "SCHEME": "配色方案",
+    "VARIANTS": {
+      "CONTENT": "内容贴合",
+      "TONAL_SPOT": "柔和",
+      "VIBRANT": "鲜艳"
+    },
+    "PREVIEW": "生成预览",
+    "SURFACES_ARIA": "表面层级",
+    "PAIRS": {
+      "PRIMARY": "主色",
+      "SECONDARY": "辅色",
+      "TERTIARY": "第三色",
+      "ERROR": "错误色"
+    },
+    "RESET": "重置",
+    "APPLY": "应用主题",
+    "ACTIONS": "操作",
+    "EXPORT": "导出",
+    "COPY": "复制",
+    "SAVE_BACKEND": "保存到后台",
+    "SAVED_TOAST": "已应用自定义主题",
+    "RESET_TOAST": "已重置为默认主题",
+    "EXPORTED_TOAST": "主题已导出",
+    "COPIED_TOAST": "CSS 已复制到剪贴板",
+    "SAVE_BACKEND_TOAST": "主题已保存到后台配置",
+    "SAVE_BACKEND_FAIL": "保存失败，请重试"
   }
 }

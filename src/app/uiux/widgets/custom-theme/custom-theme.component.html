@@ -1,0 +1,166 @@
+<div class="ct">
+  <header class="ct-head">
+    <p class="ct-eyebrow">{{ 'CUSTOM_THEME.EYEBROW' | translate }}</p>
+    <h2 class="ct-title">{{ 'CUSTOM_THEME.TITLE' | translate }}</h2>
+    <p class="ct-desc">{{ 'CUSTOM_THEME.DESC' | translate }}</p>
+  </header>
+
+  <section class="ct-section">
+    <div class="ct-label-row">
+      <span class="ct-label">{{ 'CUSTOM_THEME.SEED_LABEL' | translate }}</span>
+      @if (dirty()) {
+        <span class="ct-badge">{{ 'CUSTOM_THEME.UNSAVED' | translate }}</span>
+      }
+    </div>
+    <div class="ct-seed">
+      <label class="ct-well" [style.background-color]="seed()">
+        <input
+          type="color"
+          [value]="seed()"
+          (input)="onSeedChange($any($event.target).value)"
+          [attr.aria-label]="'CUSTOM_THEME.SEED_PICKER_ARIA' | translate"
+        />
+      </label>
+      <div class="ct-hex">
+        <span class="ct-hex-hash">#</span>
+        <input
+          class="ct-hex-input"
+          type="text"
+          spellcheck="false"
+          maxlength="7"
+          [value]="seed().replace('#', '')"
+          (change)="onHexInput($any($event.target).value)"
+          [attr.aria-label]="'CUSTOM_THEME.HEX_ARIA' | translate"
+        />
+      </div>
+    </div>
+
+    <div class="ct-presets" role="group" [attr.aria-label]="'CUSTOM_THEME.PRESETS_ARIA' | translate">
+      @for (preset of presets; track preset.seed) {
+        <button
+          type="button"
+          class="ct-dot"
+          [class.is-active]="isActivePreset(preset.seed)"
+          [style.--dot]="preset.seed"
+          [title]="preset.name | translate"
+          (click)="onPreset(preset)"
+          [attr.aria-label]="preset.name | translate"
+          [attr.aria-pressed]="isActivePreset(preset.seed)"
+        ></button>
+      }
+    </div>
+  </section>
+
+  <section class="ct-section">
+    <span class="ct-label">{{ 'CUSTOM_THEME.APPEARANCE' | translate }}</span>
+    <div class="ct-seg" role="radiogroup" [attr.aria-label]="'CUSTOM_THEME.MODE_ARIA' | translate">
+      <button
+        type="button"
+        class="ct-seg-btn"
+        [class.is-on]="!isDark()"
+        role="radio"
+        [attr.aria-checked]="!isDark()"
+        (click)="onMode(false)"
+      >
+        <app-icon [content]="{ svg: 'white-balance-sunny', inline: true }" />
+        {{ 'CUSTOM_THEME.LIGHT' | translate }}
+      </button>
+      <button
+        type="button"
+        class="ct-seg-btn"
+        [class.is-on]="isDark()"
+        role="radio"
+        [attr.aria-checked]="isDark()"
+        (click)="onMode(true)"
+      >
+        <app-icon [content]="{ svg: 'moon-waning-crescent', inline: true }" />
+        {{ 'CUSTOM_THEME.DARK' | translate }}
+      </button>
+    </div>
+  </section>
+
+  <section class="ct-section">
+    <span class="ct-label">{{ 'CUSTOM_THEME.SCHEME' | translate }}</span>
+    <button
+      type="button"
+      class="ct-select"
+      [matMenuTriggerFor]="schemeMenu"
+      [attr.aria-label]="'CUSTOM_THEME.SCHEME' | translate"
+    >
+      <span class="ct-select-value">{{ variantLabel() | translate }}</span>
+      <span class="ct-select-caret" aria-hidden="true"></span>
+    </button>
+    <mat-menu #schemeMenu="matMenu" class="ct-menu">
+      @for (v of variants; track v.value) {
+        <button type="button" mat-menu-item (click)="onVariant(v.value)">
+          {{ v.label | translate }}
+        </button>
+      }
+    </mat-menu>
+  </section>
+
+  <section class="ct-section">
+    <span class="ct-label">{{ 'CUSTOM_THEME.PREVIEW' | translate }}</span>
+    <div class="ct-pairs">
+      @for (pair of pairs(); track pair.label) {
+        <div class="ct-pair" [style.background-color]="pair.bg" [style.color]="pair.fg">
+          <span class="ct-pair-name">{{ pair.label | translate }}</span>
+          <span class="ct-pair-hex">{{ pair.bg }}</span>
+        </div>
+      }
+    </div>
+    <div
+      class="ct-ramp"
+      [style.border-color]="outline()"
+      [attr.aria-label]="'CUSTOM_THEME.SURFACES_ARIA' | translate"
+    >
+      @for (surface of surfaces(); track $index) {
+        <span class="ct-ramp-step" [style.background-color]="surface"></span>
+      }
+    </div>
+  </section>
+
+  <footer class="ct-footer">
+    <div class="ct-actions">
+      <app-btn
+        class="ct-menu-trigger"
+        [matMenuTriggerFor]="actionsMenu"
+        [content]="{
+          mode: 'stroked',
+          label: 'CUSTOM_THEME.ACTIONS' | translate,
+          icon: { svg: 'dots-horizontal', inline: true },
+        }"
+      />
+      <mat-menu #actionsMenu="matMenu" class="ct-menu">
+        <button type="button" mat-menu-item (click)="onExportCss()">
+          {{ 'CUSTOM_THEME.EXPORT' | translate }}
+        </button>
+        <button type="button" mat-menu-item (click)="onCopy()">
+          {{ 'CUSTOM_THEME.COPY' | translate }}
+        </button>
+        <button
+          type="button"
+          mat-menu-item
+          [disabled]="!canSaveBackend() || saving()"
+          (click)="onSaveBackend()"
+        >
+          {{ 'CUSTOM_THEME.SAVE_BACKEND' | translate }}
+        </button>
+      </mat-menu>
+      <app-btn
+        [content]="{ mode: 'stroked', label: 'CUSTOM_THEME.RESET' | translate }"
+        (btnClick)="onReset()"
+      />
+      <app-btn
+        class="ct-apply"
+        [content]="{
+          mode: 'flat',
+          color: 'primary',
+          label: 'CUSTOM_THEME.APPLY' | translate,
+          icon: { svg: 'check', inline: true },
+        }"
+        (btnClick)="onSave()"
+      />
+    </div>
+  </footer>
+</div>
