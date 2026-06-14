@@ -351,7 +351,7 @@ export class PageSettingComponent implements OnInit {
           id: drupal_internal__nid ?? '',
           path,
         },
-        value.alias
+        value.alias.trim()
       );
     } catch {
       this.loading.set(false);
