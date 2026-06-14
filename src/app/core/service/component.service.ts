@@ -266,7 +266,9 @@ export class ComponentService {
 
     if (!loader) {
       const pageUrl = this.doc.location.href;
-      throw new Error(`No module loader found for component ${type} from ${pageUrl}`);
+      const errorMsg = `No module loader found for component "${type}" from ${pageUrl}. Available components: ${Array.from(this.moduleLoaders.keys()).join(', ')}`;
+      console.error(errorMsg);
+      throw new Error(errorMsg);
     }
 
     // 使用模块名作为缓存 key，同一模块只创建一个 NgModuleRef

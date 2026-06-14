@@ -4,8 +4,11 @@ import {
   signal,
   output,
   ChangeDetectionStrategy,
-  input
+  input,
+  inject,
+  PLATFORM_ID
 } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import type { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { FormlyModule } from '@ngx-formly/core';
@@ -33,12 +36,25 @@ export class FormlyComponent implements AfterViewInit {
   readonly modelChange = output<any>();
 
   fieldsConfig = signal<FormlyFieldConfig[]>([]);
+  private platformId = inject(PLATFORM_ID);
 
   ngAfterViewInit(): void {
-    let config: FormlyFieldConfig[] = [];
-    const fields = this.content()?.fields;
-    config = fields ?? this.fields() ?? [];
-    this.fieldsConfig.set(cloneDeep(config));
+    try {
+      let config: FormlyFieldConfig[] = [];
+      const fields = this.content()?.fields;
+      config = fields ?? this.fields() ?? [];
+
+      // Only initialize form fields on browser to avoid SSR validation errors
+      if (isPlatformBrowser(this.platformId)) {
+        this.fieldsConfig.set(cloneDeep(config));
+      } else {
+        // On server, set empty config to prevent undefined access errors
+        this.fieldsConfig.set([]);
+      }
+    } catch (error) {
+      console.error('Error initializing Formly fields:', error);
+      this.fieldsConfig.set([]);
+    }
   }
 
   onModelChange(event: any): void {

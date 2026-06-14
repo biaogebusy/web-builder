@@ -115,7 +115,15 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnDestr
         this.ele.nativeElement.classList.add(...classes);
       }
 
-      const componentType = await this.componentService.getComponentType(type);
+      let componentType;
+      try {
+        componentType = await this.componentService.getComponentType(type);
+      } catch (error) {
+        console.error(`Failed to load component type "${type}":`, error);
+        // Render fallback or skip silently to prevent SSR crash
+        return;
+      }
+
       if (!componentType) {
         console.error('无法识别该组件：', inputs);
         return;
@@ -152,7 +160,8 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnDestr
         this.util.initAnimate(inputs, this.ele.nativeElement, this.ele.nativeElement);
       }
     } catch (error) {
-      console.error(error);
+      console.error('Error loading dynamic component:', error);
+      // Ensure we don't crash the entire SSR render
     }
   }
 
