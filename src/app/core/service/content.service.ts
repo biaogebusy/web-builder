@@ -4,7 +4,7 @@ import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { environment } from 'src/environments/environment';
 import { Observable, lastValueFrom, of } from 'rxjs';
-import { catchError, map, shareReplay, take, tap } from 'rxjs/operators';
+import { catchError, map, retry, shareReplay, take, tap } from 'rxjs/operators';
 import { isArray } from 'lodash-es';
 import { TagsService } from '@core/service/tags.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
@@ -41,12 +41,14 @@ export class ContentService extends ApiService {
       const landingPath = '/api/v3/landingPage?content=';
       const pageUrlParams = `${this.apiUrl}${lang}${landingPath}${path}`;
       return this.http.get<any>(pageUrlParams).pipe(
+        retry({ count: 1, delay: 500 }),
         tap(page => {
           this.updatePage(page);
           this.logContent(pageUrl);
         }),
-        catchError(() => {
-          return this.http.get<any>(`${this.apiUrl}${landingPath}/404`);
+        catchError(error => {
+          console.error('Failed to load page content:', error);
+          return of({} as IPage);
         })
       );
     } else {
@@ -72,7 +74,13 @@ export class ContentService extends ApiService {
     const { lang } = this.getUrlPath(this.pageUrl);
     return this.http
       .get<IBranding>(`${this.apiUrl}${lang}/api/v3/landingPage?content=/core/branding`)
-      .pipe(catchError(() => of({} as IBranding)));
+      .pipe(
+        retry({ count: 1, delay: 500 }),
+        catchError(error => {
+          console.error('Failed to load branding:', error);
+          return of({} as IBranding);
+        })
+      );
   }
 
   loadConfig(coreConfig: object): any {
@@ -80,6 +88,7 @@ export class ContentService extends ApiService {
     const configPath = `${this.apiUrl}${lang}/api/v3/landingPage?content=/core/base`;
     if (!this.coreConfigCache) {
       this.coreConfigCache = this.http.get<ICoreConfig>(configPath).pipe(
+        retry({ count: 2, delay: 1000 }),
         catchError(error => {
           console.error('base json not found:', error);
           return of({} as ICoreConfig);
@@ -87,10 +96,15 @@ export class ContentService extends ApiService {
         shareReplay(1)
       );
     }
-    return lastValueFrom(this.coreConfigCache).then((config: ICoreConfig) => {
-      Object.assign(coreConfig, config);
-      this.apiService.configLoadDone$.next(true);
-    });
+    return lastValueFrom(this.coreConfigCache)
+      .then((config: ICoreConfig) => {
+        Object.assign(coreConfig, config);
+        this.apiService.configLoadDone$.next(true);
+      })
+      .catch(error => {
+        console.error('Failed to load config, using defaults:', error);
+        this.apiService.configLoadDone$.next(true);
+      });
   }
 
   loadUIUX(): Observable<any[]> {
