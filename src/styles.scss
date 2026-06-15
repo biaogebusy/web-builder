@@ -3,9 +3,7 @@
 @use 'tailwindcss/components';
 @use 'tailwindcss/utilities';
 /* You can add global styles to this file, and also import other style files */
-@use 'theme-config/blue-colors';
-@use 'theme-config/green-colors';
-@use 'theme-config/pink-colors';
+@use 'theme-config/light-colors';
 @use 'theme-config/dark-colors';
 @use 'main';
 html {
