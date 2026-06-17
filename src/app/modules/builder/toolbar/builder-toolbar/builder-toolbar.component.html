@@ -17,7 +17,15 @@
                   {{ page.title }}
                 </div>
                 @if (!page.uuid) {
-                  - {{ 'BUILDER.COMMON.UNPUBLISHED' | translate }}
+                  <span
+                    class="draft-badge"
+                    role="status"
+                    [attr.aria-label]="'BUILDER.COMMON.UNPUBLISHED' | translate"
+                    [matTooltip]="'BUILDER.TOOLBAR.DRAFT_BADGE_TIP' | translate"
+                  >
+                    <app-icon class="draft-badge-icon" [content]="{ svg: 'tray-arrow-up' }" />
+                    {{ 'BUILDER.COMMON.UNPUBLISHED' | translate }}
+                  </span>
                 }
                 <app-icon [content]="{ svg: 'pencil-outline' }" />
               </div>
@@ -74,7 +82,7 @@
             (click)="onSubmit(page)"
             [content]="{
               label: (page.translation ? 'BUILDER.TOOLBAR.SUBMIT_TRANSLATION' : page.uuid ? 'BUILDER.TOOLBAR.SUBMIT_UPDATE' : 'BUILDER.TOOLBAR.SUBMIT_DRAFT') | translate,
-              color: 'primary',
+              color: page.uuid || !page.body.length ? 'primary' : 'warn',
               mode: 'raised',
               icon: {
                 svg: page.uuid ? 'pencil' : 'tray-arrow-up',

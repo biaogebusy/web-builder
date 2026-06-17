@@ -75,6 +75,7 @@
       "SUBMIT_TRANSLATION": "提交翻译",
       "SUBMIT_UPDATE": "提交更新",
       "SUBMIT_DRAFT": "提交草稿",
+      "DRAFT_BADGE_TIP": "当前页面尚未发布,处于草稿状态,点击右侧按钮可发布",
       "SELECT_TEMPLATE": "选择模板创建页面",
       "TRANSLATE_SUCCESS": "翻译{{target}}成功",
       "ADD_COMPONENT_FIRST": "请先添加组件",

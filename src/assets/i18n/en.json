@@ -75,6 +75,7 @@
       "SUBMIT_TRANSLATION": "Submit translation",
       "SUBMIT_UPDATE": "Submit update",
       "SUBMIT_DRAFT": "Submit draft",
+      "DRAFT_BADGE_TIP": "This page is unpublished and in draft state. Click the button on the right to publish.",
       "SELECT_TEMPLATE": "Select a template to create page",
       "TRANSLATE_SUCCESS": "Translated to {{target}} successfully",
       "ADD_COMPONENT_FIRST": "Please add a component first",
