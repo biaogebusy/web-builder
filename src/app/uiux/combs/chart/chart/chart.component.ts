@@ -7,8 +7,11 @@ import {
   signal,
   ChangeDetectionStrategy,
   input,
-  viewChild
+  viewChild,
+  DestroyRef,
+  DOCUMENT,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { EChartsOption } from 'echarts/types/dist/shared';
 import { isArray } from 'lodash-es';
 import * as echarts from 'echarts/core';
@@ -70,8 +73,21 @@ echarts.use([
 
 // Import the theme
 import { ScreenService } from '@core/service/screen.service';
+import { ConfigService } from '@core/service/config.service';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
+
+// Hardcoded fallback for SSR or when the Material sys tokens can't be read.
+const FALLBACK_PALETTE = ['#2E9BFF', '#987BE9', '#FAA16F', '#9DD094', '#FF6461'];
+// Palette sourced from --mat-sys-* tokens so it follows light/dark theme switches.
+const SYS_PALETTE_VARS = [
+  '--mat-sys-primary',
+  '--mat-sys-tertiary',
+  '--mat-sys-secondary',
+  '--mat-sys-error',
+  '--mat-sys-primary-fixed',
+  '--mat-sys-tertiary-fixed',
+];
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -89,12 +105,15 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   private theme = signal<object>({});
   private screenService = inject(ScreenService);
+  private configService = inject(ConfigService);
+  private doc = inject(DOCUMENT);
+  private destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
     this.theme.set(
       Object.assign(
         {
-          color: ['#2E9BFF', '#987BE9', '#FAA16F', '#9DD094', '#FF6461'],
+          color: this.readPalette(),
         },
         this.data()?.theme
       )
@@ -105,6 +124,12 @@ export class ChartComponent implements OnInit, AfterViewInit {
     if (this.screenService.isPlatformBrowser()) {
       this.chart = echarts.init(this.echarts()!.nativeElement, this.theme());
       this.chart.setOption(this.content());
+      // Re-apply the palette when the user switches theme: switchChange$ emits
+      // before the new theme class lands on <html>, so defer one tick before
+      // reading the refreshed --mat-sys-* values.
+      this.configService.switchChange$
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(() => setTimeout(() => this.applyTheme()));
     }
   }
 
@@ -116,5 +141,27 @@ export class ChartComponent implements OnInit, AfterViewInit {
       });
       this.chart?.setOption(this.content());
     }
+  }
+
+  private applyTheme(): void {
+    if (!this.chart) {
+      return;
+    }
+    // Custom palette from the input still wins over the system tokens.
+    if (this.data()?.theme?.color) {
+      return;
+    }
+    this.chart.setOption({ color: this.readPalette() });
+  }
+
+  private readPalette(): string[] {
+    if (!this.screenService.isPlatformBrowser()) {
+      return FALLBACK_PALETTE;
+    }
+    const style = getComputedStyle(this.doc.documentElement);
+    const palette = SYS_PALETTE_VARS.map(v =>
+      style.getPropertyValue(v).trim()
+    ).filter(Boolean);
+    return palette.length >= 2 ? palette : FALLBACK_PALETTE;
   }
 }
