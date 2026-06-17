@@ -123,7 +123,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.chart = echarts.init(this.echarts()!.nativeElement, this.theme());
-      this.chart.setOption(this.content());
+      this.applyOption(this.content());
       // Re-apply the palette when the user switches theme: switchChange$ emits
       // before the new theme class lands on <html>, so defer one tick before
       // reading the refreshed --mat-sys-* values.
@@ -139,7 +139,44 @@ export class ChartComponent implements OnInit, AfterViewInit {
       content.series.forEach((item: any) => {
         item.type = chart.value;
       });
-      this.chart?.setOption(this.content());
+      this.applyOption(content);
+    }
+  }
+
+  private applyOption(option: EChartsOption): void {
+    this.normalizeAxes(option);
+    this.chart?.setOption(option);
+  }
+
+  // ECharts has two related failure modes for misconfigured axes:
+  //   1. cartesian series (bar/line/scatter/candlestick) without axes → "yAxis 0 not found"
+  //   2. non-cartesian series (pie/funnel/gauge/...) carrying leftover cartesian axes —
+  //      especially `yAxis: []` — which still bootstraps a Grid component and then
+  //      fails the same lookup. Fix both: backfill defaults for cartesian charts,
+  //      strip stale axes for everything else.
+  private normalizeAxes(option: EChartsOption): void {
+    const series = option.series;
+    if (!isArray(series)) {
+      return;
+    }
+    const CARTESIAN_TYPES = new Set(['bar', 'line', 'scatter', 'candlestick']);
+    const hasCartesian = series.some((s: any) => s && CARTESIAN_TYPES.has(s.type));
+
+    if (hasCartesian) {
+      if (!option.xAxis || (isArray(option.xAxis) && option.xAxis.length === 0)) {
+        option.xAxis = { type: 'category' };
+      }
+      if (!option.yAxis || (isArray(option.yAxis) && option.yAxis.length === 0)) {
+        option.yAxis = { type: 'value' };
+      }
+      return;
+    }
+
+    if (option.xAxis !== undefined) {
+      delete (option as any).xAxis;
+    }
+    if (option.yAxis !== undefined) {
+      delete (option as any).yAxis;
     }
   }
 
