@@ -4,7 +4,7 @@
       <h2 class="title">{{ contentValue.title }}</h2>
       <div class="question-details" [innerHTML]="contentValue.body | safeHtml"></div>
       <div class="actions m-y-sm">
-        @if (!(user$ | async)) {
+        @if ((user$ | async) === false) {
           <button mat-raised-button color="primary" (click)="openLogin()">
             <mat-icon>person</mat-icon> 登录作答
           </button>

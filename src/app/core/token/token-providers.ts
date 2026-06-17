@@ -16,7 +16,7 @@ export const PAGE_CONTENT = new InjectionToken<Observable<IPage | object>>('page
 export const LANG = new InjectionToken<ILanguage>('current lang');
 export const THEME = new InjectionToken<string>('current theme');
 export const USER = new InjectionToken<Observable<IUser | boolean>>('user');
-export const NOTIFY_CONTENT = new InjectionToken<Observable<INotify>>('notify content');
+export const NOTIFY_CONTENT = new InjectionToken<Observable<INotify[] | boolean>>('notify content');
 
 export const MEDIA_ASSETS = new InjectionToken<Observable<IManageAssets>>('media assets');
 

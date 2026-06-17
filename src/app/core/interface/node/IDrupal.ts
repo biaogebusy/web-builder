@@ -12,14 +12,12 @@ export interface DrupalNode {
     created: string;
     changed?: string;
   };
-  relationships?: {
-    [key: string]: {
+  relationships?: Record<string, {
       data: {
         type: string;
         id: string;
       };
-    };
-  };
+    }>;
 }
 
 export interface DrupalResponse {

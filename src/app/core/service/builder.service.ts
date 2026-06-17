@@ -566,7 +566,7 @@ export class BuilderService extends ApiService {
             mode: 'over',
             hasBackdrop: true,
             style: {
-              padding: '14px',
+              'padding': '14px',
               'max-width': 'calc(100vw - 80px)',
             },
             elements: [

@@ -143,7 +143,7 @@ export class ContentService extends ApiService {
 
   getRepository(owner: string, repo: string, token: string): Observable<any> {
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
+      'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
     });
 

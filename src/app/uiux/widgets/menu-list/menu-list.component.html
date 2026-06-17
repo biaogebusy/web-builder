@@ -17,7 +17,7 @@
           </div>
         }
         @if (initList && initList.length > row) {
-          <div class="action" (click)="onExpand()">
+          <div class="action" role="button" tabindex="0" (click)="onExpand()" (keyup.enter)="onExpand()">
             @if (expand) {
               <button mat-icon-button>
                 <mat-icon>expand_less</mat-icon>

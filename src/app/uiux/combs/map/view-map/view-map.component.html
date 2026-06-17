@@ -18,11 +18,14 @@
             <mat-divider class="m-y-sm" />
             <div
               class="list m-y-sm p-y-xs m-x-xs p-x-xs"
+              role="button"
+              tabindex="0"
               [class.selected]="i === selectedId"
               matRipple
               [matRippleColor]="'rgba(0, 0, 0, 0.04)'"
               *cdkVirtualFor="let item of lists$ | async as lists; index as i"
               (click)="onCard(item, i)"
+              (keyup.enter)="onCard(item, i)"
             >
               <div class="media">
                 <img [src]="item.img" [alt]="item.title" />

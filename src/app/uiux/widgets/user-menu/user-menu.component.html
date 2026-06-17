@@ -15,7 +15,10 @@
     } @else {
       <img
         class="user-picture"
+        role="button"
+        tabindex="0"
         (click)="openDialog()"
+        (keyup.enter)="openDialog()"
         [src]="user.picture"
         alt="{{ user.display_name }}"
       />

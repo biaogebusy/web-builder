@@ -6,8 +6,7 @@ import { getInlineImg } from '@modules/builder/factory/getInlinImg';
 import { getInlineText } from '@modules/builder/factory/getInlineText';
 import { TranslateService } from '@ngx-translate/core';
 @Directive({
-  // tslint:disable-next-line:directive-selector
-  selector: '[contentedit]',
+   selector: '[contentedit]',
   host: {
     '[attr.data-path]': 'contentedit()',
     '(blur)': 'onBlur($event)',

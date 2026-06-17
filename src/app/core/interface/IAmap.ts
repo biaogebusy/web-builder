@@ -7,9 +7,7 @@ export interface IAmap {
   city: string;
   zoom: number;
   center: number[];
-  mapStyle: {
-    [key: string]: string;
-  };
+  mapStyle: Record<string, string>;
   features: string[];
 }
 

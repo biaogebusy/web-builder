@@ -13,6 +13,7 @@ import { NodeService } from '@core/service/node.service';
 import { CORE_CONFIG, NOTIFY_CONTENT } from '@core/token/token-providers';
 import { NgPipesModule } from 'ngx-pipes';
 import { Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { IconComponent } from '../icon/icon.component';
 import { LinkComponent } from '../link/link.component';
 
@@ -37,7 +38,8 @@ import { LinkComponent } from '../link/link.component';
 })
 export class NotifyComponent {
   public coreConfig = inject<ICoreConfig>(CORE_CONFIG);
-  public notify$ = inject<Observable<INotify[]>>(NOTIFY_CONTENT);
+  public notify$ = inject<Observable<INotify[] | boolean>>(NOTIFY_CONTENT);
+  public lists$ = this.notify$.pipe(filter((v): v is INotify[] => Array.isArray(v)));
 
   private nodeService = inject(NodeService);
   private destroyRef = inject(DestroyRef);

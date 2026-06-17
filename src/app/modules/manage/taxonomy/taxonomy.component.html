@@ -26,7 +26,7 @@
               }
               <div class="actions">
                 <div class="actions-row">
-                  <div (click)="onEdit(item)">
+                  <div role="button" tabindex="0" (click)="onEdit(item)" (keyup.enter)="onEdit(item)">
                     <app-btn
                       [content]="{
                         label: '编辑',
@@ -47,7 +47,7 @@
               </div>
             </mat-list-item>
             @if (!last) {
-              <mat-divider></mat-divider>
+              <mat-divider />
             }
           }
         }

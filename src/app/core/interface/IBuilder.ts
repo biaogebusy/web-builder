@@ -125,9 +125,7 @@ export interface ILayoutBlock {
   classes: any;
   blockClasses?: any;
   style?: any;
-  row: {
-    [key: string]: number;
-  };
+  row: Record<string, number>;
   aos?: any;
   animate?: any;
   bg?: IBgImg;

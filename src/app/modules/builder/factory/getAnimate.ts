@@ -1,6 +1,8 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { tap } from 'rxjs/operators';
 
+const numOr = (v: unknown): number | null => (v == null || v === '' ? null : Number(v));
+
 export function getAnimate(content: any): FormlyFieldConfig {
   const actionsOptions = [
     {
@@ -202,7 +204,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         key: 'x',
                         type: 'input',
                         className: 'col-span-6',
-                        defaultValue: Number(content?.animate?.gsap?.from?.x) ?? null,
+                        defaultValue: numOr(content?.animate?.gsap?.from?.x),
                         props: {
                           label: 'BUILDER.FACTORY.MOVE_X',
                           min: -500,
@@ -215,7 +217,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         key: 'y',
                         type: 'input',
                         className: 'col-span-6',
-                        defaultValue: Number(content?.animate?.gsap?.from?.y) ?? null,
+                        defaultValue: numOr(content?.animate?.gsap?.from?.y),
                         props: {
                           label: 'BUILDER.FACTORY.MOVE_Y',
                           min: -500,
@@ -233,7 +235,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         key: 'rotationX',
                         type: 'input',
                         className: 'col-span-6',
-                        defaultValue: Number(content?.animate?.gsap?.from?.rotationX) ?? null,
+                        defaultValue: numOr(content?.animate?.gsap?.from?.rotationX),
                         props: {
                           label: 'BUILDER.FACTORY.ROTATE_X',
                           min: -360,
@@ -246,7 +248,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         key: 'rotationY',
                         type: 'input',
                         className: 'col-span-6',
-                        defaultValue: Number(content?.animate?.gsap?.from?.rotationY) ?? null,
+                        defaultValue: numOr(content?.animate?.gsap?.from?.rotationY),
                         props: {
                           label: 'BUILDER.FACTORY.ROTATE_Y',
                           min: -360,
@@ -264,7 +266,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         key: 'scaleX',
                         type: 'input',
                         className: 'col-span-6',
-                        defaultValue: Number(content?.animate?.gsap?.from?.scaleX) ?? null,
+                        defaultValue: numOr(content?.animate?.gsap?.from?.scaleX),
                         props: {
                           label: 'BUILDER.FACTORY.SCALE_X',
                           min: 0,
@@ -277,7 +279,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         key: 'scaleY',
                         type: 'input',
                         className: 'col-span-6',
-                        defaultValue: Number(content?.animate?.gsap?.from?.scaleY) ?? null,
+                        defaultValue: numOr(content?.animate?.gsap?.from?.scaleY),
                         props: {
                           label: 'BUILDER.FACTORY.SCALE_Y',
                           min: 0,
@@ -295,7 +297,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         key: 'skewX',
                         type: 'input',
                         className: 'col-span-6',
-                        defaultValue: Number(content?.animate?.gsap?.from?.skewX) ?? null,
+                        defaultValue: numOr(content?.animate?.gsap?.from?.skewX),
                         props: {
                           label: 'skewX',
                           min: -180,
@@ -308,7 +310,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         key: 'skewY',
                         type: 'input',
                         className: 'col-span-6',
-                        defaultValue: Number(content?.animate?.gsap?.from?.skewY) ?? null,
+                        defaultValue: numOr(content?.animate?.gsap?.from?.skewY),
                         props: {
                           label: 'skewY',
                           min: -180,
@@ -326,7 +328,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         key: 'opacity',
                         type: 'input',
                         className: 'col-span-6',
-                        defaultValue: Number(content?.animate?.gsap?.from?.opacity) ?? null,
+                        defaultValue: numOr(content?.animate?.gsap?.from?.opacity),
                         props: {
                           label: 'BUILDER.FACTORY.OPACITY_LABEL',
                           min: 0,
@@ -339,7 +341,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         key: 'delay',
                         type: 'input',
                         className: 'col-span-6',
-                        defaultValue: Number(content?.animate?.gsap?.from?.delay) ?? null,
+                        defaultValue: numOr(content?.animate?.gsap?.from?.delay),
                         props: {
                           label: 'BUILDER.FACTORY.DELAY_LABEL',
                           min: 0,
@@ -352,7 +354,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         key: 'duration',
                         type: 'input',
                         className: 'col-span-6',
-                        defaultValue: Number(content?.animate?.gsap?.from?.duration) ?? null,
+                        defaultValue: numOr(content?.animate?.gsap?.from?.duration),
                         props: {
                           label: 'BUILDER.FACTORY.DURATION_SEC',
                           min: 0.1,

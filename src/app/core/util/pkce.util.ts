@@ -7,8 +7,8 @@ function isBrowserCryptoAvailable(): boolean {
 
 function base64UrlEncode(bytes: Uint8Array): string {
   let binary = '';
-  for (let i = 0; i < bytes.length; i += 1) {
-    binary += String.fromCharCode(bytes[i]);
+  for (const byte of bytes) {
+    binary += String.fromCharCode(byte);
   }
   return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 }

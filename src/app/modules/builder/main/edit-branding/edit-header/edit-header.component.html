@@ -111,8 +111,8 @@
 
                     @if (expandedMenuIndex() === i) {
                       <div class="row-expand">
-                        <label class="field-label">{{ 'BUILDER.EDIT_BRANDING.CSS_CLASS' | translate }}</label>
-                        <input class="field field-block" [value]="item.classes || ''" (input)="updateMenuItem(i, 'classes', $any($event.target).value)" />
+                        <label class="field-label" for="menu-css-class-{{ i }}">{{ 'BUILDER.EDIT_BRANDING.CSS_CLASS' | translate }}</label>
+                        <input id="menu-css-class-{{ i }}" class="field field-block" [value]="item.classes || ''" (input)="updateMenuItem(i, 'classes', $any($event.target).value)" />
 
                         <div class="child-header">
                           <span class="child-title">{{ 'BUILDER.EDIT_BRANDING.SUB_MENU' | translate }}</span>

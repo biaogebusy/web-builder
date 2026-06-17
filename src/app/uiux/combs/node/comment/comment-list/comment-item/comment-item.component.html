@@ -1,7 +1,7 @@
 @if (content(); as c) {
 @for (item of comments(); track item; let i = $index; let isLast = $last) {
   <div class="item p-y-sm p-x-sm">
-    <a class="anchor" [id]="'q-' + item.id"></a>
+    <a class="anchor" [id]="'q-' + item.id" aria-hidden="true"></a>
     <div class="comment-box">
       <app-media-object [content]="item.author" />
       @if (onShow(item)) {
@@ -26,7 +26,7 @@
       <div class="inline-editor p-y-sm p-x-sm m-bottom">
         <app-comment-form
           [content]="c"
-          (cancel)="onCancel()"
+          (dismiss)="onCancel()"
           [commentContent]="currentData"
           [commentId]="item.id"
           [type]="type"

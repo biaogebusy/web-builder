@@ -49,6 +49,9 @@
                   <div
                     (click)="onFixed(widget)"
                     class="inner move"
+                    role="button"
+                    tabindex="0"
+                    (keyup.enter)="onFixed(widget)"
                     [class]="widget.label === fixLabel() ? 'active' : ''"
                   >
                     @if (widget.icon) {
@@ -91,6 +94,9 @@
                       <div
                         (click)="onFixed(item)"
                         class="inner move"
+                        role="button"
+                        tabindex="0"
+                        (keyup.enter)="onFixed(item)"
                         [class]="item.label === fixLabel() ? 'active' : ''"
                       >
                         @if (item.icon) {

@@ -5,7 +5,7 @@ import {
   ElementRef,
   inject,
   DOCUMENT,
-  viewChild
+  viewChild, AfterViewInit
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,7 +19,7 @@ import { ScreenState } from '@core/state/screen/ScreenState';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatIconModule],
 })
-export class GotopComponent {
+export class GotopComponent implements AfterViewInit {
   private screenService = inject(ScreenService);
   private screen = inject(ScreenState);
   private document = inject<Document>(DOCUMENT);

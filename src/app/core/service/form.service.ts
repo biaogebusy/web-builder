@@ -65,7 +65,7 @@ export class FormService {
     return this.apiService.getToken().pipe(
       switchMap((token: string) => {
         const headers = new HttpHeaders({
-          Accept: 'application/json',
+          'Accept': 'application/json',
           'Content-Type': 'application/json',
         });
         return this.http.post(`${this.apiService.apiUrl}/webform_rest/submit`, data, {

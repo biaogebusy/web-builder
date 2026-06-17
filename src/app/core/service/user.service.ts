@@ -26,7 +26,7 @@ import {
   parseServerCookie,
 } from '@core/util/auth-token.util';
 
-type AuthBroadcastMessage = { type: 'login' | 'logout' };
+interface AuthBroadcastMessage { type: 'login' | 'logout' }
 
 export type OAuthMode = 'redirect' | 'popup';
 
@@ -463,8 +463,8 @@ export class UserService extends ApiService {
 
   getAuthHeader(accessToken: string): any {
     return new HttpHeaders({
-      Authorization: `Bearer ${accessToken}`,
-      Accept: 'application/vnd.api+json',
+      'Authorization': `Bearer ${accessToken}`,
+      'Accept': 'application/vnd.api+json',
       'Content-Type': 'application/vnd.api+json',
     });
   }
@@ -546,7 +546,7 @@ export class UserService extends ApiService {
     const { id } = user;
     const httpOptions = {
       headers: new HttpHeaders({
-        Accept: 'application/vnd.api+json',
+        'Accept': 'application/vnd.api+json',
         'Content-Type': 'application/octet-stream',
         'Content-Disposition': 'file; filename="' + id + '-picture.jpg"',
       }),

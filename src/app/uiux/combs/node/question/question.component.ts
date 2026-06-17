@@ -31,10 +31,17 @@ import { CommentListComponent } from '../comment/comment-list/comment-list.compo
   templateUrl: './question.component.html',
   styleUrls: ['./question.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AsyncPipe, MatButtonModule, MatIconModule, SafeHtmlPipe, CommentFormComponent, CommentListComponent],
+  imports: [
+    AsyncPipe,
+    MatButtonModule,
+    MatIconModule,
+    SafeHtmlPipe,
+    CommentFormComponent,
+    CommentListComponent,
+  ],
 })
 export class QuestionComponent extends NodeComponent implements AfterViewInit {
-  public user$ = inject<Observable<IUser>>(USER);
+  public user$ = inject<Observable<IUser | boolean>>(USER);
 
   readonly content = input.required<IQuestion>();
   public comments: IComment[];
@@ -53,7 +60,9 @@ export class QuestionComponent extends NodeComponent implements AfterViewInit {
   constructor() {
     super();
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
-      this.user = user;
+      if (typeof user === 'object') {
+        this.user = user;
+      }
     });
   }
 

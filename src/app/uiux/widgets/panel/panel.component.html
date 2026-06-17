@@ -1,7 +1,7 @@
 @if (content(); as contentValue) {
   <div class="panel">
     @if (contentValue.id) {
-      <a class="anchor" [id]="contentValue.id"></a>
+      <a class="anchor" [id]="contentValue.id" aria-hidden="true"></a>
     }
     <app-spacer [size]="contentValue.spacer || 'md'" />
     @if (contentValue?.bg) {

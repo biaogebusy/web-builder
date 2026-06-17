@@ -126,7 +126,7 @@
           <app-user-menu />
         }
         <div class="toggle">
-          <div class="wrapper" (click)="onToggle()">
+          <div class="wrapper" role="button" tabindex="0" (click)="onToggle()" (keyup.enter)="onToggle()">
             @if (sidebarDrawer().opened) {
               <app-icon [content]="{ svg: 'chevron-left' }">
                 <div class="text">{{ 'BUILDER.SIDEBAR.COLLAPSE' | translate }}</div>

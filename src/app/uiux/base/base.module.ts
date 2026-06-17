@@ -15,7 +15,8 @@ export abstract class BaseModule {
     this.selectorToComponentMap = {};
     this.dynamicComponents.forEach(componentType => {
       // 直接使用组件类的 selectors 属性
-      const [selector] = (componentType as any).ɵcmp?.selectors[0];
+      const selectors = (componentType as any)?.ɵcmp?.selectors?.[0];
+      const selector = selectors ? selectors[0] : undefined;
       if (selector) {
         this.selectorToComponentMap[selector] = componentType;
       }

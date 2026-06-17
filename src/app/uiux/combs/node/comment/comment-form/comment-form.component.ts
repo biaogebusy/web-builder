@@ -41,7 +41,7 @@ export class CommentFormComponent implements OnInit {
   readonly commentContent = model<any>('');
   readonly commentId = input<string>();
   readonly type = input<string>();
-  readonly cancel = output();
+  readonly dismiss = output<void>();
 
   loading = false;
   placeholder = '请输入...';
@@ -85,7 +85,7 @@ export class CommentFormComponent implements OnInit {
   }
 
   onCancel(): void {
-    this.cancel.emit();
+    this.dismiss.emit();
   }
 
   onSubmit(value: any): void {

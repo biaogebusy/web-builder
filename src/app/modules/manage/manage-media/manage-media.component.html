@@ -99,7 +99,10 @@
                   </div>
                 }
                 <div
+                  role="button"
+                  tabindex="0"
                   (click)="onPreview(item)"
+                  (keyup.enter)="onPreview(item)"
                   class="box"
                   [class]="{ selected: isSelected(item) }"
                 >
@@ -109,6 +112,7 @@
                     priority
                     width="480"
                     height="360"
+                    alt="{{ item.title || '媒体' }}"
                   />
                 </div>
               </div>

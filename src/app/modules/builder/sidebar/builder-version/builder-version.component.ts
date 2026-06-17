@@ -57,7 +57,7 @@ export class BuilderVersionComponent implements OnInit {
     this.builderService.checkIsLatestPage(page);
   }
 
-  onClickTitle(event: MouseEvent): any {
+  onClickTitle(event: Event): void {
     event.stopPropagation();
   }
 

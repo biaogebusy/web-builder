@@ -10,7 +10,13 @@ import { CustomTemplateComponent } from '@uiux/combs/other/custom-template/custo
   templateUrl: './search-list.component.html',
   styleUrls: ['./search-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatPaginatorModule, MatDividerModule, NgxPaginationModule, SpinnerComponent, CustomTemplateComponent],
+  imports: [
+    MatPaginatorModule,
+    MatDividerModule,
+    NgxPaginationModule,
+    SpinnerComponent,
+    CustomTemplateComponent,
+  ],
 })
 export class SearchListComponent {
   readonly content = input<any[]>();

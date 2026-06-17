@@ -14,7 +14,7 @@
         (isMore() ? 'BUILDER.CODE_EDITOR.EXPAND' : 'BUILDER.CODE_EDITOR.COLLAPSE') | translate
       "
       matTooltipPosition="above"
-    ></app-btn>
+    />
     <app-btn
       class="set-bottom"
       (click)="toggleCollapse()"
@@ -28,7 +28,7 @@
           | translate
       "
       matTooltipPosition="above"
-    ></app-btn>
+    />
   </div>
   <div class="toolbar">
     <div class="toolbar-label">
@@ -72,7 +72,7 @@
         (click)="showHelp(builderConfig?.codeEditor?.help)"
         [matTooltip]="'BUILDER.CODE_EDITOR.VIEW_SYNTAX' | translate"
         matTooltipPosition="above"
-      ></app-btn>
+      />
     }
   </div>
   <div class="code-editor" [class.collapse]="isCollapse()" [class]="isMore() ? 'more' : 'less'">

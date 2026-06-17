@@ -21,6 +21,7 @@ import type { ICoreConfig, ISocialLoginProvider } from '@core/interface/IAppConf
 import type { IIcon } from '@core/interface/widgets/IIcon';
 import type { IUser } from '@core/interface/IUser';
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
+import { filter } from 'rxjs/operators';
 import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
 import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
 import { Observable, Subscription, interval } from 'rxjs';
@@ -45,7 +46,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   public coreConfig = inject<ICoreConfig>(CORE_CONFIG);
-  public user$ = inject<Observable<IUser>>(USER);
+  public user$ = inject<Observable<IUser | boolean>>(USER);
+  public currentUser$ = this.user$.pipe(filter((u): u is IUser => typeof u === 'object'));
   private apiUrl = inject<string>(API_URL);
 
   public loading = signal<boolean>(false);

@@ -5,7 +5,7 @@
       classes: 'mat-headline-4 bold',
       style: 'style-v4',
     }"
-  ></app-title>
+  />
 
   <div class="check-header">
     <div class="check-count">{{ 'BUILDER.CONFIG_CHECK.CHECKLIST' | translate }} {{ completedCount() }}/{{ totalCount }}</div>
@@ -33,9 +33,9 @@
         <div class="result-row">
           <div class="result-icon">
             @if (result.success) {
-              <app-icon [content]="{ svg: 'check-circle', color: 'primary' }"></app-icon>
+              <app-icon [content]="{ svg: 'check-circle', color: 'primary' }" />
             } @else {
-              <app-icon [content]="{ svg: 'alert-circle', color: 'warn' }"></app-icon>
+              <app-icon [content]="{ svg: 'alert-circle', color: 'warn' }" />
             }
           </div>
           <div class="result-detail">

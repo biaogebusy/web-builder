@@ -46,7 +46,9 @@ export class JsonFieldType extends FieldType<FieldTypeConfig> implements AfterVi
           try {
             const json = this.editorInstance.get();
             this.formControl.setValue(json);
-          } catch (e) {}
+          } catch {
+            // value not parseable yet
+          }
         },
       });
 
@@ -54,7 +56,9 @@ export class JsonFieldType extends FieldType<FieldTypeConfig> implements AfterVi
       if (initial !== undefined && initial !== null && initial !== '') {
         try {
           this.editorInstance.set(initial);
-        } catch (e) {}
+        } catch {
+          // value not parseable yet
+        }
       }
     }
   }
@@ -78,7 +82,9 @@ export class JsonFieldType extends FieldType<FieldTypeConfig> implements AfterVi
           if (this.editorInstance) {
             try {
               this.editorInstance.set(result.value);
-            } catch (e) {}
+            } catch {
+              // value not parseable yet
+            }
           }
         }
       });

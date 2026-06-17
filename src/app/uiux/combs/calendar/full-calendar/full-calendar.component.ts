@@ -153,13 +153,14 @@ export class FullCalendarComponent extends BaseComponent implements OnInit {
         });
         break;
 
-      case 'timeGridWeek':
+      case 'timeGridWeek': {
         const endDate = this.calendarState.getPreviousDay(dates.end);
         this.form.patchValue({
           'date-type': 'week',
           'date': `${formatDate(dates.startStr, 'y-MM-dd', 'en-US')}`,
         });
         break;
+      }
 
       case 'timeGridDay':
         this.form.patchValue({

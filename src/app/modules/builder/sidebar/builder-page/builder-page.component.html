@@ -15,8 +15,11 @@
             @for (item of pages; track item; let i = $index) {
               <div
                 class="item"
+                role="button"
+                tabindex="0"
                 [matTooltip]="item.title"
                 (click)="loadPage(item)"
+                (keyup.enter)="loadPage(item)"
               >
                 <div class="inner">
                   <div class="index">{{ i + 1 }}</div>

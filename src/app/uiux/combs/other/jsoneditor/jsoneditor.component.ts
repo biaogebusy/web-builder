@@ -125,7 +125,9 @@ export class JsoneditorComponent implements AfterViewInit, OnDestroy {
             try {
               const json = this.jsonEditor.get();
               this.onChange(json);
-            } catch (e) {}
+            } catch {
+              // value not parseable yet
+            }
           },
         },
         this.data

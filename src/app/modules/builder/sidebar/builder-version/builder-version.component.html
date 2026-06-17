@@ -18,8 +18,11 @@
               }
               <div
                 class="title"
+                role="button"
+                tabindex="0"
                 (blur)="onUpdateTitle($event, i)"
                 (click)="onClickTitle($event)"
+                (keyup.enter)="onClickTitle($event)"
                 matListItemTitle
                 contenteditable="true"
               >

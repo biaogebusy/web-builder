@@ -17,7 +17,14 @@ import { BtnComponent } from '@uiux/widgets/btn/btn.component';
   templateUrl: './rich-text.component.html',
   styleUrls: ['./rich-text.component.scss'],
   providers: [{ provide: MAT_INPUT_VALUE_ACCESSOR, useExisting: FormlyFieldTextArea }],
-  imports: [ReactiveFormsModule, MatButtonModule, MatInputModule, QuillModule, FormlyModule, BtnComponent],
+  imports: [
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatInputModule,
+    QuillModule,
+    FormlyModule,
+    BtnComponent,
+  ],
 })
 export class RichTextComponent extends FieldType<FieldTypeConfig> implements AfterViewInit {
   readonly formFieldControl = viewChild.required(MatInput);

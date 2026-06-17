@@ -16,7 +16,7 @@
     <mat-drawer-content #drawerContent class="drawer-content">
       <div
         class="builder"
-        [class]="{ 'has-sidebar': !(builderFullScreen$ | async) }"
+        [class]="{ 'has-sidebar': (builderFullScreen$ | async) === false }"
       >
         <mat-drawer-container
           [hasBackdrop]="rightContent?.hasBackdrop"

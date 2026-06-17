@@ -333,7 +333,7 @@ export class NodeService extends ApiService {
     return this.http
       .post('/api/v1/media/image/field_media_image', imageData, {
         headers: new HttpHeaders({
-          Accept: 'application/vnd.api+json',
+          'Accept': 'application/vnd.api+json',
           'Content-Type': 'application/octet-stream',
           'Content-Disposition': `file; filename="${encodeURIComponent(fileName)}"`,
         }),

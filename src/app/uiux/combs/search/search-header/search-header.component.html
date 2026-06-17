@@ -1,7 +1,7 @@
 @if (content(); as contentValue) {
   <div class="search-header p-y-xl">
     @if (contentValue.bg) {
-      <app-bg-img [attr.data-path]="'bg'" [content]="contentValue.bg"> </app-bg-img>
+      <app-bg-img [attr.data-path]="'bg'" [content]="contentValue.bg" />
     }
     <div class="container search-container">
       <app-text [attr.data-path]="'text'" [content]="contentValue.text" />

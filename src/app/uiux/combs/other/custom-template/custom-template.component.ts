@@ -125,8 +125,7 @@ export class CustomTemplateComponent implements AfterViewInit {
       this.ele.nativeElement.querySelectorAll('.swiper').forEach((el: any) => {
         if (el) {
           const options = JSON.parse(el.getAttribute('data-swiper'));
-          // tslint:disable-next-line:no-unused-expression
-          new Swiper(el, options);
+                   new Swiper(el, options);
         }
       });
     }

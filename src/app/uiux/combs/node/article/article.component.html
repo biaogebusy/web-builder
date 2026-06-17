@@ -27,7 +27,7 @@
                   <div class="shadow"></div>
                 </div>
               }
-              @if (!(user$ | async)) {
+              @if ((user$ | async) === false) {
                 <div
                   class="auth line p-y-sm p-x-sm"
                 >

@@ -55,7 +55,7 @@ import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-compone
 export class ArticleComponent extends NodeComponent implements OnInit, AfterViewInit {
   public coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   private pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);
-  public user$ = inject<Observable<IUser>>(USER);
+  public user$ = inject<Observable<IUser | boolean>>(USER);
 
   readonly content = input.required<IBaseNode>();
   public comments: IComment[];
@@ -74,7 +74,9 @@ export class ArticleComponent extends NodeComponent implements OnInit, AfterView
   constructor() {
     super();
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
-      this.user = user;
+      if (typeof user === 'object') {
+        this.user = user;
+      }
     });
   }
 
