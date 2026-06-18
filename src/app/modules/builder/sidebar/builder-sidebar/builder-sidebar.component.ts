@@ -56,7 +56,7 @@ export class BuilderSidebarComponent {
     } else {
       style = 'light';
     }
-    this.builder.themeMode.next(style);
+    this.builder.themeMode.set(style);
   }
 
   onToggle(): void {

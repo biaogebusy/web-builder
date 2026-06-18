@@ -517,7 +517,7 @@ export class CustomTemplateComponent implements AfterViewInit {
     if (!existing) {
       return false;
     }
-    if (this.builder.editingCodePath !== generatePath(this.ele.nativeElement)) {
+    if (this.builder.editingCodePath() !== generatePath(this.ele.nativeElement)) {
       existing.close();
       return false;
     }

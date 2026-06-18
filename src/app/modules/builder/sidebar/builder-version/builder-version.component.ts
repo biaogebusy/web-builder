@@ -66,7 +66,13 @@ export class BuilderVersionComponent implements OnInit {
       target: { textContent },
     } = event;
     if (textContent) {
-      this.builder.version[index].title = textContent;
+      this.builder.version.update(list => {
+        const next = [...list];
+        if (next[index]) {
+          next[index] = { ...next[index], title: textContent };
+        }
+        return next;
+      });
       this.builder.saveLocalVersions();
     }
   }

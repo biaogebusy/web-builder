@@ -25,7 +25,7 @@
               <div
                 class="item"
                 [matTooltip]="
-                  (builder.fixedContent === widget.content ? ('BUILDER.PANEL.LOCKED_TIP' | translate) : '')
+                  (builder.fixedContent() === widget.content ? ('BUILDER.PANEL.LOCKED_TIP' | translate) : '')
                 "
                 matTooltipPosition="above"
               >
@@ -70,7 +70,7 @@
                   <div
                     class="item"
                     [matTooltip]="
-                      (builder.fixedContent === item.content ? ('BUILDER.PANEL.LOCKED_TIP' | translate) : '')
+                      (builder.fixedContent() === item.content ? ('BUILDER.PANEL.LOCKED_TIP' | translate) : '')
                     "
                     matTooltipPosition="above"
                   >

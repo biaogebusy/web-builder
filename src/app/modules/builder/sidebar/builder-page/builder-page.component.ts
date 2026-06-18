@@ -77,7 +77,7 @@ export class BuilderPageComponent implements OnInit {
       this.translate.instant('BUILDER.PAGE.LOADING', { title: item.title }),
       'ok'
     );
-    this.builder.loading$.next(true);
+    this.builder.loading.set(true);
     this.builderService.loadPage({ nid: item.nid });
   }
 }

@@ -231,7 +231,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
   }
 
   loadPage(page: any): void {
-    this.builder.loading$.next(true);
+    this.builder.loading.set(true);
     const { langcode, nid } = page;
     if (!nid) {
       this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_LIST.CHECK_LANDING_VIEW'), 'ok');
@@ -258,7 +258,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
   }
 
   updatePageSetting(page: IPageMeta): void {
-    this.builder.loading$.next(true);
+    this.builder.loading.set(true);
 
     this.builderService.openPageSetting(
       page,
@@ -278,12 +278,12 @@ export class PageListComponent extends BaseComponent implements OnInit {
   }
 
   createLangVersion(currentPage: IPageMeta, targetlang: string): void {
-    this.builder.loading$.next(true);
+    this.builder.loading.set(true);
     this.nodeService
       .fetch(`/api/v3/landingPage/json/${currentPage.nid}`, 'noCache=1', targetlang)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((page: IPage) => {
-        this.builder.loading$.next(false);
+        this.builder.loading.set(false);
         if (targetlang === page.langcode) {
           // 已有翻译
           this.util.openSnackbar(

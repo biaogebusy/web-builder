@@ -3,7 +3,7 @@
   @if (page.body.length > 0) {
     <div class="builder-list" id="gsap-scroller">
       <div class="wrapper" [class]="previewClass$ | async">
-        @if (builder.loading$ | async) {
+        @if (builder.loading()) {
           <div class="load">
             <app-loading />
           </div>

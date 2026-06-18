@@ -6,7 +6,7 @@
       <app-builder-version />
     </mat-drawer>
     <mat-drawer-content class="preview-content">
-      @if (builder.showcase$ | async; as showcase) {
+      @if (builder.currentShowcase(); as showcase) {
         <app-builder-showcase [content]="showcase" />
       }
       <app-builder-list />

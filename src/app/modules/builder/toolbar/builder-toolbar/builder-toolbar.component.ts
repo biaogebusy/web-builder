@@ -147,7 +147,7 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
 
     if (page.translation && page.target) {
       // 新增翻译
-      this.builder.loading$.next(true);
+      this.builder.loading.set(true);
       this.builderService
         .addTranslation(page)
         .pipe(takeUntilDestroyed(this.destroyRef))
@@ -160,7 +160,7 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
                 duration: 2000,
               }
             );
-            this.builder.loading$.next(false);
+            this.builder.loading.set(false);
             this.builder.updateSuccess$.next(true);
             if (page.nid) {
               this.builderService.loadPage({
@@ -196,7 +196,7 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
             .pipe(
               takeUntilDestroyed(this.destroyRef),
               catchError(() => {
-                this.builder.loading$.next(false);
+                this.builder.loading.set(false);
                 return of({ status: false });
               })
             )

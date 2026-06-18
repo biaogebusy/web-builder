@@ -105,7 +105,7 @@
             icon: { svg: 'image-search-outline' },
           }"
         />
-        @if (builder.themeMode | async; as mode) {
+        @if (builder.themeMode(); as mode) {
           <app-btn
             [matTooltip]="(mode === 'light' ? 'BUILDER.SIDEBAR.TOGGLE_DARK' : 'BUILDER.SIDEBAR.TOGGLE_LIGHT') | translate"
             [matTooltipPosition]="sidebarDrawer().opened ? 'above' : 'right'"

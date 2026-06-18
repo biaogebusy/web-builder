@@ -47,12 +47,12 @@ export class CardPageComponent {
   }
 
   createLangVersion(currentPage: IPageMeta, targetlang: string): void {
-    this.builder.loading$.next(true);
+    this.builder.loading.set(true);
     this.nodeService
       .fetch(`/api/v3/landingPage/json/${currentPage.nid}`, 'noCache=1', targetlang)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((page: IPage) => {
-        this.builder.loading$.next(false);
+        this.builder.loading.set(false);
         if (targetlang === page.langcode) {
           // 已有翻译
           this.util.openSnackbar(
@@ -82,7 +82,7 @@ export class CardPageComponent {
   }
 
   updatePage(page: IPageMeta): void {
-    this.builder.loading$.next(true);
+    this.builder.loading.set(true);
     this.builderService.openPageSetting(
       page,
       '/api/v1/node/landing_page',
@@ -98,7 +98,7 @@ export class CardPageComponent {
     if (target) {
       target.contentEditable = 'false';
       if (this.currentEditeTitle !== target.textContent.trim()) {
-        this.builder.loading$.next(true);
+        this.builder.loading.set(true);
         const {
           target: { textContent },
         } = event;
@@ -122,7 +122,7 @@ export class CardPageComponent {
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe(res => {
               if (res) {
-                this.builder.loading$.next(false);
+                this.builder.loading.set(false);
                 this.util.openSnackbar(
                   this.translate.instant('BUILDER.CARD_PAGE.TITLE_UPDATED', { title: textContent }),
                   'ok'

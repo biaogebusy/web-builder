@@ -66,7 +66,7 @@ export class BuilderService extends ApiService {
       .pipe(take(1))
       .subscribe((content: IPage) => {
         const { body, status, uuid } = content;
-        this.builder.loading$.next(false);
+        this.builder.loading.set(false);
         if (status) {
           this.builder.loadNewPage(formatToExtraData(content, isTemplate));
           if (isTemplate) {
@@ -233,7 +233,7 @@ export class BuilderService extends ApiService {
   }
 
   loadNodeJson(page: { langcode?: string; nid: string; uuid: string; schemaType: string }): void {
-    this.builder.loading$.next(true);
+    this.builder.loading.set(true);
     const { langcode, nid, uuid, schemaType } = page;
     const lang = getApiLang(langcode);
     this.nodeService
@@ -266,7 +266,7 @@ export class BuilderService extends ApiService {
             content: jsonWidget,
           },
         };
-        this.builder.loading$.next(false);
+        this.builder.loading.set(false);
         this.dialog.open(DialogComponent, {
           width: '1000px',
           panelClass: ['close-outside', 'close-icon-white'],
@@ -279,7 +279,7 @@ export class BuilderService extends ApiService {
     const {
       api: { create },
     } = this.builderConfig;
-    this.builder.loading$.next(true);
+    this.builder.loading.set(true);
     return this.http
       .post(`${this.apiUrl}${create}`, formatPage(page), this.optionsWithBearerToken())
       .pipe(
@@ -292,7 +292,7 @@ export class BuilderService extends ApiService {
           }
         }),
         catchError((error: any) => {
-          this.builder.loading$.next(false);
+          this.builder.loading.set(false);
           if (error?.status === 403) {
             this.util.openSnackbar('无权限执行此操作', 'ok');
           } else {
@@ -314,7 +314,7 @@ export class BuilderService extends ApiService {
     const {
       api: { update },
     } = this.builderConfig;
-    this.builder.loading$.next(true);
+    this.builder.loading.set(true);
     return this.http
       .patch(
         `${this.apiUrl}${prefix}${update}/${nid}`,
@@ -348,16 +348,16 @@ export class BuilderService extends ApiService {
     if (!production) {
       return this.http.get<IPage>(`${apiUrl}/assets/app${lang}${url}.json`);
     } else {
-      this.builder.loading$.next(true);
+      this.builder.loading.set(true);
       return this.contentService.loadPageContent(`${lang}${url}`).pipe(
         tap(res => {
-          this.builder.loading$.next(false);
+          this.builder.loading.set(false);
           if (isArray(res) || !res) {
             this.util.openSnackbar('请配置默认页面！', 'OK');
           }
         }),
         catchError(() => {
-          this.builder.loading$.next(false);
+          this.builder.loading.set(false);
           this.util.openSnackbar('请配置默认页面！', 'OK');
           return of({
             title: '',
@@ -578,7 +578,7 @@ export class BuilderService extends ApiService {
             ],
           });
         }
-        this.builder.loading$.next(false);
+        this.builder.loading.set(false);
       });
   }
 

@@ -89,7 +89,7 @@ export class BuilderTemplateComponent implements OnInit {
       this.translate.instant('BUILDER.TEMPLATE.LOADING_TEMPLATE', { title: page.title }),
       'ok'
     );
-    this.builder.loading$.next(true);
+    this.builder.loading.set(true);
     this.builderService.loadPage({
       langcode: page.langcode,
       nid: page.nid,

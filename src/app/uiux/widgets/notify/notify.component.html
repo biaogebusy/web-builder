@@ -39,7 +39,7 @@
               }
               @if (item.date) {
                 <div matListItemLine>
-                  {{ item.date | date: coreConfig.notify?.params?.dateFormat || 'YYYY-MM-dd' }}
+                  {{ item.date | date: coreConfig.notify?.params?.dateFormat || 'yyyy-MM-dd' }}
                 </div>
               }
             </mat-list-item>

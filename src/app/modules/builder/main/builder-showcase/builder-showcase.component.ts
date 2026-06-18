@@ -39,7 +39,7 @@ export class BuilderShowcaseComponent implements OnInit {
   }
 
   onClose(): void {
-    this.builder.showcase$.next(false);
+    this.builder.currentShowcase.set(false);
   }
   onCopy(component: any): void {
     this.util.copy(JSON.stringify(component));

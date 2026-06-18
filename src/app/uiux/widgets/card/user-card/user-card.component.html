@@ -6,7 +6,7 @@
     }
     @if (user.login) {
       <div class="time">
-        您上次登录时间：{{ user.login | date: 'YYYY-MM-dd hh:mm' }}
+        您上次登录时间：{{ user.login | date: 'yyyy-MM-dd hh:mm' }}
       </div>
     }
     @for (item of content().content; track item) {

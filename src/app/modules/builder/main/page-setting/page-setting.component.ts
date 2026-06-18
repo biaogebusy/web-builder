@@ -386,7 +386,7 @@ export class PageSettingComponent implements OnInit {
               this.translate.instant('BUILDER.PAGE_SETTING.UPDATE_SUCCESS', { title: value.title }),
               'ok'
             );
-            this.builder.loading$.next(true);
+            this.builder.loading.set(true);
             this.builderService.loadPage({ langcode, nid: drupal_internal__nid });
             this.builder.updateSuccess$.next(true);
           }
@@ -403,7 +403,7 @@ export class PageSettingComponent implements OnInit {
               );
               break;
           }
-          this.builder.loading$.next(true);
+          this.builder.loading.set(true);
         },
       });
   }
@@ -565,7 +565,7 @@ export class PageSettingComponent implements OnInit {
   }
 
   deleteLocalPage(uuid: string): void {
-    const versions = this.builder.version;
+    const versions = this.builder.version();
     const index = versions.findIndex(item => item.uuid === uuid);
     this.builder.deleteLocalPage(index);
   }
