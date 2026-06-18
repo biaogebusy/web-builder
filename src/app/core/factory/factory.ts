@@ -39,7 +39,7 @@ export function pageContentFactory(): Observable<IPage | object | boolean> {
     const page = await contentService.loadPageContent().toPromise();
     if (page) {
       $pageContent.next(page);
-      contentState.pageConfig$.next(page.config);
+      contentState.pageConfig.set(page.config);
     }
   });
   return $pageContent;

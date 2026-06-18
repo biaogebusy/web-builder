@@ -205,7 +205,7 @@ export class CommentFormComponent implements OnInit {
   done(snack: string): void {
     this.loading = false;
     this.cd.detectChanges();
-    this.contentState.commentChange$.next(true);
+    this.contentState.commentChange.set(true);
     this.utilitiesService.openSnackbar(snack || this.content()?.editor?.succes?.label);
   }
 

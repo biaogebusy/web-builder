@@ -2,7 +2,6 @@ import {
   Component,
   inject,
   DestroyRef,
-  AfterViewInit,
   DOCUMENT,
   afterEveryRender,
   ChangeDetectionStrategy,
@@ -49,14 +48,11 @@ import { BrandingModule } from '@core/branding/branding.module';
     DynamicComponentComponent,
   ],
 })
-export class PageComponent implements AfterViewInit {
+export class PageComponent {
   private doc = inject<Document>(DOCUMENT);
   public coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   public pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);
-  public mobileMenuOpened: boolean;
-  public drawerLoading: boolean;
-  public drawerContent: IPage;
-  public opened: boolean;
+  public mobileMenuOpened = false;
   public user$ = inject(USER);
   private contentState = inject(ContentState);
   private destroyRef = inject(DestroyRef);
@@ -72,34 +68,28 @@ export class PageComponent implements AfterViewInit {
         this.util.intersectionObserver('[data-aos]', this.doc);
       }, 200),
     });
-  }
 
-  ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.screen.drawer$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
         this.mobileMenuOpened = !this.mobileMenuOpened;
       });
-
-      this.contentState.drawerOpened$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(state => {
-        this.opened = state;
-      });
-
-      this.contentState.drawerLoading$
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(loading => {
-          this.drawerLoading = loading;
-        });
-
-      this.contentState.drawerContent$
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe((content: IPage) => {
-          this.drawerContent = content;
-        });
     }
   }
 
+  get opened(): boolean {
+    return this.contentState.drawerOpened();
+  }
+
+  get drawerLoading(): boolean {
+    return this.contentState.drawerLoading();
+  }
+
+  get drawerContent(): IPage | undefined {
+    return this.contentState.drawerContent();
+  }
+
   onBackdrop(): void {
-    this.contentState.drawerOpened$.next(false);
+    this.contentState.drawerOpened.set(false);
   }
 
   onDrawer(): void {
@@ -124,3 +114,4 @@ export class PageComponent implements AfterViewInit {
     });
   }
 }
+

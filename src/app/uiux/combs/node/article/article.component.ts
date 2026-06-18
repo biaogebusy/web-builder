@@ -3,7 +3,9 @@ import {
   OnInit,
   AfterViewInit,
   ChangeDetectorRef,
+  effect,
   inject,
+  Injector,
   DestroyRef,
   ChangeDetectionStrategy,
   input
@@ -69,6 +71,7 @@ export class ArticleComponent extends NodeComponent implements OnInit, AfterView
   private userService = inject(UserService);
   private contentState = inject(ContentState);
   private destroyRef = inject(DestroyRef);
+  private injector = inject(Injector);
   private user: IUser;
 
   constructor() {
@@ -114,13 +117,14 @@ export class ArticleComponent extends NodeComponent implements OnInit, AfterView
     }
     if (this.coreConfig.article?.comment?.enable) {
       if (this.screenService.isPlatformBrowser()) {
-        this.contentState.commentChange$
-          .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe(state => {
-            if (state) {
+        effect(
+          () => {
+            if (this.contentState.commentChange()) {
               this.getComments(+new Date());
             }
-          });
+          },
+          { injector: this.injector }
+        );
       }
     }
   }

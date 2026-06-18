@@ -49,6 +49,6 @@ export class PreviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.contentState.pageConfig$.next(this.builder.currentPage.config);
+    this.contentState.pageConfig.set(this.builder.currentPage.config);
   }
 }

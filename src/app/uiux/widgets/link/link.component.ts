@@ -87,14 +87,14 @@ export class LinkComponent extends BaseComponent implements OnInit {
     }
 
     if (contentValue?.rel === 'drawer') {
-      this.contentState.drawerOpened$.next(true);
-      this.contentState.drawerLoading$.next(true);
+      this.contentState.drawerOpened.set(true);
+      this.contentState.drawerLoading.set(true);
       this.contentService
         .loadPageContent(contentValue.href)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((content: IPage) => {
-          this.contentState.drawerLoading$.next(false);
-          this.contentState.drawerContent$.next(content);
+          this.contentState.drawerLoading.set(false);
+          this.contentState.drawerContent.set(content);
         });
       return false;
     }

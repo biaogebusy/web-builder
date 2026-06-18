@@ -122,15 +122,15 @@ export class FullCalendarComponent extends BaseComponent implements OnInit {
   initEvents(): void {
     this.options.eventClick = (info: any) => {
       if (this.content().calendar?.drawer) {
-        this.contentState.drawerOpened$.next(true);
-        this.contentState.drawerLoading$.next(true);
+        this.contentState.drawerOpened.set(true);
+        this.contentState.drawerLoading.set(true);
         this.cd.detectChanges();
         this.contentService
           .loadPageContent(info.event.url)
           .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe((content: IPage) => {
-            this.contentState.drawerLoading$.next(false);
-            this.contentState.drawerContent$.next(content);
+            this.contentState.drawerLoading.set(false);
+            this.contentState.drawerContent.set(content);
             this.cd.detectChanges();
           });
         info.jsEvent.preventDefault();

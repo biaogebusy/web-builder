@@ -68,8 +68,8 @@ export class SwitchThemeComponent implements OnInit {
         elements: [{ type: 'custom-theme', fullWidth: true }],
       });
     } else {
-      this.contentState.drawerOpened$.next(true);
-      this.contentState.drawerContent$.next({
+      this.contentState.drawerOpened.set(true);
+      this.contentState.drawerContent.set({
         title: '自定义主题',
         body: [{ type: 'custom-theme' }],
       });

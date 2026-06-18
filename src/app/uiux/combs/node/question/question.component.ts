@@ -4,7 +4,9 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
+  effect,
   inject,
+  Injector,
   input
 } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
@@ -55,6 +57,7 @@ export class QuestionComponent extends NodeComponent implements AfterViewInit {
   private cd = inject(ChangeDetectorRef);
   private contentState = inject(ContentState);
   private destroyRef = inject(DestroyRef);
+  private injector = inject(Injector);
   private userService = inject(UserService);
 
   constructor() {
@@ -69,14 +72,15 @@ export class QuestionComponent extends NodeComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.contentState.commentChange$
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(state => {
-          if (state) {
+      effect(
+        () => {
+          if (this.contentState.commentChange()) {
             this.checkIsAsked();
             this.getComments(+new Date());
           }
-        });
+        },
+        { injector: this.injector }
+      );
     }
   }
 

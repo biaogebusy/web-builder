@@ -32,8 +32,8 @@ export class RouteService {
   toNavigate(event: any, link: any): void {
     const href = link.href;
     if (link.drawerIframe) {
-      this.contentState.drawerOpened$.next(true);
-      this.contentState.drawerLoading$.next(true);
+      this.contentState.drawerOpened.set(true);
+      this.contentState.drawerLoading.set(true);
       let widget = {};
       if (getFileType(href) === 'picture') {
         widget = {
@@ -53,11 +53,11 @@ export class RouteService {
           classes: 'p-x-xs',
         };
       }
-      this.contentState.drawerContent$.next({
+      this.contentState.drawerContent.set({
         title: link.label,
         body: [widget],
       });
-      this.contentState.drawerLoading$.next(false);
+      this.contentState.drawerLoading.set(false);
       if (event) {
         event.preventDefault();
       }
@@ -85,14 +85,14 @@ export class RouteService {
       const link = target.href.split(target.host)[1];
       if (!getFileType(link)) {
         if (target.rel === 'drawer') {
-          this.contentState.drawerOpened$.next(true);
-          this.contentState.drawerLoading$.next(true);
+          this.contentState.drawerOpened.set(true);
+          this.contentState.drawerLoading.set(true);
           this.contentService
             .loadPageContent(link)
             .pipe(take(1))
             .subscribe((content: IPage) => {
-              this.contentState.drawerContent$.next(content);
-              this.contentState.drawerLoading$.next(false);
+              this.contentState.drawerContent.set(content);
+              this.contentState.drawerLoading.set(false);
             });
           event.preventDefault();
           return;

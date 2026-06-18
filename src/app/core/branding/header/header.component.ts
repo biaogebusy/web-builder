@@ -5,8 +5,10 @@ import {
   ElementRef,
   AfterViewInit,
   inject,
+  Injector,
   DestroyRef,
   signal,
+  effect,
   DOCUMENT,
   ChangeDetectionStrategy,
   viewChild
@@ -42,17 +44,22 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   readonly menuAnchor = viewChild('menuAnchor', { read: ElementRef });
   readonly sentinel = viewChild('sentinel', { read: ElementRef });
   private destoryRef = inject(DestroyRef);
+  private injector = inject(Injector);
   private screenService = inject(ScreenService);
   private screenState = inject(ScreenState);
   public contentState = inject(ContentState);
   private stickyObserver?: IntersectionObserver;
 
   ngOnInit(): void {
-    this.contentState.pageConfig$.pipe(takeUntilDestroyed(this.destoryRef)).subscribe(config => {
-      if (config?.headerMode?.transparent) {
-        this.doc.getElementsByTagName('body')[0].classList.add('transparent-header');
-      }
-    });
+    effect(
+      () => {
+        const config = this.contentState.pageConfig();
+        if (config?.headerMode?.transparent) {
+          this.doc.getElementsByTagName('body')[0].classList.add('transparent-header');
+        }
+      },
+      { injector: this.injector }
+    );
   }
 
   ngAfterViewInit(): void {
