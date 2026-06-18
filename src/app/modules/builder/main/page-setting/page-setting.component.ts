@@ -37,7 +37,7 @@ import { Observable } from 'rxjs';
   imports: [ShareModule, WidgetsModule, FormModule],
 })
 export class PageSettingComponent implements OnInit {
-  private user$ = inject<Observable<IUser>>(USER);
+  private user = inject(USER);
 
   readonly content = input<any>();
   public form = new UntypedFormGroup({});
@@ -56,13 +56,8 @@ export class PageSettingComponent implements OnInit {
   private userService = inject(UserService);
   private router = inject(Router);
   private translate = inject(TranslateService);
-  private user: IUser;
 
-  constructor() {
-    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
-      this.user = user;
-    });
-  }
+  constructor() {  }
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -169,7 +164,7 @@ export class PageSettingComponent implements OnInit {
                             uid: {
                               data: {
                                 type: 'user--user',
-                                id: this.user.id,
+                                id: (this.user() as IUser)?.id,
                               },
                             },
                           }
@@ -437,7 +432,7 @@ export class PageSettingComponent implements OnInit {
         uid: {
           data: {
             type: 'user--user',
-            id: this.user.id,
+            id: (this.user() as IUser)?.id,
           },
         },
         group: {
@@ -456,7 +451,7 @@ export class PageSettingComponent implements OnInit {
         uid: {
           data: {
             type: 'user--user',
-            id: this.user.id,
+            id: (this.user() as IUser)?.id,
           },
         },
       };

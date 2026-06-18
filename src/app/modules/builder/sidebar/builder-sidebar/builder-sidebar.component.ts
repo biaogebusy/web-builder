@@ -21,8 +21,8 @@ import { IDialog } from '@core/interface/IDialog';
   imports: [ShareModule, WidgetsModule, BrandingModule],
 })
 export class BuilderSidebarComponent {
-  public branding$ = inject<Observable<IBranding>>(BRANDING);
-  public builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
+  public branding$ = inject(BRANDING);
+  public builderConfig$ = inject(BUILDER_CONFIG);
 
   readonly sidebarDrawer = input.required<MatDrawer>();
   readonly drawerContentRef = input<any>();

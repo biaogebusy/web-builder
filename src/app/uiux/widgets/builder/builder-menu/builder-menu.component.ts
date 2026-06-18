@@ -1,10 +1,11 @@
-import { AsyncPipe } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   DestroyRef,
+  Injector,
+  effect,
   inject,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -33,7 +34,6 @@ import { IconComponent } from '../../icon/icon.component';
   styleUrls: ['./builder-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    AsyncPipe,
     MatButtonModule,
     MatListModule,
     MatMenuModule,
@@ -43,10 +43,10 @@ import { IconComponent } from '../../icon/icon.component';
   ],
 })
 export class BuilderMenuComponent implements AfterViewInit {
-  public debugAnimate$ = inject<Observable<boolean>>(DEBUG_ANIMATE);
-  private currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
+  public debugAnimate = inject(DEBUG_ANIMATE);
+  private currentPage = inject(BUILDER_CURRENT_PAGE);
 
-  public page: IPage;
+  public page?: IPage;
   public contentState = inject(ContentState);
   private builder = inject(BuilderState);
   private util = inject(UtilitiesService);
@@ -54,16 +54,20 @@ export class BuilderMenuComponent implements AfterViewInit {
   private destroyRef = inject(DestroyRef);
   private builderService = inject(BuilderService);
   private dialog = inject(MatDialog);
+  private injector = inject(Injector);
 
 
   ngAfterViewInit(): void {
-    this.debugAnimate$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(state => {
-      this.builder.renderMarkers(state);
-    });
-    this.currentPage$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(page => {
-      this.page = page;
+    effect(() => {
+      this.builder.renderMarkers(this.debugAnimate());
+    }, { injector: this.injector });
+    effect(() => {
+      const page = this.currentPage();
+      if (page && typeof page === 'object') {
+        this.page = page;
+      }
       this.cd.detectChanges();
-    });
+    }, { injector: this.injector });
   }
 
   onPageJson(): void {

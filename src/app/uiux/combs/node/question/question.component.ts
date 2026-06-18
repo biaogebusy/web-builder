@@ -9,7 +9,6 @@ import {
   Injector,
   input
 } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import type { IComment, IQuestion } from '@core/interface/node/INode';
@@ -34,7 +33,6 @@ import { CommentListComponent } from '../comment/comment-list/comment-list.compo
   styleUrls: ['./question.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    AsyncPipe,
     MatButtonModule,
     MatIconModule,
     SafeHtmlPipe,
@@ -43,7 +41,7 @@ import { CommentListComponent } from '../comment/comment-list/comment-list.compo
   ],
 })
 export class QuestionComponent extends NodeComponent implements AfterViewInit {
-  public user$ = inject<Observable<IUser | boolean>>(USER);
+  public user = inject(USER);
 
   readonly content = input.required<IQuestion>();
   public comments: IComment[];
@@ -51,7 +49,6 @@ export class QuestionComponent extends NodeComponent implements AfterViewInit {
   public isAsked = false;
   public myCommentId = '';
   private dialogRef: MatDialogRef<any>;
-  private user: IUser;
   private nodeService = inject(NodeService);
   private screenService = inject(ScreenService);
   private cd = inject(ChangeDetectorRef);
@@ -62,11 +59,6 @@ export class QuestionComponent extends NodeComponent implements AfterViewInit {
 
   constructor() {
     super();
-    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
-      if (typeof user === 'object') {
-        this.user = user;
-      }
-    });
   }
 
 
@@ -105,7 +97,7 @@ export class QuestionComponent extends NodeComponent implements AfterViewInit {
     const entityId = this.nodeService.getCommentRelEntityId(this.content());
     const entityType = this.nodeService.getCommentType(this.content());
     const params = [
-      `filter[uid.id]=${this.user.id}`,
+      `filter[uid.id]=${(this.user() as IUser)?.id}`,
       `filter[entity_id.id]=${entityId}`,
       `sort=-created`,
       'filter[status]=1',

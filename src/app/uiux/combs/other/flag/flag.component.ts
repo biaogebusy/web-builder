@@ -33,38 +33,35 @@ const FLAGGING_GET_PATH = '/api/v1/flagging';
 })
 export class FlagComponent extends BaseComponent implements OnInit {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
-  private user$ = inject<Observable<IUser>>(USER);
+  private user = inject(USER);
 
   readonly content = input.required<IFlag>();
   config: ICoreFlag;
   flagging = false;
-  user: IUser;
 
   cd = inject(ChangeDetectorRef);
   screenService = inject(ScreenService);
   nodeService = inject(NodeService);
   utiltiy = inject(UtilitiesService);
   private destroyRef = inject(DestroyRef);
-
   constructor() {
     super();
-    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
-      this.user = user;
-    });
   }
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.config = this.coreConfig?.actions?.flag;
-      if (this.config?.enable && this.user.authenticated) {
+      const u = this.user();
+      if (this.config?.enable && u && typeof u === 'object' && u.authenticated) {
         this.getFlagging();
       }
     }
   }
 
   get flaggingParams(): any {
+    const u = this.user();
     const params = [
-      `filter[uid.id]=${this.user.id}`,
+      `filter[uid.id]=${(u && typeof u === 'object') ? u.id : ''}`,
       `filter[entity_id]=${this.getDeepValue(this.content(), 'params.entity_id')}`,
     ].join('&');
     return params;
@@ -86,7 +83,8 @@ export class FlagComponent extends BaseComponent implements OnInit {
   }
 
   onFlag(): void {
-    if (!this.user.authenticated) {
+    const u = this.user();
+    if (!(u && typeof u === 'object' && u.authenticated)) {
       this.utiltiy.openSnackbar('请登录，再收藏！', 'x');
       return;
     }
@@ -109,7 +107,7 @@ export class FlagComponent extends BaseComponent implements OnInit {
             uid: {
               data: {
                 type: 'user--user',
-                id: this.user.id,
+                id: (u && typeof u === 'object') ? u.id : '',
               },
             },
           },

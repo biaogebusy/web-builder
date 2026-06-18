@@ -35,7 +35,7 @@ import { environment } from 'src/environments/environment';
   imports: [ShareModule, WidgetsModule, FormModule, MatPaginatorModule],
 })
 export class CardListComponent extends BaseComponent implements OnInit {
-  private user$ = inject<Observable<IUser>>(USER);
+  public user = inject(USER);
 
   readonly content = input.required<ICardList>();
   content$: Observable<IPageMeta[]>;
@@ -54,13 +54,8 @@ export class CardListComponent extends BaseComponent implements OnInit {
   private nodeService = inject(NodeService);
   private destroyRef = inject(DestroyRef);
   private translate = inject(TranslateService);
-  public user: IUser;
-
   constructor() {
     super();
-    this.user$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(user => {
-      this.user = user;
-    });
   }
 
   ngOnInit(): void {

@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -21,6 +20,7 @@ import { BRANDING } from '@core/token/token-providers';
 import { Observable } from 'rxjs';
 import type { IBranding } from '@core/interface/branding/IBranding';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { AsyncPipe } from '@angular/common';
 import { HeaderBannerComponent } from './header-banner/header-banner.component';
 import { HeaderTopComponent } from './header-top/header-top.component';
 import { MenuComponent } from './menu/menu.component';
@@ -29,14 +29,14 @@ import { MenuComponent } from './menu/menu.component';
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  imports: [AsyncPipe, HeaderBannerComponent, HeaderTopComponent, MenuComponent],
+  imports: [HeaderBannerComponent, HeaderTopComponent, MenuComponent, AsyncPipe],
   host: {
     ngSkipHydration: 'true',
   },
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
   private doc = inject<Document>(DOCUMENT);
-  public branding$ = inject<Observable<IBranding>>(BRANDING);
+  public branding$ = inject(BRANDING);
 
   public sticky = signal(false);
   public showBanner = signal(false);
@@ -97,8 +97,11 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   initBanner(): void {
-    this.branding$.pipe(takeUntilDestroyed(this.destoryRef)).subscribe((branding: any) => {
-      const banner = branding.header.banner;
+    this.branding$.pipe(takeUntilDestroyed(this.destoryRef)).subscribe(brandingValue => {
+      if (!brandingValue) {
+        return;
+      }
+      const banner = brandingValue.header?.banner;
       if (!banner) {
         this.showBanner.set(false);
       } else {

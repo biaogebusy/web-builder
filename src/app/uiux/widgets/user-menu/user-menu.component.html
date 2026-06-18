@@ -1,12 +1,12 @@
-@let user = user$ | async;
+@let u = user();
 
 <div class="user">
-  @if (!user) {
+  @if (!u) {
     <button aria-label="user login" color="primary" (click)="onLogin()" mat-mini-fab>
       <mat-icon>person</mat-icon>
     </button>
   } @else {
-    @if (!user.picture) {
+    @if (!$any(u).picture) {
       <button aria-label="user name" mat-mini-fab color="primary" (click)="openDialog()">
         <h3 class="name">
           {{ name() }}
@@ -19,8 +19,8 @@
         tabindex="0"
         (click)="openDialog()"
         (keyup.enter)="openDialog()"
-        [src]="user.picture"
-        alt="{{ user.display_name }}"
+        [src]="$any(u).picture"
+        alt="{{ $any(u).display_name }}"
       />
     }
   }

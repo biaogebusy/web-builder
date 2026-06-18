@@ -5,9 +5,9 @@
         <mat-panel-title>{{ name }}</mat-panel-title>
       </mat-expansion-panel-header>
       <mat-list>
-        @if (loading) {
+        @if (loading()) {
           <div class="loading-wrapper">
-            <app-loading />
+            <app-loading [content]="{ size: 24 }" />
           </div>
         }
         @if (pages$ | async; as pages) {

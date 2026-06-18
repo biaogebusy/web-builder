@@ -30,7 +30,7 @@ export class BuilderShowcaseComponent implements OnInit {
   private screenService = inject(ScreenService);
   private storage = inject(LocalStorageService);
   private translate = inject(TranslateService);
-  public user$ = inject<Observable<IUser>>(USER);
+  public user = inject(USER);
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {

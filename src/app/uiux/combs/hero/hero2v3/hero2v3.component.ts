@@ -19,7 +19,7 @@ import { TextComponent } from '@uiux/widgets/text/text.component';
 })
 export class Hero2v3Component extends BaseComponent {
   screen = inject(ScreenState);
-  pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);
+  pageContent = inject(PAGE_CONTENT);
 
   readonly content = input.required<IHero2v3>();
 

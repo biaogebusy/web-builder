@@ -38,7 +38,7 @@
         @for (page of content; track page; let i = $index) {
           <div
             [class]="{
-              active: page.nid === currentPage?.nid && page.langcode === currentPage?.langcode,
+              active: page.nid === $any(currentPage())?.nid && page.langcode === $any(currentPage())?.langcode,
             }"
             class="item"
           >

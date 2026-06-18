@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, DestroyRef, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, OnInit, inject, ChangeDetectionStrategy, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { ShareModule } from '@share/share.module';
@@ -22,7 +22,7 @@ import { map } from 'rxjs/operators';
 })
 export class BuilderPageComponent implements OnInit {
   pages$: Observable<any[]>;
-  loading = true;
+  loading = signal(true);
   public name: string | null;
   private builder = inject(BuilderState);
   private cd = inject(ChangeDetectorRef);
@@ -37,8 +37,7 @@ export class BuilderPageComponent implements OnInit {
   ngOnInit(): void {
     this.activateRoute.paramMap.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(paramsMap => {
       this.name = paramsMap.get('name');
-      this.loading = true;
-      this.cd.detectChanges();
+      this.loading.set(true);
       const apiParams = new DrupalJsonApiParams();
       apiParams
         .addPageLimit(20)
@@ -60,8 +59,7 @@ export class BuilderPageComponent implements OnInit {
               nid: drupal_internal__nid,
             };
           });
-          this.loading = false;
-          this.cd.detectChanges();
+          this.loading.set(false);
           this.tagService.setTitle(
             this.translate.instant('BUILDER.PAGE.MANAGE_SUFFIX', { name: this.name })
           );

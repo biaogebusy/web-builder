@@ -1,5 +1,5 @@
 <div class="manage-page">
-  @if (pageContent$ | async; as page) {
+  @if (pageContent(); as page) {
     @if (page.body) {
       @for (item of page.body; track item) {
         <app-dynamic-component [inputs]="item" />

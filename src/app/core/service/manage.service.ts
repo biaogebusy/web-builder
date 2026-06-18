@@ -1,5 +1,4 @@
 import { DestroyRef, Injectable, inject } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { USER } from '@core/token/token-providers';
@@ -11,18 +10,14 @@ import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
   providedIn: 'root',
 })
 export class ManageService extends ApiService {
-  private user$ = inject<Observable<IUser>>(USER);
+  private user = inject(USER);
   private destroyRef = inject(DestroyRef);
 
   private util = inject(UtilitiesService);
   public mediaDialogClass = ['close-outside', 'close-icon-white', 'manage-media-dialog'];
-  private user: IUser;
 
   constructor() {
     super();
-    this.user$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(user => {
-      this.user = user;
-    });
   }
 
   getBlock(): Observable<any> {

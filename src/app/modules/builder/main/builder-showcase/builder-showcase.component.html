@@ -6,7 +6,7 @@
   <div class="showcase-footer">
     <div class="title">
       {{ content().title }}
-      @if (user$ | async) {
+      @if (user()) {
         <span class="uuid"> {{ component.uuid }} </span>
       }
     </div>

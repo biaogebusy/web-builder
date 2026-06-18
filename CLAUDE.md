@@ -45,7 +45,6 @@ Uses RxJS `BehaviorSubject`/`Subject` pattern via injectable state classes (not 
 
 - `ContentState` — page config, drawer, media assets, comments
 - `BuilderState` — builder UI state (fullscreen, preview mode, drag-drop, theme mode)
-- `AIState` — AI chat state
 - `CalendarState` — calendar state
 - `ScreenState` — responsive breakpoints, drawer toggle
 
@@ -57,9 +56,7 @@ Global app state is provided via InjectionToken factories in `core/token/token-p
 
 - `environment.ts` — dev config. Key flags:
   - `production: false` → uses local JSON files for page content instead of live API
-  - `drupalProxy` — enables Drupal-based auth
   - `multiLang` / `langs` — multi-language support with lang prefix routing
-  - `cache` — enables API request caching
 - `environment.prod.ts` — production config (apiUrl: `https://builder.design`)
 
 ### SSR

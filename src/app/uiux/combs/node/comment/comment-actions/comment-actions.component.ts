@@ -18,7 +18,7 @@ import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
 })
 export class CommentActionsComponent {
   contentState = inject(ContentState);
-  private user$ = inject<Observable<IUser>>(USER);
+  private user = inject(USER);
 
   readonly config = input.required<ICommentConfig>();
   readonly item = input.required<any>();
@@ -28,13 +28,8 @@ export class CommentActionsComponent {
   readonly update = output<{ item: any }>();
   readonly reply = output<{ item: any }>();
   readonly delete = output<string>();
-  user: IUser;
 
-  constructor() {
-    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
-      this.user = user;
-    });
-  }
+  constructor() {  }
 
 
   onUpdate(): void {
@@ -55,6 +50,6 @@ export class CommentActionsComponent {
 
   isMy(): boolean {
     const item = this.item();
-    return item.author.id === this.user.id && item.id !== this.currentId();
+    return item.author.id === (this.user() as IUser)?.id && item.id !== this.currentId();
   }
 }

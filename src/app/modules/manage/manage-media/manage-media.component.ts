@@ -1,14 +1,16 @@
 import {
   Component,
   OnInit,
+  effect,
   inject,
   DestroyRef,
   signal,
+  Injector,
   ChangeDetectionStrategy,
   input,
   viewChild,
 } from '@angular/core';
-import { AsyncPipe, NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -35,7 +37,7 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 import { IDialog } from '@core/interface/IDialog';
 import { ReqRolesDirective } from '@core/directive/req-roles.directive';
@@ -51,7 +53,6 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   templateUrl: './manage-media.component.html',
   styleUrls: ['./manage-media.component.scss'],
   imports: [
-    AsyncPipe,
     NgOptimizedImage,
     FormsModule,
     ReactiveFormsModule,
@@ -69,8 +70,8 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   ],
 })
 export class ManageMediaComponent implements OnInit {
-  private builderConfig = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
-  public mediaAssets$ = inject<Observable<IManageAssets>>(MEDIA_ASSETS);
+  private builderConfig = toSignal(inject(BUILDER_CONFIG), { initialValue: undefined });
+  public mediaAssets = inject(MEDIA_ASSETS);
 
   readonly content = input.required<IManageMedia>();
   public form = new UntypedFormGroup({
@@ -90,6 +91,7 @@ export class ManageMediaComponent implements OnInit {
   private screenService = inject(ScreenService);
   private manageService = inject(ManageService);
   private destroyRef = inject(DestroyRef);
+  private injector = inject(Injector);
   private translate = inject(TranslateService);
 
   readonly uploadDrawer = viewChild<MatDrawer>('uploadDrawer');
@@ -113,10 +115,13 @@ export class ManageMediaComponent implements OnInit {
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.loading.set(true);
-      this.builderConfig.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(config => {
-        this.manageMediaConfig.set(config.manageMedia);
-        this.fields.set([...this.defaultField, ...config.manageMedia.sidebar.form]);
-      });
+      effect(() => {
+        const config = this.builderConfig();
+        if (config) {
+          this.manageMediaConfig.set(config.manageMedia);
+          this.fields.set([...this.defaultField, ...config.manageMedia.sidebar.form]);
+        }
+      }, { injector: this.injector });
       this.onSearch({});
       this.form.valueChanges
         .pipe(takeUntilDestroyed(this.destroyRef), debounceTime(1000), distinctUntilChanged())
@@ -124,11 +129,10 @@ export class ManageMediaComponent implements OnInit {
           this.onSearch(value);
         });
 
-      this.mediaAssets$
-        .pipe(takeUntilDestroyed(this.destroyRef), distinctUntilChanged())
-        .subscribe(() => {
-          this.loading.set(false);
-        });
+      effect(() => {
+        this.mediaAssets();
+        this.loading.set(false);
+      }, { injector: this.injector });
     }
   }
 

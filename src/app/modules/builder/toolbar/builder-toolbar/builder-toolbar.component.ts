@@ -3,7 +3,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  Injector,
   OnInit,
+  effect,
   inject,
   signal,
 } from '@angular/core';
@@ -40,9 +42,9 @@ import { SwitchPreviewComponent } from '../switch-preview/switch-preview.compone
 })
 export class BuilderToolbarComponent implements OnInit, AfterViewInit {
   public version = signal<IPage[] | undefined>(undefined);
-  private user$ = inject<Observable<IUser>>(USER);
-  public builderFullScreen$ = inject<Observable<boolean>>(BUILDER_FULL_SCREEN);
-  public currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
+  private user = inject(USER);
+  public builderFullScreen = inject(BUILDER_FULL_SCREEN);
+  public currentPage = inject(BUILDER_CURRENT_PAGE);
 
   public page?: IPage;
   private dialog = inject(MatDialog);
@@ -56,22 +58,22 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
   private userService = inject(UserService);
   private router = inject(Router);
   private translate = inject(TranslateService);
-
-  private user: IUser;
   public date = signal<Date>(new Date());
+  private injector = inject(Injector);
   constructor() {
-    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
-      this.user = user;
-    });
+    // user is now a Signal - use user() to access value
   }
 
   ngOnInit(): void {
-    this.currentPage$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(page => {
-      this.page = page;
-      if (this.page.changed) {
-        this.date.set(new Date(Number(this.page.changed) * 1000));
+    effect(() => {
+      const page = this.currentPage();
+      if (page && typeof page === 'object') {
+        this.page = page;
+        if (this.page.changed) {
+          this.date.set(new Date(Number(this.page.changed) * 1000));
+        }
       }
-    });
+    }, { injector: this.injector });
     this.version.set(this.storage.retrieve('version'));
     this.storage
       .observe('version')

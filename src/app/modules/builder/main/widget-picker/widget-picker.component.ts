@@ -4,8 +4,10 @@ import {
   ElementRef,
   OnInit,
   computed,
+  effect,
   inject,
   signal,
+  Injector,
   ChangeDetectionStrategy,
   input,
   viewChild
@@ -77,13 +79,14 @@ export class WidgetPickerComponent implements OnInit {
     return hits;
   });
 
-  private uiux$ = inject<Observable<any[]>>(UIUX);
+  private uiux$ = inject(UIUX);
   private builder = inject(BuilderState);
   private util = inject(UtilitiesService);
   private destroyRef = inject(DestroyRef);
   private storage = inject(LocalStorageService);
   private translate = inject(TranslateService);
-  public builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
+  private injector = inject(Injector);
+  public builderConfig$ = inject(BUILDER_CONFIG);
 
   private widgetPopper?: PopperInstance;
   private previewResizeObserver?: ResizeObserver;
@@ -96,8 +99,10 @@ export class WidgetPickerComponent implements OnInit {
         this.bcData.set(data);
       });
     this.uiux$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(libaries => {
-      const [first] = libaries;
-      this.widgets.set(first);
+      if (libaries) {
+        const [first] = libaries;
+        this.widgets.set(first);
+      }
     });
   }
 

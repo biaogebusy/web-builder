@@ -26,7 +26,7 @@ export class NodeAddComponent implements OnInit {
   private nodeService = inject(NodeService);
   private tagsService = inject(TagsService);
   private activateRoute = inject(ActivatedRoute);
-  public user$ = inject(USER);
+  public user = inject(USER);
   private util = inject(UtilitiesService);
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);

@@ -10,7 +10,6 @@ import {
   ChangeDetectionStrategy,
   input
 } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
 import { MatDividerModule } from '@angular/material/divider';
 import { NgPipesModule } from 'ngx-pipes';
 import { TagsService } from '@core/service/tags.service';
@@ -42,7 +41,6 @@ import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-compone
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.scss'],
   imports: [
-    AsyncPipe,
     MatDividerModule,
     NgPipesModule,
     SafeHtmlPipe,
@@ -56,8 +54,8 @@ import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-compone
 })
 export class ArticleComponent extends NodeComponent implements OnInit, AfterViewInit {
   public coreConfig = inject<ICoreConfig>(CORE_CONFIG);
-  private pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);
-  public user$ = inject<Observable<IUser | boolean>>(USER);
+  private pageContent = inject(PAGE_CONTENT);
+  public user = inject(USER);
 
   readonly content = input.required<IBaseNode>();
   public comments: IComment[];
@@ -72,15 +70,9 @@ export class ArticleComponent extends NodeComponent implements OnInit, AfterView
   private contentState = inject(ContentState);
   private destroyRef = inject(DestroyRef);
   private injector = inject(Injector);
-  private user: IUser;
 
   constructor() {
     super();
-    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
-      if (typeof user === 'object') {
-        this.user = user;
-      }
-    });
   }
 
   ngOnInit(): void {
@@ -100,15 +92,19 @@ export class ArticleComponent extends NodeComponent implements OnInit, AfterView
     if (!environment.production) {
       return;
     }
-    this.pageContent$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(page => {
-      const entityId = page.config?.node?.entityId || '';
-      this.nodeService
-        .checkNodeAccess(this.content().params, entityId, this.user)
-        .subscribe(access => {
-          this.canAccess = access.canAccess;
-          this.cd.detectChanges();
-        });
-    });
+    effect(() => {
+      const page = this.pageContent();
+      if (page && typeof page === 'object') {
+        const entityId = page.config?.node?.entityId || '';
+        const u = this.user();
+        this.nodeService
+          .checkNodeAccess(this.content().params, entityId, u as IUser)
+          .subscribe(access => {
+            this.canAccess = access.canAccess;
+            this.cd.detectChanges();
+          });
+      }
+    }, { injector: this.injector });
   }
 
   ngAfterViewInit(): void {

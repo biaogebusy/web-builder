@@ -332,7 +332,7 @@ export class UserService extends ApiService {
     this.setUserCookie(user);
   }
 
-  checkShow(content: any, user: IUser): boolean {
+  checkShow(content: any, user: IUser | undefined): boolean {
     // 没有内容不显示
     if (!content) {
       return false;

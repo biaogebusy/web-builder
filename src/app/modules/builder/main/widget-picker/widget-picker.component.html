@@ -1,5 +1,5 @@
-@let builderConfig = builderConfig$ | async;
-@let help = builderConfig?.widgetPicker?.help;
+@let config = builderConfig$ | async;
+@let help = config?.widgetPicker?.help;
 @let group = selectedGroup();
 @let query = searchQuery();
 @let hits = searchResults();

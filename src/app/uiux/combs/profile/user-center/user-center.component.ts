@@ -34,12 +34,11 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 })
 export class UserCenterComponent implements OnInit {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
-  user$ = inject<Observable<IUser>>(USER);
+  user = inject(USER);
 
   readonly content = input<IUserCenter>();
   currentUser: any;
   id: any;
-  user: IUser;
   userConfig$: Observable<IUserConfig>;
   cd = inject(ChangeDetectorRef);
   route = inject(Router);
@@ -47,11 +46,7 @@ export class UserCenterComponent implements OnInit {
   userService = inject(UserService);
   private destroyRef = inject(DestroyRef);
 
-  constructor() {
-    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
-      this.user = user;
-    });
-  }
+  constructor() {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -76,7 +71,7 @@ export class UserCenterComponent implements OnInit {
     }
     const people = {};
     this.userService
-      .getUserById(this.user.current_user.uid)
+      .getUserById((this.user() as IUser)?.current_user?.uid)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(res => {
         const info = res.data[0];

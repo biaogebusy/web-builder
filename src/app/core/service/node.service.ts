@@ -18,19 +18,15 @@ import { IMediaAttr } from '@core/interface/manage/IManage';
 })
 export class NodeService extends ApiService {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
-  private user$ = inject<Observable<IUser>>(USER);
+  private user = inject(USER);
   private destroyRef = inject(DestroyRef);
 
   private util = inject(UtilitiesService);
-  private user: IUser;
 
   private readonly commentGetPath = '/api/v1/comment';
 
   constructor() {
     super();
-    this.user$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(user => {
-      this.user = user;
-    });
   }
 
   fetch(api: string, params: string, langCode?: string): Observable<any> {
@@ -214,7 +210,8 @@ export class NodeService extends ApiService {
 
   // api 在有权限的时候会有很大的性能开销，可使用自定义api
   getCommentsWitchChild(content: any, timeStamp = 1): Observable<any> {
-    const token = this.user.access_token;
+    const user = this.user();
+    const token = typeof user === 'object' ? user.access_token : undefined;
     const path = this.commentGetPath;
     const type = this.getCommentType(content);
     const { params } = this.getCommentsParams(content, timeStamp);

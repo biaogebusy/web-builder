@@ -1,5 +1,5 @@
-@let builderConfig = builderConfig$ | async;
-@if (currentPage$ | async; as page) {
+@let configData = builderConfig$ | async;
+@if (currentPage(); as page) {
   @if (page.body.length > 0) {
     <div class="builder-list" id="gsap-scroller">
       <div class="wrapper" [class]="previewClass$ | async">
@@ -27,7 +27,7 @@
             >
               @if (item) {
                 <app-dynamic-component [attr.data-path]="i" [inputs]="item" />
-                @if (builderConfig) {
+                @if (configData) {
                   <div
                     #actionBtn
                     class="add-new-section"
@@ -35,7 +35,7 @@
                   >
                     <button
                       mat-raised-button
-                      (click)="addNewSection(actionBtn, 'section', builderConfig.newSection)"
+                      (click)="addNewSection(actionBtn, 'section', configData.newSection)"
                     >
                       <div class="section-btn-content">
                         <app-icon class="mr-1" [content]="{ svg: 'plus' }" />
@@ -53,7 +53,7 @@
                     <mat-menu #menu="matMenu">
                       <button
                         mat-menu-item
-                        (click)="addNewSection(actionBtn, 'widget', builderConfig?.newSection)"
+                        (click)="addNewSection(actionBtn, 'widget', configData?.newSection)"
                       >
                         <div class="menu-item-content">
                           <app-icon [content]="{ svg: 'widgets-outline' }" />

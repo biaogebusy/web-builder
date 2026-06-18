@@ -27,7 +27,7 @@ import { throttle } from 'lodash-es';
   imports: [ShareModule, WidgetsModule, BrandingModule],
 })
 export class PreviewComponent implements OnInit {
-  public currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
+  public currentPage = inject(BUILDER_CURRENT_PAGE);
   private contentState = inject(ContentState);
   private builder = inject(BuilderState);
   private tagsService = inject(TagsService);

@@ -3,6 +3,8 @@ import {
   Component,
   DestroyRef,
   ElementRef,
+  Injector,
+  effect,
   inject,
   signal,
   ChangeDetectionStrategy,
@@ -43,7 +45,7 @@ import { LayoutToolbarComponent } from './layout-toolbar/layout-toolbar.componen
   ],
 })
 export class LayoutBuilderComponent implements AfterViewInit {
-  currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
+  currentPage = inject(BUILDER_CURRENT_PAGE);
 
   readonly content = input.required<ILayoutBuilder>();
   public showToolbar = signal(false);
@@ -55,6 +57,7 @@ export class LayoutBuilderComponent implements AfterViewInit {
   private screenService = inject(ScreenService);
   private builderSerivce = inject(BuilderService);
   private popup: any;
+  private injector = inject(Injector);
 
 
   ngAfterViewInit(): void {
@@ -63,9 +66,10 @@ export class LayoutBuilderComponent implements AfterViewInit {
         this.showToolbar.set(true);
       }
       if (this.showToolbar()) {
-        this.currentPage$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(page => {
+        effect(() => {
+          this.currentPage();
           this.layoutAnimate();
-        });
+        }, { injector: this.injector });
       }
     }
   }

@@ -1,5 +1,4 @@
-import { AsyncPipe } from '@angular/common';
-import { Component, OnInit, OnDestroy, inject, DestroyRef, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, DestroyRef, signal, computed, ChangeDetectionStrategy } from '@angular/core';
 import {
   ReactiveFormsModule,
   UntypedFormGroup,
@@ -21,10 +20,9 @@ import type { ICoreConfig, ISocialLoginProvider } from '@core/interface/IAppConf
 import type { IIcon } from '@core/interface/widgets/IIcon';
 import type { IUser } from '@core/interface/IUser';
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
-import { filter } from 'rxjs/operators';
 import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
 import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
-import { Observable, Subscription, interval } from 'rxjs';
+import { Subscription, interval } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -32,7 +30,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   imports: [
-    AsyncPipe,
     ReactiveFormsModule,
     MatButtonModule,
     MatDividerModule,
@@ -46,8 +43,11 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   public coreConfig = inject<ICoreConfig>(CORE_CONFIG);
-  public user$ = inject<Observable<IUser | boolean>>(USER);
-  public currentUser$ = this.user$.pipe(filter((u): u is IUser => typeof u === 'object'));
+  public user = inject(USER);
+  public currentUser = computed(() => {
+    const u = this.user();
+    return typeof u === 'object' ? u : undefined;
+  });
   private apiUrl = inject<string>(API_URL);
 
   public loading = signal<boolean>(false);

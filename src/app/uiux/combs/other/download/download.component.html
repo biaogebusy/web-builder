@@ -12,7 +12,7 @@
         </button>
       }
     } @else {
-      @if (!user.authenticated) {
+      @if (!($any(user())?.authenticated)) {
         <button mat-menu-item>
           <app-icon [content]="{ name: 'person' }" />
           <a href="javascript:vovid(0)" (click)="openLogin()">登录</a>

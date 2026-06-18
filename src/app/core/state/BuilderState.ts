@@ -237,9 +237,13 @@ export class BuilderState {
   }
 
   pushComponent(content: any): void {
-    const { body } = this.currentPage;
     if (content && content.type) {
-      body.push(content);
+      this.version.update(list => {
+        const next = list.map(page =>
+          page.current ? { ...page, body: [...page.body, content] } : page
+        );
+        return next;
+      });
       this.saveLocalVersions();
     } else {
       this.util.openSnackbar('组件添加错误', 'ok');

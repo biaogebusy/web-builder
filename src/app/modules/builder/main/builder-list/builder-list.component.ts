@@ -9,8 +9,10 @@ import {
   OnDestroy,
   OnInit,
   afterEveryRender,
+  effect,
   inject,
   signal,
+  Injector,
   DOCUMENT,
   ChangeDetectionStrategy,
   viewChild
@@ -23,7 +25,7 @@ import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_CONFIG, BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
 import { map as each, throttle } from 'lodash-es';
 import { Observable } from 'rxjs';
-import { map, skip } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { IBuilderConfig } from '@core/interface/IBuilder';
@@ -41,8 +43,8 @@ import { DefaultPageComponent } from '../default-page/default-page.component';
 })
 export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   private doc = inject<Document>(DOCUMENT);
-  public currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
-  public builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
+  public currentPage = inject(BUILDER_CURRENT_PAGE);
+  public builderConfig$ = inject(BUILDER_CONFIG);
 
   readonly builderList = viewChild<ElementRef>('builderList');
   private markers: NodeListOf<Element>;
@@ -54,6 +56,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   private builderService = inject(BuilderService);
   private storage = inject(LocalStorageService);
   private translate = inject(TranslateService);
+  private injector = inject(Injector);
   private ele = inject(ElementRef);
   private scrollableContainer: Element;
   public bcData = signal(false);
@@ -116,18 +119,22 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     // `data-aos` 通常在 afterEveryRender 的 throttle 窗口外才被设置，
     // 导致 IntersectionObserver 没有挂到新元素上。这里在页面切换后再
     // 显式触发一次观察，确保 AOS 能够正常播放。
-    this.currentPage$
-      .pipe(skip(1), takeUntilDestroyed(this.destroyRef))
-      .subscribe(() => {
-        setTimeout(() => {
-          if (this.scrollableContainer) {
-            this.util.intersectionObserver(
-              '#builder-list [data-aos]',
-              this.scrollableContainer
-            );
-          }
-        }, 500);
-      });
+    let first = true;
+    effect(() => {
+      this.currentPage(); // subscribe to changes
+      if (first) {
+        first = false;
+        return;
+      }
+      setTimeout(() => {
+        if (this.scrollableContainer) {
+          this.util.intersectionObserver(
+            '#builder-list [data-aos]',
+            this.scrollableContainer
+          );
+        }
+      }, 500);
+    }, { injector: this.injector });
   }
 
   addNewSection(target: any, type: 'widget' | 'section', newSection: any): void {

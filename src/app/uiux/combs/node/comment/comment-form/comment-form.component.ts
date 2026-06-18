@@ -35,7 +35,7 @@ import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
 })
 export class CommentFormComponent implements OnInit {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
-  private user$ = inject<Observable<IUser>>(USER);
+  private user = inject(USER);
 
   readonly content = input.required<IBaseNode>();
   readonly commentContent = model<any>('');
@@ -53,13 +53,8 @@ export class CommentFormComponent implements OnInit {
   utilitiesService = inject(UtilitiesService);
   contentState = inject(ContentState);
   private destroyRef = inject(DestroyRef);
-  user: IUser;
 
-  constructor() {
-    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
-      this.user = user;
-    });
-  }
+  constructor() {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -90,7 +85,7 @@ export class CommentFormComponent implements OnInit {
 
   onSubmit(value: any): void {
     this.loading = true;
-    const token = this.user.access_token;
+    const token = (this.user() as IUser)?.access_token;
     const params = this.content().params?.comment as ICommentParams;
     const type = params.attributes?.field_name || '';
     // reply, update 在组件内判断处理，默认新增，包括外部组件
@@ -178,7 +173,7 @@ export class CommentFormComponent implements OnInit {
         uid: {
           data: {
             type: 'user--user',
-            id: this.user.id,
+            id: (this.user() as IUser)?.id,
           },
         },
       },

@@ -6,14 +6,13 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { TagsService } from '@core/service/tags.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { UIUX } from '@core/token/token-providers';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BuilderPanelComponent } from '../builder-panel/builder-panel.component';
 
 @Component({
@@ -25,7 +24,7 @@ import { BuilderPanelComponent } from '../builder-panel/builder-panel.component'
 })
 export class BuilderUiuxComponent implements OnInit {
   private builder = inject(BuilderState);
-  public uiux$ = inject<Observable<any[]>>(UIUX);
+  public uiux$ = inject(UIUX);
   private tagService = inject(TagsService);
   private destroyRef = inject(DestroyRef);
   private translate = inject(TranslateService);
@@ -34,8 +33,10 @@ export class BuilderUiuxComponent implements OnInit {
   ngOnInit(): void {
     this.tagService.setTitle(this.translate.instant('BUILDER.UIUX.PAGE_TITLE'));
     this.uiux$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(libaries => {
-      const [first, ...uiux] = libaries;
-      this.libaries.set(uiux);
+      if (libaries) {
+        const [, ...uiux] = libaries;
+        this.libaries.set(uiux);
+      }
     });
   }
 

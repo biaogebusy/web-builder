@@ -6,7 +6,7 @@ import {
   afterEveryRender,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { Observable } from 'rxjs';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { CORE_CONFIG, PAGE_CONTENT, USER } from '@core/token/token-providers';
@@ -38,7 +38,6 @@ import { BrandingModule } from '@core/branding/branding.module';
     },
   ],
   imports: [
-    AsyncPipe,
     NgTemplateOutlet,
     MatSidenavModule,
     LoadingBarModule,
@@ -51,9 +50,9 @@ import { BrandingModule } from '@core/branding/branding.module';
 export class PageComponent {
   private doc = inject<Document>(DOCUMENT);
   public coreConfig = inject<ICoreConfig>(CORE_CONFIG);
-  public pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);
+  public pageContent = inject(PAGE_CONTENT);
   public mobileMenuOpened = false;
-  public user$ = inject(USER);
+  public user = inject(USER);
   private contentState = inject(ContentState);
   private destroyRef = inject(DestroyRef);
   private contentService = inject(ContentService);

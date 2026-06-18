@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import {
   Component,
   ChangeDetectorRef,
@@ -23,10 +22,10 @@ import { Observable } from 'rxjs';
   templateUrl: './user-menu.component.html',
   styleUrls: ['./user-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AsyncPipe, MatButtonModule, MatIconModule],
+  imports: [MatButtonModule, MatIconModule],
 })
 export class UserMenuComponent {
-  public user$ = inject<Observable<IUser>>(USER);
+  public user = inject(USER);
 
   readonly content = input<any[]>();
 
@@ -36,11 +35,7 @@ export class UserMenuComponent {
 
   public name = signal<string>('');
 
-  constructor() {
-    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
-      this.name.set((user.display_name || 'N').substring(0, 1));
-    });
-  }
+  constructor() {}
 
   onLogin(): void {
     this.userService.openLoginDialog();

@@ -1,10 +1,11 @@
-import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   DestroyRef,
+  Injector,
   OnInit,
+  effect,
   inject,
   signal,
 } from '@angular/core';
@@ -28,11 +29,10 @@ import { Observable, catchError, of } from 'rxjs';
   templateUrl: './user-setting.component.html',
   styleUrl: './user-setting.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AsyncPipe, MatTooltipModule, FormlyComponent, BtnComponent, LoadingComponent],
+  imports: [MatTooltipModule, FormlyComponent, BtnComponent, LoadingComponent],
 })
 export class UserSettingComponent implements OnInit {
-  public user$ = inject<Observable<IUser>>(USER);
-  private user: IUser;
+  public user = inject(USER);
   public form = new FormGroup({});
   public model: any = {};
   public fields: FormlyFieldConfig[];
@@ -43,12 +43,15 @@ export class UserSettingComponent implements OnInit {
   private util = inject(UtilitiesService);
   private cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
+  private injector = inject(Injector);
 
   ngOnInit(): void {
-    this.user$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((user: IUser) => {
+    effect(() => {
+      const user = this.user();
+      if (typeof user !== 'object') return;
       this.loading.set(false);
-      this.user = user;
       if (user) {
+        const userMail = user.mail;
         this.fields = [
           {
             type: 'tabs',
@@ -114,14 +117,14 @@ export class UserSettingComponent implements OnInit {
                         },
                         expressions: {
                           'props.required': (field: FormlyFieldConfig) => {
-                            return !(field.parent?.parent?.model?.mail === user.mail);
+                            return !(field.parent?.parent?.model?.mail === userMail);
                           },
                         },
                       },
                     ],
                     expressions: {
                       hide: (field: FormlyFieldConfig) => {
-                        return field.parent?.model?.mail === user.mail;
+                        return field.parent?.model?.mail === userMail;
                       },
                     },
                   },
@@ -196,7 +199,7 @@ export class UserSettingComponent implements OnInit {
         ];
       }
       this.cd.detectChanges();
-    });
+    }, { injector: this.injector });
   }
 
   onUpdate(value: any, user: IUser): void {
@@ -214,7 +217,10 @@ export class UserSettingComponent implements OnInit {
       )
       .subscribe((res: any) => {
         if (res) {
-          this.userService.updateUser(this.user);
+          const u = this.user();
+          if (typeof u === 'object') {
+            this.userService.updateUser(u);
+          }
           this.util.openSnackbar('更新成功！', 'ok');
         } else {
           this.util.openSnackbar('更新失败！', 'ok');
@@ -256,7 +262,10 @@ export class UserSettingComponent implements OnInit {
         )
         .subscribe(res => {
           if (res) {
-            this.userService.updateUser(this.user);
+            const u = this.user();
+            if (typeof u === 'object') {
+              this.userService.updateUser(u);
+            }
             this.util.openSnackbar('头像上传成功', 'ok');
           } else {
             this.util.openSnackbar('头像上传失败', 'ok');

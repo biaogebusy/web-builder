@@ -1,6 +1,6 @@
 <div class="taxonomy">
   @let items = items$ | async;
-  @let user = user$ | async;
+  @let u = user();
 
   <div class="taxonomy-grid">
     <div class="list-panel">
@@ -36,7 +36,7 @@
                     />
                   </div>
                   <app-btn
-                    (click)="onDelete(item, user)"
+                    (click)="onDelete(item, u)"
                     [content]="{
                       label: '删除',
                       color: 'warn',
@@ -62,7 +62,7 @@
           <app-formly [form]="form" [fields]="fields" [model]="model" />
           <div class="form-actions">
             <app-btn
-              (click)="onUpdate(model, user)"
+              (click)="onUpdate(model, u)"
               [content]="{
                 label: selectedItem ? '保存分类' : '新建分类',
                 color: 'primary',

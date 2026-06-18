@@ -1,5 +1,5 @@
 import { DestroyRef, Injectable, inject } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { ApiService } from './api.service';
 import { BUILDER_CONFIG } from '@core/token/token-providers';
 import type { IPage } from '@core/interface/IAppConfig';
@@ -34,7 +34,7 @@ const VERSION_CHECK_INTERVAL = 30000;
   providedIn: 'root',
 })
 export class BuilderService extends ApiService {
-  private builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
+  private builderConfig = toSignal(inject(BUILDER_CONFIG), { initialValue: undefined });
 
   private dialog = inject(MatDialog);
   private builder = inject(BuilderState);
@@ -44,15 +44,11 @@ export class BuilderService extends ApiService {
   private destroyRef = inject(DestroyRef);
   private router = inject(Router);
   private storage = inject(LocalStorageService);
-  private builderConfig: IBuilderConfig;
   private versionCheckSub?: Subscription;
   private versionDialogOpen = false;
 
   constructor() {
     super();
-    this.builderConfig$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(config => {
-      this.builderConfig = config;
-    });
   }
 
   loadPage(
@@ -278,7 +274,7 @@ export class BuilderService extends ApiService {
   createLandingPage(page: IPage, loadPage = true): Observable<any> {
     const {
       api: { create },
-    } = this.builderConfig;
+    } = this.builderConfig()!;
     this.builder.loading.set(true);
     return this.http
       .post(`${this.apiUrl}${create}`, formatPage(page), this.optionsWithBearerToken())
@@ -313,7 +309,7 @@ export class BuilderService extends ApiService {
     }
     const {
       api: { update },
-    } = this.builderConfig;
+    } = this.builderConfig()!;
     this.builder.loading.set(true);
     return this.http
       .patch(
@@ -372,7 +368,7 @@ export class BuilderService extends ApiService {
     const { nid, target, langcode } = page;
     const {
       api: { translate },
-    } = this.builderConfig;
+    } = this.builderConfig()!;
     return this.http.post(
       `${this.apiUrl}${translate}/add/${nid}/${langcode}/${target}`,
       formatPage(page),

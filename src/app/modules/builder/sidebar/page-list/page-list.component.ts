@@ -41,8 +41,8 @@ import { environment } from 'src/environments/environment';
   imports: [ShareModule, WidgetsModule, FormModule, MatPaginatorModule],
 })
 export class PageListComponent extends BaseComponent implements OnInit {
-  private currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
-  private user$ = inject<Observable<IUser>>(USER);
+  public currentPage = inject(BUILDER_CURRENT_PAGE);
+  private user = inject(USER);
 
   readonly content = input<any>();
   public content$: Observable<IPageMeta[]>;
@@ -55,7 +55,6 @@ export class PageListComponent extends BaseComponent implements OnInit {
   public loading = false;
   public pager: IPager;
   public langs = environment.langs;
-  public currentPage?: IPage;
   private builder = inject(BuilderState);
   private cd = inject(ChangeDetectorRef);
   private util = inject(UtilitiesService);
@@ -66,7 +65,6 @@ export class PageListComponent extends BaseComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   private tagService = inject(TagsService);
   private translate = inject(TranslateService);
-  public user: IUser;
 
   public fields: FormlyFieldConfig[] = [
     {
@@ -151,20 +149,11 @@ export class PageListComponent extends BaseComponent implements OnInit {
   ];
 
   constructor() {
-    super();
-    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
-      this.user = user;
-    });
-    this.tagService.setTitle(this.translate.instant('BUILDER.PAGE_LIST.PAGE_TITLE'));
+    super();this.tagService.setTitle(this.translate.instant('BUILDER.PAGE_LIST.PAGE_TITLE'));
   }
 
   ngOnInit(): void {
-    this.fetchPage('noCache=1');
-    this.currentPage$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(page => {
-      this.currentPage = page;
-      this.cd.detectChanges();
-    });
-    this.builder.updateSuccess$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(state => {
+    this.fetchPage('noCache=1');    this.builder.updateSuccess$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(state => {
       if (state) {
         this.onReload();
       }
