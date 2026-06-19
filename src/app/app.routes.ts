@@ -1,7 +1,8 @@
 import { Routes } from '@angular/router';
 import { authGuard } from '@core/guards/auth.guard';
 import { authMatchGuard } from '@core/guards/auth-match.guard';
-import { PreviewComponent } from '@modules/builder/preview/preview.component';
+import { builderCurrentPageFactory } from '@core/factory/factory';
+import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
 import { PageComponent } from '@modules/page/page/page.component';
 
 export const routes: Routes = [
@@ -16,7 +17,14 @@ export const routes: Routes = [
   },
   {
     path: 'preview',
-    component: PreviewComponent,
+    providers: [
+      {
+        provide: BUILDER_CURRENT_PAGE,
+        useFactory: builderCurrentPageFactory,
+      },
+    ],
+    loadComponent: () =>
+      import('./modules/builder/preview/preview.component').then(m => m.PreviewComponent),
   },
   {
     path: 'builder',

@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   DOCUMENT,
+  Injector,
   OnInit,
   computed,
   inject,
@@ -76,9 +77,9 @@ export class CustomThemeComponent implements OnInit {
   private translate = inject(TranslateService);
   private document = inject<Document>(DOCUMENT);
   private nodeService = inject(NodeService);
-  private builderService = inject(BuilderService);
   private screenService = inject(ScreenService);
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  private injector = inject(Injector);
 
   readonly seed = signal<string>('#0049db');
   readonly isDark = signal<boolean>(false);
@@ -269,7 +270,8 @@ export class CustomThemeComponent implements OnInit {
     };
     const body = { ...node.config, customTheme };
     this.saving.set(true);
-    this.builderService
+    this.injector
+      .get(BuilderService)
       .updateAttributes(
         { uuid: node.uuid, langcode: node.langcode },
         '/api/v1/node/json',

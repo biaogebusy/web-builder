@@ -522,6 +522,7 @@ export class UserService extends ApiService {
       expires: getCookieExpirationDate(this.coreConfig.cookieLifetime ?? 2000000),
       path: '/',
       sameSite: 'Lax',
+      secure: this.isBrowser && this.doc.location.protocol === 'https:',
     });
   }
 

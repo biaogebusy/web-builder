@@ -34,7 +34,9 @@ const VERSION_CHECK_INTERVAL = 30000;
   providedIn: 'root',
 })
 export class BuilderService extends ApiService {
-  private builderConfig = toSignal(inject(BUILDER_CONFIG), { initialValue: undefined });
+  private builderConfig = toSignal(inject(BUILDER_CONFIG, { optional: true }) ?? of(undefined), {
+    initialValue: undefined,
+  });
 
   private dialog = inject(MatDialog);
   private builder = inject(BuilderState);

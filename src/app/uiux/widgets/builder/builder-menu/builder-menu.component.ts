@@ -52,7 +52,6 @@ export class BuilderMenuComponent implements AfterViewInit {
   private util = inject(UtilitiesService);
   private cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
-  private builderService = inject(BuilderService);
   private dialog = inject(MatDialog);
   private injector = inject(Injector);
 
@@ -125,7 +124,7 @@ export class BuilderMenuComponent implements AfterViewInit {
   onPageSetting(page: IPage): void {
     const { uuid, langcode } = page;
     if (uuid) {
-      this.builderService.openPageSetting(
+      this.injector.get(BuilderService).openPageSetting(
         { uuid, langcode },
         '/api/v1/node/landing_page',
         getPageParams(['uid', 'group', 'cover', 'cover.field_media_image'])

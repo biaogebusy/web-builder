@@ -7,7 +7,6 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
-import { Observable } from 'rxjs';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { CORE_CONFIG, PAGE_CONTENT, USER } from '@core/token/token-providers';
 import { ContentState } from '@core/state/ContentState';
@@ -113,4 +112,3 @@ export class PageComponent {
     });
   }
 }
-

@@ -4,6 +4,7 @@ import {
   Component,
   DestroyRef,
   ElementRef,
+  Injector,
   OnDestroy,
   inject,
   signal,
@@ -56,8 +57,8 @@ export class JsoneditorComponent implements AfterViewInit, OnDestroy {
   private builder = inject(BuilderState);
   private destroyRef = inject(DestroyRef);
   private util = inject(UtilitiesService);
-  private builderService = inject(BuilderService);
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  private injector = inject(Injector);
   private jsonEditor: any;
 
   async ngAfterViewInit(): Promise<void> {
@@ -175,7 +176,8 @@ export class JsoneditorComponent implements AfterViewInit, OnDestroy {
           body: JSON.stringify(this.value),
         };
       }
-      this.builderService
+      this.injector
+        .get(BuilderService)
         .updateAttributes(
           {
             uuid,

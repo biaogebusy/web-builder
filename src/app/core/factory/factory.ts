@@ -18,7 +18,7 @@ import { IManageAssets } from '@core/interface/manage/IManage';
 import { ILanguage } from '@core/interface/IEnvironment';
 import { CookieService } from 'ngx-cookie-service';
 import { ComponentService } from '@core/service/component.service';
-import { DestroyRef, DOCUMENT, inject, signal, Signal, WritableSignal } from '@angular/core';
+import { DestroyRef, DOCUMENT, inject, Injector, signal, Signal, WritableSignal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 import { BuilderService } from '@core/service/builder.service';
@@ -69,14 +69,14 @@ export function builderCurrentPageFactory(): WritableSignal<IPage | undefined | 
   const versionKey = 'version';
   const currentPage = signal<IPage | undefined | false>(false);
   const storage = inject(LocalStorageService);
-  const builderService = inject(BuilderService);
+  const injector = inject(Injector);
   const destroyRef = inject(DestroyRef);
   const localVersion = storage.retrieve(versionKey);
 
   if (localVersion) {
     const found = localVersion.find((page: IPage) => page.current === true);
     if (router.url.includes(BUILDERPATH)) {
-      builderService.checkIsLatestPage(found);
+      injector.get(BuilderService).checkIsLatestPage(found);
     }
     currentPage.set(found);
   }
