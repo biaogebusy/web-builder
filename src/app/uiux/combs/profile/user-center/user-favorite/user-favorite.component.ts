@@ -4,7 +4,7 @@ import {
   OnInit,
   inject,
   DestroyRef,
-  input
+  input,
 } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { NodeService } from '@core/service/node.service';
@@ -51,12 +51,12 @@ export class UserFavoriteComponent implements OnInit {
   getContent(): void {
     this.loading = true;
     const path = '/api/v1/flagging';
-    const params = [
-      `filter[uid.id]=${(this.user() as IUser)?.id}`,
-      `include=flagged_entity`,
-      `sort=-created`,
-      `jsonapi_include=1`,
-    ].join('&');
+    const params = {
+      'filter[uid.id]': (this.user() as IUser)?.id,
+      include: 'flagged_entity',
+      sort: '-created',
+      jsonapi_include: 1,
+    };
     this.lists = this.nodeService.getNodes(path, 'favorite', params).pipe(
       takeUntilDestroyed(this.destroyRef),
       map(res => {

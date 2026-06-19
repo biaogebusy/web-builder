@@ -5,7 +5,7 @@ import {
   OnInit,
   inject,
   signal,
-  input
+  input,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormGroup } from '@angular/forms';
@@ -24,6 +24,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { USER } from '@core/token/token-providers';
 import { getAttrAlias } from '@core/util/builder-page.util';
+import { appendQueryParams } from '@core/util/http-params.util';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TranslateService } from '@ngx-translate/core';
@@ -57,7 +58,7 @@ export class PageSettingComponent implements OnInit {
   private router = inject(Router);
   private translate = inject(TranslateService);
 
-  constructor() {  }
+  constructor() {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -173,7 +174,9 @@ export class PageSettingComponent implements OnInit {
                         .subscribe(res => {
                           this.loading.set(false);
                           if (res) {
-                            this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_SETTING.COVER_UPDATED'));
+                            this.util.openSnackbar(
+                              this.translate.instant('BUILDER.PAGE_SETTING.COVER_UPDATED')
+                            );
                           }
                         });
                     });
@@ -466,7 +469,7 @@ export class PageSettingComponent implements OnInit {
       inputData: {
         content: {
           type: 'iframe',
-          url: `${this.model.alias}?nocache=true`,
+          url: appendQueryParams(this.model.alias, { nocache: true }),
           width: '100%',
           fullWidth: true,
           classes: 'h-screen',

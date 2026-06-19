@@ -5,7 +5,7 @@ import {
   DestroyRef,
   OnInit,
   inject,
-  input
+  input,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -20,6 +20,7 @@ import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { USER } from '@core/token/token-providers';
+import type { QueryParams } from '@core/util/http-params.util';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { TranslateService } from '@ngx-translate/core';
 import { merge } from 'lodash-es';
@@ -59,7 +60,7 @@ export class CardListComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fetchPage('noCache=1');
+    this.fetchPage({ noCache: 1 });
     this.builder.updateSuccess$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(state => {
       if (state) {
         this.onReload();
@@ -74,7 +75,7 @@ export class CardListComponent extends BaseComponent implements OnInit {
     this.fetchPage(params);
   }
 
-  fetchPage(params: string): void {
+  fetchPage(params: QueryParams | string): void {
     const {
       params: { api },
     } = this.content();

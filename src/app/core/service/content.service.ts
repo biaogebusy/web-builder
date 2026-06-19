@@ -11,6 +11,8 @@ import { ScreenState } from '@core/state/screen/ScreenState';
 import { ApiService } from '@core/service/api.service';
 import type { IBranding } from '@core/interface/branding/IBranding';
 import { IBuilderConfig } from '@core/interface/IBuilder';
+import { appendQueryParams, queryStringToParams, QueryParams } from '@core/util/http-params.util';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -38,8 +40,7 @@ export class ContentService extends ApiService {
   loadPageContent(pageUrl = this.pageUrl): Observable<IPage> {
     const { lang, path } = this.getUrlPath(pageUrl);
     if (environment.production) {
-      const landingPath = '/api/v3/landingPage?content=';
-      const pageUrlParams = `${this.apiUrl}${lang}${landingPath}${path}`;
+      const pageUrlParams = this.getLandingPageUrl(lang, path);
       return this.http.get<any>(pageUrlParams).pipe(
         retry({ count: 1, delay: 500 }),
         tap(page => {
@@ -66,26 +67,27 @@ export class ContentService extends ApiService {
   logContent(url: string): void {
     if (this.coreConfig?.log?.content?.enabel) {
       const { api } = this.coreConfig.log.content;
-      this.http.get(`${api}?location=${url}`).pipe(take(1)).subscribe();
+      this.http
+        .get(appendQueryParams(api, { location: url }))
+        .pipe(take(1))
+        .subscribe();
     }
   }
 
   loadBranding(): Observable<IBranding> {
     const { lang } = this.getUrlPath(this.pageUrl);
-    return this.http
-      .get<IBranding>(`${this.apiUrl}${lang}/api/v3/landingPage?content=/core/branding`)
-      .pipe(
-        retry({ count: 1, delay: 500 }),
-        catchError(error => {
-          console.error('Failed to load branding:', error);
-          return of({} as IBranding);
-        })
-      );
+    return this.http.get<IBranding>(this.getLandingPageUrl(lang, '/core/branding')).pipe(
+      retry({ count: 1, delay: 500 }),
+      catchError(error => {
+        console.error('Failed to load branding:', error);
+        return of({} as IBranding);
+      })
+    );
   }
 
   loadConfig(coreConfig: object): any {
     const { lang } = this.getUrlPath(this.pageUrl);
-    const configPath = `${this.apiUrl}${lang}/api/v3/landingPage?content=/core/base`;
+    const configPath = this.getLandingPageUrl(lang, '/core/base');
     if (!this.coreConfigCache) {
       this.coreConfigCache = this.http.get<ICoreConfig>(configPath).pipe(
         retry({ count: 2, delay: 1000 }),
@@ -130,10 +132,27 @@ export class ContentService extends ApiService {
   loadJSON(jsonPath: string): Observable<any> {
     const { lang, path } = this.getUrlPath(jsonPath);
     const apiPath = environment.production
-      ? `${this.apiUrl}${lang}/api/v3/landingPage?content=${path}&nocache=true`
+      ? this.getLandingPageUrl(lang, path, { nocache: true })
       : `${this.apiUrl}/assets/app${lang}${path}.json`;
 
     return this.http.get<any>(apiPath);
+  }
+
+  private getLandingPageUrl(lang: string, contentPath: string, params: QueryParams = {}): string {
+    const { content, queryParams } = this.splitContentPath(contentPath);
+    return appendQueryParams(`${this.apiUrl}${lang}/api/v3/landingPage`, {
+      content,
+      ...queryParams,
+      ...params,
+    });
+  }
+
+  private splitContentPath(contentPath: string): { content: string; queryParams: QueryParams } {
+    const [content, ...queryParts] = contentPath.split('&');
+    return {
+      content,
+      queryParams: queryParts.length > 0 ? queryStringToParams(queryParts.join('&')) : {},
+    };
   }
 
   setBodyClasses(theme: string): void {
@@ -143,7 +162,7 @@ export class ContentService extends ApiService {
 
   getRepository(owner: string, repo: string, token: string): Observable<any> {
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     });
 

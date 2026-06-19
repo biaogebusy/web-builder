@@ -19,7 +19,7 @@ export class NotifyService {
       return of(false);
     }
     const obj: any = {};
-    const params = `noCache=1`;
+    const params = { noCache: 1 };
     const apiList = this.coreConfig?.notify?.api;
     const finalList = apiList?.filter(api => {
       if (!api.reqRoles || api.reqRoles.length === 0) {

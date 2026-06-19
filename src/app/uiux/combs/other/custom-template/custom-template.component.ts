@@ -6,7 +6,7 @@ import {
   inject,
   signal,
   ChangeDetectionStrategy,
-  input
+  input,
 } from '@angular/core';
 import type { ICustomTemplate, ICustomTemplateDialog } from '@core/interface/IBuilder';
 import DOMPurify from 'dompurify';
@@ -25,6 +25,7 @@ import { IDialog } from '@core/interface/IDialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { BuilderState } from '@core/state/BuilderState';
 import { generatePath } from '@core/util/dom-path.util';
+import type { QueryParams } from '@core/util/http-params.util';
 import { ManageService } from '@core/service/manage.service';
 import { TranslateService } from '@ngx-translate/core';
 declare let Swiper: any;
@@ -125,7 +126,7 @@ export class CustomTemplateComponent implements AfterViewInit {
       this.ele.nativeElement.querySelectorAll('.swiper').forEach((el: any) => {
         if (el) {
           const options = JSON.parse(el.getAttribute('data-swiper'));
-                   new Swiper(el, options);
+          new Swiper(el, options);
         }
       });
     }
@@ -143,7 +144,7 @@ export class CustomTemplateComponent implements AfterViewInit {
     });
   }
 
-  fetchContent(params: string): void {
+  fetchContent(params: QueryParams | string): void {
     const { html, api } = this.content();
     if (api) {
       this.nodeService
@@ -176,7 +177,7 @@ export class CustomTemplateComponent implements AfterViewInit {
 
   onPageChange(pageEvent: PageEvent): void {
     const { pageIndex } = pageEvent;
-    this.fetchContent(`page=${pageIndex}`);
+    this.fetchContent({ page: pageIndex });
   }
 
   renderView(content: any, html: string): void {

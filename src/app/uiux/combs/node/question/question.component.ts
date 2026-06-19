@@ -7,7 +7,7 @@ import {
   effect,
   inject,
   Injector,
-  input
+  input,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -61,7 +61,6 @@ export class QuestionComponent extends NodeComponent implements AfterViewInit {
     super();
   }
 
-
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       effect(
@@ -96,13 +95,13 @@ export class QuestionComponent extends NodeComponent implements AfterViewInit {
     }
     const entityId = this.nodeService.getCommentRelEntityId(this.content());
     const entityType = this.nodeService.getCommentType(this.content());
-    const params = [
-      `filter[uid.id]=${(this.user() as IUser)?.id}`,
-      `filter[entity_id.id]=${entityId}`,
-      `sort=-created`,
-      'filter[status]=1',
-      `page[limit]=1`,
-    ].join('&');
+    const params = {
+      'filter[uid.id]': (this.user() as IUser)?.id,
+      'filter[entity_id.id]': entityId,
+      sort: '-created',
+      'filter[status]': 1,
+      'page[limit]': 1,
+    };
     const path = '/api/v1/comment';
     this.nodeService
       .getNodes(path, entityType, params)

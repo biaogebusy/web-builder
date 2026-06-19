@@ -5,7 +5,7 @@ import {
   ChangeDetectorRef,
   inject,
   DestroyRef,
-  input
+  input,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { NodeService } from '@core/service/node.service';
@@ -21,6 +21,7 @@ import type { IUser } from '@core/interface/IUser';
 import { environment } from 'src/environments/environment';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
+import type { QueryParams } from '@core/util/http-params.util';
 
 const FLAGGING_GET_PATH = '/api/v1/flagging';
 
@@ -58,13 +59,12 @@ export class FlagComponent extends BaseComponent implements OnInit {
     }
   }
 
-  get flaggingParams(): any {
+  get flaggingParams(): QueryParams {
     const u = this.user();
-    const params = [
-      `filter[uid.id]=${(u && typeof u === 'object') ? u.id : ''}`,
-      `filter[entity_id]=${this.getDeepValue(this.content(), 'params.entity_id')}`,
-    ].join('&');
-    return params;
+    return {
+      'filter[uid.id]': u && typeof u === 'object' ? u.id : '',
+      'filter[entity_id]': this.getDeepValue(this.content(), 'params.entity_id'),
+    };
   }
 
   getFlagging(): void {
@@ -107,7 +107,7 @@ export class FlagComponent extends BaseComponent implements OnInit {
             uid: {
               data: {
                 type: 'user--user',
-                id: (u && typeof u === 'object') ? u.id : '',
+                id: u && typeof u === 'object' ? u.id : '',
               },
             },
           },

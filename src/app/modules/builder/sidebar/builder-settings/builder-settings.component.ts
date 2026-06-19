@@ -4,7 +4,7 @@ import {
   Component,
   OnInit,
   inject,
-  input
+  input,
 } from '@angular/core';
 import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
 import { Router } from '@angular/router';
@@ -18,6 +18,7 @@ import { TagsService } from '@core/service/tags.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { getPageParams } from '@core/util/builder-page.util';
+import type { QueryParams } from '@core/util/http-params.util';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, of } from 'rxjs';
@@ -50,14 +51,14 @@ export class BuilderSettingsComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getNodeJson(`noCache=true`);
+    this.getNodeJson({ noCache: true });
   }
 
   onAfterExpand(): void {
     this.builder.cancelFixedShowcase();
   }
 
-  getNodeJson(params: string): void {
+  getNodeJson(params: QueryParams | string): void {
     this.loading = true;
     this.content$ = this.nodeService.fetch('/api/v2/node/core', params).pipe(
       catchError(error => {
@@ -97,11 +98,11 @@ export class BuilderSettingsComponent extends BaseComponent implements OnInit {
   }
 
   onPageChange(page: PageEvent): void {
-    this.getNodeJson(`page=${page.pageIndex}&nocache=true`);
+    this.getNodeJson({ page: page.pageIndex, nocache: true });
   }
 
   reload(): void {
-    this.getNodeJson('page=0&nocache=true');
+    this.getNodeJson({ page: 0, nocache: true });
   }
 
   addJSON(): void {

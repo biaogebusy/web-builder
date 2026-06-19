@@ -25,6 +25,7 @@ import {
   getApiLang,
   getPageParams,
 } from '@core/util/builder-page.util';
+import { appendQueryParams, type QueryParams } from '@core/util/http-params.util';
 
 const BUILDERPATH = '/builder';
 const VERSION_KEY = 'version';
@@ -60,7 +61,7 @@ export class BuilderService extends ApiService {
     const { langcode, nid, isTemplate } = page;
     const lang = getApiLang(langcode);
     this.nodeService
-      .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', lang)
+      .fetch(`/api/v3/landingPage/json/${nid}`, { noCache: 1 }, lang)
       .pipe(take(1))
       .subscribe((content: IPage) => {
         const { body, status, uuid } = content;
@@ -117,7 +118,7 @@ export class BuilderService extends ApiService {
     const { langcode, nid } = page;
     const lang = getApiLang(langcode);
     this.nodeService
-      .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', lang)
+      .fetch(`/api/v3/landingPage/json/${nid}`, { noCache: 1 }, lang)
       .pipe(take(1))
       .subscribe((content: IPage) => {
         const { status, uuid } = content;
@@ -168,10 +169,12 @@ export class BuilderService extends ApiService {
         filter((localPage): localPage is IPage => Boolean(localPage?.nid)),
         switchMap(localPage => {
           const lang = getApiLang(localPage.langcode);
-          return this.nodeService.fetch(`/api/v3/landingPage/json/${localPage.nid}`, 'noCache=1', lang).pipe(
-            map((serverPage: IPage) => ({ localPage, serverPage })),
-            catchError(() => of(null))
-          );
+          return this.nodeService
+            .fetch(`/api/v3/landingPage/json/${localPage.nid}`, { noCache: 1 }, lang)
+            .pipe(
+              map((serverPage: IPage) => ({ localPage, serverPage })),
+              catchError(() => of(null))
+            );
         }),
         takeUntilDestroyed(this.destroyRef)
       )
@@ -235,7 +238,7 @@ export class BuilderService extends ApiService {
     const { langcode, nid, uuid, schemaType } = page;
     const lang = getApiLang(langcode);
     this.nodeService
-      .fetch(`/api/v3/landingPage?content=/node/${nid}`, 'noCache=1', lang)
+      .fetch('/api/v3/landingPage', { content: `/node/${nid}`, noCache: 1 }, lang)
       .pipe(take(1))
       .subscribe((newPage: IPage) => {
         const jsonWidget: IJsoneditor = {
@@ -478,7 +481,13 @@ export class BuilderService extends ApiService {
 
       if (pid) {
         this.http
-          .get(`${prefix}/api/v1/path_alias/path_alias?filter[drupal_internal__id]=${pid}`)
+          .get(
+            appendQueryParams(
+              `${prefix}/api/v1/path_alias/path_alias`,
+              { 'filter[drupal_internal__id]': pid },
+              { encodeKeys: false }
+            )
+          )
           .pipe(
             catchError(error => {
               return of(handleError(error));
@@ -544,7 +553,11 @@ export class BuilderService extends ApiService {
     });
   }
 
-  openPageSetting(page: { uuid: string; langcode?: string }, api: string, params: string): void {
+  openPageSetting(
+    page: { uuid: string; langcode?: string },
+    api: string,
+    params: QueryParams | string
+  ): void {
     const { uuid, langcode } = page;
     const lang = getApiLang(langcode);
     this.nodeService
@@ -564,7 +577,7 @@ export class BuilderService extends ApiService {
             mode: 'over',
             hasBackdrop: true,
             style: {
-              'padding': '14px',
+              padding: '14px',
               'max-width': 'calc(100vw - 80px)',
             },
             elements: [

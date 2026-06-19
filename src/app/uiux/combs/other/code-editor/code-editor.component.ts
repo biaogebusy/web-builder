@@ -1,4 +1,14 @@
-import { Component, DestroyRef, OnInit, effect, inject, signal, Injector, ChangeDetectionStrategy, input } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  OnInit,
+  effect,
+  inject,
+  signal,
+  Injector,
+  ChangeDetectionStrategy,
+  input,
+} from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { ReactiveFormsModule, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -95,19 +105,28 @@ export class CodeEditorComponent implements OnInit {
   private editor: any;
 
   ngOnInit(): void {
-    const { html, json: jsonValue = null, isAPI = false, api = '', js = '' } = this.content().content;
+    const {
+      html,
+      json: jsonValue = null,
+      isAPI = false,
+      api = '',
+      js = '',
+    } = this.content().content;
     this.html.set(html);
     this.json.set(jsonValue);
     this.isAPI.set(isAPI);
     this.api = (api ?? '').trim();
     this.js.set(js ?? '');
     this.jsForm.setValue(this.js(), { emitEvent: false });
-    effect(() => {
-      const user = this.currentUser();
-      this.isAdmin.set(
-        this.userService.checkShow({ params: { reqRoles: ['administrator'] } }, user as IUser)
-      );
-    }, { injector: this.injector });
+    effect(
+      () => {
+        const user = this.currentUser();
+        this.isAdmin.set(
+          this.userService.checkShow({ params: { reqRoles: ['administrator'] } }, user as IUser)
+        );
+      },
+      { injector: this.injector }
+    );
     if (this.isAPI() && this.api) {
       this.fields = [
         {
@@ -268,17 +287,14 @@ export class CodeEditorComponent implements OnInit {
       .subscribe(value => {
         const { api } = value;
         if (!api) {
-          this.util.openSnackbar(
-            this.translate.instant('BUILDER.CODE_EDITOR.API_REQUIRED'),
-            'ok'
-          );
+          this.util.openSnackbar(this.translate.instant('BUILDER.CODE_EDITOR.API_REQUIRED'), 'ok');
           return;
         }
         const { path } = this.content();
         this.api = (api ?? '').trim();
         if (this.isAPI && api) {
           this.nodeService
-            .fetch(api, 'noCache=1')
+            .fetch(api, { noCache: 1 })
             .pipe(
               catchError(err => {
                 return of({

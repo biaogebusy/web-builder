@@ -167,7 +167,7 @@ export class CustomThemeComponent implements OnInit {
   // Look up the /core/base node so the backend-save button has a target uuid.
   private resolveCoreBaseNode(): void {
     this.nodeService
-      .fetch('/api/v3/landingPage?content=/core/base', 'noCache=1')
+      .fetch('/api/v3/landingPage', { content: '/core/base', noCache: 1 })
       .pipe(take(1))
       .subscribe((res: any) => {
         const uuid = res?.uuid ?? res?.data?.id;

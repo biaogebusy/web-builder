@@ -25,8 +25,11 @@ import {
   isTokenExpired,
   parseServerCookie,
 } from '@core/util/auth-token.util';
+import { appendQueryParams, buildQueryString, QueryParams } from '@core/util/http-params.util';
 
-interface AuthBroadcastMessage { type: 'login' | 'logout' }
+interface AuthBroadcastMessage {
+  type: 'login' | 'logout';
+}
 
 export type OAuthMode = 'redirect' | 'popup';
 
@@ -395,9 +398,12 @@ export class UserService extends ApiService {
   }
 
   getCode(phone: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/api/v3/otp/generate?format=json`, {
-      mobile_number: phone,
-    });
+    return this.http.post(
+      appendQueryParams(`${this.apiUrl}/api/v3/otp/generate`, { format: 'json' }),
+      {
+        mobile_number: phone,
+      }
+    );
   }
 
   loginByPhone(phone: number, code: string): Observable<{ ok: boolean; message?: string }> {
@@ -436,55 +442,77 @@ export class UserService extends ApiService {
 
   getUserConfig(): Observable<any> {
     if (environment.production) {
-      return this.http.get(`${this.apiUrl}/api/v3/landingPage?content=/core/user`);
+      return this.http.get(
+        appendQueryParams(`${this.apiUrl}/api/v3/landingPage`, { content: '/core/user' })
+      );
     } else {
       return this.http.get(`${this.apiUrl}/assets/app/core/user.json`);
     }
   }
 
   getUserById(id: string): Observable<any> {
-    const params = [
-      `filter[drupal_internal__uid]=${id}`,
-      `include=user_picture,roles`,
-      `jsonapi_include=1`,
-    ].join('&');
-    return this.http.get<any>(`${this.userApiPath}?${params}`, this.optionsWithBearerToken());
+    const params = buildQueryString(
+      {
+        'filter[drupal_internal__uid]': id,
+        include: 'user_picture,roles',
+        jsonapi_include: 1,
+      },
+      { encodeKeys: false }
+    );
+    return this.http.get<any>(
+      appendQueryParams(this.userApiPath, params),
+      this.optionsWithBearerToken()
+    );
   }
 
-  getUser(params: string): Observable<any> {
-    return this.http.get<any>(`${this.userApiPath}?${params}`);
+  getUser(params: QueryParams | string): Observable<any> {
+    return this.http.get<any>(
+      appendQueryParams(this.userApiPath, params, {
+        arrayFormat: 'plus',
+        encodeKeys: false,
+      })
+    );
   }
 
   getCurrentUserProfile(tokenData: any): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/api/v3/accountProfile?noCache=1`, {
-      headers: this.getAuthHeader(tokenData.access_token),
-    });
+    return this.http.get<any>(
+      appendQueryParams(`${this.apiUrl}/api/v3/accountProfile`, { noCache: 1 }),
+      {
+        headers: this.getAuthHeader(tokenData.access_token),
+      }
+    );
   }
 
   getAuthHeader(accessToken: string): any {
     return new HttpHeaders({
-      'Authorization': `Bearer ${accessToken}`,
-      'Accept': 'application/vnd.api+json',
+      Authorization: `Bearer ${accessToken}`,
+      Accept: 'application/vnd.api+json',
       'Content-Type': 'application/vnd.api+json',
     });
   }
 
   getCurrentUserById(uid: string, tokenData: any): Observable<IUserProfile> {
-    const params = [
-      `filter[drupal_internal__uid]=${uid}`,
-      `include=user_picture,roles`,
-      `jsonapi_include=1`,
-      `noCache=1`,
-    ].join('&');
+    const params = buildQueryString(
+      {
+        'filter[drupal_internal__uid]': uid,
+        include: 'user_picture,roles',
+        jsonapi_include: 1,
+        noCache: 1,
+      },
+      { encodeKeys: false }
+    );
     return this.http
-      .get<any>(`${this.userApiPath}?${params}`, {
+      .get<any>(appendQueryParams(this.userApiPath, params), {
         headers: this.getAuthHeader(tokenData.access_token),
       })
       .pipe(
         catchError((error: any) => {
-          return this.http.get<any>(`${this.apiUrl}/api/v3/personalProfile?noCache=1`, {
-            headers: this.getAuthHeader(tokenData.access_token),
-          });
+          return this.http.get<any>(
+            appendQueryParams(`${this.apiUrl}/api/v3/personalProfile`, { noCache: 1 }),
+            {
+              headers: this.getAuthHeader(tokenData.access_token),
+            }
+          );
         }),
         map((res: any) => {
           // jsonapi
@@ -547,7 +575,7 @@ export class UserService extends ApiService {
     const { id } = user;
     const httpOptions = {
       headers: new HttpHeaders({
-        'Accept': 'application/vnd.api+json',
+        Accept: 'application/vnd.api+json',
         'Content-Type': 'application/octet-stream',
         'Content-Disposition': 'file; filename="' + id + '-picture.jpg"',
       }),

@@ -5,7 +5,7 @@ import {
   DestroyRef,
   OnInit,
   inject,
-  input
+  input,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -25,6 +25,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_CURRENT_PAGE, USER } from '@core/token/token-providers';
 import { formatToExtraData, getPageParams } from '@core/util/builder-page.util';
+import type { QueryParams } from '@core/util/http-params.util';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { TranslateService } from '@ngx-translate/core';
@@ -149,11 +150,13 @@ export class PageListComponent extends BaseComponent implements OnInit {
   ];
 
   constructor() {
-    super();this.tagService.setTitle(this.translate.instant('BUILDER.PAGE_LIST.PAGE_TITLE'));
+    super();
+    this.tagService.setTitle(this.translate.instant('BUILDER.PAGE_LIST.PAGE_TITLE'));
   }
 
   ngOnInit(): void {
-    this.fetchPage('noCache=1');    this.builder.updateSuccess$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(state => {
+    this.fetchPage({ noCache: 1 });
+    this.builder.updateSuccess$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(state => {
       if (state) {
         this.onReload();
       }
@@ -188,7 +191,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
     this.fetchPage(params);
   }
 
-  fetchPage(params: string): void {
+  fetchPage(params: QueryParams | string): void {
     this.loading = true;
     this.content$ = this.nodeService.fetch('/api/v2/node/landing-page', params).pipe(
       catchError(error => {
@@ -269,7 +272,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
   createLangVersion(currentPage: IPageMeta, targetlang: string): void {
     this.builder.loading.set(true);
     this.nodeService
-      .fetch(`/api/v3/landingPage/json/${currentPage.nid}`, 'noCache=1', targetlang)
+      .fetch(`/api/v3/landingPage/json/${currentPage.nid}`, { noCache: 1 }, targetlang)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((page: IPage) => {
         this.builder.loading.set(false);
