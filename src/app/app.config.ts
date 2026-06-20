@@ -22,6 +22,7 @@ import { provideNgxWebstorage, withLocalStorage, withNgxWebstorageConfig } from 
 import { CookieService } from 'ngx-cookie-service';
 import { TranslateModule } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
+import { provideMonacoEditor } from 'ngx-monaco-editor-v2';
 import { AppComponent } from './app.component';
 import { routes } from './app.routes';
 import { authInterceptor } from '@core/interceptor/auth.interceptor';
@@ -66,6 +67,7 @@ export const appConfig: ApplicationConfig = {
     }),
     provideZonelessChangeDetection(),
     provideHttpClient(withFetch(), withInterceptors([authInterceptor, ssrTimeoutInterceptor])),
+    provideMonacoEditor({ baseUrl: 'assets' }),
     provideRouter(
       routes,
       withPreloading(PreloadAllModules),

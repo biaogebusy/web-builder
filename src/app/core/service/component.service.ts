@@ -266,7 +266,7 @@ export class ComponentService {
 
     if (!loader) {
       const pageUrl = this.doc.location.href;
-      const errorMsg = `No module loader found for component "${type}" from ${pageUrl}. Available components: ${Array.from(this.moduleLoaders.keys()).join(', ')}`;
+      const errorMsg = `No module loader found for component "${type}" from ${pageUrl}.`;
       console.error(errorMsg);
       throw new Error(errorMsg);
     }

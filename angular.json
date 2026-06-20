@@ -52,14 +52,11 @@
               },
               {
                 "glob": "**/*",
-                "input": "node_modules/monaco-editor",
-                "output": "assets/monaco"
+                "input": "node_modules/monaco-editor/min/vs",
+                "output": "assets/monaco/min/vs"
               }
             ],
-            "styles": [
-              "src/styles.scss",
-              "node_modules/material-design-icons/iconfont/material-icons.css"
-            ],
+            "styles": ["src/styles.scss"],
             "scripts": [],
             "allowedCommonJsDependencies": ["highlight.js", "lodash", "crypto-js", "dompurify"],
             "stylePreprocessorOptions": {

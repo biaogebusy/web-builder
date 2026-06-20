@@ -61,7 +61,6 @@
     "jsoneditor": "^10.0.3",
     "lightgallery": "^2.7.2",
     "lodash-es": "^4.17.20",
-    "material-design-icons": "^3.0.1",
     "monaco-editor": "^0.50.0",
     "mustache": "^4.2.0",
     "ngx-cookie-service": "^20.0.1",
