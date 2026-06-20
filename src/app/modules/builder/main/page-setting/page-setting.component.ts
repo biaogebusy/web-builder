@@ -28,7 +28,6 @@ import { appendQueryParams } from '@core/util/http-params.util';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-page-setting',

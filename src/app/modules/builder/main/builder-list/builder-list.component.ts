@@ -20,7 +20,7 @@ import {
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { OtherModule } from '@uiux/combs/other/other.module';
-import { IPage } from '@core/interface/IAppConfig';
+import { IDynamicInputs, IPage } from '@core/interface/IAppConfig';
 import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_CONFIG, BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
 import { map as each, throttle } from 'lodash-es';
@@ -89,7 +89,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
       });
   }
 
-  drop(event: CdkDragDrop<string[]>): void {
+  drop(event: CdkDragDrop<IDynamicInputs[]>): void {
     this.builder.onDrop(event);
   }
 

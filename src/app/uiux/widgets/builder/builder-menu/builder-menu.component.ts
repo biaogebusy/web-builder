@@ -85,7 +85,7 @@ export class BuilderMenuComponent implements AfterViewInit {
   private openPageJson(): void {
     const jsonWidget: IJsoneditor = {
       type: 'jsoneditor',
-      data: this.page,
+      data: this.page ?? {},
       isPage: true,
       fullWidth: true,
       schemaType: 'page',

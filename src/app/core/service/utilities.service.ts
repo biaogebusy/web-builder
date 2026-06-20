@@ -3,6 +3,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { ScreenService } from './screen.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import type { IDynamicInputs } from '@core/interface/IAppConfig';
+import type { JsonObject } from '@core/interface/common';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { isNil, omitBy } from 'lodash-es';
 
@@ -215,11 +216,7 @@ export class UtilitiesService {
     this.clipboard.copy(content);
   }
 
-  async initAnimate(
-    inputs: IDynamicInputs,
-    animateEle: HTMLElement,
-    triggerEle: HTMLElement
-  ): Promise<void> {
+  async initAnimate(inputs: AnimatableInput, animateEle: HTMLElement, triggerEle: HTMLElement): Promise<void> {
     if (this.screenService.isPlatformBrowser() && this.coreConfig.animate) {
       let content: any = {};
 
@@ -322,3 +319,11 @@ export class UtilitiesService {
     animateElement.forEach((el: any) => observer.observe(el));
   }
 }
+
+type AnimatableInput = IDynamicInputs | {
+  type?: string;
+  content?: {
+    animate?: JsonObject;
+  };
+  animate?: JsonObject;
+};

@@ -10,7 +10,7 @@ import {
 import { BaseModule } from '@uiux/base/base.module';
 
 // 定义类型
-type ModuleLoader = () => Promise<Type<any>>;
+type ModuleLoader = () => Promise<Type<unknown>>;
 
 // 模块配置接口
 interface ModuleConfig {
@@ -25,7 +25,7 @@ interface ModuleConfig {
 export class ComponentService {
   private readonly moduleLoaders = new Map<string, ModuleLoader>();
   private readonly componentToModule = new Map<string, string>();
-  private readonly moduleCache = new Map<string, Promise<NgModuleRef<any>>>();
+  private readonly moduleCache = new Map<string, Promise<NgModuleRef<unknown>>>();
   private readonly injector = inject(Injector);
   private doc = inject(DOCUMENT);
 
@@ -261,7 +261,7 @@ export class ComponentService {
     }
   }
 
-  private async getModuleRef(type: string): Promise<NgModuleRef<any>> {
+  private async getModuleRef(type: string): Promise<NgModuleRef<unknown>> {
     const loader = this.moduleLoaders.get(type);
 
     if (!loader) {

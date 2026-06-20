@@ -131,10 +131,10 @@ export class InlineEditComponent implements AfterViewInit {
           break;
         }
         case 'width':
-          this.content().ele.setAttribute('width', parseInt(style[key]));
+          this.content().ele.setAttribute('width', String(parseInt(style[key])));
           break;
         case 'height':
-          this.content().ele.setAttribute('height', parseInt(style[key]));
+          this.content().ele.setAttribute('height', String(parseInt(style[key])));
           break;
         default:
           this.setStyle(key, style[key], value);
@@ -167,7 +167,7 @@ export class InlineEditComponent implements AfterViewInit {
     const content = this.content();
     if (content.mode === 'img') {
       style[key] = value;
-      content.ele.style[key] = value;
+      (content.ele.style as unknown as Record<string, string>)[key] = value;
       content.ele.src = src;
     } else {
       this.viewHTML.style[key] = value;

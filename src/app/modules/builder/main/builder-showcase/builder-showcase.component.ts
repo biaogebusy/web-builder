@@ -54,7 +54,7 @@ export class BuilderShowcaseComponent implements OnInit {
     const { uuid } = component;
     const jsonWidget: IJsoneditor = {
       type: 'jsoneditor',
-      data: component.content,
+      data: component.content ?? {},
       fullWidth: true,
       schemaType: component.type || '',
       isShowcase: true,

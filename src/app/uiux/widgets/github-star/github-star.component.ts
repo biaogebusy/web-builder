@@ -1,7 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
-import { ContentService } from '@core/service/content.service';
+import { ContentService, type GithubRepository } from '@core/service/content.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -18,7 +18,10 @@ export class GithubStarComponent implements OnInit {
   private contentService = inject(ContentService);
   coreConfig = inject<ICoreConfig>(CORE_CONFIG);
 
-  repo$: Observable<any> = new BehaviorSubject<any>('0');
+  repo$: Observable<GithubRepository> = new BehaviorSubject<GithubRepository>({
+    html_url: '',
+    stargazers_count: 0,
+  });
 
   ngOnInit(): void {
     if (this.coreConfig.github && environment.production) {

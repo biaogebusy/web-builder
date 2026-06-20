@@ -1,6 +1,6 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Injectable, inject, signal, DOCUMENT, DestroyRef } from '@angular/core';
-import { IPage } from '@core/interface/IAppConfig';
+import { IDynamicInputs, IPage } from '@core/interface/IAppConfig';
 import {
   IBuilderComponent,
   IBuilderDynamicContent,
@@ -324,7 +324,7 @@ export class BuilderState {
     this.updatePage();
   }
 
-  onDrop(event: CdkDragDrop<string[]>): void {
+  onDrop(event: CdkDragDrop<IDynamicInputs[]>): void {
     // 预览上下排序组件
     if (event.previousContainer === event.container) {
       this.dropComponent(event);
@@ -335,14 +335,14 @@ export class BuilderState {
     this.closeRightDrawer$.next(true);
   }
 
-  dropComponent(event: CdkDragDrop<string[]>): void {
+  dropComponent(event: CdkDragDrop<IDynamicInputs[]>): void {
     const { body } = this.currentPage;
     moveItemInArray(body, event.previousIndex, event.currentIndex);
     this.updatePage(event.currentIndex);
   }
 
   // 边栏拖动添加组件
-  transferComponet(event: CdkDragDrop<string[]>): void {
+  transferComponet(event: CdkDragDrop<IDynamicInputs[]>): void {
     const { body } = this.currentPage;
     // base 和 component 数据结构不同，需要做判断
     const { data } = event.item;

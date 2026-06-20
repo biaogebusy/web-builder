@@ -1,5 +1,5 @@
 import { intersection } from 'lodash-es';
-import type { IUser } from '@core/interface/IUser';
+import type { IUser, OAuthTokenResponse } from '@core/interface/IUser';
 
 export function getJwtExpirationTime(accessToken?: string): number | null {
   if (!accessToken) {
@@ -19,7 +19,7 @@ export function getJwtExpirationTime(accessToken?: string): number | null {
   }
 }
 
-export function getTokenExpirationTime(tokenData: any): number {
+export function getTokenExpirationTime(tokenData: Pick<OAuthTokenResponse, 'access_token' | 'expires_in'>): number {
   const expiresAt = getJwtExpirationTime(tokenData?.access_token);
   return expiresAt ?? Date.now() + Number(tokenData?.expires_in || 0) * 1000;
 }

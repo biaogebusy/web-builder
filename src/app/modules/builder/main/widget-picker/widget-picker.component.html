@@ -136,7 +136,7 @@
             <app-icon class="chevron" [content]="{ svg: 'chevron-right' }" />
           </button>
         }
-        @for (cate of widgets().elements; track cate) {
+        @for (cate of widgetGroups(); track cate) {
           <button
             type="button"
             class="category-item"

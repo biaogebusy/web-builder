@@ -98,7 +98,7 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
         mode: 'img',
         path,
         fullWidth: true,
-        ele: event.target,
+        ele: currentTarget as HTMLImageElement,
         fields: getInlineImg(currentTarget),
         data: {
           src,
@@ -124,7 +124,7 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
     }
   }
 
-  openMetaPanel(ele: any, path: string): void {
+  openMetaPanel(ele: HTMLElement, path: string): void {
     const meta: IMetaEdit = {
       type: 'inline-editor',
       mode: 'text',

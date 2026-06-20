@@ -4,14 +4,20 @@ import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { environment } from 'src/environments/environment';
 import { Observable, lastValueFrom, of } from 'rxjs';
-import { catchError, map, retry, shareReplay, take, tap } from 'rxjs/operators';
+import { catchError, retry, shareReplay, take, tap } from 'rxjs/operators';
 import { isArray } from 'lodash-es';
 import { TagsService } from '@core/service/tags.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { ApiService } from '@core/service/api.service';
 import type { IBranding } from '@core/interface/branding/IBranding';
-import { IBuilderConfig } from '@core/interface/IBuilder';
+import type { IBuilderConfig, IUiux } from '@core/interface/IBuilder';
+import type { JsonValue } from '@core/interface/common';
 import { appendQueryParams, queryStringToParams, QueryParams } from '@core/util/http-params.util';
+
+export interface GithubRepository {
+  html_url: string;
+  stargazers_count: number;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +29,7 @@ export class ContentService extends ApiService {
   private coreConfig = inject(CORE_CONFIG);
   private builderConfigCache: Observable<IBuilderConfig>;
   private coreConfigCache: Observable<ICoreConfig>;
-  private uiuxCache: Observable<any[]>;
+  private uiuxCache: Observable<IUiux[]>;
 
   constructor() {
     super();
@@ -41,7 +47,7 @@ export class ContentService extends ApiService {
     const { lang, path } = this.getUrlPath(pageUrl);
     if (environment.production) {
       const pageUrlParams = this.getLandingPageUrl(lang, path);
-      return this.http.get<any>(pageUrlParams).pipe(
+      return this.http.get<IPage>(pageUrlParams).pipe(
         retry({ count: 1, delay: 500 }),
         tap(page => {
           this.updatePage(page);
@@ -53,12 +59,12 @@ export class ContentService extends ApiService {
         })
       );
     } else {
-      return this.http.get<any>(`${this.apiUrl}/assets/app${lang}${pageUrl}.json`).pipe(
+      return this.http.get<IPage>(`${this.apiUrl}/assets/app${lang}${pageUrl}.json`).pipe(
         tap(page => {
           this.updatePage(page);
         }),
         catchError(() => {
-          return this.http.get<any>(`${this.apiUrl}/assets/app/404.json`);
+          return this.http.get<IPage>(`${this.apiUrl}/assets/app/404.json`);
         })
       );
     }
@@ -85,7 +91,7 @@ export class ContentService extends ApiService {
     );
   }
 
-  loadConfig(coreConfig: object): any {
+  loadConfig(coreConfig: object): Promise<void> {
     const { lang } = this.getUrlPath(this.pageUrl);
     const configPath = this.getLandingPageUrl(lang, '/core/base');
     if (!this.coreConfigCache) {
@@ -109,11 +115,11 @@ export class ContentService extends ApiService {
       });
   }
 
-  loadUIUX(): Observable<any[]> {
+  loadUIUX(): Observable<IUiux[]> {
     const { lang } = this.getUrlPath(this.pageUrl);
     const api = `${this.apiUrl}${lang}/api/v3/node/component`;
     if (!this.uiuxCache) {
-      this.uiuxCache = this.http.get<any[]>(api).pipe(
+      this.uiuxCache = this.http.get<IUiux[]>(api).pipe(
         catchError(() => of([])),
         shareReplay(1)
       );
@@ -124,18 +130,20 @@ export class ContentService extends ApiService {
   loadBuilderConfig(): Observable<IBuilderConfig> {
     if (!this.builderConfigCache) {
       const { lang } = this.getUrlPath(this.pageUrl);
-      this.builderConfigCache = this.loadJSON(`${lang}/core/builder`).pipe(shareReplay(1));
+      this.builderConfigCache = this.loadJSON<IBuilderConfig>(`${lang}/core/builder`).pipe(
+        shareReplay(1)
+      );
     }
     return this.builderConfigCache;
   }
 
-  loadJSON(jsonPath: string): Observable<any> {
+  loadJSON<T extends JsonValue | object = JsonValue>(jsonPath: string): Observable<T> {
     const { lang, path } = this.getUrlPath(jsonPath);
     const apiPath = environment.production
       ? this.getLandingPageUrl(lang, path, { nocache: true })
       : `${this.apiUrl}/assets/app${lang}${path}.json`;
 
-    return this.http.get<any>(apiPath);
+    return this.http.get<T>(apiPath);
   }
 
   private getLandingPageUrl(lang: string, contentPath: string, params: QueryParams = {}): string {
@@ -160,21 +168,18 @@ export class ContentService extends ApiService {
     body.classList.add(theme);
   }
 
-  getRepository(owner: string, repo: string, token: string): Observable<any> {
+  getRepository(owner: string, repo: string, token: string): Observable<GithubRepository> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     });
 
     return this.http
-      .get(`https://api.github.com/repos/${owner}/${repo}`, {
+      .get<GithubRepository>(`https://api.github.com/repos/${owner}/${repo}`, {
         headers,
       })
       .pipe(
-        map((rep: any) => {
-          return rep;
-        }),
-        catchError(err => {
+        catchError(() => {
           return of({
             html_url: '',
             stargazers_count: 0,

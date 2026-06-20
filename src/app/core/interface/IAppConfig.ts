@@ -1,7 +1,9 @@
 import { IText } from '../interface/widgets/IText';
 import { IAmap } from '../interface/IAmap';
+import { IBgImg } from './widgets/IBgImg';
 import { IDownload } from './widgets/IDownload';
 import { IIcon } from './widgets/IIcon';
+import type { JsonObject } from './common';
 import type { ICustomTheme } from '@core/service/theme.service';
 export interface IAppConfig {
   defTheme: string;
@@ -119,7 +121,7 @@ export interface ISocialLogin {
 
 export interface ILogin {
   loginRedirect: string;
-  left: any;
+  left: JsonObject;
   phoneLogin: PhoneLogin;
   oauthLogin: OauthLogin;
   socialLogin?: ISocialLogin;
@@ -151,7 +153,7 @@ export interface IArticle {
 }
 
 export interface Modules {
-  toolbar: any[][];
+  toolbar: JsonObject[][];
 }
 
 export interface IEditor {
@@ -251,11 +253,11 @@ export interface Guard {
 }
 
 export interface IPage {
-  meta?: any[];
-  config?: any;
+  meta?: JsonObject[];
+  config?: IPageConfig;
   title: string;
   label?: string;
-  body: any[];
+  body: IDynamicInputs[];
   time?: Date | string;
   uuid?: string;
   nid?: string;
@@ -269,16 +271,29 @@ export interface IPage {
   target?: string;
 }
 
+export interface IPageConfig extends JsonObject {
+  headerMode?: {
+    transparent?: boolean;
+    style?: string;
+  };
+  node?: {
+    entityId?: string;
+    nid?: string;
+  };
+}
+
 export interface IPageForJSONAPI {
   title: string;
-  meta?: any[];
+  meta?: JsonObject[];
   body: IBlockJSONAPI[];
 }
 
 export interface IBlockJSONAPI {
   type: 'json';
+  uuid?: string;
+  id?: string;
   attributes: {
-    body: object;
+    body: IDynamicInputs;
   };
 }
 
@@ -288,8 +303,27 @@ export interface ICommerce {
   dialog: IText;
 }
 
-export interface IDynamicInputs {
-  content?: any;
+export type SpacerSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'none';
+
+export type IDynamicInputs = object & {
+  id?: string;
   type?: string;
-  [key: string]: any;
-}
+  title?: unknown;
+  path?: string;
+  addType?: string;
+  content?: IDynamicInputs;
+  data?: unknown;
+  form?: unknown;
+  lists?: unknown;
+  elements?: IDynamicInputs[];
+  containerClasses?: string;
+  fullWidth?: boolean;
+  spacer?: SpacerSize;
+  bg?: IBgImg;
+  animate?: JsonObject;
+  extra?: {
+    uuid?: string;
+    id?: string;
+    type?: string;
+  };
+};

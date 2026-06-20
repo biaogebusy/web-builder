@@ -60,12 +60,16 @@ export class WidgetPickerComponent implements OnInit {
   public hoveredWidget = signal<IBuilderComponentElement | null>(null);
   public widgets = signal<IUiux>({ label: '', icon: '', type: 'base', elements: [] });
   public searchQuery = signal('');
+  public widgetGroups = computed<IBuilderComponent[]>(() => {
+    const elements = this.widgets().elements;
+    return Array.isArray(elements) ? elements : [];
+  });
 
   /** 搜索时跨分类聚合所有匹配的组件 */
   public searchResults = computed<ISearchHit[]>(() => {
     const q = this.searchQuery().trim().toLowerCase();
     if (!q) return [];
-    const groups = (this.widgets().elements || []) as IBuilderComponent[];
+    const groups = this.widgetGroups();
     const hits: ISearchHit[] = [];
     for (const group of groups) {
       for (const item of group.child) {
@@ -254,14 +258,14 @@ export class WidgetPickerComponent implements OnInit {
     if (addType === 'layout') {
       this.builder.updatePageContentByPath(
         path,
-        this.copyLayoutLastChild(data.elements, widgetContent),
+        this.copyLayoutLastChild(data.elements ?? [], widgetContent),
         'add'
       );
       this.onLeave();
       return;
     }
 
-    const lists = [...data.elements];
+    const lists = [...(data.elements ?? [])];
     lists.splice(lists.length, 0, widgetContent);
     this.builder.updatePageContentByPath(`${path}.elements`, lists);
     this.onLeave();

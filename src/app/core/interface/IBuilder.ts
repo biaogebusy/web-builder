@@ -7,14 +7,16 @@ import { ILink } from './widgets/ILink';
 import { IBtn } from './widgets/IBtn';
 import { IMainMenu } from './branding/IBranding';
 import { ITitle } from './widgets/ITitle';
+import type { IDynamicInputs, IPage } from './IAppConfig';
+import type { CssClassValue, CssStyleValue, JsonObject, JsonValue } from './common';
 
 export interface IBuilderConfig {
   menu: IMainMenu[];
-  newSection: any;
+  newSection: IDynamicInputs;
   tour: {
     enable: boolean;
     delay: number;
-    steps: any[];
+    steps: JsonObject[];
   };
   generater: FormlyFieldConfig[];
   api: {
@@ -47,6 +49,7 @@ export interface IBuilderComponent {
   label: string;
   description?: string;
   id?: string;
+  icon?: string;
   child: IBuilderComponentElement[];
 }
 
@@ -62,7 +65,7 @@ export interface IBuilderComponentElement {
   content?: {
     type?: string;
     name?: string;
-    child?: any[];
+    child?: IDynamicInputs[];
   };
 }
 
@@ -70,14 +73,14 @@ export interface IUiux {
   label: string;
   icon: string;
   type: 'base' | 'component' | 'sample' | 'system';
-  elements: IBuilderComponent[] | IBuilderSamplePage | any;
+  elements: IBuilderComponent[] | IBuilderSamplePage;
 }
 
 export interface IBuilderDynamicContent {
   mode?: 'push' | 'over' | 'side';
-  hasBackdrop?: any;
-  elements: any[];
-  style?: any;
+  hasBackdrop?: boolean;
+  elements: IDynamicInputs[];
+  style?: CssStyleValue;
   classes?: string;
   title: string;
 }
@@ -91,7 +94,7 @@ export interface ISample {
   label: string;
   id: string;
   icon: IIcon;
-  page: any;
+  page: IPage;
 }
 
 export interface IBuilderShowcase {
@@ -101,12 +104,12 @@ export interface IBuilderShowcase {
 
 export interface ILayoutBuilder extends ICombsBase {
   fullWidth: boolean;
-  style?: any;
+  style?: CssStyleValue;
   horizontal: IHorizontal;
   vertical: IVertical;
   alignItems?: IAlignItems;
-  wrapperClass?: any;
-  animate?: any;
+  wrapperClass?: CssClassValue;
+  animate?: JsonObject;
   bgClasses?: string;
   overlay?: string;
   gap?: {
@@ -122,14 +125,14 @@ export type IHorizontal = 'start' | 'end' | 'center' | 'between' | 'around' | 'e
 export type IVertical = 'start' | 'end' | 'center' | 'baseline' | 'stretch';
 export type IAlignItems = 'start' | 'end' | 'center' | 'baseline' | 'stretch';
 export interface ILayoutBlock {
-  classes: any;
-  blockClasses?: any;
-  style?: any;
+  classes: CssClassValue;
+  blockClasses?: CssClassValue;
+  style?: CssStyleValue;
   row: Record<string, number>;
-  aos?: any;
-  animate?: any;
+  aos?: JsonObject;
+  animate?: JsonObject;
   bg?: IBgImg;
-  elements: any[];
+  elements: IDynamicInputs[];
   horizontal: IHorizontal;
   vertical: IVertical;
   alignItems?: IAlignItems;
@@ -144,38 +147,64 @@ export interface ILayoutBlock {
 export interface ILayoutSetting {
   type: 'layout-setting';
   fields: FormlyFieldConfig[];
-  content?: any;
+  content: ILayoutSettingContent;
   path?: string;
   fullWidth: boolean;
+}
+
+export interface ILayoutSettingContent extends IDynamicInputs {
+  type: string;
+  elements?: IDynamicInputs[];
 }
 
 export interface IWidgetPicker {
   type: 'widget-picker';
   addType: string;
   path: string;
-  content: any;
+  content: {
+    elements?: IDynamicInputs[];
+  };
 }
 
 export interface IWidgets {
   label: string;
   icon: IIcon;
-  elements: any[];
+  elements: IDynamicInputs[];
 }
 
-export interface IMetaEdit {
+export type IMetaEdit = IMetaTextEdit | IMetaImageEdit;
+
+interface IMetaEditBase {
   type: string;
-  data: any;
   path: string;
-  ele: HTMLElement | EventTarget | any | null;
-  mode: 'img' | 'text';
   fields?: FormlyFieldConfig[];
   fullWidth: boolean;
+}
+
+export interface IMetaTextEdit extends IMetaEditBase {
+  mode: 'text';
+  ele: HTMLElement;
+  data: {
+    innerHTML: string;
+    tag: string;
+  };
+}
+
+export interface IMetaImageEdit extends IMetaEditBase {
+  mode: 'img';
+  ele: HTMLImageElement;
+  data: {
+    src: string;
+    fileName: string;
+    alt: string | null;
+    tag: string;
+  };
 }
 
 export interface ICustomTemplate extends ICombsBase {
   type: string;
   html: string;
-  json: any;
+  json: JsonValue;
   isAPI?: boolean;
   api?: string;
   dialogs?: ICustomTemplateDialog[];
@@ -189,15 +218,15 @@ export interface ICustomTemplateDialog {
     width?: string;
     height?: string;
     panelClass?: string | string[];
-    [key: string]: any;
+    [key: string]: JsonValue | string[] | undefined;
   };
-  content: any | any[];
+  content: object | object[];
 }
 
 export interface ICodeEditor {
   content: {
     html: string;
-    json?: any;
+    json?: JsonValue;
     isAPI?: boolean;
     api?: string;
     js?: string;
@@ -237,7 +266,7 @@ export interface IBuilderMenu extends ILink {
 export interface IJSON {
   type: 'json';
   name: string;
-  [key: string]: string;
+  [key: string]: JsonValue | undefined;
 }
 
 export interface ICardList {

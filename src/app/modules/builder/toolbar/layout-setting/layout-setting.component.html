@@ -1,6 +1,5 @@
 <div class="layout-setting">
   @let component = content().content;
-  @let elements = component?.elements;
   <app-formly [fields]="content().fields" [model]="model" (modelChange)="onModelChange($event)" />
   <div class="animate-actions">
     @if (model?.component?.animate?.aos?.enable) {
@@ -14,7 +13,8 @@
       />
     }
   </div>
-  @if (elements?.length) {
+  @if (component.elements; as elements) {
+    @if (elements.length) {
     <div class="loop-elements">
       <mat-list cdkDropList (cdkDropListDropped)="drop($event)">
         <div mat-subheader>{{ 'BUILDER.LAYOUT_SETTING.CHILDREN' | translate }}</div>
@@ -49,6 +49,7 @@
         }
       </mat-list>
     </div>
+    }
   }
   <div class="actions bottom-actions">
     <div class="btn-group">

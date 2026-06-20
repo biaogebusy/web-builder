@@ -6,6 +6,7 @@ import {
   inject,
   Injector,
   DestroyRef,
+  computed,
   signal,
   effect,
   DOCUMENT,
@@ -41,20 +42,24 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   public sticky = signal(false);
   public showBanner = signal(false);
   public menuHeight = signal(0);
+  public contentState = inject(ContentState);
+  public pageHeaderMode = computed(() => {
+    const config = this.contentState.pageConfig();
+    return config ? config.headerMode : undefined;
+  });
   readonly menuAnchor = viewChild('menuAnchor', { read: ElementRef });
   readonly sentinel = viewChild('sentinel', { read: ElementRef });
   private destoryRef = inject(DestroyRef);
   private injector = inject(Injector);
   private screenService = inject(ScreenService);
   private screenState = inject(ScreenState);
-  public contentState = inject(ContentState);
   private stickyObserver?: IntersectionObserver;
 
   ngOnInit(): void {
     effect(
       () => {
         const config = this.contentState.pageConfig();
-        if (config?.headerMode?.transparent) {
+        if (config && config.headerMode?.transparent) {
           this.doc.getElementsByTagName('body')[0].classList.add('transparent-header');
         }
       },

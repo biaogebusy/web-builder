@@ -66,7 +66,7 @@ function shouldProactivelyRefresh(user: IUser): boolean {
   return Date.now() >= user.expires_at - PROACTIVE_REFRESH_LEEWAY_MS;
 }
 
-function addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
+function addToken(req: HttpRequest<unknown>, token: string): HttpRequest<unknown> {
   return req.clone({
     setHeaders: {
       Authorization: `Bearer ${token}`,
@@ -76,10 +76,10 @@ function addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
 
 function handleError(
   error: HttpErrorResponse,
-  req: HttpRequest<any>,
+  req: HttpRequest<unknown>,
   next: HttpHandlerFn,
   userService: UserService
-): Observable<HttpEvent<any>> {
+): Observable<HttpEvent<unknown>> {
   if (error.status === 401 && req.url.includes(environment.apiUrl) && userService.isBrowser) {
     const storedUser = userService.getStoredUser();
     if (storedUser?.refresh_token) {
@@ -90,16 +90,16 @@ function handleError(
 }
 
 function refreshAndRetry(
-  req: HttpRequest<any>,
+  req: HttpRequest<unknown>,
   next: HttpHandlerFn,
   userService: UserService
-): Observable<HttpEvent<any>> {
+): Observable<HttpEvent<unknown>> {
   if (!isRefreshing) {
     isRefreshing = true;
     refreshTokenSubject.next(null);
 
     return userService.refreshAccessToken().pipe(
-      switchMap((tokenData: any) => {
+      switchMap(tokenData => {
         isRefreshing = false;
         if (!tokenData) {
           userService.logoutUser();

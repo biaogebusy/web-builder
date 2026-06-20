@@ -1,9 +1,35 @@
 import { IPage } from '../IAppConfig';
+import type { JsonObject, JsonValue } from '../common';
 
-export interface DrupalNode {
+export interface JsonApiResource<
+  TAttributes extends JsonObject = JsonObject,
+  TRelationships extends JsonObject = JsonObject,
+> {
   type: string;
   id: string;
-  attributes: {
+  attributes: TAttributes;
+  relationships?: TRelationships;
+}
+
+export interface JsonApiResponse<
+  TData,
+  TIncluded extends JsonApiResource = JsonApiResource,
+> {
+  data: TData;
+  links?: {
+    next?: {
+      href: string;
+    };
+  };
+  included?: TIncluded[];
+}
+
+export type JsonApiListResponse<
+  TResource extends JsonApiResource = JsonApiResource,
+  TIncluded extends JsonApiResource = JsonApiResource,
+> = JsonApiResponse<TResource[], TIncluded>;
+
+export type DrupalNode = JsonApiResource<{
     title: string;
     body?: {
       value: string;
@@ -11,31 +37,26 @@ export interface DrupalNode {
     };
     created: string;
     changed?: string;
-  };
-  relationships?: Record<string, {
+  },
+  Record<
+    string,
+    {
       data: {
         type: string;
         id: string;
       };
-    }>;
-}
+    }
+  >
+>;
 
-export interface DrupalResponse {
-  data: DrupalNode[];
-  links?: {
-    next?: {
-      href: string;
-    };
-  };
-  included?: any[];
-}
+export type DrupalResponse = JsonApiListResponse<DrupalNode>;
 
 export interface SubmissionItem {
   id: string;
   status: boolean;
   type: string;
   title: string;
-  body: any;
+  body: JsonValue;
   nid: string;
   created: string;
   langcode: string;
