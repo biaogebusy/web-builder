@@ -59,13 +59,15 @@ export class PageComponent {
   private router = inject(Router);
   private screen = inject(ScreenState);
   private util = inject(UtilitiesService);
+  private disconnectAosObserver?: () => void;
 
   constructor() {
     afterEveryRender({
       read: throttle(() => {
-        this.util.intersectionObserver('[data-aos]', this.doc);
+        this.refreshAosObserver();
       }, 200),
     });
+    this.destroyRef.onDestroy(() => this.disconnectAosObserver?.());
 
     if (this.screenService.isPlatformBrowser()) {
       this.screen.drawer$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
@@ -110,5 +112,10 @@ export class PageComponent {
         quickEdit: true,
       },
     });
+  }
+
+  private refreshAosObserver(): void {
+    this.disconnectAosObserver?.();
+    this.disconnectAosObserver = this.util.intersectionObserver('[data-aos]', this.doc);
   }
 }

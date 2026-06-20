@@ -59,6 +59,9 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   private injector = inject(Injector);
   private ele = inject(ElementRef);
   private scrollableContainer: Element;
+  private disconnectAosObserver?: () => void;
+  private pageChangeAosRefreshTimer?: ReturnType<typeof setTimeout>;
+  private disabledLinks = new WeakSet<Element>();
   public bcData = signal(false);
 
   constructor() {
@@ -67,10 +70,14 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
         if (!this.scrollableContainer) {
           return;
         }
-        this.util.intersectionObserver('#builder-list [data-aos]', this.scrollableContainer);
+        this.refreshAosObserver();
         const links = this.scrollableContainer.querySelectorAll('a');
         if (links.length) {
           links.forEach((link: Element) => {
+            if (this.disabledLinks.has(link)) {
+              return;
+            }
+            this.disabledLinks.add(link);
             link.addEventListener('click', event => {
               event.preventDefault();
             });
@@ -126,12 +133,12 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
         first = false;
         return;
       }
-      setTimeout(() => {
+      if (this.pageChangeAosRefreshTimer) {
+        clearTimeout(this.pageChangeAosRefreshTimer);
+      }
+      this.pageChangeAosRefreshTimer = setTimeout(() => {
         if (this.scrollableContainer) {
-          this.util.intersectionObserver(
-            '#builder-list [data-aos]',
-            this.scrollableContainer
-          );
+          this.refreshAosObserver();
         }
       }, 500);
     }, { injector: this.injector });
@@ -173,7 +180,19 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.storage.clear(this.builder.COPYCOMPONENTKEY);
   }
 
+  private refreshAosObserver(): void {
+    this.disconnectAosObserver?.();
+    this.disconnectAosObserver = this.util.intersectionObserver(
+      '#builder-list [data-aos]',
+      this.scrollableContainer
+    );
+  }
+
   ngOnDestroy(): void {
+    this.disconnectAosObserver?.();
+    if (this.pageChangeAosRefreshTimer) {
+      clearTimeout(this.pageChangeAosRefreshTimer);
+    }
     each(this.markers, marker => {
       marker.remove();
     });

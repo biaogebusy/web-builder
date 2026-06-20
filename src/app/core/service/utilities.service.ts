@@ -293,15 +293,18 @@ export class UtilitiesService {
     }
   }
 
-  intersectionObserver(selecter: string, root: Element | Document): void {
+  intersectionObserver(selecter: string, root: Element | Document): () => void {
+    if (!this.screenService.isPlatformBrowser()) {
+      return () => undefined;
+    }
     const animateElement = this.doc.querySelectorAll(selecter);
     if (animateElement.length === 0) {
-      return;
+      return () => undefined;
     }
 
     const observer = new IntersectionObserver(
       entries => {
-        entries.forEach((entry: any) => {
+        entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('aos-animate');
           } else {
@@ -316,7 +319,8 @@ export class UtilitiesService {
       }
     );
 
-    animateElement.forEach((el: any) => observer.observe(el));
+    animateElement.forEach(el => observer.observe(el));
+    return () => observer.disconnect();
   }
 }
 

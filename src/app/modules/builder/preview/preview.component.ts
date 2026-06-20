@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   DOCUMENT,
+  DestroyRef,
   OnInit,
   afterEveryRender,
   inject,
@@ -34,6 +35,8 @@ export class PreviewComponent implements OnInit {
   private util = inject(UtilitiesService);
   private translate = inject(TranslateService);
   private doc = inject<Document>(DOCUMENT);
+  private destroyRef = inject(DestroyRef);
+  private disconnectAosObserver?: () => void;
 
   constructor() {
     this.tagsService.setTitle(
@@ -43,12 +46,18 @@ export class PreviewComponent implements OnInit {
     );
     afterEveryRender({
       read: throttle(() => {
-        this.util.intersectionObserver('[data-aos]', this.doc);
+        this.refreshAosObserver();
       }, 200),
     });
+    this.destroyRef.onDestroy(() => this.disconnectAosObserver?.());
   }
 
   ngOnInit(): void {
     this.contentState.pageConfig.set(this.builder.currentPage.config);
+  }
+
+  private refreshAosObserver(): void {
+    this.disconnectAosObserver?.();
+    this.disconnectAosObserver = this.util.intersectionObserver('[data-aos]', this.doc);
   }
 }
