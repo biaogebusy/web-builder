@@ -8,7 +8,7 @@ describe('MediaObjectGroupComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [MediaObjectGroupComponent],
+      imports: [MediaObjectGroupComponent],
     }).compileComponents();
   });
 

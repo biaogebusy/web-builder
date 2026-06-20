@@ -8,7 +8,7 @@ describe('BuilderUiuxComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [BuilderUiuxComponent],
+      imports: [BuilderUiuxComponent],
     }).compileComponents();
   });
 

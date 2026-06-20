@@ -8,7 +8,7 @@ describe('DynamicCardList1v1Component', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DynamicCardList1v1Component],
+      imports: [DynamicCardList1v1Component],
     }).compileComponents();
   });
 

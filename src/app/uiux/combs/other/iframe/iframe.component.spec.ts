@@ -8,7 +8,7 @@ describe('IframeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [IframeComponent],
+      imports: [IframeComponent],
     }).compileComponents();
   });
 

@@ -8,7 +8,7 @@ describe('BuilderShowcaseComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [BuilderShowcaseComponent],
+      imports: [BuilderShowcaseComponent],
     }).compileComponents();
   });
 

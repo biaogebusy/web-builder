@@ -8,7 +8,7 @@ describe('CommentListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CommentListComponent],
+      imports: [CommentListComponent],
     }).compileComponents();
   });
 

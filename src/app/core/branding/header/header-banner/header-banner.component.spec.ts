@@ -8,7 +8,7 @@ describe('HeaderBannerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HeaderBannerComponent],
+      imports: [HeaderBannerComponent],
     }).compileComponents();
   });
 

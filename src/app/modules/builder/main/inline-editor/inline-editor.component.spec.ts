@@ -8,7 +8,7 @@ describe('InlineEditComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [InlineEditComponent],
+      imports: [InlineEditComponent],
     }).compileComponents();
   });
 

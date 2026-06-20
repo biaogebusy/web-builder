@@ -8,7 +8,7 @@ describe('Hero1v2Component', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [Hero1v2Component],
+      imports: [Hero1v2Component],
     }).compileComponents();
   });
 

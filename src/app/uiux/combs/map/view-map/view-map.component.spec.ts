@@ -8,7 +8,7 @@ describe('ViewMapComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ViewMapComponent],
+      imports: [ViewMapComponent],
     }).compileComponents();
   });
 

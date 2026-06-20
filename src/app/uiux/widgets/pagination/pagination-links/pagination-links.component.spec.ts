@@ -8,7 +8,7 @@ describe('PaginationSimpleComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PaginationLinksComponent],
+      imports: [PaginationLinksComponent],
     }).compileComponents();
   });
 

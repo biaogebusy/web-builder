@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { JsonComponent } from './json.component';
+import { JsonFieldType } from './json.component';
 
 describe('JsonComponent', () => {
-  let component: JsonComponent;
-  let fixture: ComponentFixture<JsonComponent>;
+  let component: JsonFieldType;
+  let fixture: ComponentFixture<JsonFieldType>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [JsonComponent]
-    })
-    .compileComponents();
+      imports: [JsonFieldType],
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(JsonComponent);
+    fixture = TestBed.createComponent(JsonFieldType);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

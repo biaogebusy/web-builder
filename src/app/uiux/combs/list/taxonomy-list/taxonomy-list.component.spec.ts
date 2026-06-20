@@ -8,7 +8,7 @@ describe('TaxonomyListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TaxonomyListComponent],
+      imports: [TaxonomyListComponent],
     }).compileComponents();
   });
 
