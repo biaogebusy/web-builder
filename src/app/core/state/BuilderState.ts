@@ -25,6 +25,12 @@ import { IDialog } from '@core/interface/IDialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IComponentToolbar } from '@core/interface/combs/IBuilder';
 
+export interface IBuilderPendingPageLoad {
+  nid: string;
+  langcode?: string;
+  quickEdit?: boolean;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -44,6 +50,7 @@ export class BuilderState {
   public selectedMedia$ = new Subject<ISelectedMedia>();
   public switchPreivew$ = new Subject<'xs' | 'sm' | 'md' | 'xs-md' | 'none'>();
   public revealCode$ = new Subject<string>();
+  public pendingPageLoad = signal<IBuilderPendingPageLoad | null>(null);
 
   public loading = signal(true);
   public updateSuccess$ = new Subject<boolean>();
@@ -76,6 +83,16 @@ export class BuilderState {
     } else {
       this.initPage([{ ...this.defaultPage, current: true, time: new Date().toLocaleString() }]);
     }
+  }
+
+  queuePageLoad(page: IBuilderPendingPageLoad): void {
+    this.pendingPageLoad.set(page);
+  }
+
+  consumePageLoad(): IBuilderPendingPageLoad | null {
+    const page = this.pendingPageLoad();
+    this.pendingPageLoad.set(null);
+    return page;
   }
 
   showcase(widget: any): void {

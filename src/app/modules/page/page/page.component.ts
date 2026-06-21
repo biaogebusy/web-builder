@@ -18,6 +18,7 @@ import { ScreenService } from '@core/service/screen.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { throttle } from 'lodash-es';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { BuilderState } from '@core/state/BuilderState';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
@@ -57,6 +58,7 @@ export class PageComponent {
   private contentService = inject(ContentService);
   private screenService = inject(ScreenService);
   private router = inject(Router);
+  private builder = inject(BuilderState);
   private screen = inject(ScreenState);
   private util = inject(UtilitiesService);
   private disconnectAosObserver?: () => void;
@@ -105,13 +107,12 @@ export class PageComponent {
   onEdit(nid: string): void {
     const url = this.doc.location.pathname;
     const { lang } = this.contentService.getUrlPath(url);
-    this.router.navigate(['builder/page-list'], {
-      queryParams: {
-        nid,
-        langcode: lang,
-        quickEdit: true,
-      },
+    this.builder.queuePageLoad({
+      nid,
+      langcode: lang,
+      quickEdit: true,
     });
+    this.router.navigate(['/builder/page-list']);
   }
 
   private refreshAosObserver(): void {

@@ -243,12 +243,13 @@ export class ComponentService {
   async getComponentType(type: string): Promise<Type<unknown>> {
     try {
       const moduleRef = await this.getModuleRef(type);
+      const moduleInstance = moduleRef.instance;
 
-      if (!(moduleRef.instance instanceof BaseModule)) {
+      if (!(moduleInstance instanceof BaseModule)) {
         throw new Error(`Module for component ${type} does not extend BaseModule`);
       }
       // 直接获取组件类（不再通过工厂）
-      const componentClass = moduleRef.instance.getComponentClass(type);
+      const componentClass = moduleInstance.getComponentClass(type);
 
       if (!componentClass) {
         throw new Error(`Component class for ${type} not found`);

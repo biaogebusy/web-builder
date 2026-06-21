@@ -22,7 +22,7 @@ import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
 import { TagsService } from '@core/service/tags.service';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { BuilderState } from '@core/state/BuilderState';
+import { BuilderState, IBuilderPendingPageLoad } from '@core/state/BuilderState';
 import { BUILDER_CURRENT_PAGE, USER } from '@core/token/token-providers';
 import { formatToExtraData, getPageParams } from '@core/util/builder-page.util';
 import type { QueryParams } from '@core/util/http-params.util';
@@ -66,6 +66,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   private tagService = inject(TagsService);
   private translate = inject(TranslateService);
+  private pendingPageLoad?: IBuilderPendingPageLoad;
 
   public fields: FormlyFieldConfig[] = [
     {
@@ -156,6 +157,11 @@ export class PageListComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchPage({ noCache: 1 });
+    this.pendingPageLoad = this.builder.consumePageLoad() ?? undefined;
+    if (this.pendingPageLoad) {
+      this.loadPage(this.pendingPageLoad);
+      this.pendingPageLoad = undefined;
+    }
     this.builder.updateSuccess$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(state => {
       if (state) {
         this.onReload();
@@ -164,7 +170,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
 
     this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(query => {
       const { quickEdit, nid, langcode } = query;
-      if (quickEdit || (nid && langcode)) {
+      if (nid && (quickEdit || langcode)) {
         this.loadPage({
           nid,
           langcode,
@@ -226,10 +232,29 @@ export class PageListComponent extends BaseComponent implements OnInit {
     this.builder.loading.set(true);
     const { langcode, nid } = page;
     if (!nid) {
+      this.builder.loading.set(false);
       this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_LIST.CHECK_LANDING_VIEW'), 'ok');
       return;
     }
+    this.clearPageLoadQueryParams();
     this.builderService.loadPage({ langcode, nid });
+  }
+
+  private clearPageLoadQueryParams(): void {
+    const { nid, quickEdit } = this.route.snapshot.queryParams;
+    if (!nid && !quickEdit) {
+      return;
+    }
+
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        nid: null,
+        quickEdit: null,
+      },
+      queryParamsHandling: 'merge',
+      replaceUrl: true,
+    });
   }
 
   copyPage(page: any): void {
