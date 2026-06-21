@@ -146,7 +146,10 @@ module.exports = {
     },
 
     // ==================== Aspect Ratio ====================
-    { pattern: /^aspect-(auto|square|video)$/, variants: ['sm', 'md', 'lg'] },
+    {
+      pattern: /^aspect-(auto|square|video|16\/9|4\/3|5\/6|3\/2|3\/4|1\/1|9\/16|2\/3)$/,
+      variants: ['sm', 'md', 'lg'],
+    },
 
     // ==================== Typography ====================
     { pattern: /^text-(left|center|right|justify|start|end)$/, variants: ['sm', 'md', 'lg'] },
@@ -345,6 +348,7 @@ module.exports = {
       aspectRatio: {
         '16/9': '16 / 9',
         '4/3': '4 / 3',
+        '5/6': '5 / 6',
         '3/2': '3 / 2',
         '3/4': '3 / 4',
         '1/1': '1 / 1',

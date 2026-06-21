@@ -216,7 +216,11 @@ export class UtilitiesService {
     this.clipboard.copy(content);
   }
 
-  async initAnimate(inputs: AnimatableInput, animateEle: HTMLElement, triggerEle: HTMLElement): Promise<void> {
+  async initAnimate(
+    inputs: AnimatableInput,
+    animateEle: HTMLElement,
+    triggerEle: HTMLElement
+  ): Promise<void> {
     if (this.screenService.isPlatformBrowser() && this.coreConfig.animate) {
       let content: any = {};
 
@@ -297,11 +301,8 @@ export class UtilitiesService {
     if (!this.screenService.isPlatformBrowser()) {
       return () => undefined;
     }
-    const animateElement = this.doc.querySelectorAll(selecter);
-    if (animateElement.length === 0) {
-      return () => undefined;
-    }
-
+    const rootNode = root === this.doc ? this.doc : root;
+    const observedElements = new Set<Element>();
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
@@ -319,15 +320,78 @@ export class UtilitiesService {
       }
     );
 
-    animateElement.forEach(el => observer.observe(el));
-    return () => observer.disconnect();
+    const observeElement = (el: Element): void => {
+      if (observedElements.has(el)) {
+        return;
+      }
+      observedElements.add(el);
+      observer.observe(el);
+    };
+    const unobserveElement = (el: Element): void => {
+      if (!observedElements.has(el)) {
+        return;
+      }
+      observedElements.delete(el);
+      observer.unobserve(el);
+      el.classList.remove('aos-animate');
+    };
+    const observeTree = (node: Node): void => {
+      if (node.nodeType !== Node.ELEMENT_NODE) {
+        return;
+      }
+      const el = node as Element;
+      if (el.matches(selecter)) {
+        observeElement(el);
+      }
+      el.querySelectorAll(selecter).forEach(child => observeElement(child));
+    };
+    const unobserveTree = (node: Node): void => {
+      if (node.nodeType !== Node.ELEMENT_NODE) {
+        return;
+      }
+      const el = node as Element;
+      unobserveElement(el);
+      el.querySelectorAll(selecter).forEach(child => unobserveElement(child));
+    };
+
+    rootNode.querySelectorAll(selecter).forEach(el => observeElement(el));
+
+    const mutationObserver = new MutationObserver(mutations => {
+      mutations.forEach(mutation => {
+        if (mutation.type === 'attributes') {
+          const target = mutation.target as Element;
+          if (target.matches(selecter)) {
+            observeElement(target);
+          } else {
+            unobserveElement(target);
+          }
+          return;
+        }
+        mutation.addedNodes.forEach(node => observeTree(node));
+        mutation.removedNodes.forEach(node => unobserveTree(node));
+      });
+    });
+    mutationObserver.observe(rootNode, {
+      attributes: true,
+      attributeFilter: ['data-aos'],
+      childList: true,
+      subtree: true,
+    });
+
+    return () => {
+      mutationObserver.disconnect();
+      observer.disconnect();
+      observedElements.clear();
+    };
   }
 }
 
-type AnimatableInput = IDynamicInputs | {
-  type?: string;
-  content?: {
-    animate?: JsonObject;
-  };
-  animate?: JsonObject;
-};
+type AnimatableInput =
+  | IDynamicInputs
+  | {
+      type?: string;
+      content?: {
+        animate?: JsonObject;
+      };
+      animate?: JsonObject;
+    };
