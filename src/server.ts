@@ -10,12 +10,18 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { environment } from 'src/environments/environment';
 import compression from 'compression';
+
 const serverDistFolder = dirname(fileURLToPath(import.meta.url));
 const browserDistFolder = resolve(serverDistFolder, '../browser');
 
 const app = express();
 app.use(express.json());
 app.use(compression());
+
+// 设置全局超时控制
+const SSR_TIMEOUT = 30000; // 30秒 SSR渲染超时
+const HTTP_TIMEOUT = 10000; // 10秒 HTTP请求超时
+
 const angularApp = new AngularNodeAppEngine();
 
 /**
@@ -47,13 +53,40 @@ app.use(
 );
 
 /**
- * Handle all other requests by rendering the Angular application.
+ * Handle all other requests by rendering the Angular application with timeout control.
  */
 app.use('/**', (req, res, next) => {
+  const timeoutId = setTimeout(() => {
+    if (!res.headersSent) {
+      console.warn(`[SSR Timeout] Request exceeded ${SSR_TIMEOUT}ms for ${req.path}`);
+      res.status(504).send('Server Timeout: Page rendering took too long');
+    }
+  }, SSR_TIMEOUT);
+
+  const originalSend = res.send;
+  res.send = function(data: any) {
+    clearTimeout(timeoutId);
+    return originalSend.call(this, data);
+  };
+
   angularApp
     .handle(req)
-    .then(response => (response ? writeResponseToNodeResponse(response, res) : next()))
-    .catch(next);
+    .then(response => {
+      clearTimeout(timeoutId);
+      if (response) {
+        writeResponseToNodeResponse(response, res);
+      } else {
+        next();
+      }
+    })
+    .catch((error) => {
+      clearTimeout(timeoutId);
+      console.error(`[SSR Error] ${req.path}:`, error.message);
+      if (!res.headersSent) {
+        res.status(500).send('Server Error: Failed to render page');
+      }
+      next(error);
+    });
 });
 
 /**
