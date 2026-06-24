@@ -18,9 +18,8 @@ const app = express();
 app.use(express.json());
 app.use(compression());
 
-// 设置全局超时控制
-const SSR_TIMEOUT = 30000; // 30秒 SSR渲染超时
-const HTTP_TIMEOUT = 10000; // 10秒 HTTP请求超时
+// 设置全局 SSR 渲染超时控制，防止单个请求无限占用资源
+const SSR_TIMEOUT = 30000; // 30秒
 
 const angularApp = new AngularNodeAppEngine();
 
@@ -56,22 +55,24 @@ app.use(
  * Handle all other requests by rendering the Angular application with timeout control.
  */
 app.use('/**', (req, res, next) => {
-  const timeoutId = setTimeout(() => {
-    if (!res.headersSent) {
-      console.warn(`[SSR Timeout] Request exceeded ${SSR_TIMEOUT}ms for ${req.path}`);
-      res.status(504).send('Server Timeout: Page rendering took too long');
-    }
-  }, SSR_TIMEOUT);
+  let settled = false;
 
-  const originalSend = res.send;
-  res.send = function(data: any) {
-    clearTimeout(timeoutId);
-    return originalSend.call(this, data);
-  };
+  const timeoutId = setTimeout(() => {
+    if (settled || res.headersSent) {
+      return;
+    }
+    settled = true;
+    console.warn(`[SSR Timeout] Request exceeded ${SSR_TIMEOUT}ms for ${req.path}`);
+    res.status(504).send('Server Timeout: Page rendering took too long');
+  }, SSR_TIMEOUT);
 
   angularApp
     .handle(req)
     .then(response => {
+      if (settled) {
+        return;
+      }
+      settled = true;
       clearTimeout(timeoutId);
       if (response) {
         writeResponseToNodeResponse(response, res);
@@ -79,13 +80,16 @@ app.use('/**', (req, res, next) => {
         next();
       }
     })
-    .catch((error) => {
+    .catch(error => {
+      if (settled) {
+        return;
+      }
+      settled = true;
       clearTimeout(timeoutId);
       console.error(`[SSR Error] ${req.path}:`, error.message);
       if (!res.headersSent) {
         res.status(500).send('Server Error: Failed to render page');
       }
-      next(error);
     });
 });
 
