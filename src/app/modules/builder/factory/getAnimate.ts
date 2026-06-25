@@ -61,6 +61,10 @@ export function getAnimate(content: any): FormlyFieldConfig {
                 },
               },
               {
+                template: 'BUILDER.FACTORY.AOS_PREVIEW_TIP',
+                className: 'block text-sm py-2 px-3 mb-2 bg-blue-50 rounded',
+              },
+              {
                 key: 'animation',
                 type: 'select',
                 className: 'w-full',

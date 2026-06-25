@@ -9,10 +9,8 @@ import {
   OnDestroy,
   OnInit,
   afterEveryRender,
-  effect,
   inject,
   signal,
-  Injector,
   DOCUMENT,
   ChangeDetectionStrategy,
   viewChild
@@ -20,7 +18,7 @@ import {
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { OtherModule } from '@uiux/combs/other/other.module';
-import { IDynamicInputs, IPage } from '@core/interface/IAppConfig';
+import { IDynamicInputs } from '@core/interface/IAppConfig';
 import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_CONFIG, BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
 import { map as each, throttle } from 'lodash-es';
@@ -28,7 +26,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { IBuilderConfig } from '@core/interface/IBuilder';
 import { BuilderService } from '@core/service/builder.service';
 import { generatePath } from '@core/util/dom-path.util';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -56,11 +53,8 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   private builderService = inject(BuilderService);
   private storage = inject(LocalStorageService);
   private translate = inject(TranslateService);
-  private injector = inject(Injector);
   private ele = inject(ElementRef);
   private scrollableContainer: Element;
-  private disconnectAosObserver?: () => void;
-  private pageChangeAosRefreshTimer?: ReturnType<typeof setTimeout>;
   private disabledLinks = new WeakSet<Element>();
   public bcData = signal(false);
 
@@ -70,7 +64,6 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
         if (!this.scrollableContainer) {
           return;
         }
-        this.refreshAosObserver();
         const links = this.scrollableContainer.querySelectorAll('a');
         if (links.length) {
           links.forEach((link: Element) => {
@@ -121,27 +114,6 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
         };
       })
     );
-
-    // loadPage 时 DynamicComponentComponent.loadComponent 是异步的，
-    // `data-aos` 通常在 afterEveryRender 的 throttle 窗口外才被设置，
-    // 导致 IntersectionObserver 没有挂到新元素上。这里在页面切换后再
-    // 显式触发一次观察，确保 AOS 能够正常播放。
-    let first = true;
-    effect(() => {
-      this.currentPage(); // subscribe to changes
-      if (first) {
-        first = false;
-        return;
-      }
-      if (this.pageChangeAosRefreshTimer) {
-        clearTimeout(this.pageChangeAosRefreshTimer);
-      }
-      this.pageChangeAosRefreshTimer = setTimeout(() => {
-        if (this.scrollableContainer) {
-          this.refreshAosObserver();
-        }
-      }, 500);
-    }, { injector: this.injector });
   }
 
   addNewSection(target: any, type: 'widget' | 'section', newSection: any): void {
@@ -180,19 +152,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.storage.clear(this.builder.COPYCOMPONENTKEY);
   }
 
-  private refreshAosObserver(): void {
-    this.disconnectAosObserver?.();
-    this.disconnectAosObserver = this.util.intersectionObserver(
-      '#builder-list [data-aos]',
-      this.scrollableContainer
-    );
-  }
-
   ngOnDestroy(): void {
-    this.disconnectAosObserver?.();
-    if (this.pageChangeAosRefreshTimer) {
-      clearTimeout(this.pageChangeAosRefreshTimer);
-    }
     each(this.markers, marker => {
       marker.remove();
     });

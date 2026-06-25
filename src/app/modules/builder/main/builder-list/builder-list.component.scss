@@ -95,6 +95,14 @@
     }
   }
 
+  ::ng-deep {
+    [data-aos] {
+      opacity: 1 !important;
+      transform: none !important;
+      pointer-events: auto;
+    }
+  }
+
   .actions {
     position: absolute;
     top: 0;
@@ -201,17 +209,6 @@
             }
           }
         }
-      }
-    }
-  }
-}
-
-:host-context(.mat-drawer-container-has-open) {
-  .builder-list {
-    ::ng-deep {
-      [data-aos] {
-        opacity: 1 !important;
-        transform: none !important;
       }
     }
   }

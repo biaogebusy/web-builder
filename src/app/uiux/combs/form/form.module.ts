@@ -97,6 +97,9 @@ export function registerTranslateExtension(translate: TranslateService): ConfigO
                 });
               }
             }
+            if (typeof field.template === 'string' && TRANSLATION_KEY_RE.test(field.template)) {
+              field.template = translate.instant(field.template);
+            }
             const messages = (field as any).validation?.messages;
             if (messages && !messages._translated) {
               messages._translated = true;

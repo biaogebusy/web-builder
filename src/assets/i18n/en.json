@@ -400,6 +400,7 @@
       "ALIGN_CELL_H": "Cell horizontal alignment",
       "ALIGN_CELL_V": "Cell vertical alignment",
       "AOS_BASIC": "AOS Basic Animation",
+      "AOS_PREVIEW_TIP": "AOS animations do not play in edit mode. Use the toolbar preview or draft preview to view the actual effect.",
       "GSAP_ADVANCED": "GSAP Advanced Animation",
       "TITLE": "Title",
       "SUBTITLE": "Subtitle",

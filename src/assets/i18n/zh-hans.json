@@ -400,6 +400,7 @@
       "ALIGN_CELL_H": "单元格水平对齐",
       "ALIGN_CELL_V": "单元格垂直对齐",
       "AOS_BASIC": "AOS 基础动画",
+      "AOS_PREVIEW_TIP": "编辑模式下不会播放 AOS 动画，请使用顶部预览或草稿预览查看实际效果。",
       "GSAP_ADVANCED": "GSAP 高级动画",
       "TITLE": "标题",
       "SUBTITLE": "副标题",
