@@ -11,15 +11,15 @@ import {
   effect,
   DOCUMENT,
   ChangeDetectionStrategy,
-  viewChild
+  viewChild,
 } from '@angular/core';
 import { ScreenService } from '../../service/screen.service';
 import { ScreenState } from '../../state/screen/ScreenState';
 
 import { ContentState } from '@core/state/ContentState';
 import { BRANDING } from '@core/token/token-providers';
-import { Observable } from 'rxjs';
-import type { IBranding } from '@core/interface/branding/IBranding';
+import { of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AsyncPipe } from '@angular/common';
 import { HeaderBannerComponent } from './header-banner/header-banner.component';
@@ -102,21 +102,21 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   initBanner(): void {
-    this.branding$.pipe(takeUntilDestroyed(this.destoryRef)).subscribe(brandingValue => {
-      if (!brandingValue) {
-        return;
-      }
-      const banner = brandingValue.header?.banner;
-      if (!banner) {
-        this.showBanner.set(false);
-      } else {
-        this.screenState
-          .mqAlias$()
-          .pipe(takeUntilDestroyed(this.destoryRef))
-          .subscribe(mq => {
-            this.showBanner.set(mq.includes('md') || mq.includes('lg') || mq.includes('xl'));
-          });
-      }
-    });
+    this.branding$
+      .pipe(
+        switchMap(brandingValue => {
+          const banner = brandingValue?.header?.banner;
+          if (!banner) {
+            return of(false);
+          }
+          return this.screenState
+            .mqAlias$()
+            .pipe(map(mq => mq.includes('md') || mq.includes('lg') || mq.includes('xl')));
+        }),
+        takeUntilDestroyed(this.destoryRef)
+      )
+      .subscribe(showBanner => {
+        this.showBanner.set(showBanner);
+      });
   }
 }

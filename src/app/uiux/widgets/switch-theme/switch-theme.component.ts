@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject, DOCUMENT } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  signal,
+  DOCUMENT,
+} from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,6 +22,7 @@ import { ThemeService } from '@core/service/theme.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { ContentState } from '@core/state/ContentState';
 import { IconComponent } from '../icon/icon.component';
+import { ApiService } from '@core/service/api.service';
 
 @Component({
   selector: 'app-switch-theme',
@@ -30,26 +39,27 @@ import { IconComponent } from '../icon/icon.component';
     IconComponent,
   ],
 })
-export class SwitchThemeComponent implements OnInit {
+export class SwitchThemeComponent {
   coreConfig = inject<ICoreConfig>(CORE_CONFIG);
-  theme = inject(THEME);
-
-  currentTheme: string;
   themeService = inject(ThemeService);
   configService = inject(ConfigService);
   storage = inject(LocalStorageService);
   builder = inject(BuilderState);
   contentState = inject(ContentState);
+  private apiService = inject(ApiService);
   private doc = inject<Document>(DOCUMENT);
 
-  ngOnInit(): void {
-    this.currentTheme = this.theme;
-  }
+  currentTheme = signal(inject(THEME));
+  private configLoaded = toSignal(this.apiService.configLoadDone$, { initialValue: false });
+  themes = computed(() => {
+    this.configLoaded();
+    return this.coreConfig.theme;
+  });
 
   onSwitchTheme(theme: string): void {
     this.configService.switchChange$.next(theme);
     this.storage.store(THEMKEY, theme);
-    this.currentTheme = theme;
+    this.currentTheme.set(theme);
     this.themeService.clearCustomTheme();
     this.themeService.setTheme(theme);
   }

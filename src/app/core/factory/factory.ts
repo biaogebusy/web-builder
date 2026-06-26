@@ -1,7 +1,7 @@
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { ContentService } from '@core/service/content.service';
-import { BehaviorSubject, Observable, interval } from 'rxjs';
+import { Observable, forkJoin, from, interval } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ContentState } from '@core/state/ContentState';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -9,7 +9,15 @@ import { IBranding } from '../interface/branding/IBranding';
 import { UserService } from '@core/service/user.service';
 import { IUser } from '@core/interface/IUser';
 import { INotify } from '@core/interface/widgets/IWidgets';
-import { map, startWith, switchMap, take } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  shareReplay,
+  startWith,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 import { NotifyService } from '@core/service/notify.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { ScreenService } from '@core/service/screen.service';
@@ -23,6 +31,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 import { BuilderService } from '@core/service/builder.service';
 import { getFileType } from '@core/util/file-type.util';
+import { CORE_CONFIG } from '@core/token/token-providers';
 
 export const THEMKEY = 'themeMode';
 export const DEBUG_ANIMATE_KEY = 'debugAnimate';
@@ -33,15 +42,26 @@ export function pageContentFactory(): WritableSignal<IPage | undefined | false> 
   const contentService = inject(ContentService);
   const contentState = inject(ContentState);
   const destroyRef = inject(DestroyRef);
+  const coreConfig = inject<ICoreConfig>(CORE_CONFIG);
 
   const pageContent = signal<IPage | undefined | false>(false);
-  activateRoute.url.pipe(takeUntilDestroyed(destroyRef)).subscribe(async () => {
-    const page = await contentService.loadPageContent().toPromise();
-    if (page) {
-      pageContent.set(page);
-      contentState.pageConfig.set(page.config);
-    }
-  });
+  activateRoute.url
+    .pipe(
+      switchMap(() => {
+        const pageUrl = contentService.pageUrl;
+        return forkJoin({
+          config: from(contentService.loadConfig(coreConfig, pageUrl)),
+          page: contentService.loadPageContent(pageUrl),
+        }).pipe(map(({ page }) => page));
+      }),
+      takeUntilDestroyed(destroyRef)
+    )
+    .subscribe(page => {
+      if (page) {
+        pageContent.set(page);
+        contentState.pageConfig.set(page.config);
+      }
+    });
   return pageContent;
 }
 
@@ -200,7 +220,22 @@ export function themeFactory(coreConfig: ICoreConfig): string {
 }
 
 export function brandingFactory(): Observable<IBranding> {
-  return inject(ContentService).loadBranding();
+  const contentService = inject(ContentService);
+  const coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  const router = inject(Router);
+
+  return router.events.pipe(
+    filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+    startWith(null),
+    map(event => event?.urlAfterRedirects ?? contentService.pageUrl),
+    distinctUntilChanged(),
+    switchMap(pageUrl =>
+      from(contentService.loadConfig(coreConfig, pageUrl)).pipe(
+        switchMap(() => contentService.loadBranding(pageUrl))
+      )
+    ),
+    shareReplay({ bufferSize: 1, refCount: true })
+  );
 }
 
 export function userFactory(): WritableSignal<IUser | boolean> {

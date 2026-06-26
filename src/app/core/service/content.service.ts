@@ -28,7 +28,8 @@ export class ContentService extends ApiService {
   private apiService = inject(ApiService);
   private coreConfig = inject(CORE_CONFIG);
   private builderConfigCache: Observable<IBuilderConfig>;
-  private coreConfigCache: Observable<ICoreConfig>;
+  private coreConfigCache = new Map<string, Observable<ICoreConfig>>();
+  private activeConfigPath = '';
   private uiuxCache: Observable<IUiux[]>;
 
   constructor() {
@@ -80,8 +81,8 @@ export class ContentService extends ApiService {
     }
   }
 
-  loadBranding(): Observable<IBranding> {
-    const { lang } = this.getUrlPath(this.pageUrl);
+  loadBranding(pageUrl = this.pageUrl): Observable<IBranding> {
+    const { lang } = this.getUrlPath(pageUrl);
     return this.http.get<IBranding>(this.getLandingPageUrl(lang, '/core/branding')).pipe(
       retry({ count: 1, delay: 500 }),
       catchError(error => {
@@ -91,28 +92,45 @@ export class ContentService extends ApiService {
     );
   }
 
-  loadConfig(coreConfig: object): Promise<void> {
-    const { lang } = this.getUrlPath(this.pageUrl);
+  loadConfig(coreConfig: object, pageUrl = this.pageUrl): Promise<void> {
+    const { lang } = this.getUrlPath(pageUrl);
     const configPath = this.getLandingPageUrl(lang, '/core/base');
-    if (!this.coreConfigCache) {
-      this.coreConfigCache = this.http.get<ICoreConfig>(configPath).pipe(
-        retry({ count: 2, delay: 1000 }),
-        catchError(error => {
-          console.error('base json not found:', error);
-          return of({} as ICoreConfig);
-        }),
-        shareReplay(1)
+    this.activeConfigPath = configPath;
+    if (!this.coreConfigCache.has(configPath)) {
+      this.coreConfigCache.set(
+        configPath,
+        this.http.get<ICoreConfig>(configPath).pipe(
+          retry({ count: 2, delay: 1000 }),
+          catchError(error => {
+            console.error('base json not found:', error);
+            return of({} as ICoreConfig);
+          }),
+          shareReplay(1)
+        )
       );
     }
-    return lastValueFrom(this.coreConfigCache)
+    return lastValueFrom(this.coreConfigCache.get(configPath) as Observable<ICoreConfig>)
       .then((config: ICoreConfig) => {
-        Object.assign(coreConfig, config);
+        if (this.activeConfigPath !== configPath) {
+          return;
+        }
+        this.replaceConfig(coreConfig, config);
         this.apiService.configLoadDone$.next(true);
       })
       .catch(error => {
         console.error('Failed to load config, using defaults:', error);
-        this.apiService.configLoadDone$.next(true);
+        if (this.activeConfigPath === configPath) {
+          this.apiService.configLoadDone$.next(true);
+        }
       });
+  }
+
+  private replaceConfig(coreConfig: object, config: ICoreConfig): void {
+    const target = coreConfig as Record<string, unknown>;
+    Object.keys(target).forEach(key => {
+      delete target[key];
+    });
+    Object.assign(target, config);
   }
 
   loadUIUX(): Observable<IUiux[]> {
