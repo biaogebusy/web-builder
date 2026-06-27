@@ -18,12 +18,15 @@ import { IPage } from '@core/interface/IAppConfig';
 import { IPageMeta, IPageList } from '@core/interface/IBuilder';
 import { IUser } from '@core/interface/IUser';
 import { IPager } from '@core/interface/widgets/IWidgets';
+import { MatDialog } from '@angular/material/dialog';
+import { IDialog } from '@core/interface/IDialog';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
 import { TagsService } from '@core/service/tags.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState, IBuilderPendingPageLoad } from '@core/state/BuilderState';
 import { BUILDER_CURRENT_PAGE, USER } from '@core/token/token-providers';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { formatToExtraData, getPageParams } from '@core/util/builder-page.util';
 import type { QueryParams } from '@core/util/http-params.util';
 import { FormlyFieldConfig } from '@ngx-formly/core';
@@ -57,6 +60,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
   public pager: IPager;
   public langs = environment.langs;
   private builder = inject(BuilderState);
+  private dialog = inject(MatDialog);
   private cd = inject(ChangeDetectorRef);
   private util = inject(UtilitiesService);
   private nodeService = inject(NodeService);
@@ -295,42 +299,67 @@ export class PageListComponent extends BaseComponent implements OnInit {
   }
 
   createLangVersion(currentPage: IPageMeta, targetlang: string): void {
-    this.builder.loading.set(true);
-    this.nodeService
-      .fetch(`/api/v3/landingPage/json/${currentPage.nid}`, { noCache: 1 }, targetlang)
+    const lang = this.langs?.find(l => l.langCode === targetlang);
+    const config: IDialog = {
+      title: this.translate.instant('BUILDER.PAGE_LIST.CREATE_LANG_TITLE'),
+      noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
+      yesLabel: this.translate.instant('BUILDER.PAGE_LIST.CREATE_LANG_YES'),
+      inputData: {
+        content: {
+          type: 'text',
+          fullWidth: true,
+          body: this.translate.instant('BUILDER.PAGE_LIST.CREATE_LANG_CONFIRM', {
+            title: currentPage.title,
+            lang: lang?.label || targetlang,
+          }),
+        },
+      },
+    };
+    this.dialog
+      .open(DialogComponent, { width: '340px', data: config })
+      .afterClosed()
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((page: IPage) => {
-        this.builder.loading.set(false);
-        if (targetlang === page.langcode) {
-          // 已有翻译
-          this.util.openSnackbar(
-            this.translate.instant('BUILDER.PAGE_LIST.TRANSLATION_EXISTS', { label: page.label }),
-            'ok'
-          );
-          this.builder.loadNewPage(formatToExtraData(page));
-        } else {
-          // 复制一份，新建翻译
-          this.util.openSnackbar(
-            this.translate.instant('BUILDER.PAGE_LIST.LOADING_TRANSLATION', {
-              title: currentPage.title,
-              lang: targetlang,
-            }),
-            'ok'
-          );
-          this.builder.loadNewPage(
-            formatToExtraData({
-              langcode: currentPage.langcode,
-              ...page,
-              translation: true,
-              target: targetlang,
-            })
-          );
-        }
+      .subscribe(result => {
+        if (!result) return;
+        this.builder.loading.set(true);
+        this.nodeService
+          .fetch(`/api/v3/landingPage/json/${currentPage.nid}`, { noCache: 1 }, targetlang)
+          .pipe(takeUntilDestroyed(this.destroyRef))
+          .subscribe((page: IPage) => {
+            this.builder.loading.set(false);
+            if (targetlang === page.langcode) {
+              this.util.openSnackbar(
+                this.translate.instant('BUILDER.PAGE_LIST.TRANSLATION_EXISTS', { label: page.label }),
+                'ok'
+              );
+              this.builder.loadNewPage(formatToExtraData(page));
+            } else {
+              this.util.openSnackbar(
+                this.translate.instant('BUILDER.PAGE_LIST.LOADING_TRANSLATION', {
+                  title: currentPage.title,
+                  lang: targetlang,
+                }),
+                'ok'
+              );
+              this.builder.loadNewPage(
+                formatToExtraData({
+                  langcode: currentPage.langcode,
+                  ...page,
+                  translation: true,
+                  target: targetlang,
+                })
+              );
+            }
+          });
       });
   }
 
   onReload(): void {
     this.form.reset();
     this.onModelChange({ title: '', time: +new Date() });
+  }
+
+  getLangLabel(code: string): string {
+    return this.langs?.find(l => l.langCode === code)?.label ?? code;
   }
 }

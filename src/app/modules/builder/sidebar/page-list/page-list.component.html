@@ -47,6 +47,11 @@
                 {{ page.title }}
               </span>
             </div>
+            @if (page.nid === $any(currentPage())?.nid && page.langcode === $any(currentPage())?.langcode && $any(currentPage())?.translation && $any(currentPage())?.target) {
+              <div class="translation-draft-tip">
+                {{ 'BUILDER.PAGE_LIST.EDITING_TRANSLATION' | translate: { lang: getLangLabel($any(currentPage()).target) } }}
+              </div>
+            }
             <div class="meta">
               <div class="meta-header">
                 {{ page.author | shorten: 6 : '**' }}

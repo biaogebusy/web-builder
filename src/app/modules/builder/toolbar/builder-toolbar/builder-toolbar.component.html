@@ -16,7 +16,18 @@
                 <div contenteditable="true" (blur)="onTitle($event)">
                   {{ page.title }}
                 </div>
-                @if (!page.uuid) {
+                @if (page.translation && page.target) {
+                  <span
+                    class="draft-badge"
+                    role="status"
+                    [attr.aria-label]="'BUILDER.TOOLBAR.TRANSLATION_DRAFT' | translate"
+                    [matTooltip]="'BUILDER.TOOLBAR.TRANSLATION_DRAFT_TIP' | translate: { lang: getLangLabel(page.target) }"
+                  >
+                    <app-icon class="draft-badge-icon" [content]="{ svg: 'translate' }" />
+                    {{ 'BUILDER.TOOLBAR.TRANSLATION_DRAFT' | translate }}
+                  </span>
+                  <span class="lang-badge">{{ getLangLabel(page.target) }}</span>
+                } @else if (!page.uuid) {
                   <span
                     class="draft-badge"
                     role="status"
@@ -26,6 +37,9 @@
                     <app-icon class="draft-badge-icon" [content]="{ svg: 'tray-arrow-up' }" />
                     {{ 'BUILDER.COMMON.UNPUBLISHED' | translate }}
                   </span>
+                }
+                @if (!page.translation && page.langcode) {
+                  <span class="lang-badge">{{ page.langcode | uppercase }}</span>
                 }
                 <app-icon [content]="{ svg: 'pencil-outline' }" />
               </div>
@@ -82,10 +96,10 @@
             (click)="onSubmit(page)"
             [content]="{
               label: (page.translation ? 'BUILDER.TOOLBAR.SUBMIT_TRANSLATION' : page.uuid ? 'BUILDER.TOOLBAR.SUBMIT_UPDATE' : 'BUILDER.TOOLBAR.SUBMIT_DRAFT') | translate,
-              color: page.uuid || !page.body.length ? 'primary' : 'warn',
+              color: (!page.uuid || page.translation) && page.body.length ? 'warn' : 'primary',
               mode: 'raised',
               icon: {
-                svg: page.uuid ? 'pencil' : 'tray-arrow-up',
+                svg: page.uuid && !page.translation ? 'pencil' : 'tray-arrow-up',
               },
             }"
           />

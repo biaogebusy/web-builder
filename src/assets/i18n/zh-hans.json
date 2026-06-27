@@ -80,7 +80,9 @@
       "TRANSLATE_SUCCESS": "翻译{{target}}成功",
       "ADD_COMPONENT_FIRST": "请先添加组件",
       "UPDATING": "正在更新！",
-      "CREATE_FAILED": "新建失败！"
+      "CREATE_FAILED": "新建失败！",
+      "TRANSLATION_DRAFT": "翻译草稿",
+      "TRANSLATION_DRAFT_TIP": "目标语言：{{lang}}"
     },
     "SWITCH_PREVIEW": {
       "TOOLTIP": "切换设备",
@@ -141,7 +143,11 @@
       "PAGE_PROPS": "页面属性",
       "CHECK_LANDING_VIEW": "请检查 LandingPage View 配置",
       "TRANSLATION_EXISTS": "已有{{label}}语言页面，正在载入",
-      "LOADING_TRANSLATION": "正在载入{{title}}，请修改页面内容为{{lang}}语言"
+      "LOADING_TRANSLATION": "正在载入{{title}}，请修改页面内容为{{lang}}语言",
+      "CREATE_LANG_TITLE": "创建语言版本",
+      "CREATE_LANG_CONFIRM": "确认为 <strong>{{title}}</strong> 创建 <strong>{{lang}}</strong> 版本？",
+      "CREATE_LANG_YES": "确认创建",
+      "EDITING_TRANSLATION": "正在编辑 {{lang}} 草稿版本"
     },
     "VERSION": {
       "HISTORY": "历史记录",

@@ -80,7 +80,9 @@
       "TRANSLATE_SUCCESS": "Translated to {{target}} successfully",
       "ADD_COMPONENT_FIRST": "Please add a component first",
       "UPDATING": "Updating...",
-      "CREATE_FAILED": "Creation failed"
+      "CREATE_FAILED": "Creation failed",
+      "TRANSLATION_DRAFT": "Translation draft",
+      "TRANSLATION_DRAFT_TIP": "Target language: {{lang}}"
     },
     "SWITCH_PREVIEW": {
       "TOOLTIP": "Switch device",
@@ -141,7 +143,11 @@
       "PAGE_PROPS": "Page settings",
       "CHECK_LANDING_VIEW": "Please check the LandingPage View config",
       "TRANSLATION_EXISTS": "{{label}} translation already exists. Loading...",
-      "LOADING_TRANSLATION": "Loading {{title}}. Please update content to {{lang}}."
+      "LOADING_TRANSLATION": "Loading {{title}}. Please update content to {{lang}}.",
+      "CREATE_LANG_TITLE": "Create language version",
+      "CREATE_LANG_CONFIRM": "Confirm creating <strong>{{title}}</strong> <strong>{{lang}}</strong> version?",
+      "CREATE_LANG_YES": "Confirm",
+      "EDITING_TRANSLATION": "Editing {{lang}} draft"
     },
     "VERSION": {
       "HISTORY": "History",

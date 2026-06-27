@@ -32,6 +32,7 @@ import { IDialog } from '@core/interface/IDialog';
 import { TranslateService } from '@ngx-translate/core';
 import qs from 'qs';
 import { SwitchPreviewComponent } from '../switch-preview/switch-preview.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-builder-toolbar',
@@ -229,5 +230,9 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
 
   openLogin(): void {
     this.userService.openLoginDialog();
+  }
+
+  getLangLabel(code: string): string {
+    return environment.langs?.find(l => l.langCode === code)?.label ?? code;
   }
 }

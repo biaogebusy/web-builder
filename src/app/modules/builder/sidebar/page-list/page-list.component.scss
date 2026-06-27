@@ -114,6 +114,11 @@
       }
       &.active {
         background-color: var(--mat-sys-secondary-fixed);
+        .translation-draft-tip {
+          @apply inline-flex items-center gap-1 text-[11px] mt-0.5 px-2 py-0.5 rounded-full font-medium w-fit;
+          color: var(--mat-sys-on-tertiary-container);
+          background-color: var(--mat-sys-tertiary-container);
+        }
         &::after {
           content: '';
           position: absolute;

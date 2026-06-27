@@ -54,6 +54,11 @@
           }
         }
       }
+      .lang-badge {
+        @apply inline-flex items-center ml-1.5 py-0.5 px-2 rounded-full text-[11px] font-semibold leading-tight;
+        color: var(--mat-sys-on-surface-variant);
+        background-color: var(--mat-sys-surface-container-high);
+      }
       ::ng-deep {
         .mat-icon {
           height: 16px;
