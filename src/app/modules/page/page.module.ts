@@ -9,7 +9,6 @@ import {
   PAGE_CONTENT,
 } from '@core/token/token-providers';
 import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { BrandingModule } from '@core/branding/branding.module';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
@@ -18,7 +17,6 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
   declarations: [],
   imports: [
     ShareModule,
-    WidgetsModule,
     MatSidenavModule,
     BrandingModule,
     LoadingBarHttpClientModule,

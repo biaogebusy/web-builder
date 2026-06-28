@@ -27,20 +27,42 @@ export class TagsService {
   }
 
   public updateTages(pageValue: IPage): void {
-    this.setTitle(pageValue.title);
+    const title = pageValue.title ?? '';
+    this.setTitle(title);
+
     if (pageValue.meta) {
-      pageValue.meta.forEach(item => {
-        this.updateMeta(item);
-      });
+      pageValue.meta.forEach(item => this.updateMeta(item));
     } else {
-      this.updateMeta({
-        name: 'description',
-        content: '',
-      });
-      this.updateMeta({
-        name: 'keywords',
-        content: '',
-      });
+      this.updateMeta({ name: 'description', content: '' });
+      this.updateMeta({ name: 'keywords', content: '' });
+    }
+
+    const description =
+      (pageValue.meta?.find((m: any) => m['name'] === 'description')?.[
+        'content'
+      ] as string) ?? '';
+    const url = this.document.location.href;
+
+    this.meta.updateTag({ property: 'og:title', content: title });
+    this.meta.updateTag({ property: 'og:description', content: description });
+    this.meta.updateTag({ property: 'og:url', content: url });
+    this.meta.updateTag({ property: 'og:type', content: 'website' });
+    this.meta.updateTag({ name: 'twitter:card', content: 'summary' });
+    this.meta.updateTag({ name: 'twitter:title', content: title });
+    this.meta.updateTag({ name: 'twitter:description', content: description });
+
+    this.setCanonical(url);
+  }
+
+  private setCanonical(url: string): void {
+    const existing = this.document.querySelector('link[rel="canonical"]');
+    if (existing) {
+      existing.setAttribute('href', url);
+    } else {
+      const link = this.document.createElement('link');
+      link.setAttribute('rel', 'canonical');
+      link.setAttribute('href', url);
+      this.document.head.appendChild(link);
     }
   }
 
