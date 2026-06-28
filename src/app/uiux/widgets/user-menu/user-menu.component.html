@@ -2,16 +2,16 @@
 
 <div class="user">
   @if (!u) {
-    <button aria-label="user login" color="primary" (click)="onLogin()" mat-mini-fab>
-      <mat-icon>person</mat-icon>
-    </button>
+    <app-btn
+      [content]="{ mode: 'icon', icon: { name: 'person' } }"
+      (btnClick)="onLogin()"
+    />
   } @else {
     @if (!$any(u).picture) {
-      <button aria-label="user name" mat-mini-fab color="primary" (click)="openDialog()">
-        <h3 class="name">
-          {{ name() }}
-        </h3>
-      </button>
+      <app-btn
+        [content]="{ mode: 'icon', icon: { name: 'account_circle' } }"
+        (btnClick)="openDialog()"
+      />
     } @else {
       <img
         class="user-picture"
