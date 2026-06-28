@@ -31,6 +31,7 @@ export class ContentService extends ApiService {
   private coreConfigCache = new Map<string, Observable<ICoreConfig>>();
   private activeConfigPath = '';
   private uiuxCache: Observable<IUiux[]>;
+  private pageCache = new Map<string, Observable<IPage>>();
 
   constructor() {
     super();
@@ -47,26 +48,30 @@ export class ContentService extends ApiService {
   loadPageContent(pageUrl = this.pageUrl): Observable<IPage> {
     const { lang, path } = this.getUrlPath(pageUrl);
     if (environment.production) {
-      const pageUrlParams = this.getLandingPageUrl(lang, path);
-      return this.http.get<IPage>(pageUrlParams).pipe(
-        retry({ count: 1, delay: 500 }),
+      const key = this.getLandingPageUrl(lang, path);
+      if (!this.pageCache.has(key)) {
+        this.pageCache.set(
+          key,
+          this.http.get<IPage>(key).pipe(
+            retry({ count: 1, delay: 500 }),
+            catchError(error => {
+              console.error('Failed to load page content:', error);
+              return of({} as IPage);
+            }),
+            shareReplay(1)
+          )
+        );
+      }
+      return this.pageCache.get(key)!.pipe(
         tap(page => {
           this.updatePage(page);
           this.logContent(pageUrl);
-        }),
-        catchError(error => {
-          console.error('Failed to load page content:', error);
-          return of({} as IPage);
         })
       );
     } else {
       return this.http.get<IPage>(`${this.apiUrl}/assets/app${lang}${pageUrl}.json`).pipe(
-        tap(page => {
-          this.updatePage(page);
-        }),
-        catchError(() => {
-          return this.http.get<IPage>(`${this.apiUrl}/assets/app/404.json`);
-        })
+        tap(page => this.updatePage(page)),
+        catchError(() => this.http.get<IPage>(`${this.apiUrl}/assets/app/404.json`))
       );
     }
   }

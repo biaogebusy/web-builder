@@ -19,7 +19,7 @@ import {
   untracked,
   ChangeDetectionStrategy,
   Type,
-  viewChild
+  viewChild,
 } from '@angular/core';
 import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -60,6 +60,7 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnDestr
   public compContent = signal<IDynamicInputs>({});
 
   private initialized = false;
+  private lastLoadedType: string | null = null;
 
   constructor() {
     afterNextRender(() => {
@@ -113,6 +114,27 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnDestr
       if (!content) {
         return;
       }
+
+      if (type === this.lastLoadedType && this.componentRef?.instance) {
+        this.compContent.set(content);
+        const declaredInputs = this.getDeclaredInputs(this.componentRef.componentType);
+        const trySet = (key: string, val: unknown) => {
+          if (Object.prototype.hasOwnProperty.call(declaredInputs, key)) {
+            this.componentRef!.setInput(key, val);
+          } else {
+            Object.assign(this.componentRef!.instance as object, { [key]: val });
+          }
+        };
+        if (!inputContent.type && inputContent.content) {
+          const inputRecord = inputContent as Record<string, unknown>;
+          Object.keys(inputContent).forEach(key => trySet(key, inputRecord[key]));
+        } else {
+          trySet('content', inputContent);
+        }
+        this.componentRef.changeDetectorRef.detectChanges();
+        return;
+      }
+
       this.container()!.clear();
       this.compContent.set(content);
       if (content.containerClasses) {
@@ -139,6 +161,7 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnDestr
         hostElement,
       });
       this.componentRef = componentRef;
+      this.lastLoadedType = type;
       if (componentRef.instance) {
         // 读取组件声明的 inputs（Angular 内部元信息）以避免触发 NG0303
         const declaredInputs = this.getDeclaredInputs(componentType);
