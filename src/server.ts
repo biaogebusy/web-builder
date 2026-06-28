@@ -23,17 +23,21 @@ const SSR_TIMEOUT = 30000; // 30秒
 
 const angularApp = new AngularNodeAppEngine();
 
-/**
- * Example Express Rest API endpoints can be defined here.
- * Uncomment and define endpoints as necessary.
- *
- * Example:
- * ```ts
- * app.get('/api/{*splat}', (req, res) => {
- *   // Handle API request
- * });
- * ```
- */
+const SSR_CACHE_TTL = 5 * 60 * 1000;
+const ssrCache = new Map<string, { html: string; expires: number }>();
+
+function getCacheKey(req: express.Request): string {
+  return req.path;
+}
+
+function isCacheable(req: express.Request): boolean {
+  return (
+    req.method === 'GET' &&
+    !req.headers['authorization'] &&
+    !req.query['nocache'] &&
+    !req.query['preview']
+  );
+}
 
 /**
  * Serve static files from /browser
@@ -55,6 +59,19 @@ app.use(
  * Handle all other requests by rendering the Angular application with timeout control.
  */
 app.use('/**', (req, res, next) => {
+  const cacheable = isCacheable(req);
+  const cacheKey = getCacheKey(req);
+
+  if (cacheable) {
+    const cached = ssrCache.get(cacheKey);
+    if (cached && cached.expires > Date.now()) {
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
+      res.setHeader('X-Cache', 'HIT');
+      res.send(cached.html);
+      return;
+    }
+  }
+
   let settled = false;
 
   const timeoutId = setTimeout(() => {
@@ -68,13 +85,17 @@ app.use('/**', (req, res, next) => {
 
   angularApp
     .handle(req)
-    .then(response => {
+    .then(async response => {
       if (settled) {
         return;
       }
       settled = true;
       clearTimeout(timeoutId);
       if (response) {
+        if (cacheable && response.status === 200) {
+          const html = await response.clone().text();
+          ssrCache.set(cacheKey, { html, expires: Date.now() + SSR_CACHE_TTL });
+        }
         writeResponseToNodeResponse(response, res);
       } else {
         next();

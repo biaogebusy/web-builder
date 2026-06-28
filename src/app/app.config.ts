@@ -46,6 +46,8 @@ import {
   userFactory,
 } from '@core/factory/factory';
 import { PageModule } from '@modules/page/page.module';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyMaterialModule } from '@ngx-formly/material';
 import { environment } from 'src/environments/environment';
 
 registerLocaleData(zhHans, 'zh-hans');
@@ -115,6 +117,6 @@ export const appConfig: ApplicationConfig = {
       prefix: `${environment.apiUrl}/assets/i18n/`,
       suffix: '.json',
     }),
-    importProvidersFrom(BrowserModule, PageModule),
+    importProvidersFrom(BrowserModule, PageModule, FormlyModule.forRoot(), FormlyMaterialModule),
   ],
 };

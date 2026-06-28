@@ -133,7 +133,7 @@ export function registerTranslateExtension(translate: TranslateService): ConfigO
     ...standaloneComponents,
 
     QuillModule.forRoot(),
-    FormlyModule.forRoot({
+    FormlyModule.forChild({
       types: [
         {
           name: 'rich-text',

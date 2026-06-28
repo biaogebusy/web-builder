@@ -15,7 +15,6 @@ import { MegaMenuComponent } from './header/menu/item-menu/mega-menu/mega-menu.c
 import { FixBarComponent } from './footer/fix-bar/fix-bar.component';
 import { FixBarPopupComponent } from './footer/fix-bar/fix-bar-popup/fix-bar-popup.component';
 import { HoverMenuComponent } from './header/menu/item-menu/hover-menu/hover-menu.component';
-import { FormModule } from '@uiux/combs/form/form.module';
 import { AccordionMenuComponent } from './accordion-menu/accordion-menu.component';
 import { DynamicMenuComponent } from './dynamic-menu/dynamic-menu.component';
 
@@ -23,7 +22,6 @@ import { DynamicMenuComponent } from './dynamic-menu/dynamic-menu.component';
   declarations: [],
   imports: [
     ShareModule,
-    FormModule,
     HeaderComponent,
     FooterComponent,
     MenuComponent,
