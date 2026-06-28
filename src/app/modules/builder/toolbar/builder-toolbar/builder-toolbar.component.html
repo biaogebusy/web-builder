@@ -1,4 +1,4 @@
-@let isFullScreen = builderFullScreen$ | async;
+@let isFullScreen = builderFullScreen();
 @if (isFullScreen) {
   <div *ngTemplateOutlet="toolbar; context: { isFull: isFullScreen }"></div>
 }
@@ -8,7 +8,7 @@
 <ng-template #toolbar let-isFull="isFull">
   <div class="builder-toolbar" [class]="{ fixed: isFull }">
     <div class="wrapper">
-      @if (currentPage$ | async; as page) {
+      @if (currentPage(); as page) {
         <div class="left">
           <div class="left-info">
             @if (page.body.length) {
@@ -16,13 +16,35 @@
                 <div contenteditable="true" (blur)="onTitle($event)">
                   {{ page.title }}
                 </div>
-                @if (!page.uuid) {
-                  - {{ 'BUILDER.COMMON.UNPUBLISHED' | translate }}
+                @if (page.translation && page.target) {
+                  <span
+                    class="draft-badge"
+                    role="status"
+                    [attr.aria-label]="'BUILDER.TOOLBAR.TRANSLATION_DRAFT' | translate"
+                    [matTooltip]="'BUILDER.TOOLBAR.TRANSLATION_DRAFT_TIP' | translate: { lang: getLangLabel(page.target) }"
+                  >
+                    <app-icon class="draft-badge-icon" [content]="{ svg: 'translate' }" />
+                    {{ 'BUILDER.TOOLBAR.TRANSLATION_DRAFT' | translate }}
+                  </span>
+                  <span class="lang-badge">{{ getLangLabel(page.target) }}</span>
+                } @else if (!page.uuid) {
+                  <span
+                    class="draft-badge"
+                    role="status"
+                    [attr.aria-label]="'BUILDER.COMMON.UNPUBLISHED' | translate"
+                    [matTooltip]="'BUILDER.TOOLBAR.DRAFT_BADGE_TIP' | translate"
+                  >
+                    <app-icon class="draft-badge-icon" [content]="{ svg: 'tray-arrow-up' }" />
+                    {{ 'BUILDER.COMMON.UNPUBLISHED' | translate }}
+                  </span>
+                }
+                @if (!page.translation && page.langcode) {
+                  <span class="lang-badge">{{ page.langcode | uppercase }}</span>
                 }
                 <app-icon [content]="{ svg: 'pencil-outline' }" />
               </div>
               @if (page.changed) {
-                <div class="time">{{ date() | date: 'YYYY-MM-dd HH:mm' }}</div>
+                <div class="time">{{ date() | date: 'yyyy-MM-dd HH:mm' }}</div>
               }
             } @else {
               <div class="page-title">{{ 'BUILDER.TOOLBAR.WELCOME_PAGE' | translate }}</div>
@@ -74,10 +96,10 @@
             (click)="onSubmit(page)"
             [content]="{
               label: (page.translation ? 'BUILDER.TOOLBAR.SUBMIT_TRANSLATION' : page.uuid ? 'BUILDER.TOOLBAR.SUBMIT_UPDATE' : 'BUILDER.TOOLBAR.SUBMIT_DRAFT') | translate,
-              color: 'primary',
+              color: (!page.uuid || page.translation) && page.body.length ? 'warn' : 'primary',
               mode: 'raised',
               icon: {
-                svg: page.uuid ? 'pencil' : 'tray-arrow-up',
+                svg: page.uuid && !page.translation ? 'pencil' : 'tray-arrow-up',
               },
             }"
           />

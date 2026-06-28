@@ -37,10 +37,10 @@
           <mat-progress-bar mode="determinate" color="primary" [value]="progress" />
         </div>
       }
-      @if (mediaAssets$ | async; as assets) {
-        @if (assets.rows.length) {
+      @if (mediaAssets(); as assets) {
+        @if ($any(assets).rows.length) {
           <div class="viewport" [style.--cols]="manageMediaConfig().row">
-            @for (item of assets.rows; track item) {
+            @for (item of $any(assets).rows; track item) {
               <div class="masonry-item">
                 <div class="actions" [matTooltip]="item.title">
                   @if (content().mode === 'manage') {
@@ -99,7 +99,10 @@
                   </div>
                 }
                 <div
+                  role="button"
+                  tabindex="0"
                   (click)="onPreview(item)"
+                  (keyup.enter)="onPreview(item)"
                   class="box"
                   [class]="{ selected: isSelected(item) }"
                 >
@@ -109,6 +112,7 @@
                     priority
                     width="480"
                     height="360"
+                    alt="{{ item.title || '媒体' }}"
                   />
                 </div>
               </div>
@@ -142,16 +146,16 @@
             />
           </div>
         }
-        @if (mediaAssets$ | async; as assets) {
+        @if (mediaAssets(); as assets) {
           <div class="page">
-            @if (assets.pager && assets.rows.length) {
+            @if ($any(assets).pager && $any(assets).rows.length) {
               <mat-paginator
                 (page)="onPageChange($event)"
-                [length]="assets.pager.totalItems"
-                [pageSize]="assets.pager.itemsPerPage"
+                [length]="$any(assets).pager.totalItems"
+                [pageSize]="$any(assets).pager.itemsPerPage"
                 [showFirstLastButtons]="true"
                 [hidePageSize]="true"
-                [pageIndex]="assets.pager.currentPage"
+                [pageIndex]="$any(assets).pager.currentPage"
                 aria-label="Select page"
               />
             }

@@ -24,11 +24,10 @@ import { Observable } from 'rxjs';
   imports: [ShareModule, WidgetsModule],
 })
 export class SwitchPreviewComponent implements OnInit {
-  private currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
+  public currentPage = inject(BUILDER_CURRENT_PAGE);
   private builder = inject(BuilderState);
   private util = inject(UtilitiesService);
   private translate = inject(TranslateService);
-  private currentPage: IPage;
   private destroyRef = inject(DestroyRef);
   public currentPreview = signal<string>('none');
   public currentIcon = signal<string>('cellphone-link');
@@ -63,15 +62,12 @@ export class SwitchPreviewComponent implements OnInit {
     },
   ];
 
-  ngOnInit(): void {
-    this.currentPage$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(page => {
-      this.currentPage = page;
-    });
-  }
+  ngOnInit(): void {  }
 
   onSwitch(preview: any): void {
     const { pathname } = window.location;
-    if (!this.currentPage.body.length && !pathname.includes('/builder/chat/render')) {
+    const page = this.currentPage();
+    if (!(page && typeof page === 'object' && page.body?.length) && !pathname.includes('/builder/chat/render')) {
       this.util.openSnackbar(this.translate.instant('BUILDER.SWITCH_PREVIEW.EMPTY_PAGE'));
       return;
     }

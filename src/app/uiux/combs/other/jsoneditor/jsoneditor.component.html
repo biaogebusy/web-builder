@@ -1,12 +1,12 @@
 <div class="jsoneditor-wrapper" [class]="content().classes">
   @if (loading()) {
     <div class="loader">
-      <app-loading [content]="{ size: 20 }"></app-loading>
+      <app-loading [content]="{ size: 20 }" />
     </div>
   }
   @if (loadLibrary()) {
     <div class="library-loading">
-      <app-loading [content]="{ size: 50 }"></app-loading>
+      <app-loading [content]="{ size: 50 }" />
     </div>
   }
   <div #jsoneditor></div>

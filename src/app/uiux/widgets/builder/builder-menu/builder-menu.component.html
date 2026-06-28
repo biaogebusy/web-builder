@@ -17,7 +17,7 @@
       </button>
       @if (canShow) {
         <button mat-menu-item>
-          <mat-slide-toggle [checked]="debugAnimate$ | async" (change)="onDebugAnimate($event)"
+          <mat-slide-toggle [checked]="debugAnimate()" (change)="onDebugAnimate($event)"
             ><span class="toggle-label">动画调式</span></mat-slide-toggle
           >
         </button>

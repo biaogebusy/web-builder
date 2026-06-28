@@ -8,7 +8,7 @@ describe('ShuffleComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ShuffleComponent],
+      imports: [ShuffleComponent],
     }).compileComponents();
   });
 

@@ -8,7 +8,7 @@ describe('VideoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [VideoComponent],
+      imports: [VideoComponent],
     }).compileComponents();
   });
 

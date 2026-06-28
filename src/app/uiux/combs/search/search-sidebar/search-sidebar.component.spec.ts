@@ -8,7 +8,7 @@ describe('SearchSidebarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SearchSidebarComponent],
+      imports: [SearchSidebarComponent],
     }).compileComponents();
   });
 

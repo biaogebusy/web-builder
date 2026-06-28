@@ -26,7 +26,14 @@ import { TextComponent } from '@uiux/widgets/text/text.component';
   templateUrl: './showcase4v1.component.html',
   styleUrls: ['./showcase4v1.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReqRolesDirective, TextComponent, IconComponent, ImgComponent, NumberAnimateComponent, ContenteditDirective],
+  imports: [
+    ReqRolesDirective,
+    TextComponent,
+    IconComponent,
+    ImgComponent,
+    NumberAnimateComponent,
+    ContenteditDirective,
+  ],
 })
 export class Showcase4v1Component extends BaseComponent implements OnInit {
   private nodeService = inject(NodeService);

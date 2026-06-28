@@ -39,7 +39,7 @@ export class BuilderPanelComponent implements OnInit {
   }
 
   onShowcase(widget: IBuilderComponentElement): void {
-    if (this.builder.fixedShowcase) {
+    if (this.builder.fixedShowcase()) {
       return;
     }
     this.builder.showcase(cloneDeep(widget));
@@ -47,18 +47,18 @@ export class BuilderPanelComponent implements OnInit {
 
   onFixed(item: any): void {
     const { label, content } = item;
-    if (this.builder.fixedShowcase) {
+    if (this.builder.fixedShowcase()) {
       // click active
-      if (content === this.builder.fixedContent) {
-        this.builder.fixedShowcase = false;
-        this.builder.showcase$.next(false);
+      if (content === this.builder.fixedContent()) {
+        this.builder.fixedShowcase.set(false);
+        this.builder.currentShowcase.set(false);
         this.fixLabel.set('');
         return;
       }
 
       // switch to other
-      if (content !== this.builder.fixedContent) {
-        this.builder.fixedShowcase = true;
+      if (content !== this.builder.fixedContent()) {
+        this.builder.fixedShowcase.set(true);
         this.fixLabel.set(label);
         this.builder.showcase(item);
         return;
@@ -66,21 +66,21 @@ export class BuilderPanelComponent implements OnInit {
     }
 
     // set new active
-    if (!this.builder.fixedShowcase) {
-      this.builder.fixedShowcase = true;
+    if (!this.builder.fixedShowcase()) {
+      this.builder.fixedShowcase.set(true);
       this.fixLabel.set(label);
       this.builder.showcase(item);
     }
   }
 
   hideShowcase(): void {
-    if (!this.builder.fixedShowcase) {
-      this.builder.showcase$.next(false);
+    if (!this.builder.fixedShowcase()) {
+      this.builder.currentShowcase.set(false);
     }
   }
 
   onMoved(): void {
-    this.builder.showcase$.next(false);
+    this.builder.currentShowcase.set(false);
   }
 
   onDragStarted(): void {

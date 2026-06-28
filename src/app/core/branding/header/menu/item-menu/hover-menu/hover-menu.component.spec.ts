@@ -8,7 +8,7 @@ describe('HoverMenuComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HoverMenuComponent],
+      imports: [HoverMenuComponent],
     }).compileComponents();
   });
 

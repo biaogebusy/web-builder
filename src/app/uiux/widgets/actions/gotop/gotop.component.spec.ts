@@ -8,7 +8,7 @@ describe('GotopComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [GotopComponent],
+      imports: [GotopComponent],
     }).compileComponents();
   });
 

@@ -1,6 +1,7 @@
 import { DestroyRef, Injectable, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router } from '@angular/router';
+import { appendQueryParams } from '@core/util/http-params.util';
 import { filter } from 'rxjs';
 
 declare let window: any;
@@ -28,7 +29,7 @@ export class AnalyticsService {
   private loadGtagScript(): Promise<void> {
     return new Promise(resolve => {
       const script = document.createElement('script');
-      script.src = `https://www.googletagmanager.com/gtag/js?id=${this.id}`;
+      script.src = appendQueryParams('https://www.googletagmanager.com/gtag/js', { id: this.id });
       script.async = true;
       script.onload = () => resolve();
       document.head.appendChild(script);
@@ -37,8 +38,8 @@ export class AnalyticsService {
 
   private initializeGtag(): void {
     window.dataLayer = window.dataLayer || [];
-    window.gtag = function gtag() {
-      window.dataLayer.push(arguments);
+    window.gtag = function gtag(...args: unknown[]) {
+      window.dataLayer.push(args);
     };
     window.gtag('js', new Date());
     window.gtag('config', this.id, {

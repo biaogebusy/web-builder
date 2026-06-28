@@ -13,7 +13,13 @@ import { TextComponent } from '@uiux/widgets/text/text.component';
   selector: 'app-tab',
   templateUrl: './tab.component.html',
   styleUrls: ['./tab.component.scss'],
-  imports: [MatTabsModule, SpacerComponent, TextComponent, BgImgComponent, DynamicComponentComponent],
+  imports: [
+    MatTabsModule,
+    SpacerComponent,
+    TextComponent,
+    BgImgComponent,
+    DynamicComponentComponent,
+  ],
 })
 export class TabComponent implements OnInit {
   readonly content = input.required<ITab>();

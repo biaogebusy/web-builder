@@ -8,7 +8,7 @@ describe('AccordionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AccordionMenuComponent],
+      imports: [AccordionMenuComponent],
     }).compileComponents();
   });
 

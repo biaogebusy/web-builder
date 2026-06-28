@@ -4,10 +4,11 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
+  effect,
   inject,
-  input
+  Injector,
+  input,
 } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import type { IComment, IQuestion } from '@core/interface/node/INode';
@@ -31,10 +32,16 @@ import { CommentListComponent } from '../comment/comment-list/comment-list.compo
   templateUrl: './question.component.html',
   styleUrls: ['./question.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AsyncPipe, MatButtonModule, MatIconModule, SafeHtmlPipe, CommentFormComponent, CommentListComponent],
+  imports: [
+    MatButtonModule,
+    MatIconModule,
+    SafeHtmlPipe,
+    CommentFormComponent,
+    CommentListComponent,
+  ],
 })
 export class QuestionComponent extends NodeComponent implements AfterViewInit {
-  public user$ = inject<Observable<IUser>>(USER);
+  public user = inject(USER);
 
   readonly content = input.required<IQuestion>();
   public comments: IComment[];
@@ -42,32 +49,29 @@ export class QuestionComponent extends NodeComponent implements AfterViewInit {
   public isAsked = false;
   public myCommentId = '';
   private dialogRef: MatDialogRef<any>;
-  private user: IUser;
   private nodeService = inject(NodeService);
   private screenService = inject(ScreenService);
   private cd = inject(ChangeDetectorRef);
   private contentState = inject(ContentState);
   private destroyRef = inject(DestroyRef);
+  private injector = inject(Injector);
   private userService = inject(UserService);
 
   constructor() {
     super();
-    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
-      this.user = user;
-    });
   }
-
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.contentState.commentChange$
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(state => {
-          if (state) {
+      effect(
+        () => {
+          if (this.contentState.commentChange()) {
             this.checkIsAsked();
             this.getComments(+new Date());
           }
-        });
+        },
+        { injector: this.injector }
+      );
     }
   }
 
@@ -91,13 +95,13 @@ export class QuestionComponent extends NodeComponent implements AfterViewInit {
     }
     const entityId = this.nodeService.getCommentRelEntityId(this.content());
     const entityType = this.nodeService.getCommentType(this.content());
-    const params = [
-      `filter[uid.id]=${this.user.id}`,
-      `filter[entity_id.id]=${entityId}`,
-      `sort=-created`,
-      'filter[status]=1',
-      `page[limit]=1`,
-    ].join('&');
+    const params = {
+      'filter[uid.id]': (this.user() as IUser)?.id,
+      'filter[entity_id.id]': entityId,
+      sort: '-created',
+      'filter[status]': 1,
+      'page[limit]': 1,
+    };
     const path = '/api/v1/comment';
     this.nodeService
       .getNodes(path, entityType, params)

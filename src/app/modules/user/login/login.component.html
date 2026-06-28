@@ -9,12 +9,12 @@
         <app-dynamic-component [inputs]="loginConfig.left" />
       }
     </div>
-    <div class="login-form" [class.is-login]="user$ | async">
+    <div class="login-form" [class.is-login]="user()">
       @if (loading()) {
         <app-loading />
       }
       <div class="form-scroll">
-        @if (!(user$ | async)) {
+        @if (user() === false) {
           @if (error(); as errorValue) {
             <div class="error" role="alert">
               {{ errorValue }}
@@ -120,7 +120,7 @@
             </form>
           }
         }
-        @if (user$ | async; as currentUser) {
+        @if (currentUser(); as currentUser) {
           <h1 class="welcome-title">
             {{ 'LOGIN.HI' | translate }}, {{ currentUser.display_name }}
           </h1>

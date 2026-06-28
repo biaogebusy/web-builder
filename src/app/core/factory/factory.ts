@@ -1,7 +1,7 @@
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { ContentService } from '@core/service/content.service';
-import { Observable, BehaviorSubject, interval } from 'rxjs';
+import { Observable, forkJoin, from, interval } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ContentState } from '@core/state/ContentState';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -9,7 +9,15 @@ import { IBranding } from '../interface/branding/IBranding';
 import { UserService } from '@core/service/user.service';
 import { IUser } from '@core/interface/IUser';
 import { INotify } from '@core/interface/widgets/IWidgets';
-import { map, startWith, switchMap, take } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  shareReplay,
+  startWith,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 import { NotifyService } from '@core/service/notify.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { ScreenService } from '@core/service/screen.service';
@@ -18,67 +26,79 @@ import { IManageAssets } from '@core/interface/manage/IManage';
 import { ILanguage } from '@core/interface/IEnvironment';
 import { CookieService } from 'ngx-cookie-service';
 import { ComponentService } from '@core/service/component.service';
-import { DestroyRef, DOCUMENT, inject } from '@angular/core';
+import { DestroyRef, DOCUMENT, inject, Injector, signal, Signal, WritableSignal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 import { BuilderService } from '@core/service/builder.service';
 import { getFileType } from '@core/util/file-type.util';
+import { CORE_CONFIG } from '@core/token/token-providers';
 
 export const THEMKEY = 'themeMode';
 export const DEBUG_ANIMATE_KEY = 'debugAnimate';
 const BUILDERPATH = '/builder';
 
-export function pageContentFactory(): Observable<IPage | object | boolean> {
+export function pageContentFactory(): WritableSignal<IPage | undefined | false> {
   const activateRoute = inject(ActivatedRoute);
   const contentService = inject(ContentService);
   const contentState = inject(ContentState);
   const destroyRef = inject(DestroyRef);
+  const coreConfig = inject<ICoreConfig>(CORE_CONFIG);
 
-  const $pageContent = new BehaviorSubject<IPage | object | boolean>(false);
-  activateRoute.url.pipe(takeUntilDestroyed(destroyRef)).subscribe(async url => {
-    const page = await contentService.loadPageContent().toPromise();
-    if (page) {
-      $pageContent.next(page);
-      contentState.pageConfig$.next(page.config);
-    }
-  });
-  return $pageContent;
+  const pageContent = signal<IPage | undefined | false>(false);
+  activateRoute.url
+    .pipe(
+      switchMap(() => {
+        const pageUrl = contentService.pageUrl;
+        return forkJoin({
+          config: from(contentService.loadConfig(coreConfig, pageUrl)),
+          page: contentService.loadPageContent(pageUrl),
+        }).pipe(map(({ page }) => page));
+      }),
+      takeUntilDestroyed(destroyRef)
+    )
+    .subscribe(page => {
+      if (page) {
+        pageContent.set(page);
+        contentState.pageConfig.set(page.config);
+      }
+    });
+  return pageContent;
 }
 
-export function builderFullScreenFactory(): Observable<boolean> {
+export function builderFullScreenFactory(): WritableSignal<boolean> {
   const router = inject(Router);
   const builder = inject(BuilderState);
   const destroyRef = inject(DestroyRef);
-  const isFull$ = new BehaviorSubject<boolean>(false);
+  const isFull = signal(false);
 
   router.events.pipe(takeUntilDestroyed(destroyRef)).subscribe(event => {
     if (event instanceof NavigationEnd) {
       if (event.url.includes(BUILDERPATH)) {
-        isFull$.next(false);
+        isFull.set(false);
       }
     }
   });
   builder.fullScreen$.pipe(takeUntilDestroyed(destroyRef)).subscribe(state => {
-    isFull$.next(state);
+    isFull.set(state);
   });
-  return isFull$;
+  return isFull;
 }
 
-export function builderCurrentPageFactory(): Observable<IPage | object | boolean> {
+export function builderCurrentPageFactory(): WritableSignal<IPage | undefined | false> {
   const router = inject(Router);
   const versionKey = 'version';
-  const currentPage$ = new BehaviorSubject<IPage | object | boolean>(false);
+  const currentPage = signal<IPage | undefined | false>(false);
   const storage = inject(LocalStorageService);
-  const builderService = inject(BuilderService);
+  const injector = inject(Injector);
   const destroyRef = inject(DestroyRef);
   const localVersion = storage.retrieve(versionKey);
 
   if (localVersion) {
-    const currentPage = localVersion.find((page: IPage) => page.current === true);
+    const found = localVersion.find((page: IPage) => page.current === true);
     if (router.url.includes(BUILDERPATH)) {
-      builderService.checkIsLatestPage(currentPage);
+      injector.get(BuilderService).checkIsLatestPage(found);
     }
-    currentPage$.next(currentPage);
+    currentPage.set(found);
   }
 
   storage
@@ -87,24 +107,19 @@ export function builderCurrentPageFactory(): Observable<IPage | object | boolean
     .subscribe((version: IPage[]) => {
       if (version?.length > 0) {
         const current = version.find((page: IPage) => page.current === true) || version[0];
-        currentPage$.next(current);
+        currentPage.set(current);
       }
     });
 
-  return currentPage$;
+  return currentPage;
 }
 
-export function debugAnimateFactory(): Observable<boolean> {
+export function debugAnimateFactory(): WritableSignal<boolean> {
   const builder = inject(BuilderState);
   const storage = inject(LocalStorageService);
   const destroyRef = inject(DestroyRef);
-  const debugAnimate$ = new BehaviorSubject<boolean>(false);
   const isDebugAnimate = storage.retrieve(DEBUG_ANIMATE_KEY);
-  if (isDebugAnimate) {
-    debugAnimate$.next(true);
-  } else {
-    debugAnimate$.next(false);
-  }
+  const debugAnimate = signal<boolean>(!!isDebugAnimate);
 
   setTimeout(() => {
     builder.renderMarkers(isDebugAnimate);
@@ -112,16 +127,16 @@ export function debugAnimateFactory(): Observable<boolean> {
 
   builder.debugeAnimate$.pipe(takeUntilDestroyed(destroyRef)).subscribe(state => {
     storage.store(DEBUG_ANIMATE_KEY, state);
-    debugAnimate$.next(state);
+    debugAnimate.set(state);
   });
 
-  return debugAnimate$;
+  return debugAnimate;
 }
 
-export function notifyFactory(coreConfig: ICoreConfig): Observable<INotify[] | object | boolean> {
+export function notifyFactory(coreConfig: ICoreConfig): WritableSignal<INotify[] | boolean> {
   const notifyService = inject(NotifyService);
   const destroyRef = inject(DestroyRef);
-  const $notify = new BehaviorSubject<INotify[] | object | boolean>(false);
+  const notify = signal<INotify[] | boolean>(false);
   const apis = coreConfig?.notify?.api;
 
   if (apis) {
@@ -157,13 +172,13 @@ export function notifyFactory(coreConfig: ICoreConfig): Observable<INotify[] | o
         takeUntilDestroyed(destroyRef)
       )
       .subscribe((res: INotify[]) => {
-        $notify.next(res);
+        notify.set(res);
       });
   } else {
-    $notify.next(false);
+    notify.set(false);
   }
 
-  return $notify;
+  return notify;
 }
 
 export const apiUrlFactory = () => {
@@ -204,26 +219,40 @@ export function themeFactory(coreConfig: ICoreConfig): string {
   return defaultTheme;
 }
 
-export function brandingFactory(): Observable<IBranding | object> {
+export function brandingFactory(): Observable<IBranding> {
   const contentService = inject(ContentService);
-  return contentService.loadBranding();
+  const coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  const router = inject(Router);
+
+  return router.events.pipe(
+    filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+    startWith(null),
+    map(event => event?.urlAfterRedirects ?? contentService.pageUrl),
+    distinctUntilChanged(),
+    switchMap(pageUrl =>
+      from(contentService.loadConfig(coreConfig, pageUrl)).pipe(
+        switchMap(() => contentService.loadBranding(pageUrl))
+      )
+    ),
+    shareReplay({ bufferSize: 1, refCount: true })
+  );
 }
 
-export function userFactory(): Observable<IUser | boolean> {
+export function userFactory(): WritableSignal<IUser | boolean> {
   const userService = inject(UserService);
   const destroyRef = inject(DestroyRef);
-  const user$ = new BehaviorSubject<IUser | boolean>(false);
+  const user = signal<IUser | boolean>(false);
   const stored = userService.getStoredUser();
   if (stored) {
-    user$.next(stored);
+    user.set(stored);
   }
-  userService.userSub$.pipe(takeUntilDestroyed(destroyRef)).subscribe(user => {
-    user$.next(user);
+  userService.userSub$.pipe(takeUntilDestroyed(destroyRef)).subscribe(u => {
+    user.set(u);
   });
-  return user$;
+  return user;
 }
 
-export function mediaAssetsFactory(): Observable<IManageAssets | boolean> {
+export function mediaAssetsFactory(): WritableSignal<IManageAssets | boolean> {
   const api = '/api/v2/media';
   const nodeService = inject(NodeService);
   const contentState = inject(ContentState);
@@ -231,7 +260,7 @@ export function mediaAssetsFactory(): Observable<IManageAssets | boolean> {
   const cookieService = inject(CookieService);
   const key = userService.localUserKey;
   const destroyRef = inject(DestroyRef);
-  const assets$ = new BehaviorSubject<IManageAssets | boolean>(false);
+  const assets = signal<IManageAssets | boolean>(false);
   let noCache = false;
   if (cookieService.check(key)) {
     noCache = true;
@@ -245,7 +274,7 @@ export function mediaAssetsFactory(): Observable<IManageAssets | boolean> {
         .fetch(api, params)
         .pipe(take(1))
         .subscribe(res => {
-          assets$.next({
+          assets.set({
             rows: res.rows.map((item: any) => {
               const type = getFileType(item.source);
               return {
@@ -259,7 +288,7 @@ export function mediaAssetsFactory(): Observable<IManageAssets | boolean> {
         });
     });
 
-  return assets$;
+  return assets;
 }
 
 export function getBuilderConfig(): Observable<IBuilderConfig> {

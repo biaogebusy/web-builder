@@ -8,7 +8,7 @@ describe('Card1v5Component', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [Card1v5Component],
+      imports: [Card1v5Component],
     }).compileComponents();
   });
 

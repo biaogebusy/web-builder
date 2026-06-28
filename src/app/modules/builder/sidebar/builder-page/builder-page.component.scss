@@ -1,7 +1,7 @@
 .builder-page {
   padding: 10px;
   .loading-wrapper {
-    @apply mx-auto my-10;
+    @apply flex justify-center py-6;
   }
   .cards {
     @apply grid grid-cols-12 gap-1;

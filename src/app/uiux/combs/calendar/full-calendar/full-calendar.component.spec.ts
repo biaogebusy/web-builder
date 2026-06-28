@@ -8,7 +8,7 @@ describe('FullCalendarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [FullCalendarComponent],
+      imports: [FullCalendarComponent],
     }).compileComponents();
   });
 

@@ -381,7 +381,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
       ];
       break;
 
-    case 'carousel-1v3':
+    case 'carousel-1v3': {
       if (content.text) {
         const textConfig: FormlyFieldConfig = {
           props: {
@@ -404,8 +404,9 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
       };
       componentConfig.push(swiperConfig1v3);
       break;
+    }
 
-    case 'carousel-2v1':
+    case 'carousel-2v1': {
       if (content.title) {
         const titleConfig: FormlyFieldConfig = {
           props: {
@@ -430,11 +431,12 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
 
       componentConfig.push(swiperConfig2v1);
       break;
+    }
 
     case 'carousel-1v1':
     case 'carousel-1v2':
     case 'carousel-2v2':
-    case 'hero-1v1':
+    case 'hero-1v1': {
       if (content.title) {
         const titleConfig: FormlyFieldConfig = {
           props: {
@@ -459,6 +461,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
 
       componentConfig.push(swiperConfig);
       break;
+    }
 
     default:
       componentConfig = [

@@ -46,7 +46,7 @@
               </a>
             </div>
             <div class="item flex-12/12 md:flex-5/12">
-              <a class="menu-link p-y-sm p-x-sm" (click)="logout()">
+              <a class="menu-link p-y-sm p-x-sm" tabindex="0" (click)="logout()" (keyup.enter)="logout()">
                 <mat-icon class="menu-icon">exit_to_app</mat-icon>
                 <span>退出</span>
               </a>

@@ -118,21 +118,23 @@ export class InlineEditComponent implements AfterViewInit {
     const { style, src } = value;
     for (const key of Object.keys(style)) {
       switch (key) {
-        case 'maxWidth':
+        case 'maxWidth': {
           const maxWidth = style.maxWidth === 0 ? '100%' : style.maxWidth + 'px';
           style[key] = maxWidth;
           this.setStyle('maxWidth', maxWidth, value);
           break;
-        case 'maxHeight':
+        }
+        case 'maxHeight': {
           const maxHeight = style.maxHeight === 0 ? '100%' : style.maxHeight + 'px';
           style[key] = maxHeight;
           this.setStyle('maxHeight', maxHeight, value);
           break;
+        }
         case 'width':
-          this.content().ele.setAttribute('width', parseInt(style[key]));
+          this.content().ele.setAttribute('width', String(parseInt(style[key])));
           break;
         case 'height':
-          this.content().ele.setAttribute('height', parseInt(style[key]));
+          this.content().ele.setAttribute('height', String(parseInt(style[key])));
           break;
         default:
           this.setStyle(key, style[key], value);
@@ -165,7 +167,7 @@ export class InlineEditComponent implements AfterViewInit {
     const content = this.content();
     if (content.mode === 'img') {
       style[key] = value;
-      content.ele.style[key] = value;
+      (content.ele.style as unknown as Record<string, string>)[key] = value;
       content.ele.src = src;
     } else {
       this.viewHTML.style[key] = value;

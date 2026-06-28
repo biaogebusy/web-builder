@@ -8,7 +8,7 @@ describe('ManageMediaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ManageMediaComponent],
+      imports: [ManageMediaComponent],
     }).compileComponents();
   });
 

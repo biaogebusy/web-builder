@@ -6,7 +6,7 @@ import {
   OnDestroy,
   inject,
   output,
-  input
+  input,
 } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -23,6 +23,7 @@ import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IPaginationLinks } from '@core/interface/widgets/IPaginationLinks';
 import type { IDynamicTextList } from '@core/interface/combs/IList';
+import { combineQueryParams } from '@core/util/http-params.util';
 import { ImgComponent } from '@uiux/widgets/img/img.component';
 import { LinkComponent } from '@uiux/widgets/link/link.component';
 import { PaginationLinksComponent } from '@uiux/widgets/pagination/pagination-links/pagination-links.component';
@@ -69,15 +70,18 @@ export class DynamicTextListComponent extends BaseComponent implements OnInit, O
   getLists(): void {
     this.loading = true;
     const path = '/api/v1/node';
+    const params = combineQueryParams(
+      [
+        this.getParams(this.content(), 'options'),
+        {
+          sort: this.getParams(this.content(), 'sort'),
+          'page[limit]': 20,
+        },
+      ],
+      { encodeKeys: false }
+    );
     this.nodeService
-      .getNodes(
-        path,
-        `${this.getParams(this.content(), 'type')}`,
-        `${this.getParams(this.content(), 'options')}&sort=${this.getParams(
-          this.content(),
-          'sort'
-        )}&page[limit]=20`
-      )
+      .getNodes(path, `${this.getParams(this.content(), 'type')}`, params)
       .pipe(takeUntil(this.destory$))
       .subscribe(res => {
         this.updateList(res);

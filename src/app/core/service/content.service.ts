@@ -4,13 +4,21 @@ import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { environment } from 'src/environments/environment';
 import { Observable, lastValueFrom, of } from 'rxjs';
-import { catchError, map, shareReplay, take, tap } from 'rxjs/operators';
+import { catchError, retry, shareReplay, take, tap } from 'rxjs/operators';
 import { isArray } from 'lodash-es';
 import { TagsService } from '@core/service/tags.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { ApiService } from '@core/service/api.service';
 import type { IBranding } from '@core/interface/branding/IBranding';
-import { IBuilderConfig } from '@core/interface/IBuilder';
+import type { IBuilderConfig, IUiux } from '@core/interface/IBuilder';
+import type { JsonValue } from '@core/interface/common';
+import { appendQueryParams, queryStringToParams, QueryParams } from '@core/util/http-params.util';
+
+export interface GithubRepository {
+  html_url: string;
+  stargazers_count: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -20,8 +28,10 @@ export class ContentService extends ApiService {
   private apiService = inject(ApiService);
   private coreConfig = inject(CORE_CONFIG);
   private builderConfigCache: Observable<IBuilderConfig>;
-  private coreConfigCache: Observable<ICoreConfig>;
-  private uiuxCache: Observable<any[]>;
+  private coreConfigCache = new Map<string, Observable<ICoreConfig>>();
+  private activeConfigPath = '';
+  private uiuxCache: Observable<IUiux[]>;
+  private pageCache = new Map<string, Observable<IPage>>();
 
   constructor() {
     super();
@@ -38,25 +48,30 @@ export class ContentService extends ApiService {
   loadPageContent(pageUrl = this.pageUrl): Observable<IPage> {
     const { lang, path } = this.getUrlPath(pageUrl);
     if (environment.production) {
-      const landingPath = '/api/v3/landingPage?content=';
-      const pageUrlParams = `${this.apiUrl}${lang}${landingPath}${path}`;
-      return this.http.get<any>(pageUrlParams).pipe(
+      const key = this.getLandingPageUrl(lang, path);
+      if (!this.pageCache.has(key)) {
+        this.pageCache.set(
+          key,
+          this.http.get<IPage>(key).pipe(
+            retry({ count: 1, delay: 500 }),
+            catchError(error => {
+              console.error('Failed to load page content:', error);
+              return of({} as IPage);
+            }),
+            shareReplay(1)
+          )
+        );
+      }
+      return this.pageCache.get(key)!.pipe(
         tap(page => {
           this.updatePage(page);
           this.logContent(pageUrl);
-        }),
-        catchError(() => {
-          return this.http.get<any>(`${this.apiUrl}${landingPath}/404`);
         })
       );
     } else {
-      return this.http.get<any>(`${this.apiUrl}/assets/app${lang}${pageUrl}.json`).pipe(
-        tap(page => {
-          this.updatePage(page);
-        }),
-        catchError(() => {
-          return this.http.get<any>(`${this.apiUrl}/assets/app/404.json`);
-        })
+      return this.http.get<IPage>(`${this.apiUrl}/assets/app${lang}${pageUrl}.json`).pipe(
+        tap(page => this.updatePage(page)),
+        catchError(() => this.http.get<IPage>(`${this.apiUrl}/assets/app/404.json`))
       );
     }
   }
@@ -64,40 +79,70 @@ export class ContentService extends ApiService {
   logContent(url: string): void {
     if (this.coreConfig?.log?.content?.enabel) {
       const { api } = this.coreConfig.log.content;
-      this.http.get(`${api}?location=${url}`).pipe(take(1)).subscribe();
+      this.http
+        .get(appendQueryParams(api, { location: url }))
+        .pipe(take(1))
+        .subscribe();
     }
   }
 
-  loadBranding(): Observable<IBranding> {
-    const { lang } = this.getUrlPath(this.pageUrl);
-    return this.http
-      .get<IBranding>(`${this.apiUrl}${lang}/api/v3/landingPage?content=/core/branding`)
-      .pipe(catchError(() => of({} as IBranding)));
+  loadBranding(pageUrl = this.pageUrl): Observable<IBranding> {
+    const { lang } = this.getUrlPath(pageUrl);
+    return this.http.get<IBranding>(this.getLandingPageUrl(lang, '/core/branding')).pipe(
+      retry({ count: 1, delay: 500 }),
+      catchError(error => {
+        console.error('Failed to load branding:', error);
+        return of({} as IBranding);
+      })
+    );
   }
 
-  loadConfig(coreConfig: object): any {
-    const { lang } = this.getUrlPath(this.pageUrl);
-    const configPath = `${this.apiUrl}${lang}/api/v3/landingPage?content=/core/base`;
-    if (!this.coreConfigCache) {
-      this.coreConfigCache = this.http.get<ICoreConfig>(configPath).pipe(
-        catchError(error => {
-          console.error('base json not found:', error);
-          return of({} as ICoreConfig);
-        }),
-        shareReplay(1)
+  loadConfig(coreConfig: object, pageUrl = this.pageUrl): Promise<void> {
+    const { lang } = this.getUrlPath(pageUrl);
+    const configPath = this.getLandingPageUrl(lang, '/core/base');
+    this.activeConfigPath = configPath;
+    if (!this.coreConfigCache.has(configPath)) {
+      this.coreConfigCache.set(
+        configPath,
+        this.http.get<ICoreConfig>(configPath).pipe(
+          retry({ count: 2, delay: 1000 }),
+          catchError(error => {
+            console.error('base json not found:', error);
+            return of({} as ICoreConfig);
+          }),
+          shareReplay(1)
+        )
       );
     }
-    return lastValueFrom(this.coreConfigCache).then((config: ICoreConfig) => {
-      Object.assign(coreConfig, config);
-      this.apiService.configLoadDone$.next(true);
-    });
+    return lastValueFrom(this.coreConfigCache.get(configPath) as Observable<ICoreConfig>)
+      .then((config: ICoreConfig) => {
+        if (this.activeConfigPath !== configPath) {
+          return;
+        }
+        this.replaceConfig(coreConfig, config);
+        this.apiService.configLoadDone$.next(true);
+      })
+      .catch(error => {
+        console.error('Failed to load config, using defaults:', error);
+        if (this.activeConfigPath === configPath) {
+          this.apiService.configLoadDone$.next(true);
+        }
+      });
   }
 
-  loadUIUX(): Observable<any[]> {
+  private replaceConfig(coreConfig: object, config: ICoreConfig): void {
+    const target = coreConfig as Record<string, unknown>;
+    Object.keys(target).forEach(key => {
+      delete target[key];
+    });
+    Object.assign(target, config);
+  }
+
+  loadUIUX(): Observable<IUiux[]> {
     const { lang } = this.getUrlPath(this.pageUrl);
     const api = `${this.apiUrl}${lang}/api/v3/node/component`;
     if (!this.uiuxCache) {
-      this.uiuxCache = this.http.get<any[]>(api).pipe(
+      this.uiuxCache = this.http.get<IUiux[]>(api).pipe(
         catchError(() => of([])),
         shareReplay(1)
       );
@@ -108,18 +153,37 @@ export class ContentService extends ApiService {
   loadBuilderConfig(): Observable<IBuilderConfig> {
     if (!this.builderConfigCache) {
       const { lang } = this.getUrlPath(this.pageUrl);
-      this.builderConfigCache = this.loadJSON(`${lang}/core/builder`).pipe(shareReplay(1));
+      this.builderConfigCache = this.loadJSON<IBuilderConfig>(`${lang}/core/builder`).pipe(
+        shareReplay(1)
+      );
     }
     return this.builderConfigCache;
   }
 
-  loadJSON(jsonPath: string): Observable<any> {
+  loadJSON<T extends JsonValue | object = JsonValue>(jsonPath: string): Observable<T> {
     const { lang, path } = this.getUrlPath(jsonPath);
     const apiPath = environment.production
-      ? `${this.apiUrl}${lang}/api/v3/landingPage?content=${path}&nocache=true`
+      ? this.getLandingPageUrl(lang, path, { nocache: true })
       : `${this.apiUrl}/assets/app${lang}${path}.json`;
 
-    return this.http.get<any>(apiPath);
+    return this.http.get<T>(apiPath);
+  }
+
+  private getLandingPageUrl(lang: string, contentPath: string, params: QueryParams = {}): string {
+    const { content, queryParams } = this.splitContentPath(contentPath);
+    return appendQueryParams(`${this.apiUrl}${lang}/api/v3/landingPage`, {
+      content,
+      ...queryParams,
+      ...params,
+    });
+  }
+
+  private splitContentPath(contentPath: string): { content: string; queryParams: QueryParams } {
+    const [content, ...queryParts] = contentPath.split('&');
+    return {
+      content,
+      queryParams: queryParts.length > 0 ? queryStringToParams(queryParts.join('&')) : {},
+    };
   }
 
   setBodyClasses(theme: string): void {
@@ -127,21 +191,18 @@ export class ContentService extends ApiService {
     body.classList.add(theme);
   }
 
-  getRepository(owner: string, repo: string, token: string): Observable<any> {
+  getRepository(owner: string, repo: string, token: string): Observable<GithubRepository> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     });
 
     return this.http
-      .get(`https://api.github.com/repos/${owner}/${repo}`, {
+      .get<GithubRepository>(`https://api.github.com/repos/${owner}/${repo}`, {
         headers,
       })
       .pipe(
-        map((rep: any) => {
-          return rep;
-        }),
-        catchError(err => {
+        catchError(() => {
           return of({
             html_url: '',
             stargazers_count: 0,

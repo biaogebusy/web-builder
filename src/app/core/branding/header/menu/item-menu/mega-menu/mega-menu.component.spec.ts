@@ -8,7 +8,7 @@ describe('MegaMenuComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [MegaMenuComponent],
+      imports: [MegaMenuComponent],
     }).compileComponents();
   });
 

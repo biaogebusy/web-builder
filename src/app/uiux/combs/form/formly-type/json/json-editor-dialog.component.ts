@@ -55,7 +55,9 @@ export class JsonEditorDialogComponent implements AfterViewInit {
     if (initial !== undefined && initial !== null && initial !== '') {
       try {
         this.editor.set(initial);
-      } catch (e) {}
+      } catch {
+        // value not valid JSON yet
+      }
     }
   }
 

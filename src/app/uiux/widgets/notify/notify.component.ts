@@ -1,5 +1,5 @@
-import { AsyncPipe, DatePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, DestroyRef, computed, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,7 +12,6 @@ import { INotify } from '@core/interface/widgets/IWidgets';
 import { NodeService } from '@core/service/node.service';
 import { CORE_CONFIG, NOTIFY_CONTENT } from '@core/token/token-providers';
 import { NgPipesModule } from 'ngx-pipes';
-import { Observable } from 'rxjs';
 import { IconComponent } from '../icon/icon.component';
 import { LinkComponent } from '../link/link.component';
 
@@ -22,7 +21,6 @@ import { LinkComponent } from '../link/link.component';
   styleUrls: ['./notify.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    AsyncPipe,
     DatePipe,
     MatBadgeModule,
     MatButtonModule,
@@ -37,7 +35,11 @@ import { LinkComponent } from '../link/link.component';
 })
 export class NotifyComponent {
   public coreConfig = inject<ICoreConfig>(CORE_CONFIG);
-  public notify$ = inject<Observable<INotify[]>>(NOTIFY_CONTENT);
+  public notify = inject(NOTIFY_CONTENT);
+  public lists = computed(() => {
+    const v = this.notify();
+    return Array.isArray(v) ? v : undefined;
+  });
 
   private nodeService = inject(NodeService);
   private destroyRef = inject(DestroyRef);

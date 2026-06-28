@@ -8,7 +8,7 @@ describe('BgImgComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [BgImgComponent],
+      imports: [BgImgComponent],
     }).compileComponents();
   });
 

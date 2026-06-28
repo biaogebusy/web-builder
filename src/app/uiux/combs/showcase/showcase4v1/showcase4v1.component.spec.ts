@@ -8,7 +8,7 @@ describe('Showcase4v1Component', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [Showcase4v1Component],
+      imports: [Showcase4v1Component],
     }).compileComponents();
   });
 

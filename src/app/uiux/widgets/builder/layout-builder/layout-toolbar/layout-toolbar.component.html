@@ -1,6 +1,7 @@
 <div
   class="layout-toolbar"
   #toolbar
+  aria-hidden="true"
   (click)="hiddenWidgetPicker()"
 >
   <app-btn
@@ -23,7 +24,7 @@
       (click)="onMoveCol('left', elements, toolbar, i())"
     >
       <div class="menu-item-inner">
-        <app-icon [content]="{ svg: 'chevron-left' }"></app-icon>
+        <app-icon [content]="{ svg: 'chevron-left' }" />
         <span>左移</span>
       </div>
     </button>
@@ -33,27 +34,27 @@
       (click)="onMoveCol('right', elements, toolbar, i())"
     >
       <div class="menu-item-inner">
-        <app-icon [content]="{ svg: 'chevron-right' }"></app-icon>
+        <app-icon [content]="{ svg: 'chevron-right' }" />
         <span>右移</span>
       </div>
     </button>
     <mat-divider />
     <button mat-menu-item (click)="addBlock('layout', lbContent())">
       <div class="menu-item-inner">
-        <app-icon [content]="{ svg: 'plus' }"></app-icon>
+        <app-icon [content]="{ svg: 'plus' }" />
         <span>选择组件插入新一栏</span>
       </div>
     </button>
     <button mat-menu-item (click)="onDeleteRow(toolbar)">
       <div class="menu-item-inner">
-        <app-icon [content]="{ svg: 'close' }"></app-icon>
+        <app-icon [content]="{ svg: 'close' }" />
         <span>移除当前栏</span>
       </div>
     </button>
     <mat-divider />
     <button mat-menu-item (click)="onLayoutSettings(layout(), toolbar)">
       <div class="menu-item-inner">
-        <app-icon [content]="{ svg: 'responsive' }"></app-icon>
+        <app-icon [content]="{ svg: 'responsive' }" />
         <span>当前栏配置</span>
       </div>
     </button>

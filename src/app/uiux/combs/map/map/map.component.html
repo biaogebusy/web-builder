@@ -4,7 +4,7 @@
       <app-loading />
     </div>
   }
-  <div id="map" class="map-canvas" (click)="onMarkLink($event)"></div>
+  <div id="map" class="map-canvas" tabindex="-1" (click)="onMarkLink($event)" (keyup.enter)="onMarkLink($event)"></div>
   <button (click)="setFitView()" class="set-fit-view" mat-fab color="primary">
     <mat-icon>filter_center_focus</mat-icon>
   </button>

@@ -4,7 +4,7 @@ import {
   computed,
   inject,
   signal,
-  ChangeDetectionStrategy,
+  ChangeDetectionStrategy, OnInit,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
@@ -31,7 +31,7 @@ interface IScanStatus {
   styleUrls: ['./dialog-repeat.component.scss'],
   imports: [FormlyModule, MatExpansionModule, MatIconModule, MatButtonModule],
 })
-export class DialogRepeatComponent extends FieldArrayType {
+export class DialogRepeatComponent extends FieldArrayType implements OnInit {
   private dialog = inject(MatDialog);
   private destroyRef = inject(DestroyRef);
 

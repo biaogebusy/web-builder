@@ -3,7 +3,7 @@
   @let params = pageHeader?.params;
   @let banner = pageHeader?.banner;
   @let top = pageHeader?.top;
-  @let headerMode = (contentState.pageConfig$ | async)?.headerMode;
+  @let headerMode = pageHeaderMode();
   <header
     [class.transparent-mode]="headerMode?.transparent"
     [class.header-inverse]="params?.inverse"

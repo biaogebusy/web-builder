@@ -7,6 +7,7 @@ import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { FormModule } from '@uiux/combs/form/form.module';
 import type { ILayoutSetting } from '@core/interface/IBuilder';
+import type { IDynamicInputs } from '@core/interface/IAppConfig';
 import { IDialog } from '@core/interface/IDialog';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 import { BuilderState } from '@core/state/BuilderState';
@@ -44,22 +45,22 @@ export class LayoutSettingComponent {
     }
   }
 
-  drop(event: CdkDragDrop<string[]>): void {
+  drop(event: CdkDragDrop<IDynamicInputs[]>): void {
     const { path, content } = this.content();
-    moveItemInArray(this.content().content.elements, event.previousIndex, event.currentIndex);
+    moveItemInArray(content.elements ?? [], event.previousIndex, event.currentIndex);
     if (path) {
       this.builder.updatePageContentByPath(path, content);
     }
   }
 
-  onCopy(elements: any[], index: number): void {
+  onCopy(elements: IDynamicInputs[], index: number): void {
     const lists = [...elements];
     const path = this.content().path;
     lists.splice(index, 0, cloneDeep(lists[index]));
     this.builder.updatePageContentByPath(`${path}.elements`, lists);
   }
 
-  onDelete(elements: any[], index: number): void {
+  onDelete(elements: IDynamicInputs[], index: number): void {
     const lists = [...elements];
     const path = this.content().path;
     lists.splice(index, 1);

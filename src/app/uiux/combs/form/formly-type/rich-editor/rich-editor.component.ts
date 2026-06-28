@@ -1,4 +1,4 @@
-import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy, AfterViewInit } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { chunkHTMLByBlocks, lazyLoadContent } from '@core/util/html-chunk.util';
@@ -12,7 +12,7 @@ import { QuillModule } from 'ngx-quill';
   styleUrl: './rich-editor.component.scss',
   imports: [QuillModule, FormlyModule],
 })
-export class RichEditorComponent extends FieldType<FieldTypeConfig> {
+export class RichEditorComponent extends FieldType implements AfterViewInit {
   private value: any;
   private util = inject(UtilitiesService);
   private nodeService = inject(NodeService);

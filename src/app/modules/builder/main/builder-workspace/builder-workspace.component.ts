@@ -10,7 +10,6 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_CONFIG, BUILDER_FULL_SCREEN, CORE_CONFIG } from '@core/token/token-providers';
 import { LocalStorageService } from 'ngx-webstorage';
-import { Observable } from 'rxjs';
 import { TagsService } from '@core/service/tags.service';
 import { ScreenService } from '@core/service/screen.service';
 import { TourService } from '@core/service/tour.service';
@@ -40,10 +39,8 @@ import { BuilderListComponent } from '../builder-list/builder-list.component';
 export class BuilderWorkspaceComponent implements AfterViewInit, OnInit {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   private doc = inject<Document>(DOCUMENT);
-  private builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
-  public builderFullScreen$ = inject<Observable<boolean>>(BUILDER_FULL_SCREEN);
-
-  private builderFullScreen: boolean;
+  private builderConfig = inject(BUILDER_CONFIG);
+  public builderFullScreen = inject(BUILDER_FULL_SCREEN);
 
   public builder = inject(BuilderState);
   private utli = inject(UtilitiesService);
@@ -60,8 +57,8 @@ export class BuilderWorkspaceComponent implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
     if (this.coreConfig.builder?.enable) {
-      this.builderFullScreen = this.storage.retrieve('builderFullScreen');
-      if (!this.builderFullScreen) {
+      const stored = this.storage.retrieve('builderFullScreen');
+      if (!stored) {
         this.storage.store('builderFullScreen', false);
       }
       this.builder.animateDisable$.next(true);
@@ -72,9 +69,12 @@ export class BuilderWorkspaceComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit(): void {
     if (this.screenSerivce.isPlatformBrowser()) {
-      this.builderConfig$
+      this.builderConfig
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((config: IBuilderConfig) => {
+          if (!config) {
+            return;
+          }
           const { tour } = config;
           if (tour?.enable) {
             this.tourService.init(tour);
@@ -95,3 +95,4 @@ export class BuilderWorkspaceComponent implements AfterViewInit, OnInit {
     });
   }
 }
+

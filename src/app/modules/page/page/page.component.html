@@ -8,8 +8,8 @@
   <mat-drawer-content id="main-container">
     <app-header />
     <div class="page">
-      @if (pageContent$ | async; as page) {
-        @if ((user$ | async) && page.nid) {
+      @if (pageContent(); as page) {
+        @if (user() && page.nid) {
           <div class="page-toolbar">
             <app-btn
               (click)="onEdit(page.nid)"

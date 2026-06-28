@@ -18,7 +18,8 @@ import {
   signal,
   untracked,
   ChangeDetectionStrategy,
-  viewChild
+  Type,
+  viewChild,
 } from '@angular/core';
 import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -44,7 +45,7 @@ import { BgImgComponent } from '../../bg-img/bg-img.component';
   },
 })
 export class DynamicComponentComponent implements OnInit, AfterViewInit, OnDestroy {
-  readonly inputs = input.required<IDynamicInputs>();
+  readonly inputs = input.required<object>();
   private readonly container = viewChild('componentContainer', { read: ViewContainerRef });
 
   private ele = inject(ElementRef);
@@ -55,10 +56,11 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnDestr
   private readonly renderer = inject(Renderer2);
   private readonly environmentInjector = inject(EnvironmentInjector);
   private readonly pendingTasks = inject(PendingTasks);
-  public componentRef: ComponentRef<unknown> | ComponentRef<any> | undefined | any;
-  public compContent = signal<any>({});
+  public componentRef: ComponentRef<unknown> | undefined;
+  public compContent = signal<IDynamicInputs>({});
 
   private initialized = false;
+  private lastLoadedType: string | null = null;
 
   constructor() {
     afterNextRender(() => {
@@ -78,7 +80,7 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   ngOnInit(): void {
-    const inputs = this.inputs();
+    const inputs = this.asDynamicInputs(this.inputs());
     if (inputs) {
       const content = inputs.type ? inputs : inputs.content;
       if (content) {
@@ -103,11 +105,36 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnDestr
       if (!inputs) {
         return;
       }
-      const type = inputs.type ?? inputs.content?.type ?? null;
+      const inputContent = this.asDynamicInputs(inputs);
+      const type = inputContent.type ?? inputContent.content?.type ?? null;
       if (!type) {
         return;
       }
-      const content = inputs.type ? inputs : inputs.content;
+      const content = inputContent.type ? inputContent : inputContent.content;
+      if (!content) {
+        return;
+      }
+
+      if (type === this.lastLoadedType && this.componentRef?.instance) {
+        this.compContent.set(content);
+        const declaredInputs = this.getDeclaredInputs(this.componentRef.componentType);
+        const trySet = (key: string, val: unknown) => {
+          if (Object.prototype.hasOwnProperty.call(declaredInputs, key)) {
+            this.componentRef!.setInput(key, val);
+          } else {
+            Object.assign(this.componentRef!.instance as object, { [key]: val });
+          }
+        };
+        if (!inputContent.type && inputContent.content) {
+          const inputRecord = inputContent as Record<string, unknown>;
+          Object.keys(inputContent).forEach(key => trySet(key, inputRecord[key]));
+        } else {
+          trySet('content', inputContent);
+        }
+        this.componentRef.changeDetectorRef.detectChanges();
+        return;
+      }
+
       this.container()!.clear();
       this.compContent.set(content);
       if (content.containerClasses) {
@@ -115,44 +142,55 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnDestr
         this.ele.nativeElement.classList.add(...classes);
       }
 
-      const componentType = await this.componentService.getComponentType(type);
+      let componentType: Type<unknown>;
+      try {
+        componentType = await this.componentService.getComponentType(type);
+      } catch (error) {
+        console.error(`Failed to load component type "${type}":`, error);
+        // Render fallback or skip silently to prevent SSR crash
+        return;
+      }
+
       if (!componentType) {
         console.error('无法识别该组件：', inputs);
         return;
       }
       const hostElement = this.renderer.createElement('div');
-      this.componentRef = createComponent(componentType, {
+      const componentRef = createComponent(componentType, {
         environmentInjector: this.environmentInjector,
         hostElement,
       });
-      if (this.componentRef?.instance) {
+      this.componentRef = componentRef;
+      this.lastLoadedType = type;
+      if (componentRef.instance) {
         // 读取组件声明的 inputs（Angular 内部元信息）以避免触发 NG0303
-        const declaredInputs: Record<string, unknown> =
-          (componentType as any)?.ɵcmp?.inputs ?? {};
-        const trySet = (key: string, value: any) => {
+        const declaredInputs = this.getDeclaredInputs(componentType);
+        const trySet = (key: string, value: unknown) => {
           if (Object.prototype.hasOwnProperty.call(declaredInputs, key)) {
-            this.componentRef.setInput(key, value);
+            componentRef.setInput(key, value);
           } else {
             // 不是声明的 input，回退到直接赋值（用于普通属性或外部 Subject 之类）
-            this.componentRef.instance[key] = value;
+            Object.assign(componentRef.instance as object, { [key]: value });
           }
         };
-        if (!inputs.type && inputs.content) {
-          Object.keys(inputs).forEach(key => {
-            trySet(key, (inputs as any)[key]);
+        if (!inputContent.type && inputContent.content) {
+          const inputRecord = inputContent as Record<string, unknown>;
+          Object.keys(inputContent).forEach(key => {
+            trySet(key, inputRecord[key]);
           });
         } else {
-          trySet('content', inputs);
+          trySet('content', inputContent);
         }
       }
 
-      this.container()!.insert(this.componentRef.hostView);
-      this.componentRef.changeDetectorRef.detectChanges();
+      this.container()!.insert(componentRef.hostView);
+      componentRef.changeDetectorRef.detectChanges();
       if (this.screenService.isPlatformBrowser()) {
-        this.util.initAnimate(inputs, this.ele.nativeElement, this.ele.nativeElement);
+        this.util.initAnimate(inputContent, this.ele.nativeElement, this.ele.nativeElement);
       }
     } catch (error) {
-      console.error(error);
+      console.error('Error loading dynamic component:', error);
+      // Ensure we don't crash the entire SSR render
     }
   }
 
@@ -161,5 +199,18 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnDestr
     if (this.componentRef) {
       this.componentRef.destroy();
     }
+  }
+
+  private getDeclaredInputs(componentType: Type<unknown>): Record<string, unknown> {
+    const componentDef = componentType as Type<unknown> & {
+      ɵcmp?: {
+        inputs?: Record<string, unknown>;
+      };
+    };
+    return componentDef.ɵcmp?.inputs ?? {};
+  }
+
+  private asDynamicInputs(value: object): IDynamicInputs {
+    return value as IDynamicInputs;
   }
 }

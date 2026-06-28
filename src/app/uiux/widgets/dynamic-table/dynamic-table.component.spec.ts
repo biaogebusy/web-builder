@@ -8,7 +8,7 @@ describe('DynamicTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DynamicTableComponent],
+      imports: [DynamicTableComponent],
     }).compileComponents();
   });
 

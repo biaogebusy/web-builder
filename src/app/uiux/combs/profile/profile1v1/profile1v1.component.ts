@@ -4,7 +4,9 @@ import {
   Component,
   DestroyRef,
   OnInit,
+  effect,
   inject,
+  Injector,
   ChangeDetectionStrategy,
   input
 } from '@angular/core';
@@ -60,6 +62,7 @@ export class Profile1v1Component implements OnInit, AfterViewInit {
   nodeService = inject(NodeService);
   contentState = inject(ContentState);
   private destroyRef = inject(DestroyRef);
+  private injector = inject(Injector);
 
   ngOnInit(): void {
     const content = this.content();
@@ -77,13 +80,14 @@ export class Profile1v1Component implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.contentState.commentChange$
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(state => {
-          if (state) {
+      effect(
+        () => {
+          if (this.contentState.commentChange()) {
             this.getComments(+new Date());
           }
-        });
+        },
+        { injector: this.injector }
+      );
     }
   }
 

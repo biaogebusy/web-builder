@@ -1,7 +1,7 @@
 @if (content(); as contentValue) {
   <div class="tab" [class]="{ pills: contentValue.pills }">
     @if (contentValue.id) {
-      <a class="anchor" [id]="contentValue.id"></a>
+      <a class="anchor" [id]="contentValue.id" aria-hidden="true"></a>
     }
     <app-spacer [size]="contentValue.spacer || 'md'" />
     <div class="{{ contentValue.fullWidth ? '' : 'container' }}">

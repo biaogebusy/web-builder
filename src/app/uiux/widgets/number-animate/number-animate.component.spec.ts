@@ -8,7 +8,7 @@ describe('NumberAnimateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [NumberAnimateComponent],
+      imports: [NumberAnimateComponent],
     }).compileComponents();
   });
 

@@ -8,7 +8,7 @@ describe('SearchHeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SearchHeaderComponent],
+      imports: [SearchHeaderComponent],
     }).compileComponents();
   });
 

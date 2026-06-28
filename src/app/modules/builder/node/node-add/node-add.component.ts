@@ -26,7 +26,7 @@ export class NodeAddComponent implements OnInit {
   private nodeService = inject(NodeService);
   private tagsService = inject(TagsService);
   private activateRoute = inject(ActivatedRoute);
-  public user$ = inject(USER);
+  public user = inject(USER);
   private util = inject(UtilitiesService);
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);
@@ -74,7 +74,7 @@ export class NodeAddComponent implements OnInit {
     }
     const type = this.type();
     switch (type) {
-      case 'json':
+      case 'json': {
         const { title, body } = value;
         this.nodeService
           .addEntity(`/api/v1/node/${type}`, {
@@ -87,6 +87,7 @@ export class NodeAddComponent implements OnInit {
             this.router.navigate(['/builder/settings']);
           });
         break;
+      }
     }
   }
 }

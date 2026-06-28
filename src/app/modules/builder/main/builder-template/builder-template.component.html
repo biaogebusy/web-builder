@@ -3,7 +3,7 @@
     <app-icon
       [matTooltip]="'BUILDER.TEMPLATE.TIP_TOOLTIP' | translate"
       [content]="{ svg: 'help-circle-outline' }"
-    ></app-icon>
+    />
   </div>
   @if (loading) {
     <div class="spinner">
@@ -13,7 +13,7 @@
   @if (content$ | async; as content) {
     @for (item of content; track item) {
       <div class="item">
-        <div class="card" (click)="onNewPage(item)" matRipple>
+        <div class="card" role="button" tabindex="0" (click)="onNewPage(item)" (keyup.enter)="onNewPage(item)" matRipple>
           <div class="card-header">
             <div class="title">{{ item.title }}</div>
             <div class="sub-title">{{ item.description }}</div>

@@ -51,7 +51,7 @@ import { TextComponent } from '../text/text.component';
   ],
 })
 export class ViewListComponent extends BaseComponent implements OnInit, AfterViewInit {
-  private user$ = inject<Observable<IUser>>(USER);
+  private user = inject(USER);
 
   readonly content = input<IViewList>();
   readonly form = input(new UntypedFormGroup({
@@ -64,7 +64,6 @@ export class ViewListComponent extends BaseComponent implements OnInit, AfterVie
   public noAuth: boolean;
   public canShow = false;
   private first = true;
-  private user: IUser;
 
   private cd = inject(ChangeDetectorRef);
   private nodeService = inject(NodeService);
@@ -73,12 +72,8 @@ export class ViewListComponent extends BaseComponent implements OnInit, AfterVie
   private screenService = inject(ScreenService);
   private userSerivice = inject(UserService);
   private destroyRef = inject(DestroyRef);
-
   constructor() {
     super();
-    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
-      this.user = user;
-    });
   }
 
   ngOnInit(): void {
@@ -95,7 +90,7 @@ export class ViewListComponent extends BaseComponent implements OnInit, AfterVie
 
   ngAfterViewInit(): void {
     const emptyHidden = this.getParams(this.content(), 'emptyHidden');
-    if (this.userSerivice.checkShow(this.content(), this.user) && !emptyHidden) {
+    if (this.userSerivice.checkShow(this.content(), this.user() as IUser) && !emptyHidden) {
       this.canShow = true;
       this.cd.detectChanges();
     }
@@ -106,7 +101,7 @@ export class ViewListComponent extends BaseComponent implements OnInit, AfterVie
   }
 
   getViews(options = {}): void {
-    const isRole = this.userSerivice.checkShow(this.content(), this.user);
+    const isRole = this.userSerivice.checkShow(this.content(), this.user() as IUser);
     if (!isRole) {
       this.canShow = false;
       this.cd.detectChanges();

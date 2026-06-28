@@ -1,4 +1,4 @@
-@let builderConfig = builderConfig$ | async;
+@let config = builderConfig$ | async;
 @if (screenService.isPlatformBrowser()) {
   <div class="code-editor-btns">
     <app-btn
@@ -14,7 +14,7 @@
         (isMore() ? 'BUILDER.CODE_EDITOR.EXPAND' : 'BUILDER.CODE_EDITOR.COLLAPSE') | translate
       "
       matTooltipPosition="above"
-    ></app-btn>
+    />
     <app-btn
       class="set-bottom"
       (click)="toggleCollapse()"
@@ -28,7 +28,7 @@
           | translate
       "
       matTooltipPosition="above"
-    ></app-btn>
+    />
   </div>
   <div class="toolbar">
     <div class="toolbar-label">
@@ -61,7 +61,7 @@
         </button>
       </div>
     }
-    @if (builderConfig?.codeEditor?.help) {
+    @if (config?.codeEditor?.help) {
       <app-btn
         class="btn-help"
         [content]="{
@@ -69,10 +69,10 @@
           mode: 'icon',
           icon: { svg: 'tooltip-question-outline' },
         }"
-        (click)="showHelp(builderConfig?.codeEditor?.help)"
+        (click)="showHelp(config?.codeEditor?.help)"
         [matTooltip]="'BUILDER.CODE_EDITOR.VIEW_SYNTAX' | translate"
         matTooltipPosition="above"
-      ></app-btn>
+      />
     }
   </div>
   <div class="code-editor" [class.collapse]="isCollapse()" [class]="isMore() ? 'more' : 'less'">

@@ -1,12 +1,12 @@
 <div class="builder-workspace">
   <app-builder-toolbar class="toolbar-host" />
   <mat-drawer-container class="builder-main">
-    <mat-drawer #drawer class="sidebar" mode="side" [opened]="!(builderFullScreen$ | async)">
+    <mat-drawer #drawer class="sidebar" mode="side" [opened]="builderFullScreen() === false">
       <router-outlet />
       <app-builder-version />
     </mat-drawer>
     <mat-drawer-content class="preview-content">
-      @if (builder.showcase$ | async; as showcase) {
+      @if (builder.currentShowcase(); as showcase) {
         <app-builder-showcase [content]="showcase" />
       }
       <app-builder-list />

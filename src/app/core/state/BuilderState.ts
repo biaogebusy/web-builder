@@ -1,6 +1,6 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Injectable, inject, DOCUMENT, DestroyRef } from '@angular/core';
-import { IPage } from '@core/interface/IAppConfig';
+import { Injectable, inject, signal, DOCUMENT, DestroyRef } from '@angular/core';
+import { IDynamicInputs, IPage } from '@core/interface/IAppConfig';
 import {
   IBuilderComponent,
   IBuilderDynamicContent,
@@ -10,8 +10,8 @@ import {
 import { ICard1v1 } from '@core/interface/widgets/ICard';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { LocalStorageService } from 'ngx-webstorage';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { cloneDeep, get, map, set } from 'lodash-es';
+import { Subject } from 'rxjs';
+import { cloneDeep, get, map } from 'lodash-es';
 
 import { ScreenService } from '@core/service/screen.service';
 import { ISelectedMedia } from '@core/interface/manage/IManage';
@@ -25,16 +25,22 @@ import { IDialog } from '@core/interface/IDialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IComponentToolbar } from '@core/interface/combs/IBuilder';
 
+export interface IBuilderPendingPageLoad {
+  nid: string;
+  langcode?: string;
+  quickEdit?: boolean;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class BuilderState {
   private doc = inject<Document>(DOCUMENT);
 
-  public fixedShowcase = false;
-  public fixedContent: ICard1v1 | null;
-  public showcase$ = new Subject<IBuilderShowcase | false>();
-  public themeMode = new BehaviorSubject<'light' | 'dark'>('light');
+  public fixedShowcase = signal(false);
+  public fixedContent = signal<ICard1v1 | null>(null);
+  public currentShowcase = signal<IBuilderShowcase | false>(false);
+  public themeMode = signal<'light' | 'dark'>('light');
   public rightContent$ = new Subject<IBuilderDynamicContent>();
   public closeRightDrawer$ = new Subject<boolean>();
   public fixedChange$ = new Subject<boolean>();
@@ -44,21 +50,20 @@ export class BuilderState {
   public selectedMedia$ = new Subject<ISelectedMedia>();
   public switchPreivew$ = new Subject<'xs' | 'sm' | 'md' | 'xs-md' | 'none'>();
   public revealCode$ = new Subject<string>();
-  // 当前代码编辑器正在编辑的组件路径
-  public editingCodePath: string | null = null;
+  public pendingPageLoad = signal<IBuilderPendingPageLoad | null>(null);
 
-  public loading$ = new BehaviorSubject<boolean>(true);
+  public loading = signal(true);
   public updateSuccess$ = new Subject<boolean>();
   public COPYCOMPONENTKEY = 'cck';
   public COPYWIDGETKEY = 'cwk';
   private destroyRef = inject(DestroyRef);
 
-  private page: IPage = {
+  private defaultPage: IPage = {
     title: '着陆页',
     body: [],
   };
 
-  public version: IPage[] = [];
+  public version = signal<IPage[]>([]);
 
   versionKey = 'version';
 
@@ -67,23 +72,36 @@ export class BuilderState {
   private sreenService = inject(ScreenService);
   private storage = inject(LocalStorageService);
 
+  // code-editor 当前正在编辑的组件路径,跨外部调用方读取
+  public editingCodePath = signal<string | null>(null);
+
   constructor() {
     const localVersion = this.storage.retrieve(this.versionKey);
     if (localVersion) {
-      this.version = localVersion;
-      this.loading$.next(false);
+      this.version.set(localVersion);
+      this.loading.set(false);
     } else {
-      this.initPage([{ ...this.page, current: true, time: new Date().toLocaleString() }]);
+      this.initPage([{ ...this.defaultPage, current: true, time: new Date().toLocaleString() }]);
     }
   }
 
+  queuePageLoad(page: IBuilderPendingPageLoad): void {
+    this.pendingPageLoad.set(page);
+  }
+
+  consumePageLoad(): IBuilderPendingPageLoad | null {
+    const page = this.pendingPageLoad();
+    this.pendingPageLoad.set(null);
+    return page;
+  }
+
   showcase(widget: any): void {
-    if (this.fixedShowcase) {
-      this.fixedContent = widget.content;
+    if (this.fixedShowcase()) {
+      this.fixedContent.set(widget.content);
     } else {
-      this.fixedContent = null;
+      this.fixedContent.set(null);
     }
-    this.showcase$.next({
+    this.currentShowcase.set({
       title: widget.content.type,
       card: {
         type: 'card-1v1',
@@ -94,13 +112,22 @@ export class BuilderState {
   }
 
   updateVersion(page: IPage): void {
-    this.version.unshift(page);
+    this.version.update(v => {
+      v.unshift(page);
+      return [...v];
+    });
     this.saveLocalVersions();
   }
 
   deleteLocalPage(index: number): void {
-    this.version.splice(index, 1);
-    this.version[0].current = true;
+    this.version.update(v => {
+      const next = [...v];
+      next.splice(index, 1);
+      if (next[0]) {
+        next[0].current = true;
+      }
+      return next;
+    });
     this.closeRightDrawer$.next(true);
     this.saveLocalVersions();
   }
@@ -130,14 +157,14 @@ export class BuilderState {
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(result => {
           if (result) {
-            this.version = [
+            this.version.set([
               {
                 title: '未命名',
                 body: [],
                 current: true,
                 time: new Date().toLocaleString(),
               },
-            ];
+            ]);
             this.closeRightDrawer$.next(true);
             this.saveLocalVersions();
           }
@@ -146,24 +173,29 @@ export class BuilderState {
   }
 
   saveLocalVersions(): void {
-    this.storage.store(this.versionKey, Object.assign([], this.version));
+    this.storage.store(this.versionKey, Object.assign([], this.version()));
   }
 
   initPage(version: IPage[]): void {
-    this.loading$.next(true);
-    this.version = version;
+    this.loading.set(true);
+    this.version.set(version);
     this.updatePage();
   }
 
   showVersionPage(index: number): void {
-    this.loading$.next(true);
+    this.loading.set(true);
     setTimeout(() => {
       // reset current
-      this.version.forEach(item => (item.current = false));
-      this.version[index].current = true;
+      this.version.update(list => {
+        const next = list.map(item => ({ ...item, current: false }));
+        if (next[index]) {
+          next[index].current = true;
+        }
+        return next;
+      });
 
       this.saveLocalVersions();
-      this.loading$.next(false);
+      this.loading.set(false);
     }, 600);
   }
 
@@ -174,18 +206,25 @@ export class BuilderState {
       if (index) {
         this.sreenService.scrollToAnchor(`item-${index}`);
       }
-      this.loading$.next(false);
+      this.loading.set(false);
     }, 600);
   }
 
   get currentPage(): IPage {
-    const currentIndex = this.version.findIndex(page => page.current === true);
-    return this.version[currentIndex] || this.version[0];
+    const list = this.version();
+    const currentIndex = list.findIndex(page => page.current === true);
+    return list[currentIndex] || list[0];
   }
 
   setCurrentPage(page: IPage): void {
-    const currentIndex = this.version.findIndex((item: IPage) => item.current === true);
-    this.version[currentIndex] = page;
+    this.version.update(list => {
+      const next = [...list];
+      const currentIndex = next.findIndex((item: IPage) => item.current === true);
+      if (next[currentIndex]) {
+        next[currentIndex] = page;
+      }
+      return next;
+    });
     this.saveLocalVersions();
   }
 
@@ -215,9 +254,13 @@ export class BuilderState {
   }
 
   pushComponent(content: any): void {
-    const { body } = this.currentPage;
     if (content && content.type) {
-      body.push(content);
+      this.version.update(list => {
+        const next = list.map(page =>
+          page.current ? { ...page, body: [...page.body, content] } : page
+        );
+        return next;
+      });
       this.saveLocalVersions();
     } else {
       this.util.openSnackbar('组件添加错误', 'ok');
@@ -242,11 +285,17 @@ export class BuilderState {
   }
 
   bulkUpdateComponent(content: object): void {
-    this.currentPage.body = this.currentPage.body.map(item => {
-      return {
-        ...item,
-        ...content,
+    this.version.update(list => {
+      const idx = list.findIndex(page => page.current === true);
+      if (idx === -1) {
+        return list;
+      }
+      const next = [...list];
+      next[idx] = {
+        ...next[idx],
+        body: next[idx].body.map(item => ({ ...item, ...content })),
       };
+      return next;
     });
     this.saveLocalVersions();
   }
@@ -257,42 +306,86 @@ export class BuilderState {
    * targetIndex: 1
    */
   updatePageContentByPath(path: string, content: any, addType?: 'add' | 'remove'): void {
-    const { body } = this.currentPage;
+    const currentPage = this.currentPage;
+    const { body } = currentPage;
     const lastDotIndex = path.lastIndexOf('.');
     const before = path.slice(0, lastDotIndex);
     const targetIndex = Number(path.slice(lastDotIndex + 1));
-    const targetArray = get(body, before);
+
+    let newBody: any[] = body;
 
     switch (addType) {
       case 'add':
         if (lastDotIndex !== -1) {
           // 对子级组件的数组操作
+          const targetArray = get(body, before);
           if (Array.isArray(targetArray)) {
-            targetArray.splice(targetIndex + 1, 0, content);
-            set(body, before, targetArray);
+            const nextArray = [
+              ...targetArray.slice(0, targetIndex + 1),
+              content,
+              ...targetArray.slice(targetIndex + 1),
+            ];
+            newBody = this.immutableSet(body, before, nextArray);
           }
         } else {
           // body 一级组件
-          body.splice(Number(path) + 1, 0, cloneDeep(content));
+          const index = Number(path);
+          newBody = [
+            ...body.slice(0, index + 1),
+            cloneDeep(content),
+            ...body.slice(index + 1),
+          ];
         }
         break;
       case 'remove':
         // 移除子级数组的组件
-        if (Array.isArray(targetArray)) {
-          targetArray.splice(targetIndex, 1);
-          set(body, before, targetArray);
+        {
+          const targetArray = get(body, before);
+          if (Array.isArray(targetArray)) {
+            const nextArray = [
+              ...targetArray.slice(0, targetIndex),
+              ...targetArray.slice(targetIndex + 1),
+            ];
+            newBody = this.immutableSet(body, before, nextArray);
+          }
         }
         break;
       default:
         // 根据路径直接覆盖，整个对象、某个属性等
-        set(body, path, content);
+        newBody = this.immutableSet(body, path, content);
         break;
     }
 
-    this.updatePage();
+    // 不可变更新：产生新的 page/body 引用，触发 currentPage signal 通知消费者重渲染
+    this.setCurrentPage({ ...currentPage, body: newBody });
   }
 
-  onDrop(event: CdkDragDrop<string[]>): void {
+  /**
+   * 沿 dotted path 不可变地写入 value，返回新的根数组。
+   * 路径上各级祖先都会产生新引用，便于 signal 通知与 @for track diff。
+   */
+  private immutableSet(root: any[], path: string, value: any): any[] {
+    if (!path) {
+      return value;
+    }
+    const keys = path.split('.');
+    let child = value;
+    for (let i = keys.length - 1; i >= 0; i--) {
+      const key = keys[i];
+      const parent = i === 0 ? root : get(root, keys.slice(0, i).join('.'));
+      const keyIndex = Number(key);
+      if (!isNaN(keyIndex) && Array.isArray(parent)) {
+        const arr = [...parent];
+        arr[keyIndex] = child;
+        child = arr;
+      } else {
+        child = { ...(parent || {}), [key]: child };
+      }
+    }
+    return child;
+  }
+
+  onDrop(event: CdkDragDrop<IDynamicInputs[]>): void {
     // 预览上下排序组件
     if (event.previousContainer === event.container) {
       this.dropComponent(event);
@@ -303,16 +396,16 @@ export class BuilderState {
     this.closeRightDrawer$.next(true);
   }
 
-  dropComponent(event: CdkDragDrop<string[]>): void {
+  dropComponent(event: CdkDragDrop<IDynamicInputs[]>): void {
     const { body } = this.currentPage;
     moveItemInArray(body, event.previousIndex, event.currentIndex);
     this.updatePage(event.currentIndex);
   }
 
   // 边栏拖动添加组件
-  transferComponet(event: CdkDragDrop<string[]>): void {
+  transferComponet(event: CdkDragDrop<IDynamicInputs[]>): void {
     const { body } = this.currentPage;
-    // base 和 component的数据结构不同，需要做判断
+    // base 和 component 数据结构不同，需要做判断
     const { data } = event.item;
     const component = data.type ? data : data.content;
     body.splice(event.currentIndex, 0, cloneDeep(component));
@@ -321,16 +414,18 @@ export class BuilderState {
 
   loadNewPage(page: IPage, close?: boolean): void {
     const currentPage = { ...page, current: true, time: new Date().toLocaleString() };
-    let somePageIndex = -1;
-    this.version.forEach(version => (version.current = false));
-    somePageIndex = this.version.findIndex(item => {
-      return item.uuid === page.uuid && item.langcode === page.langcode;
+    this.version.update(list => {
+      const next = list.map(version => ({ ...version, current: false }));
+      const somePageIndex = next.findIndex(item => {
+        return item.uuid === page.uuid && item.langcode === page.langcode;
+      });
+      if (somePageIndex > -1) {
+        next[somePageIndex] = currentPage;
+      } else {
+        next.unshift(currentPage);
+      }
+      return next;
     });
-    if (somePageIndex > -1) {
-      this.version[somePageIndex] = currentPage;
-    } else {
-      this.version.unshift(currentPage);
-    }
 
     this.closeRightDrawer$.next(close ?? true);
     this.saveLocalVersions();
@@ -357,9 +452,9 @@ export class BuilderState {
   }
 
   cancelFixedShowcase(): void {
-    this.showcase$.next(false);
-    this.fixedContent = null;
-    this.fixedShowcase = false;
+    this.currentShowcase.set(false);
+    this.fixedContent.set(null);
+    this.fixedShowcase.set(false);
     this.fixedChange$.next(true);
   }
 
@@ -428,8 +523,8 @@ export class BuilderState {
   }
 
   onNewPage(): void {
-    this.fixedShowcase = false;
-    this.showcase$.next(false);
+    this.fixedShowcase.set(false);
+    this.currentShowcase.set(false);
     const config: IDialog = {
       title: '选择模板创建页面',
       disableActions: true,
@@ -450,8 +545,8 @@ export class BuilderState {
   switchVersion(page: IPage, index: number): void {
     this.showVersionPage(index);
     this.closeRightDrawer$.next(true);
-    this.fixedShowcase = false;
-    this.showcase$.next(false);
+    this.fixedShowcase.set(false);
+    this.currentShowcase.set(false);
   }
 
   editorCode(component: IComponentToolbar, reveal?: string): void {
@@ -461,7 +556,7 @@ export class BuilderState {
       const existing = this.dialog.getDialogById('code-editor-dialog');
       if (existing) {
         // 同一组件：不重复弹出，仅在已开编辑器中定位
-        if (this.editingCodePath === path) {
+        if (this.editingCodePath() === path) {
           if (reveal) {
             this.revealCode$.next(reveal);
           }
@@ -472,7 +567,7 @@ export class BuilderState {
         existing.close();
         return;
       }
-      this.editingCodePath = path;
+      this.editingCodePath.set(path);
       const config: IDialog = {
         disableActions: true,
         inputData: {
@@ -509,7 +604,7 @@ export class BuilderState {
           });
 
         dialogRef.afterClosed().subscribe(() => {
-          this.editingCodePath = null;
+          this.editingCodePath.set(null);
           builderList.style.paddingBottom = '150px';
           this.fullScreen$.next(false);
         });

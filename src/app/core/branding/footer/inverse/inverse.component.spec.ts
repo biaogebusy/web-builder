@@ -8,7 +8,7 @@ describe('InverseComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [InverseComponent],
+      imports: [InverseComponent],
     }).compileComponents();
   });
 

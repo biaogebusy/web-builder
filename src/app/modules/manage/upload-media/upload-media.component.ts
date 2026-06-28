@@ -30,20 +30,15 @@ import { catchError, retry } from 'rxjs/operators';
   ],
 })
 export class UploadMediaComponent {
-  private user$ = inject<Observable<IUser>>(USER);
+  private user = inject(USER);
 
   public files = signal<IMediaAttr[]>([]);
   public filesEntry = signal<NgxFileDropEntry[]>([]);
   private util = inject(UtilitiesService);
   private nodeService = inject(NodeService);
   private destroyRef = inject(DestroyRef);
-  user: IUser;
 
-  constructor() {
-    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
-      this.user = user;
-    });
-  }
+  constructor() {  }
 
   async dropped(files: NgxFileDropEntry[]): Promise<void> {
     this.filesEntry.set(files);

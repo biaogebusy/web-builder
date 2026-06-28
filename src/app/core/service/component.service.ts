@@ -10,7 +10,7 @@ import {
 import { BaseModule } from '@uiux/base/base.module';
 
 // 定义类型
-type ModuleLoader = () => Promise<Type<any>>;
+type ModuleLoader = () => Promise<Type<unknown>>;
 
 // 模块配置接口
 interface ModuleConfig {
@@ -25,7 +25,7 @@ interface ModuleConfig {
 export class ComponentService {
   private readonly moduleLoaders = new Map<string, ModuleLoader>();
   private readonly componentToModule = new Map<string, string>();
-  private readonly moduleCache = new Map<string, Promise<NgModuleRef<any>>>();
+  private readonly moduleCache = new Map<string, Promise<NgModuleRef<unknown>>>();
   private readonly injector = inject(Injector);
   private doc = inject(DOCUMENT);
 
@@ -243,12 +243,13 @@ export class ComponentService {
   async getComponentType(type: string): Promise<Type<unknown>> {
     try {
       const moduleRef = await this.getModuleRef(type);
+      const moduleInstance = moduleRef.instance;
 
-      if (!(moduleRef.instance instanceof BaseModule)) {
+      if (!(moduleInstance instanceof BaseModule)) {
         throw new Error(`Module for component ${type} does not extend BaseModule`);
       }
       // 直接获取组件类（不再通过工厂）
-      const componentClass = moduleRef.instance.getComponentClass(type);
+      const componentClass = moduleInstance.getComponentClass(type);
 
       if (!componentClass) {
         throw new Error(`Component class for ${type} not found`);
@@ -261,12 +262,14 @@ export class ComponentService {
     }
   }
 
-  private async getModuleRef(type: string): Promise<NgModuleRef<any>> {
+  private async getModuleRef(type: string): Promise<NgModuleRef<unknown>> {
     const loader = this.moduleLoaders.get(type);
 
     if (!loader) {
       const pageUrl = this.doc.location.href;
-      throw new Error(`No module loader found for component ${type} from ${pageUrl}`);
+      const errorMsg = `No module loader found for component "${type}" from ${pageUrl}.`;
+      console.error(errorMsg);
+      throw new Error(errorMsg);
     }
 
     // 使用模块名作为缓存 key，同一模块只创建一个 NgModuleRef

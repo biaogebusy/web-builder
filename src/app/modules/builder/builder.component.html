@@ -1,7 +1,7 @@
 @let rightContent = builder.rightContent$ | async;
 <div
   class="builder-wrapper"
-  [class]="{ dark: (builder.themeMode | async) === 'dark' }"
+  [class]="{ dark: builder.themeMode() === 'dark' }"
 >
   <mat-drawer-container class="builder-drawer-container">
     <mat-drawer
@@ -16,7 +16,7 @@
     <mat-drawer-content #drawerContent class="drawer-content">
       <div
         class="builder"
-        [class]="{ 'has-sidebar': !(builderFullScreen$ | async) }"
+        [class]="{ 'has-sidebar': builderFullScreen() === false }"
       >
         <mat-drawer-container
           [hasBackdrop]="rightContent?.hasBackdrop"

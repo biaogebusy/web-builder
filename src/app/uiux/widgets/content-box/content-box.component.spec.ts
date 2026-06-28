@@ -8,7 +8,7 @@ describe('ContentBoxComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ContentBoxComponent],
+      imports: [ContentBoxComponent],
     }).compileComponents();
   });
 

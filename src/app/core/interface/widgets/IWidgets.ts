@@ -25,7 +25,7 @@ export interface IDynamicTable {
   header: {
     label: string;
     key: string;
-    classes?: string | string[] | Set<string> | { [klass: string]: any };
+    classes?: string | string[] | Set<string> | Record<string, any>;
     style?: object;
     sticky?: boolean;
     dialog?: {
@@ -33,7 +33,7 @@ export interface IDynamicTable {
       label: string;
     };
   }[];
-  classes?: string | string[] | Set<string> | { [klass: string]: any };
+  classes?: string | string[] | Set<string> | Record<string, any>;
   elements: any[];
 }
 
@@ -45,7 +45,7 @@ export interface IIframe {
   type?: 'iframe';
   height?: string;
   width?: string;
-  classes?: string | string[] | Set<string> | { [klass: string]: any };
+  classes?: string | string[] | Set<string> | Record<string, any>;
   url: string;
   title?: string;
   id?: string;
@@ -70,9 +70,7 @@ export interface IChartBox {
   type?: 'chart';
   label: string;
   count: string;
-  params: {
-    [key: string]: string;
-  };
+  params: Record<string, string>;
   chart: EChartsOption;
 }
 

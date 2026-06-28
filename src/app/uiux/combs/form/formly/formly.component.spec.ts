@@ -8,7 +8,7 @@ describe('FormlyComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [FormlyComponent],
+      imports: [FormlyComponent],
     }).compileComponents();
   });
 

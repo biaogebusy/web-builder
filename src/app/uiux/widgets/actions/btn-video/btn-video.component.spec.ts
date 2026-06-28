@@ -8,7 +8,7 @@ describe('BtnVideoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [BtnVideoComponent],
+      imports: [BtnVideoComponent],
     }).compileComponents();
   });
 

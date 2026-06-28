@@ -1,15 +1,16 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
+import { Subject } from 'rxjs';
 import { IPage } from '@core/interface/IAppConfig';
+
 @Injectable({
   providedIn: 'root',
 })
 export class ContentState {
-  public commentChange$ = new BehaviorSubject<boolean>(true);
-  public commentQuote$ = new Subject();
-  public pageConfig$ = new BehaviorSubject<any | object | boolean>(false);
-  public drawerOpened$ = new BehaviorSubject<boolean>(false);
-  public drawerLoading$ = new BehaviorSubject<boolean>(false);
-  public drawerContent$ = new Subject<IPage>();
+  public commentChange = signal(true);
+  public commentQuote$ = new Subject<unknown>();
+  public pageConfig = signal<IPage['config'] | undefined | false>(false);
+  public drawerOpened = signal(false);
+  public drawerLoading = signal(false);
+  public drawerContent = signal<IPage | undefined>(undefined);
   public mediaAssetsFormChange$ = new Subject<object>();
 }

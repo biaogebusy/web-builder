@@ -5,7 +5,7 @@ import {
   ChangeDetectorRef,
   DestroyRef,
   inject,
-  input
+  input,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { IDynamicMediaList } from '@core/interface/combs/IList';
@@ -43,12 +43,12 @@ export class DynamicMediaListComponent extends BaseComponent implements OnInit {
   }
 
   getContent(): void {
-    const params = [
-      `include=${this.getParams(this.content(), 'include')}`,
-      `sort=${this.getParams(this.content(), 'sort')}`,
-      'jsonapi_include=1',
-      `page[limit]=${this.getParams(this.content(), 'limit') || 20}`,
-    ].join('&');
+    const params = {
+      include: this.getParams(this.content(), 'include'),
+      sort: this.getParams(this.content(), 'sort'),
+      jsonapi_include: 1,
+      'page[limit]': this.getParams(this.content(), 'limit') || 20,
+    };
     const path = '/api/v1/node';
     this.nodeService
       .getNodes(path, `${this.getParams(this.content(), 'type')}`, params)

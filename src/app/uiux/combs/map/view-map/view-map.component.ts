@@ -46,7 +46,7 @@ import { map } from 'rxjs/operators';
 })
 export class ViewMapComponent extends BaseComponent implements OnInit {
   readonly content = input.required<IViewMap>();
-  lists$: Observable<IViewMapItem[] | any>;
+  lists: Observable<IViewMapItem[] | any>;
   form = new UntypedFormGroup({
     page: new UntypedFormControl(),
   });
@@ -68,7 +68,7 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
       this.getContent();
     } else {
       if (content.elements) {
-        this.lists$ = of(content.elements);
+        this.lists = of(content.elements);
         this.cd.detectChanges();
       }
     }
@@ -78,7 +78,7 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
     const params = this.getApiParams(options);
     const urlApi = this.content().params.api || '';
     this.loading = true;
-    this.lists$ = this.nodeService.fetch(urlApi, params).pipe(
+    this.lists = this.nodeService.fetch(urlApi, params).pipe(
       map(({ rows, pager }) => {
         rows.forEach((item: any) => {
           // 文字地址形式

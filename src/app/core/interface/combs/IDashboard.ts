@@ -8,9 +8,7 @@ export interface IDashboardBox {
     label: string;
   };
   row: number;
-  params?: {
-    [key: string]: string;
-  };
+  params?: Record<string, string>;
   form?: any[];
   widget: any;
 }
