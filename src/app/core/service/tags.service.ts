@@ -4,6 +4,7 @@ import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 
 import { UtilitiesService } from '@core/service/utilities.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
@@ -52,6 +53,68 @@ export class TagsService {
     this.meta.updateTag({ name: 'twitter:description', content: description });
 
     this.setCanonical(url);
+    this.setHreflang();
+    this.setJsonLd(pageValue, { title, description, url });
+  }
+
+  private setJsonLd(
+    pageValue: IPage,
+    { title, description, url }: { title: string; description: string; url: string }
+  ): void {
+    const schema: Record<string, unknown> = {
+      '@context': 'https://schema.org',
+      '@type': pageValue.time || pageValue.changed ? 'Article' : 'WebPage',
+      name: title,
+      headline: title,
+      description,
+      url,
+      inLanguage: pageValue.langcode ?? 'zh-hans',
+    };
+    if (pageValue.time) schema['datePublished'] = pageValue.time;
+    if (pageValue.changed) schema['dateModified'] = pageValue.changed;
+
+    const existing = this.document.querySelector('script[type="application/ld+json"]');
+    const json = JSON.stringify(schema);
+    if (existing) {
+      existing.textContent = json;
+    } else {
+      const script = this.document.createElement('script');
+      script.type = 'application/ld+json';
+      script.textContent = json;
+      this.document.head.appendChild(script);
+    }
+  }
+
+  private setHreflang(): void {
+    if (!environment.multiLang || !environment.langs?.length) return;
+
+    const { origin, pathname } = this.document.location;
+
+    let barePath = pathname;
+    for (const lang of environment.langs) {
+      if (!lang.default && lang.prefix && pathname.startsWith(lang.prefix)) {
+        barePath = pathname.slice(lang.prefix.length) || '/';
+        break;
+      }
+    }
+
+    this.document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(el => el.remove());
+
+    for (const lang of environment.langs) {
+      const href = origin + (lang.default ? '' : lang.prefix) + barePath;
+      const link = this.document.createElement('link');
+      link.setAttribute('rel', 'alternate');
+      link.setAttribute('hreflang', lang.langCode);
+      link.setAttribute('href', href);
+      this.document.head.appendChild(link);
+    }
+
+    const defaultHref = origin + barePath;
+    const xDefault = this.document.createElement('link');
+    xDefault.setAttribute('rel', 'alternate');
+    xDefault.setAttribute('hreflang', 'x-default');
+    xDefault.setAttribute('href', defaultHref);
+    this.document.head.appendChild(xDefault);
   }
 
   private setCanonical(url: string): void {
