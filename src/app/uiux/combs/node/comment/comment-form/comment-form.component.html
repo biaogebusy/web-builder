@@ -1,6 +1,6 @@
 @if (content(); as contentValue) {
   <div class="comment-form m-bottom">
-    <a class="anchor" id="comment"></a>
+    <a class="anchor" id="comment" aria-hidden="true"></a>
     <app-title [content]="contentValue.editor?.title" />
     <div class="editor">
       @if (screenService.isPlatformBrowser()) {

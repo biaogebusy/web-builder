@@ -28,7 +28,7 @@ export class BuilderComponent implements OnInit, AfterViewInit {
 
   public builder = inject(BuilderState);
   private destroyRef = inject(DestroyRef);
-  public builderFullScreen$ = inject<Observable<boolean>>(BUILDER_FULL_SCREEN);
+  public builderFullScreen = inject(BUILDER_FULL_SCREEN);
 
   ngOnInit(): void {
     this.builder.rightContent$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(content => {

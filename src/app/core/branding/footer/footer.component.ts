@@ -1,9 +1,8 @@
-import { AsyncPipe } from '@angular/common';
 import { Component, ChangeDetectionStrategy, inject, viewChild } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
 import { MatAccordion } from '@angular/material/expansion';
 import { ScreenState } from '../../state/screen/ScreenState';
 import { BRANDING } from '@core/token/token-providers';
-import { Observable } from 'rxjs';
 import type { IBranding } from '@core/interface/branding/IBranding';
 import { GotopComponent } from '@uiux/widgets/actions/gotop/gotop.component';
 import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
@@ -26,7 +25,7 @@ import { FixBarComponent } from './fix-bar/fix-bar.component';
 })
 export class FooterComponent {
   screen = inject(ScreenState);
-  branding$ = inject<Observable<IBranding>>(BRANDING);
+  branding$ = inject(BRANDING);
 
   panelOpenState = false;
 

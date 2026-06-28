@@ -1,12 +1,12 @@
 @let card = content().card;
 @let component = card.components[0];
-<div class="backdrop" (click)="onClose()"></div>
+<div class="backdrop" role="button" tabindex="0" (click)="onClose()" (keyup.enter)="onClose()"></div>
 <div class="showcase">
   <app-card-1v1 [content]="card" />
   <div class="showcase-footer">
     <div class="title">
       {{ content().title }}
-      @if (user$ | async) {
+      @if (user()) {
         <span class="uuid"> {{ component.uuid }} </span>
       }
     </div>

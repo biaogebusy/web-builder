@@ -56,7 +56,7 @@ export class TaxonomyComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   private stripTags = inject(StripTagsPipe);
 
-  public user$ = inject(USER);
+  public user = inject(USER);
   public form = new FormGroup({});
   public model: any = {};
   public selectedItem: any;

@@ -9,10 +9,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Common Commands
 
 - `npm start` — local dev server (proxies API to builder.design via `config/proxy.config.js`)
-- `npm run build` — production build (`ng build --configuration production`)
-- `npm test` — run unit tests (Karma + Jasmine)
+- `npm run build` — production build plus static asset precompression (`ng build --configuration production && npm run precompress`)
+- `npm test` — run unit tests once (Vitest via Angular unit-test builder)
+- `npm run test:watch` — run unit tests in watch mode
 - `npm run lint` — ESLint (flat config in `eslint.config.js`)
-- `npm run e2e` — end-to-end tests (Protractor)
+- `npm run e2e` — end-to-end tests (Playwright)
+- `npm run e2e:ui` — Playwright UI mode
 - `npm run serve:ssr:xinshi` — serve SSR build (`node dist/server/server.mjs`)
 
 Pre-commit hook runs `lint-staged` which auto-fixes `*.ts` and `*.html` with ESLint and formats `*.md` with Prettier.
@@ -45,7 +47,6 @@ Uses RxJS `BehaviorSubject`/`Subject` pattern via injectable state classes (not 
 
 - `ContentState` — page config, drawer, media assets, comments
 - `BuilderState` — builder UI state (fullscreen, preview mode, drag-drop, theme mode)
-- `AIState` — AI chat state
 - `CalendarState` — calendar state
 - `ScreenState` — responsive breakpoints, drawer toggle
 
@@ -57,9 +58,7 @@ Global app state is provided via InjectionToken factories in `core/token/token-p
 
 - `environment.ts` — dev config. Key flags:
   - `production: false` → uses local JSON files for page content instead of live API
-  - `drupalProxy` — enables Drupal-based auth
   - `multiLang` / `langs` — multi-language support with lang prefix routing
-  - `cache` — enables API request caching
 - `environment.prod.ts` — production config (apiUrl: `https://builder.design`)
 
 ### SSR
@@ -73,7 +72,7 @@ Angular SSR is configured with `@angular/ssr`. Entry point: `src/server.ts`. The
 - Components use SCSS files co-located with their `.ts` files.
 - **Prefer TailwindCSS `@apply` in component SCSS for layout, spacing, sizing, flex/grid, and typography utilities** — instead of hand-writing equivalent CSS properties. Example: `@apply flex justify-center items-center gap-3 p-3;` rather than `display: flex; justify-content: center; ...`. This keeps styles consistent with Tailwind's design tokens and matches the established pattern across the codebase (235+ usages). Reserve raw CSS for things Tailwind can't express cleanly (complex selectors, `::ng-deep` overrides, keyframes, Material system variables for colors/borders).
 - **Use Material system variables (`var(--mat-sys-*)`) for color/border in component styles by default** — avoid hardcoded hex/rgb values unless there is a special reason (e.g., third-party widget needs a fixed contrast). System tokens auto-adapt across themes.
-  - Default theme: `src/theme/theme-config/_blue-colors.scss` (light, primary `#0049db`)
+  - Default theme: `src/theme/theme-config/_light-colors.scss` (light, primary `#0049db`)
   - Dark theme: `src/theme/theme-config/_dark-colors.scss` (dark)
   - Common tokens: `--mat-sys-primary` / `--mat-sys-on-primary`, `--mat-sys-surface` / `--mat-sys-on-surface`, `--mat-sys-surface-container[-low|-high|-highest]`, `--mat-sys-outline` / `--mat-sys-outline-variant`, `--mat-sys-inverse-surface` / `--mat-sys-inverse-on-surface`, `--mat-sys-error` / `--mat-sys-on-error`
   - Note: `inverse-surface` flips between themes (dark in light theme, light in dark theme). Pick tokens that yield the correct contrast in both themes for the content rendered on top.
@@ -210,6 +209,7 @@ Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-s
 **Don't assume. Don't hide confusion. Surface tradeoffs.**
 
 Before implementing:
+
 - State your assumptions explicitly. If uncertain, ask.
 - If multiple interpretations exist, present them - don't pick silently.
 - If a simpler approach exists, say so. Push back when warranted.
@@ -232,12 +232,14 @@ Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, sim
 **Touch only what you must. Clean up only your own mess.**
 
 When editing existing code:
+
 - Don't "improve" adjacent code, comments, or formatting.
 - Don't refactor things that aren't broken.
 - Match existing style, even if you'd do it differently.
 - If you notice unrelated dead code, mention it - don't delete it.
 
 When your changes create orphans:
+
 - Remove imports/variables/functions that YOUR changes made unused.
 - Don't remove pre-existing dead code unless asked.
 
@@ -248,11 +250,13 @@ The test: Every changed line should trace directly to the user's request.
 **Define success criteria. Loop until verified.**
 
 Transform tasks into verifiable goals:
+
 - "Add validation" → "Write tests for invalid inputs, then make them pass"
 - "Fix the bug" → "Write a test that reproduces it, then make it pass"
 - "Refactor X" → "Ensure tests pass before and after"
 
 For multi-step tasks, state a brief plan:
+
 ```
 1. [Step] → verify: [check]
 2. [Step] → verify: [check]

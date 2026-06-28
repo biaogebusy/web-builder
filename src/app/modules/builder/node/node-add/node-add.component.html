@@ -1,12 +1,12 @@
-@let user = user$ | async;
+@let u = user();
 <div class="node-add">
   <div class="container">
-    <app-title [content]="{ label: type(), style: 'none' }"></app-title>
+    <app-title [content]="{ label: type(), style: 'none' }" />
     <div class="node-form">
       <app-formly [form]="form" [fields]="fields()" />
       <div class="actions">
         <app-btn
-          (click)="onSubmit(form.value, user)"
+          (click)="onSubmit(form.value, u)"
           [content]="{
             label: 'BUILDER.NODE_ADD.SUBMIT' | translate,
             color: 'primary',

@@ -1,24 +1,27 @@
-import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
   ElementRef,
   AfterViewInit,
   inject,
+  Injector,
   DestroyRef,
+  computed,
   signal,
+  effect,
   DOCUMENT,
   ChangeDetectionStrategy,
-  viewChild
+  viewChild,
 } from '@angular/core';
 import { ScreenService } from '../../service/screen.service';
 import { ScreenState } from '../../state/screen/ScreenState';
 
 import { ContentState } from '@core/state/ContentState';
 import { BRANDING } from '@core/token/token-providers';
-import { Observable } from 'rxjs';
-import type { IBranding } from '@core/interface/branding/IBranding';
+import { of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { AsyncPipe } from '@angular/common';
 import { HeaderBannerComponent } from './header-banner/header-banner.component';
 import { HeaderTopComponent } from './header-top/header-top.component';
 import { MenuComponent } from './menu/menu.component';
@@ -27,32 +30,41 @@ import { MenuComponent } from './menu/menu.component';
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  imports: [AsyncPipe, HeaderBannerComponent, HeaderTopComponent, MenuComponent],
+  imports: [HeaderBannerComponent, HeaderTopComponent, MenuComponent, AsyncPipe],
   host: {
     ngSkipHydration: 'true',
   },
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
   private doc = inject<Document>(DOCUMENT);
-  public branding$ = inject<Observable<IBranding>>(BRANDING);
+  public branding$ = inject(BRANDING);
 
   public sticky = signal(false);
   public showBanner = signal(false);
   public menuHeight = signal(0);
+  public contentState = inject(ContentState);
+  public pageHeaderMode = computed(() => {
+    const config = this.contentState.pageConfig();
+    return config ? config.headerMode : undefined;
+  });
   readonly menuAnchor = viewChild('menuAnchor', { read: ElementRef });
   readonly sentinel = viewChild('sentinel', { read: ElementRef });
   private destoryRef = inject(DestroyRef);
+  private injector = inject(Injector);
   private screenService = inject(ScreenService);
   private screenState = inject(ScreenState);
-  public contentState = inject(ContentState);
   private stickyObserver?: IntersectionObserver;
 
   ngOnInit(): void {
-    this.contentState.pageConfig$.pipe(takeUntilDestroyed(this.destoryRef)).subscribe(config => {
-      if (config?.headerMode?.transparent) {
-        this.doc.getElementsByTagName('body')[0].classList.add('transparent-header');
-      }
-    });
+    effect(
+      () => {
+        const config = this.contentState.pageConfig();
+        if (config && config.headerMode?.transparent) {
+          this.doc.getElementsByTagName('body')[0].classList.add('transparent-header');
+        }
+      },
+      { injector: this.injector }
+    );
   }
 
   ngAfterViewInit(): void {
@@ -90,18 +102,21 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   initBanner(): void {
-    this.branding$.pipe(takeUntilDestroyed(this.destoryRef)).subscribe((branding: any) => {
-      const banner = branding.header.banner;
-      if (!banner) {
-        this.showBanner.set(false);
-      } else {
-        this.screenState
-          .mqAlias$()
-          .pipe(takeUntilDestroyed(this.destoryRef))
-          .subscribe(mq => {
-            this.showBanner.set(mq.includes('md') || mq.includes('lg') || mq.includes('xl'));
-          });
-      }
-    });
+    this.branding$
+      .pipe(
+        switchMap(brandingValue => {
+          const banner = brandingValue?.header?.banner;
+          if (!banner) {
+            return of(false);
+          }
+          return this.screenState
+            .mqAlias$()
+            .pipe(map(mq => mq.includes('md') || mq.includes('lg') || mq.includes('xl')));
+        }),
+        takeUntilDestroyed(this.destoryRef)
+      )
+      .subscribe(showBanner => {
+        this.showBanner.set(showBanner);
+      });
   }
 }

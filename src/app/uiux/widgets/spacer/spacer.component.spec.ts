@@ -8,7 +8,7 @@ describe('SpacerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SpacerComponent],
+      imports: [SpacerComponent],
     }).compileComponents();
   });
 

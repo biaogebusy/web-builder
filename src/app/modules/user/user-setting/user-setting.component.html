@@ -1,4 +1,4 @@
-@if (user$ | async; as user) {
+@if (user(); as user) {
   <div class="user-setting">
     @if (loading()) {
       <div class="load">
@@ -7,15 +7,15 @@
     }
     <div class="user-info">
       <div class="user-avatar">
-        @if (user.picture) {
+        @if ($any(user).picture) {
           <div class="avatar-wrapper">
-            <img width="80" height="80" class="avatar-img" src="{{ user.picture }}" alt="" />
+            <img width="80" height="80" class="avatar-img" src="{{ $any(user).picture }}" alt="" />
             <input
               type="file"
               #avatarInput
               accept="image/*"
               style="display: none"
-              (change)="handleFileChange($event, user)"
+              (change)="handleFileChange($event, $any(user))"
             />
             <div class="upload">
               <app-btn
@@ -23,22 +23,22 @@
                 matTooltip="更新头像"
                 matTooltipPosition="above"
                 [content]="{ mode: 'icon', icon: { svg: 'camera' } }"
-              ></app-btn>
+              />
             </div>
           </div>
         }
         <div class="user-details">
-          <div class="name" [matTooltip]="user.display_name" matTooltipPosition="above">
-            {{ user.display_name }}
+          <div class="name" [matTooltip]="$any(user).display_name" matTooltipPosition="above">
+            {{ $any(user).display_name }}
           </div>
-          <div class="mail" [matTooltip]="user.mail" matTooltipPosition="above">
-            {{ user.mail }}
+          <div class="mail" [matTooltip]="$any(user).mail" matTooltipPosition="above">
+            {{ $any(user).mail }}
           </div>
         </div>
       </div>
     </div>
     <div class="form">
-      <app-formly [form]="form" [fields]="fields" [model]="model"></app-formly>
+      <app-formly [form]="form" [fields]="fields" [model]="model" />
     </div>
     <div class="actions">
       <app-btn
@@ -56,7 +56,7 @@
         }"
       />
       <app-btn
-        (click)="onUpdate(model, user)"
+        (click)="onUpdate(model, $any(user))"
         [content]="{
           label: '更新账户',
           color: 'primary',
@@ -66,7 +66,7 @@
             svg: 'pencil',
           },
         }"
-      ></app-btn>
+      />
     </div>
   </div>
 }

@@ -1,3 +1,5 @@
+import { appendQueryParams } from '@core/util/http-params.util';
+
 export interface ApiEndpoint {
   name: string;
   endpoint: string;
@@ -7,6 +9,9 @@ export interface ApiEndpoint {
   body?: any;
   description: string;
 }
+
+const landingPageEndpoint = (content: string): string =>
+  appendQueryParams('/api/v3/landingPage', { content });
 
 export const API_CHECK_LIST: ApiEndpoint[] = [
   {
@@ -25,50 +30,56 @@ export const API_CHECK_LIST: ApiEndpoint[] = [
   },
   {
     name: 'BUILDER.API_CHECK_LIST.GLOBAL_CONFIG',
-    endpoint: '/api/v3/landingPage?content=/core/base',
+    endpoint: landingPageEndpoint('/core/base'),
     method: 'GET',
     expectedStatus: 200,
     description: 'BUILDER.API_CHECK_LIST.GLOBAL_CONFIG_DESC',
   },
   {
     name: 'BUILDER.API_CHECK_LIST.HEADER_FOOTER',
-    endpoint: '/api/v3/landingPage?content=/core/branding',
+    endpoint: landingPageEndpoint('/core/branding'),
     method: 'GET',
     expectedStatus: 200,
     description: 'BUILDER.API_CHECK_LIST.HEADER_FOOTER_DESC',
   },
   {
     name: 'BUILDER.API_CHECK_LIST.BUILDER_CONFIG',
-    endpoint: '/api/v3/landingPage?content=/core/builder',
+    endpoint: landingPageEndpoint('/core/builder'),
     method: 'GET',
     expectedStatus: 200,
     description: 'BUILDER.API_CHECK_LIST.BUILDER_CONFIG_DESC',
   },
   {
     name: 'BUILDER.API_CHECK_LIST.MINI_CONFIG',
-    endpoint: '/api/v3/landingPage?content=/core/mini',
+    endpoint: landingPageEndpoint('/core/mini'),
     method: 'GET',
     expectedStatus: 200,
     description: 'BUILDER.API_CHECK_LIST.MINI_CONFIG_DESC',
   },
   {
     name: 'BUILDER.API_CHECK_LIST.DEFAULT_PAGE',
-    endpoint: '/api/v3/landingPage?content=/builder/default-page',
+    endpoint: landingPageEndpoint('/builder/default-page'),
     method: 'GET',
     expectedStatus: 200,
     description: 'BUILDER.API_CHECK_LIST.DEFAULT_PAGE_DESC',
   },
   {
     name: 'BUILDER.API_CHECK_LIST.PAGE_TEMPLATE',
-    endpoint:
-      '/api/v1/node/landing_page?filter%5Bstatus%5D=1&filter%5Bgroup.name%5D=%E6%A8%A1%E6%9D%BF&include=cover%2Ccover.field_media_image&page%5Blimit%5D=20&sort=-changed&noCache=true',
+    endpoint: appendQueryParams('/api/v1/node/landing_page', {
+      'filter[status]': 1,
+      'filter[group.name]': '模板',
+      include: 'cover,cover.field_media_image',
+      'page[limit]': 20,
+      sort: '-changed',
+      noCache: true,
+    }),
     method: 'GET',
     expectedStatus: 200,
     description: 'BUILDER.API_CHECK_LIST.PAGE_TEMPLATE_DESC',
   },
   {
     name: 'BUILDER.API_CHECK_LIST.CONTENT_STATS',
-    endpoint: '/api/v3/statistics/node/published?statistics=1',
+    endpoint: appendQueryParams('/api/v3/statistics/node/published', { statistics: 1 }),
     method: 'GET',
     expectedStatus: 200,
     description: 'BUILDER.API_CHECK_LIST.CONTENT_STATS_DESC',

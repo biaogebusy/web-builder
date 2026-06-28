@@ -34,13 +34,12 @@ import { UserCardCountComponent } from './user-card-count/user-card-count.compon
   ],
 })
 export class UserCardComponent extends BaseComponent implements OnInit {
-  user$ = inject<Observable<IUser>>(USER);
+  user = inject(USER);
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
 
   readonly content = input.required<IUserCard>();
   profile: IMediaObject;
   count: IUserCount[];
-  user: IUser;
 
   nodeService = inject(NodeService);
   cd = inject(ChangeDetectorRef);
@@ -49,37 +48,35 @@ export class UserCardComponent extends BaseComponent implements OnInit {
 
   constructor() {
     super();
-    this.user$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(user => {
-      this.user = user;
-    });
   }
 
   ngOnInit(): void {
-    if (this.user) {
-      this.getProfile();
-      this.getCount();
+    const u = this.user();
+    if (u && typeof u === 'object') {
+      this.getProfile(u);
+      this.getCount(u);
     }
   }
 
-  getProfile(): void {
+  getProfile(user: IUser): void {
     this.profile = {
       img: {
-        src: this.user.picture || this.coreConfig.defaultAvatar,
-        alt: this.user.current_user.name,
+        src: user.picture || this.coreConfig.defaultAvatar,
+        alt: user.current_user.name,
         style: {
           borderRadius: '50%',
         },
         height: 37,
         width: 37,
       },
-      title: this.user.current_user.name,
-      subTitle: this.user.display_name,
+      title: user.current_user.name,
+      subTitle: user.display_name,
       align: 'center center',
     };
     this.cd.detectChanges();
   }
 
-  getCount(): void {
+  getCount(user: IUser): void {
     const api = this.getParams(this.content(), 'api');
     const content = this.content();
     if (content.count) {

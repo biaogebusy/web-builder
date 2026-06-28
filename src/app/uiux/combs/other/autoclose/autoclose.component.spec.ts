@@ -8,7 +8,7 @@ describe('AutocloseComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AutocloseComponent],
+      imports: [AutocloseComponent],
     }).compileComponents();
   });
 

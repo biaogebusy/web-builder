@@ -5,7 +5,7 @@ import {
   DestroyRef,
   OnInit,
   inject,
-  input
+  input,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -18,13 +18,17 @@ import { IPage } from '@core/interface/IAppConfig';
 import { IPageMeta, IPageList } from '@core/interface/IBuilder';
 import { IUser } from '@core/interface/IUser';
 import { IPager } from '@core/interface/widgets/IWidgets';
+import { MatDialog } from '@angular/material/dialog';
+import { IDialog } from '@core/interface/IDialog';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
 import { TagsService } from '@core/service/tags.service';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { BuilderState } from '@core/state/BuilderState';
+import { BuilderState, IBuilderPendingPageLoad } from '@core/state/BuilderState';
 import { BUILDER_CURRENT_PAGE, USER } from '@core/token/token-providers';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { formatToExtraData, getPageParams } from '@core/util/builder-page.util';
+import type { QueryParams } from '@core/util/http-params.util';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { TranslateService } from '@ngx-translate/core';
@@ -41,8 +45,8 @@ import { environment } from 'src/environments/environment';
   imports: [ShareModule, WidgetsModule, FormModule, MatPaginatorModule],
 })
 export class PageListComponent extends BaseComponent implements OnInit {
-  private currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
-  private user$ = inject<Observable<IUser>>(USER);
+  public currentPage = inject(BUILDER_CURRENT_PAGE);
+  private user = inject(USER);
 
   readonly content = input<any>();
   public content$: Observable<IPageMeta[]>;
@@ -55,8 +59,8 @@ export class PageListComponent extends BaseComponent implements OnInit {
   public loading = false;
   public pager: IPager;
   public langs = environment.langs;
-  public currentPage?: IPage;
   private builder = inject(BuilderState);
+  private dialog = inject(MatDialog);
   private cd = inject(ChangeDetectorRef);
   private util = inject(UtilitiesService);
   private nodeService = inject(NodeService);
@@ -66,7 +70,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   private tagService = inject(TagsService);
   private translate = inject(TranslateService);
-  public user: IUser;
+  private pendingPageLoad?: IBuilderPendingPageLoad;
 
   public fields: FormlyFieldConfig[] = [
     {
@@ -152,18 +156,16 @@ export class PageListComponent extends BaseComponent implements OnInit {
 
   constructor() {
     super();
-    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
-      this.user = user;
-    });
     this.tagService.setTitle(this.translate.instant('BUILDER.PAGE_LIST.PAGE_TITLE'));
   }
 
   ngOnInit(): void {
-    this.fetchPage('noCache=1');
-    this.currentPage$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(page => {
-      this.currentPage = page;
-      this.cd.detectChanges();
-    });
+    this.fetchPage({ noCache: 1 });
+    this.pendingPageLoad = this.builder.consumePageLoad() ?? undefined;
+    if (this.pendingPageLoad) {
+      this.loadPage(this.pendingPageLoad);
+      this.pendingPageLoad = undefined;
+    }
     this.builder.updateSuccess$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(state => {
       if (state) {
         this.onReload();
@@ -172,7 +174,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
 
     this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(query => {
       const { quickEdit, nid, langcode } = query;
-      if (quickEdit || (nid && langcode)) {
+      if (nid && (quickEdit || langcode)) {
         this.loadPage({
           nid,
           langcode,
@@ -199,7 +201,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
     this.fetchPage(params);
   }
 
-  fetchPage(params: string): void {
+  fetchPage(params: QueryParams | string): void {
     this.loading = true;
     this.content$ = this.nodeService.fetch('/api/v2/node/landing-page', params).pipe(
       catchError(error => {
@@ -231,13 +233,32 @@ export class PageListComponent extends BaseComponent implements OnInit {
   }
 
   loadPage(page: any): void {
-    this.builder.loading$.next(true);
+    this.builder.loading.set(true);
     const { langcode, nid } = page;
     if (!nid) {
+      this.builder.loading.set(false);
       this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_LIST.CHECK_LANDING_VIEW'), 'ok');
       return;
     }
+    this.clearPageLoadQueryParams();
     this.builderService.loadPage({ langcode, nid });
+  }
+
+  private clearPageLoadQueryParams(): void {
+    const { nid, quickEdit } = this.route.snapshot.queryParams;
+    if (!nid && !quickEdit) {
+      return;
+    }
+
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        nid: null,
+        quickEdit: null,
+      },
+      queryParamsHandling: 'merge',
+      replaceUrl: true,
+    });
   }
 
   copyPage(page: any): void {
@@ -258,7 +279,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
   }
 
   updatePageSetting(page: IPageMeta): void {
-    this.builder.loading$.next(true);
+    this.builder.loading.set(true);
 
     this.builderService.openPageSetting(
       page,
@@ -278,42 +299,67 @@ export class PageListComponent extends BaseComponent implements OnInit {
   }
 
   createLangVersion(currentPage: IPageMeta, targetlang: string): void {
-    this.builder.loading$.next(true);
-    this.nodeService
-      .fetch(`/api/v3/landingPage/json/${currentPage.nid}`, 'noCache=1', targetlang)
+    const lang = this.langs?.find(l => l.langCode === targetlang);
+    const config: IDialog = {
+      title: this.translate.instant('BUILDER.PAGE_LIST.CREATE_LANG_TITLE'),
+      noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
+      yesLabel: this.translate.instant('BUILDER.PAGE_LIST.CREATE_LANG_YES'),
+      inputData: {
+        content: {
+          type: 'text',
+          fullWidth: true,
+          body: this.translate.instant('BUILDER.PAGE_LIST.CREATE_LANG_CONFIRM', {
+            title: currentPage.title,
+            lang: lang?.label || targetlang,
+          }),
+        },
+      },
+    };
+    this.dialog
+      .open(DialogComponent, { width: '340px', data: config })
+      .afterClosed()
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((page: IPage) => {
-        this.builder.loading$.next(false);
-        if (targetlang === page.langcode) {
-          // 已有翻译
-          this.util.openSnackbar(
-            this.translate.instant('BUILDER.PAGE_LIST.TRANSLATION_EXISTS', { label: page.label }),
-            'ok'
-          );
-          this.builder.loadNewPage(formatToExtraData(page));
-        } else {
-          // 复制一份，新建翻译
-          this.util.openSnackbar(
-            this.translate.instant('BUILDER.PAGE_LIST.LOADING_TRANSLATION', {
-              title: currentPage.title,
-              lang: targetlang,
-            }),
-            'ok'
-          );
-          this.builder.loadNewPage(
-            formatToExtraData({
-              langcode: currentPage.langcode,
-              ...page,
-              translation: true,
-              target: targetlang,
-            })
-          );
-        }
+      .subscribe(result => {
+        if (!result) return;
+        this.builder.loading.set(true);
+        this.nodeService
+          .fetch(`/api/v3/landingPage/json/${currentPage.nid}`, { noCache: 1 }, targetlang)
+          .pipe(takeUntilDestroyed(this.destroyRef))
+          .subscribe((page: IPage) => {
+            this.builder.loading.set(false);
+            if (targetlang === page.langcode) {
+              this.util.openSnackbar(
+                this.translate.instant('BUILDER.PAGE_LIST.TRANSLATION_EXISTS', { label: page.label }),
+                'ok'
+              );
+              this.builder.loadNewPage(formatToExtraData(page));
+            } else {
+              this.util.openSnackbar(
+                this.translate.instant('BUILDER.PAGE_LIST.LOADING_TRANSLATION', {
+                  title: currentPage.title,
+                  lang: targetlang,
+                }),
+                'ok'
+              );
+              this.builder.loadNewPage(
+                formatToExtraData({
+                  langcode: currentPage.langcode,
+                  ...page,
+                  translation: true,
+                  target: targetlang,
+                })
+              );
+            }
+          });
       });
   }
 
   onReload(): void {
     this.form.reset();
     this.onModelChange({ title: '', time: +new Date() });
+  }
+
+  getLangLabel(code: string): string {
+    return this.langs?.find(l => l.langCode === code)?.label ?? code;
   }
 }

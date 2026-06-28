@@ -39,10 +39,9 @@ import { Observable } from 'rxjs';
 })
 export class UserComponent implements OnInit {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
-  private user$ = inject<Observable<IUser>>(USER);
+  private user = inject(USER);
 
   currentUser: any;
-  user: IUser;
   id: any;
 
   route = inject(Router);
@@ -52,9 +51,7 @@ export class UserComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
 
   constructor() {
-    this.user$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(user => {
-      this.user = user;
-    });
+    // user signal now — read with user()
   }
 
   ngOnInit(): void {
@@ -77,7 +74,7 @@ export class UserComponent implements OnInit {
   getUser(): any {
     const people = {};
     this.userService
-      .getUserById(this.user.current_user.uid)
+      .getUserById((this.user() as IUser)?.current_user?.uid)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(res => {
       const info = res.data[0];

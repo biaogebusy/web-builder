@@ -4,9 +4,9 @@
     @if (count) {
       <app-user-card-count class="w-full my-5" [content]="count" />
     }
-    @if (user.login) {
+    @if ($any(user()).login) {
       <div class="time">
-        您上次登录时间：{{ user.login | date: 'YYYY-MM-dd hh:mm' }}
+        您上次登录时间：{{ $any(user()).login | date: 'yyyy-MM-dd hh:mm' }}
       </div>
     }
     @for (item of content().content; track item) {

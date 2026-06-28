@@ -225,14 +225,14 @@ export class MapComponent implements OnInit {
   onMarkLink(event: any): void {
     if (event.target.className.includes('drawer')) {
       const url = event.target.dataset.url;
-      this.contentState.drawerOpened$.next(true);
-      this.contentState.drawerLoading$.next(true);
+      this.contentState.drawerOpened.set(true);
+      this.contentState.drawerLoading.set(true);
       this.contentService
         .loadPageContent(url)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((content: IPage) => {
-          this.contentState.drawerLoading$.next(false);
-          this.contentState.drawerContent$.next(content);
+          this.contentState.drawerLoading.set(false);
+          this.contentState.drawerContent.set(content);
         });
     }
   }

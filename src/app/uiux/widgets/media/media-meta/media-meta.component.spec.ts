@@ -8,7 +8,7 @@ describe('MediaMetaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [MediaMetaComponent],
+      imports: [MediaMetaComponent],
     }).compileComponents();
   });
 

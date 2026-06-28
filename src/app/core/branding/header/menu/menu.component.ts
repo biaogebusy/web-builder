@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import {
   Component,
   DestroyRef,
@@ -9,6 +8,7 @@ import {
   input
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { AsyncPipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -34,7 +34,6 @@ import { AccordionMenuComponent } from '../../accordion-menu/accordion-menu.comp
   styleUrls: ['./menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    AsyncPipe,
     MatButtonModule,
     MatIconModule,
     MatToolbarModule,
@@ -47,12 +46,13 @@ import { AccordionMenuComponent } from '../../accordion-menu/accordion-menu.comp
     ItemMenuComponent,
     SearchBoxComponent,
     AccordionMenuComponent,
+    AsyncPipe,
   ],
 })
 export class MenuComponent implements OnInit {
   readonly isDrawer = input<boolean>();
   public coreConfig = inject<ICoreConfig>(CORE_CONFIG);
-  public branding$ = inject<Observable<IBranding>>(BRANDING);
+  public branding$ = inject(BRANDING);
   public show = signal<boolean>(true);
   private screen = inject(ScreenState);
   private router = inject(Router);

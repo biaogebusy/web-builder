@@ -31,7 +31,7 @@
               </div>
             }
             <div class="item flex-12/12 md:flex-6/12">
-              <a mat-button (click)="logout()">
+              <a mat-button tabindex="0" (click)="logout()" (keyup.enter)="logout()">
                 <mat-icon inline="true">exit_to_app</mat-icon>
                 <span>退出</span>
               </a>

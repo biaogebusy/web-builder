@@ -5,7 +5,7 @@ import {
   OnInit,
   inject,
   signal,
-  input
+  input,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormGroup } from '@angular/forms';
@@ -24,10 +24,10 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { USER } from '@core/token/token-providers';
 import { getAttrAlias } from '@core/util/builder-page.util';
+import { appendQueryParams } from '@core/util/http-params.util';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-page-setting',
@@ -37,7 +37,7 @@ import { Observable } from 'rxjs';
   imports: [ShareModule, WidgetsModule, FormModule],
 })
 export class PageSettingComponent implements OnInit {
-  private user$ = inject<Observable<IUser>>(USER);
+  private user = inject(USER);
 
   readonly content = input<any>();
   public form = new UntypedFormGroup({});
@@ -56,13 +56,8 @@ export class PageSettingComponent implements OnInit {
   private userService = inject(UserService);
   private router = inject(Router);
   private translate = inject(TranslateService);
-  private user: IUser;
 
-  constructor() {
-    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
-      this.user = user;
-    });
-  }
+  constructor() {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -169,7 +164,7 @@ export class PageSettingComponent implements OnInit {
                             uid: {
                               data: {
                                 type: 'user--user',
-                                id: this.user.id,
+                                id: (this.user() as IUser)?.id,
                               },
                             },
                           }
@@ -178,7 +173,9 @@ export class PageSettingComponent implements OnInit {
                         .subscribe(res => {
                           this.loading.set(false);
                           if (res) {
-                            this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_SETTING.COVER_UPDATED'));
+                            this.util.openSnackbar(
+                              this.translate.instant('BUILDER.PAGE_SETTING.COVER_UPDATED')
+                            );
                           }
                         });
                     });
@@ -351,7 +348,7 @@ export class PageSettingComponent implements OnInit {
           id: drupal_internal__nid ?? '',
           path,
         },
-        value.alias
+        value.alias.trim()
       );
     } catch {
       this.loading.set(false);
@@ -386,7 +383,7 @@ export class PageSettingComponent implements OnInit {
               this.translate.instant('BUILDER.PAGE_SETTING.UPDATE_SUCCESS', { title: value.title }),
               'ok'
             );
-            this.builder.loading$.next(true);
+            this.builder.loading.set(true);
             this.builderService.loadPage({ langcode, nid: drupal_internal__nid });
             this.builder.updateSuccess$.next(true);
           }
@@ -403,7 +400,7 @@ export class PageSettingComponent implements OnInit {
               );
               break;
           }
-          this.builder.loading$.next(true);
+          this.builder.loading.set(true);
         },
       });
   }
@@ -437,7 +434,7 @@ export class PageSettingComponent implements OnInit {
         uid: {
           data: {
             type: 'user--user',
-            id: this.user.id,
+            id: (this.user() as IUser)?.id,
           },
         },
         group: {
@@ -456,7 +453,7 @@ export class PageSettingComponent implements OnInit {
         uid: {
           data: {
             type: 'user--user',
-            id: this.user.id,
+            id: (this.user() as IUser)?.id,
           },
         },
       };
@@ -471,7 +468,7 @@ export class PageSettingComponent implements OnInit {
       inputData: {
         content: {
           type: 'iframe',
-          url: `${this.model.alias}?nocache=true`,
+          url: appendQueryParams(this.model.alias, { nocache: true }),
           width: '100%',
           fullWidth: true,
           classes: 'h-screen',
@@ -565,7 +562,7 @@ export class PageSettingComponent implements OnInit {
   }
 
   deleteLocalPage(uuid: string): void {
-    const versions = this.builder.version;
+    const versions = this.builder.version();
     const index = versions.findIndex(item => item.uuid === uuid);
     this.builder.deleteLocalPage(index);
   }

@@ -8,7 +8,7 @@ describe('DashboardBoxComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DashboardBoxComponent],
+      imports: [DashboardBoxComponent],
     }).compileComponents();
   });
 

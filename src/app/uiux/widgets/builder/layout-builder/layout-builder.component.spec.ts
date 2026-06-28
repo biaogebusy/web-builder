@@ -8,7 +8,7 @@ describe('LayoutBuilderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LayoutBuilderComponent],
+      imports: [LayoutBuilderComponent],
     }).compileComponents();
   });
 

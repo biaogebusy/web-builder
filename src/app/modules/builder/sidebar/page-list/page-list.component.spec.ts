@@ -8,7 +8,7 @@ describe('PageListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PageListComponent],
+      imports: [PageListComponent],
     }).compileComponents();
   });
 

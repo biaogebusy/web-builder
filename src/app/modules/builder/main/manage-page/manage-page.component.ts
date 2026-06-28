@@ -20,5 +20,5 @@ import { Observable } from 'rxjs';
   imports: [ShareModule, WidgetsModule],
 })
 export class ManagePageComponent {
-  pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);
+  pageContent = inject(PAGE_CONTENT);
 }

@@ -3,7 +3,9 @@ import {
   Component,
   DestroyRef,
   ElementRef,
+  Injector,
   OnInit,
+  effect,
   inject,
   signal,
   ChangeDetectionStrategy,
@@ -39,7 +41,7 @@ import { DividerComponent } from '../../divider/divider.component';
   },
 })
 export class ComponentToolbarComponent implements OnInit, AfterViewInit {
-  private currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
+  private currentPage = inject(BUILDER_CURRENT_PAGE);
 
   readonly content = input.required<IComponentToolbar>();
   public index = signal(0);
@@ -53,7 +55,7 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
   private ele = inject(ElementRef);
   private destroyRef = inject(DestroyRef);
   private dialog = inject(MatDialog);
-  private currentPage: IPage;
+  private injector = inject(Injector);
   public type = signal('');
   private component = signal<any>(null);
   private path = signal('');
@@ -72,18 +74,18 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
     this.type.set(content.type || content.content?.type || '');
     this.component.set(this.type() ? content : content.content);
     this.path.set(generatePath(this.ele.nativeElement));
-    this.currentPage$.pipe(delay(500), takeUntilDestroyed(this.destroyRef)).subscribe(page => {
-      this.currentPage = page;
+    effect(() => {
+      const page = this.currentPage();
       this.path.set(generatePath(this.ele.nativeElement));
       this.getIndex();
-    });
+    }, { injector: this.injector });
   }
 
   getIndex(): void {
     const index = this.builder.targetIndex(this.path());
     this.index.set(index);
     const lastDotIndex = this.path().lastIndexOf('.');
-    const body = this.currentPage.body;
+    const body = (this.currentPage() as IPage | undefined)?.body;
     if (lastDotIndex !== -1) {
       // child component
       const before = this.path().slice(0, lastDotIndex);
@@ -93,7 +95,7 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
       }
     } else {
       // top parent component
-      this.length.set(body.length);
+      this.length.set(body?.length ?? 0);
     }
   }
 

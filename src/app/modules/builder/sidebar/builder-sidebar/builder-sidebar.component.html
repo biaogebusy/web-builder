@@ -1,8 +1,8 @@
-@let branding = branding$ | async;
+@let brand = branding$ | async;
 @let config = builderConfig$ | async;
 <div class="builder-sidebar" [class]="sidebarDrawer().opened ? 'opened' : 'closed'">
-  @if (branding) {
-    @let header = $any(branding).header;
+  @if (brand) {
+    @let header = $any(brand).header;
     <a [routerLink]="[header?.logo?.href ?? '/home']" class="logo">
       @if (header?.logo?.img) {
         @let logo = header.logo;
@@ -93,7 +93,7 @@
   </div>
 
   <div class="bottom">
-    @if (branding) {
+    @if (brand) {
       <div class="icon-actions-row">
         <app-btn
           [matTooltip]="'BUILDER.SIDEBAR.MEDIA_LIBRARY' | translate"
@@ -105,7 +105,7 @@
             icon: { svg: 'image-search-outline' },
           }"
         />
-        @if (builder.themeMode | async; as mode) {
+        @if (builder.themeMode(); as mode) {
           <app-btn
             [matTooltip]="(mode === 'light' ? 'BUILDER.SIDEBAR.TOGGLE_DARK' : 'BUILDER.SIDEBAR.TOGGLE_LIGHT') | translate"
             [matTooltipPosition]="sidebarDrawer().opened ? 'above' : 'right'"
@@ -122,11 +122,11 @@
       </div>
       <mat-divider />
       <div class="bottom-row" [class]="sidebarDrawer().opened ? 'flex-row' : 'flex-col'">
-        @if ($any(branding).header?.params?.userInfo) {
+        @if ($any(brand).header?.params?.userInfo) {
           <app-user-menu />
         }
         <div class="toggle">
-          <div class="wrapper" (click)="onToggle()">
+          <div class="wrapper" role="button" tabindex="0" (click)="onToggle()" (keyup.enter)="onToggle()">
             @if (sidebarDrawer().opened) {
               <app-icon [content]="{ svg: 'chevron-left' }">
                 <div class="text">{{ 'BUILDER.SIDEBAR.COLLAPSE' | translate }}</div>

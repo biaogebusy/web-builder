@@ -3,7 +3,7 @@ import { isPlatformServer } from '@angular/common';
 import { HttpInterceptorFn } from '@angular/common/http';
 import { timeout } from 'rxjs/operators';
 
-const SSR_TIMEOUT = 5000;
+const SSR_TIMEOUT = 10000;
 
 export const ssrTimeoutInterceptor: HttpInterceptorFn = (req, next) => {
   if (isPlatformServer(inject(PLATFORM_ID))) {

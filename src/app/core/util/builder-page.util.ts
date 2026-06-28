@@ -60,21 +60,24 @@ export function initExtraBody(body: any[], isTemplate?: boolean): any[] {
 }
 
 export function formatPage(page: IPage): IPageForJSONAPI {
-  const currentPage: IPage = { ...page };
-  currentPage.body = page.body.map(item => ({
-    type: 'json',
-    attributes: {
-      body: item,
-    },
-  }));
-  return currentPage;
+  return {
+    title: page.title,
+    meta: page.meta,
+    body: page.body.map(item => ({
+      type: 'json',
+      attributes: {
+        body: item,
+      },
+    })),
+  };
 }
 
 export function coverExtraData(page: IPage): any {
-  const currentPage: IPage = { ...page };
-  currentPage.label = page.title;
-  currentPage.body = page.body.map(item => {
-    if (item.extra) {
+  return {
+    ...page,
+    label: page.title,
+    body: page.body.map(item => {
+      if (item.extra) {
       const { uuid, id, type } = item.extra;
       return {
         uuid,
@@ -91,8 +94,8 @@ export function coverExtraData(page: IPage): any {
         body: item,
       },
     };
-  });
-  return currentPage;
+    }),
+  };
 }
 
 export function formatToExtraData(page: IPage, isTemplate?: boolean): IPage {

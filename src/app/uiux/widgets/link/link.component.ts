@@ -43,12 +43,11 @@ import { DialogComponent } from '../dialog/dialog.component';
   ],
 })
 export class LinkComponent extends BaseComponent implements OnInit {
-  private user$ = inject<Observable<IUser>>(USER);
+  private user = inject(USER);
 
   readonly content = input.required<ILink>();
   public classes: any;
   private dialogRef: MatDialogRef<any>;
-  private user: IUser;
 
   private router = inject(Router);
   private routeService = inject(RouteService);
@@ -58,12 +57,8 @@ export class LinkComponent extends BaseComponent implements OnInit {
   private util = inject(UtilitiesService);
   private destroyRef = inject(DestroyRef);
   private dialog = inject(MatDialog);
-
   constructor() {
     super();
-    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
-      this.user = user;
-    });
   }
 
   ngOnInit(): void {
@@ -87,21 +82,21 @@ export class LinkComponent extends BaseComponent implements OnInit {
     }
 
     if (contentValue?.rel === 'drawer') {
-      this.contentState.drawerOpened$.next(true);
-      this.contentState.drawerLoading$.next(true);
+      this.contentState.drawerOpened.set(true);
+      this.contentState.drawerLoading.set(true);
       this.contentService
         .loadPageContent(contentValue.href)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((content: IPage) => {
-          this.contentState.drawerLoading$.next(false);
-          this.contentState.drawerContent$.next(content);
+          this.contentState.drawerLoading.set(false);
+          this.contentState.drawerContent.set(content);
         });
       return false;
     }
 
     if (contentValue.href && contentValue.href.includes(':id')) {
       if (this.user) {
-        const id = this.user.current_user.uid;
+        const id = (this.user() as IUser)?.current_user?.uid;
         const url = contentValue.href.replace(':id', id);
         this.router.navigate([url]);
         return;

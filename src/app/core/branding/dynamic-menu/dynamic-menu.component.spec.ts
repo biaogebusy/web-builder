@@ -8,7 +8,7 @@ describe('DynamicMenuComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DynamicMenuComponent ]
+      imports: [ DynamicMenuComponent ]
     })
     .compileComponents();
   });

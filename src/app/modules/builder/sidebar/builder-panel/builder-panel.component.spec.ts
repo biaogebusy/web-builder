@@ -8,7 +8,7 @@ describe('BuilderPanelComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [BuilderPanelComponent],
+      imports: [BuilderPanelComponent],
     }).compileComponents();
   });
 

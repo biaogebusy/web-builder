@@ -4,8 +4,8 @@
       @if (contentValue.text) {
         <app-text [content]="contentValue.text" />
       }
-      @if (lists$ | async; as lists) {
-        <app-list-thin [pager]="pager" [content]="lists" [loading]="loading" />
+      @if (lists | async; as listData) {
+        <app-list-thin [pager]="pager" [content]="listData" [loading]="loading" />
       }
     </div>
   </div>

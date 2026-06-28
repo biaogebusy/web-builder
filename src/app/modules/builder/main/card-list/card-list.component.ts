@@ -5,7 +5,7 @@ import {
   DestroyRef,
   OnInit,
   inject,
-  input
+  input,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -20,6 +20,7 @@ import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { USER } from '@core/token/token-providers';
+import type { QueryParams } from '@core/util/http-params.util';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { TranslateService } from '@ngx-translate/core';
 import { merge } from 'lodash-es';
@@ -35,7 +36,7 @@ import { environment } from 'src/environments/environment';
   imports: [ShareModule, WidgetsModule, FormModule, MatPaginatorModule],
 })
 export class CardListComponent extends BaseComponent implements OnInit {
-  private user$ = inject<Observable<IUser>>(USER);
+  public user = inject(USER);
 
   readonly content = input.required<ICardList>();
   content$: Observable<IPageMeta[]>;
@@ -54,17 +55,12 @@ export class CardListComponent extends BaseComponent implements OnInit {
   private nodeService = inject(NodeService);
   private destroyRef = inject(DestroyRef);
   private translate = inject(TranslateService);
-  public user: IUser;
-
   constructor() {
     super();
-    this.user$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(user => {
-      this.user = user;
-    });
   }
 
   ngOnInit(): void {
-    this.fetchPage('noCache=1');
+    this.fetchPage({ noCache: 1 });
     this.builder.updateSuccess$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(state => {
       if (state) {
         this.onReload();
@@ -79,7 +75,7 @@ export class CardListComponent extends BaseComponent implements OnInit {
     this.fetchPage(params);
   }
 
-  fetchPage(params: string): void {
+  fetchPage(params: QueryParams | string): void {
     const {
       params: { api },
     } = this.content();

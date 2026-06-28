@@ -27,7 +27,7 @@
                   <div class="shadow"></div>
                 </div>
               }
-              @if (!(user$ | async)) {
+              @if (user() === false) {
                 <div
                   class="auth line p-y-sm p-x-sm"
                 >
@@ -54,7 +54,7 @@
               }
             </div>
           }
-          @if (user$ | async) {
+          @if (user()) {
             @if (coreConfig.article?.comment?.enable && contentValue.params?.comment) {
               <app-comment-form [content]="contentValue" [type]="'add'" />
               <app-comment-list [comments]="comments" [content]="contentValue" />

@@ -8,7 +8,7 @@ describe('SwitchPreviewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SwitchPreviewComponent],
+      imports: [SwitchPreviewComponent],
     }).compileComponents();
   });
 

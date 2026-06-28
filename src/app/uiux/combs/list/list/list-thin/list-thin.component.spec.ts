@@ -8,7 +8,7 @@ describe('ListThinComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ListThinComponent],
+      imports: [ListThinComponent],
     }).compileComponents();
   });
 

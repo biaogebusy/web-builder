@@ -4,7 +4,7 @@ import {
   OnInit,
   inject,
   DestroyRef,
-  input
+  input,
 } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { NodeService } from '@core/service/node.service';
@@ -26,26 +26,21 @@ import { ListThinComponent } from '@uiux/combs/list/list/list-thin/list-thin.com
   imports: [AsyncPipe, TextComponent, ListThinComponent],
 })
 export class UserFavoriteComponent implements OnInit {
-  private user$ = inject<Observable<IUser>>(USER);
+  private user = inject(USER);
 
   readonly content = input<any>();
-  lists$: Observable<IListThin[]>;
+  lists: Observable<IListThin[]>;
   id: string;
   loading: boolean;
   pager = {
     itemsPerPage: 20,
   };
-  user: IUser;
 
   nodeService = inject(NodeService);
   screenService = inject(ScreenService);
   private destroyRef = inject(DestroyRef);
 
-  constructor() {
-    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
-      this.user = user;
-    });
-  }
+  constructor() {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -56,13 +51,13 @@ export class UserFavoriteComponent implements OnInit {
   getContent(): void {
     this.loading = true;
     const path = '/api/v1/flagging';
-    const params = [
-      `filter[uid.id]=${this.user.id}`,
-      `include=flagged_entity`,
-      `sort=-created`,
-      `jsonapi_include=1`,
-    ].join('&');
-    this.lists$ = this.nodeService.getNodes(path, 'favorite', params).pipe(
+    const params = {
+      'filter[uid.id]': (this.user() as IUser)?.id,
+      include: 'flagged_entity',
+      sort: '-created',
+      jsonapi_include: 1,
+    };
+    this.lists = this.nodeService.getNodes(path, 'favorite', params).pipe(
       takeUntilDestroyed(this.destroyRef),
       map(res => {
         const lists = res.data.filter((item: any) => {

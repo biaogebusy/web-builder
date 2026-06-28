@@ -3,7 +3,9 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
+  Injector,
   OnInit,
+  effect,
   inject,
   input
 } from '@angular/core';
@@ -31,26 +33,22 @@ import { IconComponent } from '@uiux/widgets/icon/icon.component';
 })
 export class DownloadComponent implements OnInit {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
-  private pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);
-  user$ = inject<Observable<IUser>>(USER);
+  private pageContent = inject(PAGE_CONTENT);
+  user = inject(USER);
 
   readonly content = input.required<IDownload>();
   readonly data = input<any>();
   public config: ICoreDownload;
   public canAccess: boolean;
-  public user: IUser;
   private screenService = inject(ScreenService);
   private dialog = inject(MatDialog);
   private nodeService = inject(NodeService);
   private cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
   private userService = inject(UserService);
+  private injector = inject(Injector);
 
-  constructor() {
-    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
-      this.user = user;
-    });
-  }
+  constructor() {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -60,16 +58,20 @@ export class DownloadComponent implements OnInit {
   }
 
   checkAccess(data: any): void {
-    this.pageContent$.subscribe(page => {
-      const entityId = page.config?.node?.entityId || '';
-      this.nodeService
-        .checkNodeAccess(data, entityId, this.user)
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(access => {
-          this.canAccess = access.canAccess;
-          this.cd.detectChanges();
-        });
-    });
+    effect(() => {
+      const page = this.pageContent();
+      if (page && typeof page === 'object') {
+        const entityId = page.config?.node?.entityId || '';
+        const u = this.user();
+        this.nodeService
+          .checkNodeAccess(data, entityId, u as IUser)
+          .pipe(takeUntilDestroyed(this.destroyRef))
+          .subscribe(access => {
+            this.canAccess = access.canAccess;
+            this.cd.detectChanges();
+          });
+      }
+    }, { injector: this.injector });
   }
 
   openLogin(): void {

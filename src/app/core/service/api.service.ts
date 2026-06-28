@@ -3,7 +3,8 @@ import { Injectable, inject, DOCUMENT } from '@angular/core';
 import { ILanguage } from '@core/interface/IEnvironment';
 import { IPager } from '@core/interface/widgets/IWidgets';
 import { API_URL } from '@core/token/token-providers';
-import { camelCase, isArray, remove, result } from 'lodash-es';
+import { buildQueryString, QueryParams } from '@core/util/http-params.util';
+import { camelCase, result } from 'lodash-es';
 import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -113,27 +114,12 @@ export class ApiService {
     return result(obj, path);
   }
 
-  // For drupal view json api
-  getApiParams(state: any): string {
-    const params: string[] = [];
-    if (state) {
-      Object.keys(state).forEach(key => {
-        const val = state[key];
-        if (val) {
-          if (isArray(val)) {
-            const final = remove(val, item => item !== undefined);
-            if (final.length > 0) {
-              params.push(`${key}=${final.join('+')}`);
-            } else {
-              return;
-            }
-          } else {
-            params.push(`${key}=${val}`);
-          }
-        }
-      });
-    }
-    return params.join('&');
+  // For Drupal view query params. Keys are kept readable for existing JSON:API-style filters.
+  getApiParams(state: QueryParams): string {
+    return buildQueryString(state, {
+      arrayFormat: 'plus',
+      encodeKeys: false,
+    });
   }
   handlerPager(pager: any, length?: number): IPager {
     const { current_page, total_pages, total_items, items_per_page } = pager;

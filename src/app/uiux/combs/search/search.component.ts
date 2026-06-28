@@ -28,7 +28,12 @@ import { SearchListComponent } from './search-list/search-list.component';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, SearchHeaderComponent, SearchSidebarComponent, SearchListComponent],
+  imports: [
+    ReactiveFormsModule,
+    SearchHeaderComponent,
+    SearchSidebarComponent,
+    SearchListComponent,
+  ],
 })
 export class SearchComponent extends BaseComponent implements OnInit {
   readonly content = input.required<ISearch>();

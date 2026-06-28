@@ -34,9 +34,7 @@ export interface Header {
   dialog?: Dialog;
 }
 
-export interface Style {
-  [key: string]: string;
-}
+export type Style = Record<string, string>;
 
 export interface Dialog {
   shorten: number;

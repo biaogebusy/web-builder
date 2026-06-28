@@ -2,13 +2,11 @@ import {
   Component,
   inject,
   DestroyRef,
-  AfterViewInit,
   DOCUMENT,
   afterEveryRender,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
-import { Observable } from 'rxjs';
+import { NgTemplateOutlet } from '@angular/common';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { CORE_CONFIG, PAGE_CONTENT, USER } from '@core/token/token-providers';
 import { ContentState } from '@core/state/ContentState';
@@ -20,6 +18,7 @@ import { ScreenService } from '@core/service/screen.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { throttle } from 'lodash-es';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { BuilderState } from '@core/state/BuilderState';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
@@ -39,7 +38,6 @@ import { BrandingModule } from '@core/branding/branding.module';
     },
   ],
   imports: [
-    AsyncPipe,
     NgTemplateOutlet,
     MatSidenavModule,
     LoadingBarModule,
@@ -49,57 +47,51 @@ import { BrandingModule } from '@core/branding/branding.module';
     DynamicComponentComponent,
   ],
 })
-export class PageComponent implements AfterViewInit {
+export class PageComponent {
   private doc = inject<Document>(DOCUMENT);
   public coreConfig = inject<ICoreConfig>(CORE_CONFIG);
-  public pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);
-  public mobileMenuOpened: boolean;
-  public drawerLoading: boolean;
-  public drawerContent: IPage;
-  public opened: boolean;
-  public user$ = inject(USER);
+  public pageContent = inject(PAGE_CONTENT);
+  public mobileMenuOpened = false;
+  public user = inject(USER);
   private contentState = inject(ContentState);
   private destroyRef = inject(DestroyRef);
   private contentService = inject(ContentService);
   private screenService = inject(ScreenService);
   private router = inject(Router);
+  private builder = inject(BuilderState);
   private screen = inject(ScreenState);
   private util = inject(UtilitiesService);
+  private disconnectAosObserver?: () => void;
 
   constructor() {
     afterEveryRender({
       read: throttle(() => {
-        this.util.intersectionObserver('[data-aos]', this.doc);
+        this.refreshAosObserver();
       }, 200),
     });
-  }
+    this.destroyRef.onDestroy(() => this.disconnectAosObserver?.());
 
-  ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.screen.drawer$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
         this.mobileMenuOpened = !this.mobileMenuOpened;
       });
-
-      this.contentState.drawerOpened$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(state => {
-        this.opened = state;
-      });
-
-      this.contentState.drawerLoading$
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(loading => {
-          this.drawerLoading = loading;
-        });
-
-      this.contentState.drawerContent$
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe((content: IPage) => {
-          this.drawerContent = content;
-        });
     }
   }
 
+  get opened(): boolean {
+    return this.contentState.drawerOpened();
+  }
+
+  get drawerLoading(): boolean {
+    return this.contentState.drawerLoading();
+  }
+
+  get drawerContent(): IPage | undefined {
+    return this.contentState.drawerContent();
+  }
+
   onBackdrop(): void {
-    this.contentState.drawerOpened$.next(false);
+    this.contentState.drawerOpened.set(false);
   }
 
   onDrawer(): void {
@@ -115,12 +107,16 @@ export class PageComponent implements AfterViewInit {
   onEdit(nid: string): void {
     const url = this.doc.location.pathname;
     const { lang } = this.contentService.getUrlPath(url);
-    this.router.navigate(['builder/page-list'], {
-      queryParams: {
-        nid,
-        langcode: lang,
-        quickEdit: true,
-      },
+    this.builder.queuePageLoad({
+      nid,
+      langcode: lang,
+      quickEdit: true,
     });
+    this.router.navigate(['/builder/page-list']);
+  }
+
+  private refreshAosObserver(): void {
+    this.disconnectAosObserver?.();
+    this.disconnectAosObserver = this.util.intersectionObserver('[data-aos]', this.doc);
   }
 }

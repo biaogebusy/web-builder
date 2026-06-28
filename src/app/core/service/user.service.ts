@@ -4,10 +4,21 @@ import { isPlatformBrowser } from '@angular/common';
 import { Observable, of, Subject, firstValueFrom } from 'rxjs';
 import { ApiService } from './api.service';
 import { map, catchError, switchMap, take } from 'rxjs/operators';
-import { TokenUser, IUser, IUserProfile } from '../interface/IUser';
+import {
+  AccountProfileResponse,
+  DrupalUserListResponse,
+  OAuthTokenResponse,
+  PersonalProfileResponse,
+  TokenUser,
+  IUser,
+  IUserProfile,
+  UserProfileResponse,
+} from '../interface/IUser';
+import type { IUserConfig } from '@core/interface/IUserConfig';
 import { CryptoJSService } from './crypto-js.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
+import type { JsonObject } from '@core/interface/common';
 import { environment } from 'src/environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -25,8 +36,11 @@ import {
   isTokenExpired,
   parseServerCookie,
 } from '@core/util/auth-token.util';
+import { appendQueryParams, buildQueryString, QueryParams } from '@core/util/http-params.util';
 
-type AuthBroadcastMessage = { type: 'login' | 'logout' };
+interface AuthBroadcastMessage {
+  type: 'login' | 'logout';
+}
 
 export type OAuthMode = 'redirect' | 'popup';
 
@@ -46,6 +60,22 @@ interface PkceStash {
   state: string;
   mode: OAuthMode;
   returnUrl: string;
+}
+
+interface OtpGenerateResponse {
+  status?: boolean;
+  message?: string;
+}
+
+interface PhoneLoginResponse extends Partial<OAuthTokenResponse>, Partial<TokenUser> {
+  status?: boolean;
+  message?: string;
+}
+
+interface RoleRestrictedContent {
+  params?: {
+    reqRoles?: string[];
+  };
 }
 
 @Injectable({
@@ -177,7 +207,7 @@ export class UserService extends ApiService {
     return { mode: stash.mode, returnUrl: stash.returnUrl };
   }
 
-  private exchangeCodeForToken(code: string, verifier: string): Observable<any> {
+  private exchangeCodeForToken(code: string, verifier: string): Observable<OAuthTokenResponse> {
     const body = new HttpParams()
       .set('grant_type', 'authorization_code')
       .set('client_id', environment.oauth.clientId)
@@ -185,11 +215,15 @@ export class UserService extends ApiService {
       .set('code_verifier', verifier)
       .set('redirect_uri', this.getRedirectUri());
 
-    return this.http.post<any>(`${this.apiUrl}${environment.oauth.tokenUrl}`, body.toString(), {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded',
-      }),
-    });
+    return this.http.post<OAuthTokenResponse>(
+      `${this.apiUrl}${environment.oauth.tokenUrl}`,
+      body.toString(),
+      {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded',
+        }),
+      }
+    );
   }
 
   private getRedirectUri(): string {
@@ -215,14 +249,14 @@ export class UserService extends ApiService {
     popup?.focus();
   }
 
-  processTokenAndLogin(tokenData: any): Observable<boolean> {
+  processTokenAndLogin(tokenData: OAuthTokenResponse): Observable<boolean> {
     return this.getCurrentUserProfile(tokenData).pipe(
       switchMap(profile =>
-        this.getCurrentUserById(profile.uid, tokenData).pipe(
+        this.getCurrentUserById(String(profile.uid), tokenData).pipe(
           map(userProfile => {
             const tokenUser: TokenUser = {
               access_token: tokenData.access_token,
-              refresh_token: tokenData.refresh_token,
+              refresh_token: tokenData.refresh_token ?? '',
               token_type: tokenData.token_type,
               expires_in: tokenData.expires_in,
               expires_at: getTokenExpirationTime(tokenData),
@@ -240,7 +274,7 @@ export class UserService extends ApiService {
     );
   }
 
-  updateUser(data: TokenUser): any {
+  updateUser(data: TokenUser): void {
     const {
       current_user: { uid },
     } = data;
@@ -251,7 +285,7 @@ export class UserService extends ApiService {
       });
   }
 
-  editingUser(user: IUser, data: any): any {
+  editingUser(user: IUser, data: JsonObject): Observable<unknown> {
     const { id } = user;
     return this.http.patch(
       `${this.apiUrl}/api/v1/user/user/${id}`,
@@ -293,7 +327,7 @@ export class UserService extends ApiService {
     return parseServerCookie(header, name);
   }
 
-  applyRefreshedToken(tokenData: any): IUser | null {
+  applyRefreshedToken(tokenData: OAuthTokenResponse): IUser | null {
     const stored = this.getStoredUser();
     if (!stored) {
       return null;
@@ -306,7 +340,7 @@ export class UserService extends ApiService {
     return stored;
   }
 
-  refreshAccessToken(): Observable<any> {
+  refreshAccessToken(): Observable<OAuthTokenResponse | null> {
     const storedUser = this.getStoredUser();
     if (!storedUser || !storedUser.refresh_token) {
       return of(null);
@@ -320,11 +354,15 @@ export class UserService extends ApiService {
       body = body.set('scope', environment.oauth.scope);
     }
 
-    return this.http.post<any>(`${this.apiUrl}${environment.oauth.tokenUrl}`, body.toString(), {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded',
-      }),
-    });
+    return this.http.post<OAuthTokenResponse>(
+      `${this.apiUrl}${environment.oauth.tokenUrl}`,
+      body.toString(),
+      {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded',
+        }),
+      }
+    );
   }
 
   refreshLocalUser(user: IUser): void {
@@ -332,12 +370,12 @@ export class UserService extends ApiService {
     this.setUserCookie(user);
   }
 
-  checkShow(content: any, user: IUser): boolean {
+  checkShow(content: RoleRestrictedContent | null | undefined, user: IUser | undefined): boolean {
     // 没有内容不显示
     if (!content) {
       return false;
     }
-    const roles = this.getParams(content, 'reqRoles');
+    const roles = content.params?.reqRoles;
     if (!roles || !roles.length) {
       return true;
     } else {
@@ -354,7 +392,7 @@ export class UserService extends ApiService {
     }
   }
 
-  loginUser(data: any, user: any): void {
+  loginUser(data: TokenUser, user: IUserProfile): void {
     const currentUser: IUser = Object.assign(data, user);
     this.userSub$.next(currentUser);
     this.setUserCookie(currentUser);
@@ -367,7 +405,7 @@ export class UserService extends ApiService {
     this.broadcastAuth({ type: 'logout' });
   }
 
-  logout(): any {
+  logout(): void {
     this.logoutUser();
     if (!this.isBrowser) {
       return;
@@ -394,10 +432,13 @@ export class UserService extends ApiService {
     setTimeout(finish, 3000);
   }
 
-  getCode(phone: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/api/v3/otp/generate?format=json`, {
-      mobile_number: phone,
-    });
+  getCode(phone: string): Observable<OtpGenerateResponse> {
+    return this.http.post<OtpGenerateResponse>(
+      appendQueryParams(`${this.apiUrl}/api/v3/otp/generate`, { format: 'json' }),
+      {
+        mobile_number: phone,
+      }
+    );
   }
 
   loginByPhone(phone: number, code: string): Observable<{ ok: boolean; message?: string }> {
@@ -406,7 +447,7 @@ export class UserService extends ApiService {
       : {};
 
     return this.http
-      .post<any>(`${this.apiUrl}/api/v3/otp/login`, {
+      .post<PhoneLoginResponse>(`${this.apiUrl}/api/v3/otp/login`, {
         mobile_number: phone,
         code,
         ...authParams,
@@ -421,9 +462,11 @@ export class UserService extends ApiService {
             if (!response?.access_token) {
               return of({ ok: false, message: '后端未返回有效的令牌' });
             }
-            return this.processTokenAndLogin(response).pipe(map(ok => ({ ok })));
+            return this.processTokenAndLogin(response as OAuthTokenResponse).pipe(
+              map(ok => ({ ok }))
+            );
           }
-          this.updateUser(response);
+          this.updateUser(response as TokenUser);
           return of({ ok: true });
         }),
         catchError(error => {
@@ -434,34 +477,49 @@ export class UserService extends ApiService {
       );
   }
 
-  getUserConfig(): Observable<any> {
+  getUserConfig(): Observable<IUserConfig> {
     if (environment.production) {
-      return this.http.get(`${this.apiUrl}/api/v3/landingPage?content=/core/user`);
+      return this.http.get<IUserConfig>(
+        appendQueryParams(`${this.apiUrl}/api/v3/landingPage`, { content: '/core/user' })
+      );
     } else {
-      return this.http.get(`${this.apiUrl}/assets/app/core/user.json`);
+      return this.http.get<IUserConfig>(`${this.apiUrl}/assets/app/core/user.json`);
     }
   }
 
-  getUserById(id: string): Observable<any> {
-    const params = [
-      `filter[drupal_internal__uid]=${id}`,
-      `include=user_picture,roles`,
-      `jsonapi_include=1`,
-    ].join('&');
-    return this.http.get<any>(`${this.userApiPath}?${params}`, this.optionsWithBearerToken());
-  }
-
-  getUser(params: string): Observable<any> {
-    return this.http.get<any>(`${this.userApiPath}?${params}`);
-  }
-
-  getCurrentUserProfile(tokenData: any): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/api/v3/accountProfile?noCache=1`, {
-      headers: this.getAuthHeader(tokenData.access_token),
+  getUserById(id: string): Observable<DrupalUserListResponse> {
+    const params = buildQueryString(
+      {
+        'filter[drupal_internal__uid]': id,
+        include: 'user_picture,roles',
+        jsonapi_include: 1,
+      },
+      { encodeKeys: false }
+    );
+    return this.http.get<DrupalUserListResponse>(appendQueryParams(this.userApiPath, params), {
+      headers: this.optionsWithBearerToken().headers as HttpHeaders,
     });
   }
 
-  getAuthHeader(accessToken: string): any {
+  getUser(params: QueryParams | string): Observable<DrupalUserListResponse> {
+    return this.http.get<DrupalUserListResponse>(
+      appendQueryParams(this.userApiPath, params, {
+        arrayFormat: 'plus',
+        encodeKeys: false,
+      })
+    );
+  }
+
+  getCurrentUserProfile(tokenData: OAuthTokenResponse): Observable<AccountProfileResponse> {
+    return this.http.get<AccountProfileResponse>(
+      appendQueryParams(`${this.apiUrl}/api/v3/accountProfile`, { noCache: 1 }),
+      {
+        headers: this.getAuthHeader(tokenData.access_token),
+      }
+    );
+  }
+
+  getAuthHeader(accessToken: string): HttpHeaders {
     return new HttpHeaders({
       Authorization: `Bearer ${accessToken}`,
       Accept: 'application/vnd.api+json',
@@ -469,51 +527,64 @@ export class UserService extends ApiService {
     });
   }
 
-  getCurrentUserById(uid: string, tokenData: any): Observable<IUserProfile> {
-    const params = [
-      `filter[drupal_internal__uid]=${uid}`,
-      `include=user_picture,roles`,
-      `jsonapi_include=1`,
-      `noCache=1`,
-    ].join('&');
+  getCurrentUserById(uid: string, tokenData: OAuthTokenResponse): Observable<IUserProfile> {
+    const params = buildQueryString(
+      {
+        'filter[drupal_internal__uid]': uid,
+        include: 'user_picture,roles',
+        jsonapi_include: 1,
+        noCache: 1,
+      },
+      { encodeKeys: false }
+    );
     return this.http
-      .get<any>(`${this.userApiPath}?${params}`, {
+      .get<UserProfileResponse>(appendQueryParams(this.userApiPath, params), {
         headers: this.getAuthHeader(tokenData.access_token),
       })
       .pipe(
-        catchError((error: any) => {
-          return this.http.get<any>(`${this.apiUrl}/api/v3/personalProfile?noCache=1`, {
-            headers: this.getAuthHeader(tokenData.access_token),
-          });
+        catchError(() => {
+          return this.http.get<UserProfileResponse>(
+            appendQueryParams(`${this.apiUrl}/api/v3/personalProfile`, { noCache: 1 }),
+            {
+              headers: this.getAuthHeader(tokenData.access_token),
+            }
+          );
         }),
-        map((res: any) => {
+        map(res => {
           // jsonapi
-          if (res.data) {
+          if (this.isDrupalUserListResponse(res)) {
             const detail = res.data[0];
             return {
               id: detail.id,
-              display_name: detail?.display_name || '',
-              mail: detail?.mail || '',
+              display_name: detail.display_name || '',
+              mail: detail.mail || '',
               authenticated: true,
-              picture: detail?.user_picture?.uri?.url || this.coreConfig?.defaultAvatar || '',
-              login: detail.login,
+              picture: detail.user_picture?.uri?.url || this.coreConfig?.defaultAvatar || '',
+              login: detail.login || new Date().toISOString(),
               roles: (Array.isArray(detail?.roles) ? detail.roles : []).map(
-                (role: any) => role.meta.drupal_internal__target_id
+                role => role.meta?.drupal_internal__target_id || ''
               ),
             };
           } else {
+            const profile = res as PersonalProfileResponse;
             return {
-              id: res.uid,
-              display_name: res.name,
-              mail: res.mail || '',
+              id: profile.uid,
+              display_name: profile.name,
+              mail: profile.mail || '',
               authenticated: true,
-              picture: res.avatar || this.coreConfig?.defaultAvatar || '',
+              picture: profile.avatar || this.coreConfig?.defaultAvatar || '',
               login: new Date().toISOString(),
-              roles: res.roles || [],
+              roles: profile.roles || [],
             };
           }
         })
       );
+  }
+
+  private isDrupalUserListResponse(
+    res: UserProfileResponse
+  ): res is DrupalUserListResponse & { data: NonNullable<DrupalUserListResponse['data']> } {
+    return Array.isArray((res as DrupalUserListResponse).data);
   }
 
   setUserCookie(user: IUser): void {
@@ -522,6 +593,7 @@ export class UserService extends ApiService {
       expires: getCookieExpirationDate(this.coreConfig.cookieLifetime ?? 2000000),
       path: '/',
       sameSite: 'Lax',
+      secure: this.isBrowser && this.doc.location.protocol === 'https:',
     });
   }
 
@@ -534,7 +606,7 @@ export class UserService extends ApiService {
     }
   }
 
-  get userPage(): any[] {
+  get userPage(): string[] {
     return [`/me`];
   }
 
@@ -542,7 +614,7 @@ export class UserService extends ApiService {
     return ['/me/login'];
   }
 
-  uploadUserPicture(user: IUser, imageData: string | ArrayBuffer): Observable<any> {
+  uploadUserPicture(user: IUser, imageData: string | ArrayBuffer): Observable<unknown> {
     const { id } = user;
     const httpOptions = {
       headers: new HttpHeaders({

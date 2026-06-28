@@ -1,8 +1,7 @@
-export interface IComponentToolbar {
+import type { IDynamicInputs } from '../IAppConfig';
+
+export type IComponentToolbar = object & {
   type?: string;
-  content?: {
-    type: string;
-    [key: string]: any;
-  };
-  [key: string]: any;
-}
+  path?: string;
+  content?: IDynamicInputs;
+};

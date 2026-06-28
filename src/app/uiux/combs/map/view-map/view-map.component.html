@@ -8,7 +8,7 @@
               <div class="view-map-header">
                 <div class="result p-y-xs">
                   总计
-                  <span class="result-total">{{ (lists$ | async)?.length }}</span>
+                  <span class="result-total">{{ (lists | async)?.length }}</span>
                   条数据
                 </div>
               </div>
@@ -18,11 +18,14 @@
             <mat-divider class="m-y-sm" />
             <div
               class="list m-y-sm p-y-xs m-x-xs p-x-xs"
+              role="button"
+              tabindex="0"
               [class.selected]="i === selectedId"
               matRipple
               [matRippleColor]="'rgba(0, 0, 0, 0.04)'"
-              *cdkVirtualFor="let item of lists$ | async as lists; index as i"
+              *cdkVirtualFor="let item of lists | async as lists; index as i"
               (click)="onCard(item, i)"
+              (keyup.enter)="onCard(item, i)"
             >
               <div class="media">
                 <img [src]="item.img" [alt]="item.title" />
@@ -80,7 +83,7 @@
         class="flex-12/12"
         [content]="{
           city: contentValue.params.city,
-          elements: lists$ | async,
+          elements: lists | async,
           model: model,
           form: form,
         }"

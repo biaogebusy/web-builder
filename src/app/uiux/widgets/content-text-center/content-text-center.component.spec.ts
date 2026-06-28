@@ -8,7 +8,7 @@ describe('ContentTextCenterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ContentTextCenterComponent],
+      imports: [ContentTextCenterComponent],
     }).compileComponents();
   });
 

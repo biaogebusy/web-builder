@@ -1,23 +1,26 @@
-@let user = user$ | async;
+@let u = user();
 
 <div class="user">
-  @if (!user) {
-    <button aria-label="user login" color="primary" (click)="onLogin()" mat-mini-fab>
-      <mat-icon>person</mat-icon>
-    </button>
+  @if (!u) {
+    <app-btn
+      [content]="{ mode: 'icon', icon: { name: 'person' } }"
+      (btnClick)="onLogin()"
+    />
   } @else {
-    @if (!user.picture) {
-      <button aria-label="user name" mat-mini-fab color="primary" (click)="openDialog()">
-        <h3 class="name">
-          {{ name() }}
-        </h3>
-      </button>
+    @if (!$any(u).picture) {
+      <app-btn
+        [content]="{ mode: 'icon', icon: { name: 'account_circle' } }"
+        (btnClick)="openDialog()"
+      />
     } @else {
       <img
         class="user-picture"
+        role="button"
+        tabindex="0"
         (click)="openDialog()"
-        [src]="user.picture"
-        alt="{{ user.display_name }}"
+        (keyup.enter)="openDialog()"
+        [src]="$any(u).picture"
+        alt="{{ $any(u).display_name }}"
       />
     }
   }

@@ -30,15 +30,16 @@ export class BuilderShowcaseComponent implements OnInit {
   private screenService = inject(ScreenService);
   private storage = inject(LocalStorageService);
   private translate = inject(TranslateService);
-  public user$ = inject<Observable<IUser>>(USER);
+  public user = inject(USER);
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
+      // SSR-safe no-op
     }
   }
 
   onClose(): void {
-    this.builder.showcase$.next(false);
+    this.builder.currentShowcase.set(false);
   }
   onCopy(component: any): void {
     this.util.copy(JSON.stringify(component));
@@ -53,7 +54,7 @@ export class BuilderShowcaseComponent implements OnInit {
     const { uuid } = component;
     const jsonWidget: IJsoneditor = {
       type: 'jsoneditor',
-      data: component.content,
+      data: component.content ?? {},
       fullWidth: true,
       schemaType: component.type || '',
       isShowcase: true,

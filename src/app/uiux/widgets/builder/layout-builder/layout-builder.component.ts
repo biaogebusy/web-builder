@@ -1,26 +1,23 @@
 import {
   AfterViewInit,
   Component,
-  DestroyRef,
   ElementRef,
+  Injector,
+  effect,
   inject,
   signal,
   ChangeDetectionStrategy,
   input
 } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import type { ILayoutBlock, ILayoutBuilder } from '@core/interface/IBuilder';
-import { IPage } from '@core/interface/IAppConfig';
 import { BuilderService } from '@core/service/builder.service';
 import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
 import { generatePath } from '@core/util/dom-path.util';
 import { createPopper } from '@popperjs/core';
-import { Observable } from 'rxjs';
 import { BgImgComponent } from '../../bg-img/bg-img.component';
 import { BtnComponent } from '../../btn/btn.component';
 import { IconComponent } from '../../icon/icon.component';
@@ -43,18 +40,16 @@ import { LayoutToolbarComponent } from './layout-toolbar/layout-toolbar.componen
   ],
 })
 export class LayoutBuilderComponent implements AfterViewInit {
-  currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
+  currentPage = inject(BUILDER_CURRENT_PAGE);
 
   readonly content = input.required<ILayoutBuilder>();
   public showToolbar = signal(false);
 
   private util = inject(UtilitiesService);
   private ele = inject(ElementRef);
-  private builder = inject(BuilderState);
-  private destroyRef = inject(DestroyRef);
   private screenService = inject(ScreenService);
-  private builderSerivce = inject(BuilderService);
   private popup: any;
+  private injector = inject(Injector);
 
 
   ngAfterViewInit(): void {
@@ -63,15 +58,16 @@ export class LayoutBuilderComponent implements AfterViewInit {
         this.showToolbar.set(true);
       }
       if (this.showToolbar()) {
-        this.currentPage$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(page => {
+        effect(() => {
+          this.currentPage();
           this.layoutAnimate();
-        });
+        }, { injector: this.injector });
       }
     }
   }
 
   addBlock(addType: string, content: any, target: any): void {
-    this.builderSerivce.addBlock(addType, content, generatePath(target));
+    this.injector.get(BuilderService).addBlock(addType, content, generatePath(target));
   }
 
   layoutAnimate(): void {

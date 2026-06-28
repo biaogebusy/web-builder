@@ -8,7 +8,7 @@ describe('SwiperComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SwiperComponent],
+      imports: [SwiperComponent],
     }).compileComponents();
   });
 

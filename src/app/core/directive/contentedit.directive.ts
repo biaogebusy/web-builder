@@ -6,8 +6,7 @@ import { getInlineImg } from '@modules/builder/factory/getInlinImg';
 import { getInlineText } from '@modules/builder/factory/getInlineText';
 import { TranslateService } from '@ngx-translate/core';
 @Directive({
-  // tslint:disable-next-line:directive-selector
-  selector: '[contentedit]',
+   selector: '[contentedit]',
   host: {
     '[attr.data-path]': 'contentedit()',
     '(blur)': 'onBlur($event)',
@@ -99,7 +98,7 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
         mode: 'img',
         path,
         fullWidth: true,
-        ele: event.target,
+        ele: currentTarget as HTMLImageElement,
         fields: getInlineImg(currentTarget),
         data: {
           src,
@@ -125,7 +124,7 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
     }
   }
 
-  openMetaPanel(ele: any, path: string): void {
+  openMetaPanel(ele: HTMLElement, path: string): void {
     const meta: IMetaEdit = {
       type: 'inline-editor',
       mode: 'text',

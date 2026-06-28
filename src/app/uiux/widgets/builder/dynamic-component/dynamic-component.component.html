@@ -9,8 +9,8 @@
 @if (content?.spacer) {
   <app-spacer [size]="content.spacer" />
 }
-@if (content?.bg) {
-  <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" />
+@if (content.bg; as bg) {
+  <app-bg-img [attr.data-path]="'bg'" [content]="bg" />
 }
 
 <div class="content-wrapper {{ content?.fullWidth ? '' : 'container' }}">

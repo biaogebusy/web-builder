@@ -8,7 +8,7 @@ describe('HeaderMetaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HeaderMetaComponent],
+      imports: [HeaderMetaComponent],
     }).compileComponents();
   });
 

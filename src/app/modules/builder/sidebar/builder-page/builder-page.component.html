@@ -5,9 +5,9 @@
         <mat-panel-title>{{ name }}</mat-panel-title>
       </mat-expansion-panel-header>
       <mat-list>
-        @if (loading) {
+        @if (loading()) {
           <div class="loading-wrapper">
-            <app-loading />
+            <app-loading [content]="{ size: 24 }" />
           </div>
         }
         @if (pages$ | async; as pages) {
@@ -15,8 +15,11 @@
             @for (item of pages; track item; let i = $index) {
               <div
                 class="item"
+                role="button"
+                tabindex="0"
                 [matTooltip]="item.title"
                 (click)="loadPage(item)"
+                (keyup.enter)="loadPage(item)"
               >
                 <div class="inner">
                   <div class="index">{{ i + 1 }}</div>

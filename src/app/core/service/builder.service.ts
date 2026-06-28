@@ -1,5 +1,5 @@
 import { DestroyRef, Injectable, inject } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { ApiService } from './api.service';
 import { BUILDER_CONFIG } from '@core/token/token-providers';
 import type { IPage } from '@core/interface/IAppConfig';
@@ -25,6 +25,7 @@ import {
   getApiLang,
   getPageParams,
 } from '@core/util/builder-page.util';
+import { appendQueryParams, type QueryParams } from '@core/util/http-params.util';
 
 const BUILDERPATH = '/builder';
 const VERSION_KEY = 'version';
@@ -34,7 +35,9 @@ const VERSION_CHECK_INTERVAL = 30000;
   providedIn: 'root',
 })
 export class BuilderService extends ApiService {
-  private builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
+  private builderConfig = toSignal(inject(BUILDER_CONFIG, { optional: true }) ?? of(undefined), {
+    initialValue: undefined,
+  });
 
   private dialog = inject(MatDialog);
   private builder = inject(BuilderState);
@@ -44,15 +47,11 @@ export class BuilderService extends ApiService {
   private destroyRef = inject(DestroyRef);
   private router = inject(Router);
   private storage = inject(LocalStorageService);
-  private builderConfig: IBuilderConfig;
   private versionCheckSub?: Subscription;
   private versionDialogOpen = false;
 
   constructor() {
     super();
-    this.builderConfig$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(config => {
-      this.builderConfig = config;
-    });
   }
 
   loadPage(
@@ -62,11 +61,11 @@ export class BuilderService extends ApiService {
     const { langcode, nid, isTemplate } = page;
     const lang = getApiLang(langcode);
     this.nodeService
-      .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', lang)
+      .fetch(`/api/v3/landingPage/json/${nid}`, { noCache: 1 }, lang)
       .pipe(take(1))
       .subscribe((content: IPage) => {
         const { body, status, uuid } = content;
-        this.builder.loading$.next(false);
+        this.builder.loading.set(false);
         if (status) {
           this.builder.loadNewPage(formatToExtraData(content, isTemplate));
           if (isTemplate) {
@@ -119,7 +118,7 @@ export class BuilderService extends ApiService {
     const { langcode, nid } = page;
     const lang = getApiLang(langcode);
     this.nodeService
-      .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', lang)
+      .fetch(`/api/v3/landingPage/json/${nid}`, { noCache: 1 }, lang)
       .pipe(take(1))
       .subscribe((content: IPage) => {
         const { status, uuid } = content;
@@ -170,10 +169,12 @@ export class BuilderService extends ApiService {
         filter((localPage): localPage is IPage => Boolean(localPage?.nid)),
         switchMap(localPage => {
           const lang = getApiLang(localPage.langcode);
-          return this.nodeService.fetch(`/api/v3/landingPage/json/${localPage.nid}`, 'noCache=1', lang).pipe(
-            map((serverPage: IPage) => ({ localPage, serverPage })),
-            catchError(() => of(null))
-          );
+          return this.nodeService
+            .fetch(`/api/v3/landingPage/json/${localPage.nid}`, { noCache: 1 }, lang)
+            .pipe(
+              map((serverPage: IPage) => ({ localPage, serverPage })),
+              catchError(() => of(null))
+            );
         }),
         takeUntilDestroyed(this.destroyRef)
       )
@@ -233,11 +234,11 @@ export class BuilderService extends ApiService {
   }
 
   loadNodeJson(page: { langcode?: string; nid: string; uuid: string; schemaType: string }): void {
-    this.builder.loading$.next(true);
+    this.builder.loading.set(true);
     const { langcode, nid, uuid, schemaType } = page;
     const lang = getApiLang(langcode);
     this.nodeService
-      .fetch(`/api/v3/landingPage?content=/node/${nid}`, 'noCache=1', lang)
+      .fetch('/api/v3/landingPage', { content: `/node/${nid}`, noCache: 1 }, lang)
       .pipe(take(1))
       .subscribe((newPage: IPage) => {
         const jsonWidget: IJsoneditor = {
@@ -266,7 +267,7 @@ export class BuilderService extends ApiService {
             content: jsonWidget,
           },
         };
-        this.builder.loading$.next(false);
+        this.builder.loading.set(false);
         this.dialog.open(DialogComponent, {
           width: '1000px',
           panelClass: ['close-outside', 'close-icon-white'],
@@ -278,8 +279,8 @@ export class BuilderService extends ApiService {
   createLandingPage(page: IPage, loadPage = true): Observable<any> {
     const {
       api: { create },
-    } = this.builderConfig;
-    this.builder.loading$.next(true);
+    } = this.builderConfig()!;
+    this.builder.loading.set(true);
     return this.http
       .post(`${this.apiUrl}${create}`, formatPage(page), this.optionsWithBearerToken())
       .pipe(
@@ -292,7 +293,7 @@ export class BuilderService extends ApiService {
           }
         }),
         catchError((error: any) => {
-          this.builder.loading$.next(false);
+          this.builder.loading.set(false);
           if (error?.status === 403) {
             this.util.openSnackbar('无权限执行此操作', 'ok');
           } else {
@@ -313,8 +314,8 @@ export class BuilderService extends ApiService {
     }
     const {
       api: { update },
-    } = this.builderConfig;
-    this.builder.loading$.next(true);
+    } = this.builderConfig()!;
+    this.builder.loading.set(true);
     return this.http
       .patch(
         `${this.apiUrl}${prefix}${update}/${nid}`,
@@ -348,16 +349,16 @@ export class BuilderService extends ApiService {
     if (!production) {
       return this.http.get<IPage>(`${apiUrl}/assets/app${lang}${url}.json`);
     } else {
-      this.builder.loading$.next(true);
+      this.builder.loading.set(true);
       return this.contentService.loadPageContent(`${lang}${url}`).pipe(
         tap(res => {
-          this.builder.loading$.next(false);
+          this.builder.loading.set(false);
           if (isArray(res) || !res) {
             this.util.openSnackbar('请配置默认页面！', 'OK');
           }
         }),
         catchError(() => {
-          this.builder.loading$.next(false);
+          this.builder.loading.set(false);
           this.util.openSnackbar('请配置默认页面！', 'OK');
           return of({
             title: '',
@@ -372,7 +373,7 @@ export class BuilderService extends ApiService {
     const { nid, target, langcode } = page;
     const {
       api: { translate },
-    } = this.builderConfig;
+    } = this.builderConfig()!;
     return this.http.post(
       `${this.apiUrl}${translate}/add/${nid}/${langcode}/${target}`,
       formatPage(page),
@@ -480,7 +481,13 @@ export class BuilderService extends ApiService {
 
       if (pid) {
         this.http
-          .get(`${prefix}/api/v1/path_alias/path_alias?filter[drupal_internal__id]=${pid}`)
+          .get(
+            appendQueryParams(
+              `${prefix}/api/v1/path_alias/path_alias`,
+              { 'filter[drupal_internal__id]': pid },
+              { encodeKeys: false }
+            )
+          )
           .pipe(
             catchError(error => {
               return of(handleError(error));
@@ -546,7 +553,11 @@ export class BuilderService extends ApiService {
     });
   }
 
-  openPageSetting(page: { uuid: string; langcode?: string }, api: string, params: string): void {
+  openPageSetting(
+    page: { uuid: string; langcode?: string },
+    api: string,
+    params: QueryParams | string
+  ): void {
     const { uuid, langcode } = page;
     const lang = getApiLang(langcode);
     this.nodeService
@@ -578,7 +589,7 @@ export class BuilderService extends ApiService {
             ],
           });
         }
-        this.builder.loading$.next(false);
+        this.builder.loading.set(false);
       });
   }
 

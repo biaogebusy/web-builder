@@ -8,7 +8,7 @@ describe('GithubStarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [GithubStarComponent],
+      imports: [GithubStarComponent],
     }).compileComponents();
   });
 

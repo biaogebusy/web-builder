@@ -4,6 +4,7 @@ import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 
 import { UtilitiesService } from '@core/service/utilities.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
@@ -13,6 +14,18 @@ export class TagsService {
   private document = inject(DOCUMENT);
   private util = inject(UtilitiesService);
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+
+  constructor() {
+    try {
+      const origin = new URL(environment.apiUrl).origin;
+      for (const rel of ['preconnect', 'dns-prefetch'] as const) {
+        const link = this.document.createElement('link');
+        link.rel = rel;
+        link.href = origin;
+        this.document.head.appendChild(link);
+      }
+    } catch {}
+  }
 
   public setTitle(newTitle: string): void {
     this.titleService.setTitle(newTitle);
@@ -27,20 +40,110 @@ export class TagsService {
   }
 
   public updateTages(pageValue: IPage): void {
-    this.setTitle(pageValue.title);
+    const title = pageValue.title ?? '';
+    this.setTitle(title);
+
     if (pageValue.meta) {
-      pageValue.meta.forEach(item => {
-        this.updateMeta(item);
-      });
+      pageValue.meta.forEach(item => this.updateMeta(item));
     } else {
-      this.updateMeta({
-        name: 'description',
-        content: '',
-      });
-      this.updateMeta({
-        name: 'keywords',
-        content: '',
-      });
+      this.updateMeta({ name: 'description', content: '' });
+      this.updateMeta({ name: 'keywords', content: '' });
+    }
+
+    const description =
+      (pageValue.meta?.find((m: any) => m['name'] === 'description')?.[
+        'content'
+      ] as string) ?? '';
+    const image =
+      (pageValue.meta?.find((m: any) => m['property'] === 'og:image')?.[
+        'content'
+      ] as string) || `${this.document.location.origin}/assets/images/favicon.png`;
+    const url = this.document.location.href;
+
+    this.meta.updateTag({ property: 'og:title', content: title });
+    this.meta.updateTag({ property: 'og:description', content: description });
+    this.meta.updateTag({ property: 'og:url', content: url });
+    this.meta.updateTag({ property: 'og:type', content: 'website' });
+    this.meta.updateTag({ property: 'og:image', content: image });
+    this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
+    this.meta.updateTag({ name: 'twitter:title', content: title });
+    this.meta.updateTag({ name: 'twitter:description', content: description });
+    this.meta.updateTag({ name: 'twitter:image', content: image });
+
+    this.setCanonical(url);
+    this.setHreflang();
+    this.setJsonLd(pageValue, { title, description, url });
+  }
+
+  private setJsonLd(
+    pageValue: IPage,
+    { title, description, url }: { title: string; description: string; url: string }
+  ): void {
+    const schema: Record<string, unknown> = {
+      '@context': 'https://schema.org',
+      '@type': pageValue.time || pageValue.changed ? 'Article' : 'WebPage',
+      name: title,
+      headline: title,
+      description,
+      url,
+      inLanguage: pageValue.langcode ?? 'zh-hans',
+    };
+    if (pageValue.time) schema['datePublished'] = pageValue.time;
+    if (pageValue.changed) schema['dateModified'] = pageValue.changed;
+
+    const existing = this.document.querySelector('script[type="application/ld+json"]');
+    const json = JSON.stringify(schema);
+    if (existing) {
+      existing.textContent = json;
+    } else {
+      const script = this.document.createElement('script');
+      script.type = 'application/ld+json';
+      script.textContent = json;
+      this.document.head.appendChild(script);
+    }
+  }
+
+  private setHreflang(): void {
+    if (!environment.multiLang || !environment.langs?.length) return;
+
+    const { origin, pathname } = this.document.location;
+
+    let barePath = pathname;
+    for (const lang of environment.langs) {
+      if (!lang.default && lang.prefix && pathname.startsWith(lang.prefix)) {
+        barePath = pathname.slice(lang.prefix.length) || '/';
+        break;
+      }
+    }
+
+    this.document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(el => el.remove());
+
+    for (const lang of environment.langs) {
+      const href = origin + (lang.default ? '' : lang.prefix) + barePath;
+      const link = this.document.createElement('link');
+      link.setAttribute('rel', 'alternate');
+      link.setAttribute('hreflang', lang.langCode);
+      link.setAttribute('href', href);
+      this.document.head.appendChild(link);
+    }
+
+    const defaultHref = origin + barePath;
+    const xDefault = this.document.createElement('link');
+    xDefault.setAttribute('rel', 'alternate');
+    xDefault.setAttribute('hreflang', 'x-default');
+    xDefault.setAttribute('href', defaultHref);
+    this.document.head.appendChild(xDefault);
+  }
+
+  private setCanonical(url: string): void {
+    const existing = this.document.querySelector('link[rel="canonical"]');
+    if (existing) {
+      existing.setAttribute('href', url);
+    } else {
+      const link = this.document.createElement('link');
+      link.setAttribute('rel', 'canonical');
+      link.setAttribute('href', url);
+      this.document.head.appendChild(link);
     }
   }
 

@@ -8,7 +8,7 @@ describe('CardMetaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CardMetaComponent],
+      imports: [CardMetaComponent],
     }).compileComponents();
   });
 

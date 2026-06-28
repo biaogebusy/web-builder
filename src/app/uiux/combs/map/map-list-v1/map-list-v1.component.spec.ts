@@ -8,7 +8,7 @@ describe('MapListV1Component', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [MapListV1Component],
+      imports: [MapListV1Component],
     }).compileComponents();
   });
 

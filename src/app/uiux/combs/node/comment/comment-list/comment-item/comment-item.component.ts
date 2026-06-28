@@ -4,7 +4,9 @@ import {
   Component,
   DestroyRef,
   OnInit,
+  effect,
   inject,
+  Injector,
   forwardRef,
   ChangeDetectionStrategy,
   input
@@ -54,20 +56,22 @@ export class CommentItemComponent implements OnInit, AfterViewInit {
   contentState = inject(ContentState);
   tagsService = inject(TagsService);
   private destroyRef = inject(DestroyRef);
+  private injector = inject(Injector);
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.contentState.commentChange$
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(state => {
-          if (state) {
+      effect(
+        () => {
+          if (this.contentState.commentChange()) {
             this.showComment = true;
             this.showActions = true;
             this.currentId = '';
             this.screenService.scrollToAnchor(`q-${this.currentId}`);
             this.cd.detectChanges();
           }
-        });
+        },
+        { injector: this.injector }
+      );
     }
   }
 

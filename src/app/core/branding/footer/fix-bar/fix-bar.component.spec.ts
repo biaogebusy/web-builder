@@ -8,7 +8,7 @@ describe('FixBarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [FixBarComponent],
+      imports: [FixBarComponent],
     }).compileComponents();
   });
 

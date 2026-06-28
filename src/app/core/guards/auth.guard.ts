@@ -18,7 +18,8 @@ export const authGuard: CanActivateFn = (_route, state) => {
     return of(true);
   }
 
-  const { authGuard: needsAuth, defaultFrontLoginPage } = coreConfig.guard;
+  const needsAuth = coreConfig?.guard?.authGuard ?? false;
+  const defaultFrontLoginPage = coreConfig?.guard?.defaultFrontLoginPage ?? '/me/login';
   if (!needsAuth && !state.url.startsWith('/my')) {
     return of(true);
   }
@@ -29,13 +30,13 @@ export const authGuard: CanActivateFn = (_route, state) => {
         return true;
       }
       userService.logoutUser();
-      router.navigate([defaultFrontLoginPage ?? '/me/login'], {
+      router.navigate([defaultFrontLoginPage], {
         queryParams: { returnUrl: state.url },
       });
       return false;
     }),
     catchError(() => {
-      router.navigate([defaultFrontLoginPage ?? '/me/login']);
+      router.navigate([defaultFrontLoginPage]);
       return of(false);
     })
   );

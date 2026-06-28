@@ -13,28 +13,28 @@ import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
 import { UtilitiesService } from './utilities.service';
 import { IMediaAttr } from '@core/interface/manage/IManage';
+import { appendQueryParams, buildQueryString, QueryParams } from '@core/util/http-params.util';
+
+type ApiQueryParams = QueryParams | string | null | undefined;
+
 @Injectable({
   providedIn: 'root',
 })
 export class NodeService extends ApiService {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
-  private user$ = inject<Observable<IUser>>(USER);
+  private user = inject(USER);
   private destroyRef = inject(DestroyRef);
 
   private util = inject(UtilitiesService);
-  private user: IUser;
 
   private readonly commentGetPath = '/api/v1/comment';
 
   constructor() {
     super();
-    this.user$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(user => {
-      this.user = user;
-    });
   }
 
-  fetch(api: string, params: string, langCode?: string): Observable<any> {
-    let apiParams = '';
+  fetch(api: string, params: ApiQueryParams = '', langCode?: string): Observable<any> {
+    let apiPath = '';
     let lang = '';
     if (!api) {
       return of(false);
@@ -42,18 +42,19 @@ export class NodeService extends ApiService {
     if (langCode) {
       lang = `/${langCode}`;
     }
-    const hasApiParam = api.indexOf('?') > 0;
     if (api.startsWith('/api/')) {
-      apiParams = hasApiParam
-        ? `${this.apiUrl}${lang}${api}&${params}`
-        : `${this.apiUrl}${lang}${api}?${params}`;
+      apiPath = `${this.apiUrl}${lang}${api}`;
     } else {
-      apiParams = hasApiParam
-        ? `${this.apiUrl}${lang}/api/v1/${api}&${params}`
-        : `${this.apiUrl}${lang}/api/v1/${api}?${params}`;
+      apiPath = `${this.apiUrl}${lang}/api/v1/${api}`;
     }
 
-    return this.http.get<any>(apiParams, this.httpOptionsOfCommon);
+    return this.http.get<any>(
+      appendQueryParams(apiPath, params, {
+        arrayFormat: 'plus',
+        encodeKeys: false,
+      }),
+      this.httpOptionsOfCommon
+    );
   }
 
   getNodeByLink(link: string): Observable<any> {
@@ -61,8 +62,15 @@ export class NodeService extends ApiService {
   }
 
   // params can use for noCache
-  getNodes(path: string, type: string, params = ''): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}${path}/${type}?${params}`, this.httpOptionsOfCommon);
+  getNodes(path: string, type: string, params: ApiQueryParams = ''): Observable<any> {
+    const apiPath = `${this.apiUrl}${path}/${type}`;
+    return this.http.get<any>(
+      appendQueryParams(apiPath, params, {
+        arrayFormat: 'plus',
+        encodeKeys: false,
+      }),
+      this.httpOptionsOfCommon
+    );
   }
 
   /**
@@ -161,30 +169,36 @@ export class NodeService extends ApiService {
     return {
       path: this.commentGetPath,
       type,
-      params: [
-        `filter[entity_id.id]=${this.getCommentRelEntityId(content)}`,
-        `include=uid,uid.user_picture,pid`,
-        `fields[user--user]=name,user_picture`,
-        `fields[file--file]=uri,url`,
-        `sort=-created`,
-        // 'filter[status]=1',
-        `jsonapi_include=1`,
-        `timeStamp=${timeStamp}`,
-      ].join('&'),
+      params: buildQueryString(
+        {
+          'filter[entity_id.id]': this.getCommentRelEntityId(content),
+          include: 'uid,uid.user_picture,pid',
+          'fields[user--user]': 'name,user_picture',
+          'fields[file--file]': 'uri,url',
+          sort: '-created',
+          // 'filter[status]': 1,
+          jsonapi_include: 1,
+          timeStamp,
+        },
+        { encodeKeys: false }
+      ),
     };
   }
 
-  getCommentsPidParams(pid: string, timeStamp: number): any {
-    return [
-      `filter[pid.id]=${pid}`,
-      `include=uid,uid.user_picture,pid`,
-      `fields[user--user]=name,user_picture`,
-      `fields[file--file]=uri,url`,
-      `sort=-created`,
-      // 'filter[status]=1',
-      `jsonapi_include=1`,
-      `timeStamp=${timeStamp}`,
-    ].join('&');
+  getCommentsPidParams(pid: string, timeStamp: number): string {
+    return buildQueryString(
+      {
+        'filter[pid.id]': pid,
+        include: 'uid,uid.user_picture,pid',
+        'fields[user--user]': 'name,user_picture',
+        'fields[file--file]': 'uri,url',
+        sort: '-created',
+        // 'filter[status]': 1,
+        jsonapi_include: 1,
+        timeStamp,
+      },
+      { encodeKeys: false }
+    );
   }
 
   handleComment(comment: any, level: number): IComment {
@@ -214,7 +228,8 @@ export class NodeService extends ApiService {
 
   // api 在有权限的时候会有很大的性能开销，可使用自定义api
   getCommentsWitchChild(content: any, timeStamp = 1): Observable<any> {
-    const token = this.user.access_token;
+    const user = this.user();
+    const token = typeof user === 'object' ? user.access_token : undefined;
     const path = this.commentGetPath;
     const type = this.getCommentType(content);
     const { params } = this.getCommentsParams(content, timeStamp);
@@ -264,16 +279,20 @@ export class NodeService extends ApiService {
 
   // custom get comment api
   getCustomApiComment(uuid: string, timeStamp = 1): Observable<any> {
-    const params = [`timeStamp=${timeStamp}`].join('&');
-
     return this.http.get<IComment[]>(
-      `${this.apiUrl}/api/v3/comment/comment/${uuid}?${params}`,
+      appendQueryParams(`${this.apiUrl}/api/v3/comment/comment/${uuid}`, { timeStamp }),
       this.httpOptionsOfCommon
     );
   }
 
-  getFlaging(path: string, params: string, token: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}${path}?${params}`, this.optionsWithBearerToken());
+  getFlaging(path: string, params: ApiQueryParams, token: string): Observable<any> {
+    return this.http.get<any>(
+      appendQueryParams(`${this.apiUrl}${path}`, params, {
+        arrayFormat: 'plus',
+        encodeKeys: false,
+      }),
+      this.optionsWithBearerToken()
+    );
   }
 
   flagging(path: string, data: any): Observable<any> {

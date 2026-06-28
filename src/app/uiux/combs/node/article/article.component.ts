@@ -3,12 +3,13 @@ import {
   OnInit,
   AfterViewInit,
   ChangeDetectorRef,
+  effect,
   inject,
+  Injector,
   DestroyRef,
   ChangeDetectionStrategy,
   input
 } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
 import { MatDividerModule } from '@angular/material/divider';
 import { NgPipesModule } from 'ngx-pipes';
 import { TagsService } from '@core/service/tags.service';
@@ -40,7 +41,6 @@ import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-compone
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.scss'],
   imports: [
-    AsyncPipe,
     MatDividerModule,
     NgPipesModule,
     SafeHtmlPipe,
@@ -54,8 +54,8 @@ import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-compone
 })
 export class ArticleComponent extends NodeComponent implements OnInit, AfterViewInit {
   public coreConfig = inject<ICoreConfig>(CORE_CONFIG);
-  private pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);
-  public user$ = inject<Observable<IUser>>(USER);
+  private pageContent = inject(PAGE_CONTENT);
+  public user = inject(USER);
 
   readonly content = input.required<IBaseNode>();
   public comments: IComment[];
@@ -69,13 +69,10 @@ export class ArticleComponent extends NodeComponent implements OnInit, AfterView
   private userService = inject(UserService);
   private contentState = inject(ContentState);
   private destroyRef = inject(DestroyRef);
-  private user: IUser;
+  private injector = inject(Injector);
 
   constructor() {
     super();
-    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
-      this.user = user;
-    });
   }
 
   ngOnInit(): void {
@@ -95,15 +92,19 @@ export class ArticleComponent extends NodeComponent implements OnInit, AfterView
     if (!environment.production) {
       return;
     }
-    this.pageContent$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(page => {
-      const entityId = page.config?.node?.entityId || '';
-      this.nodeService
-        .checkNodeAccess(this.content().params, entityId, this.user)
-        .subscribe(access => {
-          this.canAccess = access.canAccess;
-          this.cd.detectChanges();
-        });
-    });
+    effect(() => {
+      const page = this.pageContent();
+      if (page && typeof page === 'object') {
+        const entityId = page.config?.node?.entityId || '';
+        const u = this.user();
+        this.nodeService
+          .checkNodeAccess(this.content().params, entityId, u as IUser)
+          .subscribe(access => {
+            this.canAccess = access.canAccess;
+            this.cd.detectChanges();
+          });
+      }
+    }, { injector: this.injector });
   }
 
   ngAfterViewInit(): void {
@@ -112,13 +113,14 @@ export class ArticleComponent extends NodeComponent implements OnInit, AfterView
     }
     if (this.coreConfig.article?.comment?.enable) {
       if (this.screenService.isPlatformBrowser()) {
-        this.contentState.commentChange$
-          .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe(state => {
-            if (state) {
+        effect(
+          () => {
+            if (this.contentState.commentChange()) {
               this.getComments(+new Date());
             }
-          });
+          },
+          { injector: this.injector }
+        );
       }
     }
   }
