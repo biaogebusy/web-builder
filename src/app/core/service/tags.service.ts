@@ -15,6 +15,18 @@ export class TagsService {
   private util = inject(UtilitiesService);
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
 
+  constructor() {
+    try {
+      const origin = new URL(environment.apiUrl).origin;
+      for (const rel of ['preconnect', 'dns-prefetch'] as const) {
+        const link = this.document.createElement('link');
+        link.rel = rel;
+        link.href = origin;
+        this.document.head.appendChild(link);
+      }
+    } catch {}
+  }
+
   public setTitle(newTitle: string): void {
     this.titleService.setTitle(newTitle);
   }
