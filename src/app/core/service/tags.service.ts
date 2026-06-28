@@ -42,15 +42,21 @@ export class TagsService {
       (pageValue.meta?.find((m: any) => m['name'] === 'description')?.[
         'content'
       ] as string) ?? '';
+    const image =
+      (pageValue.meta?.find((m: any) => m['property'] === 'og:image')?.[
+        'content'
+      ] as string) || `${this.document.location.origin}/assets/images/favicon.png`;
     const url = this.document.location.href;
 
     this.meta.updateTag({ property: 'og:title', content: title });
     this.meta.updateTag({ property: 'og:description', content: description });
     this.meta.updateTag({ property: 'og:url', content: url });
     this.meta.updateTag({ property: 'og:type', content: 'website' });
-    this.meta.updateTag({ name: 'twitter:card', content: 'summary' });
+    this.meta.updateTag({ property: 'og:image', content: image });
+    this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
     this.meta.updateTag({ name: 'twitter:title', content: title });
     this.meta.updateTag({ name: 'twitter:description', content: description });
+    this.meta.updateTag({ name: 'twitter:image', content: image });
 
     this.setCanonical(url);
     this.setHreflang();
