@@ -6,9 +6,6 @@ import { IMediaObject } from '../widgets/IMediaObject';
 import { ITitle } from '../widgets/ITitle';
 import { IImg } from '../widgets/IImg';
 import { IIcon } from '../widgets/IIcon';
-import { ICard } from '../widgets/ICard';
-import { IBox } from '../widgets/IBox';
-import { IBg } from '../widgets/IBg';
 import { IBgImg } from '../widgets/IBgImg';
 import { IBtn } from '../widgets/IBtn';
 
@@ -18,30 +15,6 @@ export interface IShowcase1v1 extends ICombsBase {
   style?: string;
   row?: number;
   elements: any[];
-}
-
-export interface IShowcase1v3 extends ICombsBase {
-  text: IText;
-  subTitle?: IText;
-  elements: any[];
-  actions?: any[];
-}
-
-export interface IShowcase1v4 extends ICombsBase {
-  elements: any[];
-  actions?: any[];
-}
-
-export interface IShowcase2v1 extends ICombsBase {
-  elements: any[];
-  params?: {
-    api: string;
-    widget: string;
-  };
-}
-
-export interface IShowcase2v2 extends ICombsBase {
-  elements: ICard[];
 }
 
 export interface IShowcase2v3 extends ICombsBase {
@@ -55,17 +28,7 @@ interface Showcase2v3 {
   img: IImg;
 }
 
-export interface IShowcase2v4 extends ICombsBase {
-  fullWidth: boolean;
-  elements: any[];
-}
-
 export interface IShowcase2v5 extends ICombsBase {
-  fullWidth: boolean;
-  elements: any[];
-}
-
-export interface IShowcase2v6 extends ICombsBase {
   fullWidth: boolean;
   elements: any[];
 }
@@ -95,31 +58,6 @@ export interface IShowcase3v3 extends ICombsBase {
   category: string;
   body: string;
   details: IBtn;
-}
-
-export interface IShowcase3v4 extends ICombsBase {
-  title: ITitle;
-  elements: IBox[];
-  img: IImg;
-}
-
-export interface IShowcase3v5 extends ICombsBase {
-  title: IText;
-  elements: IBox[];
-  img: IImg;
-}
-
-export interface IShowcase3v6 extends ICombsBase {
-  title: IText;
-  elements: IMediaObject[];
-  action?: any;
-}
-
-export interface IShowcase3v7 extends ICombsBase {
-  title: IText;
-  left: IBox[];
-  img: IImg;
-  right: IBox[];
 }
 
 export interface IShowcase3v8 extends ICombsBase {
