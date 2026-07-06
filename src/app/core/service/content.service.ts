@@ -4,7 +4,7 @@ import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { environment } from 'src/environments/environment';
 import { Observable, lastValueFrom, of } from 'rxjs';
-import { catchError, retry, shareReplay, take, tap } from 'rxjs/operators';
+import { catchError, retry, shareReplay, take, tap, timeout } from 'rxjs/operators';
 import { isArray } from 'lodash-es';
 import { TagsService } from '@core/service/tags.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
@@ -89,6 +89,7 @@ export class ContentService extends ApiService {
   loadBranding(pageUrl = this.pageUrl): Observable<IBranding> {
     const { lang } = this.getUrlPath(pageUrl);
     return this.http.get<IBranding>(this.getLandingPageUrl(lang, '/core/branding')).pipe(
+      timeout(5000),
       retry({ count: 1, delay: 500 }),
       catchError(error => {
         console.error('Failed to load branding:', error);
