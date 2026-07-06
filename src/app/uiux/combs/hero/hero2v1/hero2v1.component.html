@@ -1,9 +1,0 @@
-@if (content(); as contentValue) {
-  <div
-    class="text-hero"
-    [style]="contentValue.params"
-    [class]="contentValue.theme"
-  >
-    <app-text [attr.data-path]="'text'" [content]="contentValue.text" />
-  </div>
-}
