@@ -1,5 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable, PLATFORM_ID, inject } from '@angular/core';
+import { isPlatformServer } from '@angular/common';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { environment } from 'src/environments/environment';
@@ -27,6 +28,7 @@ export class ContentService extends ApiService {
   private screenState = inject(ScreenState);
   private apiService = inject(ApiService);
   private coreConfig = inject(CORE_CONFIG);
+  private isServer = isPlatformServer(inject(PLATFORM_ID));
   private builderConfigCache: Observable<IBuilderConfig>;
   private coreConfigCache = new Map<string, Observable<ICoreConfig>>();
   private activeConfigPath = '';
@@ -50,10 +52,12 @@ export class ContentService extends ApiService {
     if (environment.production) {
       const key = this.getLandingPageUrl(lang, path);
       if (!this.pageCache.has(key)) {
+        const req$ = this.http.get<IPage>(key);
+        // SSR下不重试：10s超时后重试再浪费10s，导致请求堆积
+        const withRetry$ = this.isServer ? req$ : req$.pipe(retry({ count: 1, delay: 500 }));
         this.pageCache.set(
           key,
-          this.http.get<IPage>(key).pipe(
-            retry({ count: 1, delay: 500 }),
+          withRetry$.pipe(
             catchError(error => {
               console.error('Failed to load page content:', error);
               return of({} as IPage);
