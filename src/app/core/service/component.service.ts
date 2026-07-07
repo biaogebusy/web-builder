@@ -109,7 +109,7 @@ export class ComponentService {
     {
       module: 'HeroModule',
       loader: () => import('@uiux/combs/hero/hero.module').then(m => m.HeroModule),
-      components: ['hero-1v1', 'hero-2v3'],
+      components: ['hero-1v1', 'hero-1v2', 'hero-1v4', 'hero-2v1', 'hero-2v2', 'hero-2v3'],
     },
     {
       module: 'ListModule',
@@ -175,7 +175,17 @@ export class ComponentService {
       loader: () => import('@uiux/combs/showcase/showcase.module').then(m => m.ShowcaseModule),
       components: [
         'showcase-1v1',
+        'showcase-1v3',
+        'showcase-1v4',
+        'showcase-2v1',
+        'showcase-2v2',
+        'showcase-2v4',
+        'showcase-2v6',
         'showcase-3v3',
+        'showcase-3v4',
+        'showcase-3v5',
+        'showcase-3v6',
+        'showcase-3v7',
         'showcase-3v9',
         'showcase-4v1',
       ],
