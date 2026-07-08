@@ -10,6 +10,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { environment } from 'src/environments/environment';
 import compression from 'compression';
+import { blockScanners, rateLimiter } from './middlewares/security';
 
 const serverDistFolder = dirname(fileURLToPath(import.meta.url));
 const browserDistFolder = resolve(serverDistFolder, '../browser');
@@ -24,9 +25,11 @@ process.on('unhandledRejection', (reason: unknown) => {
 const app = express();
 app.use(express.json());
 app.use(compression());
+app.use(blockScanners);
+app.use(rateLimiter);
 
 // 设置全局 SSR 渲染超时控制，防止单个请求无限占用资源
-const SSR_TIMEOUT = 30000; // 30秒
+const SSR_TIMEOUT = 10000; // 10秒
 
 const angularApp = new AngularNodeAppEngine();
 
