@@ -14,6 +14,13 @@ import compression from 'compression';
 const serverDistFolder = dirname(fileURLToPath(import.meta.url));
 const browserDistFolder = resolve(serverDistFolder, '../browser');
 
+process.on('uncaughtException', err => {
+  console.error('[uncaughtException]', err.message, err.stack);
+});
+process.on('unhandledRejection', (reason: unknown) => {
+  console.error('[unhandledRejection]', reason);
+});
+
 const app = express();
 app.use(express.json());
 app.use(compression());
