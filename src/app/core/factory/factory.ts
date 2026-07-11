@@ -228,13 +228,15 @@ export function brandingFactory(): Observable<IBranding> {
     filter((event): event is NavigationEnd => event instanceof NavigationEnd),
     startWith(null),
     map(event => event?.urlAfterRedirects ?? contentService.pageUrl),
-    distinctUntilChanged(),
+    distinctUntilChanged((prev, curr) =>
+      contentService.getUrlPath(prev).lang === contentService.getUrlPath(curr).lang
+    ),
     switchMap(pageUrl =>
       from(contentService.loadConfig(coreConfig, pageUrl)).pipe(
         switchMap(() => contentService.loadBranding(pageUrl))
       )
     ),
-    shareReplay({ bufferSize: 1, refCount: true })
+    shareReplay({ bufferSize: 1, refCount: false })
   );
 }
 
