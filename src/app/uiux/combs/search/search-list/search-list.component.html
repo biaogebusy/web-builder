@@ -5,39 +5,46 @@
 }
 @if (content(); as items) {
   @if (pager()) {
-  <div class="search-list">
-    <div class="container">
-      <div class="search-list-inner">
-        <div class="results m-bottom-sm">{{ pager()?.totalItems }} {{ label().total || '个结果' }}</div>
-        <mat-divider />
-        <div [class]="wrapperClasses()">
-          @for (item of items | paginate: pager()!; track item) {
-            <app-custom-template
-              [class]="colClasses()"
-              [content]="{ json: item, html: template() ?? '', isAPI: false, type: 'custom-template' }"
-            />
+    <div class="search-list">
+      <div class="container">
+        <div class="search-list-inner">
+          <div class="results m-bottom-sm">
+            {{ pager()?.totalItems }} {{ label().total || '个结果' }}
+          </div>
+          <mat-divider />
+          <div [class]="wrapperClasses()">
+            @for (item of items | paginate: pager()!; track item.id ?? item.uuid ?? item.url) {
+              <app-custom-template
+                [class]="colClasses()"
+                [content]="{
+                  json: item,
+                  html: template() ?? '',
+                  isAPI: false,
+                  type: 'custom-template',
+                }"
+              />
+            }
+          </div>
+          @if (pager(); as pagerValue) {
+            <div class="pager">
+              <mat-paginator
+                class="demo-paginator"
+                (page)="onPageChange($event)"
+                [length]="pagerValue.totalItems"
+                [pageSize]="pagerValue.itemsPerPage"
+                [showFirstLastButtons]="true"
+                [hidePageSize]="true"
+                [pageIndex]="pagerValue.currentPage"
+                aria-label="Select page"
+              />
+            </div>
+          } @else {
+            <div class="empty-text">
+              <p>{{ label().empty || '没有数据。' }}</p>
+            </div>
           }
         </div>
-        @if (pager(); as pagerValue) {
-          <div class="pager">
-            <mat-paginator
-              class="demo-paginator"
-              (page)="onPageChange($event)"
-              [length]="pagerValue.totalItems"
-              [pageSize]="pagerValue.itemsPerPage"
-              [showFirstLastButtons]="true"
-              [hidePageSize]="true"
-              [pageIndex]="pagerValue.currentPage"
-              aria-label="Select page"
-            />
-          </div>
-        } @else {
-          <div class="empty-text">
-            <p>{{ label().empty || '没有数据。' }}</p>
-          </div>
-        }
       </div>
     </div>
-  </div>
   }
 }

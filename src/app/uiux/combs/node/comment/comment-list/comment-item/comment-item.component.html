@@ -1,43 +1,43 @@
 @if (content(); as c) {
-@for (item of comments(); track item; let i = $index; let isLast = $last) {
-  <div class="item p-y-sm p-x-sm">
-    <a class="anchor" [id]="'q-' + item.id" aria-hidden="true"></a>
-    <div class="comment-box">
-      <app-media-object [content]="item.author" />
-      @if (onShow(item)) {
-        <div class="comment-body" [innerHTML]="item.content | safeHtml"></div>
-        @if (c.comment) {
-          @if (showActions && item.level === 1) {
-            <app-comment-actions
-              [config]="c.comment"
-              [item]="item"
-              [i]="i"
-              [currentId]="currentId"
-              [loading]="loading"
-              (update)="onUpdate($event)"
-              (delete)="onDelete($event)"
-              (reply)="onReply($event)"
-            />
+  @for (item of comments(); track item.id; let i = $index; let isLast = $last) {
+    <div class="item p-y-sm p-x-sm">
+      <a class="anchor" [id]="'q-' + item.id" aria-hidden="true"></a>
+      <div class="comment-box">
+        <app-media-object [content]="item.author" />
+        @if (onShow(item)) {
+          <div class="comment-body" [innerHTML]="item.content | safeHtml"></div>
+          @if (c.comment) {
+            @if (showActions && item.level === 1) {
+              <app-comment-actions
+                [config]="c.comment"
+                [item]="item"
+                [i]="i"
+                [currentId]="currentId"
+                [loading]="loading"
+                (update)="onUpdate($event)"
+                (delete)="onDelete($event)"
+                (reply)="onReply($event)"
+              />
+            }
           }
         }
+      </div>
+      @if (item.id === currentId) {
+        <div class="inline-editor p-y-sm p-x-sm m-bottom">
+          <app-comment-form
+            [content]="c"
+            (dismiss)="onCancel()"
+            [commentContent]="currentData"
+            [commentId]="item.id"
+            [type]="type"
+          />
+        </div>
+      }
+      @if (item?.child && item?.child?.length) {
+        <div class="item-child m-y-xs">
+          <app-comment-item [comments]="item.child" [content]="c" />
+        </div>
       }
     </div>
-    @if (item.id === currentId) {
-      <div class="inline-editor p-y-sm p-x-sm m-bottom">
-        <app-comment-form
-          [content]="c"
-          (dismiss)="onCancel()"
-          [commentContent]="currentData"
-          [commentId]="item.id"
-          [type]="type"
-        />
-      </div>
-    }
-    @if (item?.child && item?.child?.length) {
-      <div class="item-child m-y-xs">
-        <app-comment-item [comments]="item.child" [content]="c" />
-      </div>
-    }
-  </div>
-}
+  }
 }

@@ -5,7 +5,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   inject,
-  input
+  input,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
@@ -14,7 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NodeService } from '@core/service/node.service';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { FormService } from '@core/service/form.service';
 import { isEmpty, omitBy } from 'lodash-es';
@@ -58,31 +58,32 @@ export class SearchBoxComponent extends BaseComponent implements OnInit {
 
   onFormChange(): void {
     this.form.valueChanges
-      .pipe(debounceTime(1000), distinctUntilChanged(), takeUntilDestroyed(this.destroyRef))
-      .subscribe(value => {
-        const params = omitBy(
-          Object.assign(
-            {
-              page: '0',
-              loading: 0,
-            },
-            value
-          ),
-          isEmpty
-        );
-
-        this.nodeService
-          .fetch('content', this.getApiParams(params))
-          .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe(data => {
-            this.options = data.rows.map((item: any) => {
-              return {
-                label: item.title,
-                href: item.url,
-              };
-            });
-            this.cd.detectChanges();
-          });
+      .pipe(
+        debounceTime(1000),
+        map(value =>
+          omitBy(
+            Object.assign(
+              {
+                page: '0',
+                loading: 0,
+              },
+              value
+            ),
+            isEmpty
+          )
+        ),
+        distinctUntilChanged(
+          (previous, current) => JSON.stringify(previous) === JSON.stringify(current)
+        ),
+        switchMap(params => this.nodeService.fetch('content', this.getApiParams(params))),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe(data => {
+        this.options = data.rows.map((item: any) => ({
+          label: item.title,
+          href: item.url,
+        }));
+        this.cd.detectChanges();
       });
   }
 

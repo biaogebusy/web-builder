@@ -10,7 +10,7 @@ import {
   Injector,
   ChangeDetectionStrategy,
   input,
-  viewChild
+  viewChild,
 } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
@@ -94,8 +94,10 @@ export class WidgetPickerComponent implements OnInit {
 
   private widgetPopper?: PopperInstance;
   private previewResizeObserver?: ResizeObserver;
+  private previewResizeFrame?: number;
 
   ngOnInit(): void {
+    this.destroyRef.onDestroy(() => this.destroyPreviewPopper());
     this.storage
       .observe(this.builder.COPYCOMPONENTKEY)
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -162,7 +164,7 @@ export class WidgetPickerComponent implements OnInit {
       this.widgetPopper.update();
       if (typeof ResizeObserver !== 'undefined') {
         this.previewResizeObserver = new ResizeObserver(() => {
-          this.applyPreviewScale();
+          this.schedulePreviewScale();
         });
         const canvas = popupEl.querySelector('.preview-canvas') as HTMLElement | null;
         if (canvas) {
@@ -180,6 +182,10 @@ export class WidgetPickerComponent implements OnInit {
   }
 
   private destroyPreviewPopper(): void {
+    if (this.previewResizeFrame !== undefined) {
+      cancelAnimationFrame(this.previewResizeFrame);
+      this.previewResizeFrame = undefined;
+    }
     this.previewResizeObserver?.disconnect();
     this.previewResizeObserver = undefined;
     this.widgetPopper?.destroy();
@@ -198,6 +204,16 @@ export class WidgetPickerComponent implements OnInit {
         canvas.style.transform = '';
       }
     }
+  }
+
+  private schedulePreviewScale(): void {
+    if (this.previewResizeFrame !== undefined) {
+      return;
+    }
+    this.previewResizeFrame = requestAnimationFrame(() => {
+      this.previewResizeFrame = undefined;
+      this.applyPreviewScale();
+    });
   }
 
   private applyPreviewScale(): void {

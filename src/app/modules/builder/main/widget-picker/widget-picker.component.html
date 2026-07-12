@@ -20,7 +20,7 @@
     </div>
     @if (group.child.length > 0) {
       <div class="widget-list" role="list">
-        @for (item of group.child; track item) {
+        @for (item of group.child; track item.id ?? item.uuid ?? item.content?.type ?? item.label) {
           <button
             #card
             type="button"
@@ -81,9 +81,16 @@
 
     @if (query) {
       @if (hits.length > 0) {
-        <div class="search-result-meta">{{ 'BUILDER.WIDGET_PICKER.SEARCH_HITS' | translate: { count: hits.length } }}</div>
+        <div class="search-result-meta">
+          {{ 'BUILDER.WIDGET_PICKER.SEARCH_HITS' | translate: { count: hits.length } }}
+        </div>
         <div class="widget-list" role="list">
-          @for (hit of hits; track hit.item) {
+          @for (
+            hit of hits;
+            track hit.group.id +
+              ':' +
+              (hit.item.id ?? hit.item.uuid ?? hit.item.content?.type ?? hit.item.label)
+          ) {
             <button
               #card
               type="button"
@@ -117,7 +124,9 @@
         <div class="empty-state" role="status">
           <app-icon class="empty-icon" [content]="{ svg: 'magnify-close' }" />
           <p>{{ 'BUILDER.WIDGET_PICKER.NO_MATCHES' | translate }}</p>
-          <button type="button" class="empty-action" (click)="clearSearch()">{{ 'BUILDER.WIDGET_PICKER.CLEAR_SEARCH' | translate }}</button>
+          <button type="button" class="empty-action" (click)="clearSearch()">
+            {{ 'BUILDER.WIDGET_PICKER.CLEAR_SEARCH' | translate }}
+          </button>
         </div>
       }
     } @else {
@@ -132,11 +141,13 @@
             <span class="category-icon">
               <app-icon [content]="{ svg: 'content-paste' }" />
             </span>
-            <span class="category-label">{{ 'BUILDER.WIDGET_PICKER.PASTE_LABEL' | translate }}</span>
+            <span class="category-label">{{
+              'BUILDER.WIDGET_PICKER.PASTE_LABEL' | translate
+            }}</span>
             <app-icon class="chevron" [content]="{ svg: 'chevron-right' }" />
           </button>
         }
-        @for (cate of widgetGroups(); track cate) {
+        @for (cate of widgetGroups(); track cate.id ?? cate.label) {
           <button
             type="button"
             class="category-item"
