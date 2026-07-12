@@ -22,7 +22,6 @@ import {
   uiuxFactory,
 } from '@core/factory/factory';
 import { FormModule } from '@uiux/combs/form/form.module';
-import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { OtherModule } from '@uiux/combs/other/other.module';
 import { BrandingModule } from '@core/branding/branding.module';
@@ -54,6 +53,7 @@ import { JsonComponent } from './main/json/json.component';
 import { CardListComponent } from './main/card-list/card-list.component';
 import { CardPageComponent } from './main/card-list/card-page/card-page.component';
 import { DefaultPageComponent } from './main/default-page/default-page.component';
+import { MONACO_EDITOR_CONFIG_PROVIDER } from '@core/config/monaco-editor.config';
 
 const dynamicComponents = [
   JsonComponent,
@@ -100,10 +100,10 @@ const standaloneComponents = [
     FormlyModule,
     FormlyMaterialModule,
     FormlyMatToggleModule,
-    MonacoEditorModule.forRoot(),
     ...standaloneComponents,
   ],
   providers: [
+    MONACO_EDITOR_CONFIG_PROVIDER,
     {
       provide: BUILDER_CONFIG,
       useFactory: getBuilderConfig,

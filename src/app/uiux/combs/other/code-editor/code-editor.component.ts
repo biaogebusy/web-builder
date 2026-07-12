@@ -34,11 +34,13 @@ import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
 import { FormlyComponent } from '@uiux/combs/form/formly/formly.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { MONACO_EDITOR_CONFIG_PROVIDER } from '@core/config/monaco-editor.config';
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-code-editor',
   templateUrl: './code-editor.component.html',
   styleUrls: ['./code-editor.component.scss'],
+  providers: [MONACO_EDITOR_CONFIG_PROVIDER],
   imports: [
     AsyncPipe,
     ReactiveFormsModule,
