@@ -53,7 +53,23 @@
               {
                 "glob": "**/*",
                 "input": "node_modules/monaco-editor/min/vs",
-                "output": "assets/monaco/min/vs"
+                "output": "assets/monaco/min/vs",
+                "ignore": [
+                  "basic-languages/**/*",
+                  "language/**/*",
+                  "editor/editor.main.nls.*.js",
+                  "base/common/worker/simpleWorker.nls.*.js"
+                ]
+              },
+              {
+                "glob": "{css,html,javascript,typescript}/**/*.js",
+                "input": "node_modules/monaco-editor/min/vs/basic-languages",
+                "output": "assets/monaco/min/vs/basic-languages"
+              },
+              {
+                "glob": "{css,html,json,typescript}/**/*.js",
+                "input": "node_modules/monaco-editor/min/vs/language",
+                "output": "assets/monaco/min/vs/language"
               }
             ],
             "styles": ["src/styles.scss"],
