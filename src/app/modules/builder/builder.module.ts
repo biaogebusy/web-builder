@@ -54,6 +54,7 @@ import { CardListComponent } from './main/card-list/card-list.component';
 import { CardPageComponent } from './main/card-list/card-page/card-page.component';
 import { DefaultPageComponent } from './main/default-page/default-page.component';
 import { MONACO_EDITOR_CONFIG_PROVIDER } from '@core/config/monaco-editor.config';
+import { provideXinshiFormly } from '@uiux/combs/form/formly-feature.config';
 
 const dynamicComponents = [
   JsonComponent,
@@ -104,6 +105,7 @@ const standaloneComponents = [
   ],
   providers: [
     MONACO_EDITOR_CONFIG_PROVIDER,
+    ...provideXinshiFormly(),
     {
       provide: BUILDER_CONFIG,
       useFactory: getBuilderConfig,
