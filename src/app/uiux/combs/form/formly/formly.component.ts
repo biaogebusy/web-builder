@@ -6,13 +6,14 @@ import {
   ChangeDetectionStrategy,
   input,
   inject,
-  PLATFORM_ID
+  PLATFORM_ID,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import type { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { FormlyModule } from '@ngx-formly/core';
 import { cloneDeep } from 'lodash-es';
+import { provideXinshiFormly } from '../formly-feature.config';
 
 interface IFormly {
   fields?: FormlyFieldConfig[];
@@ -23,6 +24,7 @@ interface IFormly {
   selector: 'app-formly',
   templateUrl: './formly.component.html',
   styleUrls: ['./formly.component.scss'],
+  providers: [provideXinshiFormly()],
   imports: [ReactiveFormsModule, FormlyModule],
 })
 export class FormlyComponent implements AfterViewInit {
