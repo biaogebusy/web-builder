@@ -15,7 +15,6 @@ import {
 } from '@angular/platform-browser';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { provideRouter, withInMemoryScrolling, withPreloading } from '@angular/router';
-import { PreloadAllModules } from '@angular/router';
 import zhHans from '@angular/common/locales/zh-Hans';
 import { registerLocaleData } from '@angular/common';
 import { provideNgxWebstorage, withLocalStorage, withNgxWebstorageConfig } from 'ngx-webstorage';
@@ -49,6 +48,7 @@ import { PageModule } from '@modules/page/page.module';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import { environment } from 'src/environments/environment';
+import { SelectivePreloadingStrategy } from '@core/strategy/selective-preloading.strategy';
 
 registerLocaleData(zhHans, 'zh-hans');
 
@@ -72,7 +72,7 @@ export const appConfig: ApplicationConfig = {
     provideMonacoEditor({ baseUrl: 'assets' }),
     provideRouter(
       routes,
-      withPreloading(PreloadAllModules),
+      withPreloading(SelectivePreloadingStrategy),
       withInMemoryScrolling({
         scrollPositionRestoration: 'enabled',
         anchorScrolling: 'enabled',
