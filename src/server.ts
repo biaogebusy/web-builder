@@ -32,10 +32,10 @@ process.on('unhandledRejection', (reason: unknown) => {
 });
 
 const app = express();
+app.set('trust proxy', 1);
 app.use(express.json());
 app.use(compression());
 app.use(blockScanners);
-app.use(rateLimiter);
 
 const angularApp = new AngularNodeAppEngine();
 const ssrCache = new SsrHtmlCache({
@@ -97,6 +97,7 @@ app.use(
     },
   })
 );
+app.use(rateLimiter);
 
 /**
  * Handle all other requests by rendering the Angular application with timeout control.
