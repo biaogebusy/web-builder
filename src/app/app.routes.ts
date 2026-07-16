@@ -14,7 +14,6 @@ import {
   DEBUG_ANIMATE,
   PAGE_CONTENT,
 } from '@core/token/token-providers';
-import { provideXinshiFormly } from '@uiux/combs/form/formly-feature.config';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 
@@ -56,7 +55,6 @@ export const routes: Routes = [
     canActivate: [authGuard],
     providers: [
       importProvidersFrom(LoadingBarHttpClientModule, LoadingBarModule),
-      ...provideXinshiFormly(),
       {
         provide: PAGE_CONTENT,
         useFactory: pageContentFactory,
