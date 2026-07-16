@@ -53,7 +53,7 @@ export class ContentService extends ApiService {
       const key = this.getLandingPageUrl(lang, path);
       if (!this.pageCache.has(key)) {
         const req$ = this.http.get<IPage>(key);
-        // SSR下不重试：10s超时后重试再浪费10s，导致请求堆积
+        // SSR 下由全局 HTTP 超时兜底，不重试，避免慢请求成倍占用渲染预算。
         const withRetry$ = this.isServer ? req$ : req$.pipe(retry({ count: 1, delay: 500 }));
         this.pageCache.set(
           key,
@@ -92,9 +92,11 @@ export class ContentService extends ApiService {
 
   loadBranding(pageUrl = this.pageUrl): Observable<IBranding> {
     const { lang } = this.getUrlPath(pageUrl);
-    return this.http.get<IBranding>(this.getLandingPageUrl(lang, '/core/branding')).pipe(
-      timeout(5000),
-      retry({ count: 1, delay: 500 }),
+    const req$ = this.http.get<IBranding>(this.getLandingPageUrl(lang, '/core/branding'));
+    const resilientReq$ = this.isServer
+      ? req$
+      : req$.pipe(timeout(5000), retry({ count: 1, delay: 500 }));
+    return resilientReq$.pipe(
       catchError(error => {
         console.error('Failed to load branding:', error);
         return of({} as IBranding);
@@ -107,10 +109,13 @@ export class ContentService extends ApiService {
     const configPath = this.getLandingPageUrl(lang, '/core/base');
     this.activeConfigPath = configPath;
     if (!this.coreConfigCache.has(configPath)) {
+      const req$ = this.http.get<ICoreConfig>(configPath);
+      const resilientReq$ = this.isServer
+        ? req$
+        : req$.pipe(retry({ count: 2, delay: 1000 }));
       this.coreConfigCache.set(
         configPath,
-        this.http.get<ICoreConfig>(configPath).pipe(
-          retry({ count: 2, delay: 1000 }),
+        resilientReq$.pipe(
           catchError(error => {
             console.error('base json not found:', error);
             return of({} as ICoreConfig);

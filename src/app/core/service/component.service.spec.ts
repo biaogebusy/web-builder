@@ -16,6 +16,16 @@ describe('ComponentService', () => {
     expect(componentType.name).toBe('BgComponent');
   });
 
+  it.each([
+    ['banner-simple', 'BannerSimpleComponent'],
+    ['layout-builder', 'LayoutBuilderComponent'],
+    ['custom-template', 'CustomTemplateComponent'],
+  ])('loads the public page component %s', async (type, expectedName) => {
+    const componentType = await service.getComponentType(type);
+
+    expect(componentType.name).toBe(expectedName);
+  });
+
   it('returns the cached component type for repeated requests', async () => {
     const [first, second] = await Promise.all([
       service.getComponentType('icon'),

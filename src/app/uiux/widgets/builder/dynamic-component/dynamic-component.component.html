@@ -1,6 +1,8 @@
 @let i = inputs();
-@if (showToolbar() && i) {
-  <app-component-toolbar [content]="i" />
+@if (i) {
+  @defer (when showToolbar()) {
+    <app-component-toolbar [content]="i" />
+  }
 }
 @let content = compContent();
 @if (content?.id) {

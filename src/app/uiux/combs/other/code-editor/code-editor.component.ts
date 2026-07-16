@@ -14,6 +14,7 @@ import { ReactiveFormsModule, UntypedFormControl, UntypedFormGroup } from '@angu
 import { MatTooltipModule } from '@angular/material/tooltip';
 import type { IBuilderConfig, ICodeEditor } from '@core/interface/IBuilder';
 import { ScreenService } from '@core/service/screen.service';
+import { ContentService } from '@core/service/content.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { get } from 'lodash-es';
 import { FormlyFieldConfig } from '@ngx-formly/core';
@@ -40,7 +41,15 @@ import { MONACO_EDITOR_CONFIG_PROVIDER } from '@core/config/monaco-editor.config
   selector: 'app-code-editor',
   templateUrl: './code-editor.component.html',
   styleUrls: ['./code-editor.component.scss'],
-  providers: [MONACO_EDITOR_CONFIG_PROVIDER],
+  providers: [
+    MONACO_EDITOR_CONFIG_PROVIDER,
+    {
+      provide: BUILDER_CONFIG,
+      useFactory: () =>
+        inject(BUILDER_CONFIG, { optional: true, skipSelf: true }) ??
+        inject(ContentService).loadBuilderConfig(),
+    },
+  ],
   imports: [
     AsyncPipe,
     ReactiveFormsModule,

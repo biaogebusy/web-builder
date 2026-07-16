@@ -38,6 +38,10 @@ app.use(compression());
 app.use(blockScanners);
 
 const angularApp = new AngularNodeAppEngine();
+const ssrRenderTimeoutMs = readPositiveInteger(
+  'SSR_RENDER_TIMEOUT_MS',
+  SSR_RENDER_TIMEOUT_MS
+);
 const ssrCache = new SsrHtmlCache({
   maxBytes: readPositiveInteger('SSR_CACHE_MAX_BYTES', SSR_CACHE_MAX_BYTES),
   maxEntries: readPositiveInteger('SSR_CACHE_MAX_ENTRIES', SSR_CACHE_MAX_ENTRIES),
@@ -131,11 +135,9 @@ app.use('/**', (req, res, next) => {
     }
     settled = true;
     ssrMetrics.timeouts += 1;
-    console.warn(
-      `[SSR Timeout] Request exceeded ${SSR_RENDER_TIMEOUT_MS}ms for ${req.originalUrl}`
-    );
+    console.warn(`[SSR Timeout] Request exceeded ${ssrRenderTimeoutMs}ms for ${req.originalUrl}`);
     res.status(504).send('Server Timeout: Page rendering took too long');
-  }, SSR_RENDER_TIMEOUT_MS);
+  }, ssrRenderTimeoutMs);
 
   angularApp
     .handle(req)
