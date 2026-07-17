@@ -81,8 +81,6 @@ export const DYNAMIC_COMPONENT_LOADERS: Readonly<Record<string, ComponentLoader>
     import('@uiux/combs/calendar/full-calendar/full-calendar.component').then(
       m => m.FullCalendarComponent
     ),
-  lottery: () =>
-    import('@uiux/combs/calculator/lottery/lottery.component').then(m => m.LotteryComponent),
   swiper: () => loadCarousel().then(m => m.SwiperComponent),
   'carousel-1v1': () => loadCarousel().then(m => m.Carousel1v1Component),
   'carousel-1v2': () => loadCarousel().then(m => m.Carousel1v2Component),
@@ -131,9 +129,6 @@ export const DYNAMIC_COMPONENT_LOADERS: Readonly<Record<string, ComponentLoader>
       m => m.CustomTemplateComponent
     ),
   'profile-1v1': () => loadProfile().then(m => m.Profile1v1Component),
-  'user-center': () => loadProfile().then(m => m.UserCenterComponent),
-  'user-profile': () => loadProfile().then(m => m.UserProfileComponent),
-  'user-favorite': () => loadProfile().then(m => m.UserFavoriteComponent),
   search: () => import('@uiux/combs/search/search.component').then(m => m.SearchComponent),
   'showcase-1v1': () => loadShowcase().then(m => m.Showcase1v1Component),
   'showcase-3v3': () => loadShowcase().then(m => m.Showcase3v3Component),
