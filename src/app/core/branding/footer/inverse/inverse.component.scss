@@ -81,6 +81,23 @@
   @apply text-white flex items-center h-10 mt-3.5 text-base;
 }
 
+.newsletter-input {
+  @apply w-full h-12 px-4 mb-3 rounded-md text-sm;
+  color: var(--mat-sys-on-surface);
+  background-color: var(--mat-sys-surface);
+  border: 1px solid var(--mat-sys-outline);
+
+  &::placeholder {
+    color: var(--mat-sys-on-surface-variant);
+  }
+
+  &:focus {
+    @apply outline-none;
+    border-color: var(--mat-sys-primary);
+    box-shadow: 0 0 0 2px var(--mat-sys-primary-container);
+  }
+}
+
 .left {
   @apply text-center md:text-left text-sm;
 }

@@ -3,15 +3,14 @@ import {
   DestroyRef,
   OnInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   inject,
   input,
+  signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NodeService } from '@core/service/node.service';
 import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
@@ -31,7 +30,6 @@ import { LinkComponent } from '@uiux/widgets/link/link.component';
     ReactiveFormsModule,
     MatAutocompleteModule,
     MatIconModule,
-    MatInputModule,
     MatTooltipModule,
     LinkComponent,
   ],
@@ -40,11 +38,10 @@ export class SearchBoxComponent extends BaseComponent implements OnInit {
   readonly content = input.required<IHeaderSearch>();
 
   form: UntypedFormGroup;
-  options: any[] = [];
+  readonly options = signal<{ label: string; href: string }[]>([]);
   nodeService = inject(NodeService);
   formService = inject(FormService);
   router = inject(Router);
-  private cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
@@ -79,23 +76,22 @@ export class SearchBoxComponent extends BaseComponent implements OnInit {
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe(data => {
-        this.options = data.rows.map((item: any) => ({
-          label: item.title,
-          href: item.url,
-        }));
-        this.cd.detectChanges();
+        this.options.set(
+          data.rows.map((item: any) => ({
+            label: item.title,
+            href: item.url,
+          }))
+        );
       });
   }
 
   onSelected(data: any): void {
     this.form.reset();
     this.router.navigate([`${data.option.value}`]);
-    this.cd.detectChanges();
   }
 
   search(value: any): void {
     this.form.reset();
     this.router.navigate(['search'], { queryParams: value });
-    this.cd.detectChanges();
   }
 }
