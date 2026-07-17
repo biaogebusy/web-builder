@@ -25,7 +25,6 @@ export const routes: Routes = [
   },
   {
     path: 'me',
-    data: { preload: true },
     loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule),
   },
   {
