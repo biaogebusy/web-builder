@@ -73,7 +73,9 @@ export class SearchComponent extends BaseComponent implements OnInit {
           const { api } = this.content();
           const formValue = this.form?.value || {};
           const state = this.getParamsState(formValue, options);
-          return this.nodeService.fetch(api, this.getApiParams(state)).pipe(
+          const currentLang = this.nodeService.getLang(this.nodeService.pageUrl);
+          const langCode = currentLang?.default ? undefined : currentLang?.langCode;
+          return this.nodeService.fetch(api, this.getApiParams(state), langCode).pipe(
             tap(data => {
               this.updateList(data, formValue, options);
               this.loading = false;
