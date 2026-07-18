@@ -141,7 +141,6 @@ export const DYNAMIC_COMPONENT_LOADERS: Readonly<Record<string, ComponentLoader>
   dashboard: () => loadDashboard().then(m => m.DashboardComponent),
   'dashboard-box': () => loadDashboard().then(m => m.DashboardBoxComponent),
   json: () => loadBuilder().then(m => m.JsonFieldType),
-  'card-page': () => loadBuilder().then(m => m.CardPageComponent),
   'card-list': () => loadBuilder().then(m => m.CardListComponent),
   'inline-editor': () => loadBuilder().then(m => m.InlineEditComponent),
   'page-setting': () => loadBuilder().then(m => m.PageSettingComponent),
