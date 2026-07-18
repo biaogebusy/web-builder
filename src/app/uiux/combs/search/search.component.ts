@@ -5,7 +5,7 @@ import {
   ChangeDetectorRef,
   inject,
   DestroyRef,
-  input
+  input,
 } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -14,7 +14,7 @@ import { NodeService } from '@core/service/node.service';
 import { RouteService } from '@core/service/route.service';
 import { BaseComponent } from '../../base/base.widget';
 import { FormService } from '@core/service/form.service';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 import { ScreenService } from '@core/service/screen.service';
 import { Subject } from 'rxjs';
 import type { ISearch } from '@core/interface/combs/ISearch';
@@ -43,7 +43,8 @@ export class SearchComponent extends BaseComponent implements OnInit {
   public filterForm: any[];
   public nodes: any[];
   public loading = false;
-  private vauleChange$: Subject<any> = new Subject<any>();
+  private valueChange$ = new Subject<any>();
+  private searchRequest$ = new Subject<any>();
 
   private nodeService = inject(NodeService);
   private router = inject(ActivatedRoute);
@@ -54,27 +55,56 @@ export class SearchComponent extends BaseComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
-    if (this.screenService.isPlatformBrowser()) {
-      this.router.queryParams
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe((query: any) => {
-          this.page = query.page || 0;
-          const querys = omitBy(
-            Object.assign(
-              {
-                page: this.page,
-              },
-              query
-            ),
-            isEmpty
+    this.valueChange$
+      .pipe(
+        debounceTime(1000),
+        distinctUntilChanged(
+          (previous, current) => JSON.stringify(previous) === JSON.stringify(current)
+        ),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe(value => this.onSelectChange(value));
+    this.searchRequest$
+      .pipe(
+        tap(() => {
+          this.loading = true;
+        }),
+        switchMap(options => {
+          const { api } = this.content();
+          const formValue = this.form?.value || {};
+          const state = this.getParamsState(formValue, options);
+          const currentLang = this.nodeService.getLang(this.nodeService.pageUrl);
+          const langCode = currentLang?.default ? undefined : currentLang?.langCode;
+          return this.nodeService.fetch(api, this.getApiParams(state), langCode).pipe(
+            tap(data => {
+              this.updateList(data, formValue, options);
+              this.loading = false;
+              this.cd.detectChanges();
+            })
           );
-          const content = this.content();
-          if (content.sidebar) {
-            this.initFilterForm(querys, content.sidebar);
-          }
-          this.form.patchValue({ ...querys });
-          this.nodeSearch(querys);
-        });
+        }),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe();
+    if (this.screenService.isPlatformBrowser()) {
+      this.router.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((query: any) => {
+        this.page = query.page || 0;
+        const querys = omitBy(
+          Object.assign(
+            {
+              page: this.page,
+            },
+            query
+          ),
+          isEmpty
+        );
+        const content = this.content();
+        if (content.sidebar) {
+          this.initFilterForm(querys, content.sidebar);
+        }
+        this.form.patchValue({ ...querys });
+        this.nodeSearch(querys);
+      });
     } else {
       this.form = new UntypedFormGroup({});
     }
@@ -89,11 +119,6 @@ export class SearchComponent extends BaseComponent implements OnInit {
   initForm(items: any[]): void {
     this.form = this.formService.toFormGroup(items);
     this.cd.detectChanges();
-    this.vauleChange$
-      .pipe(debounceTime(1000), distinctUntilChanged(), takeUntilDestroyed(this.destroyRef))
-      .subscribe(value => {
-        this.onSelectChange(value);
-      });
   }
 
   onSearch(value: any): void {
@@ -101,7 +126,7 @@ export class SearchComponent extends BaseComponent implements OnInit {
     if (keys) {
       this.form.patchValue({ keys });
     }
-    this.vauleChange$.next(value);
+    this.valueChange$.next(value);
   }
 
   onPageChange(page: any): void {
@@ -115,19 +140,7 @@ export class SearchComponent extends BaseComponent implements OnInit {
   }
 
   nodeSearch(options: any): void {
-    this.loading = true;
-    const { api } = this.content();
-    const formValue = this.form?.value || {};
-    const state = this.getParamsState(formValue, options);
-    const params = this.getApiParams(state);
-    this.nodeService
-      .fetch(api, params)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(data => {
-        this.updateList(data, formValue, options);
-        this.loading = false;
-        this.cd.detectChanges();
-      });
+    this.searchRequest$.next(options);
   }
 
   updateList(data: any, formValues: any, options: any): void {

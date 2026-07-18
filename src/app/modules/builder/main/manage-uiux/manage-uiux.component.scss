@@ -1,0 +1,363 @@
+:host {
+  @apply block h-full overflow-auto;
+  background: var(--mat-sys-surface-container-low);
+}
+
+.container {
+  @apply mx-auto p-4;
+  max-width: 1280px;
+}
+
+// ── Card ──────────────────────────────────────────────────
+.card {
+  @apply rounded-xl overflow-hidden;
+  background: var(--mat-sys-surface);
+  box-shadow: var(--mat-sys-level1);
+}
+
+// ── Toolbar ───────────────────────────────────────────────
+.toolbar {
+  @apply flex items-center gap-4 p-4 flex-wrap;
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+
+  .toolbar-left {
+    @apply flex items-center gap-4 flex-wrap;
+  }
+
+  .toolbar-right {
+    @apply flex items-center gap-4 ml-auto;
+  }
+
+  .total-text {
+    @apply text-xs;
+    color: var(--mat-sys-on-surface-variant);
+  }
+
+  .divider {
+    @apply w-px h-5;
+    background: var(--mat-sys-outline-variant);
+  }
+}
+
+.bulk-actions {
+  @apply flex items-center gap-2;
+}
+
+.bulk-count {
+  @apply text-xs font-medium;
+  color: var(--mat-sys-primary);
+}
+
+.search-wrap {
+  @apply flex items-center gap-2 px-3 py-1 rounded-lg;
+  border: 1px solid var(--mat-sys-outline-variant);
+  background: var(--mat-sys-surface-container-lowest);
+  transition: border-color 150ms, background 150ms;
+
+  &:focus-within {
+    border-color: var(--mat-sys-primary);
+    background: var(--mat-sys-surface);
+  }
+
+  .s-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    color: var(--mat-sys-on-surface-variant);
+    flex-shrink: 0;
+  }
+
+  .s-input {
+    @apply text-sm outline-none bg-transparent;
+    width: 200px;
+    color: var(--mat-sys-on-surface);
+
+    &::placeholder {
+      color: var(--mat-sys-on-surface-variant);
+    }
+  }
+}
+
+// ── List body ─────────────────────────────────────────────
+.list-body {
+  @apply relative grid gap-4 p-4;
+  grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
+  background: var(--mat-sys-surface-container-low);
+}
+
+.loading-wrap {
+  @apply flex items-center justify-center py-16;
+  grid-column: 1 / -1;
+}
+
+// ── List header (select-all row) ─────────────────────────
+.list-header {
+  @apply flex items-center gap-2 px-1 py-1;
+  grid-column: 1 / -1;
+  background: transparent;
+
+  .list-header-label {
+    @apply text-xs font-medium;
+    color: var(--mat-sys-on-surface-variant);
+  }
+
+  .list-header-count {
+    @apply text-xs;
+    color: var(--mat-sys-outline);
+  }
+}
+
+// ── L1 group ──────────────────────────────────────────────
+.l1-row {
+  @apply flex items-center gap-2 px-4 py-3 rounded-xl cursor-pointer select-none;
+  grid-column: 1 / -1;
+  margin-top: 8px;
+  background: var(--mat-sys-surface-container-high);
+  transition: background 120ms;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--mat-sys-surface-container-highest);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--mat-sys-primary);
+    outline-offset: 2px;
+  }
+
+  .folder-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    color: var(--mat-sys-primary);
+    flex-shrink: 0;
+  }
+
+  .group-name {
+    @apply text-sm font-semibold;
+    color: var(--mat-sys-on-surface);
+  }
+
+  .chevron {
+    margin-left: auto;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    color: var(--mat-sys-primary);
+    flex-shrink: 0;
+    transform: rotate(-90deg);
+    transition: transform 200ms ease;
+
+    &.expanded {
+      transform: rotate(0deg);
+    }
+  }
+}
+
+// ── L2 group ──────────────────────────────────────────────
+.l2-row {
+  @apply flex items-center gap-2 px-3 py-1;
+  grid-column: 1 / -1;
+  margin: 0 8px;
+  background: transparent;
+
+  .l2-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    color: var(--mat-sys-primary);
+    flex-shrink: 0;
+  }
+
+  .group-name {
+    @apply text-sm font-semibold;
+    color: var(--mat-sys-on-surface);
+  }
+}
+
+// ── Count pills ───────────────────────────────────────────
+.count-pill {
+  @apply inline-flex items-center justify-center text-xs font-semibold px-2 py-1 rounded-full;
+  background: var(--mat-sys-surface-container-high);
+  color: var(--mat-sys-on-surface-variant);
+  min-width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+
+  &.primary {
+    background: var(--mat-sys-primary-container);
+    color: var(--mat-sys-on-primary-container);
+  }
+}
+
+// ── Item row ──────────────────────────────────────────────
+.item-row {
+  @apply grid gap-3 p-4 rounded-2xl;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    'checkbox name actions'
+    'icon icon icon';
+  align-content: space-between;
+  min-height: 116px;
+  background: var(--mat-sys-surface-container-lowest);
+  box-shadow: var(--mat-sys-level0);
+  transition: background 120ms, box-shadow 120ms;
+
+  &:hover {
+    background: var(--mat-sys-surface);
+    box-shadow: var(--mat-sys-level1);
+  }
+
+  &:focus-within {
+    outline: 2px solid var(--mat-sys-primary);
+    outline-offset: 2px;
+  }
+
+  &.selected {
+    background: color-mix(
+      in srgb,
+      var(--mat-sys-primary) 8%,
+      var(--mat-sys-surface-container-lowest)
+    );
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--mat-sys-primary) 45%, transparent),
+      var(--mat-sys-level0);
+
+    .item-name {
+      color: var(--mat-sys-primary);
+    }
+
+    .icon-tag {
+      background: var(--mat-sys-primary-container);
+      color: var(--mat-sys-on-primary-container);
+    }
+  }
+
+  .item-name {
+    @apply min-w-0 text-sm font-medium break-words;
+    grid-area: name;
+    align-self: center;
+    color: var(--mat-sys-on-surface);
+  }
+
+  .item-icon-col {
+    @apply flex items-end min-w-0;
+    grid-area: icon;
+  }
+}
+
+// ── Checkbox ─────────────────────────────────────────────
+.item-checkbox {
+  grid-area: checkbox;
+  flex-shrink: 0;
+
+  ::ng-deep .mat-mdc-checkbox {
+    .mdc-checkbox {
+      padding: 0;
+    }
+
+    .mdc-checkbox__ripple {
+      width: 32px;
+      height: 32px;
+      left: -8px;
+      top: -8px;
+    }
+  }
+}
+
+// ── Icon tag ──────────────────────────────────────────────
+.icon-tag {
+  @apply inline-flex items-center gap-1 text-xs px-2 py-1 rounded;
+  background: var(--mat-sys-surface-container-high);
+  color: var(--mat-sys-on-surface-variant);
+  max-width: 100%;
+  overflow: hidden;
+
+  span {
+    @apply truncate;
+  }
+
+  app-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+}
+
+.no-icon {
+  @apply text-sm;
+  color: var(--mat-sys-outline);
+}
+
+// ── Actions ───────────────────────────────────────────────
+.item-actions {
+  @apply flex items-center justify-end;
+  grid-area: actions;
+  width: 40px;
+  flex-shrink: 0;
+}
+
+.action-menu-trigger {
+  @apply rounded-md;
+  color: var(--mat-sys-on-surface-variant);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 120ms;
+
+  ::ng-deep .mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.item-row:hover .action-menu-trigger,
+.item-row:focus-within .action-menu-trigger {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (hover: none) {
+  .action-menu-trigger {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+// ── Empty state ───────────────────────────────────────────
+.empty-state {
+  @apply flex flex-col items-center gap-4 py-16;
+  grid-column: 1 / -1;
+
+  mat-icon {
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    color: var(--mat-sys-outline);
+  }
+
+  p {
+    @apply m-0 text-sm;
+    color: var(--mat-sys-on-surface-variant);
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    @apply p-2;
+  }
+
+  .toolbar-right {
+    @apply w-full ml-0;
+  }
+
+  .search-wrap,
+  .search-wrap .s-input {
+    @apply w-full;
+  }
+
+  .list-body {
+    @apply p-3;
+  }
+}

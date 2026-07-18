@@ -18,7 +18,6 @@ import { ScreenService } from '@core/service/screen.service';
 import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig, ISocialLoginProvider } from '@core/interface/IAppConfig';
 import type { IIcon } from '@core/interface/widgets/IIcon';
-import type { IUser } from '@core/interface/IUser';
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
 import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
 import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';

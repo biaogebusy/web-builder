@@ -1,8 +1,6 @@
-import { DestroyRef, Injectable, inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
-import { USER } from '@core/token/token-providers';
-import type { IUser } from '@core/interface/IUser';
 import { UtilitiesService } from './utilities.service';
 import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
 
@@ -10,21 +8,11 @@ import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
   providedIn: 'root',
 })
 export class ManageService extends ApiService {
-  private user = inject(USER);
-  private destroyRef = inject(DestroyRef);
-
   private util = inject(UtilitiesService);
   public mediaDialogClass = ['close-outside', 'close-icon-white', 'manage-media-dialog'];
 
   constructor() {
     super();
-  }
-
-  getBlock(): Observable<any> {
-    return this.http.get(
-      `${this.apiUrl}/api/v1/block_content_type/block_content_type`,
-      this.optionsWithBearerToken()
-    );
   }
 
   deleteMedia(uuid: string): Observable<any> {

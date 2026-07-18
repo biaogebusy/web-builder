@@ -80,6 +80,7 @@
     @apply sm:gap-1 flex justify-end items-center flex-[0_1_33.33%];
     .submit-btn {
       @apply hidden sm:flex whitespace-nowrap;
+      --mat-button-protected-container-height: 32px;
     }
   }
 

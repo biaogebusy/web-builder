@@ -7,17 +7,16 @@ import {
   inject,
   signal,
   ChangeDetectionStrategy,
-  input
+  input,
 } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
 import type { ILayoutBlock, ILayoutBuilder } from '@core/interface/IBuilder';
-import { BuilderService } from '@core/service/builder.service';
 import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
 import { generatePath } from '@core/util/dom-path.util';
-import { createPopper } from '@popperjs/core';
+import type { Instance as PopperInstance } from '@popperjs/core';
 import { BgImgComponent } from '../../bg-img/bg-img.component';
 import { BtnComponent } from '../../btn/btn.component';
 import { IconComponent } from '../../icon/icon.component';
@@ -30,8 +29,8 @@ import { LayoutToolbarComponent } from './layout-toolbar/layout-toolbar.componen
   templateUrl: './layout-builder.component.html',
   styleUrls: ['./layout-builder.component.scss'],
   imports: [
-    MatButtonModule,
-    MatTooltipModule,
+    MatButton,
+    MatTooltip,
     BgImgComponent,
     BtnComponent,
     IconComponent,
@@ -48,9 +47,8 @@ export class LayoutBuilderComponent implements AfterViewInit {
   private util = inject(UtilitiesService);
   private ele = inject(ElementRef);
   private screenService = inject(ScreenService);
-  private popup: any;
+  private popup?: PopperInstance;
   private injector = inject(Injector);
-
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -67,7 +65,9 @@ export class LayoutBuilderComponent implements AfterViewInit {
   }
 
   addBlock(addType: string, content: any, target: any): void {
-    this.injector.get(BuilderService).addBlock(addType, content, generatePath(target));
+    void import('@core/service/builder.service').then(({ BuilderService }) => {
+      this.injector.get(BuilderService).addBlock(addType, content, generatePath(target));
+    });
   }
 
   layoutAnimate(): void {
@@ -79,7 +79,12 @@ export class LayoutBuilderComponent implements AfterViewInit {
     });
   }
 
-  onHoverWidget(widget: any): void {
+  async onHoverWidget(widget: any): Promise<void> {
+    if (!this.showToolbar()) {
+      return;
+    }
+
+    const { createPopper } = await import('@popperjs/core');
     if (this.showToolbar()) {
       const component = widget.querySelector('.component');
       const popup = widget.querySelector('.block-toolbar');

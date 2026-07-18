@@ -15,10 +15,13 @@ describe('CodeEditorComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CodeEditorComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('provides builder config outside a Builder route injector', () => {
+    expect(component.builderConfig$).toBeTruthy();
   });
 });

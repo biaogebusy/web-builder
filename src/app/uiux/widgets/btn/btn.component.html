@@ -122,6 +122,7 @@
         @if (!contentValue.href) {
           <button
             [class]="contentValue.classes || ''"
+            [attr.aria-label]="contentValue.ariaLabel"
             [disabled]="contentValue.disabled"
             mat-icon-button
             [color]="contentValue.color"
@@ -137,6 +138,7 @@
         } @else {
           <a
             [class]="contentValue.classes || ''"
+            [attr.aria-label]="contentValue.ariaLabel"
             [disabled]="contentValue.disabled"
             mat-icon-button
             (click)="onNav($event, contentValue)"
@@ -154,6 +156,7 @@
         @if (contentValue.icon && contentValue.icon.svg) {
           <button
             [class]="contentValue.classes || ''"
+            [attr.aria-label]="contentValue.ariaLabel"
             [disabled]="contentValue.disabled"
             mat-fab
             [color]="contentValue.color"
@@ -167,6 +170,7 @@
         @if (contentValue.icon && contentValue.icon.svg) {
           <button
             [class]="contentValue.classes || ''"
+            [attr.aria-label]="contentValue.ariaLabel"
             [disabled]="contentValue.disabled"
             mat-mini-fab
             [color]="contentValue.color"

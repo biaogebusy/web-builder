@@ -140,4 +140,11 @@ export const API_CHECK_LIST: ApiEndpoint[] = [
     expectedStatus: 200,
     description: 'BUILDER.API_CHECK_LIST.COMMENTS_DESC',
   },
+  {
+    name: 'BUILDER.API_CHECK_LIST.ACCOUNT_PROFILE',
+    endpoint: '/api/v3/accountProfile',
+    method: 'GET',
+    expectedStatus: 200,
+    description: 'BUILDER.API_CHECK_LIST.ACCOUNT_PROFILE_DESC',
+  },
 ];

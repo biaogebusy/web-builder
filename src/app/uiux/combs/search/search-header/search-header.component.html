@@ -9,7 +9,7 @@
       <div class="form-wrap">
         <form [formGroup]="form()">
           <div class="search-input">
-            @for (item of filterForm(); track item) {
+            @for (item of filterForm(); track item.key) {
               @switch (item.key) {
                 @case ('keys') {
                   <input

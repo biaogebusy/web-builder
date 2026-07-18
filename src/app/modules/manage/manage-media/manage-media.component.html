@@ -40,7 +40,7 @@
       @if (mediaAssets(); as assets) {
         @if ($any(assets).rows.length) {
           <div class="viewport" [style.--cols]="manageMediaConfig().row">
-            @for (item of $any(assets).rows; track item) {
+            @for (item of $any(assets).rows; track item.id ?? item.uuid) {
               <div class="masonry-item">
                 <div class="actions" [matTooltip]="item.title">
                   @if (content().mode === 'manage') {

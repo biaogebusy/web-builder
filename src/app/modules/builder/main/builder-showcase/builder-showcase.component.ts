@@ -1,11 +1,20 @@
-import { Component, OnInit, inject, ChangeDetectionStrategy, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  OnInit,
+  inject,
+  input,
+  signal,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import type { IBuilderComponentElement, IBuilderShowcase } from '@core/interface/IBuilder';
 import { IDialog } from '@core/interface/IDialog';
-import { IUser } from '@core/interface/IUser';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
+import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
@@ -13,7 +22,7 @@ import { USER } from '@core/token/token-providers';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { LocalStorageService } from 'ngx-webstorage';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import { finalize } from 'rxjs';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,7 +39,10 @@ export class BuilderShowcaseComponent implements OnInit {
   private screenService = inject(ScreenService);
   private storage = inject(LocalStorageService);
   private translate = inject(TranslateService);
+  private nodeService = inject(NodeService);
+  private destroyRef = inject(DestroyRef);
   public user = inject(USER);
+  public deleting = signal(false);
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -79,6 +91,59 @@ export class BuilderShowcaseComponent implements OnInit {
       width: '800px',
       data: config,
     });
+  }
+
+  onDelete(component: IBuilderComponentElement): void {
+    const { uuid } = component;
+    if (!uuid) {
+      return;
+    }
+    const type = component.content?.type || component.type || '';
+    const config: IDialog = {
+      title: this.translate.instant('BUILDER.SHOWCASE.DELETE_TITLE'),
+      titleClasses: 'text-red-500',
+      noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
+      yesLabel: this.translate.instant('BUILDER.SHOWCASE.DELETE_CONFIRM'),
+      inputData: {
+        content: {
+          type: 'text',
+          fullWidth: true,
+          body: this.translate.instant('BUILDER.SHOWCASE.DELETE_BODY', { type }),
+        },
+      },
+    };
+
+    this.dialog
+      .open(DialogComponent, { width: '340px', data: config })
+      .afterClosed()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(confirmed => {
+        if (!confirmed) {
+          return;
+        }
+        this.deleting.set(true);
+        this.nodeService
+          .deleteEntity('/api/v1/node/component', uuid)
+          .pipe(
+            finalize(() => this.deleting.set(false)),
+            takeUntilDestroyed(this.destroyRef)
+          )
+          .subscribe({
+            next: () => {
+              this.util.openSnackbar(
+                this.translate.instant('BUILDER.SHOWCASE.DELETED', { type }),
+                'ok'
+              );
+              this.builder.cancelFixedShowcase();
+            },
+            error: () => {
+              this.util.openSnackbar(
+                this.translate.instant('BUILDER.SHOWCASE.DELETE_FAILED'),
+                'ok'
+              );
+            },
+          });
+      });
   }
 
   insert(component: any): void {

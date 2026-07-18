@@ -1,0 +1,149 @@
+<div class="container">
+  <div class="card">
+
+    <div class="toolbar">
+      <div class="toolbar-left">
+        <div class="search-wrap">
+          <mat-icon class="s-icon">search</mat-icon>
+          <input
+            class="s-input"
+            placeholder="搜索组件名称"
+            [(ngModel)]="searchText"
+            (ngModelChange)="onSearch($event)"
+            aria-label="搜索组件"
+          />
+        </div>
+      </div>
+      <div class="toolbar-right">
+        <span class="total-text">共 {{ totalCount() }} 个</span>
+        @if (selectedCount() > 0) {
+          <span class="divider"></span>
+          <div class="bulk-actions">
+            <span class="bulk-count">已选 {{ selectedCount() }}</span>
+            <button mat-stroked-button color="warn" (click)="onDeleteSelected()">
+              <mat-icon>delete_sweep</mat-icon>删除选中
+            </button>
+            <button mat-button (click)="clearSelection()" aria-label="取消选择">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+        }
+        <button mat-flat-button color="primary" (click)="onAdd()">
+          <mat-icon>add</mat-icon>新增组件
+        </button>
+      </div>
+    </div>
+
+    <div class="list-body">
+      @if (loading()) {
+        <div class="loading-wrap" aria-busy="true">
+          <app-loading />
+        </div>
+      }
+
+      @if (!loading() && visibleItemUuids().length > 0) {
+        <div class="list-header">
+          <mat-checkbox
+            class="item-checkbox select-all"
+            [checked]="isAllSelected()"
+            [indeterminate]="isIndeterminate()"
+            (change)="toggleSelectAll($event.checked)"
+            [attr.aria-label]="'全选当前可见组件'"
+          />
+          <span class="list-header-label">全选</span>
+          <span class="list-header-count">{{ visibleItemUuids().length }} 个可选项</span>
+        </div>
+      }
+
+      @for (row of filteredRows(); track trackRow($index, row)) {
+        @if (isL1Group(0, row)) {
+          <div
+            class="l1-row"
+            (click)="toggleGroup(asL1(row).name)"
+            role="button"
+            tabindex="0"
+            [attr.aria-expanded]="isExpanded(asL1(row).name)"
+            (keyup.enter)="toggleGroup(asL1(row).name)"
+            (keyup.space)="toggleGroup(asL1(row).name); $event.preventDefault()"
+          >
+            <mat-icon class="folder-icon">folder_open</mat-icon>
+            <span class="group-name">{{ asL1(row).name }}</span>
+            <span class="count-pill primary">{{ asL1(row).count }}</span>
+            <mat-icon class="chevron" [class.expanded]="isExpanded(asL1(row).name)">expand_more</mat-icon>
+          </div>
+        } @else if (isL2Group(0, row)) {
+          <div class="l2-row">
+            <mat-icon class="l2-icon">subdirectory_arrow_right</mat-icon>
+            <span class="group-name">{{ asL2(row).name }}</span>
+            <span class="count-pill">{{ asL2(row).count }}</span>
+          </div>
+        } @else {
+          <div class="item-row" [class.selected]="isItemSelected(asItem(row).uuid)">
+            <mat-checkbox
+              class="item-checkbox"
+              [checked]="isItemSelected(asItem(row).uuid)"
+              (change)="toggleSelect(asItem(row).uuid, $event.checked)"
+              [attr.aria-label]="'选中 ' + asItem(row).label"
+              (click)="$event.stopPropagation()"
+            />
+            <span class="item-name">{{ asItem(row).label }}</span>
+            <div class="item-icon-col">
+              @if (asItem(row).icon) {
+                <span class="icon-tag">
+                  <app-icon [content]="{ svg: asItem(row).icon!, inline: true }" />
+                  <span>{{ asItem(row).icon }}</span>
+                </span>
+              } @else {
+                <span class="no-icon">—</span>
+              }
+            </div>
+            <div class="item-actions">
+              <button
+                type="button"
+                mat-icon-button
+                class="action-menu-trigger"
+                [matMenuTriggerFor]="actionsMenu"
+                [attr.aria-label]="'打开操作菜单：' + asItem(row).label"
+              >
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #actionsMenu="matMenu">
+                <button type="button" mat-menu-item (click)="onPreview(asItem(row))">
+                  <mat-icon>visibility</mat-icon>
+                  <span>预览</span>
+                </button>
+                <button type="button" mat-menu-item (click)="onCopyId(asItem(row))">
+                  <mat-icon>content_copy</mat-icon>
+                  <span>复制组件 ID</span>
+                </button>
+                <button type="button" mat-menu-item (click)="onEditJson(asItem(row))">
+                  <mat-icon>code</mat-icon>
+                  <span>编辑 JSON</span>
+                </button>
+                <button type="button" mat-menu-item (click)="onEdit(asItem(row))">
+                  <mat-icon>edit</mat-icon>
+                  <span>编辑</span>
+                </button>
+                <button type="button" mat-menu-item (click)="onDelete(asItem(row))">
+                  <mat-icon>delete_outline</mat-icon>
+                  <span>删除</span>
+                </button>
+              </mat-menu>
+            </div>
+          </div>
+        }
+      }
+
+      @if (filteredRows().length === 0 && !loading()) {
+        <div class="empty-state">
+          <mat-icon>inbox</mat-icon>
+          <p>暂无组件</p>
+          <button mat-stroked-button color="primary" (click)="onAdd()">
+            <mat-icon>add</mat-icon>新增组件
+          </button>
+        </div>
+      }
+    </div>
+
+  </div>
+</div>
