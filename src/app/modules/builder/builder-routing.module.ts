@@ -49,6 +49,11 @@ const routes: Routes = [
         loadChildren: () => import('./node/node-add/node-add.routes').then(m => m.routes),
       },
       {
+        path: 'manage-uiux',
+        loadComponent: () =>
+          import('./main/manage-uiux/manage-uiux.component').then(m => m.ManageUiuxComponent),
+      },
+      {
         path: '**',
         component: ManagePageComponent,
       },
