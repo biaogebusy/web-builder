@@ -1,7 +1,6 @@
 import { DestroyRef, Injectable, inject } from '@angular/core';
-import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ApiService } from './api.service';
-import { BUILDER_CONFIG } from '@core/token/token-providers';
 import type { IPage } from '@core/interface/IAppConfig';
 import { Observable, of, Subscription, timer } from 'rxjs';
 import { UtilitiesService } from './utilities.service';
@@ -15,7 +14,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { ContentService } from './content.service';
 import { isArray } from 'lodash-es';
-import { IBuilderConfig } from '@core/interface/IBuilder';
 import { IDialog } from '@core/interface/IDialog';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 import {
@@ -35,15 +33,12 @@ const VERSION_CHECK_INTERVAL = 30000;
   providedIn: 'root',
 })
 export class BuilderService extends ApiService {
-  private builderConfig = toSignal(inject(BUILDER_CONFIG, { optional: true }) ?? of(undefined), {
-    initialValue: undefined,
-  });
-
   private dialog = inject(MatDialog);
   private builder = inject(BuilderState);
   private util = inject(UtilitiesService);
   private nodeService = inject(NodeService);
   private contentService = inject(ContentService);
+  private builderConfig$ = this.contentService.loadBuilderConfig();
   private destroyRef = inject(DestroyRef);
   private router = inject(Router);
   private storage = inject(LocalStorageService);
@@ -277,31 +272,30 @@ export class BuilderService extends ApiService {
   }
 
   createLandingPage(page: IPage, loadPage = true): Observable<any> {
-    const {
-      api: { create },
-    } = this.builderConfig()!;
     this.builder.loading.set(true);
-    return this.http
-      .post(`${this.apiUrl}${create}`, formatPage(page), this.optionsWithBearerToken())
-      .pipe(
-        tap((res: any) => {
-          const {
-            data: { nid },
-          } = res;
-          if (loadPage) {
-            this.loadPage({ nid }, true);
-          }
-        }),
-        catchError((error: any) => {
-          this.builder.loading.set(false);
-          if (error?.status === 403) {
-            this.util.openSnackbar('无权限执行此操作', 'ok');
-          } else {
-            this.util.openSnackbar('创建页面失败，请重试', 'ok');
-          }
-          return of(false);
-        })
-      );
+    return this.builderConfig$.pipe(
+      take(1),
+      switchMap(({ api: { create } }) =>
+        this.http.post(`${this.apiUrl}${create}`, formatPage(page), this.optionsWithBearerToken())
+      ),
+      tap((res: any) => {
+        const {
+          data: { nid },
+        } = res;
+        if (loadPage) {
+          this.loadPage({ nid }, true);
+        }
+      }),
+      catchError((error: any) => {
+        this.builder.loading.set(false);
+        if (error?.status === 403) {
+          this.util.openSnackbar('无权限执行此操作', 'ok');
+        } else {
+          this.util.openSnackbar('创建页面失败，请重试', 'ok');
+        }
+        return of(false);
+      })
+    );
   }
 
   updateLandingPage(page: IPage): Observable<any> {
@@ -312,34 +306,33 @@ export class BuilderService extends ApiService {
     if (lang) {
       prefix = `/${lang}`;
     }
-    const {
-      api: { update },
-    } = this.builderConfig()!;
     this.builder.loading.set(true);
-    return this.http
-      .patch(
-        `${this.apiUrl}${prefix}${update}/${nid}`,
-        coverExtraData(page),
-        this.optionsWithBearerToken()
-      )
-      .pipe(
-        tap((res: any) => {
-          const { status } = res;
-          if (status) {
-            if (langcode && nid) {
-              this.loadPage(
-                {
-                  langcode,
-                  nid,
-                },
-                true
-              );
-            }
-          } else {
-            this.util.openSnackbar('保存失败，请重试', 'ok');
+    return this.builderConfig$.pipe(
+      take(1),
+      switchMap(({ api: { update } }) =>
+        this.http.patch(
+          `${this.apiUrl}${prefix}${update}/${nid}`,
+          coverExtraData(page),
+          this.optionsWithBearerToken()
+        )
+      ),
+      tap((res: any) => {
+        const { status } = res;
+        if (status) {
+          if (langcode && nid) {
+            this.loadPage(
+              {
+                langcode,
+                nid,
+              },
+              true
+            );
           }
-        })
-      );
+        } else {
+          this.util.openSnackbar('保存失败，请重试', 'ok');
+        }
+      })
+    );
   }
 
   getDefaultPage(url: string): Observable<IPage> {
@@ -371,13 +364,15 @@ export class BuilderService extends ApiService {
 
   addTranslation(page: IPage): Observable<any> {
     const { nid, target, langcode } = page;
-    const {
-      api: { translate },
-    } = this.builderConfig()!;
-    return this.http.post(
-      `${this.apiUrl}${translate}/add/${nid}/${langcode}/${target}`,
-      formatPage(page),
-      this.optionsWithBearerToken()
+    return this.builderConfig$.pipe(
+      take(1),
+      switchMap(({ api: { translate } }) =>
+        this.http.post(
+          `${this.apiUrl}${translate}/add/${nid}/${langcode}/${target}`,
+          formatPage(page),
+          this.optionsWithBearerToken()
+        )
+      )
     );
   }
 

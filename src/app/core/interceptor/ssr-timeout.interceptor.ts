@@ -3,8 +3,7 @@ import { isPlatformServer } from '@angular/common';
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { catchError, timeout } from 'rxjs/operators';
 import { throwError } from 'rxjs';
-
-const SSR_TIMEOUT = 10000;
+import { SSR_HTTP_TIMEOUT_MS } from 'src/ssr.config';
 
 export const ssrTimeoutInterceptor: HttpInterceptorFn = (req, next) => {
   if (!isPlatformServer(inject(PLATFORM_ID))) {
@@ -12,7 +11,7 @@ export const ssrTimeoutInterceptor: HttpInterceptorFn = (req, next) => {
   }
   const start = Date.now();
   return next(req).pipe(
-    timeout(SSR_TIMEOUT),
+    timeout(SSR_HTTP_TIMEOUT_MS),
     catchError(err => {
       if (err?.name === 'TimeoutError') {
         const elapsed = Date.now() - start;

@@ -1,6 +1,12 @@
 @let card = content().card;
 @let component = card.components[0];
-<div class="backdrop" role="button" tabindex="0" (click)="onClose()" (keyup.enter)="onClose()"></div>
+<div
+  class="backdrop"
+  role="button"
+  tabindex="0"
+  (click)="onClose()"
+  (keyup.enter)="onClose()"
+></div>
 <div class="showcase">
   <app-card-1v1 [content]="card" />
   <div class="showcase-footer">
@@ -17,6 +23,7 @@
         matTooltipPosition="above"
         [content]="{
           label: '',
+          ariaLabel: 'BUILDER.SHOWCASE.COPY_JSON' | translate,
           color: 'primary',
           mode: 'icon',
           icon: { svg: 'content-copy', inline: true },
@@ -28,17 +35,36 @@
         matTooltipPosition="above"
         [content]="{
           label: '',
+          ariaLabel: 'BUILDER.SHOWCASE.VIEW_JSON' | translate,
           color: 'primary',
           mode: 'icon',
           icon: { svg: 'code-json', inline: true },
         }"
       />
+      @if (component.uuid) {
+        <app-btn
+          *reqRolesIf="{ params: { reqRoles: ['administrator'] } }"
+          (click)="onDelete(component)"
+          [matTooltip]="'BUILDER.SHOWCASE.DELETE_TITLE' | translate"
+          matTooltipPosition="above"
+          [content]="{
+            label: '',
+            ariaLabel: 'BUILDER.SHOWCASE.DELETE_TITLE' | translate,
+            classes: 'delete-action',
+            color: 'warn',
+            disabled: deleting(),
+            mode: 'icon',
+            icon: { svg: 'delete', inline: true },
+          }"
+        />
+      }
       <app-btn
         (click)="insert(component.content)"
         [matTooltip]="'BUILDER.SHOWCASE.INSERT' | translate"
         matTooltipPosition="above"
         [content]="{
           label: '',
+          ariaLabel: 'BUILDER.SHOWCASE.INSERT' | translate,
           color: 'primary',
           mode: 'icon',
           icon: { svg: 'arrow-right', inline: true },

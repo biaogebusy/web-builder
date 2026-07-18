@@ -41,27 +41,29 @@
           #layoutEle
         >
           @if (showToolbar()) {
-            <div class="toolbar">
-              <app-layout-toolbar
-                [target]="layoutEle"
-                [lbContent]="contentValue"
-                [i]="i"
-                [layout]="layout"
-              />
-            </div>
-            @if (elements.length === 0) {
-              <div #placeholder class="placeholder" [attr.data-path]="'elements.' + i">
-                <app-btn
-                  matTooltip="插入组件"
-                  matTooltipPosition="above"
-                  (click)="addBlock('widget', contentValue, placeholder)"
-                  [content]="{
-                    label: '',
-                    mode: 'icon',
-                    icon: { svg: 'plus' },
-                  }"
+            @defer {
+              <div class="toolbar">
+                <app-layout-toolbar
+                  [target]="layoutEle"
+                  [lbContent]="contentValue"
+                  [i]="i"
+                  [layout]="layout"
                 />
               </div>
+              @if (elements.length === 0) {
+                <div #placeholder class="placeholder" [attr.data-path]="'elements.' + i">
+                  <app-btn
+                    matTooltip="插入组件"
+                    matTooltipPosition="above"
+                    (click)="addBlock('widget', contentValue, placeholder)"
+                    [content]="{
+                      label: '',
+                      mode: 'icon',
+                      icon: { svg: 'plus' },
+                    }"
+                  />
+                </div>
+              }
             }
           }
           <div class="for-animate">
@@ -91,16 +93,21 @@
                 >
                   <app-dynamic-component class="component" [inputs]="item" />
                   @if (showToolbar()) {
-                    <div class="block-toolbar">
-                      <button mat-stroked-button (click)="addBlock('widget', contentValue, widget)">
-                        <div class="block-toolbar-inner">
-                          <app-icon class="mr-1" [content]="{ svg: 'arrow-right-bottom' }" />
-                          <span>插入组件</span>
-                        </div>
-                      </button>
-                    </div>
-                    @if (last) {
-                      <div class="last-spacer"></div>
+                    @defer {
+                      <div class="block-toolbar">
+                        <button
+                          mat-stroked-button
+                          (click)="addBlock('widget', contentValue, widget)"
+                        >
+                          <div class="block-toolbar-inner">
+                            <app-icon class="mr-1" [content]="{ svg: 'arrow-right-bottom' }" />
+                            <span>插入组件</span>
+                          </div>
+                        </button>
+                      </div>
+                      @if (last) {
+                        <div class="last-spacer"></div>
+                      }
                     }
                   }
                 </div>

@@ -15,14 +15,12 @@ import {
 } from '@angular/platform-browser';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { provideRouter, withInMemoryScrolling, withPreloading } from '@angular/router';
-import { PreloadAllModules } from '@angular/router';
 import zhHans from '@angular/common/locales/zh-Hans';
 import { registerLocaleData } from '@angular/common';
 import { provideNgxWebstorage, withLocalStorage, withNgxWebstorageConfig } from 'ngx-webstorage';
 import { CookieService } from 'ngx-cookie-service';
 import { TranslateModule } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
-import { provideMonacoEditor } from 'ngx-monaco-editor-v2';
 import { AppComponent } from './app.component';
 import { routes } from './app.routes';
 import { authInterceptor } from '@core/interceptor/auth.interceptor';
@@ -45,10 +43,8 @@ import {
   themeFactory,
   userFactory,
 } from '@core/factory/factory';
-import { PageModule } from '@modules/page/page.module';
-import { FormlyModule } from '@ngx-formly/core';
-import { FormlyMaterialModule } from '@ngx-formly/material';
 import { environment } from 'src/environments/environment';
+import { SelectivePreloadingStrategy } from '@core/strategy/selective-preloading.strategy';
 
 registerLocaleData(zhHans, 'zh-hans');
 
@@ -69,10 +65,9 @@ export const appConfig: ApplicationConfig = {
     }),
     provideZonelessChangeDetection(),
     provideHttpClient(withFetch(), withInterceptors([authInterceptor, ssrTimeoutInterceptor])),
-    provideMonacoEditor({ baseUrl: 'assets' }),
     provideRouter(
       routes,
-      withPreloading(PreloadAllModules),
+      withPreloading(SelectivePreloadingStrategy),
       withInMemoryScrolling({
         scrollPositionRestoration: 'enabled',
         anchorScrolling: 'enabled',
@@ -117,6 +112,6 @@ export const appConfig: ApplicationConfig = {
       prefix: `${environment.apiUrl}/assets/i18n/`,
       suffix: '.json',
     }),
-    importProvidersFrom(BrowserModule, PageModule, FormlyModule.forRoot(), FormlyMaterialModule),
+    importProvidersFrom(BrowserModule),
   ],
 };

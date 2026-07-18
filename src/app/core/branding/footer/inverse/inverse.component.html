@@ -46,38 +46,56 @@
           }
           @if (contentValue.footerNewsletter) {
             <div class="newsletter-col">
-              <form class="newsletter-form" (ngSubmit)="onSubmit()" [formGroup]="form">
-                <div class="item-header">
-                  {{ contentValue.footerNewsletter.label }}
-                </div>
-                <p class="m-y-xs" [innerHTML]="contentValue.footerNewsletter.summary | safeHtml"></p>
-                @defer (hydrate on viewport) {
-                  <app-formly [form]="form" [fields]="contentValue.footerNewsletter.form" />
-                } @placeholder {
-                  <div class="newsletter-form-placeholder" style="min-height: 60px"></div>
-                }
-                <div class="newsletter-action">
-                  @if (contentValue.footerNewsletter.action) {
-                    <button type="submit" mat-raised-button color="primary">
-                      <div class="btn-inner">
-                        <div class="p-x-xs">
-                          {{ contentValue.footerNewsletter.action.label }}
-                        </div>
+              @if (contentValue.footerNewsletter.form?.[0]; as field) {
+                <form
+                  class="newsletter-form"
+                  (submit)="onSubmit($event, newsletterInput, field.key)"
+                >
+                  <div class="item-header">
+                    {{ contentValue.footerNewsletter.label }}
+                  </div>
+                  <p
+                    id="footer-newsletter-summary"
+                    class="m-y-xs"
+                    [innerHTML]="contentValue.footerNewsletter.summary | safeHtml"
+                  ></p>
+                  <label class="sr-only" [for]="'footer-newsletter-' + field.key">
+                    {{ field.props?.label || field.props?.placeholder || 'Email' }}
+                  </label>
+                  <input
+                    #newsletterInput
+                    class="newsletter-input"
+                    [id]="'footer-newsletter-' + field.key"
+                    [name]="field.key"
+                    [type]="field.props?.email ? 'email' : 'text'"
+                    [value]="field.defaultValue || field.value || ''"
+                    [placeholder]="field.props?.placeholder || ''"
+                    [required]="field.props?.required || false"
+                    [attr.autocomplete]="field.props?.email ? 'email' : 'off'"
+                    aria-describedby="footer-newsletter-summary"
+                  />
+                  <div class="newsletter-action">
+                    @if (submitting()) {
+                      <div class="spinner-wrap">
+                        <app-spinner
+                          [content]="{
+                            color: 'primary',
+                            size: 36,
+                          }"
+                        />
                       </div>
-                    </button>
-                  }
-                  <div class="spinner-wrap">
-                    @if (submited) {
-                      <app-spinner
-                        [content]="{
-                          color: 'primary',
-                          size: 36,
-                        }"
-                      />
+                    } @else if (contentValue.footerNewsletter.action) {
+                      <button type="submit" mat-raised-button color="primary">
+                        <div class="btn-inner">
+                          <div class="p-x-xs">
+                            {{ contentValue.footerNewsletter.action.label }}
+                          </div>
+                        </div>
+                      </button>
                     }
                   </div>
-                </div>
-              </form>
+                </form>
+              }
             </div>
           }
 

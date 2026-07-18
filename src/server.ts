@@ -11,6 +11,15 @@ import { fileURLToPath } from 'node:url';
 import { environment } from 'src/environments/environment';
 import compression from 'compression';
 import { blockScanners, rateLimiter } from './middlewares/security';
+import { SsrHtmlCache } from './server/ssr-html-cache';
+import { getAuthCookieName, getSsrCacheDecision } from './server/ssr-cache-policy';
+import {
+  SSR_CACHE_MAX_BYTES,
+  SSR_CACHE_MAX_ENTRIES,
+  SSR_CACHE_TTL_MS,
+  SSR_METRICS_INTERVAL_MS,
+  SSR_RENDER_TIMEOUT_MS,
+} from './ssr.config';
 
 const serverDistFolder = dirname(fileURLToPath(import.meta.url));
 const browserDistFolder = resolve(serverDistFolder, '../browser');
@@ -23,31 +32,59 @@ process.on('unhandledRejection', (reason: unknown) => {
 });
 
 const app = express();
+app.set('trust proxy', 1);
 app.use(express.json());
 app.use(compression());
 app.use(blockScanners);
-app.use(rateLimiter);
-
-// 设置全局 SSR 渲染超时控制，防止单个请求无限占用资源
-const SSR_TIMEOUT = 10000; // 10秒
 
 const angularApp = new AngularNodeAppEngine();
+const ssrRenderTimeoutMs = readPositiveInteger(
+  'SSR_RENDER_TIMEOUT_MS',
+  SSR_RENDER_TIMEOUT_MS
+);
+const ssrCache = new SsrHtmlCache({
+  maxBytes: readPositiveInteger('SSR_CACHE_MAX_BYTES', SSR_CACHE_MAX_BYTES),
+  maxEntries: readPositiveInteger('SSR_CACHE_MAX_ENTRIES', SSR_CACHE_MAX_ENTRIES),
+  ttlMs: readPositiveInteger('SSR_CACHE_TTL_MS', SSR_CACHE_TTL_MS),
+});
+const authCookieName = getAuthCookieName(environment.apiUrl);
+const ssrMetrics = {
+  errors: 0,
+  maxRenderMs: 0,
+  renders: 0,
+  timeouts: 0,
+  totalRenderMs: 0,
+};
 
-const SSR_CACHE_TTL = 5 * 60 * 1000;
-const ssrCache = new Map<string, { html: string; expires: number }>();
-
-function getCacheKey(req: express.Request): string {
-  return req.path;
-}
-
-function isCacheable(req: express.Request): boolean {
-  return (
-    req.method === 'GET' &&
-    !req.headers['authorization'] &&
-    !req.query['nocache'] &&
-    !req.query['preview']
-  );
-}
+const metricsTimer = setInterval(
+  () => {
+    ssrCache.pruneExpired();
+    const cache = ssrCache.stats();
+    const memory = process.memoryUsage();
+    const avgRenderMs = ssrMetrics.renders ? ssrMetrics.totalRenderMs / ssrMetrics.renders : 0;
+    console.info(
+      '[SSR Metrics]',
+      JSON.stringify({
+        avgRenderMs: Math.round(avgRenderMs),
+        cacheBytes: cache.bytes,
+        cacheEntries: cache.entries,
+        cacheEvictions: cache.evictions,
+        cacheExpired: cache.expired,
+        cacheHitRatio: Number(cache.hitRatio.toFixed(4)),
+        cacheHits: cache.hits,
+        cacheMisses: cache.misses,
+        errors: ssrMetrics.errors,
+        heapUsedMb: Number((memory.heapUsed / 1024 / 1024).toFixed(2)),
+        maxRenderMs: Math.round(ssrMetrics.maxRenderMs),
+        renders: ssrMetrics.renders,
+        rssMb: Number((memory.rss / 1024 / 1024).toFixed(2)),
+        timeouts: ssrMetrics.timeouts,
+      })
+    );
+  },
+  readPositiveInteger('SSR_METRICS_INTERVAL_MS', SSR_METRICS_INTERVAL_MS)
+);
+metricsTimer.unref();
 
 /**
  * Serve static files from /browser
@@ -64,24 +101,32 @@ app.use(
     },
   })
 );
+app.use(rateLimiter);
 
 /**
  * Handle all other requests by rendering the Angular application with timeout control.
  */
 app.use('/**', (req, res, next) => {
-  const cacheable = isCacheable(req);
-  const cacheKey = getCacheKey(req);
+  const cacheDecision = getSsrCacheDecision(req, {
+    authCookieNames: authCookieName ? [authCookieName] : [],
+  });
 
-  if (cacheable) {
-    const cached = ssrCache.get(cacheKey);
-    if (cached && cached.expires > Date.now()) {
+  if (cacheDecision.cacheable) {
+    const cached = ssrCache.get(cacheDecision.key);
+    if (cached) {
       res.setHeader('Content-Type', 'text/html; charset=utf-8');
+      res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=300, stale-while-revalidate=60');
       res.setHeader('X-Cache', 'HIT');
-      res.send(cached.html);
+      res.send(cached);
       return;
     }
+    res.setHeader('X-Cache', 'MISS');
+  } else {
+    res.setHeader('Cache-Control', 'private, no-store');
+    res.setHeader('X-Cache', 'BYPASS');
   }
 
+  const renderStart = performance.now();
   let settled = false;
 
   const timeoutId = setTimeout(() => {
@@ -89,9 +134,10 @@ app.use('/**', (req, res, next) => {
       return;
     }
     settled = true;
-    console.warn(`[SSR Timeout] Request exceeded ${SSR_TIMEOUT}ms for ${req.path}`);
+    ssrMetrics.timeouts += 1;
+    console.warn(`[SSR Timeout] Request exceeded ${ssrRenderTimeoutMs}ms for ${req.originalUrl}`);
     res.status(504).send('Server Timeout: Page rendering took too long');
-  }, SSR_TIMEOUT);
+  }, ssrRenderTimeoutMs);
 
   angularApp
     .handle(req)
@@ -101,10 +147,17 @@ app.use('/**', (req, res, next) => {
       }
       settled = true;
       clearTimeout(timeoutId);
+      const renderMs = performance.now() - renderStart;
+      recordRenderDuration(renderMs);
+      res.setHeader('X-SSR-Duration', Math.round(renderMs).toString());
       if (response) {
-        if (cacheable && response.status === 200) {
+        if (cacheDecision.cacheable && response.status === 200) {
           const html = await response.clone().text();
-          ssrCache.set(cacheKey, { html, expires: Date.now() + SSR_CACHE_TTL });
+          ssrCache.set(cacheDecision.key, html);
+          res.setHeader(
+            'Cache-Control',
+            'public, max-age=0, s-maxage=300, stale-while-revalidate=60'
+          );
         }
         writeResponseToNodeResponse(response, res);
       } else {
@@ -117,6 +170,8 @@ app.use('/**', (req, res, next) => {
       }
       settled = true;
       clearTimeout(timeoutId);
+      ssrMetrics.errors += 1;
+      recordRenderDuration(performance.now() - renderStart);
       console.error(`[SSR Error] ${req.path}:`, error.message);
       if (!res.headersSent) {
         res.status(500).send('Server Error: Failed to render page');
@@ -143,3 +198,14 @@ if (isMainModule(import.meta.url)) {
  * Request handler used by the Angular CLI (for dev-server and during build) or Firebase Cloud Functions.
  */
 export const reqHandler = createNodeRequestHandler(app);
+
+function recordRenderDuration(renderMs: number): void {
+  ssrMetrics.renders += 1;
+  ssrMetrics.totalRenderMs += renderMs;
+  ssrMetrics.maxRenderMs = Math.max(ssrMetrics.maxRenderMs, renderMs);
+}
+
+function readPositiveInteger(name: string, fallback: number): number {
+  const parsed = Number.parseInt(process.env[name] ?? '', 10);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
+}

@@ -7,7 +7,6 @@ import { BaseModule } from '@uiux/base/base.module';
 import { JsoneditorComponent } from './jsoneditor/jsoneditor.component';
 import { CodeEditorComponent } from './code-editor/code-editor.component';
 import { CustomTemplateComponent } from './custom-template/custom-template.component';
-import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 import { FormModule } from '../form/form.module';
 import { DownloadComponent } from './download/download.component';
 import { FlagComponent } from './flag/flag.component';
@@ -30,13 +29,7 @@ const standaloneComponents = [
 const components = [...standaloneComponents];
 
 @NgModule({
-  imports: [
-    ShareModule,
-    WidgetsModule,
-    FormModule,
-    MonacoEditorModule.forRoot(),
-    ...standaloneComponents,
-  ],
+  imports: [ShareModule, WidgetsModule, FormModule, ...standaloneComponents],
   exports: [...components],
 })
 export class OtherModule extends BaseModule {

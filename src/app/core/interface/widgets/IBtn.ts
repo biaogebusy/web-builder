@@ -14,6 +14,7 @@ export interface IBtn {
   target?: string;
   drawerIframe?: boolean;
   disabled?: boolean;
+  ariaLabel?: string;
   pill?: boolean;
   iconPosition?: string;
   containerClasses?: string;
