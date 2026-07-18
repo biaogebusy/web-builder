@@ -7,6 +7,7 @@ import { PageListComponent } from './sidebar/page-list/page-list.component';
 import { BuilderWorkspaceComponent } from './main/builder-workspace/builder-workspace.component';
 import { ManagePageComponent } from './main/manage-page/manage-page.component';
 import { BuilderPageComponent } from './sidebar/builder-page/builder-page.component';
+import { superAdminGuard } from '@core/guards/super-admin.guard';
 
 const routes: Routes = [
   {
@@ -50,6 +51,7 @@ const routes: Routes = [
       },
       {
         path: 'manage-uiux',
+        canActivate: [superAdminGuard],
         loadComponent: () =>
           import('./main/manage-uiux/manage-uiux.component').then(m => m.ManageUiuxComponent),
       },
