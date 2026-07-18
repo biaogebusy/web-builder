@@ -134,11 +134,12 @@
   }
 
   .group-name {
-    @apply text-sm font-semibold flex-1;
+    @apply text-sm font-semibold;
     color: var(--mat-sys-on-surface);
   }
 
   .chevron {
+    margin-left: auto;
     font-size: 20px;
     width: 20px;
     height: 20px;
@@ -169,7 +170,7 @@
   }
 
   .group-name {
-    @apply text-sm font-semibold flex-1;
+    @apply text-sm font-semibold;
     color: var(--mat-sys-on-surface);
   }
 }
@@ -191,30 +192,45 @@
 
 // ── Item row ──────────────────────────────────────────────
 .item-row {
-  @apply grid gap-3 p-4 rounded-xl;
+  @apply grid gap-3 p-4 rounded-2xl;
   grid-template-columns: auto minmax(0, 1fr) auto;
   grid-template-areas:
     'checkbox name actions'
     'icon icon icon';
   align-content: space-between;
   min-height: 116px;
-  background: var(--mat-sys-surface);
-  box-shadow: var(--mat-sys-level1);
+  background: var(--mat-sys-surface-container-lowest);
+  box-shadow: var(--mat-sys-level0);
   transition: background 120ms, box-shadow 120ms;
 
   &:hover {
-    background: var(--mat-sys-surface-container-lowest);
+    background: var(--mat-sys-surface);
+    box-shadow: var(--mat-sys-level1);
   }
 
   &:focus-within {
     outline: 2px solid var(--mat-sys-primary);
-    outline-offset: -2px;
+    outline-offset: 2px;
   }
 
   &.selected {
-    background: var(--mat-sys-primary-container);
-    outline: 2px solid var(--mat-sys-primary);
-    outline-offset: -2px;
+    background: color-mix(
+      in srgb,
+      var(--mat-sys-primary) 8%,
+      var(--mat-sys-surface-container-lowest)
+    );
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--mat-sys-primary) 45%, transparent),
+      var(--mat-sys-level0);
+
+    .item-name {
+      color: var(--mat-sys-primary);
+    }
+
+    .icon-tag {
+      background: var(--mat-sys-primary-container);
+      color: var(--mat-sys-on-primary-container);
+    }
   }
 
   .item-name {
