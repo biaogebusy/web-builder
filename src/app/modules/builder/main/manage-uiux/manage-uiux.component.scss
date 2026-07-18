@@ -5,14 +5,14 @@
 
 .container {
   @apply mx-auto p-4;
-  max-width: 1000px;
+  max-width: 1280px;
 }
 
 // ── Card ──────────────────────────────────────────────────
 .card {
   @apply rounded-xl overflow-hidden;
   background: var(--mat-sys-surface);
-  border: 1px solid var(--mat-sys-outline-variant);
+  box-shadow: var(--mat-sys-level1);
 }
 
 // ── Toolbar ───────────────────────────────────────────────
@@ -80,31 +80,21 @@
 
 // ── List body ─────────────────────────────────────────────
 .list-body {
-  @apply relative;
+  @apply relative grid gap-4 p-4;
+  grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
+  background: var(--mat-sys-surface-container-low);
 }
 
 .loading-wrap {
   @apply flex items-center justify-center py-16;
+  grid-column: 1 / -1;
 }
 
 // ── List header (select-all row) ─────────────────────────
 .list-header {
-  @apply flex items-center gap-2 py-2;
-  padding-left: 56px;
-  padding-right: 16px;
-  background: var(--mat-sys-surface-container-low);
-  border-bottom: 1px solid var(--mat-sys-outline-variant);
-  position: relative;
-
-  &::before {
-    content: '';
-    position: absolute;
-    left: 48px;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: var(--mat-sys-outline-variant);
-  }
+  @apply flex items-center gap-2 px-1 py-1;
+  grid-column: 1 / -1;
+  background: transparent;
 
   .list-header-label {
     @apply text-xs font-medium;
@@ -119,14 +109,20 @@
 
 // ── L1 group ──────────────────────────────────────────────
 .l1-row {
-  @apply flex items-center gap-2 pl-4 pr-4 py-3 cursor-pointer select-none;
-  background: var(--mat-sys-surface-container-low);
-  border-left: 4px solid var(--mat-sys-primary);
-  border-bottom: 1px solid var(--mat-sys-outline-variant);
+  @apply flex items-center gap-2 px-4 py-3 rounded-xl cursor-pointer select-none;
+  grid-column: 1 / -1;
+  margin-top: 8px;
+  background: var(--mat-sys-surface-container-high);
   transition: background 120ms;
 
-  &:hover {
-    background: var(--mat-sys-surface-container);
+  &:hover,
+  &:focus-visible {
+    background: var(--mat-sys-surface-container-highest);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--mat-sys-primary);
+    outline-offset: 2px;
   }
 
   .folder-icon {
@@ -159,34 +155,22 @@
 
 // ── L2 group ──────────────────────────────────────────────
 .l2-row {
-  @apply flex items-center gap-2 py-2;
-  padding-left: 40px;
-  padding-right: 16px;
-  background: var(--mat-sys-surface-container-lowest);
-  border-bottom: 1px solid var(--mat-sys-outline-variant);
-  position: relative;
-
-  &::before {
-    content: '';
-    position: absolute;
-    left: 24px;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: var(--mat-sys-outline-variant);
-  }
+  @apply flex items-center gap-2 px-3 py-1;
+  grid-column: 1 / -1;
+  margin: 0 8px;
+  background: transparent;
 
   .l2-icon {
-    font-size: 16px;
-    width: 16px;
-    height: 16px;
-    color: var(--mat-sys-on-surface-variant);
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    color: var(--mat-sys-primary);
     flex-shrink: 0;
   }
 
   .group-name {
-    @apply text-xs font-medium flex-1;
-    color: var(--mat-sys-on-surface-variant);
+    @apply text-sm font-semibold flex-1;
+    color: var(--mat-sys-on-surface);
   }
 }
 
@@ -200,61 +184,55 @@
   flex-shrink: 0;
 
   &.primary {
-    background: var(--mat-sys-primary);
-    color: var(--mat-sys-on-primary);
+    background: var(--mat-sys-primary-container);
+    color: var(--mat-sys-on-primary-container);
   }
 }
 
 // ── Item row ──────────────────────────────────────────────
 .item-row {
-  @apply flex items-center gap-2 py-3;
-  padding-left: 56px;
-  padding-right: 16px;
-  border-bottom: 1px solid var(--mat-sys-outline-variant);
+  @apply grid gap-3 p-4 rounded-xl;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    'checkbox name actions'
+    'icon icon icon';
+  align-content: space-between;
+  min-height: 116px;
   background: var(--mat-sys-surface);
-  position: relative;
-  transition: background 120ms;
-
-  &::before {
-    content: '';
-    position: absolute;
-    left: 48px;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: var(--mat-sys-outline-variant);
-  }
+  box-shadow: var(--mat-sys-level1);
+  transition: background 120ms, box-shadow 120ms;
 
   &:hover {
-    background: var(--mat-sys-surface-container-low);
+    background: var(--mat-sys-surface-container-lowest);
+  }
+
+  &:focus-within {
+    outline: 2px solid var(--mat-sys-primary);
+    outline-offset: -2px;
   }
 
   &.selected {
     background: var(--mat-sys-primary-container);
-
-    &::before {
-      background: var(--mat-sys-primary);
-    }
-  }
-
-  &:last-child {
-    border-bottom: none;
+    outline: 2px solid var(--mat-sys-primary);
+    outline-offset: -2px;
   }
 
   .item-name {
-    @apply flex-1 text-sm break-words;
+    @apply min-w-0 text-sm font-medium break-words;
+    grid-area: name;
+    align-self: center;
     color: var(--mat-sys-on-surface);
   }
 
   .item-icon-col {
-    @apply flex items-center;
-    width: 160px;
-    flex-shrink: 0;
+    @apply flex items-end min-w-0;
+    grid-area: icon;
   }
 }
 
 // ── Checkbox ─────────────────────────────────────────────
 .item-checkbox {
+  grid-area: checkbox;
   flex-shrink: 0;
 
   ::ng-deep .mat-mdc-checkbox {
@@ -298,41 +276,18 @@
 
 // ── Actions ───────────────────────────────────────────────
 .item-actions {
-  @apply flex items-center gap-1;
+  @apply flex items-center justify-end;
+  grid-area: actions;
+  width: 40px;
   flex-shrink: 0;
 }
 
-.act-btn {
+.action-menu-trigger {
   @apply rounded-md;
   color: var(--mat-sys-on-surface-variant);
-
-  &:hover {
-    background: var(--mat-sys-surface-container-highest);
-  }
-
-  &.act-json {
-    color: var(--mat-sys-primary);
-
-    &:hover {
-      background: color-mix(in srgb, var(--mat-sys-primary) 12%, transparent);
-    }
-  }
-
-  &.act-edit {
-    color: #0ea5e9;
-
-    &:hover {
-      background: color-mix(in srgb, #0ea5e9 12%, transparent);
-    }
-  }
-
-  &.act-del {
-    color: var(--mat-sys-error);
-
-    &:hover {
-      background: color-mix(in srgb, var(--mat-sys-error) 12%, transparent);
-    }
-  }
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 120ms;
 
   ::ng-deep .mat-icon {
     font-size: 20px;
@@ -341,9 +296,23 @@
   }
 }
 
+.item-row:hover .action-menu-trigger,
+.item-row:focus-within .action-menu-trigger {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (hover: none) {
+  .action-menu-trigger {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
 // ── Empty state ───────────────────────────────────────────
 .empty-state {
   @apply flex flex-col items-center gap-4 py-16;
+  grid-column: 1 / -1;
 
   mat-icon {
     font-size: 40px;
@@ -355,5 +324,24 @@
   p {
     @apply m-0 text-sm;
     color: var(--mat-sys-on-surface-variant);
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    @apply p-2;
+  }
+
+  .toolbar-right {
+    @apply w-full ml-0;
+  }
+
+  .search-wrap,
+  .search-wrap .s-input {
+    @apply w-full;
+  }
+
+  .list-body {
+    @apply p-3;
   }
 }

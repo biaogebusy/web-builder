@@ -11,10 +11,10 @@ import {
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatMenuModule } from '@angular/material/menu';
 import { NodeService } from '@core/service/node.service';
 import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -68,16 +68,22 @@ type TableRow = GroupL1Row | GroupL2Row | IComponentItem;
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    MatTooltipModule,
     MatIconModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatMenuModule,
     IconComponent,
     LoadingComponent,
   ],
 })
 export class ManageUiuxComponent {
   private uiuxData = toSignal(inject<Observable<IUiux[]>>(UIUX), { initialValue: [] as IUiux[] });
+  private orderedUiuxData = computed(() => {
+    const groups = this.uiuxData();
+    const regularGroups = groups.filter(group => !this.isWidgetGroup(group));
+    const widgetGroups = groups.filter(group => this.isWidgetGroup(group));
+    return [...regularGroups, ...widgetGroups];
+  });
   private nodeService = inject(NodeService);
   private builderService = inject(BuilderService);
   private util = inject(UtilitiesService);
@@ -99,7 +105,7 @@ export class ManageUiuxComponent {
   readonly l2GroupColumns = ['l2group'];
 
   totalCount = computed(() =>
-    this.uiuxData().reduce((sum, l1) => {
+    this.orderedUiuxData().reduce((sum, l1) => {
       const elements = Array.isArray(l1.elements) ? (l1.elements as IBuilderComponent[]) : [];
       return sum + elements.reduce((s, l2) => s + (l2.child?.length || 0), 0);
     }, 0)
@@ -176,7 +182,7 @@ export class ManageUiuxComponent {
 
   constructor() {
     effect(() => {
-      const data = this.uiuxData();
+      const data = this.orderedUiuxData();
       if (data.length > 0 && !this.groupsInitialized) {
         this.groupsInitialized = true;
         this.expandedGroups.set(new Set([data[0].label]));
@@ -187,7 +193,11 @@ export class ManageUiuxComponent {
   toggleGroup(name: string): void {
     this.expandedGroups.update(set => {
       const next = new Set(set);
-      next.has(name) ? next.delete(name) : next.add(name);
+      if (next.has(name)) {
+        next.delete(name);
+      } else {
+        next.add(name);
+      }
       return next;
     });
   }
@@ -198,7 +208,7 @@ export class ManageUiuxComponent {
 
   tableRows = computed<TableRow[]>(() => {
     const rows: TableRow[] = [];
-    this.uiuxData().forEach(l1 => {
+    this.orderedUiuxData().forEach(l1 => {
       const elements = Array.isArray(l1.elements) ? (l1.elements as IBuilderComponent[]) : [];
       const l1Count = elements.reduce((s, l2) => s + (l2.child?.length || 0), 0);
       rows.push({ isL1Group: true, name: l1.label, count: l1Count });
@@ -267,6 +277,37 @@ export class ManageUiuxComponent {
   asL1 = (row: TableRow) => row as GroupL1Row;
   asL2 = (row: TableRow) => row as GroupL2Row;
   asItem = (row: TableRow) => row as IComponentItem;
+
+  private isWidgetGroup(group: IUiux): boolean {
+    return group.type === 'base' || group.label.trim().toLowerCase() === 'widget';
+  }
+
+  onCopyId(item: IComponentItem): void {
+    this.util.copy(item.uuid);
+    this.util.openSnackbar('组件 ID 已复制', 'ok');
+  }
+
+  onPreview(item: IComponentItem): void {
+    if (!item.content || typeof item.content !== 'object') {
+      this.util.openSnackbar('该组件暂无可预览内容', 'ok');
+      return;
+    }
+
+    const config: IDialog = {
+      title: `预览：${item.label}`,
+      disableActions: true,
+      inputData: {
+        content: { ...item.content, animate: false },
+      },
+    };
+    this.dialog.open(DialogComponent, {
+      width: '1000px',
+      maxWidth: '95vw',
+      maxHeight: '90vh',
+      panelClass: ['close-outside', 'close-icon-white'],
+      data: config,
+    });
+  }
 
   onAdd(): void {
     this.withCategories(cats => {

@@ -73,7 +73,7 @@
           </div>
         } @else if (isL2Group(0, row)) {
           <div class="l2-row">
-            <mat-icon class="l2-icon">layers</mat-icon>
+            <mat-icon class="l2-icon">subdirectory_arrow_right</mat-icon>
             <span class="group-name">{{ asL2(row).name }}</span>
             <span class="count-pill">{{ asL2(row).count }}</span>
           </div>
@@ -99,35 +99,36 @@
             </div>
             <div class="item-actions">
               <button
+                type="button"
                 mat-icon-button
-                class="act-btn act-json"
-                (click)="onEditJson(asItem(row))"
-                [matTooltip]="'编辑 JSON'"
-                matTooltipPosition="above"
-                [attr.aria-label]="'编辑 JSON：' + asItem(row).label"
+                class="action-menu-trigger"
+                [matMenuTriggerFor]="actionsMenu"
+                [attr.aria-label]="'打开操作菜单：' + asItem(row).label"
               >
-                <mat-icon>code</mat-icon>
+                <mat-icon>more_vert</mat-icon>
               </button>
-              <button
-                mat-icon-button
-                class="act-btn act-edit"
-                (click)="onEdit(asItem(row))"
-                [matTooltip]="'编辑'"
-                matTooltipPosition="above"
-                [attr.aria-label]="'编辑：' + asItem(row).label"
-              >
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button
-                mat-icon-button
-                class="act-btn act-del"
-                (click)="onDelete(asItem(row))"
-                [matTooltip]="'删除'"
-                matTooltipPosition="above"
-                [attr.aria-label]="'删除：' + asItem(row).label"
-              >
-                <mat-icon>delete_outline</mat-icon>
-              </button>
+              <mat-menu #actionsMenu="matMenu">
+                <button type="button" mat-menu-item (click)="onPreview(asItem(row))">
+                  <mat-icon>visibility</mat-icon>
+                  <span>预览</span>
+                </button>
+                <button type="button" mat-menu-item (click)="onCopyId(asItem(row))">
+                  <mat-icon>content_copy</mat-icon>
+                  <span>复制组件 ID</span>
+                </button>
+                <button type="button" mat-menu-item (click)="onEditJson(asItem(row))">
+                  <mat-icon>code</mat-icon>
+                  <span>编辑 JSON</span>
+                </button>
+                <button type="button" mat-menu-item (click)="onEdit(asItem(row))">
+                  <mat-icon>edit</mat-icon>
+                  <span>编辑</span>
+                </button>
+                <button type="button" mat-menu-item (click)="onDelete(asItem(row))">
+                  <mat-icon>delete_outline</mat-icon>
+                  <span>删除</span>
+                </button>
+              </mat-menu>
             </div>
           </div>
         }
