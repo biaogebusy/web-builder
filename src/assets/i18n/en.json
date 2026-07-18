@@ -159,7 +159,12 @@
       "VIEW_JSON": "View JSON",
       "INSERT": "Insert component into editor",
       "COPIED": "Copied JSON of {{type}}",
-      "UPDATE_WIDGET": "Update component"
+      "UPDATE_WIDGET": "Update component",
+      "DELETE_TITLE": "Delete component",
+      "DELETE_BODY": "Delete the <strong>{{type}}</strong> component? This action cannot be undone.",
+      "DELETE_CONFIRM": "Delete",
+      "DELETED": "{{type}} component deleted",
+      "DELETE_FAILED": "Failed to delete the component. Please try again."
     },
     "WORKSPACE": {
       "PAGE_TITLE": "Workspace",

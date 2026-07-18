@@ -159,7 +159,12 @@
       "VIEW_JSON": "查看 JSON",
       "INSERT": "插入组件到编辑区",
       "COPIED": "已复制{{type}}的JSON！",
-      "UPDATE_WIDGET": "更新组件"
+      "UPDATE_WIDGET": "更新组件",
+      "DELETE_TITLE": "删除组件",
+      "DELETE_BODY": "确定要删除 <strong>{{type}}</strong> 组件吗？此操作不可恢复。",
+      "DELETE_CONFIRM": "确认删除",
+      "DELETED": "{{type}} 组件已删除",
+      "DELETE_FAILED": "删除组件失败，请稍后重试"
     },
     "WORKSPACE": {
       "PAGE_TITLE": "工作区",

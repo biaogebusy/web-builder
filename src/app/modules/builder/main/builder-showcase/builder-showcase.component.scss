@@ -81,6 +81,9 @@
       .mat-icon {
         color: var(--mat-sys-primary) !important;
       }
+      .delete-action .mat-icon {
+        color: var(--mat-sys-error) !important;
+      }
     }
   }
 }
