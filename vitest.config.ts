@@ -27,7 +27,7 @@ export default defineConfig({
     css: true,
     environment: 'jsdom',
     globals: true,
-    include: ['src/app/core/util/**/*.spec.ts'],
+    include: ['src/app/core/util/**/*.spec.ts', 'src/server/**/*.spec.ts'],
     setupFiles: ['src/test.ts'],
   },
 });
