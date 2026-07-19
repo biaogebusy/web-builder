@@ -31,9 +31,6 @@ import { MenuComponent } from './menu/menu.component';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   imports: [HeaderBannerComponent, HeaderTopComponent, MenuComponent, AsyncPipe],
-  host: {
-    ngSkipHydration: 'true',
-  },
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
   private doc = inject<Document>(DOCUMENT);

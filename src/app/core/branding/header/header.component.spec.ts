@@ -21,4 +21,8 @@ describe('HeaderComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should reuse the server-rendered host during hydration', () => {
+    expect(fixture.nativeElement.hasAttribute('ngskiphydration')).toBe(false);
+  });
 });
