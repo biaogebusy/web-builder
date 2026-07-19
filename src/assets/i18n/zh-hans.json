@@ -838,6 +838,8 @@
       "IMG_UPDATE": "更新图片",
       "IMG_ADD": "设置图片",
       "IMG_DELETE": "删除",
+      "IMG_PRIORITY": "首屏高优先级图片",
+      "IMG_PRIORITY_DESC": "仅用于可能成为 LCP 的首屏图片，每个页面通常只设置一张。",
       "IS_LINK": "是否链接",
       "FILL_TYPE": "填充方式",
       "NEW_PAGE": "新页面",

@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, inject, DestroyRef } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import type { ILanguage } from '@core/interface/IEnvironment';
 import { LANG } from '@core/token/token-providers';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  imports: [RouterOutlet, TranslateModule],
+  imports: [RouterOutlet],
 })
 export class AppComponent implements OnInit, AfterViewInit {
   private configService = inject(ConfigService);

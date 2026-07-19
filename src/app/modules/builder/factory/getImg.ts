@@ -35,6 +35,16 @@ export function getImg(widget: any): FormlyFieldConfig {
             },
           },
           {
+            key: 'priority',
+            type: 'toggle',
+            className: 'col-span-12',
+            defaultValue: widget.priority ?? false,
+            props: {
+              label: 'BUILDER.FACTORY.IMG_PRIORITY',
+              description: 'BUILDER.FACTORY.IMG_PRIORITY_DESC',
+            },
+          },
+          {
             key: 'classes',
             type: 'input',
             className: 'col-span-6',

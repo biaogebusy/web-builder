@@ -10,10 +10,10 @@
       @if (!contentValue.href) {
         <img
           contentedit="src"
-          loading="lazy"
           [style]="contentValue.style"
           [class]="contentValue.classes"
           [ngSrc]="contentValue.src || ''"
+          [priority]="contentValue.priority === true"
           [alt]="contentValue.alt || ''"
           [width]="contentValue.width || 400"
           [height]="contentValue.height || 300"
@@ -22,9 +22,9 @@
         <a href="{{ contentValue.href }}" target="{{ contentValue.target }}">
           <img
             contentedit="src"
-            loading="lazy"
             [class]="contentValue.classes"
             [ngSrc]="contentValue.src || ''"
+            [priority]="contentValue.priority === true"
             [style]="contentValue.style"
             [alt]="contentValue.alt || ''"
             [width]="contentValue.width || 400"
