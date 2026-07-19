@@ -3,20 +3,18 @@ import {
   inject,
   DestroyRef,
   DOCUMENT,
-  afterEveryRender,
+  afterNextRender,
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { CORE_CONFIG, PAGE_CONTENT, USER } from '@core/token/token-providers';
 import { ContentState } from '@core/state/ContentState';
-import { pageContentFactory } from '@core/factory/factory';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ContentService } from '@core/service/content.service';
 import { Router } from '@angular/router';
 import { ScreenService } from '@core/service/screen.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
-import { throttle } from 'lodash-es';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -33,12 +31,6 @@ import { MenuComponent } from '@core/branding/header/menu/menu.component';
   selector: 'app-page',
   templateUrl: './page.component.html',
   styleUrls: ['./page.component.scss'],
-  providers: [
-    {
-      provide: PAGE_CONTENT,
-      useFactory: pageContentFactory,
-    },
-  ],
   imports: [
     NgTemplateOutlet,
     MatSidenavModule,
@@ -68,10 +60,10 @@ export class PageComponent {
   private disconnectAosObserver?: () => void;
 
   constructor() {
-    afterEveryRender({
-      read: throttle(() => {
-        this.refreshAosObserver();
-      }, 200),
+    afterNextRender({
+      read: () => {
+        this.disconnectAosObserver = this.util.intersectionObserver('[data-aos]', this.doc);
+      },
     });
     this.destroyRef.onDestroy(() => this.disconnectAosObserver?.());
 
@@ -117,10 +109,5 @@ export class PageComponent {
       quickEdit: true,
     });
     this.router.navigate(['/builder/page-list']);
-  }
-
-  private refreshAosObserver(): void {
-    this.disconnectAosObserver?.();
-    this.disconnectAosObserver = this.util.intersectionObserver('[data-aos]', this.doc);
   }
 }
