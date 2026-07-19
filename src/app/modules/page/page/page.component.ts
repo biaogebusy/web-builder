@@ -24,7 +24,9 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
 import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
-import { BrandingModule } from '@core/branding/branding.module';
+import { HeaderComponent } from '@core/branding/header/header.component';
+import { FooterComponent } from '@core/branding/footer/footer.component';
+import { MenuComponent } from '@core/branding/header/menu/menu.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -41,7 +43,9 @@ import { BrandingModule } from '@core/branding/branding.module';
     NgTemplateOutlet,
     MatSidenavModule,
     LoadingBarModule,
-    BrandingModule,
+    HeaderComponent,
+    FooterComponent,
+    MenuComponent,
     BtnComponent,
     LoadingComponent,
     DynamicComponentComponent,

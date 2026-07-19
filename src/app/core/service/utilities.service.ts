@@ -17,6 +17,7 @@ export class UtilitiesService {
   private screenService = inject(ScreenService);
   private document = inject(DOCUMENT);
   private coreConfig = inject(CORE_CONFIG);
+  private gsapPromise?: Promise<typeof import('gsap')['gsap']>;
 
   getLibraries(library: string, from: string, type: string): any {
     const libraries: any = {
@@ -244,10 +245,11 @@ export class UtilitiesService {
       if (animate?.gsap) {
         const { enable, trigger, from } = animate.gsap;
         if (enable) {
+          const gsap = await this.loadGsap();
           setTimeout(() => {
             animateEle.style.display = 'block';
             animateEle.classList.add('gsap-item');
-            const tl = window.gsap.timeline({
+            const tl = gsap.timeline({
               scrollTrigger: {
                 trigger: triggerEle,
                 start: trigger.start || '20px 80%',
@@ -286,6 +288,16 @@ export class UtilitiesService {
         }
       }
     }
+  }
+
+  private loadGsap(): Promise<typeof import('gsap')['gsap']> {
+    this.gsapPromise ??= Promise.all([import('gsap'), import('gsap/ScrollTrigger')]).then(
+      ([gsapModule, scrollTriggerModule]) => {
+        gsapModule.gsap.registerPlugin(scrollTriggerModule.ScrollTrigger);
+        return gsapModule.gsap;
+      }
+    );
+    return this.gsapPromise;
   }
 
   private getScroller(): HTMLElement | Window {

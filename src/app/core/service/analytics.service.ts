@@ -12,6 +12,7 @@ declare let window: any;
 export class AnalyticsService {
   private isInitialized = false;
   private id = '';
+  private lastTrackedPath = '';
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);
 
@@ -22,8 +23,9 @@ export class AnalyticsService {
     this.id = id;
     await this.loadGtagScript();
     this.initializeGtag();
-    this.trackPageViews();
     this.isInitialized = true;
+    this.sendPageView();
+    this.trackPageViews();
   }
 
   private loadGtagScript(): Promise<void> {
@@ -60,8 +62,11 @@ export class AnalyticsService {
 
   sendPageView(): void {
     if (!this.isInitialized) return;
+    const pagePath = window.location.pathname + window.location.search;
+    if (pagePath === this.lastTrackedPath) return;
+    this.lastTrackedPath = pagePath;
     window.gtag('event', 'page_view', {
-      page_path: window.location.pathname + window.location.search,
+      page_path: pagePath,
       send_to: this.id,
     });
   }

@@ -1,4 +1,4 @@
-import { NgModule, inject } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -34,7 +34,6 @@ import { MatSelectModule } from '@angular/material/select';
 // utils
 import { NgPipesModule } from 'ngx-pipes';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { IconService } from '@core/service/icon.service';
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { MatPaginatorIntlCro } from '@core/service/paginator.service';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
@@ -125,17 +124,10 @@ import { TranslateModule } from '@ngx-translate/core';
     ContenteditDirective,
   ],
   providers: [
-    IconService,
     {
       provide: MatPaginatorIntl,
       useClass: MatPaginatorIntlCro,
     },
   ],
 })
-export class ShareModule {
-  private iconService = inject(IconService);
-
-  constructor() {
-    this.iconService.loadSvgResources();
-  }
-}
+export class ShareModule {}

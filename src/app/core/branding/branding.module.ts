@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { ShareModule } from '@share/share.module';
 import { MenuComponent } from './header/menu/menu.component';
 import { ItemMenuComponent } from './header/menu/item-menu/item-menu.component';
 import { SubMenuComponent } from './header/menu/item-menu/sub-menu/sub-menu.component';
@@ -21,7 +20,6 @@ import { DynamicMenuComponent } from './dynamic-menu/dynamic-menu.component';
 @NgModule({
   declarations: [],
   imports: [
-    ShareModule,
     HeaderComponent,
     FooterComponent,
     MenuComponent,
