@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, inject, signal, DestroyRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, inject, DestroyRef } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import type { ILanguage } from '@core/interface/IEnvironment';
@@ -12,11 +12,9 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
   imports: [RouterOutlet, TranslateModule],
 })
 export class AppComponent implements OnInit, AfterViewInit {
-  public loading = signal<boolean>(true);
   private configService = inject(ConfigService);
   private screenService = inject(ScreenService);
   private themeService = inject(ThemeService);
@@ -47,7 +45,6 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.loading.set(false);
       this.themeService.initTheme();
     }
   }
