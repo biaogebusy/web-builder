@@ -28,7 +28,12 @@ export default defineConfig({
     css: true,
     environment: 'jsdom',
     globals: true,
-    include: ['src/app/core/util/**/*.spec.ts', 'src/server/**/*.spec.ts'],
+    include: [
+      'src/app/core/util/**/*.spec.ts',
+      'src/app/uiux/combs/node/article/article.component.spec.ts',
+      'src/app/uiux/widgets/builder/dynamic-component/dynamic-component.component.spec.ts',
+      'src/server/**/*.spec.ts',
+    ],
     setupFiles: ['src/test.ts'],
   },
 });

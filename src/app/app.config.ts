@@ -40,6 +40,7 @@ import {
   initApp,
   langFactory,
   notifyFactory,
+  preloadInitialDynamicComponents,
   themeFactory,
   userFactory,
 } from '@core/factory/factory';
@@ -64,6 +65,7 @@ export const appConfig: ApplicationConfig = {
       const initializerFn = initApp(inject(CORE_CONFIG));
       return initializerFn();
     }),
+    provideAppInitializer(() => preloadInitialDynamicComponents()),
     provideAppInitializer(() => inject(IconService).loadSvgResources()),
     provideZonelessChangeDetection(),
     provideHttpClient(withFetch(), withInterceptors([authInterceptor, ssrTimeoutInterceptor])),

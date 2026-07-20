@@ -1,7 +1,7 @@
 import { NavigationEnd, Router } from '@angular/router';
 import { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { ContentService } from '@core/service/content.service';
-import { Observable, forkJoin, from, interval } from 'rxjs';
+import { Observable, firstValueFrom, forkJoin, from, interval } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ContentState } from '@core/state/ContentState';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -26,7 +26,7 @@ import { IManageAssets } from '@core/interface/manage/IManage';
 import { ILanguage } from '@core/interface/IEnvironment';
 import { CookieService } from 'ngx-cookie-service';
 import { ComponentService } from '@core/service/component.service';
-import { DestroyRef, DOCUMENT, inject, Injector, signal, Signal, WritableSignal } from '@angular/core';
+import { DestroyRef, DOCUMENT, inject, Injector, signal, WritableSignal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 import { BuilderService } from '@core/service/builder.service';
@@ -41,21 +41,31 @@ export function pageContentFactory(): WritableSignal<IPage | undefined | false> 
   const router = inject(Router);
   const contentService = inject(ContentService);
   const contentState = inject(ContentState);
+  const componentService = inject(ComponentService);
   const destroyRef = inject(DestroyRef);
   const coreConfig = inject<ICoreConfig>(CORE_CONFIG);
 
-  const pageContent = signal<IPage | undefined | false>(false);
+  const initialPageUrl = getInitialPageUrl(contentService.pageUrl);
+  const cachedPage = contentService.getCachedPageContent(initialPageUrl);
+  const pageContent = signal<IPage | undefined | false>(cachedPage ?? false);
+  if (cachedPage) {
+    contentState.pageConfig.set(cachedPage.config);
+  }
   router.events
     .pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd),
       startWith(null),
-      map(() => contentService.pageUrl),
+      map(event => (event ? contentService.pageUrl : initialPageUrl)),
       distinctUntilChanged(),
       switchMap(pageUrl => {
         return forkJoin({
           config: from(contentService.loadConfig(coreConfig, pageUrl)),
           page: contentService.loadPageContent(pageUrl),
-        }).pipe(map(({ page }) => page));
+        }).pipe(
+          switchMap(({ page }) =>
+            from(componentService.preloadComponentTypes(page)).pipe(map(() => page))
+          )
+        );
       }),
       takeUntilDestroyed(destroyRef)
     )
@@ -195,6 +205,36 @@ export function initApp(coreConfig: object): any {
   return () => contentService.loadConfig(coreConfig);
 }
 
+export function preloadInitialDynamicComponents(): Promise<void> {
+  const contentService = inject(ContentService);
+  const componentService = inject(ComponentService);
+  const pageUrl = getInitialPageUrl(contentService.pageUrl);
+
+  if (!shouldPreloadPageComponents(pageUrl)) {
+    return Promise.resolve();
+  }
+
+  return firstValueFrom(
+    forkJoin({
+      branding: contentService.loadBranding(pageUrl),
+      page: contentService.loadPageContent(pageUrl, false),
+    })
+  )
+    .then(content => componentService.preloadComponentTypes(content))
+    .catch(error => {
+      console.error('Failed to preload initial dynamic components:', error);
+    });
+}
+
+export function shouldPreloadPageComponents(pageUrl: string): boolean {
+  const path = pageUrl.split(/[?&]/, 1)[0];
+  return !/^\/(?:(?:en\/)?builder|me|my|preview)(?:\/|$)/i.test(path);
+}
+
+function getInitialPageUrl(pageUrl: string): string {
+  return pageUrl === '/' ? '/home' : pageUrl;
+}
+
 export function langFactory(): ILanguage | undefined {
   const contentService = inject(ContentService);
   const screenService = inject(ScreenService);
@@ -224,6 +264,7 @@ export function themeFactory(coreConfig: ICoreConfig): string {
 
 export function brandingFactory(): Observable<IBranding> {
   const contentService = inject(ContentService);
+  const componentService = inject(ComponentService);
   const coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   const router = inject(Router);
 
@@ -231,12 +272,15 @@ export function brandingFactory(): Observable<IBranding> {
     filter((event): event is NavigationEnd => event instanceof NavigationEnd),
     startWith(null),
     map(event => event?.urlAfterRedirects ?? contentService.pageUrl),
-    distinctUntilChanged((prev, curr) =>
-      contentService.getUrlPath(prev).lang === contentService.getUrlPath(curr).lang
+    distinctUntilChanged(
+      (prev, curr) => contentService.getUrlPath(prev).lang === contentService.getUrlPath(curr).lang
     ),
     switchMap(pageUrl =>
       from(contentService.loadConfig(coreConfig, pageUrl)).pipe(
-        switchMap(() => contentService.loadBranding(pageUrl))
+        switchMap(() => contentService.loadBranding(pageUrl)),
+        switchMap(branding =>
+          from(componentService.preloadComponentTypes(branding)).pipe(map(() => branding))
+        )
       )
     ),
     shareReplay({ bufferSize: 1, refCount: false })

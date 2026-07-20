@@ -1,33 +1,58 @@
+import { NgComponentOutlet } from '@angular/common';
 import {
-  AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
-  ComponentRef,
+  Directive,
+  DoCheck,
   ElementRef,
-  EnvironmentInjector,
   OnDestroy,
   OnInit,
   PendingTasks,
-  Renderer2,
-  ViewContainerRef,
+  Type,
   afterNextRender,
-  createComponent,
+  afterRenderEffect,
   effect,
   forwardRef,
   inject,
   input,
+  reflectComponentType,
   signal,
-  untracked,
-  ChangeDetectionStrategy,
-  Type,
-  viewChild,
 } from '@angular/core';
+import type { IDynamicInputs } from '@core/interface/IAppConfig';
+import { ComponentService } from '@core/service/component.service';
 import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { ComponentService } from '@core/service/component.service';
-import type { IDynamicInputs } from '@core/interface/IAppConfig';
+import { BgImgComponent } from '../../bg-img/bg-img.component';
 import { SpacerComponent } from '../../spacer/spacer.component';
 import { ComponentToolbarComponent } from '../component-toolbar/component-toolbar.component';
-import { BgImgComponent } from '../../bg-img/bg-img.component';
+
+interface DynamicRenderState {
+  componentType: Type<unknown>;
+  inputs: Record<string, unknown>;
+  properties: Record<string, unknown>;
+  source: IDynamicInputs;
+}
+
+@Directive({
+  selector: '[appDynamicOutletProperties]',
+})
+export class DynamicOutletPropertiesDirective implements DoCheck {
+  readonly properties = input<Record<string, unknown>>(
+    {},
+    {
+      alias: 'appDynamicOutletProperties',
+    }
+  );
+
+  private readonly outlet = inject(NgComponentOutlet, { self: true });
+
+  ngDoCheck(): void {
+    const instance = this.outlet.componentInstance;
+    if (instance) {
+      Object.assign(instance as object, this.properties());
+    }
+  }
+}
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -35,179 +60,147 @@ import { BgImgComponent } from '../../bg-img/bg-img.component';
   templateUrl: './dynamic-component.component.html',
   styleUrls: ['./dynamic-component.component.scss'],
   imports: [
+    NgComponentOutlet,
+    DynamicOutletPropertiesDirective,
     SpacerComponent,
     forwardRef(() => ComponentToolbarComponent),
     forwardRef(() => BgImgComponent),
   ],
   host: {
-    ngSkipHydration: 'true',
     class: 'relative block',
   },
 })
-export class DynamicComponentComponent implements OnInit, AfterViewInit, OnDestroy {
+export class DynamicComponentComponent implements OnInit, OnDestroy {
   readonly inputs = input.required<object>();
-  private readonly container = viewChild('componentContainer', { read: ViewContainerRef });
+  readonly renderState = signal<DynamicRenderState | null>(null);
+  readonly compContent = signal<IDynamicInputs>({});
+  readonly showToolbar = signal(false);
 
-  private ele = inject(ElementRef);
-  public showToolbar = signal(false);
-  private util = inject(UtilitiesService);
-  private screenService = inject(ScreenService);
-  private componentService = inject(ComponentService);
-  private readonly renderer = inject(Renderer2);
-  private readonly environmentInjector = inject(EnvironmentInjector);
+  private readonly ele = inject(ElementRef<HTMLElement>);
+  private readonly util = inject(UtilitiesService);
+  private readonly screenService = inject(ScreenService);
+  private readonly componentService = inject(ComponentService);
   private readonly pendingTasks = inject(PendingTasks);
-  public componentRef: ComponentRef<unknown> | undefined;
-  public compContent = signal<IDynamicInputs>({});
 
   private initialized = false;
-  private lastLoadedType: string | null = null;
+  private requestVersion = 0;
+  private lastProcessedInputs: object | undefined;
+  private lastAnimatedState: DynamicRenderState | null = null;
+  private appliedContainerClasses: string[] = [];
 
   constructor() {
     afterNextRender(() => {
-      this.initialized = true;
-      this.loadComponent();
       if (this.ele.nativeElement.closest('.component-item')) {
         this.showToolbar.set(true);
       }
     });
 
+    afterRenderEffect(() => {
+      const state = this.renderState();
+      if (!state || state === this.lastAnimatedState) {
+        return;
+      }
+      this.lastAnimatedState = state;
+      this.util.initAnimate(state.source, this.ele.nativeElement, this.ele.nativeElement);
+    });
+
     effect(() => {
-      this.inputs();
-      if (this.initialized) {
-        untracked(() => this.loadComponent());
+      const inputs = this.inputs();
+      if (this.initialized && inputs !== this.lastProcessedInputs) {
+        this.prepareComponent(inputs);
       }
     });
   }
 
   ngOnInit(): void {
-    const inputs = this.asDynamicInputs(this.inputs());
-    if (inputs) {
-      const content = inputs.type ? inputs : inputs.content;
-      if (content) {
-        this.compContent.set(content);
-      }
-    }
-  }
-
-  ngAfterViewInit(): void {
-    if (!this.screenService.isPlatformBrowser()) {
-      const taskCleanup = this.pendingTasks.add();
-      this.loadComponent().finally(() => taskCleanup());
-      if (this.ele.nativeElement.closest('.component-item')) {
-        this.showToolbar.set(true);
-      }
-    }
-  }
-
-  async loadComponent(): Promise<void> {
-    try {
-      const inputs = this.inputs();
-      if (!inputs) {
-        return;
-      }
-      const inputContent = this.asDynamicInputs(inputs);
-      const type = inputContent.type ?? inputContent.content?.type ?? null;
-      if (!type) {
-        return;
-      }
-      const content = inputContent.type ? inputContent : inputContent.content;
-      if (!content) {
-        return;
-      }
-
-      if (type === this.lastLoadedType && this.componentRef?.instance) {
-        this.compContent.set(content);
-        const declaredInputs = this.getDeclaredInputs(this.componentRef.componentType);
-        const trySet = (key: string, val: unknown) => {
-          if (Object.prototype.hasOwnProperty.call(declaredInputs, key)) {
-            this.componentRef!.setInput(key, val);
-          } else {
-            Object.assign(this.componentRef!.instance as object, { [key]: val });
-          }
-        };
-        if (!inputContent.type && inputContent.content) {
-          const inputRecord = inputContent as Record<string, unknown>;
-          Object.keys(inputContent).forEach(key => trySet(key, inputRecord[key]));
-        } else {
-          trySet('content', inputContent);
-        }
-        this.componentRef.changeDetectorRef.detectChanges();
-        return;
-      }
-
-      this.container()!.clear();
-      this.compContent.set(content);
-      if (content.containerClasses) {
-        const classes = content.containerClasses.split(' ');
-        this.ele.nativeElement.classList.add(...classes);
-      }
-
-      let componentType: Type<unknown>;
-      try {
-        componentType = await this.componentService.getComponentType(type);
-      } catch (error) {
-        console.error(`Failed to load component type "${type}":`, error);
-        // Render fallback or skip silently to prevent SSR crash
-        return;
-      }
-
-      if (!componentType) {
-        console.error('无法识别该组件：', inputs);
-        return;
-      }
-      const hostElement = this.renderer.createElement('div');
-      const componentRef = createComponent(componentType, {
-        environmentInjector: this.environmentInjector,
-        hostElement,
-      });
-      this.componentRef = componentRef;
-      this.lastLoadedType = type;
-      if (componentRef.instance) {
-        // 读取组件声明的 inputs（Angular 内部元信息）以避免触发 NG0303
-        const declaredInputs = this.getDeclaredInputs(componentType);
-        const trySet = (key: string, value: unknown) => {
-          if (Object.prototype.hasOwnProperty.call(declaredInputs, key)) {
-            componentRef.setInput(key, value);
-          } else {
-            // 不是声明的 input，回退到直接赋值（用于普通属性或外部 Subject 之类）
-            Object.assign(componentRef.instance as object, { [key]: value });
-          }
-        };
-        if (!inputContent.type && inputContent.content) {
-          const inputRecord = inputContent as Record<string, unknown>;
-          Object.keys(inputContent).forEach(key => {
-            trySet(key, inputRecord[key]);
-          });
-        } else {
-          trySet('content', inputContent);
-        }
-      }
-
-      this.container()!.insert(componentRef.hostView);
-      componentRef.changeDetectorRef.detectChanges();
-      if (this.screenService.isPlatformBrowser()) {
-        this.util.initAnimate(inputContent, this.ele.nativeElement, this.ele.nativeElement);
-      }
-    } catch (error) {
-      console.error('Error loading dynamic component:', error);
-      // Ensure we don't crash the entire SSR render
-    }
+    this.initialized = true;
+    this.prepareComponent(this.inputs());
   }
 
   ngOnDestroy(): void {
-    this.container()?.clear();
-    if (this.componentRef) {
-      this.componentRef.destroy();
-    }
+    this.requestVersion++;
   }
 
-  private getDeclaredInputs(componentType: Type<unknown>): Record<string, unknown> {
-    const componentDef = componentType as Type<unknown> & {
-      ɵcmp?: {
-        inputs?: Record<string, unknown>;
-      };
-    };
-    return componentDef.ɵcmp?.inputs ?? {};
+  private prepareComponent(inputs: object): void {
+    this.lastProcessedInputs = inputs;
+    const requestVersion = ++this.requestVersion;
+    const inputContent = this.asDynamicInputs(inputs);
+    const type = inputContent.type ?? inputContent.content?.type;
+    const content = inputContent.type ? inputContent : inputContent.content;
+
+    if (!type || !content) {
+      this.renderState.set(null);
+      this.compContent.set({});
+      return;
+    }
+
+    const cachedComponent = this.componentService.getCachedComponentType(type);
+    if (cachedComponent) {
+      this.commitComponent(cachedComponent, inputContent, content);
+      return;
+    }
+
+    const taskCleanup = this.screenService.isPlatformBrowser()
+      ? undefined
+      : this.pendingTasks.add();
+
+    void this.componentService
+      .getComponentType(type)
+      .then(componentType => {
+        if (requestVersion === this.requestVersion) {
+          this.commitComponent(componentType, inputContent, content);
+        }
+      })
+      .catch(error => console.error(`Failed to load component type "${type}":`, error))
+      .finally(() => taskCleanup?.());
+  }
+
+  private commitComponent(
+    componentType: Type<unknown>,
+    inputContent: IDynamicInputs,
+    content: IDynamicInputs
+  ): void {
+    const values = inputContent.type
+      ? { content: inputContent }
+      : { ...(inputContent as Record<string, unknown>) };
+    const { inputs, properties } = this.partitionInputs(componentType, values);
+
+    this.updateContainerClasses(content.containerClasses);
+    this.compContent.set(content);
+    this.renderState.set({ componentType, inputs, properties, source: inputContent });
+  }
+
+  private partitionInputs(
+    componentType: Type<unknown>,
+    values: Record<string, unknown>
+  ): { inputs: Record<string, unknown>; properties: Record<string, unknown> } {
+    const inputNames = new Map<string, string>();
+    reflectComponentType(componentType)?.inputs.forEach(componentInput => {
+      inputNames.set(componentInput.propName, componentInput.templateName);
+      inputNames.set(componentInput.templateName, componentInput.templateName);
+    });
+
+    const inputs: Record<string, unknown> = {};
+    const properties: Record<string, unknown> = {};
+    Object.entries(values).forEach(([key, value]) => {
+      const inputName = inputNames.get(key);
+      if (inputName) {
+        inputs[inputName] = value;
+      } else {
+        properties[key] = value;
+      }
+    });
+    return { inputs, properties };
+  }
+
+  private updateContainerClasses(classes?: string): void {
+    if (this.appliedContainerClasses.length > 0) {
+      this.ele.nativeElement.classList.remove(...this.appliedContainerClasses);
+    }
+    this.appliedContainerClasses = classes?.split(' ').filter(Boolean) ?? [];
+    if (this.appliedContainerClasses.length > 0) {
+      this.ele.nativeElement.classList.add(...this.appliedContainerClasses);
+    }
   }
 
   private asDynamicInputs(value: object): IDynamicInputs {
