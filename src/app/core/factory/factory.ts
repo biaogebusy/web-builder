@@ -1,4 +1,4 @@
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { ContentService } from '@core/service/content.service';
 import { Observable, forkJoin, from, interval } from 'rxjs';
@@ -38,17 +38,20 @@ export const DEBUG_ANIMATE_KEY = 'debugAnimate';
 const BUILDERPATH = '/builder';
 
 export function pageContentFactory(): WritableSignal<IPage | undefined | false> {
-  const activateRoute = inject(ActivatedRoute);
+  const router = inject(Router);
   const contentService = inject(ContentService);
   const contentState = inject(ContentState);
   const destroyRef = inject(DestroyRef);
   const coreConfig = inject<ICoreConfig>(CORE_CONFIG);
 
   const pageContent = signal<IPage | undefined | false>(false);
-  activateRoute.url
+  router.events
     .pipe(
-      switchMap(() => {
-        const pageUrl = contentService.pageUrl;
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+      startWith(null),
+      map(() => contentService.pageUrl),
+      distinctUntilChanged(),
+      switchMap(pageUrl => {
         return forkJoin({
           config: from(contentService.loadConfig(coreConfig, pageUrl)),
           page: contentService.loadPageContent(pageUrl),

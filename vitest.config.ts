@@ -14,6 +14,7 @@ export default defineConfig({
       '@share': fromRoot('./src/app/share'),
       '@stories': fromRoot('./src/stories'),
       '@uiux': fromRoot('./src/app/uiux'),
+      'src': fromRoot('./src'),
     },
   },
   css: {
