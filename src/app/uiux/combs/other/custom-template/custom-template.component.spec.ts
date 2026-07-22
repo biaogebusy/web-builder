@@ -52,6 +52,20 @@ describe('CustomTemplateComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('cleans up previous custom JavaScript when the next render has no JavaScript', () => {
+    const cleanup = vi.fn();
+    const instance = component as unknown as {
+      jsCleanup: (() => void) | null;
+      runCustomJs: (data: unknown) => void;
+    };
+    instance.jsCleanup = cleanup;
+
+    instance.runCustomJs({});
+
+    expect(cleanup).toHaveBeenCalledOnce();
+    expect(instance.jsCleanup).toBeNull();
+  });
+
   it('should add the current non-default language to API requests', () => {
     nodeService.getLang.mockReturnValue({
       label: 'EN',

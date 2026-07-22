@@ -198,11 +198,11 @@ export class CodeEditorComponent implements OnInit {
   onHTMLChange(): void {
     this.htmlForm.valueChanges
       .pipe(
+        distinctUntilChanged(),
         tap(() => {
           this.editing.set(true);
         }),
         debounceTime(2000),
-        distinctUntilChanged(),
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe(html => {
@@ -214,11 +214,11 @@ export class CodeEditorComponent implements OnInit {
   onJsChange(): void {
     this.jsForm.valueChanges
       .pipe(
+        distinctUntilChanged(),
         tap(() => {
           this.editing.set(true);
         }),
         debounceTime(2000),
-        distinctUntilChanged(),
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe(js => {
@@ -233,7 +233,7 @@ export class CodeEditorComponent implements OnInit {
 
   updateJs(js: string): void {
     const { path } = this.content();
-    if (!path) {
+    if (!path || !this.isAdmin()) {
       return;
     }
     const content = { ...get(this.builder.currentPage.body, path) };
@@ -244,6 +244,7 @@ export class CodeEditorComponent implements OnInit {
     }
     delete content.relationships;
     this.builder.updatePageContentByPath(`${path}`, content);
+    this.js.set(js);
   }
 
   updateHtml(html: any): void {

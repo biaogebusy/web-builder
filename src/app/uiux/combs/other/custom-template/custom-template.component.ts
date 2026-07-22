@@ -99,6 +99,7 @@ export class CustomTemplateComponent implements AfterViewInit {
           this.setupInlineEdit();
           this.runCustomJs(json ?? {});
         } catch (e) {
+          this.runJsCleanup();
           const error = this.translate.instant('BUILDER.CUSTOM_TEMPLATE.RENDER_ERROR');
           this.renderView({}, `<div class="m-5 p-5 bg-red-100 rounded-lg">${error}</div>`);
           this.pager.set(null);
@@ -163,6 +164,7 @@ export class CustomTemplateComponent implements AfterViewInit {
         )
         .subscribe(res => {
           if (res?.ok === false) {
+            this.runJsCleanup();
             this.util.openSnackbar(res.message, 'ok');
             this.renderView({}, `<div class="m-5 p-5 bg-red-100 rounded-lg">${res.message}</div>`);
           } else {
@@ -251,6 +253,7 @@ export class CustomTemplateComponent implements AfterViewInit {
    * 脚本可 return 一个函数，在重渲染（如分页）或组件销毁时清理（解绑事件、销毁实例）。
    */
   private runCustomJs(data: any): void {
+    this.runJsCleanup();
     const js = this.content().js;
     if (!js?.trim()) {
       return;
