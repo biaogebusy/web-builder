@@ -14,7 +14,7 @@ export default defineConfig({
       '@share': fromRoot('./src/app/share'),
       '@stories': fromRoot('./src/stories'),
       '@uiux': fromRoot('./src/app/uiux'),
-      'src': fromRoot('./src'),
+      src: fromRoot('./src'),
     },
   },
   css: {
@@ -30,6 +30,8 @@ export default defineConfig({
     globals: true,
     include: [
       'src/app/core/util/**/*.spec.ts',
+      'src/app/uiux/combs/other/code-editor/code-editor.component.spec.ts',
+      'src/app/uiux/combs/other/custom-template/custom-template.component.spec.ts',
       'src/app/uiux/combs/node/article/article.component.spec.ts',
       'src/app/uiux/widgets/builder/dynamic-component/dynamic-component.component.spec.ts',
       'src/server/**/*.spec.ts',
