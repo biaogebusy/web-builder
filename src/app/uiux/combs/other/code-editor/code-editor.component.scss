@@ -25,10 +25,6 @@
   .box {
     border: 1px solid transparent;
     box-shadow: var(--mat-sys-level1);
-
-    .jsoneditor {
-      border-color: transparent;
-    }
   }
   &.less {
     height: 80vh;

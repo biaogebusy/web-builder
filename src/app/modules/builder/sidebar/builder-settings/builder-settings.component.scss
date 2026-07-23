@@ -10,10 +10,6 @@
     height: 450px;
     overflow: auto;
     @include scrollbar(var(--mat-sys-primary));
-    .group {
-      border-radius: 6px;
-      padding: 6px;
-    }
     .item {
       @apply cursor-pointer;
       position: relative;
@@ -41,11 +37,6 @@
         @apply flex flex-col p-4 gap-1;
         margin: 2px;
         border-radius: 4px;
-        &.show {
-          &:hover {
-            cursor: pointer;
-          }
-        }
       }
     }
   }

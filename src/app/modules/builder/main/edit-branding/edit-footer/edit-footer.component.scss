@@ -220,15 +220,6 @@
   }
 }
 
-.field-block {
-  @apply w-full mb-3;
-}
-
-.field-label {
-  @apply block text-sm font-medium mb-1;
-  color: var(--mat-sys-on-surface-variant);
-}
-
 // ── Menu rows ──
 .row-item {
   @apply mb-1 rounded;

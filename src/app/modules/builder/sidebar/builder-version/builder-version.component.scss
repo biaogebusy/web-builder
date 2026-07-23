@@ -3,8 +3,7 @@
   .mat-mdc-list-item {
     cursor: pointer;
     &:hover {
-      .delete,
-      .update-title {
+      .delete {
         display: block;
       }
     }

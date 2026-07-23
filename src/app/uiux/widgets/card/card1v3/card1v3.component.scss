@@ -19,9 +19,6 @@
       @apply font-bold mr-3;
       word-break: keep-all;
     }
-    .right {
-      word-break: break-all;
-    }
     ::ng-deep {
       mat-icon {
         width: 24px !important;
@@ -32,11 +29,6 @@
 
     @media #{$xs} {
       padding: 10px !important;
-
-      .title {
-        margin-bottom: 10px;
-        font-size: 14px;
-      }
     }
     &.selected {
       &:after,
