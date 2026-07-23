@@ -1,4 +1,4 @@
-import { DestroyRef, Injectable, inject } from '@angular/core';
+import { DestroyRef, ElementRef, Injectable, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { HttpHeaders } from '@angular/common/http';
 import { ApiService } from './api.service';
@@ -12,6 +12,7 @@ import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
 import { UtilitiesService } from './utilities.service';
+import { BuilderState } from '@core/state/BuilderState';
 import { IMediaAttr } from '@core/interface/manage/IManage';
 import { appendQueryParams, buildQueryString, QueryParams } from '@core/util/http-params.util';
 
@@ -26,6 +27,7 @@ export class NodeService extends ApiService {
   private destroyRef = inject(DestroyRef);
 
   private util = inject(UtilitiesService);
+  private builder = inject(BuilderState);
 
   private readonly commentGetPath = '/api/v1/comment';
 
@@ -55,6 +57,14 @@ export class NodeService extends ApiService {
       }),
       this.httpOptionsOfCommon
     );
+  }
+
+  resolveLangCode(elementRef?: ElementRef): string | undefined {
+    const inCanvas = !!elementRef?.nativeElement.closest('.component-item');
+    const override = inCanvas ? this.builder.currentPage?.langcode : undefined;
+    const url = override ? `/${override}` : this.pageUrl;
+    const lang = this.getLang(url);
+    return lang?.default ? undefined : lang?.langCode;
   }
 
   getNodeByLink(link: string): Observable<any> {

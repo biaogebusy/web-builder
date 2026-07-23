@@ -148,8 +148,7 @@ export class CustomTemplateComponent implements AfterViewInit {
   fetchContent(params: QueryParams | string): void {
     const { html, api } = this.content();
     if (api) {
-      const currentLang = this.nodeService.getLang(this.nodeService.pageUrl);
-      const langCode = currentLang?.default ? undefined : currentLang?.langCode;
+      const langCode = this.nodeService.resolveLangCode(this.ele);
       this.nodeService
         .fetch(api.trim(), params, langCode)
         .pipe(
