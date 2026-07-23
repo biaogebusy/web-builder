@@ -10,22 +10,23 @@
 
 // ── Card ──────────────────────────────────────────────────
 .card {
-  @apply rounded-xl overflow-hidden;
-  background: var(--mat-sys-surface);
+  @apply rounded-xl;
+  background: var(--mat-sys-surface-container-low);
   box-shadow: var(--mat-sys-level1);
 }
 
 // ── Toolbar ───────────────────────────────────────────────
 .toolbar {
-  @apply flex items-center gap-4 p-4 flex-wrap;
+  @apply sticky top-0 z-10 flex items-center gap-4 p-4 flex-wrap rounded-t-xl;
+  background: var(--mat-sys-surface);
   border-bottom: 1px solid var(--mat-sys-outline-variant);
 
   .toolbar-left {
-    @apply flex items-center gap-4 flex-wrap;
+    @apply flex flex-1 items-center gap-4 min-w-0;
   }
 
   .toolbar-right {
-    @apply flex items-center gap-4 ml-auto;
+    @apply flex items-center justify-end gap-3 ml-auto flex-wrap;
   }
 
   .total-text {
@@ -49,14 +50,17 @@
 }
 
 .search-wrap {
-  @apply flex items-center gap-2 px-3 py-1 rounded-lg;
+  @apply flex items-center gap-2 h-10 px-3 rounded-lg;
+  width: min(320px, 100%);
   border: 1px solid var(--mat-sys-outline-variant);
   background: var(--mat-sys-surface-container-lowest);
-  transition: border-color 150ms, background 150ms;
+  transition: border-color 150ms, background 150ms, outline-color 150ms;
 
   &:focus-within {
     border-color: var(--mat-sys-primary);
     background: var(--mat-sys-surface);
+    outline: 2px solid var(--mat-sys-primary);
+    outline-offset: 1px;
   }
 
   .s-icon {
@@ -68,9 +72,12 @@
   }
 
   .s-input {
-    @apply text-sm outline-none bg-transparent;
-    width: 200px;
+    @apply flex-1 min-w-0 text-sm outline-none bg-transparent;
     color: var(--mat-sys-on-surface);
+
+    &::-webkit-search-cancel-button {
+      appearance: none;
+    }
 
     &::placeholder {
       color: var(--mat-sys-on-surface-variant);
@@ -78,9 +85,31 @@
   }
 }
 
+.search-clear {
+  @apply flex items-center justify-center shrink-0 w-7 h-7 p-0 rounded-full border-0 cursor-pointer;
+  color: var(--mat-sys-on-surface-variant);
+  background: transparent;
+
+  &:hover {
+    background: var(--mat-sys-surface-container-high);
+    color: var(--mat-sys-on-surface);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--mat-sys-primary);
+    outline-offset: 1px;
+  }
+
+  mat-icon {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+  }
+}
+
 // ── List body ─────────────────────────────────────────────
 .list-body {
-  @apply relative grid gap-4 p-4;
+  @apply relative grid gap-4 p-4 rounded-b-xl;
   grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
   background: var(--mat-sys-surface-container-low);
 }
@@ -115,9 +144,13 @@
   background: var(--mat-sys-surface-container-high);
   transition: background 120ms;
 
-  &:hover,
+  &:not(.static):hover,
   &:focus-visible {
     background: var(--mat-sys-surface-container-highest);
+  }
+
+  &.static {
+    @apply cursor-default;
   }
 
   &:focus-visible {
@@ -177,7 +210,7 @@
 
 // ── Count pills ───────────────────────────────────────────
 .count-pill {
-  @apply inline-flex items-center justify-center text-xs font-semibold px-2 py-1 rounded-full;
+  @apply inline-flex items-center justify-center text-xs font-semibold leading-none px-2 rounded-full;
   background: var(--mat-sys-surface-container-high);
   color: var(--mat-sys-on-surface-variant);
   min-width: 20px;
@@ -199,12 +232,14 @@
     'icon icon icon';
   align-content: space-between;
   min-height: 116px;
-  background: var(--mat-sys-surface-container-lowest);
+  border: 1px solid var(--mat-sys-outline-variant);
+  background: var(--mat-sys-surface-container);
   box-shadow: var(--mat-sys-level0);
-  transition: background 120ms, box-shadow 120ms;
+  transition: background 120ms, border-color 120ms, box-shadow 120ms;
 
   &:hover {
-    background: var(--mat-sys-surface);
+    border-color: var(--mat-sys-outline);
+    background: var(--mat-sys-surface-container-high);
     box-shadow: var(--mat-sys-level1);
   }
 
@@ -217,11 +252,10 @@
     background: color-mix(
       in srgb,
       var(--mat-sys-primary) 8%,
-      var(--mat-sys-surface-container-lowest)
+      var(--mat-sys-surface-container)
     );
-    box-shadow:
-      0 0 0 1px color-mix(in srgb, var(--mat-sys-primary) 45%, transparent),
-      var(--mat-sys-level0);
+    border-color: var(--mat-sys-primary);
+    box-shadow: var(--mat-sys-level0);
 
     .item-name {
       color: var(--mat-sys-primary);
@@ -348,12 +382,28 @@
     @apply p-2;
   }
 
-  .toolbar-right {
-    @apply w-full ml-0;
+  .toolbar {
+    @apply gap-3 p-3;
+
+    .toolbar-left,
+    .toolbar-right {
+      @apply w-full ml-0;
+    }
+
+    .toolbar-right {
+      @apply justify-between gap-2;
+    }
+
+    .divider {
+      @apply hidden;
+    }
   }
 
-  .search-wrap,
-  .search-wrap .s-input {
+  .bulk-actions {
+    @apply order-last w-full justify-between;
+  }
+
+  .search-wrap {
     @apply w-full;
   }
 
