@@ -102,7 +102,6 @@ describe('CustomTemplateComponent', () => {
     nodeService.getLang.mockReturnValue({
       label: 'EN',
       langCode: 'en',
-      prefix: '/en',
     });
 
     component.fetchContent('');
@@ -115,7 +114,6 @@ describe('CustomTemplateComponent', () => {
     nodeService.getLang.mockReturnValue({
       label: '中文',
       langCode: 'zh-hans',
-      prefix: '/',
       default: true,
     });
 

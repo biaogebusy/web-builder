@@ -15,6 +15,7 @@ import { UtilitiesService } from './utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { IMediaAttr } from '@core/interface/manage/IManage';
 import { appendQueryParams, buildQueryString, QueryParams } from '@core/util/http-params.util';
+import { getLangPrefix } from '@core/util/language.util';
 
 type ApiQueryParams = QueryParams | string | null | undefined;
 
@@ -42,7 +43,7 @@ export class NodeService extends ApiService {
       return of(false);
     }
     if (langCode) {
-      lang = `/${langCode}`;
+      lang = getLangPrefix({ langCode });
     }
     if (api.startsWith('/api/')) {
       apiPath = `${this.apiUrl}${lang}${api}`;
