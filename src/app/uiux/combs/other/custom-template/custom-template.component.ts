@@ -7,6 +7,7 @@ import {
   signal,
   ChangeDetectionStrategy,
   input,
+  afterRenderEffect,
 } from '@angular/core';
 import type { ICustomTemplate, ICustomTemplateDialog } from '@core/interface/IBuilder';
 import DOMPurify from 'dompurify';
@@ -62,6 +63,12 @@ export class CustomTemplateComponent implements AfterViewInit {
   // 自定义 JS 返回的清理函数，重渲染/销毁时调用
   private jsCleanup: (() => void) | null = null;
 
+  constructor() {
+    afterRenderEffect(() => {
+      void this.render(this.content());
+    });
+  }
+
   private static readonly NON_EDITABLE_TAGS = new Set([
     'IMG',
     'STYLE',
@@ -84,7 +91,6 @@ export class CustomTemplateComponent implements AfterViewInit {
     const fontawesome = this.util.getLibraries('fontAwesome', 'cdn', 'style');
     this.util.loadStyle(fontawesome);
     this.destroyRef.onDestroy(() => this.runJsCleanup());
-    this.render(this.content());
   }
 
   async render(content: any): Promise<void> {

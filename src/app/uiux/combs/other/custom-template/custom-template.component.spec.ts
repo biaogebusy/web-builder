@@ -20,14 +20,21 @@ describe('CustomTemplateComponent', () => {
     getLang: vi.fn(),
     fetch: vi.fn(() => NEVER),
   };
+  const screenService = {
+    isPlatformBrowser: vi.fn(() => false),
+  };
+  const utilitiesService = {
+    getLibraries: vi.fn(() => ''),
+    loadStyle: vi.fn(),
+  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [CustomTemplateComponent],
       providers: [
         { provide: NodeService, useValue: nodeService },
-        { provide: ScreenService, useValue: { isPlatformBrowser: () => false } },
-        { provide: UtilitiesService, useValue: {} },
+        { provide: ScreenService, useValue: screenService },
+        { provide: UtilitiesService, useValue: utilitiesService },
         { provide: CORE_CONFIG, useValue: {} },
         { provide: MatDialog, useValue: {} },
         { provide: BuilderState, useValue: {} },
@@ -50,6 +57,31 @@ describe('CustomTemplateComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('rerenders static HTML when the content input changes', async () => {
+    screenService.isPlatformBrowser.mockReturnValue(true);
+    fixture.componentRef.setInput('content', {
+      type: 'custom-template',
+      html: '<p>Contact Information</p>',
+      json: {},
+    });
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const element = fixture.nativeElement as HTMLElement;
+    expect(element.querySelector('.template')?.textContent).toContain('Contact Information');
+
+    fixture.componentRef.setInput('content', {
+      type: 'custom-template',
+      html: '<p>联系方式</p>',
+      json: {},
+    });
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(element.querySelector('.template')?.textContent).toContain('联系方式');
+    expect(element.querySelector('.template')?.textContent).not.toContain('Contact Information');
   });
 
   it('cleans up previous custom JavaScript when the next render has no JavaScript', () => {
