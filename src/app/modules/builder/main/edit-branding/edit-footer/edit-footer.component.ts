@@ -10,7 +10,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule, UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -22,7 +22,6 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { FormModule } from '@uiux/combs/form/form.module';
-import { merge as deepMerge } from 'lodash-es';
 import { merge } from 'rxjs';
 
 import { IBranding, IFooter } from '@core/interface/branding/IBranding';
@@ -31,6 +30,19 @@ import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { HasUnsavedChanges } from '@core/guards/unsaved-changes.guard';
 import { TranslateService } from '@ngx-translate/core';
+import { formatBrandingJson, getBrandingJsonError, mergeBrandingJson } from '../branding-json.util';
+import { buildFooterConfig } from '../branding-config.util';
+import {
+  appendBrandingChild,
+  appendBrandingItem,
+  insertBrandingChild,
+  insertBrandingItem,
+  moveBrandingItems,
+  removeBrandingChild,
+  removeBrandingItem,
+  updateBrandingChild,
+  updateBrandingItem,
+} from '../branding-menu.util';
 
 interface FooterMenuGroup {
   label: string;
@@ -211,7 +223,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
       return;
     }
     try {
-      this.jsonPreview.set(JSON.stringify(this.buildFooter(), null, 2));
+      this.jsonPreview.set(formatBrandingJson(this.buildFooter()));
     } catch {
       /* skip */
     }
@@ -228,12 +240,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
   onJsonChange(value: string): void {
     this.customJson = value;
     this.markDirty();
-    try {
-      JSON.parse(value);
-      this.jsonError.set('');
-    } catch (e: unknown) {
-      this.jsonError.set((e as Error).message);
-    }
+    this.jsonError.set(getBrandingJsonError(value));
   }
 
   // ── Field init (unchanged) ──
@@ -451,16 +458,16 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
   // ── Menu management ──
 
   onMenuDrop(event: CdkDragDrop<FooterMenuGroup[]>): void {
-    const items = [...this.menuItems()];
-    moveItemInArray(items, event.previousIndex, event.currentIndex);
-    this.menuItems.set(items);
+    this.menuItems.set(
+      moveBrandingItems(this.menuItems(), event.previousIndex, event.currentIndex)
+    );
     this.onMenuChange();
   }
 
   onMobileMenuDrop(event: CdkDragDrop<FooterMenuGroup[]>): void {
-    const items = [...this.mobileMenuItems()];
-    moveItemInArray(items, event.previousIndex, event.currentIndex);
-    this.mobileMenuItems.set(items);
+    this.mobileMenuItems.set(
+      moveBrandingItems(this.mobileMenuItems(), event.previousIndex, event.currentIndex)
+    );
     this.onMenuChange();
   }
 
@@ -470,11 +477,12 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
     event: CdkDragDrop<FooterMenuGroup[]>
   ): void {
     const source = list === 'main' ? this.menuItems : this.mobileMenuItems;
-    const items = [...source()];
-    const children = [...(items[menuIndex].child ?? [])];
-    moveItemInArray(children, event.previousIndex, event.currentIndex);
-    items[menuIndex] = { ...items[menuIndex], child: children };
-    source.set(items);
+    const items = source();
+    const children = items[menuIndex].child ?? [];
+    const nextChildren = moveBrandingItems(children, event.previousIndex, event.currentIndex);
+    const nextItems = [...items];
+    nextItems[menuIndex] = { ...items[menuIndex], child: nextChildren };
+    source.set(nextItems);
     this.onMenuChange();
   }
 
@@ -485,22 +493,25 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
 
   addMenuGroup(list: 'main' | 'mobile'): void {
     const source = list === 'main' ? this.menuItems : this.mobileMenuItems;
-    source.update(items => [...items, { label: this.translate.instant('BUILDER.EDIT_BRANDING.NEW_GROUP'), child: [] }]);
+    source.update(items =>
+      appendBrandingItem(items, {
+        label: this.translate.instant('BUILDER.EDIT_BRANDING.NEW_GROUP'),
+        child: [],
+      })
+    );
     this.onMenuChange();
   }
 
   updateMenuGroup(list: 'main' | 'mobile', index: number, value: string): void {
     const source = list === 'main' ? this.menuItems : this.mobileMenuItems;
-    const items = [...source()];
-    items[index] = { ...items[index], label: value };
-    source.set(items);
+    source.set(updateBrandingItem(source(), index, 'label', value));
     this.onMenuChange();
   }
 
   removeMenuGroup(list: 'main' | 'mobile', index: number): void {
     const source = list === 'main' ? this.menuItems : this.mobileMenuItems;
     const removed = source()[index];
-    source.update(items => items.filter((_, i) => i !== index));
+    source.update(items => removeBrandingItem(items, index));
     const sig = list === 'main' ? this.expandedMenuIndex : this.expandedMobileMenuIndex;
     if (sig() === index) {
       sig.set(-1);
@@ -515,22 +526,19 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
       .onAction()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
-        source.update(items => {
-          const c = [...items];
-          c.splice(index, 0, removed);
-          return c;
-        });
+        source.update(items => insertBrandingItem(items, index, removed));
         this.onMenuChange();
       });
   }
 
   addChildLink(list: 'main' | 'mobile', menuIndex: number): void {
     const source = list === 'main' ? this.menuItems : this.mobileMenuItems;
-    const items = [...source()];
-    const children = [...(items[menuIndex].child ?? [])];
-    children.push({ label: this.translate.instant('BUILDER.EDIT_BRANDING.NEW_LINK'), href: '' });
-    items[menuIndex] = { ...items[menuIndex], child: children };
-    source.set(items);
+    source.set(
+      appendBrandingChild(source(), menuIndex, {
+        label: this.translate.instant('BUILDER.EDIT_BRANDING.NEW_LINK'),
+        href: '',
+      })
+    );
     this.onMenuChange();
   }
 
@@ -542,21 +550,14 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
     value: string
   ): void {
     const source = list === 'main' ? this.menuItems : this.mobileMenuItems;
-    const items = [...source()];
-    const children = [...(items[menuIndex].child ?? [])];
-    children[childIndex] = { ...children[childIndex], [field]: value };
-    items[menuIndex] = { ...items[menuIndex], child: children };
-    source.set(items);
+    source.set(updateBrandingChild(source(), menuIndex, childIndex, field, value));
     this.onMenuChange();
   }
 
   removeChildLink(list: 'main' | 'mobile', menuIndex: number, childIndex: number): void {
     const source = list === 'main' ? this.menuItems : this.mobileMenuItems;
     const removed = source()[menuIndex].child?.[childIndex];
-    const items = [...source()];
-    const children = (items[menuIndex].child ?? []).filter((_, i) => i !== childIndex);
-    items[menuIndex] = { ...items[menuIndex], child: children };
-    source.set(items);
+    source.set(removeBrandingChild(source(), menuIndex, childIndex));
     this.onMenuChange();
     if (removed) {
       const ref = this.snackBar.open(
@@ -568,11 +569,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
         .onAction()
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(() => {
-          const cur = [...source()];
-          const ch = [...(cur[menuIndex].child ?? [])];
-          ch.splice(childIndex, 0, removed);
-          cur[menuIndex] = { ...cur[menuIndex], child: ch };
-          source.set(cur);
+          source.set(insertBrandingChild(source(), menuIndex, childIndex, removed));
           this.onMenuChange();
         });
     }
@@ -586,52 +583,16 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
   // ── Build & Save ──
 
   buildFooter(): IFooter {
-    const footer = this.footer()!;
-    const brandVal = this.brandForm.value;
-    const socialVal = this.socialForm.value;
-    const newsletterVal = this.newsletterForm.value;
-    const bottomVal = this.bottomForm.value;
-
-    return {
-      ...footer,
-      params: { ...footer.params, ...this.paramsForm.value },
-      footerBrand: {
-        ...footer.footerBrand,
-        logo: {
-          ...footer.footerBrand?.logo,
-          img: {
-            ...(footer.footerBrand?.logo?.img ?? {}),
-            src: brandVal.src,
-            alt: brandVal.alt,
-            href: brandVal.href,
-            classes: brandVal.classes,
-          },
-        },
-        summary: brandVal.summary,
-        social: socialVal.social ?? footer.footerBrand?.social ?? [],
-      },
-      mainMenu: this.menuItems(),
-      mobileMenu: this.mobileMenuItems(),
-      footerNewsletter: {
-        ...footer.footerNewsletter,
-        form: footer.footerNewsletter?.form ?? [],
-        params: {
-          ...footer.footerNewsletter?.params,
-          webform_id: newsletterVal.webform_id,
-        },
-        label: newsletterVal.label,
-        summary: newsletterVal.summary,
-        action: {
-          ...footer.footerNewsletter?.action,
-          label: newsletterVal.actionLabel,
-        },
-      },
-      footerBottom: {
-        ...footer.footerBottom,
-        left: bottomVal.left,
-        right: bottomVal.right ?? footer.footerBottom?.right ?? [],
-      },
-    };
+    return buildFooterConfig(
+      this.footer()!,
+      this.paramsForm.value,
+      this.brandForm.value,
+      this.socialForm.value,
+      this.newsletterForm.value,
+      this.bottomForm.value,
+      this.menuItems(),
+      this.mobileMenuItems()
+    );
   }
 
   onSave(): void {
@@ -646,10 +607,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
 
     if (this.jsonEditMode() && this.customJson) {
       try {
-        const customConfig = JSON.parse(this.customJson);
-        if (customConfig && typeof customConfig === 'object') {
-          footer = deepMerge({}, footer, customConfig);
-        }
+        footer = mergeBrandingJson(footer, this.customJson);
         this.jsonError.set('');
       } catch {
         this.saving.set(false);

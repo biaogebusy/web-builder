@@ -16,8 +16,7 @@ describe('CustomTemplateComponent', () => {
   let component: CustomTemplateComponent;
   let fixture: ComponentFixture<CustomTemplateComponent>;
   const nodeService = {
-    pageUrl: '/en/example',
-    getLang: vi.fn(),
+    resolveLangCode: vi.fn(),
     fetch: vi.fn(() => NEVER),
   };
   const screenService = {
@@ -99,28 +98,20 @@ describe('CustomTemplateComponent', () => {
   });
 
   it('should add the current non-default language to API requests', () => {
-    nodeService.getLang.mockReturnValue({
-      label: 'EN',
-      langCode: 'en',
-      prefix: '/en',
-    });
+    nodeService.resolveLangCode.mockReturnValue('en');
 
     component.fetchContent('');
 
-    expect(nodeService.getLang).toHaveBeenCalledWith('/en/example');
+    expect(nodeService.resolveLangCode).toHaveBeenCalledOnce();
     expect(nodeService.fetch).toHaveBeenCalledWith('/api/v2/xxx', '', 'en');
   });
 
   it('should keep API requests unprefixed for the default language', () => {
-    nodeService.getLang.mockReturnValue({
-      label: '中文',
-      langCode: 'zh-hans',
-      prefix: '/',
-      default: true,
-    });
+    nodeService.resolveLangCode.mockReturnValue(undefined);
 
     component.fetchContent('');
 
+    expect(nodeService.resolveLangCode).toHaveBeenCalledOnce();
     expect(nodeService.fetch).toHaveBeenCalledWith('/api/v2/xxx', '', undefined);
   });
 });
