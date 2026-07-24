@@ -1,8 +1,12 @@
-import { Component, DestroyRef, OnInit, inject, signal, ChangeDetectionStrategy, input } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NodeService } from '@core/service/node.service';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+} from '@angular/core';
 import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
-import { catchError, of } from 'rxjs';
+import { DynamicMenuState } from './dynamic-menu.state';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -11,34 +15,11 @@ import { catchError, of } from 'rxjs';
   styleUrls: ['./dynamic-menu.component.scss'],
   imports: [DynamicComponentComponent],
 })
-export class DynamicMenuComponent implements OnInit {
+export class DynamicMenuComponent {
   readonly uuid = input<string>();
-  private nodeService = inject(NodeService);
-  private destroyRef = inject(DestroyRef);
-  public dynamicContent = signal<any>({});
-  ngOnInit(): void {
-    this.getDynamicContent(this.uuid()!);
-  }
-
-  getDynamicContent(uuid: string): void {
-    this.nodeService
-      .fetch(`/api/v1/node/component/${uuid}`, '')
-      .pipe(
-        takeUntilDestroyed(this.destroyRef),
-        catchError(() => of(null))
-      )
-      .subscribe(node => {
-        if (!node) {
-          return;
-        }
-        const {
-          data: {
-            attributes: {
-              body: { value },
-            },
-          },
-        } = node;
-        this.dynamicContent.set(JSON.parse(value));
-      });
-  }
+  private state = inject(DynamicMenuState);
+  public dynamicContent = computed(() => {
+    const id = this.uuid();
+    return id ? this.state.getContent(id)() : {};
+  });
 }
