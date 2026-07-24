@@ -106,7 +106,6 @@ export const DYNAMIC_COMPONENT_LOADERS: Readonly<Record<string, ComponentLoader>
     import('@uiux/combs/masonry/shuffle/shuffle.component').then(m => m.ShuffleComponent),
   article: () => loadNodeContent().then(m => m.ArticleComponent),
   question: () => loadNodeContent().then(m => m.QuestionComponent),
-  report: () => loadNodeContent().then(m => m.ReportComponent),
   'banner-simple': () => loadNodeLight().then(m => m.BannerSimpleComponent),
   breadcrumb: () => loadNodeLight().then(m => m.BreadcrumbComponent),
   formly: () => loadForm().then(m => m.FormlyComponent),
