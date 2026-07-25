@@ -75,7 +75,7 @@ export class MediaUploadService extends ApiService {
     uploadImage: (fileName: string, imageData: any) => Observable<IMediaAttr> = (fileName, data) =>
       this.uploadImage(fileName, data)
   ): void {
-    if (!this.user) {
+    if (!this.user()) {
       this.util.openSnackbar('请登录后上传图片！', 'ok');
       return;
     }

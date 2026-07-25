@@ -224,6 +224,7 @@ export const createContentServiceMock = () => ({
 export const createUserServiceMock = () => ({
   userSub$: new Subject<unknown>(),
   login: vi.fn(),
+  openLoginDialog: vi.fn(),
   startAuthorize: vi.fn(() => Promise.resolve()),
   processTokenAndLogin: vi.fn(() => of(false)),
   updateUser: vi.fn(),

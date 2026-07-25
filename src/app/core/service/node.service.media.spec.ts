@@ -16,7 +16,7 @@ describe('NodeService media API', () => {
     TestBed.resetTestingModule();
   });
 
-  function createService(post = vi.fn(() => of({}))) {
+  function createService(post = vi.fn(() => of({})), user: unknown = signal(true)) {
     const utilitiesService = {
       openSnackbar: vi.fn(),
     };
@@ -27,7 +27,7 @@ describe('NodeService media API', () => {
         { provide: API_URL, useValue: 'https://example.com' },
         { provide: DOCUMENT, useValue: document },
         { provide: HttpClient, useValue: { post } },
-        { provide: USER, useValue: signal(false) },
+        { provide: USER, useValue: user },
         { provide: UtilitiesService, useValue: utilitiesService },
         { provide: BuilderState, useValue: { currentPage: {} } },
         { provide: CommentService, useValue: {} },
@@ -126,5 +126,16 @@ describe('NodeService media API', () => {
     expect(service.uploadImage).toHaveBeenCalledWith('editor.png', expect.any(ArrayBuffer));
     expect(editor.getSelection).toHaveBeenCalledWith(true);
     expect(editor.insertEmbed).toHaveBeenCalledWith(3, 'image', '/sites/default/files/editor.png');
+  });
+
+  it('blocks the Quill image handler for signed-out visitors', () => {
+    const { service, utilitiesService } = createService(undefined, signal(false));
+    const createElement = vi.spyOn(document, 'createElement');
+    const editor = { getSelection: vi.fn(), insertEmbed: vi.fn() };
+
+    service.imageHandler(editor);
+
+    expect(utilitiesService.openSnackbar).toHaveBeenCalledWith('请登录后上传图片！', 'ok');
+    expect(createElement).not.toHaveBeenCalled();
   });
 });

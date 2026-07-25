@@ -42,7 +42,7 @@ export class UploadMediaComponent {
 
   async dropped(files: NgxFileDropEntry[]): Promise<void> {
     this.filesEntry.set(files);
-    if (!this.user) {
+    if (!this.user()) {
       this.util.openSnackbar('请先登录', 'ok');
       return;
     }

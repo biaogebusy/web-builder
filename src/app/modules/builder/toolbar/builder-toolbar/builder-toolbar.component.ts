@@ -138,7 +138,7 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit(page: IPage): void {
-    if (!this.user) {
+    if (!this.user()) {
       this.openLogin();
       return;
     }

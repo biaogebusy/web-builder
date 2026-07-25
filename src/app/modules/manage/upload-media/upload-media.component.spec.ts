@@ -1,7 +1,9 @@
+import { signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { USER } from '@core/token/token-providers';
 import {
   createNodeServiceMock,
   createUtilitiesServiceMock,
@@ -16,6 +18,7 @@ describe('UploadMediaComponent', () => {
   let component: UploadMediaComponent;
   let fixture: ComponentFixture<UploadMediaComponent>;
   const uploaded = { name: 'hero.png', uri: { url: '/sites/default/files/hero.png' } };
+  const user = signal<unknown>({ id: 'u-1' });
   const nodeService = Object.assign(createNodeServiceMock(), {
     uploadImage: vi.fn(() => of(uploaded)),
   });
@@ -34,6 +37,7 @@ describe('UploadMediaComponent', () => {
 
   beforeEach(async () => {
     vi.clearAllMocks();
+    user.set({ id: 'u-1' });
     await TestBed.configureTestingModule({
       imports: [UploadMediaComponent],
       providers: [
@@ -41,6 +45,7 @@ describe('UploadMediaComponent', () => {
         ...provideCoreMocks(),
         { provide: NodeService, useValue: nodeService },
         { provide: UtilitiesService, useValue: util },
+        { provide: USER, useValue: user },
       ],
     }).compileComponents();
 
@@ -50,6 +55,16 @@ describe('UploadMediaComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('asks signed-out visitors to log in before uploading', async () => {
+    user.set(false);
+    const file = new File(['image-bytes'], 'hero.png', { type: 'image/png' });
+
+    await component.dropped([fileEntry(file)]);
+
+    expect(util.openSnackbar).toHaveBeenCalledWith('请先登录', 'ok');
+    expect(nodeService.uploadImage).not.toHaveBeenCalled();
   });
 
   it('uploads a dropped file and appends the returned media attributes', async () => {

@@ -38,15 +38,18 @@ describe('BuilderToolbarComponent', () => {
   };
   const util = { openSnackbar: vi.fn() };
   const storage = { retrieve: vi.fn(), observe: vi.fn(() => of([])), store: vi.fn() };
+  const userService = { openLoginDialog: vi.fn() };
+  const user = signal<unknown>(true);
   const router = {
     navigate: vi.fn(),
   };
 
   beforeEach(() => {
     vi.clearAllMocks();
+    user.set(true);
     TestBed.configureTestingModule({
       providers: [
-        { provide: USER, useValue: signal(true) },
+        { provide: USER, useValue: user },
         { provide: BUILDER_FULL_SCREEN, useValue: signal(false) },
         { provide: BUILDER_CURRENT_PAGE, useValue: signal(false) },
         { provide: MatDialog, useValue: { open: vi.fn() } },
@@ -59,7 +62,7 @@ describe('BuilderToolbarComponent', () => {
         },
         { provide: ScreenService, useValue: { isPlatformBrowser: vi.fn(() => false) } },
         { provide: BuilderService, useValue: builderService },
-        { provide: UserService, useValue: { openLoginDialog: vi.fn() } },
+        { provide: UserService, useValue: userService },
         { provide: Router, useValue: router },
         { provide: TranslateService, useValue: { instant: vi.fn((key: string) => key) } },
       ],
@@ -148,6 +151,17 @@ describe('BuilderToolbarComponent', () => {
 
     expect(builder.updateSuccess$.next).toHaveBeenCalledWith(true);
     expect(router.navigate).toHaveBeenCalledWith(['/builder/page-list'], { queryParams: {} });
+  });
+
+  it('sends signed-out users to the login dialog instead of saving', () => {
+    user.set(false);
+
+    component.onSubmit({ title: 'Draft', body: [{ type: 'text' }] });
+
+    expect(userService.openLoginDialog).toHaveBeenCalled();
+    expect(builderService.createLandingPage).not.toHaveBeenCalled();
+    expect(builderService.updateLandingPage).not.toHaveBeenCalled();
+    expect(builderService.addTranslation).not.toHaveBeenCalled();
   });
 
   it('blocks submission until the page has at least one component', () => {

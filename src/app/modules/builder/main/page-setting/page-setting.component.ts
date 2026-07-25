@@ -131,7 +131,7 @@ export class PageSettingComponent implements OnInit {
     const { type } = value;
     const nodeType = type.split('--')[1];
     const api = `/api/v1/node/${nodeType}`;
-    if (!this.user) {
+    if (!this.user()) {
       this.userService.openLoginDialog();
       return;
     }
@@ -276,7 +276,7 @@ export class PageSettingComponent implements OnInit {
     });
   }
   deletePage(value: any): void {
-    if (!this.user) {
+    if (!this.user()) {
       this.userService.openLoginDialog();
       return;
     }
