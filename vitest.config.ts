@@ -30,6 +30,9 @@ export default defineConfig({
     globals: true,
     include: [
       'src/app/core/util/**/*.spec.ts',
+      'src/app/core/service/comment.service.spec.ts',
+      'src/app/core/service/node.service.comment-facade.spec.ts',
+      'src/app/core/service/node.service.media.spec.ts',
       'src/app/core/state/BuilderState.spec.ts',
       'src/app/modules/builder/main/edit-branding/**/*.spec.ts',
       'src/app/uiux/combs/other/code-editor/code-editor.component.spec.ts',

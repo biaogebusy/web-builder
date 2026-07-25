@@ -1,29 +1,19 @@
 import { DestroyRef, ElementRef, Injectable, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { HttpHeaders } from '@angular/common/http';
 import { ApiService } from './api.service';
-import { forkJoin, Observable, of, throwError } from 'rxjs';
-import { catchError, map, switchMap, take } from 'rxjs/operators';
+import { forkJoin, Observable, of } from 'rxjs';
 import { isEmpty } from 'lodash-es';
 import type { IArticleAccess } from '@core/interface/node/IArticle';
 import type { IComment } from '@core/interface/node/INode';
-import { CORE_CONFIG, USER } from '@core/token/token-providers';
-import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
-import { UtilitiesService } from './utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { IMediaAttr } from '@core/interface/manage/IManage';
 import { appendQueryParams, QueryParams } from '@core/util/http-params.util';
 import { resolveNodeLangCode } from '@core/util/node-lang.util';
-import {
-  buildCommentsParams,
-  buildCommentsPidParams,
-  getCommentRelEntityId,
-  getCommentType,
-  mapComment,
-} from '@core/util/node-comment.util';
 import { environment } from 'src/environments/environment';
+import { CommentService } from './comment.service';
 import { getLangPrefix } from '@core/util/language.util';
+import { MediaUploadService } from './media-upload.service';
 
 type ApiQueryParams = QueryParams | string | null | undefined;
 
@@ -31,14 +21,11 @@ type ApiQueryParams = QueryParams | string | null | undefined;
   providedIn: 'root',
 })
 export class NodeService extends ApiService {
-  private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
-  private user = inject(USER);
   private destroyRef = inject(DestroyRef);
 
-  private util = inject(UtilitiesService);
   private builder = inject(BuilderState);
-
-  private readonly commentGetPath = '/api/v1/comment';
+  private commentService = inject(CommentService);
+  private mediaUploadService = inject(MediaUploadService);
 
   constructor() {
     super();
@@ -145,115 +132,45 @@ export class NodeService extends ApiService {
   }
 
   addComment(type: string, entityData: any, token: string): Observable<any> {
-    const entity = {
-      data: entityData,
-    };
-    return this.http.post<any>(
-      `${this.apiUrl}${this.commentGetPath}/${type}`,
-      JSON.stringify(entity),
-      this.optionsWithBearerToken()
-    );
+    return this.commentService.addComment(type, entityData, token);
   }
 
   updateComment(type: string, entityData: any, uuid: string, token: string): Observable<any> {
-    const entity = {
-      data: entityData,
-    };
-    return this.http.patch<any>(
-      `${this.apiUrl}${this.commentGetPath}/${type}/${uuid}`,
-      JSON.stringify(entity),
-      this.optionsWithBearerToken()
-    );
+    return this.commentService.updateComment(type, entityData, uuid, token);
   }
 
   replyComment(type: string, entityData: any, token: string): Observable<any> {
-    const entity = {
-      data: entityData,
-    };
-    return this.http.post<any>(
-      `${this.apiUrl}${this.commentGetPath}/${type}`,
-      JSON.stringify(entity),
-      this.optionsWithBearerToken()
-    );
+    return this.commentService.replyComment(type, entityData, token);
   }
 
   getCommentType(content: any): string {
-    return getCommentType(content);
+    return this.commentService.getCommentType(content);
   }
 
   getCommentRelEntityId(content: any): string {
-    return getCommentRelEntityId(content);
+    return this.commentService.getCommentRelEntityId(content);
   }
 
   getCommentsParams(content: any, timeStamp: number): any {
-    return buildCommentsParams(content, timeStamp, this.commentGetPath);
+    return this.commentService.getCommentsParams(content, timeStamp);
   }
 
   getCommentsPidParams(pid: string, timeStamp: number): string {
-    return buildCommentsPidParams(pid, timeStamp);
+    return this.commentService.getCommentsPidParams(pid, timeStamp);
   }
 
   handleComment(comment: any, level: number): IComment {
-    return mapComment(comment, level, this.coreConfig?.defaultAvatar);
+    return this.commentService.handleComment(comment, level);
   }
 
   // api 在有权限的时候会有很大的性能开销，可使用自定义api
   getCommentsWitchChild(content: any, timeStamp = 1): Observable<any> {
-    const user = this.user();
-    const token = typeof user === 'object' ? user.access_token : undefined;
-    const path = this.commentGetPath;
-    const type = this.getCommentType(content);
-    const { params } = this.getCommentsParams(content, timeStamp);
-    return this.getNodes(path, type, params).pipe(
-      switchMap((data: any) => {
-        const lists = data.data
-          .filter((list: any) => {
-            // 过滤出父评论
-            if (list.pid.id) {
-              return false;
-            } else {
-              return true;
-            }
-          })
-          .map((comment: any) => {
-            return this.handleComment(comment, 1);
-          });
-        const obj: any = {};
-        lists.map((item: any) => {
-          // 获取每个评论下的回复
-          obj[item.id] = this.getNodes(
-            path,
-            type,
-            this.getCommentsPidParams(item.id, timeStamp)
-          ).pipe(
-            map((childs: any) => {
-              if (!childs.data) {
-                return [];
-              }
-              return childs.data.map((child: any) => {
-                return this.handleComment(child, 2);
-              });
-            })
-          );
-        });
-        return forkJoin(obj).pipe(
-          // 合并评论到其父评论
-          map((comments: any) => {
-            return lists.map((item: any) => {
-              return Object.assign(item, { child: comments[item.id] });
-            });
-          })
-        );
-      })
-    );
+    return this.commentService.getCommentsWitchChild(content, timeStamp);
   }
 
   // custom get comment api
   getCustomApiComment(uuid: string, timeStamp = 1): Observable<any> {
-    return this.http.get<IComment[]>(
-      appendQueryParams(`${this.apiUrl}/api/v3/comment/comment/${uuid}`, { timeStamp }),
-      this.httpOptionsOfCommon
-    );
+    return this.commentService.getCustomApiComment(uuid, timeStamp);
   }
 
   getFlaging(path: string, params: ApiQueryParams, token: string): Observable<any> {
@@ -320,85 +237,18 @@ export class NodeService extends ApiService {
   }
 
   uploadImage(fileName: string, imageData: any): Observable<IMediaAttr> {
-    return this.http
-      .post('/api/v1/media/image/field_media_image', imageData, {
-        headers: new HttpHeaders({
-          Accept: 'application/vnd.api+json',
-          'Content-Type': 'application/octet-stream',
-          'Content-Disposition': `file; filename="${encodeURIComponent(fileName)}"`,
-        }),
-      })
-      .pipe(
-        // 使用 switchMap 来执行后续操作
-        switchMap((res: any) => {
-          const {
-            data: { id, attributes },
-          } = res;
-
-          return this.createMediaImage(res.data).pipe(
-            map(() => ({ ...attributes, uuid: id }) as IMediaAttr)
-          );
-        }),
-        catchError(error => {
-          console.error('Upload image failed:', error);
-          return throwError(() => error);
-        })
-      );
-  }
-
-  createMediaImage(data: any): Observable<void> {
-    const {
-      id,
-      attributes: { filename },
-    } = data;
-    const mediaData = {
-      data: {
-        type: 'media--image',
-        attributes: { name: filename },
-        relationships: {
-          field_media_image: {
-            data: { type: 'file--file', id },
-          },
-        },
-      },
-    };
-
-    return this.http.post(`/api/v1/media/image`, mediaData, this.optionsWithBearerToken()).pipe(
-      map(() => void 0),
-      catchError(error => {
-        console.error('Create media image failed:', error);
-        return throwError(() => error);
-      })
+    return this.mediaUploadService.uploadImage(fileName, imageData, data =>
+      this.createMediaImage(data)
     );
   }
 
+  createMediaImage(data: any): Observable<void> {
+    return this.mediaUploadService.createMediaImage(data);
+  }
+
   imageHandler(editor: any): void {
-    if (!this.user) {
-      this.util.openSnackbar('请登录后上传图片！', 'ok');
-      return;
-    }
-    const Imageinput: any = document.createElement('input');
-    Imageinput.setAttribute('type', 'file');
-    Imageinput.setAttribute('accept', 'image/png, image/gif, image/jpeg, image/bmp, image/x-icon');
-    Imageinput.classList.add('ql-image');
-    if (Imageinput.files) {
-      Imageinput.addEventListener('change', () => {
-        const file = Imageinput.files[0];
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = (e: any) => {
-            const data = e.target.result;
-            this.uploadImage(file.name, data)
-              .pipe(take(1))
-              .subscribe((img: IMediaAttr) => {
-                const range = editor.getSelection(true);
-                editor.insertEmbed(range.index, 'image', img.uri.url);
-              });
-          };
-          reader.readAsArrayBuffer(file);
-        }
-      });
-      Imageinput.click();
-    }
+    this.mediaUploadService.imageHandler(editor, (fileName, imageData) =>
+      this.uploadImage(fileName, imageData)
+    );
   }
 }
