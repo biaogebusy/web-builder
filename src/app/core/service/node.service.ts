@@ -23,6 +23,7 @@ import {
   mapComment,
 } from '@core/util/node-comment.util';
 import { environment } from 'src/environments/environment';
+import { getLangPrefix } from '@core/util/language.util';
 
 type ApiQueryParams = QueryParams | string | null | undefined;
 
@@ -50,7 +51,7 @@ export class NodeService extends ApiService {
       return of(false);
     }
     if (langCode) {
-      lang = `/${langCode}`;
+      lang = getLangPrefix({ langCode });
     }
     if (api.startsWith('/api/')) {
       apiPath = `${this.apiUrl}${lang}${api}`;

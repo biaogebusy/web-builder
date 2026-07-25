@@ -64,7 +64,6 @@ describe('SearchComponent', () => {
     nodeService.getLang.mockReturnValue({
       label: 'EN',
       langCode: 'en',
-      prefix: '/en',
     });
 
     component.nodeSearch({ page: 0 });
@@ -77,7 +76,6 @@ describe('SearchComponent', () => {
     nodeService.getLang.mockReturnValue({
       label: '中文',
       langCode: 'zh-hans',
-      prefix: '/',
       default: true,
     });
 

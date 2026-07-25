@@ -98,7 +98,10 @@ describe('CustomTemplateComponent', () => {
   });
 
   it('should add the current non-default language to API requests', () => {
-    nodeService.resolveLangCode.mockReturnValue('en');
+    nodeService.getLang.mockReturnValue({
+      label: 'EN',
+      langCode: 'en',
+    });
 
     component.fetchContent('');
 
@@ -107,7 +110,11 @@ describe('CustomTemplateComponent', () => {
   });
 
   it('should keep API requests unprefixed for the default language', () => {
-    nodeService.resolveLangCode.mockReturnValue(undefined);
+    nodeService.getLang.mockReturnValue({
+      label: '中文',
+      langCode: 'zh-hans',
+      default: true,
+    });
 
     component.fetchContent('');
 

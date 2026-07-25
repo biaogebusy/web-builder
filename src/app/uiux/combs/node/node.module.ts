@@ -11,7 +11,6 @@ import { CommentListComponent } from './comment/comment-list/comment-list.compon
 import { ArticleMetaComponent } from './article/article-meta/article-meta.component';
 import { CommentActionsComponent } from './comment/comment-actions/comment-actions.component';
 import { CommentItemComponent } from './comment/comment-list/comment-item/comment-item.component';
-import { ReportComponent } from './report/report.component';
 import { HeaderMetaComponent } from './header-meta/header-meta.component';
 import { BaseModule } from '@uiux/base/base.module';
 import { FormModule } from '@uiux/combs/form/form.module';
@@ -27,7 +26,6 @@ const components = [
   CommentListComponent,
   CommentItemComponent,
   CommentActionsComponent,
-  ReportComponent,
   HeaderMetaComponent,
   BannerSimpleComponent,
   BreadcrumbComponent,
@@ -44,7 +42,6 @@ const components = [
   exports: [
     ArticleComponent,
     QuestionComponent,
-    ReportComponent,
     CommentFormComponent,
     CommentListComponent,
     CommentItemComponent,
@@ -55,7 +52,6 @@ export class NodeModule extends BaseModule {
   dynamicComponents = [
     ArticleComponent,
     QuestionComponent,
-    ReportComponent,
     BannerSimpleComponent,
     BreadcrumbComponent,
   ];
