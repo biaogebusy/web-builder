@@ -14,6 +14,7 @@ import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 import { BehaviorSubject, of, Subject } from 'rxjs';
 import { vi } from 'vitest';
 
+import { IPage } from '@core/interface/IAppConfig';
 import { ApiService } from '@core/service/api.service';
 import { BuilderService } from '@core/service/builder.service';
 import { ContentService } from '@core/service/content.service';
@@ -96,7 +97,7 @@ export const createBuilderStateMock = () => ({
   updateSuccess$: new Subject<boolean>(),
   COPYCOMPONENTKEY: 'cck',
   COPYWIDGETKEY: 'cwk',
-  version: signal([]),
+  version: signal<IPage[]>([]),
   versionKey: 'version',
   editingCodePath: signal(null),
   currentPage: { title: '', body: [] },
@@ -222,6 +223,7 @@ export const createContentServiceMock = () => ({
 export const createUserServiceMock = () => ({
   userSub$: new Subject<unknown>(),
   login: vi.fn(),
+  startAuthorize: vi.fn(() => Promise.resolve()),
   processTokenAndLogin: vi.fn(() => of(false)),
   updateUser: vi.fn(),
   editingUser: vi.fn(() => of({})),
