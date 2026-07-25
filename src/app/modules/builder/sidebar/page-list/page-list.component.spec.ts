@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideBuilderMocks } from '@modules/builder/testing/mocks';
 
 import { PageListComponent } from './page-list.component';
 
@@ -9,13 +11,11 @@ describe('PageListComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [PageListComponent],
+      providers: [provideRouter([]), ...provideBuilderMocks()],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(PageListComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

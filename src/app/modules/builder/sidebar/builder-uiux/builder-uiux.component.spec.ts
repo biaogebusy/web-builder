@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideBuilderMocks } from '@modules/builder/testing/mocks';
 
 import { BuilderUiuxComponent } from './builder-uiux.component';
 
@@ -9,13 +11,11 @@ describe('BuilderUiuxComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [BuilderUiuxComponent],
+      providers: [provideRouter([]), ...provideBuilderMocks()],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(BuilderUiuxComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

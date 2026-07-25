@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideBuilderMocks } from '@modules/builder/testing/mocks';
 
 import { SwitchPreviewComponent } from './switch-preview.component';
 
@@ -9,13 +11,11 @@ describe('SwitchPreviewComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [SwitchPreviewComponent],
+      providers: [provideRouter([]), ...provideBuilderMocks()],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(SwitchPreviewComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

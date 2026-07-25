@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideBuilderMocks } from '@modules/builder/testing/mocks';
 
 import { LayoutSettingComponent } from './layout-setting.component';
 
@@ -9,13 +11,12 @@ describe('LayoutSettingComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [LayoutSettingComponent],
+      providers: [provideRouter([]), ...provideBuilderMocks()],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(LayoutSettingComponent);
+    fixture.componentRef.setInput('content', { content: {}, fields: [] });
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

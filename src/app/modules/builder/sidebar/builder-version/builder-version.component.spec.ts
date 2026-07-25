@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideBuilderMocks } from '@modules/builder/testing/mocks';
 
 import { BuilderVersionComponent } from './builder-version.component';
 
@@ -9,13 +11,11 @@ describe('BuilderVersionComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [BuilderVersionComponent],
+      providers: [provideRouter([]), ...provideBuilderMocks()],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(BuilderVersionComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
