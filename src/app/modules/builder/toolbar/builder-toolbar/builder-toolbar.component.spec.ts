@@ -27,6 +27,8 @@ describe('BuilderToolbarComponent', () => {
     loading: { set: vi.fn() },
     updateSuccess$: { next: vi.fn() },
     deleteLocalPageByPage: vi.fn(),
+    fullScreen$: { next: vi.fn() },
+    saveLocalVersions: vi.fn(),
   };
   const builderService = {
     addTranslation: vi.fn(),
@@ -34,6 +36,8 @@ describe('BuilderToolbarComponent', () => {
     updateLandingPage: vi.fn(),
     loadPage: vi.fn(),
   };
+  const util = { openSnackbar: vi.fn() };
+  const storage = { retrieve: vi.fn(), observe: vi.fn(() => of([])), store: vi.fn() };
   const router = {
     navigate: vi.fn(),
   };
@@ -47,11 +51,11 @@ describe('BuilderToolbarComponent', () => {
         { provide: BUILDER_CURRENT_PAGE, useValue: signal(false) },
         { provide: MatDialog, useValue: { open: vi.fn() } },
         { provide: BuilderState, useValue: builder },
-        { provide: UtilitiesService, useValue: { openSnackbar: vi.fn() } },
+        { provide: UtilitiesService, useValue: util },
         { provide: ScreenState, useValue: {} },
         {
           provide: LocalStorageService,
-          useValue: { retrieve: vi.fn(), observe: vi.fn(() => of([])), store: vi.fn() },
+          useValue: storage,
         },
         { provide: ScreenService, useValue: { isPlatformBrowser: vi.fn(() => false) } },
         { provide: BuilderService, useValue: builderService },
@@ -128,5 +132,57 @@ describe('BuilderToolbarComponent', () => {
     component.onSubmit(page);
 
     expect(builder.deleteLocalPageByPage).not.toHaveBeenCalled();
+  });
+
+  it('navigates to the page list and broadcasts success after updating', () => {
+    const page: IPage = {
+      title: 'Existing page',
+      body: [{ type: 'text' }],
+      uuid: 'page-uuid',
+      nid: '42',
+    };
+    builder.currentPage = page;
+    builderService.updateLandingPage.mockReturnValue(of({ status: true, message: 'updated' }));
+
+    component.onSubmit(page);
+
+    expect(builder.updateSuccess$.next).toHaveBeenCalledWith(true);
+    expect(router.navigate).toHaveBeenCalledWith(['/builder/page-list'], { queryParams: {} });
+  });
+
+  it('blocks submission until the page has at least one component', () => {
+    component.page = { title: 'Empty', body: [] };
+
+    component.onSubmit({ title: 'Empty', body: [] });
+
+    expect(util.openSnackbar).toHaveBeenCalledWith('BUILDER.TOOLBAR.ADD_COMPONENT_FIRST', 'ok');
+    expect(builderService.createLandingPage).not.toHaveBeenCalled();
+    expect(builderService.updateLandingPage).not.toHaveBeenCalled();
+    expect(builderService.addTranslation).not.toHaveBeenCalled();
+  });
+
+  it('persists the fullscreen switch and broadcasts it', () => {
+    component.onFullScreen({ checked: true } as never);
+
+    expect(storage.store).toHaveBeenCalledWith('builderFullScreen', true);
+    expect(builder.fullScreen$.next).toHaveBeenCalledWith(true);
+  });
+
+  it('renames the current page and saves the local versions', () => {
+    builder.currentPage = { title: 'Old', body: [] };
+
+    component.onTitle({ target: { textContent: '新标题' } });
+
+    expect(builder.currentPage.title).toBe('新标题');
+    expect(builder.saveLocalVersions).toHaveBeenCalled();
+  });
+
+  it('keeps the title when the edited text is empty', () => {
+    builder.currentPage = { title: 'Old', body: [] };
+
+    component.onTitle({ target: { textContent: '' } });
+
+    expect(builder.currentPage.title).toBe('Old');
+    expect(builder.saveLocalVersions).not.toHaveBeenCalled();
   });
 });
