@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideCoreMocks } from '@core/testing/mocks';
 
 import { UserSettingComponent } from './user-setting.component';
 
@@ -8,13 +10,12 @@ describe('UserSettingComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UserSettingComponent]
-    })
-    .compileComponents();
+      imports: [UserSettingComponent],
+      providers: [provideRouter([]), ...provideCoreMocks()],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(UserSettingComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
