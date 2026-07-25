@@ -11,7 +11,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule } from '@ngx-translate/core';
 import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
-import { BehaviorSubject, of, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { vi } from 'vitest';
 
 import { IPage } from '@core/interface/IAppConfig';
@@ -102,7 +102,7 @@ export const createBuilderStateMock = () => ({
   editingCodePath: signal(null),
   currentPage: { title: '', body: [] },
   queuePageLoad: vi.fn(),
-  consumePageLoad: vi.fn(() => null),
+  consumePageLoad: vi.fn((): unknown => null),
   showcase: vi.fn(),
   updateVersion: vi.fn(),
   deleteLocalPage: vi.fn(),
@@ -162,10 +162,10 @@ export const createApiServiceMock = () => ({
 });
 
 export const createNodeServiceMock = () => ({
-  fetch: vi.fn(() => of({ rows: [], pager: {} })),
+  fetch: vi.fn((): Observable<any> => of({ rows: [], pager: {} })),
   resolveLangCode: vi.fn(() => undefined),
-  getNodeByLink: vi.fn(() => of({})),
-  getNodes: vi.fn(() => of({ rows: [], pager: {} })),
+  getNodeByLink: vi.fn((): Observable<any> => of({})),
+  getNodes: vi.fn((): Observable<any> => of({ rows: [], pager: {} })),
   batchDeleteNodes: vi.fn(() => of([])),
   deleteEntity: vi.fn(() => of({})),
   addEntity: vi.fn(() => of({})),
