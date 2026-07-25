@@ -28,6 +28,7 @@ import { appendQueryParams } from '@core/util/http-params.util';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TranslateService } from '@ngx-translate/core';
+import { buildPageSettingAttributes, buildPageSettingRelationships } from './page-setting-payload';
 
 @Component({
   selector: 'app-page-setting',
@@ -406,60 +407,17 @@ export class PageSettingComponent implements OnInit {
   }
 
   getAttributesParams(value: any): object {
-    const { title, is_transparent, transparent_style, type } = value;
-    const common = {
-      title,
-    };
-    if (type === 'node--landing_page') {
-      return {
-        ...common,
-        is_transparent,
-        transparent_style,
-      };
-    }
-
-    if (type === 'node--json') {
-      return {
-        ...common,
-      };
-    }
-
-    return {};
+    return buildPageSettingAttributes(value);
   }
 
   getRelationshiopParams(value: any): object {
-    const { page_group, type } = value;
-    if (type === 'node--landing_page') {
-      return {
-        uid: {
-          data: {
-            type: 'user--user',
-            id: (this.user() as IUser)?.id,
-          },
-        },
-        group: {
-          data: page_group
-            ? {
-                type: 'taxonomy_term--page_group',
-                id: page_group,
-              }
-            : null,
-        },
-      };
-    }
+    const { type } = value;
+    const userId =
+      type === 'node--landing_page' || type === 'node--json'
+        ? (this.user() as IUser)?.id
+        : undefined;
 
-    if (type === 'node--json') {
-      return {
-        uid: {
-          data: {
-            type: 'user--user',
-            id: (this.user() as IUser)?.id,
-          },
-        },
-      };
-    }
-
-    return {};
+    return buildPageSettingRelationships(value, userId);
   }
 
   onPreview(): void {
