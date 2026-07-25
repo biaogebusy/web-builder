@@ -30,6 +30,8 @@ export default defineConfig({
     globals: true,
     include: [
       'src/app/core/util/**/*.spec.ts',
+      'src/app/core/state/BuilderState.spec.ts',
+      'src/app/modules/builder/main/edit-branding/**/*.spec.ts',
       'src/app/uiux/combs/other/code-editor/code-editor.component.spec.ts',
       'src/app/uiux/combs/other/custom-template/custom-template.component.spec.ts',
       'src/app/uiux/combs/node/article/article.component.spec.ts',

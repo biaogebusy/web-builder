@@ -33,6 +33,11 @@ import { HasUnsavedChanges } from '@core/guards/unsaved-changes.guard';
 import { formatBrandingJson, getBrandingJsonError, mergeBrandingJson } from '../branding-json.util';
 import { buildHeaderConfig } from '../branding-config.util';
 import {
+  BRANDING_JSON_ENDPOINT,
+  buildBrandingUpdateBody,
+  canSaveBranding,
+} from '../branding-save.util';
+import {
   appendBrandingChild,
   appendBrandingItem,
   insertBrandingChild,
@@ -86,7 +91,9 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
   jsonError = signal('');
 
   // Save button state
-  canSave = computed(() => this.dirty() && !this.loading() && !this.saving() && !!this.header());
+  canSave = computed(() =>
+    canSaveBranding(this.dirty(), this.loading(), this.saving(), !!this.header())
+  );
 
   paramsForm = new UntypedFormGroup({});
   paramsModel: Record<string, unknown> = {};
@@ -562,13 +569,11 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
       }
     }
 
-    const updatedBranding: IBranding = { ...branding, header };
-
     this.builderService
       .updateAttributes(
         { uuid: this.nodeUuid(), langcode: this.nodeLangcode() },
-        '/api/v1/node/json',
-        { body: JSON.stringify(updatedBranding) },
+        BRANDING_JSON_ENDPOINT,
+        buildBrandingUpdateBody(branding, 'header', header),
         {}
       )
       .pipe(takeUntilDestroyed(this.destroyRef))

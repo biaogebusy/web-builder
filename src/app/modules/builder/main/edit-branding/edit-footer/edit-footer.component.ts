@@ -33,6 +33,11 @@ import { TranslateService } from '@ngx-translate/core';
 import { formatBrandingJson, getBrandingJsonError, mergeBrandingJson } from '../branding-json.util';
 import { buildFooterConfig } from '../branding-config.util';
 import {
+  BRANDING_JSON_ENDPOINT,
+  buildBrandingUpdateBody,
+  canSaveBranding,
+} from '../branding-save.util';
+import {
   appendBrandingChild,
   appendBrandingItem,
   insertBrandingChild,
@@ -91,7 +96,9 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
   customJson = '';
   jsonError = signal('');
 
-  canSave = computed(() => this.dirty() && !this.loading() && !this.saving() && !!this.footer());
+  canSave = computed(() =>
+    canSaveBranding(this.dirty(), this.loading(), this.saving(), !!this.footer())
+  );
 
   paramsForm = new UntypedFormGroup({});
   paramsModel: Record<string, unknown> = {};
@@ -616,12 +623,11 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
       }
     }
 
-    const updatedBranding: IBranding = { ...branding, footer };
     this.builderService
       .updateAttributes(
         { uuid: this.nodeUuid(), langcode: this.nodeLangcode() },
-        '/api/v1/node/json',
-        { body: JSON.stringify(updatedBranding) },
+        BRANDING_JSON_ENDPOINT,
+        buildBrandingUpdateBody(branding, 'footer', footer),
         {}
       )
       .pipe(takeUntilDestroyed(this.destroyRef))
