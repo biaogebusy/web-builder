@@ -25,7 +25,9 @@ export class TagsService {
         link.href = origin;
         this.document.head.appendChild(link);
       }
-    } catch {}
+    } catch {
+      // Preconnect hints are best-effort and must not prevent service creation.
+    }
   }
 
   public setTitle(newTitle: string): void {

@@ -16,8 +16,7 @@ describe('CustomTemplateComponent', () => {
   let component: CustomTemplateComponent;
   let fixture: ComponentFixture<CustomTemplateComponent>;
   const nodeService = {
-    pageUrl: '/en/example',
-    getLang: vi.fn(),
+    resolveLangCode: vi.fn(),
     fetch: vi.fn(() => NEVER),
   };
   const screenService = {
@@ -106,7 +105,7 @@ describe('CustomTemplateComponent', () => {
 
     component.fetchContent('');
 
-    expect(nodeService.getLang).toHaveBeenCalledWith('/en/example');
+    expect(nodeService.resolveLangCode).toHaveBeenCalledOnce();
     expect(nodeService.fetch).toHaveBeenCalledWith('/api/v2/xxx', '', 'en');
   });
 
@@ -119,6 +118,7 @@ describe('CustomTemplateComponent', () => {
 
     component.fetchContent('');
 
+    expect(nodeService.resolveLangCode).toHaveBeenCalledOnce();
     expect(nodeService.fetch).toHaveBeenCalledWith('/api/v2/xxx', '', undefined);
   });
 });

@@ -250,7 +250,7 @@ export class ManageUiuxComponent {
     let currentL1: GroupL1Row | null = null;
     let currentL2: GroupL2Row | null = null;
     let l2Matches: IComponentItem[] = [];
-    let matchedSections: Array<{ group: GroupL2Row; items: IComponentItem[] }> = [];
+    let matchedSections: { group: GroupL2Row; items: IComponentItem[] }[] = [];
 
     const flushL2 = (): void => {
       if (currentL2 && l2Matches.length > 0) {

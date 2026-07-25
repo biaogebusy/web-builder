@@ -7,14 +7,22 @@ import { catchError, map, switchMap, take } from 'rxjs/operators';
 import { isEmpty } from 'lodash-es';
 import type { IArticleAccess } from '@core/interface/node/IArticle';
 import type { IComment } from '@core/interface/node/INode';
-import { formatDate } from '@angular/common';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
 import { UtilitiesService } from './utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { IMediaAttr } from '@core/interface/manage/IManage';
-import { appendQueryParams, buildQueryString, QueryParams } from '@core/util/http-params.util';
+import { appendQueryParams, QueryParams } from '@core/util/http-params.util';
+import { resolveNodeLangCode } from '@core/util/node-lang.util';
+import {
+  buildCommentsParams,
+  buildCommentsPidParams,
+  getCommentRelEntityId,
+  getCommentType,
+  mapComment,
+} from '@core/util/node-comment.util';
+import { environment } from 'src/environments/environment';
 import { getLangPrefix } from '@core/util/language.util';
 
 type ApiQueryParams = QueryParams | string | null | undefined;
@@ -61,11 +69,13 @@ export class NodeService extends ApiService {
   }
 
   resolveLangCode(elementRef?: ElementRef): string | undefined {
-    const inCanvas = !!elementRef?.nativeElement.closest('.component-item');
-    const override = inCanvas ? this.builder.currentPage?.langcode : undefined;
-    const url = override ? `/${override}` : this.pageUrl;
-    const lang = this.getLang(url);
-    return lang?.default ? undefined : lang?.langCode;
+    return resolveNodeLangCode({
+      pageUrl: this.pageUrl,
+      builderLangcode: this.builder.currentPage?.langcode,
+      inCanvas: !!elementRef?.nativeElement.closest('.component-item'),
+      multiLang: environment.multiLang,
+      languages: environment.langs,
+    });
   }
 
   getNodeByLink(link: string): Observable<any> {
@@ -168,73 +178,23 @@ export class NodeService extends ApiService {
   }
 
   getCommentType(content: any): string {
-    return content?.params?.comment?.attributes?.field_name || '';
+    return getCommentType(content);
   }
 
   getCommentRelEntityId(content: any): string {
-    return content?.params?.comment?.relationships?.entity_id?.data?.id || '';
+    return getCommentRelEntityId(content);
   }
 
   getCommentsParams(content: any, timeStamp: number): any {
-    const type = this.getCommentType(content);
-    return {
-      path: this.commentGetPath,
-      type,
-      params: buildQueryString(
-        {
-          'filter[entity_id.id]': this.getCommentRelEntityId(content),
-          include: 'uid,uid.user_picture,pid',
-          'fields[user--user]': 'name,user_picture',
-          'fields[file--file]': 'uri,url',
-          sort: '-created',
-          // 'filter[status]': 1,
-          jsonapi_include: 1,
-          timeStamp,
-        },
-        { encodeKeys: false }
-      ),
-    };
+    return buildCommentsParams(content, timeStamp, this.commentGetPath);
   }
 
   getCommentsPidParams(pid: string, timeStamp: number): string {
-    return buildQueryString(
-      {
-        'filter[pid.id]': pid,
-        include: 'uid,uid.user_picture,pid',
-        'fields[user--user]': 'name,user_picture',
-        'fields[file--file]': 'uri,url',
-        sort: '-created',
-        // 'filter[status]': 1,
-        jsonapi_include: 1,
-        timeStamp,
-      },
-      { encodeKeys: false }
-    );
+    return buildCommentsPidParams(pid, timeStamp);
   }
 
   handleComment(comment: any, level: number): IComment {
-    return {
-      author: {
-        img: {
-          src: comment.uid?.user_picture?.uri?.url || this.coreConfig?.defaultAvatar,
-          style: {
-            borderRadius: '50%',
-          },
-          width: 40,
-          height: 40,
-          alt: comment.uid.name,
-        },
-        align: 'center start',
-        id: comment.uid.id,
-        title: comment.uid.name,
-        subTitle: formatDate(comment.changed || comment.created, 'yyyy-MM-dd HH:mm:ss', 'en-US'),
-      },
-      time: comment.changed,
-      id: comment.id,
-      content: comment?.content?.processed || comment?.comment_body?.processed,
-      child: [],
-      level,
-    };
+    return mapComment(comment, level, this.coreConfig?.defaultAvatar);
   }
 
   // api 在有权限的时候会有很大的性能开销，可使用自定义api

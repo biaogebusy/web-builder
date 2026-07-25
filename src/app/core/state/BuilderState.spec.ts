@@ -2,137 +2,118 @@ import { DOCUMENT } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 import type { IPage } from '@core/interface/IAppConfig';
+import { LocalStorageService } from 'ngx-webstorage';
+import { vi } from 'vitest';
+
 import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { LocalStorageService } from 'ngx-webstorage';
 import { BuilderState } from './BuilderState';
 
-describe('BuilderState', () => {
-  const storage = {
-    retrieve: vi.fn(),
-    store: vi.fn(),
-  };
+const makePage = (body: any[], extra: Partial<IPage> = {}): IPage => ({
+  title: 'Test page',
+  body,
+  current: true,
+  ...extra,
+});
 
-  beforeEach(() => {
-    vi.clearAllMocks();
-    storage.retrieve.mockReturnValue([]);
+describe('BuilderState tree and draft behavior', () => {
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
+
+  const createState = (pages: IPage[]) => {
+    const storage = {
+      retrieve: vi.fn(() => pages),
+      store: vi.fn(),
+    };
+
     TestBed.configureTestingModule({
       providers: [
         BuilderState,
         { provide: DOCUMENT, useValue: document },
-        { provide: MatDialog, useValue: {} },
-        { provide: UtilitiesService, useValue: {} },
-        { provide: ScreenService, useValue: { scrollToAnchor: vi.fn() } },
         { provide: LocalStorageService, useValue: storage },
+        { provide: MatDialog, useValue: { open: vi.fn(), getDialogById: vi.fn() } },
+        { provide: ScreenService, useValue: { scrollToAnchor: vi.fn() } },
+        { provide: UtilitiesService, useValue: { openSnackbar: vi.fn() } },
       ],
     });
-  });
 
-  it('deletes a persisted page history record by page identity', () => {
-    const service = TestBed.inject(BuilderState);
-    service.version.set([
-      {
-        title: 'English page',
-        body: [],
-        uuid: 'page-uuid',
-        nid: '42',
-        langcode: 'en',
-        current: true,
-      },
-      {
-        title: 'Other page',
-        body: [],
-        uuid: 'other-uuid',
-        nid: '43',
-        langcode: 'en',
-      },
-    ]);
-
-    service.deleteLocalPageByPage({
-      title: 'Submitted page',
-      body: [],
-      uuid: 'page-uuid',
-      nid: '42',
-      langcode: 'en',
-    });
-
-    expect(service.version()).toEqual([
-      {
-        title: 'Other page',
-        body: [],
-        uuid: 'other-uuid',
-        nid: '43',
-        langcode: 'en',
-        current: true,
-      },
-    ]);
-    expect(storage.store).toHaveBeenCalledWith('version', service.version());
-  });
-
-  it('deletes an unsaved draft by object identity', () => {
-    const service = TestBed.inject(BuilderState);
-    const draft: IPage = {
-      title: 'Draft',
-      body: [],
-      current: true,
+    return {
+      state: TestBed.inject(BuilderState),
+      storage,
     };
-    service.version.set([
-      draft,
-      {
-        title: 'Other draft',
-        body: [],
-      },
-    ]);
+  };
 
-    service.deleteLocalPageByPage(draft);
+  it('resolves root and nested component paths', () => {
+    const body = [
+      { type: 'layout', elements: [{ type: 'text' }, { type: 'img' }] },
+      { type: 'hero' },
+    ];
+    const { state } = createState([makePage(body)]);
 
-    expect(service.version()).toEqual([
-      {
-        title: 'Other draft',
-        body: [],
-        current: true,
-      },
-    ]);
+    expect(state.targetIndex('2.elements.1')).toBe(1);
+    expect(state.targetIndex('3')).toBe(3);
+    expect(state.getArrsByPath('0.elements.1', body)).toBe(body[0].elements);
+    expect(state.getArrsByPath('1', body)).toBe(body);
   });
 
-  it('does not change history when the page is not found', () => {
-    const service = TestBed.inject(BuilderState);
-    service.version.set([
-      {
-        title: 'Existing page',
-        body: [],
-        uuid: 'existing-uuid',
-        current: true,
-      },
-    ]);
+  it('replaces nested content without mutating the previous body', () => {
+    const body = [{ type: 'layout', elements: [{ type: 'text' }] }];
+    const { state, storage } = createState([makePage(body)]);
 
-    service.deleteLocalPageByPage({
-      title: 'Missing page',
-      body: [],
-      uuid: 'missing-uuid',
-    });
+    state.updatePageContentByPath('0.elements.0', { type: 'img' });
 
-    expect(service.version()).toHaveLength(1);
-    expect(storage.store).not.toHaveBeenCalled();
+    expect(state.currentPage.body[0].elements?.[0]).toEqual({ type: 'img' });
+    expect(body[0].elements?.[0]).toEqual({ type: 'text' });
+    expect(storage.store).toHaveBeenCalledOnce();
   });
 
-  it('starts a fresh draft after deleting the final history record', () => {
-    const service = TestBed.inject(BuilderState);
-    const page: IPage = {
-      title: 'Submitted page',
-      body: [{ type: 'text' }],
+  it('adds and removes nested content relative to the target index', () => {
+    const body = [{ type: 'layout', elements: [{ type: 'text' }] }];
+    const { state } = createState([makePage(body)]);
+
+    state.updatePageContentByPath('0.elements.0', { type: 'img' }, 'add');
+    expect(state.currentPage.body[0].elements?.map(item => item.type)).toEqual(['text', 'img']);
+
+    state.updatePageContentByPath('0.elements.1', undefined, 'remove');
+    expect(state.currentPage.body[0].elements?.map(item => item.type)).toEqual(['text']);
+  });
+
+  it('clones a root component when inserting after a root index', () => {
+    const body = [{ type: 'text' }];
+    const widget = { type: 'card', nested: { value: 1 } };
+    const { state } = createState([makePage(body)]);
+
+    state.updatePageContentByPath('0', widget, 'add');
+
+    const inserted = state.currentPage.body[1];
+    expect(inserted).toEqual(widget);
+    expect(inserted).not.toBe(widget);
+  });
+
+  it('replaces an existing page by uuid and language while updating current flags', () => {
+    const current = makePage([], { uuid: 'page-1', langcode: 'zh-hans' });
+    const other = makePage([], { uuid: 'page-2', langcode: 'en', current: false });
+    const { state, storage } = createState([current, other]);
+    const closeDrawer = vi.fn();
+    state.closeRightDrawer$.subscribe(closeDrawer);
+
+    state.loadNewPage(
+      makePage([], {
+        uuid: 'page-1',
+        langcode: 'zh-hans',
+        title: 'Updated page',
+      })
+    );
+
+    expect(state.version()[0]).toMatchObject({
+      uuid: 'page-1',
+      langcode: 'zh-hans',
+      title: 'Updated page',
       current: true,
-    };
-    service.version.set([page]);
-
-    service.deleteLocalPageByPage(page);
-
-    expect(service.version()).toEqual([
-      expect.objectContaining({
-        title: '着陆页',
-        body: [],
-        current: true,
-      }),
-    ]);
+    });
+    expect(state.version()[1].current).toBe(false);
+    expect(closeDrawer).toHaveBeenCalledWith(true);
+    expect(storage.store).toHaveBeenCalledOnce();
   });
 });

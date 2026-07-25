@@ -24,6 +24,13 @@ const loadDialogComponent = (): Promise<typeof DialogComponent> =>
 import { IDialog } from '@core/interface/IDialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IComponentToolbar } from '@core/interface/combs/IBuilder';
+import {
+  getBuilderArrayByPath,
+  getBuilderTargetIndex,
+  insertBuilderTreeValueAfter,
+  removeBuilderTreeValue,
+  setBuilderTreeValue,
+} from '@core/util/builder-tree.util';
 
 export interface IBuilderPendingPageLoad {
   nid: string;
@@ -268,13 +275,7 @@ export class BuilderState {
   }
 
   getArrsByPath(path: string, body: any[]): any[] {
-    if (path.includes('.')) {
-      const after = path.slice(0, path.lastIndexOf('.'));
-      return get(body, after);
-    } else {
-      // 一级组件
-      return body;
-    }
+    return getBuilderArrayByPath(path, body);
   }
 
   upDownComponent(direction: string, path: string): void {
@@ -315,12 +316,7 @@ export class BuilderState {
   }
 
   targetIndex(path: string): number {
-    const lastDotIndex = path.lastIndexOf('.');
-    if (lastDotIndex !== -1) {
-      return Number(path.slice(lastDotIndex + 1));
-    } else {
-      return Number(path);
-    }
+    return getBuilderTargetIndex(path);
   }
 
   bulkUpdateComponent(content: object): void {
@@ -347,81 +343,15 @@ export class BuilderState {
   updatePageContentByPath(path: string, content: any, addType?: 'add' | 'remove'): void {
     const currentPage = this.currentPage;
     const { body } = currentPage;
-    const lastDotIndex = path.lastIndexOf('.');
-    const before = path.slice(0, lastDotIndex);
-    const targetIndex = Number(path.slice(lastDotIndex + 1));
-
-    let newBody: any[] = body;
-
-    switch (addType) {
-      case 'add':
-        if (lastDotIndex !== -1) {
-          // 对子级组件的数组操作
-          const targetArray = get(body, before);
-          if (Array.isArray(targetArray)) {
-            const nextArray = [
-              ...targetArray.slice(0, targetIndex + 1),
-              content,
-              ...targetArray.slice(targetIndex + 1),
-            ];
-            newBody = this.immutableSet(body, before, nextArray);
-          }
-        } else {
-          // body 一级组件
-          const index = Number(path);
-          newBody = [
-            ...body.slice(0, index + 1),
-            cloneDeep(content),
-            ...body.slice(index + 1),
-          ];
-        }
-        break;
-      case 'remove':
-        // 移除子级数组的组件
-        {
-          const targetArray = get(body, before);
-          if (Array.isArray(targetArray)) {
-            const nextArray = [
-              ...targetArray.slice(0, targetIndex),
-              ...targetArray.slice(targetIndex + 1),
-            ];
-            newBody = this.immutableSet(body, before, nextArray);
-          }
-        }
-        break;
-      default:
-        // 根据路径直接覆盖，整个对象、某个属性等
-        newBody = this.immutableSet(body, path, content);
-        break;
-    }
+    const newBody =
+      addType === 'add'
+        ? insertBuilderTreeValueAfter(body, path, content)
+        : addType === 'remove'
+          ? removeBuilderTreeValue(body, path)
+          : setBuilderTreeValue(body, path, content);
 
     // 不可变更新：产生新的 page/body 引用，触发 currentPage signal 通知消费者重渲染
     this.setCurrentPage({ ...currentPage, body: newBody });
-  }
-
-  /**
-   * 沿 dotted path 不可变地写入 value，返回新的根数组。
-   * 路径上各级祖先都会产生新引用，便于 signal 通知与 @for track diff。
-   */
-  private immutableSet(root: any[], path: string, value: any): any[] {
-    if (!path) {
-      return value;
-    }
-    const keys = path.split('.');
-    let child = value;
-    for (let i = keys.length - 1; i >= 0; i--) {
-      const key = keys[i];
-      const parent = i === 0 ? root : get(root, keys.slice(0, i).join('.'));
-      const keyIndex = Number(key);
-      if (!isNaN(keyIndex) && Array.isArray(parent)) {
-        const arr = [...parent];
-        arr[keyIndex] = child;
-        child = arr;
-      } else {
-        child = { ...(parent || {}), [key]: child };
-      }
-    }
-    return child;
   }
 
   onDrop(event: CdkDragDrop<IDynamicInputs[]>): void {
