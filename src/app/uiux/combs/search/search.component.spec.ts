@@ -14,8 +14,7 @@ describe('SearchComponent', () => {
   let component: SearchComponent;
   let fixture: ComponentFixture<SearchComponent>;
   const nodeService = {
-    pageUrl: '/en/search',
-    getLang: vi.fn(),
+    resolveLangCode: vi.fn<() => string | undefined>(),
     fetch: vi.fn(() => NEVER),
   };
 
@@ -60,24 +59,17 @@ describe('SearchComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should add the current non-default language to search requests', () => {
-    nodeService.getLang.mockReturnValue({
-      label: 'EN',
-      langCode: 'en',
-    });
+  it('should pass the resolved non-default language to search requests', () => {
+    nodeService.resolveLangCode.mockReturnValue('en');
 
     component.nodeSearch({ page: 0 });
 
-    expect(nodeService.getLang).toHaveBeenCalledWith('/en/search');
+    expect(nodeService.resolveLangCode).toHaveBeenCalled();
     expect(nodeService.fetch).toHaveBeenCalledWith('/api/v2/search', 'page=0', 'en');
   });
 
   it('should keep search requests unprefixed for the default language', () => {
-    nodeService.getLang.mockReturnValue({
-      label: '中文',
-      langCode: 'zh-hans',
-      default: true,
-    });
+    nodeService.resolveLangCode.mockReturnValue(undefined);
 
     component.nodeSearch({ page: 0 });
 

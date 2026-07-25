@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideUiuxMocks } from '@uiux/testing/mocks';
 
 import { DynamicFormComponent } from './dynamic-form.component';
 
@@ -8,15 +10,13 @@ describe('DynamicFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ DynamicFormComponent ]
-    })
-    .compileComponents();
-  });
+      imports: [DynamicFormComponent],
+      providers: [provideRouter([]), ...provideUiuxMocks()],
+    }).compileComponents();
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(DynamicFormComponent);
+    fixture.componentRef.setInput('content', { form: {} });
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

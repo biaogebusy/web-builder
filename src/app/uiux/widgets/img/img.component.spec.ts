@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideUiuxMocks } from '@uiux/testing/mocks';
 
 import { ImgComponent } from './img.component';
 
@@ -9,6 +11,7 @@ describe('ImgComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ImgComponent],
+      providers: [provideRouter([]), ...provideUiuxMocks()],
     }).compileComponents();
   });
 

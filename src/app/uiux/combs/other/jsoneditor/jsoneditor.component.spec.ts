@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideUiuxMocks } from '@uiux/testing/mocks';
 
 import { JsoneditorComponent } from './jsoneditor.component';
 
@@ -9,13 +11,12 @@ describe('JsoneditorComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [JsoneditorComponent],
+      providers: [provideRouter([]), ...provideUiuxMocks()],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(JsoneditorComponent);
+    fixture.componentRef.setInput('content', {});
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

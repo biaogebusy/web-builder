@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideUiuxMocks } from '@uiux/testing/mocks';
 
 import { NotifyComponent } from './notify.component';
 
@@ -9,13 +11,11 @@ describe('NotifyComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [NotifyComponent],
+      providers: [provideRouter([]), ...provideUiuxMocks()],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(NotifyComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

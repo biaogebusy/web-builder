@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideUiuxMocks } from '@uiux/testing/mocks';
 
 import { ChartBoxComponent } from './chart-box.component';
 
@@ -9,13 +11,12 @@ describe('ChartBoxComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ChartBoxComponent],
+      providers: [provideRouter([]), ...provideUiuxMocks()],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(ChartBoxComponent);
+    fixture.componentRef.setInput('content', {});
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

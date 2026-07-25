@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideUiuxMocks } from '@uiux/testing/mocks';
 
 import { CommentFormComponent } from './comment-form.component';
 
@@ -9,13 +11,12 @@ describe('CommentFormComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [CommentFormComponent],
+      providers: [provideRouter([]), ...provideUiuxMocks()],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(CommentFormComponent);
+    fixture.componentRef.setInput('content', {});
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

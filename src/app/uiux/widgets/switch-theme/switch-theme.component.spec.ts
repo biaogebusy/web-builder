@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideUiuxMocks } from '@uiux/testing/mocks';
 
 import { SwitchThemeComponent } from './switch-theme.component';
 
@@ -9,13 +11,11 @@ describe('SwitchThemeComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [SwitchThemeComponent],
+      providers: [provideRouter([]), ...provideUiuxMocks()],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(SwitchThemeComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
