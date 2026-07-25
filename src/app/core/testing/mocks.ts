@@ -138,6 +138,7 @@ export const createUtilitiesServiceMock = () => ({
   getLibraries: vi.fn(() => of(true)),
   openSnackbar: vi.fn(),
   loadScript: vi.fn(() => Promise.resolve()),
+  loadScriptWithoutAmd: vi.fn(() => Promise.resolve()),
   loadStyle: vi.fn(() => Promise.resolve()),
   copy: vi.fn(),
   intersectionObserver: vi.fn(() => () => {}),

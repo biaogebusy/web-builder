@@ -1,8 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
-import { createScreenServiceMock } from '@core/testing/mocks';
+import { UtilitiesService } from '@core/service/utilities.service';
+import {
+  createNodeServiceMock,
+  createScreenServiceMock,
+  createUtilitiesServiceMock,
+} from '@core/testing/mocks';
 import { provideUiuxMocks } from '@uiux/testing/mocks';
+import { throwError } from 'rxjs';
 
 import { CommentItemComponent } from './comment-item.component';
 
@@ -10,6 +17,8 @@ describe('CommentItemComponent', () => {
   let component: CommentItemComponent;
   let fixture: ComponentFixture<CommentItemComponent>;
   const screenService = createScreenServiceMock();
+  const nodeService = createNodeServiceMock();
+  const util = createUtilitiesServiceMock();
 
   beforeEach(async () => {
     vi.clearAllMocks();
@@ -19,6 +28,8 @@ describe('CommentItemComponent', () => {
         provideRouter([]),
         ...provideUiuxMocks(),
         { provide: ScreenService, useValue: screenService },
+        { provide: NodeService, useValue: nodeService },
+        { provide: UtilitiesService, useValue: util },
       ],
     }).compileComponents();
 
@@ -67,5 +78,35 @@ describe('CommentItemComponent', () => {
 
     expect(component.onShow({ id: 'c-1' })).toBe(true);
     expect(component.onShow({ id: 'c-2' })).toBe(false);
+  });
+
+  it('deletes the comment against its field endpoint and confirms', () => {
+    fixture.componentRef.setInput('content', {
+      params: { comment: { attributes: { field_name: 'comment' } } },
+    });
+
+    component.onDelete('c-9');
+
+    expect(nodeService.deleteEntity).toHaveBeenCalledWith('/api/v1/comment/comment', 'c-9');
+    expect(component.loading).toBe(false);
+    expect(util.openSnackbar).toHaveBeenCalledWith('您的回答已删除！', '√');
+  });
+
+  it('hints at the user state when deleting fails', () => {
+    fixture.componentRef.setInput('content', {
+      params: { comment: { attributes: { field_name: 'comment' } } },
+    });
+    nodeService.deleteEntity.mockReturnValueOnce(throwError(() => new Error('403')));
+
+    component.onDelete('c-9');
+
+    expect(component.loading).toBe(false);
+    expect(util.openSnackbar).toHaveBeenCalledWith('Please check user state.', '√');
+  });
+
+  it('skips deleting when the node carries no comment params', () => {
+    component.onDelete('c-9');
+
+    expect(nodeService.deleteEntity).not.toHaveBeenCalled();
   });
 });
