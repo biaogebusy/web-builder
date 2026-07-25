@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideCoreMocks } from '@core/testing/mocks';
 
 import { TaxonomyComponent } from './taxonomy.component';
 
@@ -8,13 +10,13 @@ describe('TaxonomyComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TaxonomyComponent]
-    })
-    .compileComponents();
+      imports: [TaxonomyComponent],
+      providers: [provideRouter([]), ...provideCoreMocks()],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TaxonomyComponent);
+    fixture.componentRef.setInput('content', { title: '' });
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
