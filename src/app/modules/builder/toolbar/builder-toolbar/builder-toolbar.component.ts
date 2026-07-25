@@ -164,6 +164,7 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
               }
             );
             this.builder.loading.set(false);
+            this.builder.deleteLocalPageByPage(page);
             this.builder.updateSuccess$.next(true);
             if (page.nid) {
               this.builderService.loadPage({
@@ -176,14 +177,17 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
     } else {
       if (page.uuid && page.nid) {
         // update page
+        const submittedPage = this.builder.currentPage;
         this.util.openSnackbar(this.translate.instant('BUILDER.TOOLBAR.UPDATING'), 'ok');
         this.builderService
-          .updateLandingPage(this.builder.currentPage)
+          .updateLandingPage(submittedPage, false)
           .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe(res => {
             const { status, message } = res;
+            this.builder.loading.set(false);
             this.gotoPageList();
             if (status) {
+              this.builder.deleteLocalPageByPage(submittedPage);
               this.builder.updateSuccess$.next(true);
             } else {
               this.util.openSnackbar(message, 'ok');
@@ -194,8 +198,9 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
           this.onNewPage();
         } else {
           // submit new page
+          const submittedPage = this.builder.currentPage;
           this.builderService
-            .createLandingPage(this.builder.currentPage)
+            .createLandingPage(submittedPage, false)
             .pipe(
               takeUntilDestroyed(this.destroyRef),
               catchError(() => {
@@ -205,8 +210,10 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
             )
             .subscribe(res => {
               const { status, message } = res;
+              this.builder.loading.set(false);
               this.gotoPageList();
               if (status) {
+                this.builder.deleteLocalPageByPage(submittedPage);
                 this.util.openSnackbar(message, 'ok');
                 this.builder.updateSuccess$.next(true);
               } else {

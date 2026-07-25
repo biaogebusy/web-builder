@@ -127,16 +127,55 @@ export class BuilderState {
   }
 
   deleteLocalPage(index: number): void {
+    const versions = this.version();
+    if (!Number.isInteger(index) || index < 0 || index >= versions.length) {
+      return;
+    }
     this.version.update(v => {
-      const next = [...v];
-      next.splice(index, 1);
-      if (next[0]) {
-        next[0].current = true;
+      const next = v.filter((_, itemIndex) => itemIndex !== index);
+      if (next.length === 0) {
+        return [
+          {
+            ...this.defaultPage,
+            current: true,
+            time: new Date().toLocaleString(),
+          },
+        ];
+      }
+      if (!next.some(page => page.current)) {
+        next[0] = { ...next[0], current: true };
       }
       return next;
     });
     this.closeRightDrawer$.next(true);
     this.saveLocalVersions();
+  }
+
+  deleteLocalPageByPage(page: IPage): void {
+    const langcode = page.langcode ?? '';
+    const index = this.version().findIndex(item => {
+      if (item === page) {
+        return true;
+      }
+      if (
+        page.uuid &&
+        item.uuid &&
+        item.uuid === page.uuid &&
+        (item.langcode ?? '') === langcode
+      ) {
+        return true;
+      }
+      if (
+        page.nid &&
+        item.nid &&
+        item.nid === page.nid &&
+        (item.langcode ?? '') === langcode
+      ) {
+        return true;
+      }
+      return false;
+    });
+    this.deleteLocalPage(index);
   }
 
   clearAllHistory(): void {
