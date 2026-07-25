@@ -23,11 +23,11 @@ import { UserService } from '@core/service/user.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { USER } from '@core/token/token-providers';
-import { getAttrAlias } from '@core/util/builder-page.util';
 import { appendQueryParams } from '@core/util/http-params.util';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TranslateService } from '@ngx-translate/core';
+import { buildPageSettingCommonField, buildPageSettingFields } from './page-setting-fields';
 import { buildPageSettingAttributes, buildPageSettingRelationships } from './page-setting-payload';
 
 @Component({
@@ -68,261 +68,63 @@ export class PageSettingComponent implements OnInit {
       const {
         id,
         type,
-        attributes: {
-          changed,
-          drupal_internal__nid,
-          langcode,
-          title,
-          path,
-          meta_tags,
-          is_transparent,
-          transparent_style,
-        },
+        attributes: { langcode },
       } = data;
       this.type = type;
-      const user = included.find((item: any) => item.type === 'user--user');
-      this.fields = [
-        this.getCommonField('title', title.trim()),
-        this.getCommonField(
-          'alias',
-          getAttrAlias({
-            drupal_internal__nid,
-            path,
-            langcode,
-          })
-        ),
-        {
-          key: 'author',
-          type: 'input',
-          className: 'w-full',
-          defaultValue: user.attributes.display_name,
-          props: {
-            label: this.translate.instant('BUILDER.PAGE_SETTING.AUTHOR'),
-            disabled: true,
-          },
-        },
-        this.getCommonField('changed', changed),
-        this.getCommonField('type', type),
-        this.getCommonField('langcode', langcode),
-        this.getCommonField('nid', drupal_internal__nid),
-        this.getCommonField('description', meta_tags?.description),
-      ];
-      if (type === 'node--landing_page') {
-        const cover = included.find((item: any) => item.type === 'file--file');
-        const pageGroup = included.find((item: any) => item.type === 'taxonomy_term--page_group');
-        if (content) {
-          this.fields.splice(
-            2,
-            0,
-            {
-              key: 'page_group',
-              type: 'mat-select',
-              defaultValue: pageGroup ? pageGroup.id : '',
-              props: {
-                api: '/api/v2/taxonomy_term/page_group',
-                nocache: true,
-                label: this.translate.instant('BUILDER.PAGE_SETTING.PAGE_CATEGORY'),
-                options: [
-                  {
-                    label: this.translate.instant('BUILDER.PAGE_SETTING.NONE'),
-                    value: null,
-                  },
-                ],
-              },
-            },
-            {
-              key: 'cover',
-              type: 'img-picker',
-              defaultValue: cover ? cover.attributes.uri.url : '',
-              props: {
-                valueIsUUID: true,
-                updateLabel: this.translate.instant('BUILDER.PAGE_SETTING.UPDATE_COVER'),
-                addLabel: this.translate.instant('BUILDER.PAGE_SETTING.ADD_COVER'),
-                deleteLabel: this.translate.instant('BUILDER.PAGE_SETTING.DELETE'),
-                fileName: cover ? cover.attributes.uri.url.split('/').pop() : '',
-              },
-              hooks: {
-                onInit: (field: FormlyFieldConfig) => {
-                  field.formControl?.valueChanges
-                    .pipe(takeUntilDestroyed(this.destroyRef))
-                    .subscribe(coverImg => {
-                      if (!coverImg) {
-                        return;
-                      }
-                      this.loading.set(true);
-                      this.builderService
-                        .updateAttributes(
-                          { uuid: id, langcode },
-                          '/api/v1/node/landing_page',
-                          {},
-                          {
-                            cover: {
-                              data: {
-                                type: 'media--image',
-                                id: coverImg,
-                              },
-                            },
-                            uid: {
-                              data: {
-                                type: 'user--user',
-                                id: (this.user() as IUser)?.id,
-                              },
-                            },
-                          }
-                        )
-                        .pipe(takeUntilDestroyed(this.destroyRef))
-                        .subscribe(res => {
-                          this.loading.set(false);
-                          if (res) {
-                            this.util.openSnackbar(
-                              this.translate.instant('BUILDER.PAGE_SETTING.COVER_UPDATED')
-                            );
-                          }
-                        });
-                    });
-                },
-              },
-            },
-            {
-              key: 'is_transparent',
-              type: 'toggle',
-              defaultValue: is_transparent,
-              props: {
-                label: this.translate.instant('BUILDER.PAGE_SETTING.HEADER_TRANSPARENT'),
-              },
-            },
-            {
-              key: 'transparent_style',
-              type: 'mat-select',
-              defaultValue: transparent_style,
-              props: {
-                label: this.translate.instant('BUILDER.PAGE_SETTING.TRANSPARENT_STYLE'),
-                options: [
-                  {
-                    label: this.translate.instant('BUILDER.PAGE_SETTING.LIGHT'),
-                    value: 'light',
-                  },
-                  {
-                    label: this.translate.instant('BUILDER.PAGE_SETTING.DARK'),
-                    value: 'dark',
-                  },
-                ],
-              },
-              expressions: {
-                hide: (field: FormlyFieldConfig) => {
-                  return !field.parent?.model.is_transparent;
-                },
-              },
-            }
-          );
-        }
-      }
+      this.fields = buildPageSettingFields({
+        data,
+        included,
+        getCommonField: (key, defaultValue) => this.getCommonField(key, defaultValue),
+        onCoverInit: field => this.initCoverUpdate(field, id, langcode),
+        translate: key => this.translate.instant(key),
+      });
 
       this.loading.set(false);
     }
   }
 
   getCommonField(key: string, defaultValue: string): FormlyFieldConfig {
-    switch (key) {
-      case 'title':
-        return {
-          key: 'title',
-          type: 'input',
-          defaultValue,
-          className: 'w-full',
-          props: {
-            label: this.translate.instant('BUILDER.PAGE_SETTING.TITLE'),
-            required: true,
-          },
-          expressions: {
-            'props.disabled': 'formState.disabled',
-          },
-        };
-      case 'changed':
-        return {
-          key: 'changed',
-          type: 'input',
-          className: 'w-full',
-          defaultValue,
-          props: {
-            label: this.translate.instant('BUILDER.PAGE_SETTING.UPDATE_TIME'),
-            disabled: true,
-          },
-        };
-      case 'langcode':
-        return {
-          key: 'landcode',
-          type: 'input',
-          className: 'w-full',
-          defaultValue,
-          props: {
-            label: this.translate.instant('BUILDER.PAGE_SETTING.LANGUAGE'),
-            disabled: true,
-          },
-        };
-      case 'nid':
-        return {
-          key: 'id',
-          type: 'input',
-          className: 'w-full',
-          defaultValue,
-          props: {
-            label: 'nid',
-            disabled: true,
-          },
-        };
-      case 'type':
-        return {
-          key: 'type',
-          type: 'input',
-          className: 'w-full',
-          defaultValue,
-          props: {
-            label: this.translate.instant('BUILDER.PAGE_SETTING.CONTENT_TYPE'),
-            disabled: true,
-          },
-        };
-      case 'alias':
-        return {
-          key: 'alias',
-          type: 'input',
-          className: 'w-full',
-          defaultValue,
-          props: {
-            label: this.translate.instant('BUILDER.PAGE_SETTING.URL_ALIAS'),
-            disabled: false,
-          },
-          expressions: {
-            'props.disabled': 'formState.disabled',
-          },
-        };
-      case 'description':
-        return {
-          key: 'meta_tags',
-          fieldGroup: [
+    return buildPageSettingCommonField(key, defaultValue, translationKey =>
+      this.translate.instant(translationKey)
+    );
+  }
+
+  private initCoverUpdate(field: FormlyFieldConfig, id: string, langcode: string): void {
+    field.formControl?.valueChanges
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(coverImg => {
+        if (!coverImg) {
+          return;
+        }
+        this.loading.set(true);
+        this.builderService
+          .updateAttributes(
+            { uuid: id, langcode },
+            '/api/v1/node/landing_page',
+            {},
             {
-              key: 'description',
-              type: 'textarea',
-              defaultValue,
-              props: {
-                label: this.translate.instant('BUILDER.PAGE_SETTING.PAGE_DESC'),
-                rows: 2,
-                disabled: true,
+              cover: {
+                data: {
+                  type: 'media--image',
+                  id: coverImg,
+                },
               },
-            },
-          ],
-        };
-      default:
-        return {
-          key,
-          type: 'input',
-          defaultValue,
-          className: 'w-full',
-          props: {
-            label: key,
-          },
-        };
-    }
+              uid: {
+                data: {
+                  type: 'user--user',
+                  id: (this.user() as IUser)?.id,
+                },
+              },
+            }
+          )
+          .pipe(takeUntilDestroyed(this.destroyRef))
+          .subscribe(res => {
+            this.loading.set(false);
+            if (res) {
+              this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_SETTING.COVER_UPDATED'));
+            }
+          });
+      });
   }
 
   async onUpdate(value: any): Promise<void> {
