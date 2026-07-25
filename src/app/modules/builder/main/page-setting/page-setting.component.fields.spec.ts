@@ -162,7 +162,7 @@ describe('PageSettingComponent fields façade', () => {
     const coverChanges = new Subject<string>();
     const onInit = cover.hooks?.onInit as (field: FormlyFieldConfig) => void;
 
-    onInit({ formControl: { valueChanges: coverChanges } } as FormlyFieldConfig);
+    onInit({ formControl: { valueChanges: coverChanges } } as unknown as FormlyFieldConfig);
     coverChanges.next('');
     expect(updateAttributes).not.toHaveBeenCalled();
 

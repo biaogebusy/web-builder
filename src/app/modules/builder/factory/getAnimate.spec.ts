@@ -221,7 +221,7 @@ describe('getAnimate', () => {
       }),
     };
     const onInit = animate.hooks?.onInit as (field: FormlyFieldConfig) => Observable<unknown>;
-    const subscription = onInit({ form } as FormlyFieldConfig).subscribe();
+    const subscription = onInit({ form } as unknown as FormlyFieldConfig).subscribe();
 
     valueChanges.next({ animate: { aos: { enable: true }, gsap: { enable: false } } });
     expect(gsapPatchValue).toHaveBeenCalledWith(false, {

@@ -16,7 +16,7 @@ function summarizeTabs(content: any, path = '0'): TabSummary[] {
 }
 
 function summarizeField(field: FormlyFieldConfig): string | number {
-  return field.key ?? field.type ?? '<group>';
+  return (field.key ?? field.type ?? '<group>') as string | number;
 }
 
 describe('getComponentSetting', () => {

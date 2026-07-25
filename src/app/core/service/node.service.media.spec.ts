@@ -48,7 +48,7 @@ describe('NodeService media API', () => {
         uri: { url: '/sites/default/files/hero-image.png' },
       },
     };
-    const post = vi.fn((url: string) => {
+    const post = vi.fn((url: string, _body?: unknown, _options?: unknown) => {
       return url.endsWith('/field_media_image') ? of({ data: fileData }) : of({});
     });
     const { service } = createService(post);
