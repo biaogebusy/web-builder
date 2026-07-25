@@ -31,9 +31,9 @@
 
 | ID | 标题 | 工时 | 优先级 | 依赖 | DoD |
 |---|---|---|---|---|---|
-| T0 ☐ | 解除编译阻塞并提交:① `node.service.media.spec.ts` vi.fn 签名补全;② `angular.json` 排除 `src/server/**`;③ 提交本文档 | 0.5h | P0 | — | `npm test` 能完整构建并运行到底(允许用例失败);pre-commit lint-staged 通过 |
-| T1 ☐ | 收敛双测试体系:`vitest.config.ts` 的 `test.include` 缩减到 `src/server/**/*.spec.ts`,其余全部交给 `npm test`;脚本可改名 `test:server` 更达意;CLAUDE.md 补一行两通道分工说明 | 0.5d | P0 | T0 | 两通道无重复覆盖;`npm test` + `npm run test:vitest` 先后执行覆盖全部 spec 且互不遗漏 |
-| T2 ☐ | 全量基线重跑 + 失败归类:`npm test` 完整跑一次,按模块统计失败文件/用例数与失败类型(NG0201 / NG0950 / TypeError / 其他),登记到附录 A | 0.5d | P0 | T0 | 附录 A 有按模块的失败清单与归因;T3–T6 工时据此校准 |
+| T0 ☑ | 解除编译阻塞并提交:① `node.service.media.spec.ts` vi.fn 签名补全;② `angular.json` 排除 `src/server/**`;③ 提交本文档 | 0.5h | P0 | — | `npm test` 能完整构建并运行到底(允许用例失败);pre-commit lint-staged 通过 |
+| T1 ☑ | 收敛双测试体系:`vitest.config.ts` 的 `test.include` 缩减到 `src/server/**/*.spec.ts`,其余全部交给 `npm test`;脚本可改名 `test:server` 更达意;CLAUDE.md 补一行两通道分工说明 | 0.5d | P0 | T0 | 两通道无重复覆盖;`npm test` + `npm run test:vitest` 先后执行覆盖全部 spec 且互不遗漏 |
+| T2 ☑ | 全量基线重跑 + 失败归类:`npm test` 完整跑一次,按模块统计失败文件/用例数与失败类型(NG0201 / NG0950 / TypeError / 其他),登记到附录 A | 0.5d | P0 | T0 | 附录 A 有按模块的失败清单与归因;T3–T6 工时据此校准 |
 | T3 ☐ | builder 模块 fixture(`modules/builder/`:toolbar、main、sidebar、preview、node、factory) | ~1.5d | P1 | T2 | 该目录 `--include` 运行全绿;共享 mock 放 `modules/builder/testing/` |
 | T4 ☐ | manage 模块 fixture(`modules/manage/`) | ~1d | P1 | T2 | 同上,目录全绿 |
 | T5 ☐ | uiux fixture(`uiux/combs/` + `uiux/widgets/`) | ~2d | P1 | T2 | 同上,目录全绿;widget 级共享 mock 优先复用 core 服务 mock |
@@ -101,14 +101,30 @@ T8 独立,随时可插
 
 ---
 
-## 附录 A. 全量失败归类清单(T2 产出,待填)
+## 附录 A. 全量失败归类清单(T2 产出,2026-07-25 基线)
 
-> 格式:模块 | 失败文件数 | 失败用例数 | 主要失败类型 | 备注
+> 基线:`npm test` 全量 197 个 spec 文件(115 失败 / 82 通过),293 个用例(121 失败 / 172 通过)。耗时约 8 分钟。
+> 注:`src/server/**` 3 个文件 15 个用例由 `npm run test:server` 通道覆盖,全绿,不计入本表。
 
-(待 T2 重跑后填写)
+| 模块 | 失败文件数 | 失败用例数 | 主要失败类型 | 备注 |
+|---|---|---|---|---|
+| uiux/combs | 43 | 44 | NG0201×29、NG0950×10、其他×5 | 其他 5 个为行为断言失败(search 跳转 spy ×2)、表单控件缺 name、mock 缺 valueChanges、formly viewType 未注册 |
+| uiux/widgets | 29 | 30 | NG0201×23、NG0950×7 | — |
+| modules/builder | 24 | 26 | NG0201×25、NG0950×1 | — |
+| core | 12 | 14 | NG0201×13、NG0950×1 | branding(header/footer/menu)组件为主 |
+| modules/user | 3 | 3 | NG0201×3 | — |
+| modules/manage | 3 | 3 | NG0201×3 | — |
+| modules/page | 1 | 1 | NG0201×1 | — |
+| **合计** | **115** | **121** | NG0201×97、NG0950×19、其他×5 | — |
+
+**缺失 provider Top 榜(NG0201 报错计数)**:`CORE_CONFIG`×69、`API_URL`×56、`USER`×16、`ActivatedRoute`×12、`BUILDER_PAGE`(builder page)×8、`HttpClient`×7、`BRANDING`(branding config)×7、`BUILDER_UIUX_DATA`×2、`BUILDER_CONFIG`×2、`DEBUG_ANIMATE`×2、`CURRENT_THEME`×2、`MAT_DIALOG_DATA`×2。
+→ 印证第 3 节共享 mock 工厂策略:一个覆盖 core 令牌 + 常用服务的基础工厂可消解绝大多数 NG0201。
 
 ---
 
 ## 5. 进度记录
 
 - **2026-07-25**:初版(master 视角)。基线经 git 核实:2 个编译阻塞待 T0 解除;无 jasmine / declarations 历史包袱;方法论已在 pro 分支打样验证。T0–T8 待办。
+- **2026-07-25**:T0 完成。除文档所列 2 项外,实际另有 3 个 Formly mock cast 类型错误(`getAnimate.spec` / `getComponentSetting.spec` / `page-setting.component.fields.spec`,TS2352/TS2322)一并修复;`npx tsc --noEmit -p tsconfig.spec.json` 全仓干净;`npm test` 可完整运行。
+- **2026-07-25**:T1 完成。`vitest.config.ts` include 收敛为 `src/server/**/*.spec.ts`;脚本 `test:vitest` 改名 `test:server`(3 文件 15 用例全绿);CLAUDE.md 已补两通道分工。
+- **2026-07-25**:T2 完成。全量基线:197 文件(115 失败/82 通过)、293 用例(121 失败/172 通过);归类见附录 A,NG0201 占 97/121,与共享 mock 工厂策略假设一致。
