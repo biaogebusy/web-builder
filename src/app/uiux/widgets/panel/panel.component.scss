@@ -2,10 +2,4 @@
   .actions {
     @apply flex justify-end items-center my-3;
   }
-  .mat-expanded .mat-expansion-panel-header-title {
-    .badge {
-      color: var(-mat-sys-on-primary);
-      background-color: var(-mat-sys-primary);
-    }
-  }
 }

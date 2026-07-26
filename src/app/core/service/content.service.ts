@@ -34,6 +34,8 @@ export class ContentService extends ApiService {
   private activeConfigPath = '';
   private uiuxCache: Observable<IUiux[]>;
   private pageCache = new Map<string, Observable<IPage>>();
+  private pageValueCache = new Map<string, IPage>();
+  private brandingCache = new Map<string, Observable<IBranding>>();
 
   constructor() {
     super();
@@ -47,7 +49,7 @@ export class ContentService extends ApiService {
     this.screenState.scroll$.next(true);
   }
 
-  loadPageContent(pageUrl = this.pageUrl): Observable<IPage> {
+  loadPageContent(pageUrl = this.pageUrl, updateState = true): Observable<IPage> {
     const { lang, path } = this.getUrlPath(pageUrl);
     if (environment.production) {
       const key = this.getLandingPageUrl(lang, path);
@@ -62,22 +64,47 @@ export class ContentService extends ApiService {
               console.error('Failed to load page content:', error);
               return of({} as IPage);
             }),
+            tap(page => this.pageValueCache.set(key, page)),
             shareReplay(1)
           )
         );
       }
       return this.pageCache.get(key)!.pipe(
         tap(page => {
-          this.updatePage(page);
-          this.logContent(pageUrl);
+          if (updateState) {
+            this.updatePage(page);
+            this.logContent(pageUrl);
+          }
         })
       );
     } else {
-      return this.http.get<IPage>(`${this.apiUrl}/assets/app${lang}${pageUrl}.json`).pipe(
-        tap(page => this.updatePage(page)),
-        catchError(() => this.http.get<IPage>(`${this.apiUrl}/assets/app/404.json`))
+      const key = `${this.apiUrl}/assets/app${lang}${pageUrl}.json`;
+      if (!this.pageCache.has(key)) {
+        this.pageCache.set(
+          key,
+          this.http.get<IPage>(key).pipe(
+            catchError(() => this.http.get<IPage>(`${this.apiUrl}/assets/app/404.json`)),
+            tap(page => this.pageValueCache.set(key, page)),
+            shareReplay(1)
+          )
+        );
+      }
+      return this.pageCache.get(key)!.pipe(
+        tap(page => {
+          if (updateState) {
+            this.updatePage(page);
+          }
+        })
       );
     }
+  }
+
+  getCachedPageContent(pageUrl = this.pageUrl): IPage | undefined {
+    const { lang, path } = this.getUrlPath(pageUrl);
+    const key = environment.production
+      ? this.getLandingPageUrl(lang, path)
+      : `${this.apiUrl}/assets/app${lang}${pageUrl}.json`;
+    return this.pageValueCache.get(key);
   }
 
   logContent(url: string): void {
@@ -92,16 +119,24 @@ export class ContentService extends ApiService {
 
   loadBranding(pageUrl = this.pageUrl): Observable<IBranding> {
     const { lang } = this.getUrlPath(pageUrl);
-    const req$ = this.http.get<IBranding>(this.getLandingPageUrl(lang, '/core/branding'));
-    const resilientReq$ = this.isServer
-      ? req$
-      : req$.pipe(timeout(5000), retry({ count: 1, delay: 500 }));
-    return resilientReq$.pipe(
-      catchError(error => {
-        console.error('Failed to load branding:', error);
-        return of({} as IBranding);
-      })
-    );
+    const key = this.getLandingPageUrl(lang, '/core/branding');
+    if (!this.brandingCache.has(key)) {
+      const req$ = this.http.get<IBranding>(key);
+      const resilientReq$ = this.isServer
+        ? req$
+        : req$.pipe(timeout(5000), retry({ count: 1, delay: 500 }));
+      this.brandingCache.set(
+        key,
+        resilientReq$.pipe(
+          catchError(error => {
+            console.error('Failed to load branding:', error);
+            return of({} as IBranding);
+          }),
+          shareReplay(1)
+        )
+      );
+    }
+    return this.brandingCache.get(key)!;
   }
 
   loadConfig(coreConfig: object, pageUrl = this.pageUrl): Promise<void> {

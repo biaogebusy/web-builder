@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideBuilderMocks } from '@modules/builder/testing/mocks';
 
 import { NodeAddComponent } from './node-add.component';
 
@@ -8,13 +10,12 @@ describe('NodeAddComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NodeAddComponent]
-    })
-    .compileComponents();
+      imports: [NodeAddComponent],
+      providers: [provideRouter([]), ...provideBuilderMocks()],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(NodeAddComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

@@ -14,6 +14,7 @@ export default defineConfig({
       '@share': fromRoot('./src/app/share'),
       '@stories': fromRoot('./src/stories'),
       '@uiux': fromRoot('./src/app/uiux'),
+      src: fromRoot('./src'),
     },
   },
   css: {
@@ -27,7 +28,8 @@ export default defineConfig({
     css: true,
     environment: 'jsdom',
     globals: true,
-    include: ['src/app/core/util/**/*.spec.ts'],
+    // 仅承担 node 环境的服务端 spec;src/app/** 全部由 `npm test`(@angular/build:unit-test)覆盖
+    include: ['src/server/**/*.spec.ts'],
     setupFiles: ['src/test.ts'],
   },
 });

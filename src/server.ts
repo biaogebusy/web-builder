@@ -14,6 +14,11 @@ import { blockScanners, rateLimiter } from './middlewares/security';
 import { SsrHtmlCache } from './server/ssr-html-cache';
 import { getAuthCookieName, getSsrCacheDecision } from './server/ssr-cache-policy';
 import {
+  getRequestTiming,
+  requestTimingMiddleware,
+  setSsrTimingHeaders,
+} from './server/request-timing';
+import {
   SSR_CACHE_MAX_BYTES,
   SSR_CACHE_MAX_ENTRIES,
   SSR_CACHE_TTL_MS,
@@ -33,19 +38,18 @@ process.on('unhandledRejection', (reason: unknown) => {
 
 const app = express();
 app.set('trust proxy', 1);
+app.use(requestTimingMiddleware);
 app.use(express.json());
 app.use(compression());
 app.use(blockScanners);
 
 const angularApp = new AngularNodeAppEngine();
-const ssrRenderTimeoutMs = readPositiveInteger(
-  'SSR_RENDER_TIMEOUT_MS',
-  SSR_RENDER_TIMEOUT_MS
-);
+const ssrRenderTimeoutMs = readPositiveInteger('SSR_RENDER_TIMEOUT_MS', SSR_RENDER_TIMEOUT_MS);
+const ssrCacheTtlMs = readPositiveInteger('SSR_CACHE_TTL_MS', SSR_CACHE_TTL_MS);
 const ssrCache = new SsrHtmlCache({
   maxBytes: readPositiveInteger('SSR_CACHE_MAX_BYTES', SSR_CACHE_MAX_BYTES),
   maxEntries: readPositiveInteger('SSR_CACHE_MAX_ENTRIES', SSR_CACHE_MAX_ENTRIES),
-  ttlMs: readPositiveInteger('SSR_CACHE_TTL_MS', SSR_CACHE_TTL_MS),
+  ttlMs: ssrCacheTtlMs,
 });
 const authCookieName = getAuthCookieName(environment.apiUrl);
 const ssrMetrics = {
@@ -107,26 +111,34 @@ app.use(rateLimiter);
  * Handle all other requests by rendering the Angular application with timeout control.
  */
 app.use('/**', (req, res, next) => {
+  const requestTiming = getRequestTiming(res);
   const cacheDecision = getSsrCacheDecision(req, {
     authCookieNames: authCookieName ? [authCookieName] : [],
   });
+  requestTiming.cacheReason = cacheDecision.reason;
 
   if (cacheDecision.cacheable) {
     const cached = ssrCache.get(cacheDecision.key);
     if (cached) {
+      requestTiming.cacheStatus = 'HIT';
       res.setHeader('Content-Type', 'text/html; charset=utf-8');
-      res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=300, stale-while-revalidate=60');
+      setPublicCacheHeaders(res);
       res.setHeader('X-Cache', 'HIT');
+      setSsrTimingHeaders(res, requestTiming);
       res.send(cached);
       return;
     }
+    requestTiming.cacheStatus = 'MISS';
     res.setHeader('X-Cache', 'MISS');
   } else {
+    requestTiming.cacheStatus = 'BYPASS';
     res.setHeader('Cache-Control', 'private, no-store');
+    res.setHeader('X-Accel-Expires', '0');
     res.setHeader('X-Cache', 'BYPASS');
   }
 
-  const renderStart = performance.now();
+  requestTiming.ssrStartedAt = performance.now();
+  const renderStart = requestTiming.ssrStartedAt;
   let settled = false;
 
   const timeoutId = setTimeout(() => {
@@ -135,6 +147,8 @@ app.use('/**', (req, res, next) => {
     }
     settled = true;
     ssrMetrics.timeouts += 1;
+    requestTiming.ssrDurationMs = performance.now() - renderStart;
+    setSsrTimingHeaders(res, requestTiming);
     console.warn(`[SSR Timeout] Request exceeded ${ssrRenderTimeoutMs}ms for ${req.originalUrl}`);
     res.status(504).send('Server Timeout: Page rendering took too long');
   }, ssrRenderTimeoutMs);
@@ -148,16 +162,15 @@ app.use('/**', (req, res, next) => {
       settled = true;
       clearTimeout(timeoutId);
       const renderMs = performance.now() - renderStart;
+      requestTiming.ssrDurationMs = renderMs;
       recordRenderDuration(renderMs);
       res.setHeader('X-SSR-Duration', Math.round(renderMs).toString());
+      setSsrTimingHeaders(res, requestTiming);
       if (response) {
         if (cacheDecision.cacheable && response.status === 200) {
           const html = await response.clone().text();
           ssrCache.set(cacheDecision.key, html);
-          res.setHeader(
-            'Cache-Control',
-            'public, max-age=0, s-maxage=300, stale-while-revalidate=60'
-          );
+          setPublicCacheHeaders(res);
         }
         writeResponseToNodeResponse(response, res);
       } else {
@@ -171,7 +184,9 @@ app.use('/**', (req, res, next) => {
       settled = true;
       clearTimeout(timeoutId);
       ssrMetrics.errors += 1;
-      recordRenderDuration(performance.now() - renderStart);
+      requestTiming.ssrDurationMs = performance.now() - renderStart;
+      recordRenderDuration(requestTiming.ssrDurationMs);
+      setSsrTimingHeaders(res, requestTiming);
       console.error(`[SSR Error] ${req.path}:`, error.message);
       if (!res.headersSent) {
         res.status(500).send('Server Error: Failed to render page');
@@ -203,6 +218,15 @@ function recordRenderDuration(renderMs: number): void {
   ssrMetrics.renders += 1;
   ssrMetrics.totalRenderMs += renderMs;
   ssrMetrics.maxRenderMs = Math.max(ssrMetrics.maxRenderMs, renderMs);
+}
+
+function setPublicCacheHeaders(res: express.Response): void {
+  const maxAgeSeconds = Math.max(1, Math.floor(ssrCacheTtlMs / 1000));
+  res.setHeader(
+    'Cache-Control',
+    `public, max-age=0, s-maxage=${maxAgeSeconds}, stale-while-revalidate=60`
+  );
+  res.setHeader('X-Accel-Expires', maxAgeSeconds.toString());
 }
 
 function readPositiveInteger(name: string, fallback: number): number {

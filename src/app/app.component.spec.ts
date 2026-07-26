@@ -23,4 +23,13 @@ describe('AppComponent', () => {
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
+
+  it('should render the router outlet without a global loading overlay', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('router-outlet')).not.toBeNull();
+    expect(fixture.nativeElement.querySelector('.app-loading')).toBeNull();
+    expect(fixture.nativeElement.querySelector('.app-loader')).toBeNull();
+  });
 });

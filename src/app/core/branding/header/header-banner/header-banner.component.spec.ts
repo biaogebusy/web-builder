@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideCoreMocks } from '@core/testing/mocks';
 
 import { HeaderBannerComponent } from './header-banner.component';
 
@@ -9,13 +11,11 @@ describe('HeaderBannerComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HeaderBannerComponent],
+      providers: [provideRouter([]), ...provideCoreMocks()],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(HeaderBannerComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

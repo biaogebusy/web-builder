@@ -6,6 +6,7 @@ import {
   AfterViewInit,
   inject,
   DestroyRef,
+  ElementRef,
   input
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -72,6 +73,7 @@ export class ViewListComponent extends BaseComponent implements OnInit, AfterVie
   private screenService = inject(ScreenService);
   private userSerivice = inject(UserService);
   private destroyRef = inject(DestroyRef);
+  private ele = inject(ElementRef);
   constructor() {
     super();
   }
@@ -115,8 +117,9 @@ export class ViewListComponent extends BaseComponent implements OnInit, AfterVie
       this.loading = false;
       return;
     }
+    const langCode = this.nodeService.resolveLangCode(this.ele);
     this.nodeService
-      .fetch(apiType, params)
+      .fetch(apiType, params, langCode)
       .pipe(
         catchError((error: any) => {
           if (error.status === 403) {

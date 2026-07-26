@@ -7,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { ILanguage } from '@core/interface/IEnvironment';
 import { CORE_CONFIG, LANG } from '@core/token/token-providers';
+import { getLangPrefix } from '@core/util/language.util';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -36,14 +37,17 @@ export class LangSwitchComponent implements OnInit {
     this.translateService.use(lang.langCode);
     const { pathname } = window.location;
     const url = this.removeLangPrefix(pathname);
-    const langPrefix = lang.prefix === '/' ? '' : lang.prefix;
+    const langPrefix = getLangPrefix(lang);
     this.router.navigateByUrl(`${langPrefix}${url}`);
   }
 
   removeLangPrefix(urlPath: string): string {
     const pathParts = urlPath.split('/');
     // check if the path is like /en/some/path
-    const isLangPage = this.langs?.find(lang => urlPath.startsWith(`/${lang.langCode}`));
+    const isLangPage = this.langs?.find(lang => {
+      const langPrefix = getLangPrefix(lang);
+      return !!langPrefix && urlPath.startsWith(langPrefix);
+    });
 
     if (isLangPage) {
       const remainingPath = pathParts.slice(2).join('/');

@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideUiuxMocks } from '@uiux/testing/mocks';
 
 import { Profile1v1Component } from './profile1v1.component';
 
@@ -9,13 +11,12 @@ describe('Profile1v1Component', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Profile1v1Component],
+      providers: [provideRouter([]), ...provideUiuxMocks()],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(Profile1v1Component);
+    fixture.componentRef.setInput('content', {});
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

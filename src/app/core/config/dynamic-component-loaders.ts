@@ -9,7 +9,6 @@ const loadUtilityWidgets = () => import('./dynamic-components/widgets-utility');
 const loadChart = () => import('./dynamic-components/chart');
 const loadCarousel = () => import('./dynamic-components/carousel');
 const loadHero = () => import('./dynamic-components/hero');
-const loadList = () => import('./dynamic-components/list');
 const loadMap = () => import('./dynamic-components/map');
 const loadNodeLight = () => import('./dynamic-components/node-light');
 const loadNodeContent = () => import('./dynamic-components/node-content');
@@ -90,14 +89,6 @@ export const DYNAMIC_COMPONENT_LOADERS: Readonly<Record<string, ComponentLoader>
   'hero-1v1': () => loadHero().then(m => m.Hero1v1Component),
   'hero-2v1': () => loadHero().then(m => m.Hero2v1Component),
   'hero-2v3': () => loadHero().then(m => m.Hero2v3Component),
-  'dynamic-card-list': () => loadList().then(m => m.DynamicCardListComponent),
-  'dynamic-card-list-1v1': () => loadList().then(m => m.DynamicCardList1v1Component),
-  'dynamic-media-list': () => loadList().then(m => m.DynamicMediaListComponent),
-  'dynamic-text-list': () => loadList().then(m => m.DynamicTextListComponent),
-  list: () => loadList().then(m => m.ListComponent),
-  'list-thin': () => loadList().then(m => m.ListThinComponent),
-  'taxonomy-list': () => loadList().then(m => m.TaxonomyListComponent),
-  'taxonomy-thin-list': () => loadList().then(m => m.TaxonomyThinListComponent),
   map: () => loadMap().then(m => m.MapComponent),
   location: () => loadMap().then(m => m.LocationComponent),
   'map-list-v1': () => loadMap().then(m => m.MapListV1Component),
@@ -106,7 +97,6 @@ export const DYNAMIC_COMPONENT_LOADERS: Readonly<Record<string, ComponentLoader>
     import('@uiux/combs/masonry/shuffle/shuffle.component').then(m => m.ShuffleComponent),
   article: () => loadNodeContent().then(m => m.ArticleComponent),
   question: () => loadNodeContent().then(m => m.QuestionComponent),
-  report: () => loadNodeContent().then(m => m.ReportComponent),
   'banner-simple': () => loadNodeLight().then(m => m.BannerSimpleComponent),
   breadcrumb: () => loadNodeLight().then(m => m.BreadcrumbComponent),
   formly: () => loadForm().then(m => m.FormlyComponent),

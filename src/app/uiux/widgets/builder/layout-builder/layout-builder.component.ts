@@ -39,7 +39,7 @@ import { LayoutToolbarComponent } from './layout-toolbar/layout-toolbar.componen
   ],
 })
 export class LayoutBuilderComponent implements AfterViewInit {
-  currentPage = inject(BUILDER_CURRENT_PAGE);
+  currentPage = inject(BUILDER_CURRENT_PAGE, { optional: true });
 
   readonly content = input.required<ILayoutBuilder>();
   public showToolbar = signal(false);
@@ -55,9 +55,10 @@ export class LayoutBuilderComponent implements AfterViewInit {
       if (this.ele.nativeElement.closest('.component-item')) {
         this.showToolbar.set(true);
       }
-      if (this.showToolbar()) {
+      if (this.showToolbar() && this.currentPage) {
+        const currentPage = this.currentPage;
         effect(() => {
-          this.currentPage();
+          currentPage();
           this.layoutAnimate();
         }, { injector: this.injector });
       }

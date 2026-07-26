@@ -5,6 +5,7 @@ import {
   ChangeDetectionStrategy,
   inject,
   DestroyRef,
+  ElementRef,
   input
 } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
@@ -48,6 +49,7 @@ export class FullCalendarComponent extends BaseComponent implements OnInit {
   private screenService = inject(ScreenService);
   private calendarState = inject(CalendarState);
   private contentService = inject(ContentService);
+  private ele = inject(ElementRef);
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -83,8 +85,9 @@ export class FullCalendarComponent extends BaseComponent implements OnInit {
       return;
     }
     if (api || params || this.options?.events) {
+      const langCode = this.nodeService.resolveLangCode(this.ele);
       this.nodeService
-        .fetch(api, params)
+        .fetch(api, params, langCode)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(data => {
           if (this.options) {

@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideBuilderMocks } from '@modules/builder/testing/mocks';
 
 import { CardListComponent } from './card-list.component';
 
@@ -9,11 +11,12 @@ describe('CardListComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [CardListComponent],
+      providers: [provideRouter([]), ...provideBuilderMocks()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CardListComponent);
+    fixture.componentRef.setInput('content', { params: { api: '' }, form: [] });
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

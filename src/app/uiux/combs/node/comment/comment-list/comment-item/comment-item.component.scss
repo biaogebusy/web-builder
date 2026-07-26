@@ -15,11 +15,6 @@
   border-radius: 4px;
 }
 
-.time {
-  font-size: small;
-  margin: 10px 0;
-}
-
 .comment-body {
   @apply mt-3;
   > ::ng-deep *:last-child {
@@ -29,12 +24,6 @@
     img {
       max-width: 100%;
     }
-  }
-}
-
-.actions {
-  button + button {
-    margin-left: 10px;
   }
 }
 

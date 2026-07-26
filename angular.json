@@ -144,6 +144,7 @@
             "tsConfig": "tsconfig.spec.json",
             "runner": "vitest",
             "include": ["src/**/*.spec.ts", "src/**/*.test.ts"],
+            "exclude": ["src/server/**"],
             "setupFiles": ["src/test-setup.ts"],
             "providersFile": "src/test-providers.ts"
           }

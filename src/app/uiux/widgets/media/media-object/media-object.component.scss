@@ -54,12 +54,6 @@
   }
   &.box-animate {
     box-shadow: 0 0 3px rgb(60 72 88 / 15%);
-    .icon {
-      background: linear-gradient(45deg, transparent, var(--mat-sys-primary-container));
-      .mat-icon {
-        color: var(--mat-sys-primary);
-      }
-    }
     a {
       color: var(--mat-sys-on-surface);
       &:hover {

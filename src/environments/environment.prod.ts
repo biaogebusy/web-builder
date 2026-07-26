@@ -9,13 +9,11 @@ export const environment: IEnvironment = {
     {
       label: '中文',
       langCode: 'zh-hans',
-      prefix: '/',
       default: true,
     },
     {
       label: 'EN',
       langCode: 'en',
-      prefix: '/en',
     },
   ],
   oauth: {

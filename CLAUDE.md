@@ -10,7 +10,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - `npm start` — local dev server (proxies API to builder.design via `config/proxy.config.js`)
 - `npm run build` — production build plus static asset precompression (`ng build --configuration production && npm run precompress`)
-- `npm test` — run unit tests once (Vitest via Angular unit-test builder)
+- `npm test` — run unit tests once (Vitest via Angular unit-test builder); covers all `src/**` specs except `src/server/**`
+- `npm run test:server` — run server-side specs (`src/server/**`, need node built-ins) via root `vitest.config.ts`; the two channels split coverage with no overlap
 - `npm run test:watch` — run unit tests in watch mode
 - `npm run lint` — ESLint (flat config in `eslint.config.js`)
 - `npm run e2e` — end-to-end tests (Playwright)

@@ -9,13 +9,6 @@
     padding-right: 20px;
     height: 55px;
   }
-  .open-drawer {
-    display: inline-block;
-    line-height: 1;
-    z-index: 99999;
-    cursor: pointer;
-  }
-
   .left {
     @apply flex-[0_1_33.33%] flex gap-5;
     white-space: nowrap;

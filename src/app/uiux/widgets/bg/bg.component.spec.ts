@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideUiuxMocks } from '@uiux/testing/mocks';
 
 import { BgComponent } from './bg.component';
 
@@ -9,13 +11,12 @@ describe('BgComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [BgComponent],
+      providers: [provideRouter([]), ...provideUiuxMocks()],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(BgComponent);
+    fixture.componentRef.setInput('content', {});
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

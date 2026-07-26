@@ -16,7 +16,13 @@
 }
 
 <div class="content-wrapper {{ content?.fullWidth ? '' : 'container' }}">
-  <ng-container #componentContainer />
+  @if (renderState(); as state) {
+    <ng-container
+      [ngComponentOutlet]="state.componentType"
+      [ngComponentOutletInputs]="state.inputs"
+      [appDynamicOutletProperties]="state.properties"
+    />
+  }
 </div>
 
 @if (content?.spacer) {

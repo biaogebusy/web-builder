@@ -1,4 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { UntypedFormControl } from '@angular/forms';
+import { provideRouter } from '@angular/router';
+import { provideUiuxMocks } from '@uiux/testing/mocks';
 
 import { MatSelectComponent } from './mat-select.component';
 
@@ -9,13 +12,18 @@ describe('MatSelectComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MatSelectComponent],
+      providers: [provideRouter([]), ...provideUiuxMocks()],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(MatSelectComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    component.field = {
+      key: 'k',
+      props: { options: [] },
+      formControl: new UntypedFormControl(),
+      formState: {},
+      options: { showError: () => false },
+    } as any;
   });
 
   it('should create', () => {

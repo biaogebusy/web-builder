@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideUiuxMocks } from '@uiux/testing/mocks';
 
 import { Showcase3v3Component } from './showcase3v3.component';
 
@@ -9,13 +11,12 @@ describe('Showcase3v3Component', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Showcase3v3Component],
+      providers: [provideRouter([]), ...provideUiuxMocks()],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(Showcase3v3Component);
+    fixture.componentRef.setInput('content', {});
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

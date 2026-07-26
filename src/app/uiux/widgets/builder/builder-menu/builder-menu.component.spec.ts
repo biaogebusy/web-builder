@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideUiuxMocks } from '@uiux/testing/mocks';
 
 import { BuilderMenuComponent } from './builder-menu.component';
 
@@ -9,13 +11,11 @@ describe('BuilderMenuComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [BuilderMenuComponent],
+      providers: [provideRouter([]), ...provideUiuxMocks()],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(BuilderMenuComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

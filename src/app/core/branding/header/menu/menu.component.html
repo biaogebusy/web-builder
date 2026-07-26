@@ -64,6 +64,7 @@
             <span class="spacer"></span>
             <app-switch-theme />
             <app-user-menu class="user-menu-drawer" />
+            <app-lang-switch />
           }
           <button mat-icon-button (click)="onToggle()" aria-label="menu icon">
             @if (!isDrawer()) {
@@ -75,11 +76,9 @@
           </button>
         </mat-toolbar>
       }
-      <div [hidden]="!(!show() && isDrawer())">
-        @if (header.mainMenu) {
-          <app-accordion-menu [content]="header.mainMenu" />
-        }
-      </div>
+      @if (!show() && isDrawer() && header.mainMenu) {
+        <app-accordion-menu [content]="header.mainMenu" />
+      }
     </div>
   }
 }

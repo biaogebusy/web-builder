@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideBuilderMocks } from '@modules/builder/testing/mocks';
 
 import { ConfigCheckComponent } from './config-check.component';
 
@@ -8,13 +10,12 @@ describe('ConfigCheckComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ConfigCheckComponent]
-    })
-    .compileComponents();
+      imports: [ConfigCheckComponent],
+      providers: [provideRouter([]), ...provideBuilderMocks()],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ConfigCheckComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

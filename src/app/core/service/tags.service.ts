@@ -4,6 +4,7 @@ import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 
 import { UtilitiesService } from '@core/service/utilities.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
+import { getLangPrefix } from '@core/util/language.util';
 import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
@@ -24,7 +25,9 @@ export class TagsService {
         link.href = origin;
         this.document.head.appendChild(link);
       }
-    } catch {}
+    } catch {
+      // Preconnect hints are best-effort and must not prevent service creation.
+    }
   }
 
   public setTitle(newTitle: string): void {
@@ -110,8 +113,9 @@ export class TagsService {
 
     let barePath = pathname;
     for (const lang of environment.langs) {
-      if (!lang.default && lang.prefix && pathname.startsWith(lang.prefix)) {
-        barePath = pathname.slice(lang.prefix.length) || '/';
+      const langPrefix = getLangPrefix(lang);
+      if (langPrefix && pathname.startsWith(langPrefix)) {
+        barePath = pathname.slice(langPrefix.length) || '/';
         break;
       }
     }
@@ -119,7 +123,7 @@ export class TagsService {
     this.document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(el => el.remove());
 
     for (const lang of environment.langs) {
-      const href = origin + (lang.default ? '' : lang.prefix) + barePath;
+      const href = origin + getLangPrefix(lang) + barePath;
       const link = this.document.createElement('link');
       link.setAttribute('rel', 'alternate');
       link.setAttribute('hreflang', lang.langCode);

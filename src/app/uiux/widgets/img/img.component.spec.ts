@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideUiuxMocks } from '@uiux/testing/mocks';
 
 import { ImgComponent } from './img.component';
 
@@ -9,6 +11,7 @@ describe('ImgComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ImgComponent],
+      providers: [provideRouter([]), ...provideUiuxMocks()],
     }).compileComponents();
   });
 
@@ -20,5 +23,36 @@ describe('ImgComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should lazy load non-priority images by default', () => {
+    fixture.componentRef.setInput('content', {
+      type: 'img',
+      src: '/assets/images/test.png',
+      alt: 'Test image',
+      width: 400,
+      height: 300,
+    });
+    fixture.detectChanges();
+
+    const img = fixture.nativeElement.querySelector('img');
+    expect(img.getAttribute('loading')).toBe('lazy');
+    expect(img.getAttribute('fetchpriority')).toBe('auto');
+  });
+
+  it('should eagerly load priority images with high fetch priority', () => {
+    fixture.componentRef.setInput('content', {
+      type: 'img',
+      src: '/assets/images/hero.png',
+      alt: 'Hero image',
+      priority: true,
+      width: 1200,
+      height: 800,
+    });
+    fixture.detectChanges();
+
+    const img = fixture.nativeElement.querySelector('img');
+    expect(img.getAttribute('loading')).toBe('eager');
+    expect(img.getAttribute('fetchpriority')).toBe('high');
   });
 });

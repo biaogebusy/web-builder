@@ -8,10 +8,9 @@ import {
   Injector,
   DestroyRef,
   ChangeDetectionStrategy,
-  input
+  input,
 } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
-import { NgPipesModule } from 'ngx-pipes';
 import { TagsService } from '@core/service/tags.service';
 import { ScreenService } from '@core/service/screen.service';
 import { Observable } from 'rxjs';
@@ -21,11 +20,8 @@ import { NodeComponent } from '@uiux/base/node.widget';
 import type { IBaseNode, IComment } from '@core/interface/node/INode';
 import { ContentState } from '@core/state/ContentState';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
-import { PAGE_CONTENT } from '@core/token/token-providers';
-import type { IArticle, ICoreConfig, IPage } from '@core/interface/IAppConfig';
-import type { IUser } from '@core/interface/IUser';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { environment } from 'src/environments/environment';
-import { MatDialogRef } from '@angular/material/dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { ArticleBannerComponent } from './article-banner/article-banner.component';
@@ -42,7 +38,6 @@ import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-compone
   styleUrls: ['./article.component.scss'],
   imports: [
     MatDividerModule,
-    NgPipesModule,
     SafeHtmlPipe,
     ArticleBannerComponent,
     ArticleMetaComponent,
@@ -54,13 +49,10 @@ import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-compone
 })
 export class ArticleComponent extends NodeComponent implements OnInit, AfterViewInit {
   public coreConfig = inject<ICoreConfig>(CORE_CONFIG);
-  private pageContent = inject(PAGE_CONTENT);
   public user = inject(USER);
 
   readonly content = input.required<IBaseNode>();
   public comments: IComment[];
-  private dialogRef: MatDialogRef<any>;
-  public canAccess: boolean;
 
   private cd = inject(ChangeDetectorRef);
   private nodeService = inject(NodeService);
@@ -81,30 +73,9 @@ export class ArticleComponent extends NodeComponent implements OnInit, AfterView
       this.tagsService.setTitle(content.title);
     }
 
-    this.checkAccess();
-
     this.userService.userSub$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
       this.cd.markForCheck();
     });
-  }
-
-  checkAccess(): void {
-    if (!environment.production) {
-      return;
-    }
-    effect(() => {
-      const page = this.pageContent();
-      if (page && typeof page === 'object') {
-        const entityId = page.config?.node?.entityId || '';
-        const u = this.user();
-        this.nodeService
-          .checkNodeAccess(this.content().params, entityId, u as IUser)
-          .subscribe(access => {
-            this.canAccess = access.canAccess;
-            this.cd.detectChanges();
-          });
-      }
-    }, { injector: this.injector });
   }
 
   ngAfterViewInit(): void {
@@ -136,22 +107,5 @@ export class ArticleComponent extends NodeComponent implements OnInit, AfterView
         this.comments = res;
         this.cd.detectChanges();
       });
-  }
-
-  openLogin(): void {
-    this.userService.openLoginDialog().then(dialogRef => {
-      this.dialogRef = dialogRef;
-      this.dialogRef.afterClosed().subscribe(() => {
-        this.checkAccess();
-      });
-    });
-  }
-
-  get articleConfig(): IArticle | null {
-    return this.coreConfig.article || null;
-  }
-
-  get loginConfig(): any {
-    return this.articleConfig && this.articleConfig.login;
   }
 }

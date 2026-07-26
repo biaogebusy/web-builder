@@ -15,10 +15,10 @@ import { NodeService } from './node.service';
 import { UtilitiesService } from './utilities.service';
 
 describe('BuilderService', () => {
-  it('waits for builder config before updating a landing page', () => {
+  it('waits for builder config and skips reloading after a toolbar update', () => {
     const builderConfig$ = new Subject<IBuilderConfig>();
     const patch = vi.fn((_url: string, _body: unknown, _options: unknown) =>
-      of({ status: false })
+      of({ status: true })
     );
     const loadingSet = vi.fn();
 
@@ -39,9 +39,10 @@ describe('BuilderService', () => {
     });
 
     const service = TestBed.inject(BuilderService);
+    const loadPage = vi.spyOn(service, 'loadPage');
     const page = { nid: '42', title: 'Test page', body: [] } as IPage;
 
-    service.updateLandingPage(page).subscribe();
+    service.updateLandingPage(page, false).subscribe();
 
     expect(loadingSet).toHaveBeenCalledWith(true);
     expect(patch).not.toHaveBeenCalled();
@@ -56,5 +57,6 @@ describe('BuilderService', () => {
 
     expect(patch).toHaveBeenCalledOnce();
     expect(patch.mock.calls[0][0]).toBe('https://example.com/api/pages/42');
+    expect(loadPage).not.toHaveBeenCalled();
   });
 });

@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideCoreMocks } from '@core/testing/mocks';
 
 import { DynamicMenuComponent } from './dynamic-menu.component';
 
@@ -8,15 +10,12 @@ describe('DynamicMenuComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ DynamicMenuComponent ]
-    })
-    .compileComponents();
-  });
+      imports: [DynamicMenuComponent],
+      providers: [provideRouter([]), ...provideCoreMocks()],
+    }).compileComponents();
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(DynamicMenuComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

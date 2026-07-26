@@ -20,5 +20,4 @@ export interface ILanguage {
   label: string;
   langCode: string;
   default?: boolean;
-  prefix: string;
 }
