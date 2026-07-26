@@ -1,0 +1,33 @@
+# 单元测试门禁(docs/testing-recovery-wbs.md T7)
+# 覆盖范围:
+#   npm test            → src/**(@angular/build:unit-test + Vitest,src/server/** 除外)
+#   npm run test:server → src/server/**(根 vitest.config.ts,node 内建模块依赖)
+# 在 GitHub 分支保护规则中将本 workflow 设为 Required status check,
+# 即可在红灯时阻断合并。
+name: Unit tests
+
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.0.1
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: NPM Install
+        run: npm ci
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Server unit tests
+        run: npm run test:server

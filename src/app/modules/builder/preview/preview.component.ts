@@ -4,7 +4,7 @@ import {
   DOCUMENT,
   DestroyRef,
   OnInit,
-  afterEveryRender,
+  afterNextRender,
   inject,
 } from '@angular/core';
 import { ShareModule } from '@share/share.module';
@@ -18,7 +18,6 @@ import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { throttle } from 'lodash-es';
 
 @Component({
   selector: 'app-preview',
@@ -44,20 +43,15 @@ export class PreviewComponent implements OnInit {
         title: this.builder.currentPage.title,
       })
     );
-    afterEveryRender({
-      read: throttle(() => {
-        this.refreshAosObserver();
-      }, 200),
+    afterNextRender({
+      read: () => {
+        this.disconnectAosObserver = this.util.intersectionObserver('[data-aos]', this.doc);
+      },
     });
     this.destroyRef.onDestroy(() => this.disconnectAosObserver?.());
   }
 
   ngOnInit(): void {
     this.contentState.pageConfig.set(this.builder.currentPage.config);
-  }
-
-  private refreshAosObserver(): void {
-    this.disconnectAosObserver?.();
-    this.disconnectAosObserver = this.util.intersectionObserver('[data-aos]', this.doc);
   }
 }

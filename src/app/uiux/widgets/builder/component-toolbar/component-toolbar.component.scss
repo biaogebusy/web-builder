@@ -6,13 +6,6 @@
     @apply flex justify-between items-center;
   }
 
-  .title {
-    padding: 10px;
-    font-size: 12px;
-    white-space: nowrap;
-    border-radius: 4px;
-  }
-
   .actions {
     @apply flex gap-1;
     position: absolute;

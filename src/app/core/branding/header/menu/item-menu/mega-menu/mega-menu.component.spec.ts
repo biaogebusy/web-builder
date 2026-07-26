@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideCoreMocks } from '@core/testing/mocks';
 
 import { MegaMenuComponent } from './mega-menu.component';
 
@@ -9,13 +11,12 @@ describe('MegaMenuComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MegaMenuComponent],
+      providers: [provideRouter([]), ...provideCoreMocks()],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(MegaMenuComponent);
+    fixture.componentRef.setInput('content', { child: [] });
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

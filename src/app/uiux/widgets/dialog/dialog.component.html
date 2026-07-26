@@ -1,8 +1,13 @@
 <div class="dialog">
   <app-btn
     class="dialog-colse-outside-btn"
-    [content]="{ icon: { svg: 'close' }, mode: 'icon', color: 'primary' }"
-    mat-dialog-close="true"
+    [content]="{
+      icon: { svg: 'close' },
+      mode: 'icon',
+      color: 'primary',
+      ariaLabel: '关闭',
+    }"
+    [mat-dialog-close]="false"
     matTooltip="关闭"
     matTooltipPosition="above"
   />

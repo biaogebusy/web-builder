@@ -49,10 +49,6 @@
 
 .header-left {
   @apply flex-[0_0_auto];
-  .version {
-    font-size: 1.2rem;
-    margin-left: 0.4rem;
-  }
 }
 .header-right {
   @apply flex flex-row justify-center items-center gap-2 md:gap-3 xl:gap-5;
@@ -88,10 +84,6 @@
       }
     }
   }
-}
-
-.app-name {
-  @apply font-bold;
 }
 
 .user-menu-drawer {

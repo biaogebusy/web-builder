@@ -26,8 +26,8 @@ import { IDialog } from '@core/interface/IDialog';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 import { IBuilderComponent, IUiux } from '@core/interface/IBuilder';
 import { UIUX } from '@core/token/token-providers';
-import { Observable, forkJoin } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { Observable, finalize, forkJoin } from 'rxjs';
+import { map, switchMap, take } from 'rxjs/operators';
 
 interface IComponentItem {
   uuid: string;
@@ -95,6 +95,7 @@ export class ManageUiuxComponent {
   categoriesLoaded = signal(false);
   searchText = '';
   private searchQuery = signal('');
+  readonly hasSearchQuery = computed(() => this.searchQuery().trim().length > 0);
   expandedGroups = signal<Set<string>>(new Set());
   selectedIds = signal<Set<string>>(new Set());
   private injector = inject(Injector);
@@ -232,41 +233,79 @@ export class ManageUiuxComponent {
 
   filteredRows = computed<TableRow[]>(() => {
     const q = this.searchQuery().trim().toLowerCase();
-    const expanded = this.expandedGroups();
     const rows = this.tableRows();
+    if (!q) {
+      const expanded = this.expandedGroups();
+      let currentL1 = '';
+      return rows.filter(row => {
+        if ((row as GroupL1Row).isL1Group) {
+          currentL1 = (row as GroupL1Row).name;
+          return true;
+        }
+        return expanded.has(currentL1);
+      });
+    }
+
     const result: TableRow[] = [];
-    let currentL1 = '';
-    let l2Row: GroupL2Row | null = null;
-    let l1Added = false;
-    let l2Added = false;
+    let currentL1: GroupL1Row | null = null;
+    let currentL2: GroupL2Row | null = null;
+    let l2Matches: IComponentItem[] = [];
+    let matchedSections: { group: GroupL2Row; items: IComponentItem[] }[] = [];
+
+    const flushL2 = (): void => {
+      if (currentL2 && l2Matches.length > 0) {
+        matchedSections.push({
+          group: { ...currentL2, count: l2Matches.length },
+          items: l2Matches,
+        });
+      }
+      l2Matches = [];
+    };
+
+    const flushL1 = (): void => {
+      flushL2();
+      if (currentL1 && matchedSections.length > 0) {
+        const count = matchedSections.reduce((sum, section) => sum + section.items.length, 0);
+        result.push({ ...currentL1, count });
+        matchedSections.forEach(section => {
+          result.push(section.group, ...section.items);
+        });
+      }
+      matchedSections = [];
+    };
 
     rows.forEach(row => {
       if ((row as GroupL1Row).isL1Group) {
-        currentL1 = (row as GroupL1Row).name;
-        l2Row = null; l1Added = false; l2Added = false;
-        result.push(row); // always show L1 headers
-      } else if (!expanded.has(currentL1)) {
-        // collapsed — skip everything inside
-      } else if ((row as GroupL2Row).isL2Group) {
-        l2Row = row as GroupL2Row; l2Added = false;
-        if (!q) result.push(row);
-      } else {
-        const item = row as IComponentItem;
-        const matches = !q ||
-          item.label.toLowerCase().includes(q) ||
-          (item.icon || '').toLowerCase().includes(q);
-        if (matches) {
-          if (q && !l1Added) { l1Added = true; } // L1 already pushed
-          if (q && !l2Added && l2Row) { result.push(l2Row); l2Added = true; }
-          result.push(item);
-        }
+        flushL1();
+        currentL1 = row as GroupL1Row;
+        currentL2 = null;
+        return;
+      }
+      if ((row as GroupL2Row).isL2Group) {
+        flushL2();
+        currentL2 = row as GroupL2Row;
+        return;
+      }
+
+      const item = row as IComponentItem;
+      const matches = item.label.toLowerCase().includes(q) ||
+        (item.icon || '').toLowerCase().includes(q);
+      if (matches) {
+        l2Matches.push(item);
       }
     });
+    flushL1();
+
     return result;
   });
 
   onSearch(value: string): void {
     this.searchQuery.set(value);
+  }
+
+  clearSearch(): void {
+    this.searchText = '';
+    this.searchQuery.set('');
   }
 
   isL1Group = (_: number, row: TableRow) => !!(row as GroupL1Row).isL1Group;
@@ -323,31 +362,36 @@ export class ManageUiuxComponent {
         .afterClosed()
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(confirmed => {
-          if (!confirmed) return;
+          if (confirmed !== true) return;
           const { title, icon, category, body } = form.value;
+          const trimmedTitle = title?.trim();
+          if (!trimmedTitle) return;
           const bodyValue = body && typeof body === 'object' ? body : {};
+          const catData = (category || []).map((id: string) => ({
+            type: 'taxonomy_term--component_type', id,
+          }));
           this.loading.set(true);
           this.nodeService
             .addEntity('/api/v1/node/component', {
-              title: title?.trim(),
+              title: trimmedTitle,
               icon: icon || null,
               body: JSON.stringify(bodyValue),
             })
             .pipe(
-              map((res: any) => res.data.id),
+              switchMap((res: any) =>
+                this.builderService.updateAttributes(
+                  { uuid: res.data.id },
+                  '/api/v1/node/component',
+                  {},
+                  { category: { data: catData } }
+                )
+              ),
+              finalize(() => this.loading.set(false)),
               takeUntilDestroyed(this.destroyRef)
             )
-            .subscribe(uuid => {
-              const catData = (category || []).map((id: string) => ({
-                type: 'taxonomy_term--component_type', id,
-              }));
-              this.builderService
-                .updateAttributes({ uuid }, '/api/v1/node/component', {}, { category: { data: catData } })
-                .pipe(takeUntilDestroyed(this.destroyRef))
-                .subscribe(() => {
-                  this.util.openSnackbar('创建成功', 'ok');
-                  this.loading.set(false);
-                });
+            .subscribe({
+              next: () => this.util.openSnackbar('创建成功', 'ok'),
+              error: () => this.util.openSnackbar('创建失败，请稍后重试', 'ok'),
             });
         });
     });

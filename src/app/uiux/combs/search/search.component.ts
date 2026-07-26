@@ -5,6 +5,7 @@ import {
   ChangeDetectorRef,
   inject,
   DestroyRef,
+  ElementRef,
   input,
 } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
@@ -53,6 +54,7 @@ export class SearchComponent extends BaseComponent implements OnInit {
   private screenService = inject(ScreenService);
   private cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
+  private ele = inject(ElementRef);
 
   ngOnInit(): void {
     this.valueChange$
@@ -73,8 +75,7 @@ export class SearchComponent extends BaseComponent implements OnInit {
           const { api } = this.content();
           const formValue = this.form?.value || {};
           const state = this.getParamsState(formValue, options);
-          const currentLang = this.nodeService.getLang(this.nodeService.pageUrl);
-          const langCode = currentLang?.default ? undefined : currentLang?.langCode;
+          const langCode = this.nodeService.resolveLangCode(this.ele);
           return this.nodeService.fetch(api, this.getApiParams(state), langCode).pipe(
             tap(data => {
               this.updateList(data, formValue, options);

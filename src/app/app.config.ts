@@ -40,11 +40,13 @@ import {
   initApp,
   langFactory,
   notifyFactory,
+  preloadInitialDynamicComponents,
   themeFactory,
   userFactory,
 } from '@core/factory/factory';
 import { environment } from 'src/environments/environment';
 import { SelectivePreloadingStrategy } from '@core/strategy/selective-preloading.strategy';
+import { IconService } from '@core/service/icon.service';
 
 registerLocaleData(zhHans, 'zh-hans');
 
@@ -63,6 +65,8 @@ export const appConfig: ApplicationConfig = {
       const initializerFn = initApp(inject(CORE_CONFIG));
       return initializerFn();
     }),
+    provideAppInitializer(() => preloadInitialDynamicComponents()),
+    provideAppInitializer(() => inject(IconService).loadSvgResources()),
     provideZonelessChangeDetection(),
     provideHttpClient(withFetch(), withInterceptors([authInterceptor, ssrTimeoutInterceptor])),
     provideRouter(

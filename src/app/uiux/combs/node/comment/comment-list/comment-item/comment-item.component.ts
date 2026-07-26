@@ -124,7 +124,7 @@ export class CommentItemComponent implements OnInit, AfterViewInit {
           `${COMMENT_GET_PATH}/${content.params.comment.attributes.field_name}`,
           id
         )
-        .pipe(takeUntilDestroyed())
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(
           () => {
             this.loading = false;

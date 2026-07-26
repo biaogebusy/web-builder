@@ -838,6 +838,8 @@
       "IMG_UPDATE": "Update image",
       "IMG_ADD": "Set image",
       "IMG_DELETE": "Delete",
+      "IMG_PRIORITY": "High-priority hero image",
+      "IMG_PRIORITY_DESC": "Use only for a likely above-the-fold LCP image, usually one per page.",
       "IS_LINK": "Is link",
       "FILL_TYPE": "Fit",
       "NEW_PAGE": "New tab",

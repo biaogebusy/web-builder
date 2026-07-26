@@ -7,6 +7,7 @@ import {
   signal,
   ChangeDetectionStrategy,
   input,
+  afterRenderEffect,
 } from '@angular/core';
 import type { ICustomTemplate, ICustomTemplateDialog } from '@core/interface/IBuilder';
 import DOMPurify from 'dompurify';
@@ -62,6 +63,12 @@ export class CustomTemplateComponent implements AfterViewInit {
   // 自定义 JS 返回的清理函数，重渲染/销毁时调用
   private jsCleanup: (() => void) | null = null;
 
+  constructor() {
+    afterRenderEffect(() => {
+      void this.render(this.content());
+    });
+  }
+
   private static readonly NON_EDITABLE_TAGS = new Set([
     'IMG',
     'STYLE',
@@ -84,7 +91,6 @@ export class CustomTemplateComponent implements AfterViewInit {
     const fontawesome = this.util.getLibraries('fontAwesome', 'cdn', 'style');
     this.util.loadStyle(fontawesome);
     this.destroyRef.onDestroy(() => this.runJsCleanup());
-    this.render(this.content());
   }
 
   async render(content: any): Promise<void> {
@@ -99,6 +105,7 @@ export class CustomTemplateComponent implements AfterViewInit {
           this.setupInlineEdit();
           this.runCustomJs(json ?? {});
         } catch (e) {
+          this.runJsCleanup();
           const error = this.translate.instant('BUILDER.CUSTOM_TEMPLATE.RENDER_ERROR');
           this.renderView({}, `<div class="m-5 p-5 bg-red-100 rounded-lg">${error}</div>`);
           this.pager.set(null);
@@ -147,8 +154,7 @@ export class CustomTemplateComponent implements AfterViewInit {
   fetchContent(params: QueryParams | string): void {
     const { html, api } = this.content();
     if (api) {
-      const currentLang = this.nodeService.getLang(this.nodeService.pageUrl);
-      const langCode = currentLang?.default ? undefined : currentLang?.langCode;
+      const langCode = this.nodeService.resolveLangCode(this.ele);
       this.nodeService
         .fetch(api.trim(), params, langCode)
         .pipe(
@@ -163,6 +169,7 @@ export class CustomTemplateComponent implements AfterViewInit {
         )
         .subscribe(res => {
           if (res?.ok === false) {
+            this.runJsCleanup();
             this.util.openSnackbar(res.message, 'ok');
             this.renderView({}, `<div class="m-5 p-5 bg-red-100 rounded-lg">${res.message}</div>`);
           } else {
@@ -251,6 +258,7 @@ export class CustomTemplateComponent implements AfterViewInit {
    * 脚本可 return 一个函数，在重渲染（如分页）或组件销毁时清理（解绑事件、销毁实例）。
    */
   private runCustomJs(data: any): void {
+    this.runJsCleanup();
     const js = this.content().js;
     if (!js?.trim()) {
       return;

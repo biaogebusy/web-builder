@@ -298,7 +298,7 @@ export class BuilderService extends ApiService {
     );
   }
 
-  updateLandingPage(page: IPage): Observable<any> {
+  updateLandingPage(page: IPage, loadPage = true): Observable<any> {
     const { langcode, nid } = page;
 
     let prefix = '';
@@ -319,7 +319,7 @@ export class BuilderService extends ApiService {
       tap((res: any) => {
         const { status } = res;
         if (status) {
-          if (langcode && nid) {
+          if (loadPage && langcode && nid) {
             this.loadPage(
               {
                 langcode,

@@ -1,4 +1,3 @@
-@use 'variable/breakpoint' as *;
 .search-header {
   @apply relative;
   overflow: hidden;
@@ -29,24 +28,8 @@
     max-width: 600px;
     margin: 0px auto;
   }
-  @media #{$lt-sm} {
-    .features-absolute {
-      position: relative;
-    }
-  }
-}
-.filter {
-  position: relative;
-  z-index: 2;
 }
 
 .search-input {
   position: relative;
-  .search-icon {
-    position: absolute;
-    left: 20px;
-    top: 16px;
-    line-height: 1;
-    cursor: pointer;
-  }
 }

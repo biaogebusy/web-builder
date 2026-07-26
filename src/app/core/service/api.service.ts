@@ -4,6 +4,7 @@ import { ILanguage } from '@core/interface/IEnvironment';
 import { IPager } from '@core/interface/widgets/IWidgets';
 import { API_URL } from '@core/token/token-providers';
 import { buildQueryString, QueryParams } from '@core/util/http-params.util';
+import { getLangPrefix } from '@core/util/language.util';
 import { camelCase, result } from 'lodash-es';
 import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -92,13 +93,10 @@ export class ApiService {
 
   getUrlPath(pageUrl: string): { lang: string; path: string } {
     const currentLang = this.getLang(pageUrl);
-    let lang = '';
+    const lang = getLangPrefix(currentLang);
     let path = pageUrl;
-    if (currentLang && !currentLang.default) {
-      lang = currentLang.prefix;
-      if (lang) {
-        path = pageUrl.split(lang)[1];
-      }
+    if (lang) {
+      path = pageUrl.split(lang)[1];
     }
     return {
       lang,

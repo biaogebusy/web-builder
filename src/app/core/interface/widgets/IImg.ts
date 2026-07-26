@@ -8,6 +8,7 @@ export interface IImg {
   classes?: any;
   mobile?: string;
   alt?: string;
+  priority?: boolean;
   hostClasses?: string;
   actions?: any[];
   width?: number;

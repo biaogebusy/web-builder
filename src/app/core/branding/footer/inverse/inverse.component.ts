@@ -34,9 +34,6 @@ import { MenuItemComponent } from '../menu-item/menu-item.component';
     DynamicComponentComponent,
     MenuItemComponent,
   ],
-  host: {
-    ngSkipHydration: 'true',
-  },
 })
 export class InverseComponent {
   readonly content = input.required<any>();

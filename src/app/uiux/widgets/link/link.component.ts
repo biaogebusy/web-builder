@@ -95,7 +95,7 @@ export class LinkComponent extends BaseComponent implements OnInit {
     }
 
     if (contentValue.href && contentValue.href.includes(':id')) {
-      if (this.user) {
+      if (this.user()) {
         const id = (this.user() as IUser)?.current_user?.uid;
         const url = contentValue.href.replace(':id', id);
         this.router.navigate([url]);

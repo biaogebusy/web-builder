@@ -16,9 +16,15 @@ describe('CustomTemplateComponent', () => {
   let component: CustomTemplateComponent;
   let fixture: ComponentFixture<CustomTemplateComponent>;
   const nodeService = {
-    pageUrl: '/en/example',
-    getLang: vi.fn(),
+    resolveLangCode: vi.fn(),
     fetch: vi.fn(() => NEVER),
+  };
+  const screenService = {
+    isPlatformBrowser: vi.fn(() => false),
+  };
+  const utilitiesService = {
+    getLibraries: vi.fn(() => ''),
+    loadStyle: vi.fn(),
   };
 
   beforeEach(async () => {
@@ -26,8 +32,8 @@ describe('CustomTemplateComponent', () => {
       imports: [CustomTemplateComponent],
       providers: [
         { provide: NodeService, useValue: nodeService },
-        { provide: ScreenService, useValue: { isPlatformBrowser: () => false } },
-        { provide: UtilitiesService, useValue: {} },
+        { provide: ScreenService, useValue: screenService },
+        { provide: UtilitiesService, useValue: utilitiesService },
         { provide: CORE_CONFIG, useValue: {} },
         { provide: MatDialog, useValue: {} },
         { provide: BuilderState, useValue: {} },
@@ -52,29 +58,60 @@ describe('CustomTemplateComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should add the current non-default language to API requests', () => {
-    nodeService.getLang.mockReturnValue({
-      label: 'EN',
-      langCode: 'en',
-      prefix: '/en',
+  it('rerenders static HTML when the content input changes', async () => {
+    screenService.isPlatformBrowser.mockReturnValue(true);
+    fixture.componentRef.setInput('content', {
+      type: 'custom-template',
+      html: '<p>Contact Information</p>',
+      json: {},
     });
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const element = fixture.nativeElement as HTMLElement;
+    expect(element.querySelector('.template')?.textContent).toContain('Contact Information');
+
+    fixture.componentRef.setInput('content', {
+      type: 'custom-template',
+      html: '<p>联系方式</p>',
+      json: {},
+    });
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(element.querySelector('.template')?.textContent).toContain('联系方式');
+    expect(element.querySelector('.template')?.textContent).not.toContain('Contact Information');
+  });
+
+  it('cleans up previous custom JavaScript when the next render has no JavaScript', () => {
+    const cleanup = vi.fn();
+    const instance = component as unknown as {
+      jsCleanup: (() => void) | null;
+      runCustomJs: (data: unknown) => void;
+    };
+    instance.jsCleanup = cleanup;
+
+    instance.runCustomJs({});
+
+    expect(cleanup).toHaveBeenCalledOnce();
+    expect(instance.jsCleanup).toBeNull();
+  });
+
+  it('should add the current non-default language to API requests', () => {
+    nodeService.resolveLangCode.mockReturnValue('en');
 
     component.fetchContent('');
 
-    expect(nodeService.getLang).toHaveBeenCalledWith('/en/example');
+    expect(nodeService.resolveLangCode).toHaveBeenCalledOnce();
     expect(nodeService.fetch).toHaveBeenCalledWith('/api/v2/xxx', '', 'en');
   });
 
   it('should keep API requests unprefixed for the default language', () => {
-    nodeService.getLang.mockReturnValue({
-      label: '中文',
-      langCode: 'zh-hans',
-      prefix: '/',
-      default: true,
-    });
+    nodeService.resolveLangCode.mockReturnValue(undefined);
 
     component.fetchContent('');
 
+    expect(nodeService.resolveLangCode).toHaveBeenCalledOnce();
     expect(nodeService.fetch).toHaveBeenCalledWith('/api/v2/xxx', '', undefined);
   });
 });

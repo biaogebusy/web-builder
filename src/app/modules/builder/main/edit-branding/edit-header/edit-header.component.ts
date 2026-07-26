@@ -10,7 +10,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule, UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -23,7 +23,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { FormModule } from '@uiux/combs/form/form.module';
-import { merge as deepMerge } from 'lodash-es';
 import { merge } from 'rxjs';
 
 import { IBranding, IHeader, IMainMenu } from '@core/interface/branding/IBranding';
@@ -31,6 +30,24 @@ import { ContentService } from '@core/service/content.service';
 import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { HasUnsavedChanges } from '@core/guards/unsaved-changes.guard';
+import { formatBrandingJson, getBrandingJsonError, mergeBrandingJson } from '../branding-json.util';
+import { buildHeaderConfig } from '../branding-config.util';
+import {
+  BRANDING_JSON_ENDPOINT,
+  buildBrandingUpdateBody,
+  canSaveBranding,
+} from '../branding-save.util';
+import {
+  appendBrandingChild,
+  appendBrandingItem,
+  insertBrandingChild,
+  insertBrandingItem,
+  moveBrandingItems,
+  removeBrandingChild,
+  removeBrandingItem,
+  updateBrandingChild,
+  updateBrandingItem,
+} from '../branding-menu.util';
 
 @Component({
   selector: 'app-edit-header',
@@ -74,7 +91,9 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
   jsonError = signal('');
 
   // Save button state
-  canSave = computed(() => this.dirty() && !this.loading() && !this.saving() && !!this.header());
+  canSave = computed(() =>
+    canSaveBranding(this.dirty(), this.loading(), this.saving(), !!this.header())
+  );
 
   paramsForm = new UntypedFormGroup({});
   paramsModel: Record<string, unknown> = {};
@@ -200,8 +219,7 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
       return;
     }
     try {
-      const preview = JSON.stringify(this.buildHeader(), null, 2);
-      this.jsonPreview.set(preview);
+      this.jsonPreview.set(formatBrandingJson(this.buildHeader()));
     } catch {
       // skip
     }
@@ -220,12 +238,7 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
   onJsonChange(value: string): void {
     this.customJson = value;
     this.markDirty();
-    try {
-      JSON.parse(value);
-      this.jsonError.set('');
-    } catch (e: unknown) {
-      this.jsonError.set((e as Error).message);
-    }
+    this.jsonError.set(getBrandingJsonError(value));
   }
 
   initParamsFields(header: IHeader): void {
@@ -421,18 +434,19 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
   // ── Menu management ──
 
   onMenuDrop(event: CdkDragDrop<IMainMenu[]>): void {
-    const items = [...this.menuItems()];
-    moveItemInArray(items, event.previousIndex, event.currentIndex);
-    this.menuItems.set(items);
+    this.menuItems.set(
+      moveBrandingItems(this.menuItems(), event.previousIndex, event.currentIndex)
+    );
     this.onMenuChange();
   }
 
   onChildMenuDrop(menuIndex: number, event: CdkDragDrop<IMainMenu[]>): void {
-    const items = [...this.menuItems()];
-    const children = [...(items[menuIndex].child ?? [])];
-    moveItemInArray(children, event.previousIndex, event.currentIndex);
-    items[menuIndex] = { ...items[menuIndex], child: children };
-    this.menuItems.set(items);
+    const items = this.menuItems();
+    const children = items[menuIndex].child ?? [];
+    const nextChildren = moveBrandingItems(children, event.previousIndex, event.currentIndex);
+    const nextItems = [...items];
+    nextItems[menuIndex] = { ...items[menuIndex], child: nextChildren };
+    this.menuItems.set(nextItems);
     this.onMenuChange();
   }
 
@@ -441,22 +455,25 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
   }
 
   addMenuItem(): void {
-    this.menuItems.update(items => [...items, { label: this.translate.instant('BUILDER.EDIT_BRANDING.NEW_MENU_ITEM'), classes: '' }]);
+    this.menuItems.update(items =>
+      appendBrandingItem(items, {
+        label: this.translate.instant('BUILDER.EDIT_BRANDING.NEW_MENU_ITEM'),
+        classes: '',
+      })
+    );
     this.onMenuChange();
   }
 
   // #8 Use (input) instead of (blur)
   updateMenuItem(index: number, field: string, value: string): void {
-    const items = [...this.menuItems()];
-    items[index] = { ...items[index], [field]: value };
-    this.menuItems.set(items);
+    this.menuItems.set(updateBrandingItem(this.menuItems(), index, field, value));
     this.onMenuChange();
   }
 
   // #2 Delete with undo
   removeMenuItem(index: number): void {
     const removed = this.menuItems()[index];
-    this.menuItems.update(items => items.filter((_, i) => i !== index));
+    this.menuItems.update(items => removeBrandingItem(items, index));
     if (this.expandedMenuIndex() === index) {
       this.expandedMenuIndex.set(-1);
     }
@@ -470,40 +487,29 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
       .onAction()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
-        this.menuItems.update(items => {
-          const copy = [...items];
-          copy.splice(index, 0, removed);
-          return copy;
-        });
+        this.menuItems.update(items => insertBrandingItem(items, index, removed));
         this.onMenuChange();
       });
   }
 
   addChildMenuItem(menuIndex: number): void {
-    const items = [...this.menuItems()];
-    const children = [...(items[menuIndex].child ?? [])];
-    children.push({ label: this.translate.instant('BUILDER.EDIT_BRANDING.NEW_CHILD_MENU') });
-    items[menuIndex] = { ...items[menuIndex], child: children };
-    this.menuItems.set(items);
+    this.menuItems.set(
+      appendBrandingChild(this.menuItems(), menuIndex, {
+        label: this.translate.instant('BUILDER.EDIT_BRANDING.NEW_CHILD_MENU'),
+      })
+    );
     this.onMenuChange();
   }
 
   updateChildMenuItem(menuIndex: number, childIndex: number, field: string, value: string): void {
-    const items = [...this.menuItems()];
-    const children = [...(items[menuIndex].child ?? [])];
-    children[childIndex] = { ...children[childIndex], [field]: value };
-    items[menuIndex] = { ...items[menuIndex], child: children };
-    this.menuItems.set(items);
+    this.menuItems.set(updateBrandingChild(this.menuItems(), menuIndex, childIndex, field, value));
     this.onMenuChange();
   }
 
   // #2 Delete child with undo
   removeChildMenuItem(menuIndex: number, childIndex: number): void {
     const removed = this.menuItems()[menuIndex].child?.[childIndex];
-    const items = [...this.menuItems()];
-    const children = (items[menuIndex].child ?? []).filter((_, i) => i !== childIndex);
-    items[menuIndex] = { ...items[menuIndex], child: children };
-    this.menuItems.set(items);
+    this.menuItems.set(removeBrandingChild(this.menuItems(), menuIndex, childIndex));
     this.onMenuChange();
     if (removed) {
       const ref = this.snackBar.open(
@@ -515,11 +521,9 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
         .onAction()
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(() => {
-          const current = [...this.menuItems()];
-          const ch = [...(current[menuIndex].child ?? [])];
-          ch.splice(childIndex, 0, removed);
-          current[menuIndex] = { ...current[menuIndex], child: ch };
-          this.menuItems.set(current);
+          this.menuItems.set(
+            insertBrandingChild(this.menuItems(), menuIndex, childIndex, removed)
+          );
           this.onMenuChange();
         });
     }
@@ -533,31 +537,14 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
   // ── Build & Save ──
 
   buildHeader(): IHeader {
-    const header = this.header()!;
-    const logoVal = this.logoForm.value;
-    const logo = {
-      ...header.logo,
-      label: logoVal.label,
-      href: logoVal.href,
-      version: logoVal.version,
-      invert: logoVal.invert,
-      img: {
-        ...(header.logo?.img ?? {}),
-        src: logoVal.src,
-        alt: logoVal.alt,
-        width: Number(logoVal.width),
-        height: Number(logoVal.height),
-      },
-    };
-
-    return {
-      ...header,
-      params: { ...header.params, ...this.paramsForm.value },
-      logo,
-      mainMenu: this.menuItems(),
-      search: { ...header.search, ...this.searchForm.value },
-      actions: this.actionsForm.value?.actions ?? header.actions ?? [],
-    };
+    return buildHeaderConfig(
+      this.header()!,
+      this.paramsForm.value,
+      this.logoForm.value,
+      this.menuItems(),
+      this.searchForm.value,
+      this.actionsForm.value
+    );
   }
 
   onSave(): void {
@@ -573,10 +560,7 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
     // #3 + #5 JSON edit mode merge with error handling
     if (this.jsonEditMode() && this.customJson) {
       try {
-        const customConfig = JSON.parse(this.customJson);
-        if (customConfig && typeof customConfig === 'object') {
-          header = deepMerge({}, header, customConfig);
-        }
+        header = mergeBrandingJson(header, this.customJson);
         this.jsonError.set('');
       } catch {
         this.saving.set(false);
@@ -585,13 +569,11 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
       }
     }
 
-    const updatedBranding: IBranding = { ...branding, header };
-
     this.builderService
       .updateAttributes(
         { uuid: this.nodeUuid(), langcode: this.nodeLangcode() },
-        '/api/v1/node/json',
-        { body: JSON.stringify(updatedBranding) },
+        BRANDING_JSON_ENDPOINT,
+        buildBrandingUpdateBody(branding, 'header', header),
         {}
       )
       .pipe(takeUntilDestroyed(this.destroyRef))

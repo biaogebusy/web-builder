@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideBuilderMocks } from '@modules/builder/testing/mocks';
 
 import { BuilderPanelComponent } from './builder-panel.component';
 
@@ -9,13 +11,11 @@ describe('BuilderPanelComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [BuilderPanelComponent],
+      providers: [provideRouter([]), ...provideBuilderMocks()],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(BuilderPanelComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
