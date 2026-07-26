@@ -18,6 +18,8 @@
 <p align="center">
   <a href="https://github.com/biaogebusy/builder-cms">Builder CMS</a>
   ·
+  <a href="https://github.com/biaogebusy/web-builder-skills">Web Builder Skills</a>
+  ·
   <a href="https://github.com/biaogebusy/xinshi-mini">信使小程序</a>
   ·
   <a href="https://docs.builder.design"> 文档 </a>
@@ -77,6 +79,17 @@
 | ------------------------------------------------------- | ------------------------------------------------------------- |
 | ![chat-entry](src/assets/images/builder/chat-entry.png) | ![chat-tailwind](src/assets/images/builder/chat-tailwind.png) |
 | ![chat-chart](src/assets/images/builder/chat-chart.png) | ![chat-mermaid](src/assets/images/builder/chat-mermaid.png)   |
+
+## Web Builder Skills
+
+[Web Builder Skills](https://github.com/biaogebusy/web-builder-skills) 是为 Web Builder
+提供的 Claude Code 技能包，覆盖 UI 构建、多语言翻译和网页配图提示词生成。
+
+| Skill                                                                                               | 能力说明                                                                |
+| --------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| [`ui-builder`](https://github.com/biaogebusy/web-builder-skills/tree/master/ui-builder)             | 在 Storybook 中创建、优化 UI 组件，并生成 stories 与 AI 提示词文档      |
+| [`translate-json`](https://github.com/biaogebusy/web-builder-skills/tree/master/translate-json)     | 翻译页面或组件 JSON 的可见文案，并为站内链接添加对应语言前缀            |
+| [`web-image-prompt`](https://github.com/biaogebusy/web-builder-skills/tree/master/web-image-prompt) | 为网页组件生成面向 gpt-image-2 的中文配图提示词，支持多种风格与图片比例 |
 
 ## 信使 Mini 小程序
 
