@@ -79,15 +79,14 @@ describe('HeaderComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('registers the sticky observer when branding renders after view init', async () => {
+  it('registers the sticky observer when branding renders after view init', () => {
     fixture.detectChanges();
-    await new Promise<void>(resolve => setTimeout(resolve));
+    TestBed.tick();
 
     expect(observerInstances).toHaveLength(0);
 
     branding$.next({ header: {} as IBranding['header'] });
-    fixture.detectChanges();
-    await fixture.whenStable();
+    TestBed.tick();
 
     expect(observerInstances).toHaveLength(1);
     expect(observerInstances[0].observe).toHaveBeenCalledWith(expect.any(HTMLDivElement));
