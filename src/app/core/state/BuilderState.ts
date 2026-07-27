@@ -84,7 +84,7 @@ export class BuilderState {
 
   constructor() {
     const localVersion = this.storage.retrieve(this.versionKey);
-    if (localVersion) {
+    if (localVersion?.length) {
       this.version.set(localVersion);
       this.loading.set(false);
     } else {
@@ -245,11 +245,11 @@ export class BuilderState {
     }, 600);
   }
 
-  updatePage(index = 0): void {
+  updatePage(index?: number): void {
     setTimeout(() => {
       this.saveLocalVersions();
 
-      if (index) {
+      if (index !== undefined) {
         this.sreenService.scrollToAnchor(`item-${index}`);
       }
       this.loading.set(false);
@@ -266,8 +266,10 @@ export class BuilderState {
     this.version.update(list => {
       const next = [...list];
       const currentIndex = next.findIndex((item: IPage) => item.current === true);
-      if (next[currentIndex]) {
-        next[currentIndex] = page;
+      // 与 currentPage getter 的回退保持一致：无 current 标记时写回第一个页面
+      const targetIndex = currentIndex === -1 ? 0 : currentIndex;
+      if (next[targetIndex]) {
+        next[targetIndex] = page;
       }
       return next;
     });
@@ -279,18 +281,24 @@ export class BuilderState {
   }
 
   upDownComponent(direction: string, path: string): void {
-    const { body } = this.currentPage;
+    const currentPage = this.currentPage;
+    const { body } = currentPage;
     const arrs = this.getArrsByPath(path, body);
     const index = this.targetIndex(path);
-    if (direction === 'up') {
-      [arrs[index - 1], arrs[index]] = [arrs[index], arrs[index - 1]];
+    const swapIndex = direction === 'up' ? index - 1 : index + 1;
+    if (!Array.isArray(arrs) || swapIndex < 0 || swapIndex > arrs.length - 1) {
+      return;
     }
-
-    if (direction === 'down' && index < arrs.length - 1) {
-      [arrs[index], arrs[index + 1]] = [arrs[index + 1], arrs[index]];
-    }
+    const nextArrs = [...arrs];
+    [nextArrs[index], nextArrs[swapIndex]] = [nextArrs[swapIndex], nextArrs[index]];
+    const lastDotIndex = path.lastIndexOf('.');
+    const parentPath = lastDotIndex === -1 ? '' : path.slice(0, lastDotIndex);
+    // 不可变更新：产生新的 page/body 引用，触发 currentPage signal 通知消费者重渲染
+    this.setCurrentPage({
+      ...currentPage,
+      body: setBuilderTreeValue(body, parentPath, nextArrs),
+    });
     this.closeRightDrawer$.next(true);
-    this.saveLocalVersions();
   }
 
   pushComponent(content: any): void {
@@ -308,11 +316,14 @@ export class BuilderState {
   }
 
   deleteComponent(path: string): void {
-    const { body } = this.currentPage;
+    const currentPage = this.currentPage;
+    const { body } = currentPage;
     const arrs = this.getArrsByPath(path, body);
     const index = this.targetIndex(path);
-    arrs.splice(index, 1);
-    this.updatePage();
+    if (!Array.isArray(arrs) || index < 0 || index > arrs.length - 1) {
+      return;
+    }
+    this.setCurrentPage({ ...currentPage, body: removeBuilderTreeValue(body, path) });
   }
 
   targetIndex(path: string): number {
@@ -366,27 +377,48 @@ export class BuilderState {
   }
 
   dropComponent(event: CdkDragDrop<IDynamicInputs[]>): void {
-    const { body } = this.currentPage;
+    const currentPage = this.currentPage;
+    const body = [...currentPage.body];
     moveItemInArray(body, event.previousIndex, event.currentIndex);
+    this.setCurrentPage({ ...currentPage, body });
     this.updatePage(event.currentIndex);
   }
 
   // 边栏拖动添加组件
   transferComponet(event: CdkDragDrop<IDynamicInputs[]>): void {
-    const { body } = this.currentPage;
+    const currentPage = this.currentPage;
     // base 和 component 数据结构不同，需要做判断
     const { data } = event.item;
     const component = data.type ? data : data.content;
+    const body = [...currentPage.body];
     body.splice(event.currentIndex, 0, cloneDeep(component));
+    this.setCurrentPage({ ...currentPage, body });
     this.updatePage(event.currentIndex);
   }
 
   loadNewPage(page: IPage, close?: boolean): void {
     const currentPage = { ...page, current: true, time: new Date().toLocaleString() };
+    const langcode = page.langcode ?? '';
     this.version.update(list => {
       const next = list.map(version => ({ ...version, current: false }));
       const somePageIndex = next.findIndex(item => {
-        return item.uuid === page.uuid && item.langcode === page.langcode;
+        if (
+          page.uuid &&
+          item.uuid &&
+          item.uuid === page.uuid &&
+          (item.langcode ?? '') === langcode
+        ) {
+          return true;
+        }
+        if (
+          page.nid &&
+          item.nid &&
+          item.nid === page.nid &&
+          (item.langcode ?? '') === langcode
+        ) {
+          return true;
+        }
+        return false;
       });
       if (somePageIndex > -1) {
         next[somePageIndex] = currentPage;
@@ -430,7 +462,7 @@ export class BuilderState {
   getAllComponents(data: IBuilderComponent[]): any[] {
     const components: any[] = [];
     data.forEach(item => {
-      components.push(...item.child);
+      components.push(...(item.child || []));
     });
     const result = components.reduce((acc: any[], element: any) => {
       if (typeof element === 'object' && element.child) {
@@ -521,6 +553,7 @@ export class BuilderState {
   editorCode(component: IComponentToolbar, reveal?: string): void {
     const { path, content } = component;
     let builderList: any;
+    let prevPaddingBottom = '';
     if (path && content?.type === 'custom-template') {
       const existing = this.dialog.getDialogById('code-editor-dialog');
       if (existing) {
@@ -567,14 +600,19 @@ export class BuilderState {
           .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe(() => {
             builderList = this.doc.querySelector('#builder-list');
-            builderList.style.paddingBottom = '500px';
+            if (builderList) {
+              prevPaddingBottom = builderList.style.paddingBottom;
+              builderList.style.paddingBottom = '500px';
+            }
             this.fullScreen$.next(true);
             this.closeRightDrawer$.next(true);
           });
 
         dialogRef.afterClosed().subscribe(() => {
           this.editingCodePath.set(null);
-          builderList.style.paddingBottom = '150px';
+          if (builderList) {
+            builderList.style.paddingBottom = prevPaddingBottom;
+          }
           this.fullScreen$.next(false);
         });
       });

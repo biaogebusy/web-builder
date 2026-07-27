@@ -91,6 +91,140 @@ describe('BuilderState tree and draft behavior', () => {
     expect(inserted).not.toBe(widget);
   });
 
+  it('moves a root component up and down with new page and body references', () => {
+    const body = [{ type: 'a' }, { type: 'b' }, { type: 'c' }];
+    const { state, storage } = createState([makePage(body)]);
+    const before = state.currentPage;
+
+    state.upDownComponent('up', '1');
+
+    expect(state.currentPage.body.map(item => item.type)).toEqual(['b', 'a', 'c']);
+    expect(state.currentPage).not.toBe(before);
+    expect(state.currentPage.body).not.toBe(body);
+    expect(body.map(item => item.type)).toEqual(['a', 'b', 'c']);
+    expect(storage.store).toHaveBeenCalledOnce();
+
+    state.upDownComponent('down', '1');
+    expect(state.currentPage.body.map(item => item.type)).toEqual(['b', 'c', 'a']);
+  });
+
+  it('moves nested elements and ignores out-of-range moves', () => {
+    const body = [{ type: 'layout', elements: [{ type: 'text' }, { type: 'img' }] }];
+    const { state } = createState([makePage(body)]);
+
+    state.upDownComponent('down', '0.elements.0');
+    expect(state.currentPage.body[0].elements?.map(item => item.type)).toEqual(['img', 'text']);
+    expect(body[0].elements?.map(item => item.type)).toEqual(['text', 'img']);
+
+    const untouched = state.currentPage;
+    state.upDownComponent('up', '0.elements.0');
+    expect(state.currentPage).toBe(untouched);
+
+    state.upDownComponent('down', '0.elements.1');
+    expect(state.currentPage).toBe(untouched);
+  });
+
+  it('deletes root and nested components immutably', () => {
+    const body = [
+      { type: 'layout', elements: [{ type: 'text' }, { type: 'img' }] },
+      { type: 'hero' },
+    ];
+    const { state } = createState([makePage(body)]);
+    const before = state.currentPage;
+
+    state.deleteComponent('1');
+    expect(state.currentPage.body.map(item => item.type)).toEqual(['layout']);
+    expect(state.currentPage).not.toBe(before);
+    expect(body.length).toBe(2);
+
+    state.deleteComponent('0.elements.1');
+    expect(state.currentPage.body[0].elements?.map(item => item.type)).toEqual(['text']);
+    expect(body[0].elements?.length).toBe(2);
+  });
+
+  it('ignores component deletion for invalid paths', () => {
+    const body = [{ type: 'hero' }];
+    const { state, storage } = createState([makePage(body)]);
+    const before = state.currentPage;
+
+    state.deleteComponent('5');
+    state.deleteComponent('0.elements.0');
+
+    expect(state.currentPage).toBe(before);
+    expect(storage.store).not.toHaveBeenCalled();
+  });
+
+  it('reorders components on drop immutably and scrolls to the target index', () => {
+    vi.useFakeTimers();
+    try {
+      const body = [{ type: 'a' }, { type: 'b' }];
+      const { state } = createState([makePage(body)]);
+      const screen = TestBed.inject(ScreenService);
+
+      state.dropComponent({ previousIndex: 1, currentIndex: 0 } as any);
+
+      expect(state.currentPage.body.map(item => item.type)).toEqual(['b', 'a']);
+      expect(state.currentPage.body).not.toBe(body);
+      expect(body.map(item => item.type)).toEqual(['a', 'b']);
+
+      vi.advanceTimersByTime(600);
+      expect(screen.scrollToAnchor).toHaveBeenCalledWith('item-0');
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it('inserts a dragged component clone at the drop index', () => {
+    const body = [{ type: 'a' }];
+    const widget = { type: 'card', nested: { value: 1 } };
+    const { state } = createState([makePage(body)]);
+
+    state.transferComponet({ currentIndex: 0, item: { data: widget } } as any);
+
+    expect(state.currentPage.body.map(item => item.type)).toEqual(['card', 'a']);
+    expect(state.currentPage.body[0]).toEqual(widget);
+    expect(state.currentPage.body[0]).not.toBe(widget);
+    expect(body.length).toBe(1);
+  });
+
+  it('adds a page without uuid as a new draft instead of replacing other drafts', () => {
+    const draft = makePage([{ type: 'a' }], { title: 'Draft' });
+    const { state } = createState([draft]);
+
+    state.loadNewPage({ title: 'Template', body: [] });
+
+    expect(state.version().length).toBe(2);
+    expect(state.version()[0]).toMatchObject({ title: 'Template', current: true });
+    expect(state.version()[1]).toMatchObject({ title: 'Draft', current: false });
+  });
+
+  it('falls back to the first page when no page is marked current', () => {
+    const body = [{ type: 'text' }];
+    const { state } = createState([makePage(body, { current: false })]);
+
+    state.updatePageContentByPath('0', { type: 'img' });
+
+    expect(state.version()[0].body[0]).toEqual({ type: 'img' });
+  });
+
+  it('initializes the default page when stored versions are empty', () => {
+    const { state } = createState([]);
+
+    expect(state.version().length).toBe(1);
+    expect(state.currentPage).toMatchObject({ title: '着陆页', current: true });
+  });
+
+  it('collects child components and tolerates groups without child', () => {
+    const { state } = createState([makePage([])]);
+
+    const result = state.getAllComponents([
+      { label: 'a', child: [{ type: 'btn' }] },
+      { label: 'b' },
+    ] as any);
+
+    expect(result).toEqual([{ type: 'btn' }]);
+  });
+
   it('replaces an existing page by uuid and language while updating current flags', () => {
     const current = makePage([], { uuid: 'page-1', langcode: 'zh-hans' });
     const other = makePage([], { uuid: 'page-2', langcode: 'en', current: false });
