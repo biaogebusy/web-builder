@@ -52,20 +52,7 @@ describe('HeaderComponent', () => {
         { provide: ScreenService, useValue: screenService },
         { provide: ScreenState, useValue: screenState },
       ],
-    })
-      .overrideComponent(HeaderComponent, {
-        set: {
-          template: `
-            @if (branding$ | async; as branding) {
-              @if (branding.header) {
-                <div #sentinel></div>
-                <div #menuAnchor></div>
-              }
-            }
-          `,
-        },
-      })
-      .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;

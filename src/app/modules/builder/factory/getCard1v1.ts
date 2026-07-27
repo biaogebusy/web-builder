@@ -16,7 +16,7 @@ export function getCard1v1(widget: any): FormlyFieldConfig {
               {
                 key: 'label',
                 type: 'input',
-                defaultValue: widget?.link.label,
+                defaultValue: widget?.link?.label,
                 props: {
                   label: 'BUILDER.FACTORY.TITLE',
                   placeholder: 'BUILDER.FACTORY.TITLE_PLACEHOLDER',
@@ -25,7 +25,7 @@ export function getCard1v1(widget: any): FormlyFieldConfig {
               {
                 key: 'href',
                 type: 'input',
-                defaultValue: widget?.link.href,
+                defaultValue: widget?.link?.href,
                 props: {
                   label: 'BUILDER.FACTORY.LINK',
                   placeholder: 'BUILDER.FACTORY.LINK_PLACEHOLDER',
@@ -84,8 +84,8 @@ export function getCard1v1(widget: any): FormlyFieldConfig {
                       updateLabel: 'BUILDER.FACTORY.IMG_UPDATE',
                       addLabel: 'BUILDER.FACTORY.IMG_ADD',
                       deleteLabel: 'BUILDER.FACTORY.IMG_DELETE',
-                      fileName: widget.feature.img.src.split('/').pop(),
-                      alt: widget.alt ?? '',
+                      fileName: widget?.feature?.img?.src?.split('/').pop(),
+                      alt: widget?.feature?.img?.alt ?? '',
                     },
                   },
                 ],

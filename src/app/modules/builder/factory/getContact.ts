@@ -17,7 +17,7 @@ export function getContact(widget: any): FormlyFieldConfig {
               {
                 key: 'webform_id',
                 type: 'input',
-                defaultValue: widget.params.webform_id,
+                defaultValue: widget?.params?.webform_id,
                 props: {
                   label: 'Webform ID',
                   description: 'Drupal webform id',
@@ -32,7 +32,7 @@ export function getContact(widget: any): FormlyFieldConfig {
               {
                 key: 'label',
                 type: 'input',
-                defaultValue: widget.action.label,
+                defaultValue: widget?.action?.label,
                 props: {
                   label: 'BUILDER.FACTORY.SUBMIT_LABEL',
                 },
