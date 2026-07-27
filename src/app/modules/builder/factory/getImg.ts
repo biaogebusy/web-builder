@@ -2,6 +2,7 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 import { getAspectRatio, getObjectFix } from './getCommon';
 
 export function getImg(widget: any): FormlyFieldConfig {
+  const src = widget?.src ?? '';
   const fields = {
     key: 'img',
     type: 'tabs',
@@ -16,12 +17,12 @@ export function getImg(widget: any): FormlyFieldConfig {
             key: 'src',
             type: 'img-picker',
             className: 'col-span-12',
-            defaultValue: widget.src ?? '',
+            defaultValue: src,
             props: {
               updateLabel: 'BUILDER.FACTORY.IMG_UPDATE',
               addLabel: 'BUILDER.FACTORY.IMG_ADD',
               deleteLabel: 'BUILDER.FACTORY.IMG_DELETE',
-              fileName: widget.src.split('/').pop(),
+              fileName: src.split('/').pop(),
               alt: widget.alt ?? '',
             },
           },

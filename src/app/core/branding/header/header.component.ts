@@ -9,10 +9,12 @@ import {
   computed,
   signal,
   effect,
+  afterRenderEffect,
   DOCUMENT,
   ChangeDetectionStrategy,
   viewChild,
 } from '@angular/core';
+import type { EffectCleanupRegisterFn } from '@angular/core';
 import { ScreenService } from '../../service/screen.service';
 import { ScreenState } from '../../state/screen/ScreenState';
 
@@ -50,7 +52,23 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   private injector = inject(Injector);
   private screenService = inject(ScreenService);
   private screenState = inject(ScreenState);
-  private stickyObserver?: IntersectionObserver;
+
+  constructor() {
+    afterRenderEffect(onCleanup => {
+      if (!this.screenService.isPlatformBrowser()) {
+        return;
+      }
+
+      const menuAnchor = this.menuAnchor();
+      const sentinel = this.sentinel();
+      if (!menuAnchor || !sentinel) {
+        return;
+      }
+
+      this.measureMenu();
+      this.observeStickyState(sentinel, onCleanup);
+    });
+  }
 
   ngOnInit(): void {
     effect(
@@ -66,10 +84,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      setTimeout(() => {
-        this.measureMenu();
-        this.observeStickyState();
-      });
       this.initBanner();
     }
   }
@@ -81,12 +95,11 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private observeStickyState(): void {
-    const sentinel = this.sentinel();
-    if (!sentinel) {
-      return;
-    }
-    this.stickyObserver = new IntersectionObserver(
+  private observeStickyState(
+    sentinel: ElementRef,
+    onCleanup: EffectCleanupRegisterFn
+  ): void {
+    const stickyObserver = new IntersectionObserver(
       ([entry]) => {
         const isSticky = !entry.isIntersecting && entry.boundingClientRect.top < 0;
         this.sticky.set(isSticky);
@@ -94,8 +107,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       },
       { threshold: 0 }
     );
-    this.stickyObserver.observe(sentinel.nativeElement);
-    this.destoryRef.onDestroy(() => this.stickyObserver?.disconnect());
+    stickyObserver.observe(sentinel.nativeElement);
+    onCleanup(() => stickyObserver.disconnect());
   }
 
   initBanner(): void {

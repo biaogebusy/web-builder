@@ -96,7 +96,7 @@ export function getBtnVideo(widget: any): FormlyFieldConfig {
                           key: 'src',
                           type: 'input',
                           className: 'w-full',
-                          defaultValue: widget.video?.options?.sources[0].src,
+                          defaultValue: widget?.video?.options?.sources?.[0]?.src,
                           props: {
                             label: 'BUILDER.FACTORY.VIDEO_URL',
                           },

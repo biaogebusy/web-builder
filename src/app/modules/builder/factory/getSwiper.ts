@@ -76,7 +76,7 @@ export function getSwiper(widget: any): FormlyFieldConfig {
                     key: 'slidesPerView',
                     type: 'slider',
                     className: 'w-full',
-                    defaultValue: widget?.params.breakpoints?.[960]?.slidesPerView ?? 1,
+                    defaultValue: widget?.params?.breakpoints?.[960]?.slidesPerView ?? 1,
                     props: {
                       min: 1,
                       max: 10,
@@ -138,7 +138,7 @@ export function getSwiper(widget: any): FormlyFieldConfig {
             key: 'speed',
             type: 'slider',
             className: 'w-full',
-            defaultValue: widget?.params.speed ?? 300,
+            defaultValue: widget?.params?.speed ?? 300,
             props: {
               min: 0,
               max: 10000,
@@ -167,14 +167,14 @@ export function getSwiper(widget: any): FormlyFieldConfig {
         fieldGroup: [
           {
             key: 'pagination',
-            defaultValue: widget?.params.pagination,
+            defaultValue: widget?.params?.pagination,
             fieldGroupClassName: 'section-group',
             fieldGroup: [
               {
                 key: 'paginationEnable',
                 type: 'toggle',
                 className: 'w-full',
-                defaultValue: widget?.params.pagination ?? false,
+                defaultValue: widget?.params?.pagination ?? false,
                 props: {
                   label: 'BUILDER.FACTORY.PAGE_INDICATOR',
                 },
@@ -220,7 +220,7 @@ export function getSwiper(widget: any): FormlyFieldConfig {
             key: 'navigation',
             type: 'toggle',
             className: 'w-full',
-            defaultValue: widget?.params.navigation ?? false,
+            defaultValue: widget?.params?.navigation ?? false,
             props: {
               label: 'BUILDER.FACTORY.ARROWS',
             },
@@ -229,7 +229,7 @@ export function getSwiper(widget: any): FormlyFieldConfig {
             key: 'centeredSlides',
             type: 'toggle',
             className: 'w-full',
-            defaultValue: widget?.params.centeredSlides ?? false,
+            defaultValue: widget?.params?.centeredSlides ?? false,
             props: {
               label: 'BUILDER.FACTORY.CENTERED',
             },
@@ -238,7 +238,7 @@ export function getSwiper(widget: any): FormlyFieldConfig {
             key: 'loop',
             type: 'toggle',
             className: 'w-full',
-            defaultValue: widget?.params.loop ?? false,
+            defaultValue: widget?.params?.loop ?? false,
             props: {
               label: 'BUILDER.FACTORY.LOOP',
             },
@@ -247,7 +247,7 @@ export function getSwiper(widget: any): FormlyFieldConfig {
             key: 'autoplay',
             type: 'toggle',
             className: 'w-full',
-            defaultValue: widget?.params.autoplay ?? false,
+            defaultValue: widget?.params?.autoplay ?? false,
             props: {
               label: 'BUILDER.FACTORY.AUTOPLAY',
             },
@@ -256,7 +256,7 @@ export function getSwiper(widget: any): FormlyFieldConfig {
             key: 'mousewheel',
             type: 'toggle',
             className: 'w-full',
-            defaultValue: widget?.params.mousewheel ?? false,
+            defaultValue: widget?.params?.mousewheel ?? false,
             props: {
               label: 'BUILDER.FACTORY.MOUSE_CTRL',
             },
