@@ -2,8 +2,6 @@ import type { Provider } from '@angular/core';
 import { MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
 import {
   FORMLY_CONFIG,
-  FormlyConfig,
-  FormlyFormBuilder,
   type ConfigOption,
   type FormlyFieldConfig,
   provideFormlyCore,
@@ -62,8 +60,11 @@ export function provideXinshiFormly(): Provider[] {
       withFormlyFieldToggle(),
       XINSHI_FORMLY_CONFIG,
     ]),
-    FormlyConfig,
-    FormlyFormBuilder,
+    // 注意：不要在这里提供 FormlyConfig / FormlyFormBuilder。
+    // formly 7.1 起 withDefaultConfig 的 core 扩展持有创建时注入的 FormlyConfig 实例，
+    // 组件级若创建独立实例，会与父级（forChild 等）绑定的 root 单例分裂：
+    // 类型注册在组件实例上、defaultOptions 合并却发生在 root 实例上，
+    // 导致 select 丢失默认 compareWith / form-field wrapper 而报错。
     provideNativeDateAdapter(),
     { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' },
     {

@@ -22,6 +22,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { FormModule } from '@uiux/combs/form/form.module';
+import { provideXinshiFormly } from '@uiux/combs/form/formly-feature.config';
 import { merge } from 'rxjs';
 
 import { IBranding, IFooter } from '@core/interface/branding/IBranding';
@@ -76,6 +77,7 @@ interface FooterMenuGroup {
     NgxSkeletonLoaderModule,
     BrandingPreviewComponent,
   ],
+  providers: [provideXinshiFormly()],
 })
 export class EditFooterComponent implements OnInit, HasUnsavedChanges {
   loading = signal(false);

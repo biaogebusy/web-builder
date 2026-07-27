@@ -23,6 +23,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { FormModule } from '@uiux/combs/form/form.module';
+import { provideXinshiFormly } from '@uiux/combs/form/formly-feature.config';
 import { merge } from 'rxjs';
 
 import { IBranding, IHeader, IMainMenu } from '@core/interface/branding/IBranding';
@@ -71,6 +72,7 @@ import {
     NgxSkeletonLoaderModule,
     BrandingPreviewComponent,
   ],
+  providers: [provideXinshiFormly()],
 })
 export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
   loading = signal(false);
