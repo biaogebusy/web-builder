@@ -1,5 +1,3 @@
-$include-header-fields: false !default;
-
 :host {
   @apply block h-full;
 }
@@ -104,6 +102,11 @@ $include-header-fields: false !default;
     color: var(--mat-sys-error);
     background: var(--mat-sys-error-container);
   }
+
+  &.active {
+    color: var(--mat-sys-primary);
+    background: var(--mat-sys-primary-container);
+  }
 }
 
 .ghost-btn {
@@ -127,13 +130,39 @@ $include-header-fields: false !default;
   @apply mt-2;
 }
 
-// ── Single column layout ──
+// ── Stacked layout: live preview on top, form below ──
 .scroll-area {
   @apply flex-1 overflow-y-auto;
 }
 
+.workspace {
+  @apply flex flex-col gap-6 max-w-[1400px] mx-auto py-6 px-6 pb-16;
+}
+
+.form-col {
+  @apply w-full max-w-[640px] mx-auto;
+}
+
+.preview-pane {
+  @apply flex flex-col gap-2 w-full max-w-[1280px] mx-auto;
+}
+
+.preview-head {
+  @apply flex items-center gap-2 text-sm font-semibold;
+  color: var(--mat-sys-on-surface-variant);
+
+  mat-icon {
+    @apply w-4 h-4 text-base;
+  }
+}
+
+.preview-hint {
+  @apply text-xs;
+  color: var(--mat-sys-outline);
+}
+
 .container {
-  @apply max-w-[640px] mx-auto py-6 px-6 pb-16;
+  @apply w-full;
 }
 
 .skeleton-block {
@@ -222,7 +251,7 @@ $include-header-fields: false !default;
   }
 }
 
-@if $include-header-fields {
+:host ::ng-deep {
   .field-block {
     @apply w-full mb-3;
   }
@@ -321,6 +350,28 @@ $include-header-fields: false !default;
 
 .cdk-drag-animating {
   @apply transition-transform duration-200 ease-out;
+}
+
+// ── Row extras ──
+.row-badge {
+  @apply text-xs font-medium px-1.5 leading-5 rounded self-center flex-shrink-0;
+  background: var(--mat-sys-tertiary-container, var(--mat-sys-primary-container));
+  color: var(--mat-sys-on-tertiary-container, var(--mat-sys-on-primary-container));
+}
+
+.check-row {
+  @apply flex items-center gap-2 mb-2 text-sm cursor-pointer select-none;
+  color: var(--mat-sys-on-surface-variant);
+
+  input[type='checkbox'] {
+    accent-color: var(--mat-sys-primary);
+    @apply w-4 h-4 cursor-pointer;
+  }
+}
+
+.grand-drop {
+  @apply mt-1 ml-6 pl-2;
+  border-left: 2px solid var(--mat-sys-outline-variant);
 }
 
 // ── Empty ──

@@ -15,6 +15,11 @@ interface HeaderActionsValue {
   actions?: IHeader['actions'];
 }
 
+export interface HeaderTopValue {
+  left?: { svg?: string; label?: string }[];
+  right?: { label?: string; svg?: string; href?: string }[];
+}
+
 interface FooterBrandValue {
   src: string;
   alt?: string;
@@ -39,13 +44,24 @@ interface FooterBottomValue {
   right?: NonNullable<IFooter['footerBottom']>['right'];
 }
 
+export interface FooterFixBarValue {
+  fixBar?: NonNullable<IFooter['fixBar']>;
+}
+
+export interface FooterDynamicValue {
+  enabled: boolean;
+  classes: string;
+  html: string;
+}
+
 export function buildHeaderConfig(
   header: IHeader,
   paramsValue: Partial<IHeader['params']>,
   logoValue: HeaderLogoValue,
   menuItems: IMainMenu[],
   searchValue: Partial<IHeader['search']>,
-  actionsValue: HeaderActionsValue
+  actionsValue: HeaderActionsValue,
+  topValue?: HeaderTopValue
 ): IHeader {
   const logo = {
     ...header.logo,
@@ -62,7 +78,7 @@ export function buildHeaderConfig(
     },
   };
 
-  return {
+  const result: IHeader = {
     ...header,
     params: { ...header.params, ...paramsValue },
     logo,
@@ -70,6 +86,22 @@ export function buildHeaderConfig(
     search: { ...header.search, ...searchValue },
     actions: actionsValue.actions ?? header.actions ?? [],
   };
+
+  if (topValue) {
+    const left = (topValue.left ?? [])
+      .filter(row => row.label || row.svg)
+      .map(row => ({ icon: { svg: row.svg ?? '', inline: true }, label: row.label ?? '' }));
+    const right = (topValue.right ?? [])
+      .filter(row => row.label || row.svg || row.href)
+      .map(row => ({ label: row.label ?? '', svg: row.svg ?? '', href: row.href ?? '' }));
+    if (left.length || right.length) {
+      result.top = { ...header.top, banner: { left, right } };
+    } else {
+      delete result.top;
+    }
+  }
+
+  return result;
 }
 
 export function buildFooterConfig(
@@ -80,9 +112,11 @@ export function buildFooterConfig(
   newsletterValue: FooterNewsletterValue,
   bottomValue: FooterBottomValue,
   menuItems: NonNullable<IFooter['mainMenu']>,
-  mobileMenuItems: NonNullable<IFooter['mobileMenu']>
+  mobileMenuItems: NonNullable<IFooter['mobileMenu']>,
+  fixBarValue?: FooterFixBarValue,
+  dynamicValue?: FooterDynamicValue
 ): IFooter {
-  return {
+  const result: IFooter = {
     ...footer,
     params: { ...footer.params, ...paramsValue },
     footerBrand: {
@@ -102,7 +136,18 @@ export function buildFooterConfig(
     },
     mainMenu: menuItems,
     mobileMenu: mobileMenuItems,
-    footerNewsletter: {
+  };
+
+  // Only write the newsletter node when the source config had one or the user
+  // filled in something — avoid injecting an empty subscribe block on save.
+  const hasNewsletterInput = !!(
+    newsletterValue.webform_id ||
+    newsletterValue.label ||
+    newsletterValue.summary ||
+    newsletterValue.actionLabel
+  );
+  if (footer.footerNewsletter || hasNewsletterInput) {
+    result.footerNewsletter = {
       ...footer.footerNewsletter,
       form: footer.footerNewsletter?.form ?? [],
       params: {
@@ -115,11 +160,48 @@ export function buildFooterConfig(
         ...footer.footerNewsletter?.action,
         label: newsletterValue.actionLabel,
       },
-    },
-    footerBottom: {
-      ...footer.footerBottom,
-      left: bottomValue.left,
-      right: bottomValue.right ?? footer.footerBottom?.right ?? [],
-    },
-  };
+    };
+  } else {
+    delete result.footerNewsletter;
+  }
+
+  const bottomRight = bottomValue.right ?? footer.footerBottom?.right ?? [];
+  if (footer.footerBottom || bottomValue.left || bottomRight.length) {
+    const footerBottom = { ...footer.footerBottom, left: bottomValue.left, right: bottomRight };
+    if (!bottomValue.left) {
+      delete (footerBottom as Partial<typeof footerBottom>).left;
+    }
+    result.footerBottom = footerBottom as NonNullable<IFooter['footerBottom']>;
+  } else {
+    delete result.footerBottom;
+  }
+
+  if (fixBarValue) {
+    const fixBar = fixBarValue.fixBar ?? footer.fixBar ?? [];
+    if (fixBar.length) {
+      result.fixBar = fixBar;
+    } else {
+      delete result.fixBar;
+    }
+  }
+
+  if (dynamicValue) {
+    if (dynamicValue.enabled) {
+      result.dynamic = {
+        ...footer.dynamic,
+        classes: dynamicValue.classes,
+        content: {
+          type: 'custom-template',
+          fullWidth: true,
+          isAPI: false,
+          ...footer.dynamic?.content,
+          html: dynamicValue.html,
+        },
+      };
+    } else {
+      delete result.dynamic;
+    }
+  }
+
+  return result;
 }
