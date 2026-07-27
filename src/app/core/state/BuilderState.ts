@@ -53,9 +53,9 @@ export class BuilderState {
   public fixedChange$ = new Subject<boolean>();
   public animateDisable$ = new Subject<boolean>();
   public fullScreen$ = new Subject<boolean>();
-  public debugeAnimate$ = new Subject<boolean>();
+  public debugAnimate$ = new Subject<boolean>();
   public selectedMedia$ = new Subject<ISelectedMedia>();
-  public switchPreivew$ = new Subject<'xs' | 'sm' | 'md' | 'xs-md' | 'none'>();
+  public switchPreview$ = new Subject<'xs' | 'sm' | 'md' | 'xs-md' | 'none'>();
   public revealCode$ = new Subject<string>();
   public pendingPageLoad = signal<IBuilderPendingPageLoad | null>(null);
 
@@ -76,7 +76,7 @@ export class BuilderState {
 
   private dialog = inject(MatDialog);
   private util = inject(UtilitiesService);
-  private sreenService = inject(ScreenService);
+  private screenService = inject(ScreenService);
   private storage = inject(LocalStorageService);
 
   // code-editor 当前正在编辑的组件路径,跨外部调用方读取
@@ -116,14 +116,6 @@ export class BuilderState {
       },
     });
     this.fixedChange$.next(true);
-  }
-
-  updateVersion(page: IPage): void {
-    this.version.update(v => {
-      v.unshift(page);
-      return [...v];
-    });
-    this.saveLocalVersions();
   }
 
   deleteLocalPage(index: number): void {
@@ -250,7 +242,7 @@ export class BuilderState {
       this.saveLocalVersions();
 
       if (index !== undefined) {
-        this.sreenService.scrollToAnchor(`item-${index}`);
+        this.screenService.scrollToAnchor(`item-${index}`);
       }
       this.loading.set(false);
     }, 600);
@@ -371,7 +363,7 @@ export class BuilderState {
       this.dropComponent(event);
     } else {
       // 添加组件到指定位置
-      this.transferComponet(event);
+      this.transferComponent(event);
     }
     this.closeRightDrawer$.next(true);
   }
@@ -385,7 +377,7 @@ export class BuilderState {
   }
 
   // 边栏拖动添加组件
-  transferComponet(event: CdkDragDrop<IDynamicInputs[]>): void {
+  transferComponent(event: CdkDragDrop<IDynamicInputs[]>): void {
     const currentPage = this.currentPage;
     // base 和 component 数据结构不同，需要做判断
     const { data } = event.item;
@@ -491,18 +483,17 @@ export class BuilderState {
       return acc;
     }, []);
 
-    if (result && result.length > 0) {
-      const randomElements = [];
+    // 无放回抽样：最多返回池内数量个不重复元素
+    const pool = [...result];
+    const randomElements = [];
+    const total = Math.min(count, pool.length);
 
-      for (let i = 0; i < count; i++) {
-        const randomIndex = Math.floor(Math.random() * result.length);
-        randomElements.push(result[randomIndex]);
-      }
-
-      return randomElements;
-    } else {
-      return [];
+    for (let i = 0; i < total; i++) {
+      const randomIndex = Math.floor(Math.random() * pool.length);
+      randomElements.push(pool.splice(randomIndex, 1)[0]);
     }
+
+    return randomElements;
   }
 
   renderMarkers(isDebugAnimate: boolean): void {

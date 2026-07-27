@@ -29,7 +29,7 @@ export class BuilderPanelComponent implements OnInit {
   public builder = inject(BuilderState);
   private cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
-  private scrrenService = inject(ScreenService);
+  private screenService = inject(ScreenService);
   public fixLabel = signal<string>('');
 
   ngOnInit(): void {
@@ -85,7 +85,7 @@ export class BuilderPanelComponent implements OnInit {
 
   onDragStarted(): void {
     this.builder.closeRightDrawer$.next(true);
-    this.builder.switchPreivew$.next('none');
+    this.builder.switchPreview$.next('none');
   }
 
   onAfterExpand(): void {
@@ -96,7 +96,7 @@ export class BuilderPanelComponent implements OnInit {
     this.builder.pushComponent(cloneDeep(content));
     const { body } = this.builder.currentPage;
     setTimeout(() => {
-      this.scrrenService.scrollToAnchor(`item-${body.length - 1}`);
+      this.screenService.scrollToAnchor(`item-${body.length - 1}`);
     }, 500);
   }
 }

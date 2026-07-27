@@ -41,7 +41,7 @@ describe('SwitchPreviewComponent', () => {
 
   it('refuses to preview an empty page', () => {
     const switched = vi.fn();
-    builderState.switchPreivew$.subscribe(switched);
+    builderState.switchPreview$.subscribe(switched);
 
     component.onSwitch({ value: 'sm', icon: { svg: 'tablet' } });
 
@@ -54,7 +54,7 @@ describe('SwitchPreviewComponent', () => {
     currentPage.set({ title: 'Home', body: [{ type: 'text' }] });
     const switched = vi.fn();
     const drawerClosed = vi.fn();
-    builderState.switchPreivew$.subscribe(switched);
+    builderState.switchPreview$.subscribe(switched);
     builderState.closeRightDrawer$.subscribe(drawerClosed);
 
     component.onSwitch({ value: 'sm', icon: { svg: 'tablet' } });

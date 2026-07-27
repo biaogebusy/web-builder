@@ -138,7 +138,7 @@ export function debugAnimateFactory(): WritableSignal<boolean> {
     builder.renderMarkers(isDebugAnimate);
   }, 2000);
 
-  builder.debugeAnimate$.pipe(takeUntilDestroyed(destroyRef)).subscribe(state => {
+  builder.debugAnimate$.pipe(takeUntilDestroyed(destroyRef)).subscribe(state => {
     storage.store(DEBUG_ANIMATE_KEY, state);
     debugAnimate.set(state);
   });

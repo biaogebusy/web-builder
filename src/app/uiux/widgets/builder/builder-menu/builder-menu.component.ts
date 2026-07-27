@@ -108,7 +108,7 @@ export class BuilderMenuComponent implements AfterViewInit {
 
   onDebugAnimate(event: MatSlideToggleChange): void {
     const isDebugAnimate = event.checked;
-    this.builder.debugeAnimate$.next(isDebugAnimate);
+    this.builder.debugAnimate$.next(isDebugAnimate);
     this.builder.renderMarkers(isDebugAnimate);
   }
 

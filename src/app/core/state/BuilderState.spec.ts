@@ -179,7 +179,7 @@ describe('BuilderState tree and draft behavior', () => {
     const widget = { type: 'card', nested: { value: 1 } };
     const { state } = createState([makePage(body)]);
 
-    state.transferComponet({ currentIndex: 0, item: { data: widget } } as any);
+    state.transferComponent({ currentIndex: 0, item: { data: widget } } as any);
 
     expect(state.currentPage.body.map(item => item.type)).toEqual(['card', 'a']);
     expect(state.currentPage.body[0]).toEqual(widget);
@@ -223,6 +223,26 @@ describe('BuilderState tree and draft behavior', () => {
     ] as any);
 
     expect(result).toEqual([{ type: 'btn' }]);
+  });
+
+  it('returns unique random elements capped at the pool size', () => {
+    const { state } = createState([makePage([])]);
+    const data = [
+      {
+        label: 'hero',
+        child: [{ type: 'hero-1v1' }, { type: 'hero-2v1' }, { type: 'hero-3v1' }],
+      },
+    ] as any;
+
+    const picked = state.getRandomElements(data, 'hero', 5);
+    expect(picked.length).toBe(3);
+    expect(new Set(picked).size).toBe(3);
+
+    const two = state.getRandomElements(data, 'hero', 2);
+    expect(two.length).toBe(2);
+    expect(new Set(two).size).toBe(2);
+
+    expect(state.getRandomElements(data, 'missing', 2)).toEqual([]);
   });
 
   it('replaces an existing page by uuid and language while updating current flags', () => {

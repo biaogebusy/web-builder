@@ -102,7 +102,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
       });
     }, 0);
 
-    this.previewClass$ = this.builder.switchPreivew$.pipe(
+    this.previewClass$ = this.builder.switchPreview$.pipe(
       takeUntilDestroyed(this.destroyRef),
       map(media => {
         return {
