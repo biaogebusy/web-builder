@@ -8,7 +8,7 @@
       </mat-expansion-panel-header>
       <mat-list>
         @if (version?.length) {
-          @for (version of version; track version; let i = $index) {
+          @for (version of version; track $index; let i = $index) {
             <mat-list-item matRipple (click)="onVersion(version, i)">
               @if (!version.current) {
                 <mat-icon matListItemIcon>radio_button_unchecked</mat-icon>
