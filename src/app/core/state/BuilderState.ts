@@ -279,18 +279,24 @@ export class BuilderState {
   }
 
   upDownComponent(direction: string, path: string): void {
-    const { body } = this.currentPage;
+    const currentPage = this.currentPage;
+    const { body } = currentPage;
     const arrs = this.getArrsByPath(path, body);
     const index = this.targetIndex(path);
-    if (direction === 'up') {
-      [arrs[index - 1], arrs[index]] = [arrs[index], arrs[index - 1]];
+    const swapIndex = direction === 'up' ? index - 1 : index + 1;
+    if (!Array.isArray(arrs) || swapIndex < 0 || swapIndex > arrs.length - 1) {
+      return;
     }
-
-    if (direction === 'down' && index < arrs.length - 1) {
-      [arrs[index], arrs[index + 1]] = [arrs[index + 1], arrs[index]];
-    }
+    const nextArrs = [...arrs];
+    [nextArrs[index], nextArrs[swapIndex]] = [nextArrs[swapIndex], nextArrs[index]];
+    const lastDotIndex = path.lastIndexOf('.');
+    const parentPath = lastDotIndex === -1 ? '' : path.slice(0, lastDotIndex);
+    // 不可变更新：产生新的 page/body 引用，触发 currentPage signal 通知消费者重渲染
+    this.setCurrentPage({
+      ...currentPage,
+      body: setBuilderTreeValue(body, parentPath, nextArrs),
+    });
     this.closeRightDrawer$.next(true);
-    this.saveLocalVersions();
   }
 
   pushComponent(content: any): void {

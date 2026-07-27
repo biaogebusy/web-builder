@@ -91,6 +91,39 @@ describe('BuilderState tree and draft behavior', () => {
     expect(inserted).not.toBe(widget);
   });
 
+  it('moves a root component up and down with new page and body references', () => {
+    const body = [{ type: 'a' }, { type: 'b' }, { type: 'c' }];
+    const { state, storage } = createState([makePage(body)]);
+    const before = state.currentPage;
+
+    state.upDownComponent('up', '1');
+
+    expect(state.currentPage.body.map(item => item.type)).toEqual(['b', 'a', 'c']);
+    expect(state.currentPage).not.toBe(before);
+    expect(state.currentPage.body).not.toBe(body);
+    expect(body.map(item => item.type)).toEqual(['a', 'b', 'c']);
+    expect(storage.store).toHaveBeenCalledOnce();
+
+    state.upDownComponent('down', '1');
+    expect(state.currentPage.body.map(item => item.type)).toEqual(['b', 'c', 'a']);
+  });
+
+  it('moves nested elements and ignores out-of-range moves', () => {
+    const body = [{ type: 'layout', elements: [{ type: 'text' }, { type: 'img' }] }];
+    const { state } = createState([makePage(body)]);
+
+    state.upDownComponent('down', '0.elements.0');
+    expect(state.currentPage.body[0].elements?.map(item => item.type)).toEqual(['img', 'text']);
+    expect(body[0].elements?.map(item => item.type)).toEqual(['text', 'img']);
+
+    const untouched = state.currentPage;
+    state.upDownComponent('up', '0.elements.0');
+    expect(state.currentPage).toBe(untouched);
+
+    state.upDownComponent('down', '0.elements.1');
+    expect(state.currentPage).toBe(untouched);
+  });
+
   it('replaces an existing page by uuid and language while updating current flags', () => {
     const current = makePage([], { uuid: 'page-1', langcode: 'zh-hans' });
     const other = makePage([], { uuid: 'page-2', langcode: 'en', current: false });
