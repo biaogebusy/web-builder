@@ -23,6 +23,7 @@ import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { FormModule } from '@uiux/combs/form/form.module';
 import { provideXinshiFormly } from '@uiux/combs/form/formly-feature.config';
+import { shadcnFormOptions } from '@uiux/combs/form/formly-shadcn/formly-shadcn.config';
 import { merge } from 'rxjs';
 
 import { IBranding, IFooter } from '@core/interface/branding/IBranding';
@@ -113,26 +114,32 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
   paramsForm = new UntypedFormGroup({});
   paramsModel: Record<string, unknown> = {};
   paramsFields: FormlyFieldConfig[] = [];
+  paramsOptions = shadcnFormOptions();
 
   brandForm = new UntypedFormGroup({});
   brandModel: Record<string, unknown> = {};
   brandFields: FormlyFieldConfig[] = [];
+  brandOptions = shadcnFormOptions();
 
   socialForm = new UntypedFormGroup({});
   socialModel: Record<string, unknown> = {};
   socialFields: FormlyFieldConfig[] = [];
+  socialOptions = shadcnFormOptions();
 
   newsletterForm = new UntypedFormGroup({});
   newsletterModel: Record<string, unknown> = {};
   newsletterFields: FormlyFieldConfig[] = [];
+  newsletterOptions = shadcnFormOptions();
 
   bottomForm = new UntypedFormGroup({});
   bottomModel: Record<string, unknown> = {};
   bottomFields: FormlyFieldConfig[] = [];
+  bottomOptions = shadcnFormOptions();
 
   fixBarForm = new UntypedFormGroup({});
   fixBarModel: Record<string, unknown> = {};
   fixBarFields: FormlyFieldConfig[] = [];
+  fixBarOptions = shadcnFormOptions();
 
   monacoReadonlyOptions = {
     theme: 'vs',

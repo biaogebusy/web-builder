@@ -1,17 +1,22 @@
+// Branding editor styles — shadcn/ui-inspired.
+// Uses --shadcn-* tokens (mapped from --mat-sys-* in _shadcn-tokens.scss)
+// so light/dark themes and custom seed palettes flow through automatically.
+// Formly Material field styling lives in _shadcn-formly.scss (.shadcn-formly scope).
+
 :host {
   @apply block h-full;
 }
 
 .edit-page {
   @apply flex flex-col h-full text-sm;
-  color: var(--mat-sys-on-surface);
+  color: var(--shadcn-foreground);
 }
 
 // ── Toolbar ──
 .toolbar {
   @apply flex items-center justify-between sticky top-0 z-10 py-2 px-6;
-  border-bottom: 1px solid var(--mat-sys-outline-variant);
-  background: var(--mat-sys-surface);
+  border-bottom: 1px solid var(--shadcn-border);
+  background: color-mix(in srgb, var(--shadcn-background) 88%, transparent);
   backdrop-filter: blur(16px) saturate(1.8);
 }
 
@@ -20,48 +25,39 @@
 }
 
 .nav-tabs {
-  @apply flex rounded-lg p-0.5;
-  background: var(--mat-sys-surface-container);
+  @apply inline-flex items-center gap-1;
 }
 
 .tab {
-  @apply inline-flex items-center text-sm font-medium cursor-pointer select-none no-underline py-2 px-4 rounded;
-  color: var(--mat-sys-on-surface-variant);
-  transition: all 0.15s;
+  @apply inline-flex items-center text-sm font-medium cursor-pointer select-none no-underline py-2 px-3;
+  color: var(--shadcn-muted-foreground);
+  border-bottom: 2px solid transparent;
+  transition: color 0.12s, border-color 0.12s;
 
   &:hover {
-    color: var(--mat-sys-on-surface);
-    background: var(--mat-sys-surface-dim);
+    color: var(--shadcn-foreground);
   }
 
   &.active {
-    color: var(--mat-sys-on-surface);
-    background: var(--mat-sys-surface-bright, var(--mat-sys-surface));
-    box-shadow:
-      0 1px 2px rgba(0, 0, 0, 0.06),
-      0 0 0 1px var(--mat-sys-outline-variant);
+    color: var(--shadcn-foreground);
+    border-bottom-color: var(--shadcn-primary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--shadcn-ring-subtle);
+    @apply outline-offset-2 rounded;
   }
 }
 
+// Static dirty indicator — no animation per user preference
 .dirty-dot {
-  @apply w-2 h-2 rounded-full;
-  background: var(--mat-sys-error);
-  animation: pulse 2.5s ease-in-out infinite;
+  @apply w-2 h-2 rounded-full inline-block;
+  background: var(--shadcn-destructive);
 }
 
 .dirty-label {
   @apply text-sm;
-  color: var(--mat-sys-on-surface-variant);
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.3;
-  }
+  color: var(--shadcn-muted-foreground);
 }
 
 .loading-bar {
@@ -69,22 +65,23 @@
 }
 
 // ── Buttons ──
-
+// Raw <button> icon button (kept for cases needing [attr.aria-expanded];
+// app-btn is used elsewhere). Styled to match .shad-icon-btn in global layer.
 .icon-btn {
   @apply inline-flex items-center justify-center w-9 h-9 rounded border-none bg-transparent cursor-pointer;
-  color: var(--mat-sys-on-surface-variant);
-  transition: all 0.15s;
+  color: var(--shadcn-muted-foreground);
+  transition: background 0.12s, color 0.12s;
 
   &:hover:not(:disabled) {
-    background: var(--mat-sys-surface-container);
-    color: var(--mat-sys-on-surface);
+    background: var(--shadcn-accent);
+    color: var(--shadcn-accent-foreground);
   }
   &:disabled {
     @apply opacity-40 cursor-not-allowed;
   }
   &:focus-visible {
-    outline: 2px solid var(--mat-sys-primary);
-    @apply outline-offset-2;
+    outline: 2px solid var(--shadcn-ring-subtle);
+    @apply outline-offset-2 rounded;
   }
 
   mat-icon {
@@ -99,26 +96,26 @@
   }
 
   &.danger:hover {
-    color: var(--mat-sys-error);
-    background: var(--mat-sys-error-container);
+    color: var(--shadcn-destructive);
+    background: color-mix(in srgb, var(--shadcn-destructive) 12%, transparent);
   }
 
   &.active {
-    color: var(--mat-sys-primary);
-    background: var(--mat-sys-primary-container);
+    color: var(--shadcn-primary);
+    background: color-mix(in srgb, var(--shadcn-primary) 12%, transparent);
   }
 }
 
 .ghost-btn {
   @apply inline-flex items-center gap-1 text-sm font-medium h-8 px-3 rounded bg-transparent cursor-pointer;
-  border: 1px dashed var(--mat-sys-outline-variant);
-  color: var(--mat-sys-on-surface-variant);
-  transition: all 0.15s;
+  border: 1px dashed var(--shadcn-border);
+  color: var(--shadcn-muted-foreground);
+  transition: all 0.12s;
 
   &:hover {
-    color: var(--mat-sys-on-surface);
-    border-color: var(--mat-sys-outline);
-    background: var(--mat-sys-surface-container);
+    color: var(--shadcn-foreground);
+    border-color: var(--shadcn-ring);
+    background: var(--shadcn-accent);
   }
 
   .btn-icon {
@@ -149,16 +146,23 @@
 
 .preview-head {
   @apply flex items-center gap-2 text-sm font-semibold;
-  color: var(--mat-sys-on-surface-variant);
+  color: var(--shadcn-muted-foreground);
 
-  mat-icon {
+  mat-icon,
+  app-icon {
     @apply w-4 h-4 text-base;
+    color: var(--shadcn-muted-foreground);
+  }
+
+  app-icon ::ng-deep .mat-icon {
+    @apply w-4 h-4 text-base;
+    color: var(--shadcn-muted-foreground);
   }
 }
 
 .preview-hint {
   @apply text-xs;
-  color: var(--mat-sys-outline);
+  color: var(--shadcn-muted-foreground);
 }
 
 .container {
@@ -171,13 +175,15 @@
 
 // ── Card ──
 .card {
-  @apply mb-2 overflow-hidden rounded-lg;
-  border: 1px solid var(--mat-sys-outline-variant);
-  transition: border-color 0.15s;
+  @apply mb-2 overflow-hidden rounded-md;
+  border: 1px solid var(--shadcn-border);
+  background: var(--shadcn-card);
+  box-shadow: var(--shadcn-shadow-sm);
+  transition: border-color 0.12s;
 
   &:has(.card-body),
   &:has(.json-body) {
-    border-color: var(--mat-sys-outline);
+    border-color: var(--shadcn-ring);
   }
 }
 
@@ -186,43 +192,43 @@
   transition: background 0.1s;
 
   &:hover {
-    background: var(--mat-sys-surface-container);
+    background: var(--shadcn-accent);
   }
   &:focus-visible {
-    outline: 2px solid var(--mat-sys-primary);
-    @apply outline-offset-[-2px] rounded-lg;
+    outline: 2px solid var(--shadcn-ring-subtle);
+    @apply outline-offset-[-2px] rounded-md;
   }
 }
 
 .card-title {
   @apply text-sm font-semibold flex-1;
-  color: var(--mat-sys-on-surface);
+  color: var(--shadcn-foreground);
 }
 
 .card-icon {
   @apply w-5 h-5 flex-shrink-0 text-xl;
-  color: var(--mat-sys-on-surface-variant);
+  color: var(--shadcn-muted-foreground);
 }
 
 .card-chevron {
   @apply w-5 h-5 flex-shrink-0 text-xl;
-  color: var(--mat-sys-outline);
+  color: var(--shadcn-muted-foreground);
 }
 
 .card-badge {
   @apply text-xs font-semibold px-2 leading-5;
-  border-radius: 12px;
-  background: var(--mat-sys-surface-container);
-  color: var(--mat-sys-on-surface-variant);
+  border-radius: var(--shadcn-radius-sm);
+  background: var(--shadcn-secondary);
+  color: var(--shadcn-secondary-foreground);
 
   &.accent {
-    background: var(--mat-sys-primary-container);
-    color: var(--mat-sys-on-primary-container);
+    background: color-mix(in srgb, var(--shadcn-primary) 14%, transparent);
+    color: var(--shadcn-primary);
   }
 
   &.warn {
-    background: var(--mat-sys-error-container);
-    color: var(--mat-sys-on-error-container);
+    background: color-mix(in srgb, var(--shadcn-destructive) 14%, transparent);
+    color: var(--shadcn-destructive);
   }
 }
 
@@ -233,21 +239,20 @@
 // ── Input ──
 .field {
   @apply w-full text-sm h-9 px-3 rounded bg-transparent outline-none min-w-0;
-  border: 1px solid var(--mat-sys-outline-variant);
-  color: var(--mat-sys-on-surface);
-  transition:
-    border-color 0.15s,
-    box-shadow 0.15s;
+  border: 1px solid var(--shadcn-input);
+  color: var(--shadcn-foreground);
+  transition: border-color 0.12s, box-shadow 0.12s;
 
   &::placeholder {
-    color: var(--mat-sys-outline);
+    color: var(--shadcn-muted-foreground);
   }
 
   &:focus {
-    border-color: var(--mat-sys-primary);
+    border-color: var(--shadcn-ring);
     box-shadow:
-      0 0 0 2px var(--mat-sys-surface),
-      0 0 0 4px color-mix(in srgb, var(--mat-sys-primary) 25%, transparent);
+      0 0 0 var(--shadcn-ring-offset-width) var(--shadcn-ring-offset-color),
+      0 0 0 calc(var(--shadcn-ring-offset-width) + var(--shadcn-ring-width))
+        var(--shadcn-ring-subtle);
   }
 }
 
@@ -258,26 +263,38 @@
 
   .field-label {
     @apply block text-sm font-medium mb-1;
-    color: var(--mat-sys-on-surface-variant);
+    color: var(--shadcn-muted-foreground);
+  }
+
+  // When layout-coupled size classes live on <app-icon> host instead of
+  // <mat-icon>, the inner mat-icon keeps Material's default 24×24 — size it
+  // to match the host so the visual outcome is identical.
+  app-icon.card-icon .mat-icon,
+  app-icon.card-chevron .mat-icon,
+  app-icon.grip .mat-icon {
+    @apply w-5 h-5 text-xl;
+    color: var(--shadcn-muted-foreground);
+  }
+
+  app-icon.grip.sm .mat-icon,
+  app-icon.btn-icon .mat-icon {
+    @apply w-4 h-4 text-base;
+    color: var(--shadcn-muted-foreground);
   }
 }
 
 // ── Menu rows ──
 .row-item {
-  @apply mb-1 rounded;
-  border: 1px solid var(--mat-sys-outline-variant);
-  background: var(--mat-sys-surface);
-  transition:
-    border-color 0.15s,
-    box-shadow 0.2s;
+  @apply mb-1 rounded-md;
+  border: 1px solid var(--shadcn-border);
+  background: var(--shadcn-card);
+  transition: border-color 0.12s, box-shadow 0.18s;
 
   &:hover {
-    border-color: var(--mat-sys-outline);
+    border-color: var(--shadcn-ring);
   }
   &.cdk-drag-preview {
-    box-shadow:
-      0 12px 32px -4px rgba(0, 0, 0, 0.12),
-      0 0 0 1px var(--mat-sys-outline-variant);
+    box-shadow: var(--shadcn-shadow-md);
   }
   &.cdk-drag-placeholder {
     @apply opacity-0;
@@ -294,19 +311,19 @@
 
 .grip {
   @apply w-5 h-5 flex-shrink-0 text-xl mt-2;
-  color: var(--mat-sys-outline);
+  color: var(--shadcn-muted-foreground);
   cursor: grab;
-  transition: color 0.15s;
+  transition: color 0.12s;
 
   &:hover,
   &:focus-visible {
-    color: var(--mat-sys-on-surface-variant);
+    color: var(--shadcn-foreground);
   }
   &:active {
     cursor: grabbing;
   }
   &:focus-visible {
-    outline: 2px solid var(--mat-sys-primary);
+    outline: 2px solid var(--shadcn-ring-subtle);
     @apply outline-offset-[1px] rounded-sm;
   }
   &.sm {
@@ -316,8 +333,8 @@
 
 .row-expand {
   @apply py-3 px-4;
-  border-top: 1px solid var(--mat-sys-outline-variant);
-  background: var(--mat-sys-surface-container-lowest, var(--mat-sys-surface));
+  border-top: 1px solid var(--shadcn-border);
+  background: var(--shadcn-muted);
 }
 
 .child-header {
@@ -326,22 +343,22 @@
 
 .child-title {
   @apply text-sm font-medium;
-  color: var(--mat-sys-on-surface-variant);
+  color: var(--shadcn-muted-foreground);
 }
 
 .child-drop .child-row {
   @apply flex items-start gap-2 p-1 mb-1 rounded;
   border: 1px solid transparent;
-  transition: all 0.15s;
+  transition: all 0.12s;
 
   &:hover {
-    border-color: var(--mat-sys-outline-variant);
-    background: var(--mat-sys-surface);
+    border-color: var(--shadcn-border);
+    background: var(--shadcn-accent);
   }
   &.cdk-drag-preview {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    border-color: var(--mat-sys-outline-variant);
-    background: var(--mat-sys-surface);
+    box-shadow: var(--shadcn-shadow-sm);
+    border-color: var(--shadcn-border);
+    background: var(--shadcn-card);
   }
   &.cdk-drag-placeholder {
     @apply opacity-0;
@@ -355,23 +372,23 @@
 // ── Row extras ──
 .row-badge {
   @apply text-xs font-medium px-1.5 leading-5 rounded self-center flex-shrink-0;
-  background: var(--mat-sys-tertiary-container, var(--mat-sys-primary-container));
-  color: var(--mat-sys-on-tertiary-container, var(--mat-sys-on-primary-container));
+  background: color-mix(in srgb, var(--shadcn-primary) 14%, transparent);
+  color: var(--shadcn-primary);
 }
 
 .check-row {
   @apply flex items-center gap-2 mb-2 text-sm cursor-pointer select-none;
-  color: var(--mat-sys-on-surface-variant);
+  color: var(--shadcn-muted-foreground);
 
   input[type='checkbox'] {
-    accent-color: var(--mat-sys-primary);
+    accent-color: var(--shadcn-primary);
     @apply w-4 h-4 cursor-pointer;
   }
 }
 
 .grand-drop {
   @apply mt-1 ml-6 pl-2;
-  border-left: 2px solid var(--mat-sys-outline-variant);
+  border-left: 2px solid var(--shadcn-border);
 }
 
 // ── Empty ──
@@ -379,7 +396,7 @@
   @apply text-center py-6;
   p {
     @apply text-sm m-0;
-    color: var(--mat-sys-on-surface-variant);
+    color: var(--shadcn-muted-foreground);
   }
 }
 
@@ -389,50 +406,20 @@
 }
 
 .json-body {
-  border-top: 1px solid var(--mat-sys-outline-variant);
+  border-top: 1px solid var(--shadcn-border);
 }
 
 .json-toolbar {
   @apply flex items-center gap-3 py-2 px-4;
-  background: var(--mat-sys-surface-container-lowest, var(--mat-sys-surface));
+  background: var(--shadcn-muted);
 }
 
 .json-hint {
   @apply text-sm;
-  color: var(--mat-sys-on-surface-variant);
+  color: var(--shadcn-muted-foreground);
 }
 
 .json-editor {
   @apply h-[360px];
-  border-top: 1px solid var(--mat-sys-outline-variant);
-}
-
-// ── Formly overrides ──
-:host ::ng-deep {
-  .mat-mdc-form-field {
-    --mdc-outlined-text-field-outline-color: var(--mat-sys-outline-variant);
-    --mdc-outlined-text-field-focus-outline-color: var(--mat-sys-primary);
-    --mdc-outlined-text-field-hover-outline-color: var(--mat-sys-outline);
-    --mdc-outlined-text-field-container-shape: 4px;
-    --mat-form-field-container-height: 40px;
-    --mat-form-field-container-vertical-padding: 8px;
-    @apply text-sm;
-  }
-
-  .mat-mdc-text-field-wrapper {
-    background: transparent !important;
-  }
-  .mat-mdc-form-field-subscript-wrapper {
-    @apply hidden;
-  }
-  formly-field {
-    @apply mb-1;
-  }
-
-  .mat-mdc-slide-toggle {
-    --mdc-switch-selected-track-color: var(--mat-sys-primary);
-    --mdc-switch-selected-hover-track-color: var(--mat-sys-primary);
-    --mdc-switch-selected-focus-track-color: var(--mat-sys-primary);
-    --mdc-switch-selected-pressed-track-color: var(--mat-sys-primary);
-  }
+  border-top: 1px solid var(--shadcn-border);
 }

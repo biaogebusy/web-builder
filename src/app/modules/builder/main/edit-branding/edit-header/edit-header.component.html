@@ -1,4 +1,4 @@
-<div class="edit-page">
+<div class="edit-page shadcn-theme">
   <header class="toolbar">
     <nav class="nav-tabs" role="tablist">
       <a class="tab active" role="tab" aria-selected="true">Header</a>
@@ -38,14 +38,14 @@
     <div class="workspace">
       <aside class="preview-pane">
         <div class="preview-head">
-          <mat-icon svgIcon="eye-outline" />
+          <app-icon [content]="{ svg: 'eye-outline' }" />
           <span>{{ 'BUILDER.EDIT_BRANDING.LIVE_PREVIEW' | translate }}</span>
         </div>
         <app-branding-preview mode="header" [branding]="previewBranding()" />
         <span class="preview-hint">{{ 'BUILDER.EDIT_BRANDING.PREVIEW_HINT' | translate }}</span>
       </aside>
 
-      <div class="form-col">
+      <div class="form-col shadcn-formly">
         <div class="container">
           @if (loading() && !header()) {
             @for (_ of [1, 2, 3]; track $index) {
@@ -58,14 +58,14 @@
           @if (header()) {
             <section class="card">
               <button class="card-header" (click)="toggleSection('params')">
-                <mat-icon svgIcon="cog-outline" class="card-icon" />
+                <app-icon class="card-icon" [content]="{ svg: 'cog-outline' }" />
                 <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.PARAMS_SECTION' | translate }}</span>
-                <mat-icon [svgIcon]="isSectionOpen('params') ? 'chevron-up' : 'chevron-down'" class="card-chevron" />
+                <app-icon class="card-chevron" [content]="{ svg: isSectionOpen('params') ? 'chevron-up' : 'chevron-down' }" />
               </button>
               @if (isSectionOpen('params')) {
                 <div class="card-body">
                   <form [formGroup]="paramsForm">
-                    <formly-form [form]="paramsForm" [fields]="paramsFields" [model]="paramsModel" />
+                    <formly-form [form]="paramsForm" [fields]="paramsFields" [model]="paramsModel" [options]="paramsOptions" />
                   </form>
                 </div>
               }
@@ -73,14 +73,14 @@
 
             <section class="card">
               <button class="card-header" (click)="toggleSection('logo')">
-                <mat-icon svgIcon="image-outline" class="card-icon" />
+                <app-icon class="card-icon" [content]="{ svg: 'image-outline' }" />
                 <span class="card-title">Logo</span>
-                <mat-icon [svgIcon]="isSectionOpen('logo') ? 'chevron-up' : 'chevron-down'" class="card-chevron" />
+                <app-icon class="card-chevron" [content]="{ svg: isSectionOpen('logo') ? 'chevron-up' : 'chevron-down' }" />
               </button>
               @if (isSectionOpen('logo')) {
                 <div class="card-body">
                   <form [formGroup]="logoForm">
-                    <formly-form [form]="logoForm" [fields]="logoFields" [model]="logoModel" />
+                    <formly-form [form]="logoForm" [fields]="logoFields" [model]="logoModel" [options]="logoOptions" />
                   </form>
                 </div>
               }
@@ -88,14 +88,14 @@
 
             <section class="card">
               <button class="card-header" (click)="toggleSection('top')">
-                <mat-icon svgIcon="page-layout-header" class="card-icon" />
+                <app-icon class="card-icon" [content]="{ svg: 'page-layout-header' }" />
                 <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.TOP_BANNER_SECTION' | translate }}</span>
-                <mat-icon [svgIcon]="isSectionOpen('top') ? 'chevron-up' : 'chevron-down'" class="card-chevron" />
+                <app-icon class="card-chevron" [content]="{ svg: isSectionOpen('top') ? 'chevron-up' : 'chevron-down' }" />
               </button>
               @if (isSectionOpen('top')) {
                 <div class="card-body">
                   <form [formGroup]="topForm">
-                    <formly-form [form]="topForm" [fields]="topFields" [model]="topModel" />
+                    <formly-form [form]="topForm" [fields]="topFields" [model]="topModel" [options]="topOptions" />
                   </form>
                 </div>
               }
@@ -103,12 +103,12 @@
 
             <section class="card">
               <button class="card-header" (click)="toggleSection('menu')">
-                <mat-icon svgIcon="menu" class="card-icon" />
+                <app-icon class="card-icon" [content]="{ svg: 'menu' }" />
                 <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.NAV_MENU_SECTION' | translate }}</span>
                 @if (menuItems().length) {
                   <span class="card-badge">{{ menuItems().length }}</span>
                 }
-                <mat-icon [svgIcon]="isSectionOpen('menu') ? 'chevron-up' : 'chevron-down'" class="card-chevron" />
+                <app-icon class="card-chevron" [content]="{ svg: isSectionOpen('menu') ? 'chevron-up' : 'chevron-down' }" />
               </button>
               @if (isSectionOpen('menu')) {
                 <div class="card-body">
@@ -228,14 +228,14 @@
 
             <section class="card">
               <button class="card-header" (click)="toggleSection('search')">
-                <mat-icon svgIcon="magnify" class="card-icon" />
+                <app-icon class="card-icon" [content]="{ svg: 'magnify' }" />
                 <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.SEARCH_SECTION' | translate }}</span>
-                <mat-icon [svgIcon]="isSectionOpen('search') ? 'chevron-up' : 'chevron-down'" class="card-chevron" />
+                <app-icon class="card-chevron" [content]="{ svg: isSectionOpen('search') ? 'chevron-up' : 'chevron-down' }" />
               </button>
               @if (isSectionOpen('search')) {
                 <div class="card-body">
                   <form [formGroup]="searchForm">
-                    <formly-form [form]="searchForm" [fields]="searchFields" [model]="searchModel" />
+                    <formly-form [form]="searchForm" [fields]="searchFields" [model]="searchModel" [options]="searchOptions" />
                   </form>
                 </div>
               }
@@ -243,14 +243,14 @@
 
             <section class="card">
               <button class="card-header" (click)="toggleSection('actions')">
-                <mat-icon svgIcon="gesture-tap-button" class="card-icon" />
+                <app-icon class="card-icon" [content]="{ svg: 'gesture-tap-button' }" />
                 <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.ACTIONS_SECTION' | translate }}</span>
-                <mat-icon [svgIcon]="isSectionOpen('actions') ? 'chevron-up' : 'chevron-down'" class="card-chevron" />
+                <app-icon class="card-chevron" [content]="{ svg: isSectionOpen('actions') ? 'chevron-up' : 'chevron-down' }" />
               </button>
               @if (isSectionOpen('actions')) {
                 <div class="card-body">
                   <form [formGroup]="actionsForm">
-                    <formly-form [form]="actionsForm" [fields]="actionsFields" [model]="actionsModel" />
+                    <formly-form [form]="actionsForm" [fields]="actionsFields" [model]="actionsModel" [options]="actionsOptions" />
                   </form>
                 </div>
               }
@@ -258,7 +258,7 @@
 
             <section class="card json-card">
               <button class="card-header" (click)="showJson.set(!showJson())">
-                <mat-icon svgIcon="code-json" class="card-icon" />
+                <app-icon class="card-icon" [content]="{ svg: 'code-json' }" />
                 <span class="card-title">JSON</span>
                 @if (jsonEditMode()) {
                   <span class="card-badge accent">{{ 'BUILDER.EDIT_BRANDING.EDITING_BADGE' | translate }}</span>
@@ -266,7 +266,7 @@
                 @if (jsonError()) {
                   <span class="card-badge warn">{{ 'BUILDER.EDIT_BRANDING.SYNTAX_ERROR_BADGE' | translate }}</span>
                 }
-                <mat-icon [svgIcon]="showJson() ? 'chevron-up' : 'chevron-down'" class="card-chevron" />
+                <app-icon class="card-chevron" [content]="{ svg: showJson() ? 'chevron-up' : 'chevron-down' }" />
               </button>
               @if (showJson()) {
                 <div class="json-body">

@@ -1,0 +1,12 @@
+.select-wrap {
+  @apply relative block;
+}
+
+.shad-select {
+  @apply appearance-none pr-8 cursor-pointer;
+}
+
+.chevron {
+  @apply absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none;
+  color: var(--shadcn-muted-foreground);
+}

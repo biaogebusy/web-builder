@@ -1,4 +1,4 @@
-<div class="edit-page">
+<div class="edit-page shadcn-theme">
   <header class="toolbar">
     <nav class="nav-tabs" role="tablist">
       <a
@@ -45,14 +45,14 @@
     <div class="workspace">
       <aside class="preview-pane">
         <div class="preview-head">
-          <mat-icon svgIcon="eye-outline" />
+          <app-icon [content]="{ svg: 'eye-outline' }" />
           <span>{{ 'BUILDER.EDIT_BRANDING.LIVE_PREVIEW' | translate }}</span>
         </div>
         <app-branding-preview mode="footer" [branding]="previewBranding()" />
         <span class="preview-hint">{{ 'BUILDER.EDIT_BRANDING.PREVIEW_HINT' | translate }}</span>
       </aside>
 
-      <div class="form-col">
+      <div class="form-col shadcn-formly">
         <div class="container">
           @if (loading() && !footer()) {
             @for (_ of [1, 2, 3]; track $index) {
@@ -69,17 +69,14 @@
           @if (footer()) {
             <section class="card">
               <button class="card-header" (click)="toggleSection('params')">
-                <mat-icon svgIcon="cog-outline" class="card-icon" />
+                <app-icon class="card-icon" [content]="{ svg: 'cog-outline' }" />
                 <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.PARAMS_SECTION' | translate }}</span>
-                <mat-icon
-                  [svgIcon]="isSectionOpen('params') ? 'chevron-up' : 'chevron-down'"
-                  class="card-chevron"
-                />
+                <app-icon class="card-chevron" [content]="{ svg: isSectionOpen('params') ? 'chevron-up' : 'chevron-down' }" />
               </button>
               @if (isSectionOpen('params')) {
                 <div class="card-body">
                   <form [formGroup]="paramsForm">
-                    <formly-form [form]="paramsForm" [fields]="paramsFields" [model]="paramsModel" />
+                    <formly-form [form]="paramsForm" [fields]="paramsFields" [model]="paramsModel" [options]="paramsOptions" />
                   </form>
                 </div>
               }
@@ -87,17 +84,14 @@
 
             <section class="card">
               <button class="card-header" (click)="toggleSection('brand')">
-                <mat-icon svgIcon="image-outline" class="card-icon" />
+                <app-icon class="card-icon" [content]="{ svg: 'image-outline' }" />
                 <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.BRAND_SECTION' | translate }}</span>
-                <mat-icon
-                  [svgIcon]="isSectionOpen('brand') ? 'chevron-up' : 'chevron-down'"
-                  class="card-chevron"
-                />
+                <app-icon class="card-chevron" [content]="{ svg: isSectionOpen('brand') ? 'chevron-up' : 'chevron-down' }" />
               </button>
               @if (isSectionOpen('brand')) {
                 <div class="card-body">
                   <form [formGroup]="brandForm">
-                    <formly-form [form]="brandForm" [fields]="brandFields" [model]="brandModel" />
+                    <formly-form [form]="brandForm" [fields]="brandFields" [model]="brandModel" [options]="brandOptions" />
                   </form>
                 </div>
               }
@@ -105,17 +99,14 @@
 
             <section class="card">
               <button class="card-header" (click)="toggleSection('social')">
-                <mat-icon svgIcon="share-variant-outline" class="card-icon" />
+                <app-icon class="card-icon" [content]="{ svg: 'share-variant-outline' }" />
                 <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.SOCIAL_SECTION' | translate }}</span>
-                <mat-icon
-                  [svgIcon]="isSectionOpen('social') ? 'chevron-up' : 'chevron-down'"
-                  class="card-chevron"
-                />
+                <app-icon class="card-chevron" [content]="{ svg: isSectionOpen('social') ? 'chevron-up' : 'chevron-down' }" />
               </button>
               @if (isSectionOpen('social')) {
                 <div class="card-body">
                   <form [formGroup]="socialForm">
-                    <formly-form [form]="socialForm" [fields]="socialFields" [model]="socialModel" />
+                    <formly-form [form]="socialForm" [fields]="socialFields" [model]="socialModel" [options]="socialOptions" />
                   </form>
                 </div>
               }
@@ -123,15 +114,12 @@
 
             <section class="card">
               <button class="card-header" (click)="toggleSection('menu')">
-                <mat-icon svgIcon="menu" class="card-icon" />
+                <app-icon class="card-icon" [content]="{ svg: 'menu' }" />
                 <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.BOTTOM_NAV_SECTION' | translate }}</span>
                 @if (menuItems().length) {
                   <span class="card-badge">{{ menuItems().length }}</span>
                 }
-                <mat-icon
-                  [svgIcon]="isSectionOpen('menu') ? 'chevron-up' : 'chevron-down'"
-                  class="card-chevron"
-                />
+                <app-icon class="card-chevron" [content]="{ svg: isSectionOpen('menu') ? 'chevron-up' : 'chevron-down' }" />
               </button>
               @if (isSectionOpen('menu')) {
                 <div class="card-body">
@@ -147,15 +135,12 @@
 
             <section class="card">
               <button class="card-header" (click)="toggleSection('mobile')">
-                <mat-icon svgIcon="cellphone" class="card-icon" />
+                <app-icon class="card-icon" [content]="{ svg: 'cellphone' }" />
                 <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.MOBILE_NAV_SECTION' | translate }}</span>
                 @if (mobileMenuItems().length) {
                   <span class="card-badge">{{ mobileMenuItems().length }}</span>
                 }
-                <mat-icon
-                  [svgIcon]="isSectionOpen('mobile') ? 'chevron-up' : 'chevron-down'"
-                  class="card-chevron"
-                />
+                <app-icon class="card-chevron" [content]="{ svg: isSectionOpen('mobile') ? 'chevron-up' : 'chevron-down' }" />
               </button>
               @if (isSectionOpen('mobile')) {
                 <div class="card-body">
@@ -180,15 +165,12 @@
 
             <section class="card">
               <button class="card-header" (click)="toggleSection('dynamic')">
-                <mat-icon svgIcon="code-tags" class="card-icon" />
+                <app-icon class="card-icon" [content]="{ svg: 'code-tags' }" />
                 <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.DYNAMIC_SECTION' | translate }}</span>
                 @if (dynamicEnabled()) {
                   <span class="card-badge accent">HTML</span>
                 }
-                <mat-icon
-                  [svgIcon]="isSectionOpen('dynamic') ? 'chevron-up' : 'chevron-down'"
-                  class="card-chevron"
-                />
+                <app-icon class="card-chevron" [content]="{ svg: isSectionOpen('dynamic') ? 'chevron-up' : 'chevron-down' }" />
               </button>
               @if (isSectionOpen('dynamic')) {
                 <div class="card-body">
@@ -235,12 +217,9 @@
 
             <section class="card">
               <button class="card-header" (click)="toggleSection('newsletter')">
-                <mat-icon svgIcon="email-outline" class="card-icon" />
+                <app-icon class="card-icon" [content]="{ svg: 'email-outline' }" />
                 <span class="card-title">Newsletter</span>
-                <mat-icon
-                  [svgIcon]="isSectionOpen('newsletter') ? 'chevron-up' : 'chevron-down'"
-                  class="card-chevron"
-                />
+                <app-icon class="card-chevron" [content]="{ svg: isSectionOpen('newsletter') ? 'chevron-up' : 'chevron-down' }" />
               </button>
               @if (isSectionOpen('newsletter')) {
                 <div class="card-body">
@@ -249,6 +228,7 @@
                       [form]="newsletterForm"
                       [fields]="newsletterFields"
                       [model]="newsletterModel"
+                      [options]="newsletterOptions"
                     />
                   </form>
                 </div>
@@ -257,17 +237,14 @@
 
             <section class="card">
               <button class="card-header" (click)="toggleSection('bottom')">
-                <mat-icon svgIcon="dock-bottom" class="card-icon" />
+                <app-icon class="card-icon" [content]="{ svg: 'dock-bottom' }" />
                 <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.BOTTOM_BAR_SECTION' | translate }}</span>
-                <mat-icon
-                  [svgIcon]="isSectionOpen('bottom') ? 'chevron-up' : 'chevron-down'"
-                  class="card-chevron"
-                />
+                <app-icon class="card-chevron" [content]="{ svg: isSectionOpen('bottom') ? 'chevron-up' : 'chevron-down' }" />
               </button>
               @if (isSectionOpen('bottom')) {
                 <div class="card-body">
                   <form [formGroup]="bottomForm">
-                    <formly-form [form]="bottomForm" [fields]="bottomFields" [model]="bottomModel" />
+                    <formly-form [form]="bottomForm" [fields]="bottomFields" [model]="bottomModel" [options]="bottomOptions" />
                   </form>
                 </div>
               }
@@ -275,20 +252,17 @@
 
             <section class="card">
               <button class="card-header" (click)="toggleSection('fixbar')">
-                <mat-icon svgIcon="dock-right" class="card-icon" />
+                <app-icon class="card-icon" [content]="{ svg: 'dock-right' }" />
                 <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.FIXBAR_SECTION' | translate }}</span>
                 @if ($any(fixBarModel)['fixBar']?.length) {
                   <span class="card-badge">{{ $any(fixBarModel)['fixBar'].length }}</span>
                 }
-                <mat-icon
-                  [svgIcon]="isSectionOpen('fixbar') ? 'chevron-up' : 'chevron-down'"
-                  class="card-chevron"
-                />
+                <app-icon class="card-chevron" [content]="{ svg: isSectionOpen('fixbar') ? 'chevron-up' : 'chevron-down' }" />
               </button>
               @if (isSectionOpen('fixbar')) {
                 <div class="card-body">
                   <form [formGroup]="fixBarForm">
-                    <formly-form [form]="fixBarForm" [fields]="fixBarFields" [model]="fixBarModel" />
+                    <formly-form [form]="fixBarForm" [fields]="fixBarFields" [model]="fixBarModel" [options]="fixBarOptions" />
                   </form>
                 </div>
               }
@@ -296,7 +270,7 @@
 
             <section class="card json-card">
               <button class="card-header" (click)="showJson.set(!showJson())">
-                <mat-icon svgIcon="code-json" class="card-icon" />
+                <app-icon class="card-icon" [content]="{ svg: 'code-json' }" />
                 <span class="card-title">JSON</span>
                 @if (jsonEditMode()) {
                   <span class="card-badge accent">{{ 'BUILDER.EDIT_BRANDING.EDITING_BADGE' | translate }}</span>
@@ -304,7 +278,7 @@
                 @if (jsonError()) {
                   <span class="card-badge warn">{{ 'BUILDER.EDIT_BRANDING.SYNTAX_ERROR_BADGE' | translate }}</span>
                 }
-                <mat-icon [svgIcon]="showJson() ? 'chevron-up' : 'chevron-down'" class="card-chevron" />
+                <app-icon class="card-chevron" [content]="{ svg: showJson() ? 'chevron-up' : 'chevron-down' }" />
               </button>
               @if (showJson()) {
                 <div class="json-body">

@@ -24,6 +24,7 @@ import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { FormModule } from '@uiux/combs/form/form.module';
 import { provideXinshiFormly } from '@uiux/combs/form/formly-feature.config';
+import { shadcnFormOptions } from '@uiux/combs/form/formly-shadcn/formly-shadcn.config';
 import { merge } from 'rxjs';
 
 import { IBranding, IHeader, IMainMenu } from '@core/interface/branding/IBranding';
@@ -104,22 +105,27 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
   paramsForm = new UntypedFormGroup({});
   paramsModel: Record<string, unknown> = {};
   paramsFields: FormlyFieldConfig[] = [];
+  paramsOptions = shadcnFormOptions();
 
   logoForm = new UntypedFormGroup({});
   logoModel: Record<string, unknown> = {};
   logoFields: FormlyFieldConfig[] = [];
+  logoOptions = shadcnFormOptions();
 
   searchForm = new UntypedFormGroup({});
   searchModel: Record<string, unknown> = {};
   searchFields: FormlyFieldConfig[] = [];
+  searchOptions = shadcnFormOptions();
 
   actionsForm = new UntypedFormGroup({});
   actionsModel: Record<string, unknown> = {};
   actionsFields: FormlyFieldConfig[] = [];
+  actionsOptions = shadcnFormOptions();
 
   topForm = new UntypedFormGroup({});
   topModel: Record<string, unknown> = {};
   topFields: FormlyFieldConfig[] = [];
+  topOptions = shadcnFormOptions();
 
   monacoReadonlyOptions = {
     theme: 'vs',

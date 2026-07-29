@@ -1,0 +1,65 @@
+// shadcn/ui-inspired semantic token layer.
+// Maps --shadcn-* tokens to the project's --mat-sys-* values so they
+// automatically follow the active Material theme (light/dark) and any
+// custom seed-driven palette. Opt-in: components using --shadcn-* vars
+// get the shadcn look without disturbing the rest of the app.
+
+:root {
+  // ── Surfaces ──
+  --shadcn-background: var(--mat-sys-surface);
+  --shadcn-foreground: var(--mat-sys-on-surface);
+  --shadcn-card: var(--mat-sys-surface);
+  --shadcn-card-foreground: var(--mat-sys-on-surface);
+  --shadcn-popover: var(--mat-sys-surface-container-high);
+  --shadcn-popover-foreground: var(--mat-sys-on-surface);
+
+  // ── Brand roles ──
+  --shadcn-primary: var(--mat-sys-primary);
+  --shadcn-primary-foreground: var(--mat-sys-on-primary);
+  --shadcn-secondary: var(--mat-sys-surface-container);
+  --shadcn-secondary-foreground: var(--mat-sys-on-surface);
+  --shadcn-muted: var(--mat-sys-surface-container-low);
+  --shadcn-muted-foreground: var(--mat-sys-on-surface-variant);
+  --shadcn-accent: var(--mat-sys-surface-container-high);
+  --shadcn-accent-foreground: var(--mat-sys-on-surface);
+  --shadcn-destructive: var(--mat-sys-error);
+  --shadcn-destructive-foreground: var(--mat-sys-on-error);
+
+  // ── Lines & focus ──
+  --shadcn-border: var(--mat-sys-outline-variant);
+  --shadcn-input: var(--mat-sys-outline-variant);
+  --shadcn-ring: var(--mat-sys-primary);
+  --shadcn-ring-subtle: color-mix(in srgb, var(--mat-sys-primary) 25%, transparent);
+
+  // ── Radii ──
+  --shadcn-radius: 0.5rem;
+  --shadcn-radius-sm: 0.25rem;
+  --shadcn-radius-lg: 0.75rem;
+
+  // ── Focus ring ──
+  --shadcn-ring-width: 2px;
+  --shadcn-ring-offset-width: 2px;
+  --shadcn-ring-offset-color: var(--mat-sys-surface);
+
+  // ── Control sizing ──
+  --shadcn-control-height: 2rem;
+  --shadcn-control-sm-height: 1.75rem;
+
+  // ── Elevation ──
+  --shadcn-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+  --shadcn-shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.08);
+}
+
+// Dark-theme overrides — strengthen border contrast and surface separation
+// so shadcn's "neutral but crisp" aesthetic holds on the dark Material palette.
+// --shadcn-ring-offset-color intentionally not overridden: it points at
+// --mat-sys-surface which already flips between themes.
+.dark-theme {
+  --shadcn-card: var(--mat-sys-surface-container-low);
+  --shadcn-popover: var(--mat-sys-surface-container-highest);
+  --shadcn-secondary: var(--mat-sys-surface-container);
+  --shadcn-muted: var(--mat-sys-surface-container);
+  --shadcn-accent: var(--mat-sys-surface-container-high);
+  --shadcn-border: var(--mat-sys-outline);
+  --shadcn-input: var(--mat-sys-outline);
+}
