@@ -147,7 +147,10 @@
       "CREATE_LANG_TITLE": "创建语言版本",
       "CREATE_LANG_CONFIRM": "确认为 <strong>{{title}}</strong> 创建 <strong>{{lang}}</strong> 版本？",
       "CREATE_LANG_YES": "确认创建",
-      "EDITING_TRANSLATION": "正在编辑 {{lang}} 草稿版本"
+      "EDITING_TRANSLATION": "正在编辑 {{lang}} 草稿版本",
+      "DELETE_PAGE": "删除页面",
+      "DELETE_TITLE": "删除页面",
+      "DELETE_CONFIRM": "确认删除 <strong>{{title}}</strong>？删除后不可恢复！"
     },
     "VERSION": {
       "HISTORY": "历史记录",

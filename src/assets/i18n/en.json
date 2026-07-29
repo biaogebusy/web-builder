@@ -147,7 +147,10 @@
       "CREATE_LANG_TITLE": "Create language version",
       "CREATE_LANG_CONFIRM": "Confirm creating <strong>{{title}}</strong> <strong>{{lang}}</strong> version?",
       "CREATE_LANG_YES": "Confirm",
-      "EDITING_TRANSLATION": "Editing {{lang}} draft"
+      "EDITING_TRANSLATION": "Editing {{lang}} draft",
+      "DELETE_PAGE": "Delete page",
+      "DELETE_TITLE": "Delete page",
+      "DELETE_CONFIRM": "Confirm deleting <strong>{{title}}</strong>? This cannot be undone."
     },
     "VERSION": {
       "HISTORY": "History",

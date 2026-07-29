@@ -354,6 +354,52 @@ export class PageListComponent extends BaseComponent implements OnInit {
       });
   }
 
+  deletePage(page: IPageMeta): void {
+    const config: IDialog = {
+      title: this.translate.instant('BUILDER.PAGE_LIST.DELETE_TITLE'),
+      noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
+      yesLabel: this.translate.instant('BUILDER.PAGE_SETTING.DELETE'),
+      inputData: {
+        content: {
+          type: 'text',
+          fullWidth: true,
+          body: this.translate.instant('BUILDER.PAGE_LIST.DELETE_CONFIRM', { title: page.title }),
+        },
+      },
+    };
+    this.dialog
+      .open(DialogComponent, { width: '340px', data: config })
+      .afterClosed()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(result => {
+        if (!result) return;
+        this.builder.loading.set(true);
+        this.nodeService
+          .deleteEntity('/api/v1/node/landing_page', page.uuid)
+          .pipe(takeUntilDestroyed(this.destroyRef))
+          .subscribe({
+            next: () => {
+              this.builder.loading.set(false);
+              this.util.openSnackbar(
+                this.translate.instant('BUILDER.PAGE_SETTING.DELETE_SUCCESS', { title: page.title }),
+                'ok'
+              );
+              this.onReload();
+            },
+            error: err => {
+              this.builder.loading.set(false);
+              if (err.status === 403) {
+                this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_SETTING.NO_PERMISSION'));
+              } else {
+                this.util.openSnackbar(
+                  this.translate.instant('BUILDER.PAGE_SETTING.DELETE_FAIL', { title: page.title })
+                );
+              }
+            },
+          });
+      });
+  }
+
   onReload(): void {
     this.form.reset();
     this.onModelChange({ title: '', time: +new Date() });
