@@ -313,7 +313,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
         fieldGroup: [
           {
             key: 'mode',
-            type: 'mat-select',
+            type: 'select',
             defaultValue: params.mode,
             className: 'w-full',
             props: {
@@ -526,7 +526,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
           fieldGroup: [
             {
               key: 'type',
-              type: 'mat-select',
+              type: 'select',
               className: 'w-full',
               defaultValue: 'link',
               props: {
@@ -562,7 +562,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
             },
             {
               key: 'target',
-              type: 'mat-select',
+              type: 'select',
               className: 'w-full',
               defaultValue: '_self',
               props: {

@@ -1,7 +1,7 @@
 // Branding editor styles — shadcn/ui-inspired.
 // Uses --shadcn-* tokens (mapped from --mat-sys-* in _shadcn-tokens.scss)
 // so light/dark themes and custom seed palettes flow through automatically.
-// Formly Material field styling lives in _shadcn-formly.scss (.shadcn-formly scope).
+// Formly fields render via the shadcn Formly UI theme (formState.uiTheme).
 
 :host {
   @apply block h-full;

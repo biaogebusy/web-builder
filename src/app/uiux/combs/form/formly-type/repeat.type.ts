@@ -9,33 +9,48 @@ import { BtnComponent } from '@uiux/widgets/btn/btn.component';
       <div class="row">
         <formly-field class="w-full" [field]="field" />
         <div class="flex justify-center items-center">
-          <app-btn
-            (click)="remove(i)"
-            [content]="{
-              label: '删除',
-              color: 'warn',
-              icon: {
-                svg: 'delete',
-                inline: true,
-              },
-            }" />
+          @if (isShadcn) {
+            <button type="button" class="shad-btn-ghost danger" (click)="remove(i)">删除</button>
+          } @else {
+            <app-btn
+              (click)="remove(i)"
+              [content]="{
+                label: '删除',
+                color: 'warn',
+                icon: {
+                  svg: 'delete',
+                  inline: true,
+                },
+              }" />
+          }
         </div>
       </div>
     }
     <div class="mt-5">
-      <app-btn
-        (click)="add()"
-        [content]="{
-          mode: 'raised',
-          label: '新增',
-          color: 'primary',
-          icon: {
-            inline: true,
-            svg: 'plus',
-          },
-        }" />
+      @if (isShadcn) {
+        <button type="button" class="shad-btn-outline" (click)="add()">
+          {{ props.addText || '新增' }}
+        </button>
+      } @else {
+        <app-btn
+          (click)="add()"
+          [content]="{
+            mode: 'raised',
+            label: '新增',
+            color: 'primary',
+            icon: {
+              inline: true,
+              svg: 'plus',
+            },
+          }" />
+      }
     </div>
   `,
+  styleUrl: './repeat.type.scss',
   imports: [FormlyModule, BtnComponent],
 })
-export class RepeatTypeComponent extends FieldArrayType {}
+export class RepeatTypeComponent extends FieldArrayType {
+  get isShadcn(): boolean {
+    return this.options.formState?.uiTheme === 'shadcn';
+  }
+}

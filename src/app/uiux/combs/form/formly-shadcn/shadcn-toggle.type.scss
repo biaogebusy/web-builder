@@ -1,3 +1,8 @@
+// 无字段 wrapper,间距由自身承担(与 wrapper 的 mb-2 一致)
+:host {
+  @apply block mb-2;
+}
+
 .switch-row {
   @apply relative inline-flex items-center gap-2 cursor-pointer select-none;
 }

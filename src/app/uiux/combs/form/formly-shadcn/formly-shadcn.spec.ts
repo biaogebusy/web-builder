@@ -130,6 +130,27 @@ describe('formly shadcn theme', () => {
 
     expect(el.querySelector('mat-form-field')).toBeNull();
     expect(el.querySelector<HTMLInputElement>('input.shad-input')?.value).toBe('first');
+    expect(el.querySelector('.shad-btn-outline')).toBeTruthy();
+    expect(el.querySelector('.mat-mdc-button-base')).toBeNull();
+  });
+
+  it('keeps material buttons for repeat rows outside shadcn mode', async () => {
+    const fixture = await render(
+      [
+        {
+          key: 'items',
+          type: 'repeat',
+          props: { addText: 'Add' },
+          fieldArray: { fieldGroup: [{ key: 'label', type: 'input', props: { label: 'Label' } }] },
+        },
+      ],
+      {},
+      { items: [{ label: 'first' }] }
+    );
+    const el: HTMLElement = fixture.nativeElement;
+
+    expect(el.querySelector('app-btn')).toBeTruthy();
+    expect(el.querySelector('.shad-btn-outline')).toBeNull();
   });
 
   it('renders a native shadcn select and preselects the model value', async () => {

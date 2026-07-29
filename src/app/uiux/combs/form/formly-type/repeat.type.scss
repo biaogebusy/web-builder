@@ -1,0 +1,8 @@
+.shad-btn-ghost.danger {
+  color: var(--shadcn-destructive);
+
+  &:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--shadcn-destructive) 12%, transparent);
+    color: var(--shadcn-destructive);
+  }
+}

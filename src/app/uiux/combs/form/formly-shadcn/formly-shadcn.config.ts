@@ -49,7 +49,9 @@ const SHADCN_TYPE_MAP: Record<string, { type: string; wrappers: string[] }> = {
   toggle: { type: 'shadcn-toggle', wrappers: [] },
   // 不映射的类型:datepicker(业务零使用,且原生 date 输入与 Date 对象
   // 模型语义不同)、mat-select(搜索/API 选项/虚拟滚动无法用原生 select
-  // 承载)、repeat 等复合类型 —— 均由 _shadcn-formly.scss 作用域样式兜底。
+  // 承载,仅存在于 Material 模式表单)。repeat 复合类型自身按
+  // formState.uiTheme 切换按钮样式。shadcn 表单将来若需要多选/搜索下拉,
+  // 应实现 shadcn combobox 类型,而非用 CSS 覆盖 Material 组件。
 };
 
 export const XINSHI_FORMLY_SHADCN_CONFIG: ConfigOption = {
@@ -65,9 +67,9 @@ export const XINSHI_FORMLY_SHADCN_CONFIG: ConfigOption = {
 
 /**
  * 主题切换 extension:构建字段时按 formState.uiTheme(缺省取 FORM_UI_THEME)
- * 把映射表内的内置类型重写为 shadcn 实现。映射表之外的类型
- * (repeat、mat-select、datepicker 等)原样通过,由 _shadcn-formly.scss 兜底。
- * 重写是幂等的:已改名的字段不再命中映射表。
+ * 把映射表内的内置类型重写为 shadcn 实现。映射表之外的类型原样通过
+ * (repeat 自身会按 formState 切换按钮样式)。重写是幂等的:
+ * 已改名的字段不再命中映射表。
  */
 export function registerShadcnThemeExtension(defaultTheme: FormUiTheme): ConfigOption {
   const extension: FormlyExtension = {
