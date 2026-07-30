@@ -106,14 +106,16 @@
                   class="box"
                   [class]="{ selected: isSelected(item) }"
                 >
-                  <img
-                    class="media-img"
-                    ngSrc="{{ item.src }}"
-                    priority
-                    width="480"
-                    height="360"
-                    alt="{{ item.title || '媒体' }}"
-                  />
+                  @if (item.src) {
+                    <img
+                      class="media-img"
+                      ngSrc="{{ item.src }}"
+                      priority
+                      width="480"
+                      height="360"
+                      alt="{{ item.title || '媒体' }}"
+                    />
+                  }
                 </div>
               </div>
             }
