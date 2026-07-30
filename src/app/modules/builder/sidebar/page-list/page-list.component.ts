@@ -325,31 +325,44 @@ export class PageListComponent extends BaseComponent implements OnInit {
         this.nodeService
           .fetch(`/api/v3/landingPage/json/${currentPage.nid}`, { noCache: 1 }, targetlang)
           .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe((page: IPage) => {
-            this.builder.loading.set(false);
-            if (targetlang === page.langcode) {
+          .subscribe({
+            next: (page: IPage) => {
+              this.builder.loading.set(false);
+              if (targetlang === page.langcode) {
+                this.util.openSnackbar(
+                  this.translate.instant('BUILDER.PAGE_LIST.TRANSLATION_EXISTS', {
+                    label: page.label,
+                  }),
+                  'ok'
+                );
+                this.builder.loadNewPage(formatToExtraData(page));
+              } else {
+                this.util.openSnackbar(
+                  this.translate.instant('BUILDER.PAGE_LIST.LOADING_TRANSLATION', {
+                    title: currentPage.title,
+                    lang: targetlang,
+                  }),
+                  'ok'
+                );
+                this.builder.loadNewPage(
+                  formatToExtraData({
+                    langcode: currentPage.langcode,
+                    ...page,
+                    translation: true,
+                    target: targetlang,
+                  })
+                );
+              }
+            },
+            error: () => {
+              this.builder.loading.set(false);
               this.util.openSnackbar(
-                this.translate.instant('BUILDER.PAGE_LIST.TRANSLATION_EXISTS', { label: page.label }),
-                'ok'
-              );
-              this.builder.loadNewPage(formatToExtraData(page));
-            } else {
-              this.util.openSnackbar(
-                this.translate.instant('BUILDER.PAGE_LIST.LOADING_TRANSLATION', {
+                this.translate.instant('BUILDER.PAGE_LIST.LOAD_TRANSLATION_FAIL', {
                   title: currentPage.title,
-                  lang: targetlang,
                 }),
                 'ok'
               );
-              this.builder.loadNewPage(
-                formatToExtraData({
-                  langcode: currentPage.langcode,
-                  ...page,
-                  translation: true,
-                  target: targetlang,
-                })
-              );
-            }
+            },
           });
       });
   }

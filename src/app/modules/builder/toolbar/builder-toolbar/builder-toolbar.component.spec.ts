@@ -32,6 +32,7 @@ describe('BuilderToolbarComponent', () => {
   };
   const builderService = {
     addTranslation: vi.fn(),
+    checkTranslationExists: vi.fn(() => of(false)),
     createLandingPage: vi.fn(),
     updateLandingPage: vi.fn(),
     loadPage: vi.fn(),
@@ -104,6 +105,26 @@ describe('BuilderToolbarComponent', () => {
       langcode: 'zh-hans',
       nid: '42',
     });
+  });
+
+  it('keeps the draft and skips submission when the translation already exists', () => {
+    const page: IPage = {
+      title: 'Translation draft',
+      body: [{ type: 'text' }],
+      uuid: 'page-uuid',
+      nid: '42',
+      langcode: 'en',
+      translation: true,
+      target: 'zh-hans',
+    };
+    builder.currentPage = page;
+    builderService.checkTranslationExists.mockReturnValueOnce(of(true));
+
+    component.onSubmit(page);
+
+    expect(builderService.addTranslation).not.toHaveBeenCalled();
+    expect(builder.deleteLocalPageByPage).not.toHaveBeenCalled();
+    expect(util.openSnackbar).toHaveBeenCalledWith('BUILDER.TOOLBAR.TRANSLATION_EXISTS', 'ok');
   });
 
   it('deletes the submitted page history after updating a page', () => {

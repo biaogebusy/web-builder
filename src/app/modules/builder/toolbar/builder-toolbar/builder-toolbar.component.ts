@@ -15,7 +15,7 @@ import { BuilderState } from '@core/state/BuilderState';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, switchMap } from 'rxjs/operators';
 import { BUILDER_CURRENT_PAGE, BUILDER_FULL_SCREEN, USER } from '@core/token/token-providers';
 import { ScreenService } from '@core/service/screen.service';
 import type { IPage } from '@core/interface/IAppConfig';
@@ -149,30 +149,59 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
     }
 
     if (page.translation && page.target) {
-      // 新增翻译
+      // 新增翻译：提交前再校验一次目标语言翻译是否已存在
+      const target = page.target;
       this.builder.loading.set(true);
       this.builderService
-        .addTranslation(page)
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(res => {
-          if (res.status) {
+        .checkTranslationExists(page.nid ?? '', target)
+        .pipe(
+          switchMap(exists =>
+            exists ? of({ exists: true }) : this.builderService.addTranslation(page)
+          ),
+          takeUntilDestroyed(this.destroyRef)
+        )
+        .subscribe({
+          next: res => {
+            this.builder.loading.set(false);
+            if (res.exists) {
+              // 翻译已存在，保留本地草稿，交由用户处理
+              this.util.openSnackbar(
+                this.translate.instant('BUILDER.TOOLBAR.TRANSLATION_EXISTS', { target }),
+                'ok'
+              );
+              return;
+            }
+            if (!res.status) {
+              this.util.openSnackbar(
+                res.message ||
+                  this.translate.instant('BUILDER.TOOLBAR.TRANSLATE_FAIL', { target }),
+                'ok'
+              );
+              return;
+            }
             this.util.openSnackbar(
-              this.translate.instant('BUILDER.TOOLBAR.TRANSLATE_SUCCESS', { target: page.target }),
+              this.translate.instant('BUILDER.TOOLBAR.TRANSLATE_SUCCESS', { target }),
               this.translate.instant('BUILDER.COMMON.CLOSE'),
               {
                 duration: 2000,
               }
             );
-            this.builder.loading.set(false);
             this.builder.deleteLocalPageByPage(page);
             this.builder.updateSuccess$.next(true);
             if (page.nid) {
               this.builderService.loadPage({
-                langcode: page.target,
+                langcode: target,
                 nid: page.nid,
               });
             }
-          }
+          },
+          error: () => {
+            this.builder.loading.set(false);
+            this.util.openSnackbar(
+              this.translate.instant('BUILDER.TOOLBAR.TRANSLATE_FAIL', { target }),
+              'ok'
+            );
+          },
         });
     } else {
       if (page.uuid && page.nid) {

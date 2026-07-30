@@ -364,6 +364,18 @@ export class BuilderService extends ApiService {
     }
   }
 
+  /**
+   * 提交翻译前再校验一次目标语言翻译是否已存在，
+   * 避免加载草稿到提交之间其他人已创建同语言翻译。
+   * 校验请求失败时按不存在处理，交给后端最终裁决。
+   */
+  checkTranslationExists(nid: string | number, target: string): Observable<boolean> {
+    return this.nodeService.fetch(`/api/v3/landingPage/json/${nid}`, { noCache: 1 }, target).pipe(
+      map((page: IPage) => page.langcode === target),
+      catchError(() => of(false))
+    );
+  }
+
   addTranslation(page: IPage): Observable<any> {
     const { nid, target, langcode } = page;
     return this.builderConfig$.pipe(
