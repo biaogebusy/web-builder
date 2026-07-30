@@ -7,8 +7,6 @@ import {
   provideZonelessChangeDetection,
 } from '@angular/core';
 import {
-  BrowserModule,
-  Title,
   provideClientHydration,
   withHttpTransferCacheOptions,
   withIncrementalHydration,
@@ -18,7 +16,6 @@ import { provideRouter, withInMemoryScrolling, withPreloading } from '@angular/r
 import zhHans from '@angular/common/locales/zh-Hans';
 import { registerLocaleData } from '@angular/common';
 import { provideNgxWebstorage, withLocalStorage, withNgxWebstorageConfig } from 'ngx-webstorage';
-import { CookieService } from 'ngx-cookie-service';
 import { TranslateModule } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppComponent } from './app.component';
@@ -30,7 +27,6 @@ import {
   BRANDING,
   CORE_CONFIG,
   LANG,
-  NOTIFY_CONTENT,
   THEME,
   USER,
 } from '@core/token/token-providers';
@@ -39,7 +35,6 @@ import {
   brandingFactory,
   initApp,
   langFactory,
-  notifyFactory,
   preloadInitialDynamicComponents,
   themeFactory,
   userFactory,
@@ -52,15 +47,12 @@ registerLocaleData(zhHans, 'zh-hans');
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    Title,
-    CookieService,
     { provide: CORE_CONFIG, useValue: {} },
     { provide: BRANDING, useFactory: brandingFactory },
     { provide: THEME, useFactory: themeFactory, deps: [[new Inject(CORE_CONFIG)]] },
     { provide: LANG, useFactory: langFactory },
     { provide: API_URL, useFactory: apiUrlFactory },
     { provide: USER, useFactory: userFactory },
-    { provide: NOTIFY_CONTENT, useFactory: notifyFactory, deps: [[new Inject(CORE_CONFIG)]] },
     provideAppInitializer(() => {
       const initializerFn = initApp(inject(CORE_CONFIG));
       return initializerFn();
@@ -116,6 +108,5 @@ export const appConfig: ApplicationConfig = {
       prefix: `${environment.apiUrl}/assets/i18n/`,
       suffix: '.json',
     }),
-    importProvidersFrom(BrowserModule),
   ],
 };
