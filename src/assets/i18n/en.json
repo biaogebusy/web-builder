@@ -235,6 +235,8 @@
       "EDIT_JSON": "Edit JSON",
       "PREVIEW": "Preview",
       "ALIAS_FAIL": "Failed to update alias. Please contact admin.",
+      "ALIAS_SYNC_PARTIAL_FAIL": "Failed to sync the URL alias for some languages. Please check manually.",
+      "TRANSLATION_ALIAS_SYNC_FAIL": "Failed to sync the URL alias for the translated page. Please check manually.",
       "UPDATE_SUCCESS": "{{title}} updated",
       "NO_PERMISSION": "Permission denied",
       "DELETE_FAIL": "Failed to delete {{title}}. Please contact admin.",

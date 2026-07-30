@@ -2,7 +2,7 @@ import { DestroyRef, Injectable, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ApiService } from './api.service';
 import type { IPage } from '@core/interface/IAppConfig';
-import { Observable, of, Subscription, timer } from 'rxjs';
+import { forkJoin, Observable, of, Subscription, timer } from 'rxjs';
 import { UtilitiesService } from './utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { NodeService } from './node.service';
@@ -24,6 +24,7 @@ import {
   getPageParams,
 } from '@core/util/builder-page.util';
 import { appendQueryParams, type QueryParams } from '@core/util/http-params.util';
+import { TranslateService } from '@ngx-translate/core';
 
 const BUILDERPATH = '/builder';
 const VERSION_KEY = 'version';
@@ -42,6 +43,7 @@ export class BuilderService extends ApiService {
   private destroyRef = inject(DestroyRef);
   private router = inject(Router);
   private storage = inject(LocalStorageService);
+  private translate = inject(TranslateService);
   private versionCheckSub?: Subscription;
   private versionDialogOpen = false;
 
@@ -372,7 +374,104 @@ export class BuilderService extends ApiService {
           formatPage(page),
           this.optionsWithBearerToken()
         )
-      )
+      ),
+      switchMap((res: any) => {
+        if (!res?.status || !nid || !target) {
+          return of(res);
+        }
+        return this.copyAliasToLang(nid, langcode, target).pipe(
+          map(synced => {
+            if (!synced) {
+              this.util.openSnackbar(
+                this.translate.instant('BUILDER.PAGE_SETTING.TRANSLATION_ALIAS_SYNC_FAIL'),
+                'ok'
+              );
+            }
+            return res;
+          })
+        );
+      })
+    );
+  }
+
+  /**
+   * 新建翻译后，把源语言的 path_alias 复制到目标语言，
+   * 保证翻译页面 URL 与默认页面只差语言前缀。
+   */
+  private copyAliasToLang(
+    nid: string | number,
+    sourceLangcode: string | undefined,
+    targetLangcode: string
+  ): Observable<boolean> {
+    if (!environment.multiLang) {
+      return of(true);
+    }
+    const srcApiLang = getApiLang(sourceLangcode);
+    const srcPrefix = srcApiLang ? `/${srcApiLang}` : '';
+    const tgtApiLang = getApiLang(targetLangcode);
+    const tgtPrefix = tgtApiLang ? `/${tgtApiLang}` : '';
+    const queryAlias = (prefix: string, lang?: string): Observable<any> =>
+      this.http.get(
+        appendQueryParams(
+          `${prefix}/api/v1/path_alias/path_alias`,
+          {
+            'filter[path]': `/node/${nid}`,
+            ...(lang ? { 'filter[langcode]': lang } : {}),
+          },
+          { encodeKeys: false }
+        )
+      );
+
+    return queryAlias(srcPrefix, sourceLangcode).pipe(
+      switchMap((srcRes: any) => {
+        const source = srcRes?.data?.[0];
+        if (!source) {
+          // 源页面没有别名，无需同步
+          return of(true);
+        }
+        const alias = source.attributes?.alias;
+        return queryAlias(tgtPrefix, targetLangcode).pipe(
+          switchMap((tgtRes: any) => {
+            const record = tgtRes?.data?.[0];
+            if (record?.attributes?.alias === alias) {
+              return of(true);
+            }
+            const attributes = {
+              alias,
+              path: `/node/${nid}`,
+              langcode: targetLangcode,
+            };
+            if (record) {
+              return this.http
+                .patch(
+                  `${tgtPrefix}/api/v1/path_alias/path_alias/${record.id}`,
+                  {
+                    data: {
+                      type: 'path_alias--path_alias',
+                      id: record.id,
+                      attributes,
+                    },
+                  },
+                  this.optionsWithBearerToken()
+                )
+                .pipe(map(() => true));
+            }
+            return this.http
+              .post(
+                `${tgtPrefix}/api/v1/path_alias/path_alias`,
+                {
+                  data: {
+                    type: 'path_alias--path_alias',
+                    attributes,
+                  },
+                },
+                this.optionsWithBearerToken()
+              )
+              .pipe(map(() => true));
+          })
+        );
+      }),
+      catchError(() => of(false))
     );
   }
 
@@ -465,13 +564,28 @@ export class BuilderService extends ApiService {
           langcode: langcode ?? 'und',
         };
       }
+      const cleanAlias = alias.replace(prefix, '');
       const paramsData = {
         type: 'path_alias--path_alias',
         attributes: {
-          alias: alias.replace(prefix, ''),
+          alias: cleanAlias,
           path: `/node/${id}`,
           ...langObj,
         },
+      };
+
+      const syncAndResolve = (): void => {
+        this.syncAliasToOtherLangs(id, cleanAlias, langcode)
+          .pipe(take(1))
+          .subscribe(allSynced => {
+            if (!allSynced) {
+              this.util.openSnackbar(
+                this.translate.instant('BUILDER.PAGE_SETTING.ALIAS_SYNC_PARTIAL_FAIL'),
+                'ok'
+              );
+            }
+            resolve(true);
+          });
       };
 
       if (pid) {
@@ -516,7 +630,7 @@ export class BuilderService extends ApiService {
               )
               .subscribe(status => {
                 if (status) {
-                  resolve(true);
+                  syncAndResolve();
                 } else {
                   reject(false);
                 }
@@ -539,13 +653,73 @@ export class BuilderService extends ApiService {
           )
           .subscribe(res => {
             if (res) {
-              resolve(true);
+              syncAndResolve();
             } else {
               reject(false);
             }
           });
       }
     });
+  }
+
+  /**
+   * 多语言别名只差语言前缀：默认语言别名更新后，
+   * 将同一节点在其他语言下已存在的 path_alias 记录同步为相同别名。
+   */
+  private syncAliasToOtherLangs(
+    id: string,
+    alias: string,
+    currentLangcode?: string
+  ): Observable<boolean> {
+    const { multiLang, langs } = environment;
+    const otherLangs = (langs ?? []).filter(lang => lang.langCode !== currentLangcode);
+    if (!multiLang || !otherLangs.length) {
+      return of(true);
+    }
+
+    const tasks = otherLangs.map(lang => {
+      const apiLang = getApiLang(lang.langCode);
+      const prefix = apiLang ? `/${apiLang}` : '';
+      return this.http
+        .get(
+          appendQueryParams(
+            `${prefix}/api/v1/path_alias/path_alias`,
+            {
+              'filter[path]': `/node/${id}`,
+              'filter[langcode]': lang.langCode,
+            },
+            { encodeKeys: false }
+          )
+        )
+        .pipe(
+          switchMap((res: any) => {
+            const record = res?.data?.[0];
+            if (!record || record.attributes?.alias === alias) {
+              return of(true);
+            }
+            return this.http
+              .patch(
+                `${prefix}/api/v1/path_alias/path_alias/${record.id}`,
+                {
+                  data: {
+                    type: 'path_alias--path_alias',
+                    id: record.id,
+                    attributes: {
+                      alias,
+                      path: `/node/${id}`,
+                      langcode: lang.langCode,
+                    },
+                  },
+                },
+                this.optionsWithBearerToken()
+              )
+              .pipe(map(() => true));
+          }),
+          catchError(() => of(false))
+        );
+    });
+
+    return forkJoin(tasks).pipe(map(results => results.every(Boolean)));
   }
 
   openPageSetting(

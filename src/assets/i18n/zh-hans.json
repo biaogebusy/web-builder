@@ -235,6 +235,8 @@
       "EDIT_JSON": "编辑JSON",
       "PREVIEW": "预览",
       "ALIAS_FAIL": "更新别名失败，请联系管理员！",
+      "ALIAS_SYNC_PARTIAL_FAIL": "部分语言的 URL 别名同步失败，请手动检查",
+      "TRANSLATION_ALIAS_SYNC_FAIL": "翻译页面 URL 别名同步失败，请手动检查",
       "UPDATE_SUCCESS": "更新{{title}}成功",
       "NO_PERMISSION": "权限不足！",
       "DELETE_FAIL": "删除{{title}}失败，请联系管理员！",
