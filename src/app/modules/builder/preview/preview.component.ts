@@ -9,7 +9,8 @@ import {
 } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { BrandingModule } from '@core/branding/branding.module';
+import { HeaderComponent } from '@core/branding/header/header.component';
+import { FooterComponent } from '@core/branding/footer/footer.component';
 import { IPage } from '@core/interface/IAppConfig';
 import { TagsService } from '@core/service/tags.service';
 import { BuilderState } from '@core/state/BuilderState';
@@ -24,7 +25,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
   templateUrl: './preview.component.html',
   styleUrls: ['./preview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ShareModule, WidgetsModule, BrandingModule],
+  imports: [ShareModule, WidgetsModule, HeaderComponent, FooterComponent],
 })
 export class PreviewComponent implements OnInit {
   public currentPage = inject(BUILDER_CURRENT_PAGE);

@@ -1,7 +1,7 @@
 import { Component, inject, ChangeDetectionStrategy, input } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { BrandingModule } from '@core/branding/branding.module';
+import { AccordionMenuComponent } from '@core/branding/accordion-menu/accordion-menu.component';
 import { IBranding } from '@core/interface/branding/IBranding';
 import { BuilderState } from '@core/state/BuilderState';
 import { BRANDING, BUILDER_CONFIG } from '@core/token/token-providers';
@@ -18,7 +18,7 @@ import { IDialog } from '@core/interface/IDialog';
   selector: 'app-builder-sidebar',
   templateUrl: './builder-sidebar.component.html',
   styleUrls: ['./builder-sidebar.component.scss'],
-  imports: [ShareModule, WidgetsModule, BrandingModule],
+  imports: [ShareModule, WidgetsModule, AccordionMenuComponent],
 })
 export class BuilderSidebarComponent {
   public branding$ = inject(BRANDING);
