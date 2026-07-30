@@ -17,7 +17,7 @@ import {
 } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { OtherModule } from '@uiux/combs/other/other.module';
+import { IframeComponent } from '@uiux/combs/other/iframe/iframe.component';
 import { IDynamicInputs } from '@core/interface/IAppConfig';
 import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_CONFIG, BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
@@ -36,7 +36,7 @@ import { DefaultPageComponent } from '../default-page/default-page.component';
   selector: 'app-builder-list',
   templateUrl: './builder-list.component.html',
   styleUrls: ['./builder-list.component.scss'],
-  imports: [ShareModule, WidgetsModule, OtherModule, DragDropModule, DefaultPageComponent],
+  imports: [ShareModule, WidgetsModule, IframeComponent, DragDropModule, DefaultPageComponent],
 })
 export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   private doc = inject<Document>(DOCUMENT);
