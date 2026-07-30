@@ -9,8 +9,8 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { SHARE_IMPORTS } from '@share/share-imports';
+import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { BuilderState } from '@core/state/BuilderState';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -39,7 +39,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './builder-toolbar.component.html',
   styleUrls: ['./builder-toolbar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ShareModule, WidgetsModule, MatSlideToggleModule, SwitchPreviewComponent],
+  imports: [SHARE_IMPORTS, WIDGETS_IMPORTS, MatSlideToggleModule, SwitchPreviewComponent],
 })
 export class BuilderToolbarComponent implements OnInit, AfterViewInit {
   public version = signal<IPage[] | undefined>(undefined);

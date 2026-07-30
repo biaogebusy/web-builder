@@ -2,9 +2,9 @@ import { Component, DestroyRef, OnInit, inject, signal, ChangeDetectionStrategy 
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { FormModule } from '@uiux/combs/form/form.module';
+import { SHARE_IMPORTS } from '@share/share-imports';
+import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
+import { FORM_IMPORTS } from '@uiux/combs/form/form-imports';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import { IUser } from '@core/interface/IUser';
@@ -20,7 +20,7 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
   selector: 'app-node-add',
   templateUrl: './node-add.component.html',
   styleUrl: './node-add.component.scss',
-  imports: [ShareModule, WidgetsModule, FormModule, FormlyModule, FormlyMaterialModule],
+  imports: [SHARE_IMPORTS, WIDGETS_IMPORTS, FORM_IMPORTS, FormlyModule, FormlyMaterialModule],
 })
 export class NodeAddComponent implements OnInit {
   private nodeService = inject(NodeService);

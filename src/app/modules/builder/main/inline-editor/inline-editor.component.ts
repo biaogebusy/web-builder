@@ -6,9 +6,9 @@ import {
   inject,
   input
 } from '@angular/core';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { FormModule } from '@uiux/combs/form/form.module';
+import { SHARE_IMPORTS } from '@share/share-imports';
+import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
+import { FORM_IMPORTS } from '@uiux/combs/form/form-imports';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import type { IMetaEdit } from '@core/interface/IBuilder';
@@ -22,7 +22,7 @@ import { IDialog } from '@core/interface/IDialog';
   templateUrl: './inline-editor.component.html',
   styleUrls: ['./inline-editor.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ShareModule, WidgetsModule, FormModule],
+  imports: [SHARE_IMPORTS, WIDGETS_IMPORTS, FORM_IMPORTS],
 })
 export class InlineEditComponent implements AfterViewInit {
   readonly content = input.required<IMetaEdit>();

@@ -1,4 +1,3 @@
-import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -23,6 +22,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 // Form
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -34,100 +34,89 @@ import { MatSelectModule } from '@angular/material/select';
 // utils
 import { NgPipesModule } from 'ngx-pipes';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
-import { MatPaginatorIntlCro } from '@core/service/paginator.service';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 import { CheckChildMenuActiveDirective } from '@core/directive/check-child-menu-active.directive';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ContenteditDirective } from '@core/directive/contentedit.directive';
 import { TranslateModule } from '@ngx-translate/core';
 
-@NgModule({
-  declarations: [],
-  imports: [
-    CommonModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatSlideToggleModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatCardModule,
-    MatAutocompleteModule,
-    MatDividerModule,
-    MatRippleModule,
-    MatProgressBarModule,
-    MatProgressSpinnerModule,
-    MatMenuModule,
-    MatExpansionModule,
-    RouterModule,
-    ScrollingModule,
-    MatTabsModule,
-    MatDialogModule,
-    MatSnackBarModule,
-    NgPipesModule,
-    NgxPaginationModule,
-    MatTableModule,
-    NgxSkeletonLoaderModule,
-    MatStepperModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatBadgeModule,
-    MatListModule,
-    MatTooltipModule,
-    MatPaginatorModule,
-    TranslateModule,
-    ContenteditDirective,
-    ReqRolesDirective,
-    CheckChildMenuActiveDirective,
-  ],
-  exports: [
-    CommonModule,
-    RouterModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatSlideToggleModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatCardModule,
-    MatBadgeModule,
-    MatAutocompleteModule,
-    MatInputModule,
-    MatDividerModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    TranslateModule,
-    MatRippleModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatProgressBarModule,
-    MatProgressSpinnerModule,
-    MatMenuModule,
-    MatListModule,
-    MatTooltipModule,
-    MatExpansionModule,
-    ScrollingModule,
-    MatTabsModule,
-    MatDialogModule,
-    MatSnackBarModule,
-    NgPipesModule,
-    NgxPaginationModule,
-    MatTableModule,
-    MatPaginatorModule,
-    NgxSkeletonLoaderModule,
-    MatStepperModule,
-    ReqRolesDirective,
-    CheckChildMenuActiveDirective,
-    ContenteditDirective,
-  ],
-  providers: [
-    {
-      provide: MatPaginatorIntl,
-      useClass: MatPaginatorIntlCro,
-    },
-  ],
-})
-export class ShareModule {}
+export const SHARE_IMPORTS = [
+  CommonModule,
+  RouterModule,
+  MatToolbarModule,
+  MatIconModule,
+  MatSlideToggleModule,
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatBadgeModule,
+  MatAutocompleteModule,
+  MatInputModule,
+  MatDividerModule,
+  MatFormFieldModule,
+  MatSelectModule,
+  TranslateModule,
+  MatRippleModule,
+  FormsModule,
+  ReactiveFormsModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatMenuModule,
+  MatListModule,
+  MatTooltipModule,
+  MatExpansionModule,
+  ScrollingModule,
+  MatTabsModule,
+  MatDialogModule,
+  MatSnackBarModule,
+  NgPipesModule,
+  NgxPaginationModule,
+  MatTableModule,
+  MatPaginatorModule,
+  NgxSkeletonLoaderModule,
+  MatStepperModule,
+  ReqRolesDirective,
+  CheckChildMenuActiveDirective,
+  ContenteditDirective,
+] as const;
+
+export {
+  RouterModule,
+  CommonModule,
+  MatCardModule,
+  MatIconModule,
+  MatToolbarModule,
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatDividerModule,
+  MatRippleModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatMenuModule,
+  MatListModule,
+  MatTooltipModule,
+  MatExpansionModule,
+  ScrollingModule,
+  MatTabsModule,
+  MatSnackBarModule,
+  MatDialogModule,
+  MatTableModule,
+  MatStepperModule,
+  MatBadgeModule,
+  MatSlideToggleModule,
+  FormsModule,
+  ReactiveFormsModule,
+  MatAutocompleteModule,
+  MatInputModule,
+  MatFormFieldModule,
+  MatSelectModule,
+  NgPipesModule,
+  NgxPaginationModule,
+  MatPaginatorModule,
+  NgxSkeletonLoaderModule,
+  ReqRolesDirective,
+  CheckChildMenuActiveDirective,
+  ContenteditDirective,
+  TranslateModule,
+};

@@ -1,13 +1,6 @@
-import { NgOptimizedImage } from '@angular/common';
-import { NgModule } from '@angular/core';
-
-// Core
 import { DataSourcePipe } from '@core/pipe/dataSource.pipe';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { SafeUrlPipe } from '@core/pipe/safe-url.pipe';
-import { BaseModule } from '@uiux/base/base.module';
-
-// Components
 import { BgComponent } from './bg/bg.component';
 import { ImgComponent } from './img/img.component';
 import { BoxComponent } from './box/box.component';
@@ -128,16 +121,73 @@ const standaloneComponents = [
   LangSwitchComponent,
 ];
 
-@NgModule({
-  imports: [
-    NgOptimizedImage,
-    SafeUrlPipe,
-    DataSourcePipe,
-    SafeHtmlPipe,
-    ...standaloneComponents,
-  ],
-  exports: [...standaloneComponents, SafeUrlPipe, DataSourcePipe, SafeHtmlPipe],
-})
-export class WidgetsModule extends BaseModule {
-  dynamicComponents = [...standaloneComponents];
-}
+export const WIDGETS_IMPORTS = [
+  ...standaloneComponents,
+  SafeUrlPipe,
+  DataSourcePipe,
+  SafeHtmlPipe,
+] as const;
+
+export {
+  DataSourcePipe,
+  SafeHtmlPipe,
+  SafeUrlPipe,
+  BgComponent,
+  ImgComponent,
+  BoxComponent,
+  LinkComponent,
+  CardComponent,
+  TextComponent,
+  TitleComponent,
+  PanelComponent,
+  SpacerComponent,
+  SidebarComponent,
+  MenuListComponent,
+  SpinnerComponent,
+  PaginationComponent,
+  FeatureBoxComponent,
+  ProgressBarComponent,
+  NumberAnimateComponent,
+  IconComponent,
+  ProgressGroupComponent,
+  MediaListComponent,
+  MediaObjectComponent,
+  MediaObjectGroupComponent,
+  DialogComponent,
+  PaginationLinksComponent,
+  ShapeComponent,
+  BgImgComponent,
+  Card1v1Component,
+  BtnComponent,
+  Card1v2Component,
+  Card1v3Component,
+  Card1v4Component,
+  CardMetaComponent,
+  MediaMetaComponent,
+  TextHeroComponent,
+  ContentBoxComponent,
+  DynamicTableComponent,
+  InlineLightboxComponent,
+  ContentTextCenterComponent,
+  ViewListComponent,
+  UserCardComponent,
+  UserCardCountComponent,
+  BtnVideoComponent,
+  DropdownMenuComponent,
+  Card1v5Component,
+  Card1v6Component,
+  DynamicComponentComponent,
+  ComponentToolbarComponent,
+  BuilderMenuComponent,
+  NotifyComponent,
+  LogoComponent,
+  GotopComponent,
+  SwitchThemeComponent,
+  CustomThemeComponent,
+  GithubStarComponent,
+  DividerComponent,
+  LoadingComponent,
+  LayoutBuilderComponent,
+  UserMenuComponent,
+  LangSwitchComponent,
+};

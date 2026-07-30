@@ -5,7 +5,7 @@ import type { FormlyFieldConfig } from '@ngx-formly/core';
 
 import { provideCoreMocks } from '@core/testing/mocks';
 import { getComponentSetting } from '@modules/builder/factory/getComponentSetting';
-import { FormModule } from '../form.module';
+import { FORM_IMPORTS } from '../form-imports';
 import { FormlyComponent } from './formly.component';
 
 const findField = (
@@ -75,14 +75,14 @@ describe('FormlyComponent select rendering', () => {
     expect(fixture.nativeElement.querySelectorAll('mat-select').length).toBeGreaterThan(0);
   });
 
-  // 回归:父级注入器导入 FormModule / formly forChild 模块(builder 抽屉的真实上下文)。
+  // 回归:父级注入器导入 FORM_IMPORTS / formly forChild 模块(builder 抽屉的真实上下文)。
   // formly 7.1 的 core 扩展持有创建时注入的 FormlyConfig 实例；若 provideXinshiFormly
   // 在组件级额外提供裸 FormlyConfig/FormlyFormBuilder，会与父级绑定的 root 单例分裂：
   // 类型注册在组件实例、defaultOptions 合并却发生在 root 实例，
   // 导致 select 丢失默认 compareWith / form-field wrapper 并抛错。
-  it('renders selects when a parent injector imports FormModule', async () => {
+  it('renders selects when a parent injector imports FORM_IMPORTS', async () => {
     await TestBed.configureTestingModule({
-      imports: [FormModule, FormlyComponent],
+      imports: [FORM_IMPORTS, FormlyComponent],
       providers: [provideRouter([]), ...provideCoreMocks()],
     }).compileComponents();
 

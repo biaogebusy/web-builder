@@ -1,3 +1,5 @@
+import { MatPaginatorIntlCro } from '@core/service/paginator.service';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -10,9 +12,9 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup, FormControl } from '@angular/forms';
 import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { FormModule } from '@uiux/combs/form/form.module';
+import { SHARE_IMPORTS } from '@share/share-imports';
+import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
+import { FORM_IMPORTS } from '@uiux/combs/form/form-imports';
 import { ICardList, IPageList, IPageMeta } from '@core/interface/IBuilder';
 import { IUser } from '@core/interface/IUser';
 import { IPager } from '@core/interface/widgets/IWidgets';
@@ -29,11 +31,12 @@ import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Component({
+  providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorIntlCro }],
   selector: 'app-card-list',
   templateUrl: './card-list.component.html',
   styleUrl: './card-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ShareModule, WidgetsModule, FormModule, MatPaginatorModule],
+  imports: [SHARE_IMPORTS, WIDGETS_IMPORTS, FORM_IMPORTS, MatPaginatorModule],
 })
 export class CardListComponent extends BaseComponent implements OnInit {
   public user = inject(USER);

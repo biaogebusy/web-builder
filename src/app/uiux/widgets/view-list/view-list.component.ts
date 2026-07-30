@@ -1,3 +1,5 @@
+import { MatPaginatorIntlCro } from '@core/service/paginator.service';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -35,6 +37,7 @@ import { DynamicTableComponent } from '../dynamic-table/dynamic-table.component'
 import { TextComponent } from '../text/text.component';
 
 @Component({
+  providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorIntlCro }],
   selector: 'app-view-list',
   templateUrl: './view-list.component.html',
   styleUrls: ['./view-list.component.scss'],

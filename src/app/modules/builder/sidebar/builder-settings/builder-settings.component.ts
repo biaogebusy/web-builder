@@ -1,3 +1,5 @@
+import { MatPaginatorIntlCro } from '@core/service/paginator.service';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -8,8 +10,8 @@ import {
 } from '@angular/core';
 import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
 import { Router } from '@angular/router';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { SHARE_IMPORTS } from '@share/share-imports';
+import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { IPageList } from '@core/interface/IBuilder';
 import { IPager } from '@core/interface/widgets/IWidgets';
 import { BuilderService } from '@core/service/builder.service';
@@ -25,11 +27,12 @@ import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 @Component({
+  providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorIntlCro }],
   selector: 'app-builder-settings',
   templateUrl: './builder-settings.component.html',
   styleUrls: ['./builder-settings.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ShareModule, WidgetsModule, MatPaginatorModule],
+  imports: [SHARE_IMPORTS, WIDGETS_IMPORTS, MatPaginatorModule],
 })
 export class BuilderSettingsComponent extends BaseComponent implements OnInit {
   readonly content = input<any>();

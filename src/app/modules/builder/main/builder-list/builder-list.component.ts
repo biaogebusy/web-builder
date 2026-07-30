@@ -15,8 +15,8 @@ import {
   ChangeDetectionStrategy,
   viewChild
 } from '@angular/core';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { SHARE_IMPORTS } from '@share/share-imports';
+import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { IframeComponent } from '@uiux/combs/other/iframe/iframe.component';
 import { IDynamicInputs } from '@core/interface/IAppConfig';
 import { BuilderState } from '@core/state/BuilderState';
@@ -36,7 +36,7 @@ import { DefaultPageComponent } from '../default-page/default-page.component';
   selector: 'app-builder-list',
   templateUrl: './builder-list.component.html',
   styleUrls: ['./builder-list.component.scss'],
-  imports: [ShareModule, WidgetsModule, IframeComponent, DragDropModule, DefaultPageComponent],
+  imports: [SHARE_IMPORTS, WIDGETS_IMPORTS, IframeComponent, DragDropModule, DefaultPageComponent],
 })
 export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   private doc = inject<Document>(DOCUMENT);

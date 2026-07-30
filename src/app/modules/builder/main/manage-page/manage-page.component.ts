@@ -1,6 +1,6 @@
 import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { SHARE_IMPORTS } from '@share/share-imports';
+import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { pageContentFactory } from '@core/factory/factory';
 import { IPage } from '@core/interface/IAppConfig';
 import { PAGE_CONTENT } from '@core/token/token-providers';
@@ -17,7 +17,7 @@ import { Observable } from 'rxjs';
       useFactory: pageContentFactory,
     },
   ],
-  imports: [ShareModule, WidgetsModule],
+  imports: [SHARE_IMPORTS, WIDGETS_IMPORTS],
 })
 export class ManagePageComponent {
   pageContent = inject(PAGE_CONTENT);

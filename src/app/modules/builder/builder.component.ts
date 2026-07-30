@@ -1,6 +1,6 @@
 import { Component, DestroyRef, OnInit, inject, AfterViewInit, ChangeDetectionStrategy, viewChild } from '@angular/core';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { SHARE_IMPORTS } from '@share/share-imports';
+import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { RouterOutlet } from '@angular/router';
 import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_FULL_SCREEN } from '@core/token/token-providers';
@@ -15,8 +15,8 @@ import { BuilderSidebarComponent } from './sidebar/builder-sidebar/builder-sideb
   templateUrl: './builder.component.html',
   styleUrls: ['./builder.component.scss'],
   imports: [
-    ShareModule,
-    WidgetsModule,
+    SHARE_IMPORTS,
+    WIDGETS_IMPORTS,
     MatSidenavModule,
     RouterOutlet,
     BuilderSidebarComponent,

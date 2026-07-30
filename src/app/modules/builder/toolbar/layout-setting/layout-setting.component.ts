@@ -3,9 +3,9 @@ import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-
 import { Component, DestroyRef, inject, DOCUMENT, ChangeDetectionStrategy, input } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { FormModule } from '@uiux/combs/form/form.module';
+import { SHARE_IMPORTS } from '@share/share-imports';
+import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
+import { FORM_IMPORTS } from '@uiux/combs/form/form-imports';
 import type { ILayoutSetting } from '@core/interface/IBuilder';
 import type { IDynamicInputs } from '@core/interface/IAppConfig';
 import { IDialog } from '@core/interface/IDialog';
@@ -20,7 +20,7 @@ import { cloneDeep, defaultsDeep, get } from 'lodash-es';
   selector: 'app-layout-setting',
   templateUrl: './layout-setting.component.html',
   styleUrls: ['./layout-setting.component.scss'],
-  imports: [ShareModule, WidgetsModule, FormModule, DragDropModule],
+  imports: [SHARE_IMPORTS, WIDGETS_IMPORTS, FORM_IMPORTS, DragDropModule],
 })
 export class LayoutSettingComponent {
   readonly content = input.required<ILayoutSetting>();

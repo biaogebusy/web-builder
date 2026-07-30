@@ -1,3 +1,5 @@
+import { MatPaginatorIntlCro } from '@core/service/paginator.service';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -11,9 +13,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup } from '@angular/forms';
 import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { FormModule } from '@uiux/combs/form/form.module';
+import { SHARE_IMPORTS } from '@share/share-imports';
+import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
+import { FORM_IMPORTS } from '@uiux/combs/form/form-imports';
 import { IPage } from '@core/interface/IAppConfig';
 import { IPageMeta, IPageList } from '@core/interface/IBuilder';
 import { IUser } from '@core/interface/IUser';
@@ -38,11 +40,12 @@ import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Component({
+  providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorIntlCro }],
   selector: 'app-page-list',
   templateUrl: './page-list.component.html',
   styleUrls: ['./page-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ShareModule, WidgetsModule, FormModule, MatPaginatorModule],
+  imports: [SHARE_IMPORTS, WIDGETS_IMPORTS, FORM_IMPORTS, MatPaginatorModule],
 })
 export class PageListComponent extends BaseComponent implements OnInit {
   public currentPage = inject(BUILDER_CURRENT_PAGE);

@@ -19,9 +19,9 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
 import { FormlyMatToggleModule } from '@ngx-formly/material/toggle';
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { FormModule } from '@uiux/combs/form/form.module';
+import { SHARE_IMPORTS } from '@share/share-imports';
+import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
+import { FORM_IMPORTS } from '@uiux/combs/form/form-imports';
 import { provideXinshiFormly } from '@uiux/combs/form/formly-feature.config';
 import { shadcnFormOptions } from '@uiux/combs/form/formly-shadcn/formly-shadcn.config';
 import { merge } from 'rxjs';
@@ -63,9 +63,9 @@ interface FooterMenuGroup {
   styleUrl: './edit-footer.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    ShareModule,
-    WidgetsModule,
-    FormModule,
+    SHARE_IMPORTS,
+    WIDGETS_IMPORTS,
+    FORM_IMPORTS,
     FormsModule,
     RouterLink,
     DragDropModule,

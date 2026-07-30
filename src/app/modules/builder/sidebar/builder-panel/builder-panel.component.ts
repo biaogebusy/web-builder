@@ -10,8 +10,8 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { SHARE_IMPORTS } from '@share/share-imports';
+import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import type { IBuilderComponent, IBuilderComponentElement } from '@core/interface/IBuilder';
 import { ScreenService } from '@core/service/screen.service';
 import { BuilderState } from '@core/state/BuilderState';
@@ -22,7 +22,7 @@ import { cloneDeep } from 'lodash-es';
   templateUrl: './builder-panel.component.html',
   styleUrls: ['./builder-panel.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ShareModule, WidgetsModule, DragDropModule],
+  imports: [SHARE_IMPORTS, WIDGETS_IMPORTS, DragDropModule],
 })
 export class BuilderPanelComponent implements OnInit {
   readonly content = input<IBuilderComponent[]>();

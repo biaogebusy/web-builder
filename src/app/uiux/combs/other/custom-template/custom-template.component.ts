@@ -1,3 +1,5 @@
+import { MatPaginatorIntlCro } from '@core/service/paginator.service';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 import {
   AfterViewInit,
   Component,
@@ -32,6 +34,7 @@ import { TranslateService } from '@ngx-translate/core';
 declare let Swiper: any;
 declare let echarts: any;
 @Component({
+  providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorIntlCro }],
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-custom-template',
   templateUrl: './custom-template.component.html',
