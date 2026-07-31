@@ -12,6 +12,10 @@
     app-btn ::ng-deep a {
       @apply md:w-full;
     }
+    // 加载骨架:移动端模拟横排 pill 按钮,桌面端撑满边栏
+    .type-skeleton {
+      @apply block w-24 md:w-full;
+    }
   }
   .node-types-title {
     @apply w-full text-sm font-medium;
@@ -25,6 +29,12 @@
     background: var(--shadcn-card);
     border: 1px solid var(--shadcn-border);
     border-radius: var(--shadcn-radius-lg);
+  }
+  .form-skeleton {
+    @apply flex flex-col gap-6;
+    .skeleton-field {
+      @apply flex flex-col gap-2;
+    }
   }
   .actions {
     @apply flex justify-end mt-8 pt-6;

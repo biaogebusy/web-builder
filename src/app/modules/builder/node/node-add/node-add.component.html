@@ -16,6 +16,23 @@
           />
         }
       </aside>
+    } @else if (typesLoading()) {
+      <aside class="node-types">
+        <div class="node-types-title">{{ 'BUILDER.NODE_ADD.TYPE_TITLE' | translate }}</div>
+        @for (_ of [1, 2, 3, 4]; track $index) {
+          <ngx-skeleton-loader
+            class="type-skeleton"
+            count="1"
+            appearance="line"
+            [theme]="{
+              height: '40px',
+              'border-radius': '9999px',
+              'background-color': 'var(--shadcn-muted)',
+              margin: '0',
+            }"
+          />
+        }
+      </aside>
     }
     <div class="node-main">
       <app-title [content]="{ label: typeLabel(), style: 'none' }" />
@@ -25,20 +42,62 @@
           @for (t of [type()]; track t) {
             <app-formly [form]="form" [fields]="fields()" [content]="{ uiTheme: 'shadcn' }" />
           }
+          <div class="actions">
+            <app-btn
+              (click)="onSubmit(form.value, u)"
+              [content]="{
+                label: 'BUILDER.NODE_ADD.SUBMIT' | translate,
+                color: 'primary',
+                mode: 'raised',
+                icon: {
+                  svg: 'send',
+                },
+              }"
+            />
+          </div>
+        } @else {
+          <!-- 字段经 field config API 内省后异步返回,加载中以骨架屏占位 -->
+          <div class="form-skeleton">
+            @for (controlHeight of ['2rem', '8rem', '2rem', '2rem']; track $index) {
+              <div class="skeleton-field">
+                <ngx-skeleton-loader
+                  count="1"
+                  appearance="line"
+                  [theme]="{
+                    width: '30%',
+                    height: '14px',
+                    'border-radius': '4px',
+                    'background-color': 'var(--shadcn-muted)',
+                    margin: '0',
+                  }"
+                />
+                <ngx-skeleton-loader
+                  count="1"
+                  appearance="line"
+                  [theme]="{
+                    height: controlHeight,
+                    'border-radius': 'var(--shadcn-radius)',
+                    'background-color': 'var(--shadcn-muted)',
+                    margin: '0',
+                  }"
+                />
+              </div>
+            }
+          </div>
+          <div class="actions">
+            <ngx-skeleton-loader
+              count="1"
+              appearance="line"
+              [theme]="{
+                width: '7rem',
+                height: '40px',
+                'border-radius': '9999px',
+                'background-color': 'var(--shadcn-muted)',
+                margin: '0',
+              }"
+            />
+          </div>
         }
-        <div class="actions">
-          <app-btn
-            (click)="onSubmit(form.value, u)"
-            [content]="{
-              label: 'BUILDER.NODE_ADD.SUBMIT' | translate,
-              color: 'primary',
-              mode: 'raised',
-              icon: {
-                svg: 'send',
-              },
-            }"
-          />
-        </div>
       </div>
     </div>
   </div>

@@ -37,6 +37,8 @@ export class NodeAddComponent implements OnInit {
   public form: UntypedFormGroup = new UntypedFormGroup({});
   public fields = signal<FormlyFieldConfig[]>([]);
   public nodeTypes = signal<{ label: string; value: string }[]>([]);
+  // getNodeTypes 出错时会发出空数组,需与"加载中"区分,避免骨架屏常驻
+  public typesLoading = signal(true);
   /** 当前类型的显示名(如 "博客"),未匹配时回退机器名 */
   public typeLabel = computed(
     () => this.nodeTypes().find(t => t.value === this.type())?.label ?? this.type()
@@ -47,7 +49,10 @@ export class NodeAddComponent implements OnInit {
     this.fieldFormService
       .getNodeTypes()
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(types => this.nodeTypes.set(types));
+      .subscribe(types => {
+        this.nodeTypes.set(types);
+        this.typesLoading.set(false);
+      });
 
     this.activateRoute.params.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
       const type = params['type'];
