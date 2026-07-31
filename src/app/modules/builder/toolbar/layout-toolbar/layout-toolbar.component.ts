@@ -10,8 +10,8 @@ import { generatePath } from '@core/util/dom-path.util';
 import { getLayoutSetting } from '@modules/builder/factory/getLayoutSetting';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { cloneDeep } from 'lodash-es';
-import { BtnComponent } from '../../../btn/btn.component';
-import { IconComponent } from '../../../icon/icon.component';
+import { BtnComponent } from '@uiux/widgets/btn/btn.component';
+import { IconComponent } from '@uiux/widgets/icon/icon.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

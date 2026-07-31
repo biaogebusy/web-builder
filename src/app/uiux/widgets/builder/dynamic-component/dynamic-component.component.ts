@@ -22,9 +22,9 @@ import type { IDynamicInputs } from '@core/interface/IAppConfig';
 import { ComponentService } from '@core/service/component.service';
 import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { ComponentToolbarComponent } from '@modules/builder/toolbar/component-toolbar/component-toolbar.component';
 import { BgImgComponent } from '../../bg-img/bg-img.component';
 import { SpacerComponent } from '../../spacer/spacer.component';
-import { ComponentToolbarComponent } from '../component-toolbar/component-toolbar.component';
 
 interface DynamicRenderState {
   componentType: Type<unknown>;

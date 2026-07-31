@@ -46,8 +46,6 @@ import { DropdownMenuComponent } from './dropdown-menu/dropdown-menu.component';
 import { Card1v5Component } from './card/card1v5/card1v5.component';
 import { Card1v6Component } from './card/card1v6/card1v6.component';
 import { DynamicComponentComponent } from './builder/dynamic-component/dynamic-component.component';
-import { ComponentToolbarComponent } from './builder/component-toolbar/component-toolbar.component';
-import { BuilderMenuComponent } from './builder/builder-menu/builder-menu.component';
 import { NotifyComponent } from './notify/notify.component';
 import { LogoComponent } from './img/logo/logo.component';
 import { GotopComponent } from './actions/gotop/gotop.component';
@@ -79,7 +77,6 @@ const standaloneComponents = [
   CustomThemeComponent,
   BtnComponent,
   InlineLightboxComponent,
-  ComponentToolbarComponent,
   ImgComponent,
   BgImgComponent,
   DynamicComponentComponent,
@@ -115,7 +112,6 @@ const standaloneComponents = [
   ViewListComponent,
   DynamicTableComponent,
   NotifyComponent,
-  BuilderMenuComponent,
   LayoutBuilderComponent,
   UserMenuComponent,
   LangSwitchComponent,
@@ -177,8 +173,6 @@ export {
   Card1v5Component,
   Card1v6Component,
   DynamicComponentComponent,
-  ComponentToolbarComponent,
-  BuilderMenuComponent,
   NotifyComponent,
   LogoComponent,
   GotopComponent,

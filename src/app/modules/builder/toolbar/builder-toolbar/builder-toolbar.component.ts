@@ -31,6 +31,7 @@ import { Router } from '@angular/router';
 import { IDialog } from '@core/interface/IDialog';
 import { TranslateService } from '@ngx-translate/core';
 import qs from 'qs';
+import { BuilderMenuComponent } from '../builder-menu/builder-menu.component';
 import { SwitchPreviewComponent } from '../switch-preview/switch-preview.component';
 import { environment } from 'src/environments/environment';
 
@@ -39,7 +40,13 @@ import { environment } from 'src/environments/environment';
   templateUrl: './builder-toolbar.component.html',
   styleUrls: ['./builder-toolbar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SHARE_IMPORTS, WIDGETS_IMPORTS, MatSlideToggleModule, SwitchPreviewComponent],
+  imports: [
+    SHARE_IMPORTS,
+    WIDGETS_IMPORTS,
+    MatSlideToggleModule,
+    BuilderMenuComponent,
+    SwitchPreviewComponent,
+  ],
 })
 export class BuilderToolbarComponent implements OnInit, AfterViewInit {
   public version = signal<IPage[] | undefined>(undefined);
