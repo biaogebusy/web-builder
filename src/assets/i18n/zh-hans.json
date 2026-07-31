@@ -407,6 +407,8 @@
       "FIELD_TITLE": "标题",
       "SUBMIT": "确认提交",
       "LOGIN_FIRST": "请登录后再试！",
+      "SUBMIT_FAILED": "提交失败：{{message}}",
+      "SUBMIT_SUCCESS": "创建成功！可继续创建新内容。",
       "NO_FIELDS": "无法获取字段配置，请确认当前角色在 Drupal 中拥有 \"administer node fields\" 权限。"
     },
     "FORM_VALIDATION": {

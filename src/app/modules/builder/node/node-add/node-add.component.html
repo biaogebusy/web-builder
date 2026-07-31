@@ -43,17 +43,21 @@
             <app-formly [form]="form" [fields]="fields()" [content]="{ uiTheme: 'shadcn' }" />
           }
           <div class="actions">
-            <app-btn
-              (click)="onSubmit(form.value, u)"
-              [content]="{
-                label: 'BUILDER.NODE_ADD.SUBMIT' | translate,
-                color: 'primary',
-                mode: 'raised',
-                icon: {
-                  svg: 'send',
-                },
-              }"
-            />
+            @if (submitting()) {
+              <app-spinner [content]="{ size: 32, color: 'primary' }" />
+            } @else {
+              <app-btn
+                (click)="onSubmit(form.value, u)"
+                [content]="{
+                  label: 'BUILDER.NODE_ADD.SUBMIT' | translate,
+                  color: 'primary',
+                  mode: 'raised',
+                  icon: {
+                    svg: 'send',
+                  },
+                }"
+              />
+            }
           </div>
         } @else {
           <!-- 字段经 field config API 内省后异步返回,加载中以骨架屏占位 -->

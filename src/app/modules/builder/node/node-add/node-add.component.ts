@@ -39,6 +39,7 @@ export class NodeAddComponent implements OnInit {
   public nodeTypes = signal<{ label: string; value: string }[]>([]);
   // getNodeTypes 出错时会发出空数组,需与"加载中"区分,避免骨架屏常驻
   public typesLoading = signal(true);
+  public submitting = signal(false);
   /** 当前类型的显示名(如 "博客"),未匹配时回退机器名 */
   public typeLabel = computed(
     () => this.nodeTypes().find(t => t.value === this.type())?.label ?? this.type()
@@ -119,19 +120,26 @@ export class NodeAddComponent implements OnInit {
       this.util.openSnackbar(this.translate.instant('BUILDER.NODE_ADD.LOGIN_FIRST'), 'ok');
       return;
     }
+    if (this.submitting()) {
+      return;
+    }
+    this.submitting.set(true);
     const type = this.type();
+    // 不发送 status:启用内容审核(content moderation)的类型禁止直接写发布状态
+    // (403: Cannot edit the published field of moderated entities),
+    // 由内容类型默认值或审核工作流决定
     switch (type) {
       case 'json': {
         const { title, body } = value;
         this.nodeService
           .addEntity(`/api/v1/node/${type}`, {
             title,
-            status: true,
             body: JSON.stringify(body),
           })
           .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe(() => {
-            this.router.navigate(['/builder/settings']);
+          .subscribe({
+            next: () => this.onSubmitSuccess(),
+            error: err => this.showSubmitError(err),
           });
         break;
       }
@@ -146,16 +154,32 @@ export class NodeAddComponent implements OnInit {
             `/api/v1/node/${type}`,
             {
               title,
-              status: true,
               ...attributes,
             },
             relationships
           )
           .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe(() => {
-            this.router.navigate(['/builder/settings']);
+          .subscribe({
+            next: () => this.onSubmitSuccess(),
+            error: err => this.showSubmitError(err),
           });
       }
     }
+  }
+
+  /** 成功后提示并清空表单,停留在新建页以便继续创建 */
+  private onSubmitSuccess(): void {
+    this.submitting.set(false);
+    this.form.reset();
+    this.util.openSnackbar(this.translate.instant('BUILDER.NODE_ADD.SUBMIT_SUCCESS'), 'ok');
+  }
+
+  private showSubmitError(err: any): void {
+    this.submitting.set(false);
+    const message = err?.error?.errors?.[0]?.detail || err?.message || '';
+    this.util.openSnackbar(
+      this.translate.instant('BUILDER.NODE_ADD.SUBMIT_FAILED', { message }),
+      'ok'
+    );
   }
 }

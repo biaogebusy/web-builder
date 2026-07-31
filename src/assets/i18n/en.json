@@ -407,6 +407,8 @@
       "FIELD_TITLE": "Title",
       "SUBMIT": "Submit",
       "LOGIN_FIRST": "Please log in first!",
+      "SUBMIT_FAILED": "Submit failed: {{message}}",
+      "SUBMIT_SUCCESS": "Created successfully! You can continue creating.",
       "NO_FIELDS": "No fields available. Check that your role has the \"administer node fields\" permission in Drupal."
     },
     "FORM_VALIDATION": {
