@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { forkJoin, Observable, of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { EMPTY, forkJoin, Observable, of } from 'rxjs';
+import { catchError, expand, map, reduce, switchMap } from 'rxjs/operators';
 import { NodeService } from './node.service';
 
 export interface INodeFieldMeta {
@@ -41,23 +41,54 @@ export class NodeFieldFormService {
           value: type.attributes.drupal_internal__type,
         }))
       ),
-      catchError(() => of([]))
+      catchError(err => {
+        console.error('加载内容类型列表失败', err);
+        return of([]);
+      })
+    );
+  }
+
+  /**
+   * 拉取 JSON:API 集合的全部分页数据。Drupal 每页上限 50 条,跟随 links.next
+   * 逐页取完。next 是指向后端源站的绝对地址,需转回相对路径经 apiUrl
+   * (开发环境为本地代理)重发,避免跨域直连后端丢失会话。
+   */
+  private fetchAllPages(api: string, params = ''): Observable<any[]> {
+    return this.nodeService.fetch(api, params).pipe(
+      expand(res => {
+        const next = res?.links?.next?.href;
+        if (!next) {
+          return EMPTY;
+        }
+        const { pathname, search } = new URL(next);
+        return this.nodeService.fetch(`${pathname}${search}`);
+      }),
+      reduce((all: any[], res: any) => all.concat(res?.data || []), [])
     );
   }
 
   getForm(bundle: string): Observable<INodeForm> {
     return forkJoin({
-      configs: this.nodeService
-        .fetch(
-          '/api/v1/field_config/field_config',
-          `filter[entity_type]=node&filter[bundle]=${bundle}`
-        )
-        .pipe(catchError(() => of({ data: [] }))),
-      storages: this.nodeService
-        .fetch('/api/v1/field_storage_config/field_storage_config', 'filter[entity_type]=node')
-        .pipe(catchError(() => of({ data: [] }))),
+      configs: this.fetchAllPages(
+        '/api/v1/field_config/field_config',
+        `filter[entity_type]=node&filter[bundle]=${bundle}`
+      ).pipe(
+        catchError(err => {
+          console.error(`加载 ${bundle} 字段配置失败`, err);
+          return of([]);
+        })
+      ),
+      storages: this.fetchAllPages(
+        '/api/v1/field_storage_config/field_storage_config',
+        'filter[entity_type]=node'
+      ).pipe(
+        catchError(err => {
+          console.error('加载字段存储配置失败', err);
+          return of([]);
+        })
+      ),
     }).pipe(
-      map(({ configs, storages }) => this.buildForm(configs?.data || [], storages?.data || [])),
+      map(({ configs, storages }) => this.buildForm(configs, storages)),
       // app-formly 会对 fields 做 cloneDeep,options 不能是 Observable,须先解析为数组
       switchMap(form => this.resolveTermOptions(form))
     );
@@ -73,7 +104,12 @@ export class NodeFieldFormService {
     }
     return forkJoin(
       termFields.map(m =>
-        this.getTermOptions(m.targetBundle as string).pipe(catchError(() => of([])))
+        this.getTermOptions(m.targetBundle as string).pipe(
+          catchError(err => {
+            console.error(`加载词汇表 ${m.targetBundle} 词条失败`, err);
+            return of([]);
+          })
+        )
       )
     ).pipe(
       map(optionLists => {
@@ -176,9 +212,9 @@ export class NodeFieldFormService {
   }
 
   getTermOptions(vocabulary: string): Observable<{ label: string; value: string }[]> {
-    return this.nodeService.fetch(`/api/v1/taxonomy_term/${vocabulary}`).pipe(
-      map(res =>
-        (res?.data || []).map((term: any) => ({
+    return this.fetchAllPages(`/api/v1/taxonomy_term/${vocabulary}`).pipe(
+      map(terms =>
+        terms.map((term: any) => ({
           label: term.attributes.name,
           value: term.id,
         }))

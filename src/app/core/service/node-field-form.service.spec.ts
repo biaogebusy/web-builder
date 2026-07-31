@@ -154,4 +154,52 @@ describe('NodeFieldFormService', () => {
       expect(Object.keys(relationships).length).toBe(0);
     });
   });
+
+  describe('getTermOptions', () => {
+    it('should follow links.next and merge all pages', () => {
+      nodeServiceMock.fetch.mockReset();
+      nodeServiceMock.fetch
+        .mockReturnValueOnce(
+          of({
+            data: [{ id: 'uuid-1', attributes: { name: '前端' } }],
+            links: {
+              next: {
+                href: 'https://base.builder.design/api/v1/taxonomy_term/tags?page%5Boffset%5D=50&page%5Blimit%5D=50',
+              },
+            },
+          })
+        )
+        .mockReturnValueOnce(
+          of({
+            data: [{ id: 'uuid-2', attributes: { name: '后端' } }],
+            links: {},
+          })
+        );
+
+      let result: { label: string; value: string }[] | undefined;
+      service.getTermOptions('tags').subscribe(r => (result = r));
+
+      expect(result).toEqual([
+        { label: '前端', value: 'uuid-1' },
+        { label: '后端', value: 'uuid-2' },
+      ]);
+      expect(nodeServiceMock.fetch).toHaveBeenCalledTimes(2);
+      // next 为绝对地址,须转回相对路径经 apiUrl(开发代理)重发
+      expect(nodeServiceMock.fetch.mock.calls[1][0]).toBe(
+        '/api/v1/taxonomy_term/tags?page%5Boffset%5D=50&page%5Blimit%5D=50'
+      );
+    });
+  });
+
+  describe('getForm', () => {
+    it('should emit empty form when apis return no data', () => {
+      nodeServiceMock.fetch.mockReset();
+      nodeServiceMock.fetch.mockReturnValue(of({ data: [] }));
+
+      let result: any;
+      service.getForm('article').subscribe(r => (result = r));
+
+      expect(result).toEqual({ fields: [], meta: [] });
+    });
+  });
 });
