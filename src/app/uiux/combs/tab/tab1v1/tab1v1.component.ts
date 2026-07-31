@@ -89,7 +89,7 @@ export class Tab1v1Component extends BaseComponent implements OnInit {
         .fetch(type, params)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(res => {
-          this.pager = this.handlerPager(res.pager);
+          this.pager = this.handlePager(res.pager);
           this.currentList = res.rows.map((item: any) => {
             return {
               link: {

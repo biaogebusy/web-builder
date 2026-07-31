@@ -86,7 +86,7 @@ export class BuilderSettingsComponent extends BaseComponent implements OnInit {
   }
 
   getLists(res: IPageList): any[] {
-    this.pager = this.handlerPager(res.pager, res.rows.length);
+    this.pager = this.handlePager(res.pager, res.rows.length);
     this.cd.detectChanges();
     return res.rows;
   }

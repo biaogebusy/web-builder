@@ -113,7 +113,7 @@ export const createBuilderStateMock = () => ({
   updatePage: vi.fn(),
   setCurrentPage: vi.fn(),
   getArrsByPath: vi.fn(() => []),
-  upDownComponent: vi.fn(),
+  moveComponent: vi.fn(),
   pushComponent: vi.fn(),
   deleteComponent: vi.fn(),
   targetIndex: vi.fn(() => 0),
@@ -158,7 +158,7 @@ export const createApiServiceMock = () => ({
   getParams: vi.fn(),
   getDeepValue: vi.fn(),
   getApiParams: vi.fn(() => ''),
-  handlerPager: vi.fn(() => ({})),
+  handlePager: vi.fn(() => ({})),
 });
 
 export const createNodeServiceMock = () => ({
@@ -261,7 +261,7 @@ export const createTagsServiceMock = () => ({
   setTitle: vi.fn(),
   addMeta: vi.fn(),
   updateMeta: vi.fn(),
-  updateTages: vi.fn(),
+  updateTags: vi.fn(),
 });
 
 export const createManageServiceMock = () => ({

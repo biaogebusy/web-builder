@@ -68,7 +68,7 @@ export class LayoutToolbarComponent {
     this.builder.showComponentSetting(layout, fields, path);
   }
 
-  hiddenWidgetPicker(): void {
+  hideWidgetPicker(): void {
     this.builder.closeRightDrawer$.next(true);
   }
 }

@@ -42,7 +42,7 @@ export class TagsService {
     this.meta.updateTag(meta);
   }
 
-  public updateTages(pageValue: IPage): void {
+  public updateTags(pageValue: IPage): void {
     const title = pageValue.title ?? '';
     this.setTitle(title);
 

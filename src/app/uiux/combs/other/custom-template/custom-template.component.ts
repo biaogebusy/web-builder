@@ -179,7 +179,7 @@ export class CustomTemplateComponent implements AfterViewInit {
             const { rows, pager } = res;
             this.renderView(res, html);
             if (rows && pager) {
-              this.pager.set(this.nodeService.handlerPager(pager, rows.length));
+              this.pager.set(this.nodeService.handlePager(pager, rows.length));
             }
             this.runCustomJs(res);
           }

@@ -45,7 +45,7 @@ export class ContentService extends ApiService {
     if (isArray(pageValue)) {
       return;
     }
-    this.tagsService.updateTages(pageValue);
+    this.tagsService.updateTags(pageValue);
     this.screenState.scroll$.next(true);
   }
 

@@ -272,7 +272,7 @@ export class BuilderState {
     return getBuilderArrayByPath(path, body);
   }
 
-  upDownComponent(direction: string, path: string): void {
+  moveComponent(direction: string, path: string): void {
     const currentPage = this.currentPage;
     const { body } = currentPage;
     const arrs = this.getArrsByPath(path, body);

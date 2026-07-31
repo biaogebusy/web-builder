@@ -96,7 +96,7 @@ describe('BuilderState tree and draft behavior', () => {
     const { state, storage } = createState([makePage(body)]);
     const before = state.currentPage;
 
-    state.upDownComponent('up', '1');
+    state.moveComponent('up', '1');
 
     expect(state.currentPage.body.map(item => item.type)).toEqual(['b', 'a', 'c']);
     expect(state.currentPage).not.toBe(before);
@@ -104,7 +104,7 @@ describe('BuilderState tree and draft behavior', () => {
     expect(body.map(item => item.type)).toEqual(['a', 'b', 'c']);
     expect(storage.store).toHaveBeenCalledOnce();
 
-    state.upDownComponent('down', '1');
+    state.moveComponent('down', '1');
     expect(state.currentPage.body.map(item => item.type)).toEqual(['b', 'c', 'a']);
   });
 
@@ -112,15 +112,15 @@ describe('BuilderState tree and draft behavior', () => {
     const body = [{ type: 'layout', elements: [{ type: 'text' }, { type: 'img' }] }];
     const { state } = createState([makePage(body)]);
 
-    state.upDownComponent('down', '0.elements.0');
+    state.moveComponent('down', '0.elements.0');
     expect(state.currentPage.body[0].elements?.map(item => item.type)).toEqual(['img', 'text']);
     expect(body[0].elements?.map(item => item.type)).toEqual(['text', 'img']);
 
     const untouched = state.currentPage;
-    state.upDownComponent('up', '0.elements.0');
+    state.moveComponent('up', '0.elements.0');
     expect(state.currentPage).toBe(untouched);
 
-    state.upDownComponent('down', '0.elements.1');
+    state.moveComponent('down', '0.elements.1');
     expect(state.currentPage).toBe(untouched);
   });
 

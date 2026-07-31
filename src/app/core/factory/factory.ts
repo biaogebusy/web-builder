@@ -332,7 +332,7 @@ export function mediaAssetsFactory(): WritableSignal<IManageAssets | boolean> {
                 title: decodeURIComponent(item.title),
               };
             }),
-            pager: nodeService.handlerPager(res.pager, res.rows.length),
+            pager: nodeService.handlePager(res.pager, res.rows.length),
           });
         });
     });

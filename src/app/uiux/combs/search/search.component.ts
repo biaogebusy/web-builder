@@ -146,7 +146,7 @@ export class SearchComponent extends BaseComponent implements OnInit {
 
   updateList(data: any, formValues: any, options: any): void {
     const pager = data.pager;
-    this.pager = this.handlerPager(pager);
+    this.pager = this.handlePager(pager);
     this.nodes = data.rows;
     this.routerService.updateQueryParams(this.getUrlQuery(formValues, options));
     this.cd.detectChanges();
