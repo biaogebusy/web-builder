@@ -10,14 +10,14 @@
   }
   <div class="actions">
     @if (formControl.value) {
-      <app-btn (click)="remove()" [content]="{ label: to.deleteLabel, color: 'warn' }" />
+      <app-btn (click)="remove()" [content]="{ label: props.deleteLabel, color: 'warn' }" />
     }
     <app-btn
       (click)="openMedias()"
       [content]="{
-        label: formControl.value ? to.updateLabel : to.addLabel,
-        color: to.color || 'primary',
-        mode: to.mode || 'stroked',
+        label: formControl.value ? props.updateLabel : props.addLabel,
+        color: props.color || 'primary',
+        mode: props.mode || 'stroked',
       }"
     />
   </div>

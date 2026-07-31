@@ -403,9 +403,11 @@
     },
     "NODE_ADD": {
       "CREATE_TITLE": "创建 {{type}} 页面",
+      "TYPE_TITLE": "内容类型",
       "FIELD_TITLE": "标题",
       "SUBMIT": "确认提交",
-      "LOGIN_FIRST": "请登录后再试！"
+      "LOGIN_FIRST": "请登录后再试！",
+      "NO_FIELDS": "无法获取字段配置，请确认当前角色在 Drupal 中拥有 \"administer node fields\" 权限。"
     },
     "FORM_VALIDATION": {
       "REQUIRED": "该字段必填",

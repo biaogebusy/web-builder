@@ -46,7 +46,7 @@ export function getCustomTemplate(widget: any): FormlyFieldConfig {
               label: 'api',
               required: true,
             },
-            hideExpression: '!model.isAPI',
+            expressions: { hide: '!model.isAPI' },
           },
         ],
       },

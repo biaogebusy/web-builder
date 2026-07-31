@@ -1,21 +1,44 @@
 @let u = user();
 <div class="node-add">
   <div class="container">
-    <app-title [content]="{ label: type(), style: 'none' }" />
-    <div class="node-form">
-      <app-formly [form]="form" [fields]="fields()" />
-      <div class="actions">
-        <app-btn
-          (click)="onSubmit(form.value, u)"
-          [content]="{
-            label: 'BUILDER.NODE_ADD.SUBMIT' | translate,
-            color: 'primary',
-            mode: 'raised',
-            icon: {
-              svg: 'send',
-            },
-          }"
-        />
+    @if (nodeTypes().length > 0) {
+      <aside class="node-types">
+        <div class="node-types-title">{{ 'BUILDER.NODE_ADD.TYPE_TITLE' | translate }}</div>
+        @for (nodeType of nodeTypes(); track nodeType.value) {
+          <app-btn
+            (click)="switchType(nodeType.value)"
+            [content]="{
+              label: nodeType.label,
+              color: type() === nodeType.value ? 'primary' : undefined,
+              mode: type() === nodeType.value ? 'flat' : 'stroked',
+              pill: true,
+            }"
+          />
+        }
+      </aside>
+    }
+    <div class="node-main">
+      <app-title [content]="{ label: typeLabel(), style: 'none' }" />
+      <div class="node-form">
+        <!-- app-formly 在 ngAfterViewInit 一次性快照 fields,以 type 为 key 强制切换类型时销毁重建 -->
+        @if (fields().length > 0) {
+          @for (t of [type()]; track t) {
+            <app-formly [form]="form" [fields]="fields()" [content]="{ uiTheme: 'shadcn' }" />
+          }
+        }
+        <div class="actions">
+          <app-btn
+            (click)="onSubmit(form.value, u)"
+            [content]="{
+              label: 'BUILDER.NODE_ADD.SUBMIT' | translate,
+              color: 'primary',
+              mode: 'raised',
+              icon: {
+                svg: 'send',
+              },
+            }"
+          />
+        </div>
       </div>
     </div>
   </div>

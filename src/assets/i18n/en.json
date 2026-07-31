@@ -403,9 +403,11 @@
     },
     "NODE_ADD": {
       "CREATE_TITLE": "Create {{type}} page",
+      "TYPE_TITLE": "Content type",
       "FIELD_TITLE": "Title",
       "SUBMIT": "Submit",
-      "LOGIN_FIRST": "Please log in first!"
+      "LOGIN_FIRST": "Please log in first!",
+      "NO_FIELDS": "No fields available. Check that your role has the \"administer node fields\" permission in Drupal."
     },
     "FORM_VALIDATION": {
       "REQUIRED": "This field is required",

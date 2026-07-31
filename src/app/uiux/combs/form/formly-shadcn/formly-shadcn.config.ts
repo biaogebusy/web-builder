@@ -36,17 +36,19 @@ export function shadcnFormOptions(): FormlyFormOptions {
 // Material 内置类型名 → shadcn 等价类型。wrappers 一并显式覆盖,
 // 确保改名后字段不再落入 Material 的 form-field wrapper。
 const SHADCN_TYPE_MAP: Record<string, { type: string; wrappers: string[] }> = {
-  input: { type: 'shadcn-input', wrappers: ['shadcn-form-field'] },
-  string: { type: 'shadcn-input', wrappers: ['shadcn-form-field'] },
-  number: { type: 'shadcn-input', wrappers: ['shadcn-form-field'] },
-  integer: { type: 'shadcn-input', wrappers: ['shadcn-form-field'] },
-  textarea: { type: 'shadcn-textarea', wrappers: ['shadcn-form-field'] },
+  'input': { type: 'shadcn-input', wrappers: ['shadcn-form-field'] },
+  'string': { type: 'shadcn-input', wrappers: ['shadcn-form-field'] },
+  'number': { type: 'shadcn-input', wrappers: ['shadcn-form-field'] },
+  'integer': { type: 'shadcn-input', wrappers: ['shadcn-form-field'] },
+  'textarea': { type: 'shadcn-textarea', wrappers: ['shadcn-form-field'] },
   // 单选 select;多选(props.multiple)在 extension 中跳过,继续走 mat-select
-  select: { type: 'shadcn-select', wrappers: ['shadcn-form-field'] },
+  'select': { type: 'shadcn-select', wrappers: ['shadcn-form-field'] },
   // 自定义 slider 类型(MatSlider)→ 原生 range 滑块
-  slider: { type: 'shadcn-slider', wrappers: ['shadcn-form-field'] },
+  'slider': { type: 'shadcn-slider', wrappers: ['shadcn-form-field'] },
+  // 复合控件,类型不变,仅补 shadcn wrapper 以渲染 label/必填标记/错误
+  'img-picker': { type: 'img-picker', wrappers: ['shadcn-form-field'] },
   // toggle 自带内联 label,不需要字段 wrapper
-  toggle: { type: 'shadcn-toggle', wrappers: [] },
+  'toggle': { type: 'shadcn-toggle', wrappers: [] },
   // 不映射的类型:datepicker(业务零使用,且原生 date 输入与 Date 对象
   // 模型语义不同)、mat-select(搜索/API 选项/虚拟滚动无法用原生 select
   // 承载,仅存在于 Material 模式表单)。repeat 复合类型自身按

@@ -1,18 +1,18 @@
-<mat-form-field class="field-full" [appearance]="to.appearance || 'fill'">
+<mat-form-field class="field-full" [appearance]="props.appearance || 'fill'">
   <textarea
     matInput
     [id]="id"
-    [readonly]="to.readonly"
+    [readonly]="props.readonly"
     [formControl]="formControl"
-    [cols]="to.cols"
-    [rows]="to.rows"
+    [cols]="props.cols"
+    [rows]="props.rows"
     [formlyAttributes]="field"
-    [placeholder]="to.placeholder || ''"
-    [tabindex]="to.tabindex"
-    [cdkTextareaAutosize]="to.autosize"
-    [cdkAutosizeMinRows]="to.autosizeMinRows"
-    [cdkAutosizeMaxRows]="to.autosizeMaxRows"
-    [class.cdk-textarea-autosize]="to.autosize"
+    [placeholder]="props.placeholder || ''"
+    [tabindex]="props.tabindex"
+    [cdkTextareaAutosize]="props.autosize"
+    [cdkAutosizeMinRows]="props.autosizeMinRows"
+    [cdkAutosizeMaxRows]="props.autosizeMaxRows"
+    [class.cdk-textarea-autosize]="props.autosize"
   >
   </textarea>
   <app-btn

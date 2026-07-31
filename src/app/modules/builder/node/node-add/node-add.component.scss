@@ -1,8 +1,33 @@
 .node-add {
+  .container {
+    @apply max-w-5xl mx-auto flex flex-col gap-6 px-4 py-8 md:flex-row md:gap-8;
+  }
+  .node-types {
+    @apply flex flex-wrap gap-2 md:w-52 md:shrink-0 md:flex-col md:flex-nowrap md:self-start md:sticky md:top-24;
+    app-btn {
+      @apply md:w-full;
+    }
+    // 边栏纵向排列时按钮撑满整行(按钮在 app-btn 内部,需穿透)
+    app-btn ::ng-deep button,
+    app-btn ::ng-deep a {
+      @apply md:w-full;
+    }
+  }
+  .node-types-title {
+    @apply w-full text-sm font-medium;
+    color: var(--shadcn-muted-foreground);
+  }
+  .node-main {
+    @apply flex-1 min-w-0;
+  }
   .node-form {
-    @apply bg-gray-100 p-5 my-5 rounded-2xl;
+    @apply p-6 my-6 md:p-8;
+    background: var(--shadcn-card);
+    border: 1px solid var(--shadcn-border);
+    border-radius: var(--shadcn-radius-lg);
   }
   .actions {
-    @apply flex my-8;
+    @apply flex justify-end mt-8 pt-6;
+    border-top: 1px solid var(--shadcn-border);
   }
 }

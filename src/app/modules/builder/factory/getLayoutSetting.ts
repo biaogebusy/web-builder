@@ -118,7 +118,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
             props: {
               label: 'alt',
             },
-            hideExpression: '!model.src',
+            expressions: { hide: '!model.src' },
           },
           {
             key: 'classes',
@@ -141,7 +141,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
                 },
               ],
             },
-            hideExpression: '!model.src',
+            expressions: { hide: '!model.src' },
           },
         ],
       },

@@ -126,7 +126,7 @@ export function getImg(widget: any): FormlyFieldConfig {
             props: {
               label: 'BUILDER.FACTORY.LINK',
             },
-            hideExpression: '!model.isLink',
+            expressions: { hide: '!model.isLink' },
           },
           {
             key: 'target',
@@ -146,7 +146,7 @@ export function getImg(widget: any): FormlyFieldConfig {
                 },
               ],
             },
-            hideExpression: '!model.isLink',
+            expressions: { hide: '!model.isLink' },
           },
         ],
       },

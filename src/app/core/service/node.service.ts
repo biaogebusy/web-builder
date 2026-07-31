@@ -106,13 +106,14 @@ export class NodeService extends ApiService {
   }
 
   // path: /api/v1/taxonomy_term/page_group
-  addEntity(path: string, attr: any): Observable<any> {
+  addEntity(path: string, attr: any, relationships?: any): Observable<any> {
     const post = {
       data: {
         type: this.getEntityType(path),
         attributes: {
           ...attr,
         },
+        ...(relationships && Object.keys(relationships).length > 0 ? { relationships } : {}),
       },
     };
     return this.http.post<any>(

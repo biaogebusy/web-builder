@@ -1,7 +1,7 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { tap } from 'rxjs/operators';
 export function getSwiper(widget: any): FormlyFieldConfig {
-  const fields = {
+  const fields: FormlyFieldConfig = {
     key: 'swiper',
     type: 'tabs',
     fieldGroup: [
@@ -97,7 +97,7 @@ export function getSwiper(widget: any): FormlyFieldConfig {
                       label: 'BUILDER.FACTORY.GAP_UNIT',
                       unit: 'px',
                     },
-                    hideExpression: 'model.slidesPerView <= 1',
+                    expressions: { hide: 'model.slidesPerView <= 1' },
                   },
                 ],
               },
@@ -200,7 +200,7 @@ export function getSwiper(widget: any): FormlyFieldConfig {
                     },
                   ],
                 },
-                hideExpression: '!model.paginationEnable',
+                expressions: { hide: '!model.paginationEnable' },
               },
               {
                 key: 'clickable',
@@ -209,10 +209,10 @@ export function getSwiper(widget: any): FormlyFieldConfig {
                   className: 'w-2/5',
                   label: 'BUILDER.FACTORY.PAGE_CLICKABLE',
                 },
-                expressionProperties: {
+                expressions: {
                   'props.disabled': 'model.type !== "bullets"',
+                  'hide': '!model.paginationEnable',
                 },
-                hideExpression: '!model.paginationEnable',
               },
             ],
           },
