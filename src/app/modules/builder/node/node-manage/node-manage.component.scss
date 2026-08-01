@@ -1,0 +1,87 @@
+.node-manage {
+  .container {
+    @apply max-w-6xl mx-auto flex flex-col gap-4 px-4 py-8;
+  }
+  .header {
+    @apply flex items-center justify-between gap-4;
+  }
+  .filters {
+    @apply flex flex-wrap items-end gap-3;
+    .filter {
+      @apply w-[calc(50%-0.375rem)] md:w-40;
+    }
+    .filter-search {
+      @apply w-full md:w-72;
+    }
+  }
+  // 下拉外壳与箭头,与 formly shadcn-select 的实现保持一致
+  .select-wrap {
+    @apply relative block;
+  }
+  .shad-select {
+    @apply appearance-none pr-8 cursor-pointer;
+  }
+  .chevron {
+    @apply absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none;
+    color: var(--shadcn-muted-foreground);
+  }
+  .table-card {
+    @apply p-4 md:p-6;
+    background: var(--shadcn-card);
+    border: 1px solid var(--shadcn-border);
+    border-radius: var(--shadcn-radius-lg);
+  }
+  .table-skeleton {
+    @apply flex flex-col gap-3;
+  }
+  .empty {
+    @apply py-16 text-center text-sm;
+    color: var(--shadcn-muted-foreground);
+  }
+  .node-table {
+    @apply w-full text-left text-sm;
+    border-collapse: collapse;
+    th {
+      @apply py-3 px-3 font-medium whitespace-nowrap;
+      color: var(--shadcn-muted-foreground);
+      border-bottom: 1px solid var(--shadcn-border);
+    }
+    td {
+      @apply py-2 px-3;
+      border-bottom: 1px solid var(--shadcn-border);
+    }
+    tbody tr:hover {
+      background: var(--shadcn-muted);
+    }
+    .td-title a {
+      @apply font-medium;
+      color: var(--mat-sys-primary);
+      &:hover {
+        @apply underline;
+      }
+    }
+    .th-actions {
+      @apply text-right;
+    }
+    .td-actions {
+      @apply text-right whitespace-nowrap;
+      app-spinner {
+        @apply inline-block align-middle;
+      }
+      .confirm-delete {
+        color: var(--shadcn-destructive);
+      }
+    }
+  }
+  .pager {
+    @apply flex items-center justify-end gap-3 pt-4;
+    .page-indicator {
+      @apply text-sm;
+      color: var(--shadcn-muted-foreground);
+    }
+  }
+}
+
+.menu-icon {
+  @apply mr-2 inline-flex align-middle;
+}

@@ -37,10 +37,15 @@
     <div class="node-main">
       <app-title [content]="{ label: typeLabel(), style: 'none' }" />
       <div class="node-form">
-        <!-- app-formly 在 ngAfterViewInit 一次性快照 fields,以 type 为 key 强制切换类型时销毁重建 -->
+        <!-- app-formly 在 ngAfterViewInit 一次性快照 fields/model,以 type+uuid 为 key 强制切换时销毁重建 -->
         @if (fields().length > 0) {
-          @for (t of [type()]; track t) {
-            <app-formly [form]="form" [fields]="fields()" [content]="{ uiTheme: 'shadcn' }" />
+          @for (t of [type() + '/' + editUuid()]; track t) {
+            <app-formly
+              [form]="form"
+              [fields]="fields()"
+              [model]="model()"
+              [content]="{ uiTheme: 'shadcn' }"
+            />
           }
           <div class="actions">
             @if (submitting()) {

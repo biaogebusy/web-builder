@@ -10,6 +10,8 @@ export interface INodeFieldMeta {
   targetType?: string;
   targetBundle?: string;
   multiple?: boolean;
+  /** 文本字段绑定了 json 文本格式(filter.format.json),用 JSON 编辑器并按 json 格式提交 */
+  jsonFormat?: boolean;
 }
 
 export interface INodeForm {
@@ -142,6 +144,7 @@ export class NodeFieldFormService {
       }
       const storage = storageMap.get(attrs.field_name);
       const targetBundles = attrs.settings?.handler_settings?.target_bundles;
+      const isText = attrs.field_type === 'text_long' || attrs.field_type === 'text_with_summary';
       const fieldMeta: INodeFieldMeta = {
         key: attrs.field_name,
         fieldType: attrs.field_type,
@@ -149,6 +152,8 @@ export class NodeFieldFormService {
         targetType: storage?.settings?.target_type ?? attrs.settings?.handler?.split(':')[1],
         targetBundle: targetBundles ? Object.keys(targetBundles)[0] : undefined,
         multiple: storage ? storage.cardinality !== 1 : false,
+        // 字段配置依赖 filter.format.json 即该文本字段存储 JSON 内容
+        jsonFormat: isText && (attrs.dependencies?.config || []).includes('filter.format.json'),
       };
       meta.push(fieldMeta);
       fields.push(this.toFormlyField(fieldMeta, attrs));
@@ -169,6 +174,10 @@ export class NodeFieldFormService {
     switch (meta.fieldType) {
       case 'text_long':
       case 'text_with_summary':
+        // JSON 格式的文本字段(如 component 的 body)用 JSON 编辑器,而非富文本
+        if (meta.jsonFormat) {
+          return { ...base, type: 'json' };
+        }
         return { ...base, type: 'rich-editor' };
       case 'string_long':
         return { ...base, type: 'textarea', props: { ...base.props, rows: 4 } };
@@ -222,6 +231,40 @@ export class NodeFieldFormService {
     );
   }
 
+  /** buildPayload 的逆向:把节点 JSON:API 数据映射为 formly 表单模型(编辑回填) */
+  buildModel(meta: INodeFieldMeta[], node: any): Record<string, any> {
+    const model: Record<string, any> = {};
+    meta.forEach(field => {
+      if (field.fieldType === 'entity_reference' && field.targetType) {
+        const rel = node?.relationships?.[field.key]?.data;
+        if (field.multiple) {
+          model[field.key] = (Array.isArray(rel) ? rel : rel ? [rel] : []).map((d: any) => d.id);
+        } else {
+          model[field.key] = Array.isArray(rel) ? rel[0]?.id : rel?.id;
+        }
+      } else if (field.fieldType === 'text_long' || field.fieldType === 'text_with_summary') {
+        const value = node?.attributes?.[field.key];
+        const raw = value?.value ?? '';
+        model[field.key] = field.jsonFormat ? this.parseJsonValue(raw) : raw;
+      } else {
+        model[field.key] = node?.attributes?.[field.key];
+      }
+    });
+    return model;
+  }
+
+  /** JSON 编辑器的值是对象,回填前把存储的字符串还原;解析失败保留原文 */
+  private parseJsonValue(raw: any): any {
+    if (typeof raw !== 'string' || raw === '') {
+      return raw;
+    }
+    try {
+      return JSON.parse(raw);
+    } catch {
+      return raw;
+    }
+  }
+
   buildPayload(meta: INodeFieldMeta[], value: Record<string, any>): INodePayload {
     const attributes: Record<string, any> = {};
     const relationships: Record<string, any> = {};
@@ -239,7 +282,14 @@ export class NodeFieldFormService {
             : { type, id: fieldValue },
         };
       } else if (field.fieldType === 'text_long' || field.fieldType === 'text_with_summary') {
-        attributes[field.key] = { value: fieldValue, format: 'full_html' };
+        if (field.jsonFormat) {
+          attributes[field.key] = {
+            value: typeof fieldValue === 'string' ? fieldValue : JSON.stringify(fieldValue),
+            format: 'json',
+          };
+        } else {
+          attributes[field.key] = { value: fieldValue, format: 'full_html' };
+        }
       } else {
         attributes[field.key] = fieldValue;
       }

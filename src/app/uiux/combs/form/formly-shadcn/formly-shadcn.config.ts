@@ -47,6 +47,7 @@ const SHADCN_TYPE_MAP: Record<string, { type: string; wrappers: string[] }> = {
   'slider': { type: 'shadcn-slider', wrappers: ['shadcn-form-field'] },
   // 复合控件,类型不变,仅补 shadcn wrapper 以渲染 label/必填标记/错误
   'img-picker': { type: 'img-picker', wrappers: ['shadcn-form-field'] },
+  'json': { type: 'json', wrappers: ['shadcn-form-field'] },
   // toggle 自带内联 label,不需要字段 wrapper
   'toggle': { type: 'shadcn-toggle', wrappers: [] },
   // 不映射的类型:datepicker(业务零使用,且原生 date 输入与 Date 对象

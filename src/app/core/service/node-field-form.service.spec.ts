@@ -62,6 +62,18 @@ describe('NodeFieldFormService', () => {
             },
           },
         },
+        {
+          attributes: {
+            field_name: 'data',
+            field_type: 'text_long',
+            label: 'Data',
+            required: false,
+            settings: {},
+            dependencies: {
+              config: ['field.storage.node.data', 'filter.format.json', 'node.type.component'],
+            },
+          },
+        },
       ];
       const storages = [
         {
@@ -82,7 +94,7 @@ describe('NodeFieldFormService', () => {
 
       const { fields, meta } = service.buildForm(configs, storages);
 
-      expect(fields.length).toBe(4);
+      expect(fields.length).toBe(5);
       expect(fields[0].type).toBe('input');
       expect(fields[0].props?.required).toBe(true);
       expect(fields[1].type).toBe('rich-editor');
@@ -90,6 +102,10 @@ describe('NodeFieldFormService', () => {
       expect(fields[2].props?.multiple).toBe(true);
       expect(fields[3].type).toBe('img-picker');
       expect(fields[3].props?.['valueIsUUID']).toBe(true);
+      // 绑定 json 文本格式的字段用 JSON 编辑器而非富文本
+      expect(fields[4].type).toBe('json');
+      expect(meta.find(m => m.key === 'data')?.jsonFormat).toBe(true);
+      expect(meta.find(m => m.key === 'body')?.jsonFormat).toBe(false);
       expect(meta.find(m => m.key === 'field_tags')?.targetBundle).toBe('tags');
     });
   });
@@ -152,6 +168,61 @@ describe('NodeFieldFormService', () => {
       });
       expect(Object.keys(attributes).length).toBe(0);
       expect(Object.keys(relationships).length).toBe(0);
+    });
+
+    it('should submit json-format text fields as json string', () => {
+      const meta = [{ key: 'data', fieldType: 'text_long', jsonFormat: true }];
+      const { attributes } = service.buildPayload(meta, { data: { a: 1 } });
+      expect(attributes['data']).toEqual({ value: '{"a":1}', format: 'json' });
+    });
+  });
+
+  describe('buildModel', () => {
+    it('should map node data back to form model', () => {
+      const meta = [
+        { key: 'field_summary', fieldType: 'string' },
+        { key: 'body', fieldType: 'text_with_summary' },
+        {
+          key: 'field_tags',
+          fieldType: 'entity_reference',
+          targetType: 'taxonomy_term',
+          targetBundle: 'tags',
+          multiple: true,
+        },
+        {
+          key: 'field_cover',
+          fieldType: 'entity_reference',
+          targetType: 'media',
+          targetBundle: 'image',
+          multiple: false,
+        },
+      ];
+      const node = {
+        attributes: {
+          field_summary: 'hello',
+          body: { value: '<p>content</p>', format: 'full_html' },
+        },
+        relationships: {
+          field_tags: { data: [{ type: 'taxonomy_term--tags', id: 'uuid-1' }] },
+          field_cover: { data: { type: 'media--image', id: 'uuid-3' } },
+        },
+      };
+
+      const model = service.buildModel(meta, node);
+
+      expect(model['field_summary']).toBe('hello');
+      expect(model['body']).toBe('<p>content</p>');
+      expect(model['field_tags']).toEqual(['uuid-1']);
+      expect(model['field_cover']).toBe('uuid-3');
+    });
+
+    it('should parse json-format text fields back to objects', () => {
+      const meta = [{ key: 'data', fieldType: 'text_long', jsonFormat: true }];
+      const node = {
+        attributes: { data: { value: '{"a":1}', format: 'json' } },
+      };
+      const model = service.buildModel(meta, node);
+      expect(model['data']).toEqual({ a: 1 });
     });
   });
 
