@@ -2,11 +2,12 @@
 module.exports = {
   content: ['./src/**/*.{html,ts,mdx}'],
   safelist: [
-    // ==================== Legacy content colors ====================
-    // Exact color classes used by historical builder/CMS content (extracted from the
-    // docs/stories/ui-builder HTML corpus). The palette color patterns were removed from
-    // this safelist: new content must write colors in scoped <style> blocks or inline
-    // styles instead of palette utilities. Regenerate this file if legacy content changes.
+    // ==================== Legacy content classes ====================
+    // Exact classes used by historical builder/CMS content (extracted from the
+    // docs/stories/ui-builder HTML corpus plus production exports — see the
+    // "上线前检查" section in README.md). Mostly palette colors: the color patterns
+    // were removed from this safelist, and new content must write colors in scoped
+    // <style> blocks or inline styles instead of palette utilities.
     ...require('./config/tailwind.safelist.json'),
 
     // ==================== Standalone ====================
