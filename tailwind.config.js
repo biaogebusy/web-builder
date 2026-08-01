@@ -2,6 +2,13 @@
 module.exports = {
   content: ['./src/**/*.{html,ts,mdx}'],
   safelist: [
+    // ==================== Legacy content colors ====================
+    // Exact color classes used by historical builder/CMS content (extracted from the
+    // docs/stories/ui-builder HTML corpus). The palette color patterns were removed from
+    // this safelist: new content must write colors in scoped <style> blocks or inline
+    // styles instead of palette utilities. Regenerate this file if legacy content changes.
+    ...require('./config/tailwind.safelist.json'),
+
     // ==================== Standalone ====================
     'group',
     'filter',
@@ -177,27 +184,7 @@ module.exports = {
       pattern: /^indent-(0|0\.5|1|1\.5|2|2\.5|3|3\.5|4|5|6|7|8|9|10|11|12|14|16|20|24|px)$/,
     },
 
-    // ==================== Text Color ====================
-    {
-      pattern: /^text-(white|black|current|inherit|transparent)(\/(?:0|5|10|[1-9][05]|100))?$/,
-      variants: ['sm', 'md', 'lg', 'hover', 'group-hover'],
-    },
-    {
-      pattern:
-        /^text-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)(?:\/(?:0|5|10|[1-9][05]|100))?$/,
-      variants: ['sm', 'md', 'lg', 'hover', 'group-hover'],
-    },
-
     // ==================== Background ====================
-    {
-      pattern: /^bg-(black|white|inherit|current|transparent)(\/(?:0|5|10|[1-9][05]|100))?$/,
-      variants: ['hover', 'sm', 'md', 'lg'],
-    },
-    {
-      pattern:
-        /^bg-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)(?:\/(?:0|5|10|[1-9][05]|100))?$/,
-      variants: ['sm', 'md', 'lg', 'hover'],
-    },
     { pattern: /^bg-opacity-(0|5|10|20|25|30|40|50|60|70|75|80|90|95|100)$/ },
     { pattern: /^bg-clip-(border|padding|content|text)$/ },
     { pattern: /^bg-(auto|cover|contain)$/ },
@@ -206,19 +193,9 @@ module.exports = {
 
     // ==================== Gradient ====================
     { pattern: /^bg-gradient-to-(t|tr|r|br|b|bl|l|tl)$/ },
-    {
-      pattern:
-        /^(from|via|to)-(transparent|current|black|white|(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950))$/,
-    },
 
     // ==================== Border ====================
     { pattern: /^border(?:-[xytblr])?(?:-(0|2|4|8))?$/, variants: ['sm', 'md', 'lg'] },
-    {
-      pattern:
-        /^border-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)(\/(?:0|5|10|[1-9][05]|100))?$/,
-      variants: ['hover'],
-    },
-    { pattern: /^border-(black|white|current|transparent|inherit)(\/(?:0|5|10|[1-9][05]|100))?$/ },
     { pattern: /^border-(solid|dashed|dotted|double|hidden|none)$/ },
     'border-collapse',
     'border-separate',
@@ -232,27 +209,14 @@ module.exports = {
     // ==================== Divide ====================
     { pattern: /^divide-[xy](?:-(0|2|4|8|reverse))?$/ },
     { pattern: /^divide-(solid|dashed|dotted|double|none)$/ },
-    {
-      pattern:
-        /^divide-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)$/,
-    },
 
     // ==================== Outline ====================
     { pattern: /^outline(-(none|dashed|dotted|double))?$/ },
     { pattern: /^outline-(0|1|2|4|8)$/ },
     { pattern: /^outline-offset-(0|1|2|4|8)$/ },
-    {
-      pattern:
-        /^outline-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)$/,
-    },
 
     // ==================== Shadow ====================
     { pattern: /^shadow(-(sm|md|lg|xl|2xl|none|inner))?$/, variants: ['sm', 'md', 'lg', 'hover'] },
-    {
-      pattern:
-        /^shadow-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)(?:\/(?:0|5|10|[1-9][05]|100))?$/,
-      variants: ['sm', 'md', 'lg'],
-    },
 
     // ==================== Opacity ====================
     {
@@ -312,10 +276,6 @@ module.exports = {
     'appearance-none',
 
     // ==================== SVG ====================
-    {
-      pattern:
-        /^(fill|stroke)-(current|none|black|white|(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950))$/,
-    },
     { pattern: /^stroke-(0|1|2|3|4|5)$/ },
 
     // ==================== Filters ====================
