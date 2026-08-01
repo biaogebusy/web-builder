@@ -84,7 +84,10 @@
       "UPDATING": "Updating...",
       "CREATE_FAILED": "Creation failed",
       "TRANSLATION_DRAFT": "Translation draft",
-      "TRANSLATION_DRAFT_TIP": "Target language: {{lang}}"
+      "TRANSLATION_DRAFT_TIP": "Target language: {{lang}}",
+      "UPDATE_SUCCESS": "Updated successfully",
+      "UNSAVED_CHANGES": "Unsaved changes",
+      "UNSAVED_CHANGES_TIP": "This page has local changes that are not submitted yet. Click the submit button on the right to sync."
     },
     "SWITCH_PREVIEW": {
       "TOOLTIP": "Switch device",
@@ -158,7 +161,8 @@
     "VERSION": {
       "HISTORY": "History",
       "DELETE": "Delete",
-      "CLEAR_ALL": "Clear all"
+      "CLEAR_ALL": "Clear all",
+      "UNSAVED": "Unsaved"
     },
     "SHOWCASE": {
       "COPY_JSON": "Copy JSON",

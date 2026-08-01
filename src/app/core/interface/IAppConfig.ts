@@ -265,6 +265,8 @@ export interface IPage {
   status?: boolean;
   message?: string;
   current?: boolean;
+  // 本地草稿是否有未提交到服务端的修改；nid && !dirty 视为已同步
+  dirty?: boolean;
   langcode?: string;
   vid?: string;
   translation?: true;

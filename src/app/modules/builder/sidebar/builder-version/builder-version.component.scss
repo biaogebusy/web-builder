@@ -16,7 +16,8 @@
     .mat-line {
       font-size: 15px;
     }
-    .title {
+    .version-title {
+      @apply text-sm;
       border-bottom: 1px solid transparent;
       &:focus-visible {
         outline: none;
@@ -25,23 +26,30 @@
         cursor: text;
       }
     }
-    .version-title {
-      @apply text-sm;
-    }
     .time {
-      @apply text-xs font-mono;
-      font-size: 14px;
-      opacity: 0.5;
+      @apply text-xs font-mono flex items-center;
+      .timestamp {
+        opacity: 0.5;
+        @apply mt-1;
+      }
       &:focus-visible {
         color: var(--mat-sys-primary);
         border-bottom-color: var(--mat-sys-outline);
+      }
+    }
+    .sync-badge {
+      @apply inline-flex items-center ml-2 px-2 py-1 rounded-full text-[10px] font-semibold leading-none;
+      &.unsaved {
+        color: var(--mat-sys-on-error);
+        background-color: var(--mat-sys-error);
       }
     }
     .delete {
       position: absolute;
       display: none;
       right: 0;
-      top: -10px;
+      top: 50%;
+      transform: translateY(-50%);
     }
   }
   .action-row {

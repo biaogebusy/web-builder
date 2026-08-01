@@ -40,6 +40,16 @@
                     <app-icon class="draft-badge-icon" [content]="{ svg: 'tray-arrow-up' }" />
                     {{ 'BUILDER.COMMON.UNPUBLISHED' | translate }}
                   </span>
+                } @else if (page.dirty) {
+                  <span
+                    class="draft-badge"
+                    role="status"
+                    [attr.aria-label]="'BUILDER.TOOLBAR.UNSAVED_CHANGES' | translate"
+                    [matTooltip]="'BUILDER.TOOLBAR.UNSAVED_CHANGES_TIP' | translate"
+                  >
+                    <app-icon class="draft-badge-icon" [content]="{ svg: 'pencil-outline' }" />
+                    {{ 'BUILDER.TOOLBAR.UNSAVED_CHANGES' | translate }}
+                  </span>
                 }
                 @if (!page.translation && page.langcode) {
                   <span class="lang-badge">{{ page.langcode | uppercase }}</span>

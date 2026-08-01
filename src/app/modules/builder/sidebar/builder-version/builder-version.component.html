@@ -3,12 +3,12 @@
     <mat-expansion-panel [expanded]="true">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <span>{{ 'BUILDER.VERSION.HISTORY' | translate }} ({{ version?.length || 0 }})</span>
+          <span>{{ 'BUILDER.VERSION.HISTORY' | translate }} ({{ version().length }})</span>
         </mat-panel-title>
       </mat-expansion-panel-header>
       <mat-list>
-        @if (version?.length) {
-          @for (version of version; track $index; let i = $index) {
+        @if (version().length) {
+          @for (version of version(); track $index; let i = $index) {
             <mat-list-item matRipple (click)="onVersion(version, i)">
               @if (!version.current) {
                 <mat-icon matListItemIcon>radio_button_unchecked</mat-icon>
@@ -16,22 +16,23 @@
               @if (version.current) {
                 <mat-icon matListItemIcon color="primary"> radio_button_checked </mat-icon>
               }
-              <div
-                class="title"
-                role="button"
-                tabindex="0"
-                (blur)="onUpdateTitle($event, i)"
-                (click)="onClickTitle($event)"
-                (keyup.enter)="onClickTitle($event)"
-                matListItemTitle
-                contenteditable="true"
-              >
-                <span class="version-title">
-                  {{ version.title }}
-                </span>
+              <div class="title" matListItemTitle>
+                <span
+                  class="version-title"
+                  role="button"
+                  tabindex="0"
+                  (blur)="onUpdateTitle($event, i)"
+                  (click)="onClickTitle($event)"
+                  (keyup.enter)="onClickTitle($event)"
+                  contenteditable="true"
+                  >{{ version.title }}</span
+                >
+                @if (!version.nid || version.dirty || version.translation) {
+                  <span class="sync-badge unsaved">{{ 'BUILDER.VERSION.UNSAVED' | translate }}</span>
+                }
               </div>
               <div class="time" matListItemLine>
-                {{ version.time | date: 'yyyy/MM/dd HH:mm:ss' }}
+                <span class="timestamp">{{ version.time | date: 'yyyy/MM/dd HH:mm:ss' }}</span>
               </div>
               @if (i > 0) {
                 <app-btn
