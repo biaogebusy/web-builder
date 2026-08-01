@@ -275,7 +275,7 @@ $(drush sql:connect) -q -C -B -N --max-allowed-packet=1G \
 第二步，处理结果。全部缺失类会自动并入 `config/tailwind.safelist.json`（`group`/`peer` 这类无 CSS 的标记类自动排除），再正常重跑一次确认 OK：
 
 ```bash
-node scripts/scan-content-classes.mjs --fix prod-content.txt prod-blocks.txt
+node scripts/scan-content-classes.mjs --fix prod-content.txt.gz prod-blocks.txt.gz
 ```
 
 > 新内容的颜色请写在组件的 `<style>` 块或行内 style 中，不要再依赖调色板工具类，避免清单再次膨胀。
