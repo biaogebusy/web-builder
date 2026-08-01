@@ -270,4 +270,52 @@ describe('BuilderState tree and draft behavior', () => {
     expect(closeDrawer).toHaveBeenCalledWith(true);
     expect(storage.store).toHaveBeenCalledOnce();
   });
+
+  it('marks the current page dirty when its content is edited', () => {
+    const { state } = createState([makePage([{ type: 'text' }], { nid: '42' })]);
+
+    expect(state.currentPage.dirty).toBeFalsy();
+
+    state.updatePageContentByPath('0', { type: 'img' });
+
+    expect(state.currentPage.dirty).toBe(true);
+  });
+
+  it('marks a submitted page synced without deleting it from the history', () => {
+    const current = makePage([{ type: 'text' }], { nid: '42', uuid: 'page-1', dirty: true });
+    const other = makePage([], { title: 'Other draft', current: false });
+    const { state, storage } = createState([current, other]);
+
+    state.markPageSynced(state.currentPage);
+
+    expect(state.version().length).toBe(2);
+    expect(state.version()[0]).toMatchObject({ nid: '42', dirty: false, current: true });
+    expect(storage.store).toHaveBeenCalledOnce();
+  });
+
+  it('attaches the server nid to a local-only draft when marked synced', () => {
+    const { state } = createState([makePage([{ type: 'text' }], { dirty: true })]);
+    const draft = state.currentPage;
+
+    state.markPageSynced(draft, { nid: '7' });
+
+    expect(state.version()[0]).toMatchObject({ nid: '7', dirty: false });
+  });
+
+  it('ignores markPageSynced for pages that are not in the history', () => {
+    const { state, storage } = createState([makePage([])]);
+
+    state.markPageSynced({ title: 'Ghost', body: [], nid: '404' });
+
+    expect(storage.store).not.toHaveBeenCalled();
+  });
+
+  it('marks the current page dirty without persisting via markCurrentPageDirty', () => {
+    const { state, storage } = createState([makePage([], { nid: '42' })]);
+
+    state.markCurrentPageDirty();
+
+    expect(state.currentPage.dirty).toBe(true);
+    expect(storage.store).not.toHaveBeenCalled();
+  });
 });

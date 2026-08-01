@@ -106,6 +106,8 @@ export const createBuilderStateMock = () => ({
   showcase: vi.fn(),
   deleteLocalPage: vi.fn(),
   deleteLocalPageByPage: vi.fn(),
+  markPageSynced: vi.fn(),
+  markCurrentPageDirty: vi.fn(),
   clearAllHistory: vi.fn(),
   saveLocalVersions: vi.fn(),
   initPage: vi.fn(),

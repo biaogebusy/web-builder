@@ -1,18 +1,9 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  DestroyRef,
-  OnInit,
-  inject,
-} from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { SHARE_IMPORTS } from '@share/share-imports';
 import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { IPage } from '@core/interface/IAppConfig';
 import { BuilderService } from '@core/service/builder.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-builder-version',
@@ -21,24 +12,13 @@ import { LocalStorageService } from 'ngx-webstorage';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SHARE_IMPORTS, WIDGETS_IMPORTS],
 })
-export class BuilderVersionComponent implements OnInit {
-  public version: IPage[] | undefined;
-
-  private cd = inject(ChangeDetectorRef);
+export class BuilderVersionComponent {
   private builder = inject(BuilderState);
-  private storage = inject(LocalStorageService);
-  private destroyRef = inject(DestroyRef);
   private builderService = inject(BuilderService);
-  ngOnInit(): void {
-    this.version = this.storage.retrieve('version');
-    this.storage
-      .observe('version')
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((version: IPage[]) => {
-        this.version = version;
-        this.cd.detectChanges();
-      });
-  }
+
+  // 直接读 BuilderState 的 version signal(内存数据源),
+  // 避免 localStorage observe 往返造成的历史记录更新不及时
+  public version = this.builder.version.asReadonly();
 
   onDelete(index: number): void {
     this.builder.deleteLocalPage(index);
@@ -69,7 +49,7 @@ export class BuilderVersionComponent implements OnInit {
       this.builder.version.update(list => {
         const next = [...list];
         if (next[index]) {
-          next[index] = { ...next[index], title: textContent };
+          next[index] = { ...next[index], title: textContent, dirty: true };
         }
         return next;
       });

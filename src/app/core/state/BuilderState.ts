@@ -144,8 +144,12 @@ export class BuilderState {
   }
 
   deleteLocalPageByPage(page: IPage): void {
+    this.deleteLocalPage(this.findPageIndex(page));
+  }
+
+  private findPageIndex(page: IPage): number {
     const langcode = page.langcode ?? '';
-    const index = this.version().findIndex(item => {
+    return this.version().findIndex(item => {
       if (item === page) {
         return true;
       }
@@ -167,7 +171,33 @@ export class BuilderState {
       }
       return false;
     });
-    this.deleteLocalPage(index);
+  }
+
+  markPageSynced(page: IPage, patch: Partial<IPage> = {}): void {
+    const index = this.findPageIndex(page);
+    if (index < 0) {
+      return;
+    }
+    this.version.update(list => {
+      const next = [...list];
+      next[index] = { ...next[index], ...patch, dirty: false };
+      return next;
+    });
+    this.saveLocalVersions();
+  }
+
+  // 只更新标志不落盘,调用方在完成本次修改后自行 saveLocalVersions
+  markCurrentPageDirty(): void {
+    this.version.update(list => {
+      const currentIndex = list.findIndex(page => page.current === true);
+      const targetIndex = currentIndex === -1 ? 0 : currentIndex;
+      if (!list[targetIndex] || list[targetIndex].dirty) {
+        return list;
+      }
+      const next = [...list];
+      next[targetIndex] = { ...next[targetIndex], dirty: true };
+      return next;
+    });
   }
 
   clearAllHistory(): void {
@@ -261,7 +291,8 @@ export class BuilderState {
       // 与 currentPage getter 的回退保持一致：无 current 标记时写回第一个页面
       const targetIndex = currentIndex === -1 ? 0 : currentIndex;
       if (next[targetIndex]) {
-        next[targetIndex] = page;
+        // 所有调用方都是内容编辑,写入即视为有未提交修改
+        next[targetIndex] = { ...page, dirty: true };
       }
       return next;
     });
@@ -297,7 +328,7 @@ export class BuilderState {
     if (content && content.type) {
       this.version.update(list => {
         const next = list.map(page =>
-          page.current ? { ...page, body: [...page.body, content] } : page
+          page.current ? { ...page, body: [...page.body, content], dirty: true } : page
         );
         return next;
       });
@@ -332,6 +363,7 @@ export class BuilderState {
       next[idx] = {
         ...next[idx],
         body: next[idx].body.map(item => ({ ...item, ...content })),
+        dirty: true,
       };
       return next;
     });
