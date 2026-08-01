@@ -26,6 +26,34 @@ if (exportFiles.length === 0) {
   process.exit(2);
 }
 
+// Some classes never appear as literal strings in the JSON — the runtime composes
+// them from config objects. Mirror those template rules so the scan sees the final
+// classes:
+// - app-bg / app-bg-img (bg.component.ts): `${classes}-${variant}`, e.g.
+//   { classes: 'bg-neutral', variant: 700 } -> bg-neutral-700
+// - layout-builder.component.html: justify-{horizontal}, justify-items-{vertical},
+//   items-{alignItems}, gap-{gap.xs} sm:gap-{gap.sm} ..., col-span-{row.xs} ...
+const LAYOUT_BPS = ['xs', 'sm', 'md', 'lg'];
+function synthesizeClasses(obj, sink) {
+  const token = v =>
+    (typeof v === 'string' || typeof v === 'number') && /^[a-z0-9][a-z0-9-]*$/i.test(`${v}`);
+  if (typeof obj.classes === 'string' && obj.classes && obj.variant && token(obj.variant)) {
+    sink.push(`${obj.classes}-${obj.variant}`);
+  }
+  if (token(obj.horizontal)) sink.push(`justify-${obj.horizontal}`);
+  if (token(obj.vertical)) sink.push(`justify-items-${obj.vertical}`);
+  if (token(obj.alignItems)) sink.push(`items-${obj.alignItems}`);
+  for (const [key, prefix] of [['gap', 'gap'], ['row', 'col-span']]) {
+    const group = obj[key];
+    if (!group || typeof group !== 'object') continue;
+    for (const bp of LAYOUT_BPS) {
+      if (token(group[bp])) {
+        sink.push(bp === 'xs' ? `${prefix}-${group[bp]}` : `${bp}:${prefix}-${group[bp]}`);
+      }
+    }
+  }
+}
+
 // Unwrap an export before feeding it to Tailwind: body values hold page JSON whose
 // string values (classes, embedded html) may nest further escaped JSON. String values
 // that look like JSON are parsed recursively so every level ends up fully unescaped —
@@ -48,6 +76,7 @@ function collectStrings(value, sink) {
   } else if (Array.isArray(value)) {
     for (const item of value) collectStrings(item, sink);
   } else if (value && typeof value === 'object') {
+    synthesizeClasses(value, sink);
     for (const item of Object.values(value)) collectStrings(item, sink);
   }
 }
@@ -122,7 +151,7 @@ function buildClasses(cfgName, outName) {
 }
 
 const COLOR_RE =
-  /^(?:[a-z-]+:)*(?:text|bg|border|shadow|from|via|to|divide|outline|fill|stroke)-(?:white|black|current|inherit|transparent|(?:slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-\d{2,3})(?:\/\d{1,3})?$/;
+  /^(?:[a-z-]+:)*!?(?:text|bg|border|shadow|from|via|to|divide|outline|fill|stroke)-(?:white|black|current|inherit|transparent|(?:slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-\d{2,3})(?:\/\d{1,3})?$/;
 
 function reportFile(used, covered) {
   const missing = [...used].filter(cls => !covered.has(cls)).sort();

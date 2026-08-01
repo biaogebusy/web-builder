@@ -72,7 +72,7 @@ module.exports = {
     // ==================== Alignment ====================
     {
       pattern:
-        /^(items|justify|content|self|justify-self|place-items|place-content|place-self)-(start|end|center|between|around|evenly|stretch|baseline|auto)$/,
+        /^(items|justify|justify-items|content|self|justify-self|place-items|place-content|place-self)-(start|end|center|between|around|evenly|stretch|baseline|auto)$/,
       variants: ['sm', 'md', 'lg'],
     },
 
@@ -193,7 +193,7 @@ module.exports = {
     { pattern: /^bg-(repeat|no-repeat|repeat-x|repeat-y|repeat-round|repeat-space)$/ },
 
     // ==================== Gradient ====================
-    { pattern: /^bg-gradient-to-(t|tr|r|br|b|bl|l|tl)$/ },
+    { pattern: /^bg-(gradient-to-(t|tr|r|br|b|bl|l|tl)|none)$/ },
 
     // ==================== Border ====================
     { pattern: /^border(?:-[xytblr])?(?:-(0|2|4|8))?$/, variants: ['sm', 'md', 'lg'] },
