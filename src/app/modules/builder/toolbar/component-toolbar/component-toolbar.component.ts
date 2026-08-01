@@ -9,7 +9,7 @@ import {
   inject,
   signal,
   ChangeDetectionStrategy,
-  input
+  input,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
@@ -26,9 +26,8 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { get } from 'lodash-es';
 import { LocalStorageService } from 'ngx-webstorage';
-import { Observable, delay } from 'rxjs';
-import { BtnComponent } from '../../btn/btn.component';
-import { DividerComponent } from '../../divider/divider.component';
+import { BtnComponent } from '@uiux/widgets/btn/btn.component';
+import { DividerComponent } from '@uiux/widgets/divider/divider.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -74,11 +73,14 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
     this.type.set(content.type || content.content?.type || '');
     this.component.set(this.type() ? content : content.content);
     this.path.set(generatePath(this.ele.nativeElement));
-    effect(() => {
-      const page = this.currentPage();
-      this.path.set(generatePath(this.ele.nativeElement));
-      this.getIndex();
-    }, { injector: this.injector });
+    effect(
+      () => {
+        const page = this.currentPage();
+        this.path.set(generatePath(this.ele.nativeElement));
+        this.getIndex();
+      },
+      { injector: this.injector }
+    );
   }
 
   getIndex(): void {

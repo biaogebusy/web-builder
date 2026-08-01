@@ -23,10 +23,9 @@ import { BuilderState } from '@core/state/BuilderState';
 import { ContentState } from '@core/state/ContentState';
 import { BUILDER_CURRENT_PAGE, DEBUG_ANIMATE } from '@core/token/token-providers';
 import { getPageParams } from '@core/util/builder-page.util';
-import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { IconComponent } from '../../icon/icon.component';
+import { IconComponent } from '@uiux/widgets/icon/icon.component';
 
 @Component({
   selector: 'app-builder-menu',
@@ -55,18 +54,23 @@ export class BuilderMenuComponent implements AfterViewInit {
   private dialog = inject(MatDialog);
   private injector = inject(Injector);
 
-
   ngAfterViewInit(): void {
-    effect(() => {
-      this.builder.renderMarkers(this.debugAnimate());
-    }, { injector: this.injector });
-    effect(() => {
-      const page = this.currentPage();
-      if (page && typeof page === 'object') {
-        this.page = page;
-      }
-      this.cd.detectChanges();
-    }, { injector: this.injector });
+    effect(
+      () => {
+        this.builder.renderMarkers(this.debugAnimate());
+      },
+      { injector: this.injector }
+    );
+    effect(
+      () => {
+        const page = this.currentPage();
+        if (page && typeof page === 'object') {
+          this.page = page;
+        }
+        this.cd.detectChanges();
+      },
+      { injector: this.injector }
+    );
   }
 
   onPageJson(): void {
@@ -124,11 +128,13 @@ export class BuilderMenuComponent implements AfterViewInit {
   onPageSetting(page: IPage): void {
     const { uuid, langcode } = page;
     if (uuid) {
-      this.injector.get(BuilderService).openPageSetting(
-        { uuid, langcode },
-        '/api/v1/node/landing_page',
-        getPageParams(['uid', 'group', 'cover', 'cover.field_media_image'])
-      );
+      this.injector
+        .get(BuilderService)
+        .openPageSetting(
+          { uuid, langcode },
+          '/api/v1/node/landing_page',
+          getPageParams(['uid', 'group', 'cover', 'cover.field_media_image'])
+        );
     }
   }
 }

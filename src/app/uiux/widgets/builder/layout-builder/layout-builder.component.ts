@@ -21,7 +21,7 @@ import { BgImgComponent } from '../../bg-img/bg-img.component';
 import { BtnComponent } from '../../btn/btn.component';
 import { IconComponent } from '../../icon/icon.component';
 import { DynamicComponentComponent } from '../dynamic-component/dynamic-component.component';
-import { LayoutToolbarComponent } from './layout-toolbar/layout-toolbar.component';
+import { LayoutToolbarComponent } from '@modules/builder/toolbar/layout-toolbar/layout-toolbar.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
