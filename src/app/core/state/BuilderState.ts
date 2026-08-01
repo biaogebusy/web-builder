@@ -90,6 +90,31 @@ export class BuilderState {
     } else {
       this.initPage([{ ...this.defaultPage, current: true, time: new Date().toLocaleString() }]);
     }
+    this.listenExternalVersionChanges();
+  }
+
+  // 跨上下文同步:其他标签页/iframe(如 /preview)所在上下文保存草稿时,原生 storage 事件
+  // 只在非写入方上下文触发(不会本地回环),借它把最新草稿同步进 version signal,
+  // 让所有以 signal 为数据源的消费方(版本面板/工具栏/BUILDER_CURRENT_PAGE)保持实时
+  private listenExternalVersionChanges(): void {
+    if (!this.screenService.isPlatformBrowser()) {
+      return;
+    }
+    // key 前缀与 app.config 的 withNgxWebstorageConfig({ separator: ':' }) 保持一致
+    const storageKey = `ngx-webstorage:${this.versionKey}`;
+    window.addEventListener('storage', (event: StorageEvent) => {
+      if (event.key !== storageKey || !event.newValue) {
+        return;
+      }
+      try {
+        const version = JSON.parse(event.newValue);
+        if (Array.isArray(version) && version.length > 0) {
+          this.version.set(version);
+        }
+      } catch {
+        // 数据异常时保持内存状态
+      }
+    });
   }
 
   queuePageLoad(page: IBuilderPendingPageLoad): void {

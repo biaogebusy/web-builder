@@ -21,7 +21,7 @@ describe('BuilderState tree and draft behavior', () => {
     TestBed.resetTestingModule();
   });
 
-  const createState = (pages: IPage[]) => {
+  const createState = (pages: IPage[], isBrowser = false) => {
     const storage = {
       retrieve: vi.fn(() => pages),
       store: vi.fn(),
@@ -33,7 +33,10 @@ describe('BuilderState tree and draft behavior', () => {
         { provide: DOCUMENT, useValue: document },
         { provide: LocalStorageService, useValue: storage },
         { provide: MatDialog, useValue: { open: vi.fn(), getDialogById: vi.fn() } },
-        { provide: ScreenService, useValue: { scrollToAnchor: vi.fn() } },
+        {
+          provide: ScreenService,
+          useValue: { scrollToAnchor: vi.fn(), isPlatformBrowser: vi.fn(() => isBrowser) },
+        },
         { provide: UtilitiesService, useValue: { openSnackbar: vi.fn() } },
       ],
     });
@@ -317,5 +320,35 @@ describe('BuilderState tree and draft behavior', () => {
 
     expect(state.currentPage.dirty).toBe(true);
     expect(storage.store).not.toHaveBeenCalled();
+  });
+
+  it('syncs the version signal when another context writes the draft storage', () => {
+    const { state } = createState([makePage([], { title: 'Local' })], true);
+
+    window.dispatchEvent(
+      new StorageEvent('storage', {
+        key: 'ngx-webstorage:version',
+        newValue: JSON.stringify([{ title: '外部更新', body: [], current: true }]),
+      })
+    );
+
+    expect(state.currentPage.title).toBe('外部更新');
+  });
+
+  it('ignores foreign, empty, and malformed storage events', () => {
+    const { state } = createState([makePage([], { title: 'Local' })], true);
+
+    window.dispatchEvent(
+      new StorageEvent('storage', { key: 'ngx-webstorage:other', newValue: '[{}]' })
+    );
+    window.dispatchEvent(
+      new StorageEvent('storage', { key: 'ngx-webstorage:version', newValue: JSON.stringify([]) })
+    );
+    window.dispatchEvent(
+      new StorageEvent('storage', { key: 'ngx-webstorage:version', newValue: '{broken' })
+    );
+    window.dispatchEvent(new StorageEvent('storage', { key: 'ngx-webstorage:version' }));
+
+    expect(state.currentPage.title).toBe('Local');
   });
 });

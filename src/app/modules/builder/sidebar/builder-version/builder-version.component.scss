@@ -16,7 +16,8 @@
     .mat-line {
       font-size: 15px;
     }
-    .title {
+    .version-title {
+      @apply text-sm;
       border-bottom: 1px solid transparent;
       &:focus-visible {
         outline: none;
@@ -25,14 +26,11 @@
         cursor: text;
       }
     }
-    .version-title {
-      @apply text-sm;
-    }
     .time {
       @apply text-xs font-mono flex items-center;
-      font-size: 14px;
       .timestamp {
         opacity: 0.5;
+        @apply mt-1;
       }
       &:focus-visible {
         color: var(--mat-sys-primary);
@@ -40,11 +38,7 @@
       }
     }
     .sync-badge {
-      @apply inline-flex items-center ml-2 px-2 rounded-full text-[11px] font-semibold leading-tight;
-      &.synced {
-        color: var(--mat-sys-on-surface-variant);
-        background-color: var(--mat-sys-surface-container-high);
-      }
+      @apply inline-flex items-center ml-2 px-2 py-1 rounded-full text-[10px] font-semibold leading-none;
       &.unsaved {
         color: var(--mat-sys-on-error);
         background-color: var(--mat-sys-error);
@@ -54,7 +48,8 @@
       position: absolute;
       display: none;
       right: 0;
-      top: -10px;
+      top: 50%;
+      transform: translateY(-50%);
     }
   }
   .action-row {

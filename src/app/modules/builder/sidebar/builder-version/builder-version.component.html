@@ -16,27 +16,23 @@
               @if (version.current) {
                 <mat-icon matListItemIcon color="primary"> radio_button_checked </mat-icon>
               }
-              <div
-                class="title"
-                role="button"
-                tabindex="0"
-                (blur)="onUpdateTitle($event, i)"
-                (click)="onClickTitle($event)"
-                (keyup.enter)="onClickTitle($event)"
-                matListItemTitle
-                contenteditable="true"
-              >
-                <span class="version-title">
-                  {{ version.title }}
-                </span>
+              <div class="title" matListItemTitle>
+                <span
+                  class="version-title"
+                  role="button"
+                  tabindex="0"
+                  (blur)="onUpdateTitle($event, i)"
+                  (click)="onClickTitle($event)"
+                  (keyup.enter)="onClickTitle($event)"
+                  contenteditable="true"
+                  >{{ version.title }}</span
+                >
+                @if (!version.nid || version.dirty || version.translation) {
+                  <span class="sync-badge unsaved">{{ 'BUILDER.VERSION.UNSAVED' | translate }}</span>
+                }
               </div>
               <div class="time" matListItemLine>
                 <span class="timestamp">{{ version.time | date: 'yyyy/MM/dd HH:mm:ss' }}</span>
-                @if (version.nid && !version.dirty && !version.translation) {
-                  <span class="sync-badge synced">{{ 'BUILDER.VERSION.SYNCED' | translate }}</span>
-                } @else {
-                  <span class="sync-badge unsaved">{{ 'BUILDER.VERSION.UNSAVED' | translate }}</span>
-                }
               </div>
               @if (i > 0) {
                 <app-btn

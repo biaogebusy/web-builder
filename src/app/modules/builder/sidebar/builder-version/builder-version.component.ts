@@ -42,14 +42,13 @@ export class BuilderVersionComponent {
   }
 
   onUpdateTitle(event: any, index: number): void {
-    const {
-      target: { textContent },
-    } = event;
-    if (textContent) {
+    const title = (event.target.textContent ?? '').trim();
+    // 仅在标题真正变化时才标脏保存,避免聚焦/失焦误把已同步版本标为未保存
+    if (title && title !== this.version()[index]?.title) {
       this.builder.version.update(list => {
         const next = [...list];
         if (next[index]) {
-          next[index] = { ...next[index], title: textContent, dirty: true };
+          next[index] = { ...next[index], title, dirty: true };
         }
         return next;
       });
