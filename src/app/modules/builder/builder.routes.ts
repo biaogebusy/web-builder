@@ -93,6 +93,11 @@ export const routes: Routes = [
         loadChildren: () => import('./node/node-add/node-add.routes').then(m => m.routes),
       },
       {
+        path: 'node-manage',
+        loadComponent: () =>
+          import('./node/node-manage/node-manage.component').then(m => m.NodeManageComponent),
+      },
+      {
         path: 'manage-uiux',
         canActivate: [superAdminGuard],
         loadComponent: () =>

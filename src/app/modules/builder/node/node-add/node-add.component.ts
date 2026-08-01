@@ -15,6 +15,8 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { USER } from '@core/token/token-providers';
 import { TranslateService } from '@ngx-translate/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { forkJoin, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -34,8 +36,12 @@ export class NodeAddComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   private translate = inject(TranslateService);
   public type = signal<string>('');
+  /** 编辑模式下的节点 uuid;为空即新建 */
+  public editUuid = signal<string>('');
   public form: UntypedFormGroup = new UntypedFormGroup({});
   public fields = signal<FormlyFieldConfig[]>([]);
+  /** 编辑模式的表单回填模型 */
+  public model = signal<any>({});
   public nodeTypes = signal<{ label: string; value: string }[]>([]);
   // getNodeTypes 出错时会发出空数组,需与"加载中"区分,避免骨架屏常驻
   public typesLoading = signal(true);
@@ -57,34 +63,73 @@ export class NodeAddComponent implements OnInit {
 
     this.activateRoute.params.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
       const type = params['type'];
-      this.tagsService.setTitle(this.translate.instant('BUILDER.NODE_ADD.CREATE_TITLE', { type }));
+      const uuid = params['uuid'] || '';
+      this.tagsService.setTitle(
+        this.translate.instant(
+          uuid ? 'BUILDER.NODE_ADD.EDIT_TITLE' : 'BUILDER.NODE_ADD.CREATE_TITLE',
+          { type }
+        )
+      );
       this.type.set(type);
-      // 切换类型时销毁旧表单(app-formly 只在创建时快照 fields)
+      this.editUuid.set(uuid);
+      // 切换类型/节点时销毁旧表单(app-formly 只在创建时快照 fields 与 model)
       this.fields.set([]);
+      this.model.set({});
       this.form = new UntypedFormGroup({});
+
+      // 编辑模式先取节点数据用于回填;失败时回落为新建表单
+      const node$ = uuid
+        ? this.nodeService.fetch(`/api/v1/node/${type}/${uuid}`).pipe(
+            map(res => res?.data ?? null),
+            catchError(err => {
+              console.error('加载节点数据失败', err);
+              this.util.openSnackbar(
+                this.translate.instant('BUILDER.NODE_ADD.LOAD_NODE_FAILED'),
+                'ok'
+              );
+              return of(null);
+            })
+          )
+        : of(null);
 
       switch (type) {
         case 'json':
-          this.fields.set([
-            this.getTitleField(),
-            {
-              key: 'body',
-              type: 'json',
-              props: {
-                label: 'JSON',
-                required: true,
-                rows: 10,
+          node$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(node => {
+            if (node) {
+              this.model.set({
+                title: node.attributes?.title,
+                body: this.parseJsonBody(node),
+              });
+            }
+            this.fields.set([
+              this.getTitleField(),
+              {
+                key: 'body',
+                type: 'json',
+                props: {
+                  label: 'JSON',
+                  required: true,
+                  rows: 10,
+                },
               },
-            },
-          ]);
+            ]);
+          });
           break;
         default:
           // 通过 field config API 内省该内容类型的字段,动态生成表单
-          this.fieldFormService
-            .getForm(type)
+          forkJoin({
+            form: this.fieldFormService.getForm(type),
+            node: node$,
+          })
             .pipe(takeUntilDestroyed(this.destroyRef))
-            .subscribe(({ fields, meta }) => {
+            .subscribe(({ form: { fields, meta }, node }) => {
               this.fieldMeta = meta;
+              if (node) {
+                this.model.set({
+                  title: node.attributes?.title,
+                  ...this.fieldFormService.buildModel(meta, node),
+                });
+              }
               this.fields.set([this.getTitleField(), ...fields]);
               // field_config 需要 administer node fields 权限,无权限时 data 为空
               if (fields.length === 0) {
@@ -98,8 +143,21 @@ export class NodeAddComponent implements OnInit {
     });
   }
 
+  /** json 类型的 body 以字符串存储,回填前还原为对象 */
+  private parseJsonBody(node: any): any {
+    const raw = node?.attributes?.body?.value ?? node?.attributes?.body ?? '';
+    if (typeof raw !== 'string' || !raw) {
+      return raw || {};
+    }
+    try {
+      return JSON.parse(raw);
+    } catch {
+      return raw;
+    }
+  }
+
   switchType(type: string): void {
-    if (type !== this.type()) {
+    if (type !== this.type() || this.editUuid()) {
       this.router.navigate(['/builder/node-add', type]);
     }
   }
@@ -125,53 +183,41 @@ export class NodeAddComponent implements OnInit {
     }
     this.submitting.set(true);
     const type = this.type();
+    const uuid = this.editUuid();
     // 不发送 status:启用内容审核(content moderation)的类型禁止直接写发布状态
     // (403: Cannot edit the published field of moderated entities),
     // 由内容类型默认值或审核工作流决定
-    switch (type) {
-      case 'json': {
-        const { title, body } = value;
-        this.nodeService
-          .addEntity(`/api/v1/node/${type}`, {
-            title,
-            body: JSON.stringify(body),
-          })
-          .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe({
-            next: () => this.onSubmitSuccess(),
-            error: err => this.showSubmitError(err),
-          });
-        break;
-      }
-      default: {
-        const { title, ...rest } = value;
-        const { attributes, relationships } = this.fieldFormService.buildPayload(
-          this.fieldMeta,
-          rest
-        );
-        this.nodeService
-          .addEntity(
-            `/api/v1/node/${type}`,
-            {
-              title,
-              ...attributes,
-            },
-            relationships
-          )
-          .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe({
-            next: () => this.onSubmitSuccess(),
-            error: err => this.showSubmitError(err),
-          });
-      }
+    let attributes: any;
+    let relationships: any;
+    if (type === 'json') {
+      const { title, body } = value;
+      attributes = { title, body: JSON.stringify(body) };
+    } else {
+      const { title, ...rest } = value;
+      const payload = this.fieldFormService.buildPayload(this.fieldMeta, rest);
+      attributes = { title, ...payload.attributes };
+      relationships = payload.relationships;
     }
+    const path = `/api/v1/node/${type}`;
+    const request$ = uuid
+      ? this.nodeService.updateEntity(path, uuid, attributes, relationships)
+      : this.nodeService.addEntity(path, attributes, relationships);
+    request$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      next: () => this.onSubmitSuccess(!!uuid),
+      error: err => this.showSubmitError(err),
+    });
   }
 
-  /** 成功后提示并清空表单,停留在新建页以便继续创建 */
-  private onSubmitSuccess(): void {
+  /** 新建成功清空表单停留本页;编辑成功返回内容管理列表 */
+  private onSubmitSuccess(isEdit: boolean): void {
     this.submitting.set(false);
-    this.form.reset();
-    this.util.openSnackbar(this.translate.instant('BUILDER.NODE_ADD.SUBMIT_SUCCESS'), 'ok');
+    if (isEdit) {
+      this.util.openSnackbar(this.translate.instant('BUILDER.NODE_ADD.UPDATE_SUCCESS'), 'ok');
+      this.router.navigate(['/builder/node-manage']);
+    } else {
+      this.form.reset();
+      this.util.openSnackbar(this.translate.instant('BUILDER.NODE_ADD.SUBMIT_SUCCESS'), 'ok');
+    }
   }
 
   private showSubmitError(err: any): void {

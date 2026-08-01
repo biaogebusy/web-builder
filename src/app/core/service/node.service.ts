@@ -128,6 +128,24 @@ export class NodeService extends ApiService {
     return `${arr[arr.length - 2]}--${arr[arr.length - 1]}`;
   }
 
+  updateEntity(path: string, uuid: string, attr: any, relationships?: any): Observable<any> {
+    const post = {
+      data: {
+        type: this.getEntityType(path),
+        id: uuid,
+        attributes: {
+          ...attr,
+        },
+        ...(relationships && Object.keys(relationships).length > 0 ? { relationships } : {}),
+      },
+    };
+    return this.http.patch<any>(
+      `${this.apiUrl}${path}/${uuid}`,
+      JSON.stringify(post),
+      this.optionsWithBearerToken()
+    );
+  }
+
   getNodePath(attr: any): string {
     return attr?.path?.alias ? attr.path.alias : `/node/${attr.drupal_internal__nid}`;
   }
