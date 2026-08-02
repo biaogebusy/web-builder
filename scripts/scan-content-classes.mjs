@@ -6,10 +6,12 @@
 //      node scripts/scan-content-classes.mjs prod-content.txt [more-exports...]
 //
 // Exits 1 when uncovered classes are found, so it can be used as a pre-deploy gate.
-// Color classes it reports should be appended to config/tailwind.safelist.json;
-// arbitrary values (w-[300px], text-[#123456]) should move to inline styles.
+// Run with --fix to append every uncovered class to config/tailwind.safelist.json:
+// the safelist backstops content that is already live, while inline styles remain
+// the convention for NEW content (colors, arbitrary values like w-[300px]).
 import { execFileSync } from 'node:child_process';
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { gunzipSync } from 'node:zlib';
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -20,10 +22,42 @@ const postcss = require('postcss');
 const tailwindCli = require.resolve('tailwindcss/lib/cli.js');
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const exportFiles = process.argv.slice(2);
+const args = process.argv.slice(2);
+const applyFix = args.includes('--fix');
+const exportFiles = args.filter(arg => arg !== '--fix');
 if (exportFiles.length === 0) {
-  console.error('Usage: node scripts/scan-content-classes.mjs <prod-content.txt> [more-exports...]');
+  console.error(
+    'Usage: node scripts/scan-content-classes.mjs [--fix] <prod-content.txt> [more-exports...]'
+  );
   process.exit(2);
+}
+
+// Some classes never appear as literal strings in the JSON — the runtime composes
+// them from config objects. Mirror those template rules so the scan sees the final
+// classes:
+// - app-bg / app-bg-img (bg.component.ts): `${classes}-${variant}`, e.g.
+//   { classes: 'bg-neutral', variant: 700 } -> bg-neutral-700
+// - layout-builder.component.html: justify-{horizontal}, justify-items-{vertical},
+//   items-{alignItems}, gap-{gap.xs} sm:gap-{gap.sm} ..., col-span-{row.xs} ...
+const LAYOUT_BPS = ['xs', 'sm', 'md', 'lg'];
+function synthesizeClasses(obj, sink) {
+  const token = v =>
+    (typeof v === 'string' || typeof v === 'number') && /^[a-z0-9][a-z0-9-]*$/i.test(`${v}`);
+  if (typeof obj.classes === 'string' && obj.classes && obj.variant && token(obj.variant)) {
+    sink.push(`${obj.classes}-${obj.variant}`);
+  }
+  if (token(obj.horizontal)) sink.push(`justify-${obj.horizontal}`);
+  if (token(obj.vertical)) sink.push(`justify-items-${obj.vertical}`);
+  if (token(obj.alignItems)) sink.push(`items-${obj.alignItems}`);
+  for (const [key, prefix] of [['gap', 'gap'], ['row', 'col-span']]) {
+    const group = obj[key];
+    if (!group || typeof group !== 'object') continue;
+    for (const bp of LAYOUT_BPS) {
+      if (token(group[bp])) {
+        sink.push(bp === 'xs' ? `${prefix}-${group[bp]}` : `${bp}:${prefix}-${group[bp]}`);
+      }
+    }
+  }
 }
 
 // Unwrap an export before feeding it to Tailwind: body values hold page JSON whose
@@ -48,6 +82,7 @@ function collectStrings(value, sink) {
   } else if (Array.isArray(value)) {
     for (const item of value) collectStrings(item, sink);
   } else if (value && typeof value === 'object') {
+    synthesizeClasses(value, sink);
     for (const item of Object.values(value)) collectStrings(item, sink);
   }
 }
@@ -61,7 +96,10 @@ function unescapeSqlRow(line) {
 }
 
 function unwrapExport(file) {
-  const raw = readFileSync(resolve(file), 'utf8');
+  let buf = readFileSync(resolve(file));
+  // gzip-compressed exports (drush | gzip > x.txt.gz) are read directly.
+  if (buf[0] === 0x1f && buf[1] === 0x8b) buf = gunzipSync(buf);
+  const raw = buf.toString('utf8');
   const sink = [];
   let rows;
   try {
@@ -122,15 +160,21 @@ function buildClasses(cfgName, outName) {
 }
 
 const COLOR_RE =
-  /^(?:[a-z-]+:)*(?:text|bg|border|shadow|from|via|to|divide|outline|fill|stroke)-(?:white|black|current|inherit|transparent|(?:slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-\d{2,3})(?:\/\d{1,3})?$/;
+  /^(?:[a-z-]+:)*!?(?:text|bg|border|shadow|from|via|to|divide|outline|fill|stroke)-(?:white|black|current|inherit|transparent|(?:slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-\d{2,3})(?:\/\d{1,3})?$/;
+
+// group/peer (incl. named forms group/x, peer/x) are marker classes with no CSS of
+// their own — they reach the used set only through the compound selectors of their
+// variants (.peer:invalid ~ .peer-invalid\:opacity-100), so they are never missing
+// and must not be appended to the safelist (they would stay "uncovered" forever).
+const MARKER_RE = /^(?:group|peer)(?:\/[\w-]+)?$/;
 
 function reportFile(used, covered) {
-  const missing = [...used].filter(cls => !covered.has(cls)).sort();
+  const missing = [...used].filter(cls => !covered.has(cls) && !MARKER_RE.test(cls)).sort();
   console.log(`CMS content classes: ${used.size}; covered by production build: ${used.size - missing.length}`);
 
   if (missing.length === 0) {
     console.log('OK: every class used by this export is generated by the current build.');
-    return 0;
+    return missing;
   }
 
   const colors = missing.filter(cls => COLOR_RE.test(cls));
@@ -143,27 +187,51 @@ function reportFile(used, covered) {
     console.log(colors.map(cls => `  ${JSON.stringify(cls)},`).join('\n'));
   }
   if (arbitrary.length) {
-    console.log(`\n- arbitrary values (${arbitrary.length}) -> move to inline styles on the widget:`);
+    console.log(
+      `\n- arbitrary values (${arbitrary.length}) -> safelist backstops existing content; new content should use inline styles:`
+    );
     console.log(arbitrary.map(cls => `  ${cls}`).join('\n'));
   }
   if (other.length) {
     console.log(`\n- other (${other.length}) -> check tailwind.config.js safelist patterns/variants:`);
     console.log(other.map(cls => `  ${cls}`).join('\n'));
   }
-  return missing.length;
+  return missing;
 }
 
 let exitCode = 0;
+const allMissing = new Set();
 try {
   const covered = buildClasses('cfg-covered.js', 'out-covered.css');
   for (const file of exportFiles) {
     if (exportFiles.length > 1) console.log(`\n===== ${file} =====`);
     writeFileSync(contentPath, unwrapExport(file));
     const used = buildClasses('cfg-content.js', 'out-content.css');
-    if (reportFile(used, covered) > 0) exitCode = 1;
+    const missing = reportFile(used, covered);
+    for (const cls of missing) allMissing.add(cls);
+    if (missing.length > 0) exitCode = 1;
   }
 } finally {
   // process.exit() would skip finally, so compute the code first and exit after cleanup.
   rmSync(tmp, { recursive: true, force: true });
+}
+
+if (allMissing.size > 0) {
+  if (applyFix) {
+    const safelistPath = join(root, 'config', 'tailwind.safelist.json');
+    const list = JSON.parse(readFileSync(safelistPath, 'utf8'));
+    const existing = new Set(list);
+    const added = [...allMissing].filter(cls => !existing.has(cls)).sort();
+    list.push(...added);
+    writeFileSync(safelistPath, `${JSON.stringify(list, null, 2)}\n`);
+    console.log(
+      `\n--fix: appended ${added.length} classes to config/tailwind.safelist.json; re-run without --fix to verify.`
+    );
+    exitCode = 0;
+  } else {
+    console.log(
+      '\nRun again with --fix to append every uncovered class to config/tailwind.safelist.json.'
+    );
+  }
 }
 process.exit(exitCode);

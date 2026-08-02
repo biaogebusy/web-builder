@@ -42,6 +42,13 @@ describe('HeaderComponent', () => {
       ...createScreenStateMock(),
     };
     vi.stubGlobal('IntersectionObserver', MockIntersectionObserver);
+    vi.stubGlobal(
+      'ResizeObserver',
+      class {
+        observe = vi.fn();
+        disconnect = vi.fn();
+      }
+    );
 
     await TestBed.configureTestingModule({
       imports: [HeaderComponent],

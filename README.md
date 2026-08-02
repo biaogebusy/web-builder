@@ -257,6 +257,29 @@ module.exports = PROXY_CONFIG;
 
 `npm run build`
 
+## 上线前检查：扫描线上内容的 Tailwind class
+
+Tailwind 的 safelist 已从全量颜色矩阵收敛为「布局 pattern + 历史精确类清单」（`config/tailwind.safelist.json`），线上 CMS 内容若用到清单之外的颜色类，构建产物中将没有对应样式。发布前请扫描一次线上内容。
+
+第一步，在 Drupal 侧导出 builder 内容。node 侧的 `landing_page`（页面）、`json`（页头/页脚品牌配置）、`component`（自定义组件）都把页面 JSON 存在 `body` 字段；前台展示的区块（自定义区块 `block_content`，如首页区块）同样把 JSON 存在 `body` 字段。
+
+```bash
+$(drush sql:connect) -q -C -B -N --max-allowed-packet=1G \
+  -e "SELECT body_value FROM node__body WHERE bundle IN ('landing_page','json','component') AND deleted = 0" \
+  | gzip > prod-content.txt.gz
+$(drush sql:connect) -q -C -B -N --max-allowed-packet=1G \
+  -e "SELECT body_value FROM block_content__body WHERE deleted = 0" \
+  | gzip > prod-blocks.txt.gz
+```
+
+第二步，处理结果。全部缺失类会自动并入 `config/tailwind.safelist.json`（`group`/`peer` 这类无 CSS 的标记类自动排除），再正常重跑一次确认 OK：
+
+```bash
+node scripts/scan-content-classes.mjs --fix prod-content.txt.gz prod-blocks.txt.gz
+```
+
+> 新内容的颜色请写在组件的 `<style>` 块或行内 style 中，不要再依赖调色板工具类，避免清单再次膨胀。
+
 ## 最后
 
 - QQ 交流群：1176468251
