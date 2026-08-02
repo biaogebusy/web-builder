@@ -163,8 +163,20 @@ export const createApiServiceMock = () => ({
   handlePager: vi.fn(() => ({})),
 });
 
+export const createHttpResourceRefMock = () => ({
+  value: vi.fn(() => undefined),
+  error: vi.fn(() => undefined),
+  isLoading: vi.fn(() => false),
+  status: vi.fn(() => 'idle'),
+  hasValue: vi.fn(() => false),
+  headers: vi.fn(() => undefined),
+  statusCode: vi.fn(() => undefined),
+  reload: vi.fn(),
+});
+
 export const createNodeServiceMock = () => ({
   fetch: vi.fn((): Observable<any> => of({ rows: [], pager: {} })),
+  fetchResource: vi.fn(() => createHttpResourceRefMock()),
   resolveLangCode: vi.fn(() => undefined),
   getNodeByLink: vi.fn((): Observable<any> => of({})),
   getNodes: vi.fn((): Observable<any> => of({ rows: [], pager: {} })),

@@ -1,6 +1,6 @@
 <div class="page-list">
   <div class="reload">
-    @if (!loading) {
+    @if (!loading()) {
       <app-btn
         [matTooltip]="'BUILDER.PAGE_LIST.RESET' | translate"
         matTooltipPosition="above"
@@ -31,10 +31,10 @@
   </div>
   <div class="lists-wrapper">
     <div class="lists">
-      @if (loading) {
+      @if (loading()) {
         <app-loading [content]="{ size: 50 }" />
       }
-      @if (content$ | async; as content) {
+      @if (lists(); as content) {
         @for (page of content; track page; let i = $index) {
           <div
             [class]="{
@@ -120,7 +120,7 @@
       }
     </div>
   </div>
-  @if (pager) {
+  @if (pager(); as pager) {
     <div class="pager">
       <mat-paginator
         (page)="onPageChange($event)"

@@ -1,12 +1,11 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  OnInit,
-  ChangeDetectorRef,
+  computed,
   inject,
-  input
+  input,
+  signal,
 } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
 import { ReactiveFormsModule, UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,8 +22,6 @@ import { BaseComponent } from '@uiux/base/base.widget';
 import type { IViewMap, IViewMapItem } from '@core/interface/combs/IViewMap';
 import { FormlyComponent } from '@uiux/combs/form/formly/formly.component';
 import { MapComponent } from '../map/map.component';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-view-map',
@@ -32,7 +29,6 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./view-map.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    AsyncPipe,
     ReactiveFormsModule,
     MatButtonModule,
     MatIconModule,
@@ -44,68 +40,64 @@ import { map } from 'rxjs/operators';
     MapComponent,
   ],
 })
-export class ViewMapComponent extends BaseComponent implements OnInit {
+export class ViewMapComponent extends BaseComponent {
   readonly content = input.required<IViewMap>();
-  lists: Observable<IViewMapItem[] | any>;
   form = new UntypedFormGroup({
     page: new UntypedFormControl(),
   });
   model: any = {};
   selectedId: number;
-  loading: boolean;
 
   formService = inject(FormService);
   nodeService = inject(NodeService);
   amapService = inject(AmapService);
-  cd = inject(ChangeDetectorRef);
+
+  private queryOptions = signal<any>({});
+
+  private listRes = this.nodeService.fetchResource(() => {
+    const api = this.content()?.params?.api;
+    if (!api) {
+      return undefined;
+    }
+    return { api, params: this.getApiParams(this.queryOptions()) };
+  });
+
+  lists = computed<IViewMapItem[] | any>(() => {
+    const content = this.content();
+    if (!content?.params?.api) {
+      return content.elements ?? [];
+    }
+    const res = this.listRes.value();
+    if (!res) {
+      return [];
+    }
+    return res.rows.map((row: any) => {
+      const item = { ...row };
+      // 文字地址形式
+      if (item.address) {
+        item.address = item.address.replace(/\s+/g, '').trim();
+      }
+      // position 数组形式 [108.407058, 22.815584]
+      if (item.position && isString(item.position)) {
+        item.position = item.position.split(',');
+      }
+
+      // 经纬度独立字段则处理到position
+      if (item.latitude && item.longitude) {
+        item.position = [item.longitude, item.latitude];
+      }
+      return item;
+    });
+  });
+
   constructor() {
     super();
-  }
-
-  ngOnInit(): void {
-    const content = this.content();
-    if (content?.params?.api) {
-      this.getContent();
-    } else {
-      if (content.elements) {
-        this.lists = of(content.elements);
-        this.cd.detectChanges();
-      }
-    }
-  }
-
-  getContent(options = {}): void {
-    const params = this.getApiParams(options);
-    const urlApi = this.content().params.api || '';
-    this.loading = true;
-    this.lists = this.nodeService.fetch(urlApi, params).pipe(
-      map(({ rows, pager }) => {
-        rows.forEach((item: any) => {
-          // 文字地址形式
-          if (item.address) {
-            item.address = item.address.replace(/\s+/g, '').trim();
-          }
-          // position 数组形式 [108.407058, 22.815584]
-          if (item.position && isString(item.position)) {
-            item.position = item.position.split(',');
-          }
-
-          // 经纬度独立字段则处理到position
-          if (item.latitude && item.longitude) {
-            item.position = [item.longitude, item.latitude];
-          }
-        });
-        this.loading = false;
-        return [...rows];
-      })
-    );
   }
 
   onModelChange(value: any): void {
     this.form.get('page')?.patchValue(1, { onlySelf: true, emitEvent: false });
     const mergeValue = merge(value, this.form.getRawValue());
-    const options = this.formService.handleRangeDate(mergeValue);
-    this.getContent(options);
+    this.queryOptions.set(this.formService.handleRangeDate(mergeValue));
   }
 
   clear(): void {

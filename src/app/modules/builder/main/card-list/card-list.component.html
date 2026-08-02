@@ -17,10 +17,10 @@
     />
   </div>
   <div class="lists">
-    @if (loading) {
+    @if (loading()) {
       <app-loading />
     }
-    @if (content$ | async; as lists) {
+    @if (lists(); as lists) {
       <app-dynamic-component
         [inputs]="{
           content: {
@@ -34,7 +34,7 @@
       />
     }
   </div>
-  @if (pager) {
+  @if (pager(); as pager) {
     <div class="pager">
       <mat-paginator
         class="demo-paginator"
