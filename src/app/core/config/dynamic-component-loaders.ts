@@ -91,8 +91,6 @@ export const DYNAMIC_COMPONENT_LOADERS: Readonly<Record<string, ComponentLoader>
   'hero-2v3': () => loadHero().then(m => m.Hero2v3Component),
   map: () => loadMap().then(m => m.MapComponent),
   location: () => loadMap().then(m => m.LocationComponent),
-  'map-list-v1': () => loadMap().then(m => m.MapListV1Component),
-  'view-map': () => loadMap().then(m => m.ViewMapComponent),
   shuffle: () =>
     import('@uiux/combs/masonry/shuffle/shuffle.component').then(m => m.ShuffleComponent),
   article: () => loadNodeContent().then(m => m.ArticleComponent),
