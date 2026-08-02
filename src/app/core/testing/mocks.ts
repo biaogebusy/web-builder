@@ -183,8 +183,6 @@ export const createNodeServiceMock = () => ({
   handleComment: vi.fn(),
   getCommentsWitchChild: vi.fn(() => of({})),
   getCustomApiComment: vi.fn(() => of({})),
-  getFlaging: vi.fn(() => of({})),
-  flagging: vi.fn(() => of({})),
   deleteFlagging: vi.fn(() => of({})),
   checkReqRule: vi.fn(() => false),
   checkNodeAccess: vi.fn(() => of({})),

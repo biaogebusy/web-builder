@@ -102,10 +102,8 @@ export const DYNAMIC_COMPONENT_LOADERS: Readonly<Record<string, ComponentLoader>
   formly: () => loadForm().then(m => m.FormlyComponent),
   datepicker: () => loadForm().then(m => m.DatepickerComponent),
   'dynamic-form': () => loadForm().then(m => m.DynamicFormComponent),
-  flag: () => loadOtherLight().then(m => m.FlagComponent),
   iframe: () => loadOtherLight().then(m => m.IframeComponent),
   stepper: () => loadOtherLight().then(m => m.StepperComponent),
-  download: () => loadOtherLight().then(m => m.DownloadComponent),
   'chip-list': () => loadOtherLight().then(m => m.ChipListComponent),
   autoclose: () => loadOtherLight().then(m => m.AutocloseComponent),
   jsoneditor: () =>

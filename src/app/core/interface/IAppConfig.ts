@@ -1,8 +1,6 @@
 import { IText } from '../interface/widgets/IText';
 import { IAmap } from '../interface/IAmap';
 import { IBgImg } from './widgets/IBgImg';
-import { IDownload } from './widgets/IDownload';
-import { IIcon } from './widgets/IIcon';
 import type { JsonObject } from './common';
 import type { ICustomTheme } from '@core/service/theme.service';
 export interface IAppConfig {
@@ -160,11 +158,6 @@ export interface IEditor {
   modules: Modules;
 }
 
-export interface ICoreFlag {
-  icon: IIcon;
-  enable: boolean;
-}
-
 export interface Button {
   icon: string;
   label: string;
@@ -175,14 +168,8 @@ export interface ICoreShare {
   enable: boolean;
 }
 
-export interface ICoreDownload extends IDownload {
-  enable: boolean;
-}
-
 export interface IActions {
-  flag: ICoreFlag;
   share: ICoreShare;
-  download: ICoreDownload;
 }
 
 export interface Params {

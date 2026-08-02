@@ -192,20 +192,6 @@ export class NodeService extends ApiService {
     return this.commentService.getCustomApiComment(uuid, timeStamp);
   }
 
-  getFlaging(path: string, params: ApiQueryParams, token: string): Observable<any> {
-    return this.http.get<any>(
-      appendQueryParams(`${this.apiUrl}${path}`, params, {
-        arrayFormat: 'plus',
-        encodeKeys: false,
-      }),
-      this.optionsWithBearerToken()
-    );
-  }
-
-  flagging(path: string, data: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}${path}`, data, this.optionsWithBearerToken());
-  }
-
   deleteFlagging(path: string, items: any[]): Observable<any> {
     const obj: any = {};
     items.forEach(item => {
