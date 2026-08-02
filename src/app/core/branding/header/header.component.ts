@@ -46,7 +46,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     const config = this.contentState.pageConfig();
     return config ? config.headerMode : undefined;
   });
-  readonly menuAnchor = viewChild('menuAnchor', { read: ElementRef });
+  readonly menuBar = viewChild('menuBar', { read: ElementRef });
   readonly sentinel = viewChild('sentinel', { read: ElementRef });
   private destoryRef = inject(DestroyRef);
   private injector = inject(Injector);
@@ -59,13 +59,13 @@ export class HeaderComponent implements OnInit, AfterViewInit {
         return;
       }
 
-      const menuAnchor = this.menuAnchor();
+      const menuBar = this.menuBar();
       const sentinel = this.sentinel();
-      if (!menuAnchor || !sentinel) {
+      if (!menuBar || !sentinel) {
         return;
       }
 
-      this.measureMenu();
+      this.observeMenuHeight(menuBar, onCleanup);
       this.observeStickyState(sentinel, onCleanup);
     });
   }
@@ -88,11 +88,12 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private measureMenu(): void {
-    const menuAnchor = this.menuAnchor();
-    if (menuAnchor) {
-      this.menuHeight.set(menuAnchor.nativeElement.offsetHeight);
-    }
+  private observeMenuHeight(menuBar: ElementRef, onCleanup: EffectCleanupRegisterFn): void {
+    const resizeObserver = new ResizeObserver(() => {
+      this.menuHeight.set(menuBar.nativeElement.offsetHeight);
+    });
+    resizeObserver.observe(menuBar.nativeElement);
+    onCleanup(() => resizeObserver.disconnect());
   }
 
   private observeStickyState(

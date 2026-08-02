@@ -18,8 +18,8 @@
     }
     @if (branding?.header) {
       <div class="sticky-sentinel" #sentinel></div>
-      <div class="menu-anchor" #menuAnchor [style.minHeight.px]="menuHeight() || null">
-        <app-menu class="menu-bar" [class.is-fixed]="sticky()" />
+      <div class="menu-anchor" [style.minHeight.px]="menuHeight() || null">
+        <app-menu class="menu-bar" #menuBar [class.is-fixed]="sticky()" />
       </div>
     }
   </header>
