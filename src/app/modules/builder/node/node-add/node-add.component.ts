@@ -39,7 +39,10 @@ export class NodeAddComponent implements OnInit {
   /** 编辑模式下的节点 uuid;为空即新建 */
   public editUuid = signal<string>('');
   public form: UntypedFormGroup = new UntypedFormGroup({});
-  public fields = signal<FormlyFieldConfig[]>([]);
+  /** 中间编辑区字段:标题 + 正文类(rich-editor/json) */
+  public mainFields = signal<FormlyFieldConfig[]>([]);
+  /** 右侧属性面板字段:标签、布尔、数值等元数据 */
+  public sideFields = signal<FormlyFieldConfig[]>([]);
   /** 编辑模式的表单回填模型 */
   public model = signal<any>({});
   public nodeTypes = signal<{ label: string; value: string }[]>([]);
@@ -73,7 +76,8 @@ export class NodeAddComponent implements OnInit {
       this.type.set(type);
       this.editUuid.set(uuid);
       // 切换类型/节点时销毁旧表单(app-formly 只在创建时快照 fields 与 model)
-      this.fields.set([]);
+      this.mainFields.set([]);
+      this.sideFields.set([]);
       this.model.set({});
       this.form = new UntypedFormGroup({});
 
@@ -101,7 +105,7 @@ export class NodeAddComponent implements OnInit {
                 body: this.parseJsonBody(node),
               });
             }
-            this.fields.set([
+            this.mainFields.set([
               this.getTitleField(),
               {
                 key: 'body',
@@ -130,7 +134,17 @@ export class NodeAddComponent implements OnInit {
                   ...this.fieldFormService.buildModel(meta, node),
                 });
               }
-              this.fields.set([this.getTitleField(), ...fields]);
+              // 正文类字段进中间编辑区,其余元数据进右侧属性面板
+              const bodyKeys = new Set(
+                meta
+                  .filter(m => m.fieldType === 'text_long' || m.fieldType === 'text_with_summary')
+                  .map(m => m.key)
+              );
+              this.mainFields.set([
+                this.getTitleField(),
+                ...fields.filter(f => bodyKeys.has(f.key as string)),
+              ]);
+              this.sideFields.set(fields.filter(f => !bodyKeys.has(f.key as string)));
               // field_config 需要 administer node fields 权限,无权限时 data 为空
               if (fields.length === 0) {
                 this.util.openSnackbar(
@@ -166,6 +180,8 @@ export class NodeAddComponent implements OnInit {
     return {
       key: 'title',
       type: 'input',
+      // 中间编辑区的大号无边框标题样式挂钩(见组件 scss)
+      className: 'node-title-field',
       props: {
         label: this.translate.instant('BUILDER.NODE_ADD.FIELD_TITLE'),
         required: true,
