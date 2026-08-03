@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject, output, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  output,
+  input,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { ContenteditDirective } from '@core/directive/contentedit.directive';
 import { ReqRolesDirective } from '@core/directive/req-roles.directive';
@@ -27,6 +34,25 @@ export class BtnComponent {
    * Disabled 状态下原生 button/anchor 已经会阻止点击事件,因此无需额外保护。
    */
   readonly btnClick = output<MouseEvent>();
+
+  /**
+   * icon/fab/mini-fab 模式只渲染图标,内容缺省 ariaLabel 时按钮没有无障碍名称
+   * (AXE: button-name),CMS 数据又无法保证带 ariaLabel,这里兜底:
+   * ariaLabel → label(label 经 safeHtml 渲染可能带 HTML 标签,需去掉)→ 图标名。
+   */
+  readonly ariaLabel = computed(() => {
+    const content = this.content();
+    if (!content) {
+      return null;
+    }
+    if (content.ariaLabel) {
+      return content.ariaLabel;
+    }
+    const label = String(content.label ?? '')
+      .replace(/<[^>]+>/g, ' ')
+      .trim();
+    return label || content.icon?.svg || content.icon?.name || null;
+  });
 
   routeService = inject(RouteService);
 
