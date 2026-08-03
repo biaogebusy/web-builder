@@ -132,7 +132,10 @@ app.use('/**', (req, res, next) => {
     res.setHeader('X-Cache', 'MISS');
   } else {
     requestTiming.cacheStatus = 'BYPASS';
-    res.setHeader('Cache-Control', 'private, no-store');
+    // 'no-store' on the document makes the page ineligible for the browser's
+    // back/forward cache; 'private, no-cache' still forces revalidation on every
+    // HTTP reuse and keeps shared caches out, without blocking bfcache.
+    res.setHeader('Cache-Control', 'private, no-cache');
     res.setHeader('X-Accel-Expires', '0');
     res.setHeader('X-Cache', 'BYPASS');
   }
