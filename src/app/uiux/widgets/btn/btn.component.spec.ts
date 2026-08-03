@@ -67,4 +67,41 @@ describe('BtnComponent', () => {
     const button = fixture.nativeElement.querySelector('button');
     expect(button.getAttribute('aria-label')).toBe('close');
   });
+
+  it('should give raised link a discernible name when label is empty', () => {
+    fixture.componentRef.setInput('content', {
+      mode: 'raised',
+      href: '/path',
+      icon: { svg: 'arrow_forward' },
+    });
+    fixture.detectChanges();
+
+    const link = fixture.nativeElement.querySelector('a');
+    expect(link.getAttribute('aria-label')).toBe('arrow_forward');
+  });
+
+  it('should use explicit ariaLabel on raised link', () => {
+    fixture.componentRef.setInput('content', {
+      mode: 'raised',
+      href: '/path',
+      label: '',
+      ariaLabel: '了解更多',
+    });
+    fixture.detectChanges();
+
+    const link = fixture.nativeElement.querySelector('a');
+    expect(link.getAttribute('aria-label')).toBe('了解更多');
+  });
+
+  it('should mirror the stripped label on raised link', () => {
+    fixture.componentRef.setInput('content', {
+      mode: 'raised',
+      href: '/path',
+      label: '<b>立即</b>购买',
+    });
+    fixture.detectChanges();
+
+    const link = fixture.nativeElement.querySelector('a');
+    expect(link.getAttribute('aria-label')).toBe('立即 购买');
+  });
 });

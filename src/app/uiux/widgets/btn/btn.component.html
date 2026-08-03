@@ -6,6 +6,7 @@
           <button
             [class]="contentValue.classes || ''"
             [class.pill]="contentValue.pill"
+            [attr.aria-label]="ariaLabel()"
             [disabled]="contentValue.disabled"
             mat-raised-button
             [color]="contentValue.color"
@@ -23,6 +24,7 @@
           <a
             [class]="contentValue.classes || ''"
             [class.pill]="contentValue.pill"
+            [attr.aria-label]="ariaLabel()"
             [disabled]="contentValue.disabled"
             mat-raised-button
             (click)="onNav($event, contentValue)"
@@ -45,6 +47,7 @@
           <button
             [class]="contentValue.classes || ''"
             [class.pill]="contentValue.pill"
+            [attr.aria-label]="ariaLabel()"
             [disabled]="contentValue.disabled"
             mat-stroked-button
             [color]="contentValue.color"
@@ -62,6 +65,7 @@
           <a
             [class]="contentValue.classes || ''"
             [class.pill]="contentValue.pill"
+            [attr.aria-label]="ariaLabel()"
             [disabled]="contentValue.disabled"
             mat-stroked-button
             (click)="onNav($event, contentValue)"
@@ -84,6 +88,7 @@
           <button
             [class]="contentValue.classes || ''"
             [class.pill]="contentValue.pill"
+            [attr.aria-label]="ariaLabel()"
             [disabled]="contentValue.disabled"
             mat-flat-button
             [color]="contentValue.color"
@@ -101,6 +106,7 @@
           <a
             [class]="contentValue.classes || ''"
             [class.pill]="contentValue.pill"
+            [attr.aria-label]="ariaLabel()"
             [disabled]="contentValue.disabled"
             mat-flat-button
             (click)="onNav($event, contentValue)"
@@ -184,6 +190,7 @@
         @if (!contentValue.href) {
           <button
             [class]="contentValue.classes || ''"
+            [attr.aria-label]="ariaLabel()"
             [disabled]="contentValue.disabled"
             mat-button
             [color]="contentValue.color"
@@ -200,6 +207,7 @@
         } @else {
           <a
             [class]="contentValue.classes || ''"
+            [attr.aria-label]="ariaLabel()"
             [disabled]="contentValue.disabled"
             mat-button
             (click)="onNav($event, contentValue)"

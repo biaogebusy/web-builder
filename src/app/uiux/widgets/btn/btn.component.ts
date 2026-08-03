@@ -36,8 +36,9 @@ export class BtnComponent {
   readonly btnClick = output<MouseEvent>();
 
   /**
-   * icon/fab/mini-fab 模式只渲染图标,内容缺省 ariaLabel 时按钮没有无障碍名称
-   * (AXE: button-name),CMS 数据又无法保证带 ariaLabel,这里兜底:
+   * 所有模式的无障碍名称兜底(AXE: button-name / link-name):
+   * icon/fab/mini-fab 只渲染图标,raised/stroked/flat/text 的 label 也可能为空或纯
+   * HTML(如仅图片),CMS 数据又无法保证带 ariaLabel,这里统一兜底:
    * ariaLabel → label(label 经 safeHtml 渲染可能带 HTML 标签,需去掉)→ 图标名。
    */
   readonly ariaLabel = computed(() => {
