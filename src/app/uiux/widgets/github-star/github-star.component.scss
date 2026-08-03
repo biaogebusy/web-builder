@@ -17,7 +17,9 @@
     padding: 2px 5px;
     line-height: 1;
     &.right {
-      min-width: 20px;
+      // wide enough for a 3-digit count so the pill doesn't grow when the
+      // client-side fetch resolves
+      min-width: 34px;
       text-align: center;
       border-left: 1px solid var(--mat-sys-surface-dim);
     }

@@ -19,10 +19,12 @@ export class LogoComponent implements OnInit {
 
   ngOnInit(): void {
     const content = this.content();
+    // Logos render above the fold; eager-load by default so the brand image
+    // never lazy-pops in after hydration (content can still override).
     if (!this.isInvert() && content?.img) {
-      this.img = content.img;
+      this.img = { priority: true, ...content.img };
     } else {
-      this.img = { ...content?.img, src: content?.invert || '' };
+      this.img = { priority: true, ...content?.img, src: content?.invert || '' };
     }
   }
 }

@@ -1,3 +1,16 @@
+@use 'variable/breakpoint' as *;
+
+// Rendered during SSR and hidden below the md breakpoint with CSS instead of a
+// browser-only mqAlias$ check, so showing it never shifts the hydrated layout.
+// 960px matches ScreenState's md/lg/xl aliases (CDK Breakpoints.Medium).
+:host {
+  @apply block;
+
+  @media #{$lt-md} {
+    display: none;
+  }
+}
+
 .header-banner {
   @apply relative;
 }

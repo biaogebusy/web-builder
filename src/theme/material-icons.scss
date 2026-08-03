@@ -2,7 +2,9 @@
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
+  // block, not swap: swapping renders the ligature text ("search") in the
+  // fallback font first, which shifts layout when the icon font arrives.
+  font-display: block;
   src:
     url('/assets/fonts/material-icons/MaterialIcons-Regular.woff2') format('woff2'),
     url('/assets/fonts/material-icons/MaterialIcons-Regular.woff') format('woff');
