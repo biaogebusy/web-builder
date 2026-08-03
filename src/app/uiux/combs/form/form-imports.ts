@@ -7,7 +7,6 @@ import { RichTextComponent } from './formly-type/rich-text/rich-text.component';
 import { SliderComponent } from './formly-type/slider/slider.component';
 import { TabsTypeComponent } from './formly-type/tabs/tabs.component';
 import { FormlyComponent } from './formly/formly.component';
-import { TermsServiceComponent } from './terms-service/terms-service.component';
 import { RichEditorComponent } from './formly-type/rich-editor/rich-editor.component';
 import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
 import { DialogRepeatComponent } from './formly-type/dialog-repeat/dialog-repeat.component';
@@ -24,7 +23,6 @@ export const FORM_IMPORTS = [
   RepeatTypeComponent,
   DatepickerComponent,
   DynamicFormComponent,
-  TermsServiceComponent,
   DialogRepeatComponent,
 ] as const;
 
@@ -38,7 +36,6 @@ export {
   SliderComponent,
   TabsTypeComponent,
   FormlyComponent,
-  TermsServiceComponent,
   RichEditorComponent,
   DynamicFormComponent,
   DialogRepeatComponent,

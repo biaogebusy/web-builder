@@ -5,12 +5,12 @@
       [content]="{ svg: 'help-circle-outline' }"
     />
   </div>
-  @if (loading) {
+  @if (loading()) {
     <div class="spinner">
       <app-loading />
     </div>
   }
-  @if (content$ | async; as content) {
+  @if (content(); as content) {
     @for (item of content; track item) {
       <div class="item">
         <div class="card" role="button" tabindex="0" (click)="onNewPage(item)" (keyup.enter)="onNewPage(item)" matRipple>

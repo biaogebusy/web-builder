@@ -1,4 +1,5 @@
-import { DestroyRef, ElementRef, Injectable, inject } from '@angular/core';
+import { DestroyRef, ElementRef, Injectable, Injector, inject } from '@angular/core';
+import { HttpResourceRef, httpResource } from '@angular/common/http';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ApiService } from './api.service';
 import { forkJoin, Observable, of } from 'rxjs';
@@ -15,13 +16,20 @@ import { CommentService } from './comment.service';
 import { getLangPrefix } from '@core/util/language.util';
 import { MediaUploadService } from './media-upload.service';
 
-type ApiQueryParams = QueryParams | string | null | undefined;
+export type ApiQueryParams = QueryParams | string | null | undefined;
+
+export interface IFetchResourceRequest {
+  api: string;
+  params?: ApiQueryParams;
+  langCode?: string;
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class NodeService extends ApiService {
   private destroyRef = inject(DestroyRef);
+  private injector = inject(Injector);
 
   private builder = inject(BuilderState);
   private commentService = inject(CommentService);
@@ -32,11 +40,33 @@ export class NodeService extends ApiService {
   }
 
   fetch(api: string, params: ApiQueryParams = '', langCode?: string): Observable<any> {
-    let apiPath = '';
-    let lang = '';
     if (!api) {
       return of(false);
     }
+    return this.http.get<any>(this.buildFetchUrl(api, params, langCode), this.httpOptionsOfCommon);
+  }
+
+  // Declarative counterpart of fetch(): re-requests whenever signals read in `request` change.
+  // Return undefined from `request` to skip fetching (e.g. no api configured yet).
+  fetchResource(request: () => IFetchResourceRequest | undefined): HttpResourceRef<any> {
+    return httpResource(
+      () => {
+        const req = request();
+        if (!req?.api) {
+          return undefined;
+        }
+        return {
+          url: this.buildFetchUrl(req.api, req.params ?? '', req.langCode),
+          headers: this.httpOptionsOfCommon.headers,
+        };
+      },
+      { injector: this.injector }
+    );
+  }
+
+  private buildFetchUrl(api: string, params: ApiQueryParams, langCode?: string): string {
+    let apiPath = '';
+    let lang = '';
     if (langCode) {
       lang = getLangPrefix({ langCode });
     }
@@ -45,14 +75,10 @@ export class NodeService extends ApiService {
     } else {
       apiPath = `${this.apiUrl}${lang}/api/v1/${api}`;
     }
-
-    return this.http.get<any>(
-      appendQueryParams(apiPath, params, {
-        arrayFormat: 'plus',
-        encodeKeys: false,
-      }),
-      this.httpOptionsOfCommon
-    );
+    return appendQueryParams(apiPath, params, {
+      arrayFormat: 'plus',
+      encodeKeys: false,
+    });
   }
 
   resolveLangCode(elementRef?: ElementRef): string | undefined {
@@ -190,20 +216,6 @@ export class NodeService extends ApiService {
   // custom get comment api
   getCustomApiComment(uuid: string, timeStamp = 1): Observable<any> {
     return this.commentService.getCustomApiComment(uuid, timeStamp);
-  }
-
-  getFlaging(path: string, params: ApiQueryParams, token: string): Observable<any> {
-    return this.http.get<any>(
-      appendQueryParams(`${this.apiUrl}${path}`, params, {
-        arrayFormat: 'plus',
-        encodeKeys: false,
-      }),
-      this.optionsWithBearerToken()
-    );
-  }
-
-  flagging(path: string, data: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}${path}`, data, this.optionsWithBearerToken());
   }
 
   deleteFlagging(path: string, items: any[]): Observable<any> {
