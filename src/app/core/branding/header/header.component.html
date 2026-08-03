@@ -10,7 +10,7 @@
     [class.header-sticky]="sticky()"
     [class.light]="headerMode?.transparent && headerMode?.style === 'light'"
   >
-    @if (showBanner()) {
+    @if (banner) {
       <app-header-banner [content]="banner" />
     }
     @if (top) {
