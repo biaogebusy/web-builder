@@ -1,7 +1,16 @@
 @let u = user();
 <div class="node-add">
   <div class="editor-topbar">
-    <app-title [content]="{ label: typeLabel(), style: 'none' }" />
+    <h1 class="topbar-title">
+      @if (editUuid() && model().title) {
+        {{ model().title }}
+      } @else {
+        {{
+          (editUuid() ? 'BUILDER.NODE_ADD.EDIT_TITLE' : 'BUILDER.NODE_ADD.CREATE_TITLE')
+            | translate: { type: typeLabel() }
+        }}
+      }
+    </h1>
     <div class="actions">
       @if (submitting()) {
         <app-spinner [content]="{ size: 32, color: 'primary' }" />
@@ -13,15 +22,70 @@
             color: 'primary',
             mode: 'raised',
             icon: {
-              svg: 'send',
+              svg: 'pencil-plus',
             },
           }"
         />
       }
     </div>
   </div>
-  <div class="container">
+  <div class="node-layout">
     <div class="node-main">
+      <!-- 独立编辑器工具栏通栏:quill(snow)以此为外部 toolbar 容器,初始化时自动绑定按钮 -->
+      @if (hasRichEditor()) {
+        <div
+          id="node-editor-toolbar"
+          class="editor-toolbar"
+          role="toolbar"
+          [attr.aria-label]="'BUILDER.NODE_ADD.TOOLBAR' | translate"
+        >
+          <span class="ql-formats">
+            <select class="ql-header" aria-label="Heading">
+              <option value="1"></option>
+              <option value="2"></option>
+              <option value="3"></option>
+              <option value="4"></option>
+              <option value="5"></option>
+              <option value="6"></option>
+              <option selected></option>
+            </select>
+          </span>
+          <span class="ql-formats">
+            <button type="button" class="ql-bold" aria-label="Bold"></button>
+            <button type="button" class="ql-italic" aria-label="Italic"></button>
+            <button type="button" class="ql-underline" aria-label="Underline"></button>
+            <button type="button" class="ql-strike" aria-label="Strikethrough"></button>
+          </span>
+          <span class="ql-formats">
+            <select class="ql-align" aria-label="Align"></select>
+          </span>
+          <span class="ql-formats">
+            <button type="button" class="ql-list" value="ordered" aria-label="Ordered list"></button>
+            <button type="button" class="ql-list" value="bullet" aria-label="Bullet list"></button>
+            <button type="button" class="ql-list" value="check" aria-label="Check list"></button>
+          </span>
+          <span class="ql-formats">
+            <button type="button" class="ql-indent" value="-1" aria-label="Outdent"></button>
+            <button type="button" class="ql-indent" value="+1" aria-label="Indent"></button>
+          </span>
+          <span class="ql-formats">
+            <select class="ql-color" aria-label="Text color"></select>
+            <select class="ql-background" aria-label="Background color"></select>
+          </span>
+          <span class="ql-formats">
+            <button type="button" class="ql-link" aria-label="Link"></button>
+            <button type="button" class="ql-image" aria-label="Image"></button>
+            <button type="button" class="ql-video" aria-label="Video"></button>
+          </span>
+          <span class="ql-formats">
+            <button type="button" class="ql-blockquote" aria-label="Blockquote"></button>
+            <button type="button" class="ql-code-block" aria-label="Code block"></button>
+          </span>
+          <span class="ql-formats">
+            <button type="button" class="ql-clean" aria-label="Clear formatting"></button>
+          </span>
+        </div>
+      }
       <!-- app-formly 在 ngAfterViewInit 一次性快照 fields/model,以 type+uuid 为 key 强制切换时销毁重建 -->
       @if (mainFields().length > 0) {
         @for (t of [type() + '/' + editUuid()]; track t) {

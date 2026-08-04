@@ -10,30 +10,38 @@
     background: var(--shadcn-background);
     border-bottom: 1px solid var(--shadcn-border);
   }
+  .topbar-title {
+    @apply m-0 truncate text-base font-semibold;
+    color: var(--shadcn-foreground);
+  }
   .actions {
     @apply flex items-center;
   }
-  .container {
+  // 不用 .container 命名:Tailwind 的 container 工具类自带 max-width/边距,会污染布局。
+  // 通高铺满(减去 h-14 顶栏),保证右栏左侧细线始终触底
+  .node-layout {
     @apply flex flex-1 flex-col items-stretch lg:flex-row;
+    min-height: calc(100vh - 3.5rem);
   }
   .node-main {
     @apply min-w-0 flex-1;
 
-    // quill(snow 主题)默认是带边框的盒子;重排为 Frase 式:
-    // 工具栏通栏 sticky 在顶栏之下,只留下边细线;正文无边框、居中限宽
-    ::ng-deep .ql-toolbar.ql-snow {
-      @apply sticky top-14 z-10 border-x-0 border-t-0 px-6 py-2;
+    // 独立工具栏通栏:quill 初始化时会给容器加上 ql-toolbar/ql-snow 类,
+    // 覆盖 snow 主题的盒式边框,只留下边细线,并 sticky 在顶栏(h-14)之下
+    .editor-toolbar {
+      @apply sticky top-14 z-10 px-6 py-2;
       background: var(--shadcn-background);
       border-bottom: 1px solid var(--shadcn-border);
+      &.ql-toolbar.ql-snow {
+        @apply border-x-0 border-t-0 px-6 py-2 font-sans;
+        border-bottom: 1px solid var(--shadcn-border);
+      }
     }
     ::ng-deep .ql-container.ql-snow {
       @apply border-0 text-base;
     }
-    ::ng-deep .ql-editor {
-      @apply mx-auto min-h-[50vh] max-w-3xl px-6 py-8;
-    }
-
-    // 标题与其余中间区字段同样居中限宽,置于工具栏之下
+    // 标题与正文共用同一左对齐文档容器(mx-auto 限宽 + px-6),内部控件一律 px-0,
+    // 保证标题文本与正文文本严格左对齐
     ::ng-deep formly-form {
       @apply block;
     }
@@ -45,13 +53,20 @@
       input:focus {
         @apply ring-0;
       }
+      input::placeholder {
+        color: var(--shadcn-muted-foreground);
+        @apply font-bold opacity-60;
+      }
       label {
-        @apply hidden;
+        // 视觉隐藏但保留给读屏器,input 的可访问名称来自它
+        @apply sr-only;
       }
     }
-    // 非富文本的中间区字段(如 json 编辑器)也保持同一文档宽度
-    ::ng-deep formly-field:not(.node-title-field):not(:has(.ql-toolbar)) {
-      @apply mx-auto block max-w-3xl px-6;
+    ::ng-deep .node-body-field {
+      @apply mx-auto block max-w-3xl px-6 pb-8;
+    }
+    ::ng-deep .ql-editor {
+      @apply min-h-[50vh] px-0 py-4;
     }
 
     .form-skeleton {

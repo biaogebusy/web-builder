@@ -53,6 +53,8 @@ export class NodeAddComponent implements OnInit {
   public typeLabel = computed(
     () => this.nodeTypes().find(t => t.value === this.type())?.label ?? this.type()
   );
+  /** 中间区含富文本时,顶栏下渲染独立的编辑器工具栏通栏 */
+  public hasRichEditor = computed(() => this.mainFields().some(f => f.type === 'rich-editor'));
   private fieldMeta: INodeFieldMeta[] = [];
 
   ngOnInit(): void {
@@ -110,6 +112,7 @@ export class NodeAddComponent implements OnInit {
               {
                 key: 'body',
                 type: 'json',
+                className: 'node-body-field',
                 props: {
                   label: 'JSON',
                   required: true,
@@ -140,10 +143,19 @@ export class NodeAddComponent implements OnInit {
                   .filter(m => m.fieldType === 'text_long' || m.fieldType === 'text_with_summary')
                   .map(m => m.key)
               );
-              this.mainFields.set([
-                this.getTitleField(),
-                ...fields.filter(f => bodyKeys.has(f.key as string)),
-              ]);
+              // 富文本工具栏抽离到顶栏下的独立通栏容器(模板中的 #node-editor-toolbar);
+              // node-body-field 与标题字段共用同一左对齐文档容器(见 scss)
+              const bodyFields = fields
+                .filter(f => bodyKeys.has(f.key as string))
+                .map(f => ({
+                  ...f,
+                  className: 'node-body-field',
+                  props:
+                    f.type === 'rich-editor'
+                      ? { ...f.props, toolbarContainer: '#node-editor-toolbar' }
+                      : f.props,
+                }));
+              this.mainFields.set([this.getTitleField(), ...bodyFields]);
               this.sideFields.set(fields.filter(f => !bodyKeys.has(f.key as string)));
               // field_config 需要 administer node fields 权限,无权限时 data 为空
               if (fields.length === 0) {
@@ -184,6 +196,8 @@ export class NodeAddComponent implements OnInit {
       className: 'node-title-field',
       props: {
         label: this.translate.instant('BUILDER.NODE_ADD.FIELD_TITLE'),
+        // label 视觉隐藏,以占位符提示标题输入位(Frase 式文档标题)
+        placeholder: this.translate.instant('BUILDER.NODE_ADD.TITLE_PLACEHOLDER'),
         required: true,
       },
     };
