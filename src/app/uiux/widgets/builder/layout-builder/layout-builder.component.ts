@@ -3,7 +3,6 @@ import {
   Component,
   ElementRef,
   Injector,
-  OnDestroy,
   afterRenderEffect,
   inject,
   signal,
@@ -17,7 +16,6 @@ import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
 import { generatePath } from '@core/util/dom-path.util';
-import type { Instance as PopperInstance } from '@popperjs/core';
 import { BgImgComponent } from '../../bg-img/bg-img.component';
 import { BtnComponent } from '../../btn/btn.component';
 import { IconComponent } from '../../icon/icon.component';
@@ -39,7 +37,7 @@ import { LayoutToolbarComponent } from '@modules/builder/toolbar/layout-toolbar/
     LayoutToolbarComponent,
   ],
 })
-export class LayoutBuilderComponent implements AfterViewInit, OnDestroy {
+export class LayoutBuilderComponent implements AfterViewInit {
   currentPage = inject(BUILDER_CURRENT_PAGE, { optional: true });
 
   readonly content = input.required<ILayoutBuilder>();
@@ -48,7 +46,6 @@ export class LayoutBuilderComponent implements AfterViewInit, OnDestroy {
   private util = inject(UtilitiesService);
   private ele = inject(ElementRef);
   private screenService = inject(ScreenService);
-  private popup?: PopperInstance;
   private injector = inject(Injector);
 
   ngAfterViewInit(): void {
@@ -81,38 +78,5 @@ export class LayoutBuilderComponent implements AfterViewInit, OnDestroy {
         this.util.initAnimate(item, animateEle, this.ele.nativeElement);
       }
     });
-  }
-
-  async onHoverWidget(widget: any): Promise<void> {
-    if (!this.showToolbar()) {
-      return;
-    }
-
-    const { createPopper } = await import('@popperjs/core');
-    const component = widget.querySelector('.component');
-    const popup = widget.querySelector('.block-toolbar');
-    this.popup?.destroy();
-    this.popup = createPopper(component, popup, {
-      placement: 'bottom',
-      strategy: 'fixed',
-      modifiers: [
-        {
-          name: 'offset',
-          options: {
-            offset: [0, 0],
-          },
-        },
-      ],
-    });
-    this.popup.update();
-  }
-
-  onLeaveWidget(): void {
-    this.popup?.destroy();
-    this.popup = undefined;
-  }
-
-  ngOnDestroy(): void {
-    this.popup?.destroy();
   }
 }
