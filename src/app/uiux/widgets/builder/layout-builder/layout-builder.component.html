@@ -10,14 +10,19 @@
 
   <div class="layout-builder" [class]="classes" [style]="style">
     <div
-      id="layout"
-      class="layout-inner {{ wrapperClass }} justify-{{ horizontal }} justify-items-{{
-        vertical
-      }} items-{{ alignItems }}  gap-{{ gap?.xs || 'none' }} sm:gap-{{
-        gap?.sm || 'none'
-      }} md:gap-{{ gap?.md || 'none' }} lg:gap-{{ gap?.lg || 'none' }}"
+      class="layout-inner"
+      [class]="[
+        wrapperClass || '',
+        horizontal ? 'justify-' + horizontal : '',
+        vertical ? 'justify-items-' + vertical : '',
+        alignItems ? 'items-' + alignItems : '',
+        gap?.xs ? 'gap-' + gap?.xs : '',
+        gap?.sm ? 'sm:gap-' + gap?.sm : '',
+        gap?.md ? 'md:gap-' + gap?.md : '',
+        gap?.lg ? 'lg:gap-' + gap?.lg : ''
+      ]"
     >
-      @for (layout of elements; track layout; let i = $index) {
+      @for (layout of elements; track $index; let i = $index) {
         @let bg = layout.bg;
         @let gap = layout.gap;
         @let row = layout.row;
@@ -33,9 +38,9 @@
             classes || '',
             'layout-' + i,
             'col-span-' + (row.xs || '12'),
-            'sm:col-span-' + row.sm,
-            'md:col-span-' + row.md,
-            'lg:col-span-' + row.lg
+            row.sm ? 'sm:col-span-' + row.sm : '',
+            row.md ? 'md:col-span-' + row.md : '',
+            row.lg ? 'lg:col-span-' + row.lg : ''
           ]"
           [attr.data-path]="'elements.' + i"
           #layoutEle
@@ -71,19 +76,19 @@
               class="blocks"
               [class]="[
                 blockClasses || '',
-                'justify-' + horizontal,
-                'justify-items-' + vertical,
-                'items-' + alignItems,
-                'gap-' + (gap?.xs || 'none'),
-                'sm:gap-' + (gap?.sm || 'none'),
-                'md:gap-' + (gap?.md || 'none'),
-                'lg:gap-' + (gap?.lg || 'none')
+                horizontal ? 'justify-' + horizontal : '',
+                vertical ? 'justify-items-' + vertical : '',
+                alignItems ? 'items-' + alignItems : '',
+                gap?.xs ? 'gap-' + gap?.xs : '',
+                gap?.sm ? 'sm:gap-' + gap?.sm : '',
+                gap?.md ? 'md:gap-' + gap?.md : '',
+                gap?.lg ? 'lg:gap-' + gap?.lg : ''
               ]"
             >
               @if (bg) {
                 <app-bg-img [attr.data-path]="'bg'" [content]="bg" />
               }
-              @for (item of elements; track item; let index = $index; let last = $last) {
+              @for (item of elements; track $index; let index = $index; let last = $last) {
                 <div
                   #widget
                   (mouseleave)="onLeaveWidget()"

@@ -3,7 +3,8 @@ import {
   Component,
   ElementRef,
   Injector,
-  effect,
+  OnDestroy,
+  afterRenderEffect,
   inject,
   signal,
   ChangeDetectionStrategy,
@@ -38,7 +39,7 @@ import { LayoutToolbarComponent } from '@modules/builder/toolbar/layout-toolbar/
     LayoutToolbarComponent,
   ],
 })
-export class LayoutBuilderComponent implements AfterViewInit {
+export class LayoutBuilderComponent implements AfterViewInit, OnDestroy {
   currentPage = inject(BUILDER_CURRENT_PAGE, { optional: true });
 
   readonly content = input.required<ILayoutBuilder>();
@@ -57,7 +58,7 @@ export class LayoutBuilderComponent implements AfterViewInit {
       }
       if (this.showToolbar() && this.currentPage) {
         const currentPage = this.currentPage;
-        effect(() => {
+        afterRenderEffect(() => {
           currentPage();
           this.layoutAnimate();
         }, { injector: this.injector });
@@ -72,11 +73,13 @@ export class LayoutBuilderComponent implements AfterViewInit {
   }
 
   layoutAnimate(): void {
-    this.content().elements.map((item: ILayoutBlock, index) => {
-      const animateEle = this.ele.nativeElement.querySelectorAll(
-        `.layout-${index} .for-animate`
-      )[0];
-      this.util.initAnimate(item, animateEle, this.ele.nativeElement);
+    this.content().elements.forEach((item: ILayoutBlock, index) => {
+      const animateEle = this.ele.nativeElement.querySelector(
+        `:scope > .layout-builder > .layout-inner > .layout-${index} > .for-animate`
+      );
+      if (animateEle) {
+        this.util.initAnimate(item, animateEle, this.ele.nativeElement);
+      }
     });
   }
 
@@ -86,28 +89,30 @@ export class LayoutBuilderComponent implements AfterViewInit {
     }
 
     const { createPopper } = await import('@popperjs/core');
-    if (this.showToolbar()) {
-      const component = widget.querySelector('.component');
-      const popup = widget.querySelector('.block-toolbar');
-      this.popup = createPopper(component, popup, {
-        placement: 'bottom',
-        strategy: 'fixed',
-        modifiers: [
-          {
-            name: 'offset',
-            options: {
-              offset: [0, 0],
-            },
+    const component = widget.querySelector('.component');
+    const popup = widget.querySelector('.block-toolbar');
+    this.popup?.destroy();
+    this.popup = createPopper(component, popup, {
+      placement: 'bottom',
+      strategy: 'fixed',
+      modifiers: [
+        {
+          name: 'offset',
+          options: {
+            offset: [0, 0],
           },
-        ],
-      });
-      this.popup.update();
-    }
+        },
+      ],
+    });
+    this.popup.update();
   }
 
   onLeaveWidget(): void {
-    if (this.showToolbar()) {
-      this.popup?.destroy();
-    }
+    this.popup?.destroy();
+    this.popup = undefined;
+  }
+
+  ngOnDestroy(): void {
+    this.popup?.destroy();
   }
 }
