@@ -1,113 +1,116 @@
 @let u = user();
 <div class="node-add">
+  <div class="editor-topbar">
+    <app-title [content]="{ label: typeLabel(), style: 'none' }" />
+    <div class="actions">
+      @if (submitting()) {
+        <app-spinner [content]="{ size: 32, color: 'primary' }" />
+      } @else if (mainFields().length > 0) {
+        <app-btn
+          (click)="onSubmit(form.value, u)"
+          [content]="{
+            label: 'BUILDER.NODE_ADD.SUBMIT' | translate,
+            color: 'primary',
+            mode: 'raised',
+            icon: {
+              svg: 'send',
+            },
+          }"
+        />
+      }
+    </div>
+  </div>
   <div class="container">
-    @if (nodeTypes().length > 0) {
-      <aside class="node-types">
-        <div class="node-types-title">{{ 'BUILDER.NODE_ADD.TYPE_TITLE' | translate }}</div>
-        @for (nodeType of nodeTypes(); track nodeType.value) {
-          <app-btn
-            (click)="switchType(nodeType.value)"
-            [content]="{
-              label: nodeType.label,
-              color: type() === nodeType.value ? 'primary' : undefined,
-              mode: type() === nodeType.value ? 'flat' : 'stroked',
-              pill: true,
-            }"
-          />
-        }
-      </aside>
-    } @else if (typesLoading()) {
-      <aside class="node-types">
-        <div class="node-types-title">{{ 'BUILDER.NODE_ADD.TYPE_TITLE' | translate }}</div>
-        @for (_ of [1, 2, 3, 4]; track $index) {
-          <ngx-skeleton-loader
-            class="type-skeleton"
-            count="1"
-            appearance="line"
-            [theme]="{
-              height: '40px',
-              'border-radius': '9999px',
-              'background-color': 'var(--shadcn-muted)',
-              margin: '0',
-            }"
-          />
-        }
-      </aside>
-    }
     <div class="node-main">
-      <app-title [content]="{ label: typeLabel(), style: 'none' }" />
-      <div class="node-form">
-        <!-- app-formly 在 ngAfterViewInit 一次性快照 fields/model,以 type+uuid 为 key 强制切换时销毁重建 -->
-        @if (fields().length > 0) {
-          @for (t of [type() + '/' + editUuid()]; track t) {
-            <app-formly
-              [form]="form"
-              [fields]="fields()"
-              [model]="model()"
-              [content]="{ uiTheme: 'shadcn' }"
-            />
+      <!-- app-formly 在 ngAfterViewInit 一次性快照 fields/model,以 type+uuid 为 key 强制切换时销毁重建 -->
+      @if (mainFields().length > 0) {
+        @for (t of [type() + '/' + editUuid()]; track t) {
+          <app-formly
+            [form]="form"
+            [fields]="mainFields()"
+            [model]="model()"
+            [content]="{ uiTheme: 'shadcn' }"
+          />
+        }
+      } @else {
+        <!-- 字段经 field config API 内省后异步返回,加载中以骨架屏占位 -->
+        <div class="form-skeleton">
+          @for (controlHeight of ['3rem', '20rem']; track $index) {
+            <div class="skeleton-field">
+              <ngx-skeleton-loader
+                count="1"
+                appearance="line"
+                [theme]="{
+                  width: '30%',
+                  height: '14px',
+                  'border-radius': '4px',
+                  'background-color': 'var(--shadcn-muted)',
+                  margin: '0',
+                }"
+              />
+              <ngx-skeleton-loader
+                count="1"
+                appearance="line"
+                [theme]="{
+                  height: controlHeight,
+                  'border-radius': 'var(--shadcn-radius)',
+                  'background-color': 'var(--shadcn-muted)',
+                  margin: '0',
+                }"
+              />
+            </div>
           }
-          <div class="actions">
-            @if (submitting()) {
-              <app-spinner [content]="{ size: 32, color: 'primary' }" />
-            } @else {
+        </div>
+      }
+    </div>
+    <aside class="node-aside">
+      <section class="aside-section">
+        <div class="aside-title">{{ 'BUILDER.NODE_ADD.TYPE_TITLE' | translate }}</div>
+        @if (nodeTypes().length > 0) {
+          <div class="node-types">
+            @for (nodeType of nodeTypes(); track nodeType.value) {
               <app-btn
-                (click)="onSubmit(form.value, u)"
+                (click)="switchType(nodeType.value)"
                 [content]="{
-                  label: 'BUILDER.NODE_ADD.SUBMIT' | translate,
-                  color: 'primary',
-                  mode: 'raised',
-                  icon: {
-                    svg: 'send',
-                  },
+                  label: nodeType.label,
+                  color: type() === nodeType.value ? 'primary' : undefined,
+                  mode: type() === nodeType.value ? 'flat' : 'stroked',
+                  pill: true,
                 }"
               />
             }
           </div>
-        } @else {
-          <!-- 字段经 field config API 内省后异步返回,加载中以骨架屏占位 -->
-          <div class="form-skeleton">
-            @for (controlHeight of ['2rem', '8rem', '2rem', '2rem']; track $index) {
-              <div class="skeleton-field">
-                <ngx-skeleton-loader
-                  count="1"
-                  appearance="line"
-                  [theme]="{
-                    width: '30%',
-                    height: '14px',
-                    'border-radius': '4px',
-                    'background-color': 'var(--shadcn-muted)',
-                    margin: '0',
-                  }"
-                />
-                <ngx-skeleton-loader
-                  count="1"
-                  appearance="line"
-                  [theme]="{
-                    height: controlHeight,
-                    'border-radius': 'var(--shadcn-radius)',
-                    'background-color': 'var(--shadcn-muted)',
-                    margin: '0',
-                  }"
-                />
-              </div>
+        } @else if (typesLoading()) {
+          <div class="node-types">
+            @for (_ of [1, 2, 3, 4]; track $index) {
+              <ngx-skeleton-loader
+                class="type-skeleton"
+                count="1"
+                appearance="line"
+                [theme]="{
+                  height: '40px',
+                  'border-radius': '9999px',
+                  'background-color': 'var(--shadcn-muted)',
+                  margin: '0',
+                }"
+              />
             }
           </div>
-          <div class="actions">
-            <ngx-skeleton-loader
-              count="1"
-              appearance="line"
-              [theme]="{
-                width: '7rem',
-                height: '40px',
-                'border-radius': '9999px',
-                'background-color': 'var(--shadcn-muted)',
-                margin: '0',
-              }"
-            />
-          </div>
         }
-      </div>
-    </div>
+      </section>
+      @if (sideFields().length > 0) {
+        <section class="aside-section">
+          <div class="aside-title">{{ 'BUILDER.NODE_ADD.PANEL_ATTRS' | translate }}</div>
+          @for (t of [type() + '/' + editUuid()]; track t) {
+            <app-formly
+              [form]="form"
+              [fields]="sideFields()"
+              [model]="model()"
+              [content]="{ uiTheme: 'shadcn' }"
+            />
+          }
+        </section>
+      }
+    </aside>
   </div>
 </div>

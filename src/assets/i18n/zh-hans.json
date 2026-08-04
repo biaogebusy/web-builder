@@ -411,6 +411,7 @@
       "UPDATE_SUCCESS": "保存成功！",
       "LOAD_NODE_FAILED": "加载节点数据失败，当前为新建表单。",
       "TYPE_TITLE": "内容类型",
+      "PANEL_ATTRS": "文章属性",
       "FIELD_TITLE": "标题",
       "SUBMIT": "确认提交",
       "LOGIN_FIRST": "请登录后再试！",

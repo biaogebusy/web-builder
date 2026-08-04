@@ -411,6 +411,7 @@
       "UPDATE_SUCCESS": "Saved successfully!",
       "LOAD_NODE_FAILED": "Failed to load node data. Showing a blank form.",
       "TYPE_TITLE": "Content type",
+      "PANEL_ATTRS": "Article attributes",
       "FIELD_TITLE": "Title",
       "SUBMIT": "Submit",
       "LOGIN_FIRST": "Please log in first!",
