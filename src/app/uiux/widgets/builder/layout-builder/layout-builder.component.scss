@@ -52,10 +52,7 @@
         }
         .block-toolbar {
           // 静态流位置正好在 .component 下方(popper 的 bottom 锚点),只需水平居中
-          // translateX 必须手写:全局未引入 tailwind base,@apply 的 translate 工具类
-          // 依赖的 --tw-* 变量缺失(styles.scss 的 [class*='translate-'] 兜底只认 class 字面量)
-          @apply absolute left-1/2 opacity-0 pointer-events-none whitespace-nowrap;
-          transform: translateX(-50%);
+          @apply absolute left-1/2 -translate-x-1/2 opacity-0 pointer-events-none whitespace-nowrap;
           button {
             transform: scale(0.9);
             background-color: var(--mat-sys-surface);
