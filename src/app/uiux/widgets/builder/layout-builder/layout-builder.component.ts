@@ -3,7 +3,7 @@ import {
   Component,
   ElementRef,
   Injector,
-  effect,
+  afterRenderEffect,
   inject,
   signal,
   ChangeDetectionStrategy,
@@ -16,7 +16,6 @@ import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
 import { generatePath } from '@core/util/dom-path.util';
-import type { Instance as PopperInstance } from '@popperjs/core';
 import { BgImgComponent } from '../../bg-img/bg-img.component';
 import { BtnComponent } from '../../btn/btn.component';
 import { IconComponent } from '../../icon/icon.component';
@@ -47,7 +46,6 @@ export class LayoutBuilderComponent implements AfterViewInit {
   private util = inject(UtilitiesService);
   private ele = inject(ElementRef);
   private screenService = inject(ScreenService);
-  private popup?: PopperInstance;
   private injector = inject(Injector);
 
   ngAfterViewInit(): void {
@@ -57,7 +55,7 @@ export class LayoutBuilderComponent implements AfterViewInit {
       }
       if (this.showToolbar() && this.currentPage) {
         const currentPage = this.currentPage;
-        effect(() => {
+        afterRenderEffect(() => {
           currentPage();
           this.layoutAnimate();
         }, { injector: this.injector });
@@ -72,42 +70,13 @@ export class LayoutBuilderComponent implements AfterViewInit {
   }
 
   layoutAnimate(): void {
-    this.content().elements.map((item: ILayoutBlock, index) => {
-      const animateEle = this.ele.nativeElement.querySelectorAll(
-        `.layout-${index} .for-animate`
-      )[0];
-      this.util.initAnimate(item, animateEle, this.ele.nativeElement);
+    this.content().elements.forEach((item: ILayoutBlock, index) => {
+      const animateEle = this.ele.nativeElement.querySelector(
+        `:scope > .layout-builder > .layout-inner > .layout-${index} > .for-animate`
+      );
+      if (animateEle) {
+        this.util.initAnimate(item, animateEle, this.ele.nativeElement);
+      }
     });
-  }
-
-  async onHoverWidget(widget: any): Promise<void> {
-    if (!this.showToolbar()) {
-      return;
-    }
-
-    const { createPopper } = await import('@popperjs/core');
-    if (this.showToolbar()) {
-      const component = widget.querySelector('.component');
-      const popup = widget.querySelector('.block-toolbar');
-      this.popup = createPopper(component, popup, {
-        placement: 'bottom',
-        strategy: 'fixed',
-        modifiers: [
-          {
-            name: 'offset',
-            options: {
-              offset: [0, 0],
-            },
-          },
-        ],
-      });
-      this.popup.update();
-    }
-  }
-
-  onLeaveWidget(): void {
-    if (this.showToolbar()) {
-      this.popup?.destroy();
-    }
   }
 }

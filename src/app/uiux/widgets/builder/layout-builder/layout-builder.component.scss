@@ -29,8 +29,13 @@
       > .item {
         @apply relative box-border;
         max-width: 100%;
-        &:hover {
+        &:hover,
+        &:focus-within {
           z-index: 100;
+
+          > .block-toolbar {
+            @apply opacity-100 pointer-events-auto;
+          }
         }
         &.item-divider,
         &.item-layout-builder {
@@ -46,15 +51,11 @@
           }
         }
         .block-toolbar {
-          position: absolute;
-          opacity: 0;
-          white-space: nowrap;
+          // 静态流位置正好在 .component 下方(popper 的 bottom 锚点),只需水平居中
+          @apply absolute left-1/2 -translate-x-1/2 opacity-0 pointer-events-none whitespace-nowrap;
           button {
             transform: scale(0.9);
             background-color: var(--mat-sys-surface);
-          }
-          &[data-popper-placement] {
-            opacity: 1;
           }
         }
         .block-toolbar-inner {
