@@ -2,11 +2,31 @@
   @apply relative block;
 }
 
-.shad-select {
-  @apply appearance-none pr-8 cursor-pointer;
+// 触发按钮基于全局 .shad-input;选中值单行截断,箭头随内容布局
+.select-trigger {
+  @apply flex cursor-pointer items-center justify-between gap-2 text-left;
+}
+
+.select-value {
+  @apply min-w-0 flex-1 truncate;
+}
+
+.select-placeholder {
+  @apply min-w-0 flex-1 truncate;
+  color: var(--shadcn-muted-foreground);
 }
 
 .chevron {
-  @apply absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none;
+  @apply flex-shrink-0;
   color: var(--shadcn-muted-foreground);
+}
+
+// 单选的选中指示:左侧对勾;未选中时占位透明,保持选项文本列对齐
+.option-check {
+  @apply inline-flex h-4 w-4 flex-shrink-0 items-center justify-center;
+  color: transparent;
+}
+
+.shad-option.selected .option-check {
+  color: var(--shadcn-foreground);
 }

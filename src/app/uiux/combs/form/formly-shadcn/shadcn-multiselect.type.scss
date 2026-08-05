@@ -1,0 +1,42 @@
+.multi-wrap {
+  @apply relative block;
+}
+
+// 触发按钮基于全局 .shad-input 外观;多个徽章时自动增高换行
+.multi-trigger {
+  @apply flex cursor-pointer items-center justify-between gap-2 text-left;
+  height: auto;
+  min-height: var(--shadcn-control-height);
+  padding: 0.25rem 0.5rem;
+}
+
+.multi-value {
+  @apply flex min-w-0 flex-wrap items-center gap-1;
+}
+
+.multi-placeholder {
+  color: var(--shadcn-muted-foreground);
+}
+
+.chevron {
+  @apply flex-shrink-0;
+  color: var(--shadcn-muted-foreground);
+}
+
+// 多选的选中指示:与 shadcn-checkbox 同款方框,选中态填充主色并显示对勾
+.option-box {
+  @apply inline-flex h-4 w-4 flex-shrink-0 items-center justify-center;
+  border: 1px solid var(--shadcn-input);
+  border-radius: var(--shadcn-radius-sm);
+  color: transparent;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    color 0.15s;
+}
+
+.shad-option.selected .option-box {
+  background: var(--shadcn-primary);
+  border-color: var(--shadcn-primary);
+  color: var(--shadcn-primary-foreground);
+}

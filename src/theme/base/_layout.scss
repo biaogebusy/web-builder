@@ -60,10 +60,11 @@ html.drawer-disable-scroll {
   display: inline-flex !important;
 }
 
-button {
-  &:not(.mdc-button) {
-    border: 0;
-  }
+// 非 Material 按钮去掉 UA 默认边框(Tailwind preflight 未启用)。
+// :where() 把优先级压到元素级(0,0,1),避免以 (0,1,1) 压过
+// .shad-input/.shad-btn-outline 等单 class 的边框声明
+button:where(:not(.mdc-button)) {
+  border: 0;
 }
 
 img {

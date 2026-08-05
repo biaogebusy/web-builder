@@ -46,7 +46,6 @@ import { BtnComponent } from '@uiux/widgets/btn/btn.component';
       }
     </div>
   `,
-  styleUrl: './repeat.type.scss',
   imports: [FormlyModule, BtnComponent],
 })
 export class RepeatTypeComponent extends FieldArrayType {
