@@ -28,6 +28,11 @@ export class ImgPickerComponent extends FieldType implements OnInit {
     super();
   }
 
+  /** shadcn 主题表单(formState.uiTheme)下按钮/卡片换用 shadcn 风格 */
+  get isShadcn(): boolean {
+    return this.options.formState?.uiTheme === 'shadcn';
+  }
+
   ngOnInit(): void {
     this.src = this.formControl.value;
     this.builder.selectedMedia$

@@ -96,6 +96,22 @@ describe('formly shadcn theme', () => {
     expect(fixture.componentInstance.model['enabled']).toBe(true);
   });
 
+  it('renders a shadcn checkbox and syncs the model', async () => {
+    const fixture = await render([
+      { key: 'sticky', type: 'checkbox', defaultValue: false, props: { label: 'Sticky' } },
+    ]);
+    const el: HTMLElement = fixture.nativeElement;
+
+    expect(el.querySelector('mat-checkbox')).toBeNull();
+    const input = el.querySelector<HTMLInputElement>('.check-row input[type="checkbox"]');
+    expect(input).toBeTruthy();
+    expect(el.querySelector('.check-label')?.textContent).toContain('Sticky');
+
+    input?.click();
+    fixture.detectChanges();
+    expect(fixture.componentInstance.model['sticky']).toBe(true);
+  });
+
   it('renders a shadcn textarea', async () => {
     const fixture = await render([
       { key: 'summary', type: 'textarea', props: { label: 'Summary', rows: 3 } },
@@ -153,7 +169,7 @@ describe('formly shadcn theme', () => {
     expect(el.querySelector('.shad-btn-outline')).toBeNull();
   });
 
-  it('renders a native shadcn select and preselects the model value', async () => {
+  it('renders a shadcn select combobox and shows the preselected label', async () => {
     const fixture = await render([
       {
         key: 'fullWidth',
@@ -171,13 +187,14 @@ describe('formly shadcn theme', () => {
     const el: HTMLElement = fixture.nativeElement;
 
     expect(el.querySelector('mat-select')).toBeNull();
-    const select = el.querySelector<HTMLSelectElement>('select.shad-select');
-    expect(select).toBeTruthy();
-    expect(select?.options.length).toBe(2);
-    expect(select?.options[select.selectedIndex]?.textContent?.trim()).toBe('Boxed');
+    expect(el.querySelector('select')).toBeNull();
+    const trigger = el.querySelector<HTMLButtonElement>('button[role="combobox"]');
+    expect(trigger).toBeTruthy();
+    expect(trigger?.getAttribute('aria-expanded')).toBe('false');
+    expect(trigger?.textContent).toContain('Boxed');
   });
 
-  it('syncs the model when a native select option is chosen', async () => {
+  it('selects an option from the shadcn select panel and closes it', async () => {
     const fixture = await render([
       {
         key: 'fullWidth',
@@ -192,34 +209,108 @@ describe('formly shadcn theme', () => {
         },
       },
     ]);
-    const select: HTMLSelectElement = fixture.nativeElement.querySelector('select.shad-select');
+    const el: HTMLElement = fixture.nativeElement;
+    const trigger = el.querySelector<HTMLButtonElement>('button[role="combobox"]');
 
-    select.selectedIndex = 0;
-    select.dispatchEvent(new Event('change'));
+    trigger?.click();
     fixture.detectChanges();
+    const listbox = el.querySelector<HTMLElement>('[role="listbox"]');
+    // 单选面板没有 aria-multiselectable,选中项带 aria-selected
+    expect(listbox?.getAttribute('aria-multiselectable')).toBeNull();
+    const options = el.querySelectorAll<HTMLElement>('[role="option"]');
+    expect(options.length).toBe(2);
+    expect(options[1].getAttribute('aria-selected')).toBe('true');
 
+    options[0].click();
+    fixture.detectChanges();
     expect(fixture.componentInstance.model['fullWidth']).toBe(true);
+    // 单选选中后面板关闭,触发按钮展示新值
+    expect(el.querySelector('[role="listbox"]')).toBeNull();
+    expect(trigger?.textContent).toContain('Full');
   });
 
-  it('keeps mat-select for multi-select fields in shadcn mode', async () => {
-    const fixture = await render([
-      {
-        key: 'tags',
-        type: 'select',
-        props: {
-          label: 'Tags',
-          multiple: true,
-          options: [
-            { label: 'A', value: 'a' },
-            { label: 'B', value: 'b' },
-          ],
+  it('renders a shadcn multiselect for multi-select fields and toggles values', async () => {
+    const fixture = await render(
+      [
+        {
+          key: 'tags',
+          type: 'select',
+          props: {
+            label: 'Tags',
+            multiple: true,
+            options: [
+              { label: 'A', value: 'a' },
+              { label: 'B', value: 'b' },
+            ],
+          },
         },
-      },
-    ]);
+      ],
+      undefined,
+      { tags: ['a'] }
+    );
     const el: HTMLElement = fixture.nativeElement;
 
-    expect(el.querySelector('select.shad-select')).toBeNull();
-    expect(el.querySelector('mat-select')).toBeTruthy();
+    expect(el.querySelector('mat-select')).toBeNull();
+    const trigger = el.querySelector<HTMLButtonElement>('button[role="combobox"]');
+    expect(trigger).toBeTruthy();
+    expect(trigger?.getAttribute('aria-expanded')).toBe('false');
+    expect(trigger?.querySelector('.shad-badge')?.textContent?.trim()).toBe('A');
+
+    trigger?.click();
+    fixture.detectChanges();
+    const listbox = el.querySelector<HTMLElement>('[role="listbox"]');
+    expect(listbox?.getAttribute('aria-multiselectable')).toBe('true');
+    const options = el.querySelectorAll<HTMLElement>('[role="option"]');
+    expect(options.length).toBe(2);
+    expect(options[0].getAttribute('aria-selected')).toBe('true');
+
+    options[1].click();
+    fixture.detectChanges();
+    expect(fixture.componentInstance.model['tags']).toEqual(['a', 'b']);
+
+    options[0].click();
+    fixture.detectChanges();
+    expect(fixture.componentInstance.model['tags']).toEqual(['b']);
+    // 多选面板在切换选中后保持打开
+    expect(el.querySelector('[role="listbox"]')).toBeTruthy();
+  });
+
+  it('supports keyboard toggling on the multiselect trigger and closes on escape', async () => {
+    const fixture = await render(
+      [
+        {
+          key: 'tags',
+          type: 'select',
+          props: {
+            label: 'Tags',
+            multiple: true,
+            options: [
+              { label: 'A', value: 'a' },
+              { label: 'B', value: 'b' },
+            ],
+          },
+        },
+      ],
+      undefined,
+      { tags: [] }
+    );
+    const el: HTMLElement = fixture.nativeElement;
+    const trigger = el.querySelector<HTMLButtonElement>('button[role="combobox"]');
+
+    trigger?.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+    fixture.detectChanges();
+    expect(el.querySelector('[role="listbox"]')).toBeTruthy();
+    expect(trigger?.getAttribute('aria-activedescendant')).toBeTruthy();
+
+    trigger?.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+    trigger?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+    fixture.detectChanges();
+    expect(fixture.componentInstance.model['tags']).toEqual(['b']);
+
+    trigger?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+    fixture.detectChanges();
+    expect(el.querySelector('[role="listbox"]')).toBeNull();
+    expect(trigger?.getAttribute('aria-expanded')).toBe('false');
   });
 
   it('renders a native range slider and coerces the value to a number', async () => {

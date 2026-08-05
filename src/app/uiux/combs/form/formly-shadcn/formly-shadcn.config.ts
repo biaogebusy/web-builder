@@ -6,8 +6,10 @@ import {
   FormlyFormOptions,
 } from '@ngx-formly/core';
 
+import { ShadcnCheckboxType } from './shadcn-checkbox.type';
 import { ShadcnFormFieldWrapper } from './shadcn-form-field.wrapper';
 import { ShadcnInputType } from './shadcn-input.type';
+import { ShadcnMultiselectType } from './shadcn-multiselect.type';
 import { ShadcnSelectType } from './shadcn-select.type';
 import { ShadcnSliderType } from './shadcn-slider.type';
 import { ShadcnTextareaType } from './shadcn-textarea.type';
@@ -41,20 +43,20 @@ const SHADCN_TYPE_MAP: Record<string, { type: string; wrappers: string[] }> = {
   'number': { type: 'shadcn-input', wrappers: ['shadcn-form-field'] },
   'integer': { type: 'shadcn-input', wrappers: ['shadcn-form-field'] },
   'textarea': { type: 'shadcn-textarea', wrappers: ['shadcn-form-field'] },
-  // 单选 select;多选(props.multiple)在 extension 中跳过,继续走 mat-select
+  // 单选 select;多选(props.multiple)在 extension 中改写为 shadcn-multiselect
   'select': { type: 'shadcn-select', wrappers: ['shadcn-form-field'] },
   // 自定义 slider 类型(MatSlider)→ 原生 range 滑块
   'slider': { type: 'shadcn-slider', wrappers: ['shadcn-form-field'] },
   // 复合控件,类型不变,仅补 shadcn wrapper 以渲染 label/必填标记/错误
   'img-picker': { type: 'img-picker', wrappers: ['shadcn-form-field'] },
   'json': { type: 'json', wrappers: ['shadcn-form-field'] },
-  // toggle 自带内联 label,不需要字段 wrapper
+  // toggle/checkbox 自带内联 label,不需要字段 wrapper
   'toggle': { type: 'shadcn-toggle', wrappers: [] },
+  'checkbox': { type: 'shadcn-checkbox', wrappers: [] },
   // 不映射的类型:datepicker(业务零使用,且原生 date 输入与 Date 对象
-  // 模型语义不同)、mat-select(搜索/API 选项/虚拟滚动无法用原生 select
-  // 承载,仅存在于 Material 模式表单)。repeat 复合类型自身按
-  // formState.uiTheme 切换按钮样式。shadcn 表单将来若需要多选/搜索下拉,
-  // 应实现 shadcn combobox 类型,而非用 CSS 覆盖 Material 组件。
+  // 模型语义不同)、mat-select(搜索/API 选项/虚拟滚动等高级交互,
+  // 仅存在于 Material 模式表单)。repeat 复合类型自身按
+  // formState.uiTheme 切换按钮样式。
 };
 
 export const XINSHI_FORMLY_SHADCN_CONFIG: ConfigOption = {
@@ -62,8 +64,14 @@ export const XINSHI_FORMLY_SHADCN_CONFIG: ConfigOption = {
     { name: 'shadcn-input', component: ShadcnInputType, wrappers: ['shadcn-form-field'] },
     { name: 'shadcn-textarea', component: ShadcnTextareaType, wrappers: ['shadcn-form-field'] },
     { name: 'shadcn-select', component: ShadcnSelectType, wrappers: ['shadcn-form-field'] },
+    {
+      name: 'shadcn-multiselect',
+      component: ShadcnMultiselectType,
+      wrappers: ['shadcn-form-field'],
+    },
     { name: 'shadcn-slider', component: ShadcnSliderType, wrappers: ['shadcn-form-field'] },
     { name: 'shadcn-toggle', component: ShadcnToggleType },
+    { name: 'shadcn-checkbox', component: ShadcnCheckboxType },
   ],
   wrappers: [{ name: 'shadcn-form-field', component: ShadcnFormFieldWrapper }],
 };
@@ -86,7 +94,9 @@ export function registerShadcnThemeExtension(defaultTheme: FormUiTheme): ConfigO
         return;
       }
       if (field.type === 'select' && field.props?.multiple) {
-        // 原生 select 的多选体验差,多选字段保留 Material mat-select
+        // 多选走自实现的 shadcn combobox(原生 select 的多选体验差)
+        field.type = 'shadcn-multiselect';
+        field.wrappers = ['shadcn-form-field'];
         return;
       }
       if (field.type === 'number' || field.type === 'integer') {

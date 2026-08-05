@@ -129,37 +129,44 @@
     </div>
     <aside class="node-aside">
       <section class="aside-section">
-        <div class="aside-title">{{ 'BUILDER.NODE_ADD.TYPE_TITLE' | translate }}</div>
+        <label class="aside-title" for="node-type-select">
+          {{ 'BUILDER.NODE_ADD.TYPE_TITLE' | translate }}
+        </label>
         @if (nodeTypes().length > 0) {
-          <div class="node-types">
-            @for (nodeType of nodeTypes(); track nodeType.value) {
-              <app-btn
-                (click)="switchType(nodeType.value)"
-                [content]="{
-                  label: nodeType.label,
-                  color: type() === nodeType.value ? 'primary' : undefined,
-                  mode: type() === nodeType.value ? 'flat' : 'stroked',
-                  pill: true,
-                }"
+          <div class="select-wrap">
+            <select
+              id="node-type-select"
+              class="shad-input shad-select"
+              (change)="onTypeSelect($event)"
+            >
+              @for (nodeType of nodeTypes(); track nodeType.value) {
+                <option [value]="nodeType.value" [selected]="nodeType.value === type()">
+                  {{ nodeType.label }}
+                </option>
+              }
+            </select>
+            <svg class="chevron" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+              <path
+                d="M7 10l5 5 5-5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
               />
-            }
+            </svg>
           </div>
         } @else if (typesLoading()) {
-          <div class="node-types">
-            @for (_ of [1, 2, 3, 4]; track $index) {
-              <ngx-skeleton-loader
-                class="type-skeleton"
-                count="1"
-                appearance="line"
-                [theme]="{
-                  height: '40px',
-                  'border-radius': '9999px',
-                  'background-color': 'var(--shadcn-muted)',
-                  margin: '0',
-                }"
-              />
-            }
-          </div>
+          <ngx-skeleton-loader
+            count="1"
+            appearance="line"
+            [theme]="{
+              height: '2rem',
+              'border-radius': 'var(--shadcn-radius-sm)',
+              'background-color': 'var(--shadcn-muted)',
+              margin: '0',
+            }"
+          />
         }
       </section>
       @if (sideFields().length > 0) {

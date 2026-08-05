@@ -3,10 +3,17 @@
 .node-add {
   @apply flex min-h-full flex-col;
   background: var(--shadcn-background);
+  color: var(--shadcn-foreground);
+  // lg+:整页锁定为视口高度并接管滚动,外层壳(.builder 100vh 滚动容器)
+  // 不再产生滚动;主区/右栏各自内部滚动,工具栏因此永远可见
+  @screen lg {
+    @apply h-screen overflow-hidden;
+  }
 
-  // 顶栏固定 h-14,编辑器工具栏 sticky 时以 top-14 衔接,两者共用同一条细线体系
+  // 顶栏固定 h-14(box-border:项目无全局 border-box,显式包含底边框),
+  // 编辑器工具栏 sticky 时以 top-14 衔接,两者共用同一条细线体系
   .editor-topbar {
-    @apply sticky top-0 z-20 flex h-14 items-center justify-between gap-4 px-6;
+    @apply sticky top-0 z-20 flex h-14 shrink-0 box-border items-center justify-between gap-4 px-6;
     background: var(--shadcn-background);
     border-bottom: 1px solid var(--shadcn-border);
   }
@@ -18,27 +25,113 @@
     @apply flex items-center;
   }
   // 不用 .container 命名:Tailwind 的 container 工具类自带 max-width/边距,会污染布局。
-  // 通高铺满(减去 h-14 顶栏),保证右栏左侧细线始终触底
+  // 通高铺满(减去 h-14 顶栏),保证右栏左侧细线始终触底。
+  // lg+ 高度由 flex 计算(根节点 h-screen - 顶栏),不做 100vh 减法,
+  // 对边框/内容盒模型免疫;min-h-0 允许收缩以触发子级内部滚动
   .node-layout {
     @apply flex flex-1 flex-col items-stretch lg:flex-row;
     min-height: calc(100vh - 3.5rem);
+    @screen lg {
+      @apply min-h-0;
+    }
   }
   .node-main {
     @apply min-w-0 flex-1;
+    @screen lg {
+      @apply overflow-y-auto;
+    }
 
     // 独立工具栏通栏:quill 初始化时会给容器加上 ql-toolbar/ql-snow 类,
     // 覆盖 snow 主题的盒式边框,只留下边细线,并 sticky 在顶栏(h-14)之下
     .editor-toolbar {
       @apply sticky top-14 z-10 px-6 py-2;
+      // lg+ 主区自身是滚动容器(顶栏在容器之外),工具栏吸附容器顶部
+      @screen lg {
+        @apply top-0;
+      }
       background: var(--shadcn-background);
       border-bottom: 1px solid var(--shadcn-border);
       &.ql-toolbar.ql-snow {
         @apply border-x-0 border-t-0 px-6 py-2 font-sans;
         border-bottom: 1px solid var(--shadcn-border);
+
+        // quill snow 主题的图标/下拉颜色硬编码为 #444/#06c/#fff 系,
+        // 映射到 shadcn 令牌以保证暗色主题下的对比度
+        ::ng-deep {
+          .ql-stroke,
+          .ql-stroke-miter {
+            stroke: var(--shadcn-foreground);
+          }
+          .ql-fill,
+          .ql-stroke.ql-fill {
+            fill: var(--shadcn-foreground);
+          }
+          .ql-picker {
+            color: var(--shadcn-foreground);
+          }
+          button:hover,
+          button:focus,
+          button.ql-active,
+          .ql-picker-label:hover,
+          .ql-picker-label.ql-active,
+          .ql-picker-item:hover,
+          .ql-picker-item.ql-selected {
+            color: var(--shadcn-primary);
+            .ql-stroke,
+            .ql-stroke-miter {
+              stroke: var(--shadcn-primary);
+            }
+            .ql-fill,
+            .ql-stroke.ql-fill {
+              fill: var(--shadcn-primary);
+            }
+          }
+          .ql-picker-options {
+            background-color: var(--shadcn-popover);
+            color: var(--shadcn-popover-foreground);
+            border-radius: var(--shadcn-radius-sm);
+            box-shadow: var(--shadcn-shadow-md);
+          }
+          .ql-picker.ql-expanded .ql-picker-label,
+          .ql-picker.ql-expanded .ql-picker-options {
+            border-color: var(--shadcn-border);
+          }
+        }
       }
     }
     ::ng-deep .ql-container.ql-snow {
       @apply border-0 text-base;
+
+      // 内容区/链接 tooltip 的硬编码浅色系(#06c 链接、#f0f0f0 行内代码、
+      // #ccc 引用线、#fff tooltip)映射到 shadcn 令牌,适配暗色主题
+      a {
+        color: var(--shadcn-primary);
+      }
+      .ql-editor code {
+        background-color: var(--shadcn-muted);
+      }
+      .ql-editor blockquote {
+        border-left-color: var(--shadcn-border);
+      }
+      // 占位符对齐 px-0 的正文(quill 默认 left/right 15px)
+      .ql-editor.ql-blank::before {
+        @apply left-0 right-0;
+        color: var(--shadcn-muted-foreground);
+      }
+      .ql-tooltip {
+        background-color: var(--shadcn-popover);
+        border-color: var(--shadcn-border);
+        color: var(--shadcn-popover-foreground);
+        box-shadow: var(--shadcn-shadow-md);
+        input[type='text'] {
+          background: transparent;
+          border-color: var(--shadcn-input);
+          color: var(--shadcn-foreground);
+        }
+        a.ql-action::after {
+          border-right-color: var(--shadcn-border);
+        }
+      }
     }
     // 标题与正文共用同一左对齐文档容器(mx-auto 限宽 + px-6),内部控件一律 px-0,
     // 保证标题文本与正文文本严格左对齐
@@ -83,13 +176,16 @@
       }
     }
   }
-  // 通高右栏:与主区以一条细线分隔,内部分区用细线而非卡片
+  // 通高右栏:与主区以一条细线分隔,内部分区用细线而非卡片;
+  // lg+ 独立滚动,滚到底不向外穿透
   .node-aside {
     @apply w-full shrink-0 lg:w-[340px];
     border-top: 1px solid var(--shadcn-border);
     @screen lg {
       border-top: 0;
       border-left: 1px solid var(--shadcn-border);
+      @apply overflow-y-auto;
+      overscroll-behavior: contain;
     }
   }
   .aside-section {
@@ -100,10 +196,15 @@
     @apply text-sm font-medium;
     color: var(--shadcn-muted-foreground);
   }
-  .node-types {
-    @apply flex flex-wrap gap-2;
-    .type-skeleton {
-      @apply block w-24;
-    }
+  // 类型切换下拉的原生 select 外壳与箭头,与 node-manage 筛选栏保持一致
+  .select-wrap {
+    @apply relative block;
+  }
+  .shad-select {
+    @apply appearance-none pr-8 cursor-pointer;
+  }
+  .chevron {
+    @apply absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none;
+    color: var(--shadcn-muted-foreground);
   }
 }

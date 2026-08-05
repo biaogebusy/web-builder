@@ -182,6 +182,10 @@ export class NodeAddComponent implements OnInit {
     }
   }
 
+  onTypeSelect(event: Event): void {
+    this.switchType((event.target as HTMLSelectElement).value);
+  }
+
   switchType(type: string): void {
     if (type !== this.type() || this.editUuid()) {
       this.router.navigate(['/builder/node-add', type]);

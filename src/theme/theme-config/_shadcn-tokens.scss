@@ -26,10 +26,16 @@
   --shadcn-destructive-foreground: var(--mat-sys-on-error);
 
   // ── Lines & focus ──
+  // border=结构细线(卡片/分隔线,弱);input=可交互控件描边。
+  // 本主题把 --mat-sys-outline(-variant) 都定制为发丝线级的浅色,
+  // 直接引用会淡到不可辨,故用前景色 50% 混合:随主题翻转,
+  // 浅/暗色下均约 3:1,满足 WCAG 1.4.11 非文本对比
   --shadcn-border: var(--mat-sys-outline-variant);
-  --shadcn-input: var(--mat-sys-outline-variant);
+  --shadcn-input: color-mix(in srgb, var(--mat-sys-on-surface) 50%, transparent);
+  // 输入类控件底色:浅色透明,暗色下微填充(见 .dark-theme,shadcn v4 的 dark:bg-input/30)
+  --shadcn-input-fill: transparent;
   --shadcn-ring: var(--mat-sys-primary);
-  --shadcn-ring-subtle: color-mix(in srgb, var(--mat-sys-primary) 25%, transparent);
+  --shadcn-ring-subtle: color-mix(in srgb, var(--mat-sys-primary) 30%, transparent);
 
   // ── Radii ──
   --shadcn-radius: 0.5rem;
@@ -37,8 +43,9 @@
   --shadcn-radius-lg: 0.75rem;
 
   // ── Focus ring ──
-  --shadcn-ring-width: 2px;
-  --shadcn-ring-offset-width: 2px;
+  // shadcn v4 风格贴边柔环:无 offset,3px 半透明环紧贴控件边框
+  --shadcn-ring-width: 3px;
+  --shadcn-ring-offset-width: 0px;
   --shadcn-ring-offset-color: var(--mat-sys-surface);
 
   // ── Control sizing ──
@@ -52,6 +59,7 @@
 
 // Dark-theme overrides — strengthen border contrast and surface separation
 // so shadcn's "neutral but crisp" aesthetic holds on the dark Material palette.
+// --shadcn-input 不需覆盖:50% on-surface 混合随主题自动翻转。
 // --shadcn-ring-offset-color intentionally not overridden: it points at
 // --mat-sys-surface which already flips between themes.
 .dark-theme {
@@ -61,5 +69,5 @@
   --shadcn-muted: var(--mat-sys-surface-container);
   --shadcn-accent: var(--mat-sys-surface-container-high);
   --shadcn-border: var(--mat-sys-outline);
-  --shadcn-input: var(--mat-sys-outline);
+  --shadcn-input-fill: color-mix(in srgb, var(--shadcn-input) 30%, transparent);
 }
