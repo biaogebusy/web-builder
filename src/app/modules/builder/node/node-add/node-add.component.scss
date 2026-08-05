@@ -161,6 +161,13 @@
     ::ng-deep .ql-editor {
       @apply min-h-[50vh] px-0 py-4;
     }
+    // 编辑器 px-0 后,空内容占位符也贴齐左边线(quill.snow 默认 left/right 15px、斜体),
+    // 颜色与标题占位符一致,深色主题下也可读
+    ::ng-deep .ql-editor.ql-blank::before {
+      @apply left-0 right-0 not-italic;
+      color: var(--shadcn-muted-foreground);
+      opacity: 0.6;
+    }
 
     .form-skeleton {
       @apply mx-auto flex max-w-3xl flex-col gap-6 px-6 py-8;
