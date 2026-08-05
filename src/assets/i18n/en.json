@@ -451,6 +451,9 @@
       "MAX": "Exceeds maximum value",
       "MIN": "Below minimum value"
     },
+    "FORM_EDITOR": {
+      "PLACEHOLDER": "Insert text here"
+    },
     "FACTORY": {
       "NONE": "None",
       "COLOR_PRIMARY": "Primary",

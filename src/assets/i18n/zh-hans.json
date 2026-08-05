@@ -451,6 +451,9 @@
       "MAX": "不能超过最大值",
       "MIN": "不能小于最小值"
     },
+    "FORM_EDITOR": {
+      "PLACEHOLDER": "在此输入内容"
+    },
     "FACTORY": {
       "NONE": "无",
       "COLOR_PRIMARY": "品牌色",
