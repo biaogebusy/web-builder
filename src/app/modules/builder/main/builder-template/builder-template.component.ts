@@ -1,8 +1,7 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, inject } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { SHARE_IMPORTS } from '@share/share-imports';
+import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -10,66 +9,59 @@ import { BuilderState } from '@core/state/BuilderState';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-builder-template',
   templateUrl: './builder-template.component.html',
   styleUrls: ['./builder-template.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ShareModule, WidgetsModule],
+  imports: [SHARE_IMPORTS, WIDGETS_IMPORTS],
 })
-export class BuilderTemplateComponent implements OnInit {
-  content$: Observable<any[]>;
-  loading = true;
+export class BuilderTemplateComponent {
   private builder = inject(BuilderState);
   private dialog = inject(MatDialog);
   private util = inject(UtilitiesService);
   private nodeService = inject(NodeService);
   private builderService = inject(BuilderService);
-  private destroyRef = inject(DestroyRef);
   private coreConfig = inject(CORE_CONFIG);
   private translate = inject(TranslateService);
 
-  ngOnInit(): void {
-    this.getTemplates();
-  }
+  private readonly templateParams = new DrupalJsonApiParams()
+    .addPageLimit(20)
+    .addSort('changed', 'DESC')
+    .addFilter('status', '1')
+    .addFilter('group.name', '模板')
+    .addInclude(['cover', 'cover.field_media_image'])
+    .addCustomParam({ noCache: true })
+    .getQueryString();
 
-  getTemplates(): void {
-    this.loading = true;
-    const apiParams = new DrupalJsonApiParams();
-    apiParams
-      .addPageLimit(20)
-      .addSort('changed', 'DESC')
-      .addFilter('status', '1')
-      .addFilter('group.name', '模板')
-      .addInclude(['cover', 'cover.field_media_image'])
-      .addCustomParam({ noCache: true });
+  private templateRes = this.nodeService.fetchResource(() => ({
+    api: '/api/v1/node/landing_page',
+    params: this.templateParams,
+  }));
 
-    const params = apiParams.getQueryString();
-    this.content$ = this.nodeService.fetch(`/api/v1/node/landing_page`, params).pipe(
-      map(res => {
-        const { data, included } = res;
-        const pages = data.map((page: any) => {
-          const {
-            attributes: { title, drupal_internal__nid, meta_tags, langcode },
-          } = page;
+  loading = this.templateRes.isLoading;
 
-          return {
-            title,
-            description: meta_tags ? meta_tags.description : '',
-            img: this.getCover(page.relationships.cover.data?.id, included),
-            langcode,
-            nid: drupal_internal__nid,
-          };
-        });
-        this.loading = false;
-        return pages;
-      }),
-      takeUntilDestroyed(this.destroyRef)
-    );
-  }
+  content = computed(() => {
+    const res = this.templateRes.value();
+    if (!res) {
+      return [];
+    }
+    const { data, included } = res;
+    return data.map((page: any) => {
+      const {
+        attributes: { title, drupal_internal__nid, meta_tags, langcode },
+      } = page;
+
+      return {
+        title,
+        description: meta_tags ? meta_tags.description : '',
+        img: this.getCover(page.relationships.cover.data?.id, included),
+        langcode,
+        nid: drupal_internal__nid,
+      };
+    });
+  });
 
   getCover(id: string, included: any[]): string {
     if (!id) {

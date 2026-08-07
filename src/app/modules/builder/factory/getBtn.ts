@@ -47,7 +47,7 @@ export function getBtn(widget: any): FormlyFieldConfig {
               type: 'text',
               label: 'BUILDER.FACTORY.TEXT_LABEL',
             },
-            hideExpression: 'model.mode === "icon"',
+            expressions: { hide: 'model.mode === "icon"' },
           },
           {
             key: 'mode',
@@ -116,7 +116,7 @@ export function getBtn(widget: any): FormlyFieldConfig {
                 },
               ],
             },
-            hideExpression: '!model.href',
+            expressions: { hide: '!model.href' },
           },
           {
             key: 'icon',

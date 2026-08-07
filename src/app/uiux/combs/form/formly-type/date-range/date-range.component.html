@@ -1,11 +1,11 @@
-<mat-form-field class="date-range" [appearance]="to.appearance">
-  @if (to.label) {
-    <mat-label>{{ to.label }}</mat-label>
+<mat-form-field class="date-range" [appearance]="props.appearance">
+  @if (props.label) {
+    <mat-label>{{ props.label }}</mat-label>
   }
   <mat-date-range-input [rangePicker]="pickerRange">
     <input matStartDate [formControl]="start" [placeholder]="'开始'" />
     <input matEndDate [formControl]="end" [placeholder]="'结束'" />
   </mat-date-range-input>
   <mat-datepicker-toggle matSuffix [for]="pickerRange" />
-  <mat-date-range-picker [dateClass]="to.classes" #pickerRange />
+  <mat-date-range-picker [dateClass]="props.classes" #pickerRange />
 </mat-form-field>

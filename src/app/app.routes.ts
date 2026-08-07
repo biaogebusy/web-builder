@@ -25,7 +25,7 @@ export const routes: Routes = [
   },
   {
     path: 'me',
-    loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule),
+    loadChildren: () => import('./modules/user/user.routes').then(m => m.routes),
   },
   {
     path: 'preview',
@@ -42,12 +42,12 @@ export const routes: Routes = [
     path: 'builder',
     data: { preload: AUTHENTICATED_IDLE_PRELOAD },
     canMatch: [authMatchGuard],
-    loadChildren: () => import('./modules/builder/builder.module').then(m => m.BuilderModule),
+    loadChildren: () => import('./modules/builder/builder.routes').then(m => m.routes),
   },
   {
     path: 'en/builder',
     canMatch: [authMatchGuard],
-    loadChildren: () => import('./modules/builder/builder.module').then(m => m.BuilderModule),
+    loadChildren: () => import('./modules/builder/builder.routes').then(m => m.routes),
   },
   {
     path: '**',

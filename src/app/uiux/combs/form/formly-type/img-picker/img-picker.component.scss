@@ -24,4 +24,10 @@
   .actions {
     @apply my-3 flex justify-center items-center gap-3;
   }
+
+  // shadcn 主题表单:meta 卡片改用 shadcn 令牌(按钮由全局 .shad-btn-* 类承担)
+  &.shadcn .meta {
+    background-color: var(--shadcn-muted);
+    border: 1px solid var(--shadcn-border);
+  }
 }

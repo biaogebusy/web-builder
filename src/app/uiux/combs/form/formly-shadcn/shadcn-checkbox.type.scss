@@ -1,0 +1,51 @@
+// 无字段 wrapper,间距由自身承担(与 wrapper 的 mb-2 一致)
+:host {
+  @apply block mb-2;
+}
+
+.check-row {
+  @apply relative inline-flex items-center gap-2 cursor-pointer select-none;
+}
+
+// 覆盖在方框上方的透明原生 checkbox:保留原生点击/键盘/焦点语义
+.check-input {
+  @apply absolute w-4 h-4 m-0 opacity-0 cursor-pointer;
+}
+
+.check-box {
+  @apply inline-flex items-center justify-center w-4 h-4 flex-shrink-0;
+  border: 1px solid var(--shadcn-input);
+  border-radius: var(--shadcn-radius-sm);
+  color: transparent;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    color 0.15s;
+}
+
+.check-input:checked + .check-box {
+  background: var(--shadcn-primary);
+  border-color: var(--shadcn-primary);
+  color: var(--shadcn-primary-foreground);
+}
+
+.check-input:focus-visible + .check-box {
+  box-shadow:
+    0 0 0 var(--shadcn-ring-offset-width) var(--shadcn-ring-offset-color),
+    0 0 0 calc(var(--shadcn-ring-offset-width) + var(--shadcn-ring-width))
+      var(--shadcn-ring-subtle);
+}
+
+.check-input:disabled ~ .check-box,
+.check-input:disabled ~ .check-label {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+.check-label {
+  @apply text-sm font-medium;
+  color: var(--shadcn-foreground);
+}
+
+.required-marker {
+  color: var(--shadcn-destructive);
+}

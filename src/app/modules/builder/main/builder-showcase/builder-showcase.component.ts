@@ -9,8 +9,8 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { SHARE_IMPORTS } from '@share/share-imports';
+import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import type { IBuilderComponentElement, IBuilderShowcase } from '@core/interface/IBuilder';
 import { IDialog } from '@core/interface/IDialog';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
@@ -29,7 +29,7 @@ import { finalize } from 'rxjs';
   selector: 'app-builder-showcase',
   templateUrl: './builder-showcase.component.html',
   styleUrls: ['./builder-showcase.component.scss'],
-  imports: [ShareModule, WidgetsModule],
+  imports: [SHARE_IMPORTS, WIDGETS_IMPORTS],
 })
 export class BuilderShowcaseComponent implements OnInit {
   readonly content = input.required<IBuilderShowcase>();

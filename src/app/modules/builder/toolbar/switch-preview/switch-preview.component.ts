@@ -7,8 +7,8 @@ import {
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { SHARE_IMPORTS } from '@share/share-imports';
+import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { IPage } from '@core/interface/IAppConfig';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
@@ -21,7 +21,7 @@ import { Observable } from 'rxjs';
   templateUrl: './switch-preview.component.html',
   styleUrls: ['./switch-preview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ShareModule, WidgetsModule],
+  imports: [SHARE_IMPORTS, WIDGETS_IMPORTS],
 })
 export class SwitchPreviewComponent implements OnInit {
   public currentPage = inject(BUILDER_CURRENT_PAGE);
@@ -78,6 +78,6 @@ export class SwitchPreviewComponent implements OnInit {
       this.currentIcon.set(preview.icon.svg);
     }
     this.builder.closeRightDrawer$.next(true);
-    this.builder.switchPreivew$.next(preview.value);
+    this.builder.switchPreview$.next(preview.value);
   }
 }

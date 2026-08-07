@@ -1,3 +1,5 @@
+import { MatPaginatorIntlCro } from '@core/service/paginator.service';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 import {
   Component,
   OnInit,
@@ -48,6 +50,7 @@ import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
+  providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorIntlCro }],
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-manage-media',
   templateUrl: './manage-media.component.html',

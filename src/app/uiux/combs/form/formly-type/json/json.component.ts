@@ -26,6 +26,11 @@ export class JsonFieldType extends FieldType<FieldTypeConfig> implements AfterVi
 
   private editorInstance: any;
 
+  /** shadcn 主题表单(formState.uiTheme)下工具按钮换用 shadcn 风格 */
+  get isShadcn(): boolean {
+    return this.options.formState?.uiTheme === 'shadcn';
+  }
+
   async ngAfterViewInit(): Promise<void> {
     if (this.screenService.isPlatformBrowser()) {
       if (this.coreConfig.librariesUseLocal) {

@@ -53,9 +53,9 @@ export class BuilderState {
   public fixedChange$ = new Subject<boolean>();
   public animateDisable$ = new Subject<boolean>();
   public fullScreen$ = new Subject<boolean>();
-  public debugeAnimate$ = new Subject<boolean>();
+  public debugAnimate$ = new Subject<boolean>();
   public selectedMedia$ = new Subject<ISelectedMedia>();
-  public switchPreivew$ = new Subject<'xs' | 'sm' | 'md' | 'xs-md' | 'none'>();
+  public switchPreview$ = new Subject<'xs' | 'sm' | 'md' | 'xs-md' | 'none'>();
   public revealCode$ = new Subject<string>();
   public pendingPageLoad = signal<IBuilderPendingPageLoad | null>(null);
 
@@ -76,7 +76,7 @@ export class BuilderState {
 
   private dialog = inject(MatDialog);
   private util = inject(UtilitiesService);
-  private sreenService = inject(ScreenService);
+  private screenService = inject(ScreenService);
   private storage = inject(LocalStorageService);
 
   // code-editor 当前正在编辑的组件路径,跨外部调用方读取
@@ -84,12 +84,37 @@ export class BuilderState {
 
   constructor() {
     const localVersion = this.storage.retrieve(this.versionKey);
-    if (localVersion) {
+    if (localVersion?.length) {
       this.version.set(localVersion);
       this.loading.set(false);
     } else {
       this.initPage([{ ...this.defaultPage, current: true, time: new Date().toLocaleString() }]);
     }
+    this.listenExternalVersionChanges();
+  }
+
+  // 跨上下文同步:其他标签页/iframe(如 /preview)所在上下文保存草稿时,原生 storage 事件
+  // 只在非写入方上下文触发(不会本地回环),借它把最新草稿同步进 version signal,
+  // 让所有以 signal 为数据源的消费方(版本面板/工具栏/BUILDER_CURRENT_PAGE)保持实时
+  private listenExternalVersionChanges(): void {
+    if (!this.screenService.isPlatformBrowser()) {
+      return;
+    }
+    // key 前缀与 app.config 的 withNgxWebstorageConfig({ separator: ':' }) 保持一致
+    const storageKey = `ngx-webstorage:${this.versionKey}`;
+    window.addEventListener('storage', (event: StorageEvent) => {
+      if (event.key !== storageKey || !event.newValue) {
+        return;
+      }
+      try {
+        const version = JSON.parse(event.newValue);
+        if (Array.isArray(version) && version.length > 0) {
+          this.version.set(version);
+        }
+      } catch {
+        // 数据异常时保持内存状态
+      }
+    });
   }
 
   queuePageLoad(page: IBuilderPendingPageLoad): void {
@@ -118,14 +143,6 @@ export class BuilderState {
     this.fixedChange$.next(true);
   }
 
-  updateVersion(page: IPage): void {
-    this.version.update(v => {
-      v.unshift(page);
-      return [...v];
-    });
-    this.saveLocalVersions();
-  }
-
   deleteLocalPage(index: number): void {
     const versions = this.version();
     if (!Number.isInteger(index) || index < 0 || index >= versions.length) {
@@ -152,8 +169,12 @@ export class BuilderState {
   }
 
   deleteLocalPageByPage(page: IPage): void {
+    this.deleteLocalPage(this.findPageIndex(page));
+  }
+
+  private findPageIndex(page: IPage): number {
     const langcode = page.langcode ?? '';
-    const index = this.version().findIndex(item => {
+    return this.version().findIndex(item => {
       if (item === page) {
         return true;
       }
@@ -175,7 +196,33 @@ export class BuilderState {
       }
       return false;
     });
-    this.deleteLocalPage(index);
+  }
+
+  markPageSynced(page: IPage, patch: Partial<IPage> = {}): void {
+    const index = this.findPageIndex(page);
+    if (index < 0) {
+      return;
+    }
+    this.version.update(list => {
+      const next = [...list];
+      next[index] = { ...next[index], ...patch, dirty: false };
+      return next;
+    });
+    this.saveLocalVersions();
+  }
+
+  // 只更新标志不落盘,调用方在完成本次修改后自行 saveLocalVersions
+  markCurrentPageDirty(): void {
+    this.version.update(list => {
+      const currentIndex = list.findIndex(page => page.current === true);
+      const targetIndex = currentIndex === -1 ? 0 : currentIndex;
+      if (!list[targetIndex] || list[targetIndex].dirty) {
+        return list;
+      }
+      const next = [...list];
+      next[targetIndex] = { ...next[targetIndex], dirty: true };
+      return next;
+    });
   }
 
   clearAllHistory(): void {
@@ -245,12 +292,12 @@ export class BuilderState {
     }, 600);
   }
 
-  updatePage(index = 0): void {
+  updatePage(index?: number): void {
     setTimeout(() => {
       this.saveLocalVersions();
 
-      if (index) {
-        this.sreenService.scrollToAnchor(`item-${index}`);
+      if (index !== undefined) {
+        this.screenService.scrollToAnchor(`item-${index}`);
       }
       this.loading.set(false);
     }, 600);
@@ -266,8 +313,11 @@ export class BuilderState {
     this.version.update(list => {
       const next = [...list];
       const currentIndex = next.findIndex((item: IPage) => item.current === true);
-      if (next[currentIndex]) {
-        next[currentIndex] = page;
+      // 与 currentPage getter 的回退保持一致：无 current 标记时写回第一个页面
+      const targetIndex = currentIndex === -1 ? 0 : currentIndex;
+      if (next[targetIndex]) {
+        // 所有调用方都是内容编辑,写入即视为有未提交修改
+        next[targetIndex] = { ...page, dirty: true };
       }
       return next;
     });
@@ -278,26 +328,32 @@ export class BuilderState {
     return getBuilderArrayByPath(path, body);
   }
 
-  upDownComponent(direction: string, path: string): void {
-    const { body } = this.currentPage;
+  moveComponent(direction: string, path: string): void {
+    const currentPage = this.currentPage;
+    const { body } = currentPage;
     const arrs = this.getArrsByPath(path, body);
     const index = this.targetIndex(path);
-    if (direction === 'up') {
-      [arrs[index - 1], arrs[index]] = [arrs[index], arrs[index - 1]];
+    const swapIndex = direction === 'up' ? index - 1 : index + 1;
+    if (!Array.isArray(arrs) || swapIndex < 0 || swapIndex > arrs.length - 1) {
+      return;
     }
-
-    if (direction === 'down' && index < arrs.length - 1) {
-      [arrs[index], arrs[index + 1]] = [arrs[index + 1], arrs[index]];
-    }
+    const nextArrs = [...arrs];
+    [nextArrs[index], nextArrs[swapIndex]] = [nextArrs[swapIndex], nextArrs[index]];
+    const lastDotIndex = path.lastIndexOf('.');
+    const parentPath = lastDotIndex === -1 ? '' : path.slice(0, lastDotIndex);
+    // 不可变更新：产生新的 page/body 引用，触发 currentPage signal 通知消费者重渲染
+    this.setCurrentPage({
+      ...currentPage,
+      body: setBuilderTreeValue(body, parentPath, nextArrs),
+    });
     this.closeRightDrawer$.next(true);
-    this.saveLocalVersions();
   }
 
   pushComponent(content: any): void {
     if (content && content.type) {
       this.version.update(list => {
         const next = list.map(page =>
-          page.current ? { ...page, body: [...page.body, content] } : page
+          page.current ? { ...page, body: [...page.body, content], dirty: true } : page
         );
         return next;
       });
@@ -308,11 +364,14 @@ export class BuilderState {
   }
 
   deleteComponent(path: string): void {
-    const { body } = this.currentPage;
+    const currentPage = this.currentPage;
+    const { body } = currentPage;
     const arrs = this.getArrsByPath(path, body);
     const index = this.targetIndex(path);
-    arrs.splice(index, 1);
-    this.updatePage();
+    if (!Array.isArray(arrs) || index < 0 || index > arrs.length - 1) {
+      return;
+    }
+    this.setCurrentPage({ ...currentPage, body: removeBuilderTreeValue(body, path) });
   }
 
   targetIndex(path: string): number {
@@ -329,6 +388,7 @@ export class BuilderState {
       next[idx] = {
         ...next[idx],
         body: next[idx].body.map(item => ({ ...item, ...content })),
+        dirty: true,
       };
       return next;
     });
@@ -360,33 +420,54 @@ export class BuilderState {
       this.dropComponent(event);
     } else {
       // 添加组件到指定位置
-      this.transferComponet(event);
+      this.transferComponent(event);
     }
     this.closeRightDrawer$.next(true);
   }
 
   dropComponent(event: CdkDragDrop<IDynamicInputs[]>): void {
-    const { body } = this.currentPage;
+    const currentPage = this.currentPage;
+    const body = [...currentPage.body];
     moveItemInArray(body, event.previousIndex, event.currentIndex);
+    this.setCurrentPage({ ...currentPage, body });
     this.updatePage(event.currentIndex);
   }
 
   // 边栏拖动添加组件
-  transferComponet(event: CdkDragDrop<IDynamicInputs[]>): void {
-    const { body } = this.currentPage;
+  transferComponent(event: CdkDragDrop<IDynamicInputs[]>): void {
+    const currentPage = this.currentPage;
     // base 和 component 数据结构不同，需要做判断
     const { data } = event.item;
     const component = data.type ? data : data.content;
+    const body = [...currentPage.body];
     body.splice(event.currentIndex, 0, cloneDeep(component));
+    this.setCurrentPage({ ...currentPage, body });
     this.updatePage(event.currentIndex);
   }
 
   loadNewPage(page: IPage, close?: boolean): void {
     const currentPage = { ...page, current: true, time: new Date().toLocaleString() };
+    const langcode = page.langcode ?? '';
     this.version.update(list => {
       const next = list.map(version => ({ ...version, current: false }));
       const somePageIndex = next.findIndex(item => {
-        return item.uuid === page.uuid && item.langcode === page.langcode;
+        if (
+          page.uuid &&
+          item.uuid &&
+          item.uuid === page.uuid &&
+          (item.langcode ?? '') === langcode
+        ) {
+          return true;
+        }
+        if (
+          page.nid &&
+          item.nid &&
+          item.nid === page.nid &&
+          (item.langcode ?? '') === langcode
+        ) {
+          return true;
+        }
+        return false;
       });
       if (somePageIndex > -1) {
         next[somePageIndex] = currentPage;
@@ -430,7 +511,7 @@ export class BuilderState {
   getAllComponents(data: IBuilderComponent[]): any[] {
     const components: any[] = [];
     data.forEach(item => {
-      components.push(...item.child);
+      components.push(...(item.child || []));
     });
     const result = components.reduce((acc: any[], element: any) => {
       if (typeof element === 'object' && element.child) {
@@ -459,18 +540,17 @@ export class BuilderState {
       return acc;
     }, []);
 
-    if (result && result.length > 0) {
-      const randomElements = [];
+    // 无放回抽样：最多返回池内数量个不重复元素
+    const pool = [...result];
+    const randomElements = [];
+    const total = Math.min(count, pool.length);
 
-      for (let i = 0; i < count; i++) {
-        const randomIndex = Math.floor(Math.random() * result.length);
-        randomElements.push(result[randomIndex]);
-      }
-
-      return randomElements;
-    } else {
-      return [];
+    for (let i = 0; i < total; i++) {
+      const randomIndex = Math.floor(Math.random() * pool.length);
+      randomElements.push(pool.splice(randomIndex, 1)[0]);
     }
+
+    return randomElements;
   }
 
   renderMarkers(isDebugAnimate: boolean): void {
@@ -521,6 +601,7 @@ export class BuilderState {
   editorCode(component: IComponentToolbar, reveal?: string): void {
     const { path, content } = component;
     let builderList: any;
+    let prevPaddingBottom = '';
     if (path && content?.type === 'custom-template') {
       const existing = this.dialog.getDialogById('code-editor-dialog');
       if (existing) {
@@ -567,14 +648,19 @@ export class BuilderState {
           .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe(() => {
             builderList = this.doc.querySelector('#builder-list');
-            builderList.style.paddingBottom = '500px';
+            if (builderList) {
+              prevPaddingBottom = builderList.style.paddingBottom;
+              builderList.style.paddingBottom = '500px';
+            }
             this.fullScreen$.next(true);
             this.closeRightDrawer$.next(true);
           });
 
         dialogRef.afterClosed().subscribe(() => {
           this.editingCodePath.set(null);
-          builderList.style.paddingBottom = '150px';
+          if (builderList) {
+            builderList.style.paddingBottom = prevPaddingBottom;
+          }
           this.fullScreen$.next(false);
         });
       });

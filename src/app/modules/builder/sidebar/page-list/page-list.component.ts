@@ -1,23 +1,26 @@
+import { MatPaginatorIntlCro } from '@core/service/paginator.service';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   DestroyRef,
   OnInit,
+  computed,
+  effect,
   inject,
   input,
+  signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup } from '@angular/forms';
 import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { FormModule } from '@uiux/combs/form/form.module';
+import { SHARE_IMPORTS } from '@share/share-imports';
+import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
+import { FORM_IMPORTS } from '@uiux/combs/form/form-imports';
 import { IPage } from '@core/interface/IAppConfig';
 import { IPageMeta, IPageList } from '@core/interface/IBuilder';
 import { IUser } from '@core/interface/IUser';
-import { IPager } from '@core/interface/widgets/IWidgets';
 import { MatDialog } from '@angular/material/dialog';
 import { IDialog } from '@core/interface/IDialog';
 import { BuilderService } from '@core/service/builder.service';
@@ -33,35 +36,30 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { TranslateService } from '@ngx-translate/core';
 import { merge } from 'lodash-es';
-import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Component({
+  providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorIntlCro }],
   selector: 'app-page-list',
   templateUrl: './page-list.component.html',
   styleUrls: ['./page-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ShareModule, WidgetsModule, FormModule, MatPaginatorModule],
+  imports: [SHARE_IMPORTS, WIDGETS_IMPORTS, FORM_IMPORTS, MatPaginatorModule],
 })
 export class PageListComponent extends BaseComponent implements OnInit {
   public currentPage = inject(BUILDER_CURRENT_PAGE);
   private user = inject(USER);
 
   readonly content = input<any>();
-  public content$: Observable<IPageMeta[]>;
   public form = new FormGroup({
     page: new FormControl(0),
   });
   public model: any = {
     noCache: true,
   };
-  public loading = false;
-  public pager: IPager;
   public langs = environment.langs;
   private builder = inject(BuilderState);
   private dialog = inject(MatDialog);
-  private cd = inject(ChangeDetectorRef);
   private util = inject(UtilitiesService);
   private nodeService = inject(NodeService);
   private route = inject(ActivatedRoute);
@@ -71,6 +69,36 @@ export class PageListComponent extends BaseComponent implements OnInit {
   private tagService = inject(TagsService);
   private translate = inject(TranslateService);
   private pendingPageLoad?: IBuilderPendingPageLoad;
+
+  private queryParams = signal<QueryParams | string>({ noCache: 1 });
+
+  private listRes = this.nodeService.fetchResource(() => ({
+    api: '/api/v2/node/landing-page',
+    params: this.queryParams(),
+  }));
+
+  public loading = this.listRes.isLoading;
+
+  private pageList = computed<IPageList | undefined>(() => {
+    if (this.listRes.error()) {
+      return {
+        rows: [],
+        pager: {
+          current_page: null,
+          total_pages: 0,
+          total_items: 0,
+        },
+      } as any;
+    }
+    return this.listRes.value();
+  });
+
+  public lists = computed<IPageMeta[] | undefined>(() => this.pageList()?.rows);
+
+  public pager = computed(() => {
+    const res = this.pageList();
+    return res ? this.handlePager(res.pager, res.rows.length) : undefined;
+  });
 
   public fields: FormlyFieldConfig[] = [
     {
@@ -157,10 +185,15 @@ export class PageListComponent extends BaseComponent implements OnInit {
   constructor() {
     super();
     this.tagService.setTitle(this.translate.instant('BUILDER.PAGE_LIST.PAGE_TITLE'));
+    effect(() => {
+      const error: any = this.listRes.error();
+      if (error?.status === 404) {
+        this.util.openSnackbar(this.translate.instant('BUILDER.SETTINGS.CHECK_API'), 'ok');
+      }
+    });
   }
 
   ngOnInit(): void {
-    this.fetchPage({ noCache: 1 });
     this.pendingPageLoad = this.builder.consumePageLoad() ?? undefined;
     if (this.pendingPageLoad) {
       this.loadPage(this.pendingPageLoad);
@@ -186,7 +219,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
         });
 
         const params = this.getApiParams({ ...query, noCache: 1 });
-        this.fetchPage(params);
+        this.queryParams.set(params);
       }
     });
   }
@@ -197,39 +230,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
     this.router.navigate([], {
       queryParams: formValue,
     });
-    const params = this.getApiParams({ ...formValue, noCache: 1 });
-    this.fetchPage(params);
-  }
-
-  fetchPage(params: QueryParams | string): void {
-    this.loading = true;
-    this.content$ = this.nodeService.fetch('/api/v2/node/landing-page', params).pipe(
-      catchError(error => {
-        if (error.status === 404) {
-          this.util.openSnackbar(this.translate.instant('BUILDER.SETTINGS.CHECK_API'), 'ok');
-        }
-        return of({
-          rows: [],
-          pager: {
-            current_page: null,
-            total_pages: 0,
-            total_items: 0,
-          },
-        });
-      }),
-      map(res => {
-        this.loading = false;
-        this.cd.detectChanges();
-        return this.getLists(res);
-      }),
-      takeUntilDestroyed(this.destroyRef)
-    );
-  }
-
-  getLists(res: IPageList): any[] {
-    this.pager = this.handlerPager(res.pager, res.rows.length);
-    this.cd.detectChanges();
-    return res.rows;
+    this.queryParams.set(this.getApiParams({ ...formValue, noCache: 1 }));
   }
 
   loadPage(page: any): void {
@@ -294,8 +295,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
     this.router.navigate([], {
       queryParams: value,
     });
-    const params = this.getApiParams(value);
-    this.fetchPage(params);
+    this.queryParams.set(this.getApiParams(value));
   }
 
   createLangVersion(currentPage: IPageMeta, targetlang: string): void {
@@ -325,31 +325,90 @@ export class PageListComponent extends BaseComponent implements OnInit {
         this.nodeService
           .fetch(`/api/v3/landingPage/json/${currentPage.nid}`, { noCache: 1 }, targetlang)
           .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe((page: IPage) => {
-            this.builder.loading.set(false);
-            if (targetlang === page.langcode) {
+          .subscribe({
+            next: (page: IPage) => {
+              this.builder.loading.set(false);
+              if (targetlang === page.langcode) {
+                this.util.openSnackbar(
+                  this.translate.instant('BUILDER.PAGE_LIST.TRANSLATION_EXISTS', {
+                    label: page.label,
+                  }),
+                  'ok'
+                );
+                this.builder.loadNewPage(formatToExtraData(page));
+              } else {
+                this.util.openSnackbar(
+                  this.translate.instant('BUILDER.PAGE_LIST.LOADING_TRANSLATION', {
+                    title: currentPage.title,
+                    lang: targetlang,
+                  }),
+                  'ok'
+                );
+                this.builder.loadNewPage(
+                  formatToExtraData({
+                    langcode: currentPage.langcode,
+                    ...page,
+                    translation: true,
+                    target: targetlang,
+                  })
+                );
+              }
+            },
+            error: () => {
+              this.builder.loading.set(false);
               this.util.openSnackbar(
-                this.translate.instant('BUILDER.PAGE_LIST.TRANSLATION_EXISTS', { label: page.label }),
-                'ok'
-              );
-              this.builder.loadNewPage(formatToExtraData(page));
-            } else {
-              this.util.openSnackbar(
-                this.translate.instant('BUILDER.PAGE_LIST.LOADING_TRANSLATION', {
+                this.translate.instant('BUILDER.PAGE_LIST.LOAD_TRANSLATION_FAIL', {
                   title: currentPage.title,
-                  lang: targetlang,
                 }),
                 'ok'
               );
-              this.builder.loadNewPage(
-                formatToExtraData({
-                  langcode: currentPage.langcode,
-                  ...page,
-                  translation: true,
-                  target: targetlang,
-                })
+            },
+          });
+      });
+  }
+
+  deletePage(page: IPageMeta): void {
+    const config: IDialog = {
+      title: this.translate.instant('BUILDER.PAGE_LIST.DELETE_TITLE'),
+      noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
+      yesLabel: this.translate.instant('BUILDER.PAGE_SETTING.DELETE'),
+      inputData: {
+        content: {
+          type: 'text',
+          fullWidth: true,
+          body: this.translate.instant('BUILDER.PAGE_LIST.DELETE_CONFIRM', { title: page.title }),
+        },
+      },
+    };
+    this.dialog
+      .open(DialogComponent, { width: '340px', data: config })
+      .afterClosed()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(result => {
+        if (!result) return;
+        this.builder.loading.set(true);
+        this.nodeService
+          .deleteEntity('/api/v1/node/landing_page', page.uuid)
+          .pipe(takeUntilDestroyed(this.destroyRef))
+          .subscribe({
+            next: () => {
+              this.builder.loading.set(false);
+              this.util.openSnackbar(
+                this.translate.instant('BUILDER.PAGE_SETTING.DELETE_SUCCESS', { title: page.title }),
+                'ok'
               );
-            }
+              this.onReload();
+            },
+            error: err => {
+              this.builder.loading.set(false);
+              if (err.status === 403) {
+                this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_SETTING.NO_PERMISSION'));
+              } else {
+                this.util.openSnackbar(
+                  this.translate.instant('BUILDER.PAGE_SETTING.DELETE_FAIL', { title: page.title })
+                );
+              }
+            },
           });
       });
   }

@@ -109,6 +109,25 @@ export class UserService extends ApiService {
     if (!this.isBrowser || typeof BroadcastChannel === 'undefined') {
       return;
     }
+    this.openAuthChannel();
+    // 打开且带监听器的 BroadcastChannel 会让页面无法进入往返缓存(bfcache),
+    // 所以 pagehide 时关闭通道、bfcache 恢复时重开;页面冻结期间会错过其它
+    // 标签页的登录/登出广播,恢复后按 cookie 里的登录态重新同步一次。
+    const win = this.doc.defaultView;
+    win?.addEventListener('pagehide', () => this.closeAuthChannel());
+    win?.addEventListener('pageshow', event => {
+      if (!event.persisted) {
+        return;
+      }
+      this.openAuthChannel();
+      this.userSub$.next(this.getStoredUser() ?? false);
+    });
+  }
+
+  private openAuthChannel(): void {
+    if (this.authChannel) {
+      return;
+    }
     this.authChannel = new BroadcastChannel(this.authChannelName);
     this.authChannel.addEventListener('message', event => {
       const data = event.data as AuthBroadcastMessage | undefined;
@@ -124,6 +143,11 @@ export class UserService extends ApiService {
         this.userSub$.next(false);
       }
     });
+  }
+
+  private closeAuthChannel(): void {
+    this.authChannel?.close();
+    this.authChannel = null;
   }
 
   get isBrowser(): boolean {

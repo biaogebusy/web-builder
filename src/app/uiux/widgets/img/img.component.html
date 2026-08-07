@@ -7,30 +7,32 @@
     ></div>
   } @else {
     <div class="img-wrapper">
-      @if (!contentValue.href) {
-        <img
-          contentedit="src"
-          [style]="contentValue.style"
-          [class]="contentValue.classes"
-          [ngSrc]="contentValue.src || ''"
-          [priority]="contentValue.priority === true"
-          [alt]="contentValue.alt || ''"
-          [width]="contentValue.width || 400"
-          [height]="contentValue.height || 300"
-        />
-      } @else {
-        <a href="{{ contentValue.href }}" target="{{ contentValue.target }}">
+      @if (contentValue.src) {
+        @if (!contentValue.href) {
           <img
             contentedit="src"
-            [class]="contentValue.classes"
-            [ngSrc]="contentValue.src || ''"
-            [priority]="contentValue.priority === true"
             [style]="contentValue.style"
+            [class]="contentValue.classes"
+            [ngSrc]="contentValue.src"
+            [priority]="contentValue.priority === true"
             [alt]="contentValue.alt || ''"
             [width]="contentValue.width || 400"
             [height]="contentValue.height || 300"
           />
-        </a>
+        } @else {
+          <a href="{{ contentValue.href }}" target="{{ contentValue.target }}">
+            <img
+              contentedit="src"
+              [class]="contentValue.classes"
+              [ngSrc]="contentValue.src"
+              [priority]="contentValue.priority === true"
+              [style]="contentValue.style"
+              [alt]="contentValue.alt || ''"
+              [width]="contentValue.width || 400"
+              [height]="contentValue.height || 300"
+            />
+          </a>
+        }
       }
       @if (contentValue.actions) {
         <div class="actions">

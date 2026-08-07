@@ -4,14 +4,8 @@ import { provideRouter } from '@angular/router';
 import { IPage } from '@core/interface/IAppConfig';
 import { BuilderService } from '@core/service/builder.service';
 import { BuilderState } from '@core/state/BuilderState';
-import {
-  createBuilderServiceMock,
-  createBuilderStateMock,
-  createStorageServiceMock,
-} from '@core/testing/mocks';
+import { createBuilderServiceMock, createBuilderStateMock } from '@core/testing/mocks';
 import { provideBuilderMocks } from '@modules/builder/testing/mocks';
-import { LocalStorageService } from 'ngx-webstorage';
-import { Subject } from 'rxjs';
 
 import { BuilderVersionComponent } from './builder-version.component';
 
@@ -20,11 +14,6 @@ describe('BuilderVersionComponent', () => {
   let fixture: ComponentFixture<BuilderVersionComponent>;
   const builderState = createBuilderStateMock();
   const builderService = createBuilderServiceMock();
-  const versionChange$ = new Subject<IPage[]>();
-  const storage = Object.assign(createStorageServiceMock(), {
-    retrieve: vi.fn(() => [{ title: '本地版本' }]),
-    observe: vi.fn(() => versionChange$),
-  });
 
   beforeEach(async () => {
     vi.clearAllMocks();
@@ -36,7 +25,6 @@ describe('BuilderVersionComponent', () => {
         ...provideBuilderMocks(),
         { provide: BuilderState, useValue: builderState },
         { provide: BuilderService, useValue: builderService },
-        { provide: LocalStorageService, useValue: storage },
       ],
     }).compileComponents();
 
@@ -49,13 +37,18 @@ describe('BuilderVersionComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('loads versions from local storage and follows storage changes', () => {
-    expect(storage.retrieve).toHaveBeenCalledWith('version');
-    expect(component.version).toEqual([{ title: '本地版本' }]);
+  it('renders versions from the BuilderState signal and follows changes', () => {
+    expect(component.version()).toEqual([
+      { title: 'v1', body: [] },
+      { title: 'v2', body: [] },
+    ]);
+    expect(fixture.nativeElement.textContent).toContain('v1');
 
-    versionChange$.next([{ title: '新版本', body: [] }]);
+    builderState.version.set([{ title: '新版本', body: [] }]);
+    fixture.detectChanges();
 
-    expect(component.version).toEqual([{ title: '新版本', body: [] }]);
+    expect(fixture.nativeElement.textContent).toContain('新版本');
+    expect(fixture.nativeElement.textContent).not.toContain('v1');
   });
 
   it('switches the version and checks whether it is the latest page', () => {
@@ -77,6 +70,7 @@ describe('BuilderVersionComponent', () => {
     component.onUpdateTitle({ target: { textContent: '首页改版' } }, 0);
 
     expect(builderState.version()[0].title).toBe('首页改版');
+    expect(builderState.version()[0].dirty).toBe(true);
     expect(builderState.version()[1].title).toBe('v2');
     expect(builderState.saveLocalVersions).toHaveBeenCalled();
   });

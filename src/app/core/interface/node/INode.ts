@@ -25,7 +25,7 @@ export interface IBaseNode {
     action?: {
       label: string;
     };
-    succes?: any;
+    success?: any;
     empty?: {
       label: string;
     };
@@ -122,7 +122,7 @@ export interface IAdvert extends IBaseNode {
     end: string;
   };
   view: string;
-  succes: {
+  success: {
     label: string;
   };
 }

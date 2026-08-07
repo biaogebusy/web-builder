@@ -6,6 +6,7 @@ import {
   ChangeDetectionStrategy,
   input,
   inject,
+  computed,
   PLATFORM_ID,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
@@ -14,9 +15,12 @@ import type { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { FormlyModule } from '@ngx-formly/core';
 import { cloneDeep } from 'lodash-es';
 import { provideXinshiFormly } from '../formly-feature.config';
+import type { FormUiTheme } from '../formly-shadcn/formly-shadcn.config';
 
 interface IFormly {
   fields?: FormlyFieldConfig[];
+  /** 表单 UI 主题;CMS JSON 配置 'shadcn' 即切换为 shadcn/ui 风格 */
+  uiTheme?: FormUiTheme;
 }
 
 @Component({
@@ -39,6 +43,15 @@ export class FormlyComponent implements AfterViewInit {
 
   fieldsConfig = signal<FormlyFieldConfig[]>([]);
   private platformId = inject(PLATFORM_ID);
+
+  /** content.uiTheme 合并进 options.formState;显式传入的 options 优先 */
+  formOptions = computed<FormlyFormOptions>(() => {
+    const options = this.options();
+    if (this.content()?.uiTheme === 'shadcn' && !options.formState?.uiTheme) {
+      return { ...options, formState: { ...options.formState, uiTheme: 'shadcn' } };
+    }
+    return options;
+  });
 
   ngAfterViewInit(): void {
     try {

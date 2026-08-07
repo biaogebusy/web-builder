@@ -2,8 +2,6 @@ import { AfterViewInit, Directive, ElementRef, OnInit, inject, input } from '@an
 import { IMetaEdit } from '@core/interface/IBuilder';
 import { BuilderState } from '@core/state/BuilderState';
 import { generatePath } from '@core/util/dom-path.util';
-import { getInlineImg } from '@modules/builder/factory/getInlinImg';
-import { getInlineText } from '@modules/builder/factory/getInlineText';
 import { TranslateService } from '@ngx-translate/core';
 @Directive({
    selector: '[contentedit]',
@@ -93,29 +91,32 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
     const path = generatePath(currentTarget);
     if (currentTarget.tagName === 'IMG') {
       const src = currentTarget.getAttribute('src') ?? '';
-      const meta: IMetaEdit = {
-        type: 'inline-editor',
-        mode: 'img',
-        path,
-        fullWidth: true,
-        ele: currentTarget as HTMLImageElement,
-        fields: getInlineImg(currentTarget),
-        data: {
-          src,
-          fileName: src.split('/').pop() ?? '',
-          alt: currentTarget.getAttribute('alt'),
-          tag: currentTarget.tagName,
-        },
-      };
-      this.builder.rightContent$.next({
-        title: this.translate.instant('BUILDER.INLINE_EDITOR.EDIT_IMG'),
-        mode: 'over',
-        hasBackdrop: false,
-        style: {
-          'width': '284px',
-          'max-width': 'calc(100vw - 50px)',
-        },
-        elements: [meta],
+      // 仅 builder 画布内触发，动态加载编辑表单工厂，避免公共页面静态依赖 builder 模块
+      void import('@modules/builder/factory/getInlinImg').then(({ getInlineImg }) => {
+        const meta: IMetaEdit = {
+          type: 'inline-editor',
+          mode: 'img',
+          path,
+          fullWidth: true,
+          ele: currentTarget as HTMLImageElement,
+          fields: getInlineImg(currentTarget),
+          data: {
+            src,
+            fileName: src.split('/').pop() ?? '',
+            alt: currentTarget.getAttribute('alt'),
+            tag: currentTarget.tagName,
+          },
+        };
+        this.builder.rightContent$.next({
+          title: this.translate.instant('BUILDER.INLINE_EDITOR.EDIT_IMG'),
+          mode: 'over',
+          hasBackdrop: false,
+          style: {
+            'width': '284px',
+            'max-width': 'calc(100vw - 50px)',
+          },
+          elements: [meta],
+        });
       });
     } else {
       currentTarget.contentEditable = 'true';
@@ -125,27 +126,30 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
   }
 
   openMetaPanel(ele: HTMLElement, path: string): void {
-    const meta: IMetaEdit = {
-      type: 'inline-editor',
-      mode: 'text',
-      fullWidth: true,
-      path,
-      ele,
-      fields: [getInlineText(ele)],
-      data: {
-        innerHTML: ele.innerHTML,
-        tag: ele.tagName,
-      },
-    };
-    this.builder.rightContent$.next({
-      title: this.translate.instant('BUILDER.INLINE_EDITOR.EDIT_TEXT'),
-      mode: 'push',
-      hasBackdrop: false,
-      style: {
-        'width': '300px',
-        'max-width': 'calc(100vw - 140px)',
-      },
-      elements: [meta],
+    // 仅 builder 画布内触发，动态加载编辑表单工厂，避免公共页面静态依赖 builder 模块
+    void import('@modules/builder/factory/getInlineText').then(({ getInlineText }) => {
+      const meta: IMetaEdit = {
+        type: 'inline-editor',
+        mode: 'text',
+        fullWidth: true,
+        path,
+        ele,
+        fields: [getInlineText(ele)],
+        data: {
+          innerHTML: ele.innerHTML,
+          tag: ele.tagName,
+        },
+      };
+      this.builder.rightContent$.next({
+        title: this.translate.instant('BUILDER.INLINE_EDITOR.EDIT_TEXT'),
+        mode: 'push',
+        hasBackdrop: false,
+        style: {
+          'width': '300px',
+          'max-width': 'calc(100vw - 140px)',
+        },
+        elements: [meta],
+      });
     });
   }
 

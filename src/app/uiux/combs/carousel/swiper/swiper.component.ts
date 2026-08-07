@@ -68,6 +68,10 @@ export class SwiperComponent implements OnInit, AfterViewInit {
     afterNextRender(() => {
       const swiperEle = this.swiper().nativeElement;
       Object.assign(swiperEle, this.config);
+      // Reveal the slides hidden by the pre-init CSS before initialize() so
+      // Swiper measures real slide sizes; same task, so the stacked layout is
+      // never painted.
+      swiperEle.classList.add('swiper-ready');
       swiperEle.initialize();
       const content = this.content();
       if (content?.classes) {

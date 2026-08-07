@@ -1,0 +1,17 @@
+:host {
+  @apply block mb-2;
+}
+
+.required-marker {
+  color: var(--shadcn-destructive);
+}
+
+.shad-error {
+  @apply text-xs font-medium mt-1 mb-0;
+  color: var(--shadcn-destructive);
+}
+
+.shad-hint {
+  @apply text-xs mt-1 mb-0;
+  color: var(--shadcn-muted-foreground);
+}

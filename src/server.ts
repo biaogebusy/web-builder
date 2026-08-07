@@ -9,6 +9,10 @@ import expressStaticGzip from 'express-static-gzip';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { environment } from 'src/environments/environment';
+import {
+  isSsrRenderDegraded,
+  type SsrRequestContext,
+} from 'src/app/core/service/ssr-render-state.service';
 import compression from 'compression';
 import { blockScanners, rateLimiter } from './middlewares/security';
 import { SsrHtmlCache } from './server/ssr-html-cache';
@@ -53,6 +57,7 @@ const ssrCache = new SsrHtmlCache({
 });
 const authCookieName = getAuthCookieName(environment.apiUrl);
 const ssrMetrics = {
+  degraded: 0,
   errors: 0,
   maxRenderMs: 0,
   renders: 0,
@@ -77,6 +82,7 @@ const metricsTimer = setInterval(
         cacheHitRatio: Number(cache.hitRatio.toFixed(4)),
         cacheHits: cache.hits,
         cacheMisses: cache.misses,
+        degraded: ssrMetrics.degraded,
         errors: ssrMetrics.errors,
         heapUsedMb: Number((memory.heapUsed / 1024 / 1024).toFixed(2)),
         maxRenderMs: Math.round(ssrMetrics.maxRenderMs),
@@ -132,13 +138,19 @@ app.use('/**', (req, res, next) => {
     res.setHeader('X-Cache', 'MISS');
   } else {
     requestTiming.cacheStatus = 'BYPASS';
-    res.setHeader('Cache-Control', 'private, no-store');
+    // 'no-store' on the document makes the page ineligible for the browser's
+    // back/forward cache; 'private, no-cache' still forces revalidation on every
+    // HTTP reuse and keeps shared caches out, without blocking bfcache.
+    res.setHeader('Cache-Control', 'private, no-cache');
     res.setHeader('X-Accel-Expires', '0');
     res.setHeader('X-Cache', 'BYPASS');
   }
 
   requestTiming.ssrStartedAt = performance.now();
   const renderStart = requestTiming.ssrStartedAt;
+  // Shared with the app via the REQUEST_CONTEXT token; the render marks it
+  // degraded when critical CMS content failed with a transient error.
+  const ssrContext: SsrRequestContext = {};
   let settled = false;
 
   const timeoutId = setTimeout(() => {
@@ -154,7 +166,7 @@ app.use('/**', (req, res, next) => {
   }, ssrRenderTimeoutMs);
 
   angularApp
-    .handle(req)
+    .handle(req, ssrContext)
     .then(async response => {
       if (settled) {
         return;
@@ -167,7 +179,18 @@ app.use('/**', (req, res, next) => {
       res.setHeader('X-SSR-Duration', Math.round(renderMs).toString());
       setSsrTimingHeaders(res, requestTiming);
       if (response) {
-        if (cacheDecision.cacheable && response.status === 200) {
+        const degraded = isSsrRenderDegraded(ssrContext);
+        if (degraded) {
+          ssrMetrics.degraded += 1;
+          requestTiming.cacheReason = `degraded:${(ssrContext.degradedReasons ?? []).join(',')}`;
+          // A page rendered while the CMS was failing serves this request
+          // (the client recovers on its own), but must not be reused: keep it
+          // out of the local SSR cache and out of shared caches until a
+          // healthy render replaces it.
+          res.setHeader('Cache-Control', 'private, no-cache');
+          res.setHeader('X-Accel-Expires', '0');
+        }
+        if (cacheDecision.cacheable && response.status === 200 && !degraded) {
           const html = await response.clone().text();
           ssrCache.set(cacheDecision.key, html);
           setPublicCacheHeaders(res);

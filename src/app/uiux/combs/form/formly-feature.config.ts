@@ -2,8 +2,6 @@ import type { Provider } from '@angular/core';
 import { MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
 import {
   FORMLY_CONFIG,
-  FormlyConfig,
-  FormlyFormBuilder,
   type ConfigOption,
   type FormlyFieldConfig,
   provideFormlyCore,
@@ -12,6 +10,11 @@ import { withFormlyMaterial } from '@ngx-formly/material';
 import { withFormlyFieldDatepicker } from '@ngx-formly/material/datepicker';
 import { withFormlyFieldToggle } from '@ngx-formly/material/toggle';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  FORM_UI_THEME,
+  XINSHI_FORMLY_SHADCN_CONFIG,
+  registerShadcnThemeExtension,
+} from './formly-shadcn/formly-shadcn.config';
 import { DateRangeComponent } from './formly-type/date-range/date-range.component';
 import { DialogRepeatComponent } from './formly-type/dialog-repeat/dialog-repeat.component';
 import { ImgPickerComponent } from './formly-type/img-picker/img-picker.component';
@@ -61,9 +64,13 @@ export function provideXinshiFormly(): Provider[] {
       withFormlyFieldDatepicker(),
       withFormlyFieldToggle(),
       XINSHI_FORMLY_CONFIG,
+      XINSHI_FORMLY_SHADCN_CONFIG,
     ]),
-    FormlyConfig,
-    FormlyFormBuilder,
+    // 注意：不要在这里提供 FormlyConfig / FormlyFormBuilder。
+    // formly 7.1 起 withDefaultConfig 的 core 扩展持有创建时注入的 FormlyConfig 实例，
+    // 组件级若创建独立实例，会与父级（forChild 等）绑定的 root 单例分裂：
+    // 类型注册在组件实例上、defaultOptions 合并却发生在 root 实例上，
+    // 导致 select 丢失默认 compareWith / form-field wrapper 而报错。
     provideNativeDateAdapter(),
     { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' },
     {
@@ -71,6 +78,12 @@ export function provideXinshiFormly(): Provider[] {
       multi: true,
       useFactory: registerTranslateExtension,
       deps: [TranslateService],
+    },
+    {
+      provide: FORMLY_CONFIG,
+      multi: true,
+      useFactory: registerShadcnThemeExtension,
+      deps: [FORM_UI_THEME],
     },
   ];
 }

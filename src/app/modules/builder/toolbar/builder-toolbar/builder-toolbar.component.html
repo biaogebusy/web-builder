@@ -21,7 +21,10 @@
                     class="draft-badge"
                     role="status"
                     [attr.aria-label]="'BUILDER.TOOLBAR.TRANSLATION_DRAFT' | translate"
-                    [matTooltip]="'BUILDER.TOOLBAR.TRANSLATION_DRAFT_TIP' | translate: { lang: getLangLabel(page.target) }"
+                    [matTooltip]="
+                      'BUILDER.TOOLBAR.TRANSLATION_DRAFT_TIP'
+                        | translate: { lang: getLangLabel(page.target) }
+                    "
                   >
                     <app-icon class="draft-badge-icon" [content]="{ svg: 'translate' }" />
                     {{ 'BUILDER.TOOLBAR.TRANSLATION_DRAFT' | translate }}
@@ -36,6 +39,16 @@
                   >
                     <app-icon class="draft-badge-icon" [content]="{ svg: 'tray-arrow-up' }" />
                     {{ 'BUILDER.COMMON.UNPUBLISHED' | translate }}
+                  </span>
+                } @else if (page.dirty) {
+                  <span
+                    class="draft-badge"
+                    role="status"
+                    [attr.aria-label]="'BUILDER.TOOLBAR.UNSAVED_CHANGES' | translate"
+                    [matTooltip]="'BUILDER.TOOLBAR.UNSAVED_CHANGES_TIP' | translate"
+                  >
+                    <app-icon class="draft-badge-icon" [content]="{ svg: 'pencil-outline' }" />
+                    {{ 'BUILDER.TOOLBAR.UNSAVED_CHANGES' | translate }}
                   </span>
                 }
                 @if (!page.translation && page.langcode) {
@@ -55,7 +68,7 @@
           </button>
           <mat-menu #menu="matMenu">
             @if (version(); as versionValue) {
-              @for (version of versionValue; track version; let i = $index) {
+              @for (version of versionValue; track $index; let i = $index) {
                 <button mat-menu-item (click)="onVersion(version, i)">
                   <div class="flex items-center">
                     <app-icon class="opacity-70" [content]="{ svg: 'file-outline' }" />
@@ -88,14 +101,23 @@
         <mat-slide-toggle
           [checked]="isFullScreen"
           (change)="onFullScreen($event)"
-          [matTooltip]="(isFullScreen ? 'BUILDER.TOOLBAR.SHOW_SIDEBAR' : 'BUILDER.TOOLBAR.TOGGLE_FULL_WIDTH') | translate"
+          [matTooltip]="
+            (isFullScreen ? 'BUILDER.TOOLBAR.SHOW_SIDEBAR' : 'BUILDER.TOOLBAR.TOGGLE_FULL_WIDTH')
+              | translate
+          "
         />
         @if (page) {
           <app-btn
             class="submit-btn"
             (click)="onSubmit(page)"
             [content]="{
-              label: (page.translation ? 'BUILDER.TOOLBAR.SUBMIT_TRANSLATION' : page.uuid ? 'BUILDER.TOOLBAR.SUBMIT_UPDATE' : 'BUILDER.TOOLBAR.SUBMIT_DRAFT') | translate,
+              label:
+                (page.translation
+                  ? 'BUILDER.TOOLBAR.SUBMIT_TRANSLATION'
+                  : page.uuid
+                    ? 'BUILDER.TOOLBAR.SUBMIT_UPDATE'
+                    : 'BUILDER.TOOLBAR.SUBMIT_DRAFT'
+                ) | translate,
               color: (!page.uuid || page.translation) && page.body.length ? 'warn' : 'primary',
               mode: 'raised',
               icon: {

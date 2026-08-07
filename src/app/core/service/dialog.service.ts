@@ -20,7 +20,7 @@ export class DialogService {
     this.dialogState$.next(false);
   }
 
-  forceDialog(config: any): void {
+  openForcedDialog(config: any): void {
     const first = this.doc.referrer;
     const path = this.doc.location.pathname;
     const params = config.params;
@@ -75,7 +75,7 @@ export class DialogService {
     });
   }
 
-  handlerIframe(dialog: MatDialog): void {
+  handleIframe(dialog: MatDialog): void {
     if (!isPlatformBrowser(this.platformId)) {
       return;
     }

@@ -96,10 +96,15 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
                 const { form } = formGroup;
                 return form.valueChanges.pipe(
                   tap((value: any) => {
-                    const srcArr = value.src.split(/\/|(?=\.\w+$)/);
-                    form.get('alt').patchValue(srcArr[srcArr.length - 2], {
+                    const src = value?.src;
+                    const altControl = form.get('alt');
+                    if (typeof src !== 'string' || !src || altControl?.value) {
+                      return;
+                    }
+                    const srcArr = src.split(/\/|(?=\.\w+$)/);
+                    altControl?.patchValue(srcArr[srcArr.length - 2], {
                       onlySelf: true,
-                      emitEvent: true,
+                      emitEvent: false,
                     });
                   })
                 );
@@ -113,7 +118,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
             props: {
               label: 'alt',
             },
-            hideExpression: '!model.src',
+            expressions: { hide: '!model.src' },
           },
           {
             key: 'classes',
@@ -136,7 +141,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
                 },
               ],
             },
-            hideExpression: '!model.src',
+            expressions: { hide: '!model.src' },
           },
         ],
       },

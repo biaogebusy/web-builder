@@ -52,7 +52,7 @@ describe('ApiService url and pager helpers', () => {
   });
 
   it('normalizes the empty drupal views pager', () => {
-    const pager = createService().handlerPager(
+    const pager = createService().handlePager(
       { current_page: null, total_pages: 0, total_items: 0 },
       5
     );
@@ -61,7 +61,7 @@ describe('ApiService url and pager helpers', () => {
   });
 
   it('maps a filled drupal views pager one to one', () => {
-    const pager = createService().handlerPager({
+    const pager = createService().handlePager({
       current_page: 2,
       total_pages: 10,
       total_items: 95,

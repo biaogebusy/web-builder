@@ -6,6 +6,24 @@
   overflow: hidden;
 }
 
+// Until initialize() runs (client-only), the custom elements have no swiper
+// layout: SSR/first paint would stack every slide at full height, then
+// collapse to one slide — a large layout shift. Keep only the first slide
+// visible so the pre-init height approximates the initialized carousel.
+swiper-container {
+  @apply block overflow-hidden;
+
+  &:not(.swiper-ready) {
+    swiper-slide {
+      @apply block w-full;
+
+      &:not(:first-child) {
+        @apply hidden;
+      }
+    }
+  }
+}
+
 .swiper-container {
   --swiper-navigation-color: var(--mat-sys-primary);
   --swiper-theme-color: var(--mat-sys-primary);

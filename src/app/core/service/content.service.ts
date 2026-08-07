@@ -10,6 +10,10 @@ import { isArray } from 'lodash-es';
 import { TagsService } from '@core/service/tags.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { ApiService } from '@core/service/api.service';
+import {
+  SsrRenderStateService,
+  isTransientContentError,
+} from '@core/service/ssr-render-state.service';
 import type { IBranding } from '@core/interface/branding/IBranding';
 import type { IBuilderConfig, IUiux } from '@core/interface/IBuilder';
 import type { JsonValue } from '@core/interface/common';
@@ -29,6 +33,7 @@ export class ContentService extends ApiService {
   private apiService = inject(ApiService);
   private coreConfig = inject(CORE_CONFIG);
   private isServer = isPlatformServer(inject(PLATFORM_ID));
+  private ssrRenderState = inject(SsrRenderStateService);
   private builderConfigCache: Observable<IBuilderConfig>;
   private coreConfigCache = new Map<string, Observable<ICoreConfig>>();
   private activeConfigPath = '';
@@ -45,7 +50,7 @@ export class ContentService extends ApiService {
     if (isArray(pageValue)) {
       return;
     }
-    this.tagsService.updateTages(pageValue);
+    this.tagsService.updateTags(pageValue);
     this.screenState.scroll$.next(true);
   }
 
@@ -62,6 +67,7 @@ export class ContentService extends ApiService {
           withRetry$.pipe(
             catchError(error => {
               console.error('Failed to load page content:', error);
+              this.markSsrDegraded('page-content', error);
               return of({} as IPage);
             }),
             tap(page => this.pageValueCache.set(key, page)),
@@ -107,6 +113,16 @@ export class ContentService extends ApiService {
     return this.pageValueCache.get(key);
   }
 
+  // Rendering continues with empty content (graceful degradation), but a
+  // transient upstream failure means this render must not enter the SSR HTML
+  // cache — server.ts reads the flag after the render. Stable 4xx answers
+  // keep the normal caching behavior.
+  private markSsrDegraded(source: string, error: unknown): void {
+    if (this.isServer && isTransientContentError(error)) {
+      this.ssrRenderState.markDegraded(source);
+    }
+  }
+
   logContent(url: string): void {
     if (this.coreConfig?.log?.content?.enabel) {
       const { api } = this.coreConfig.log.content;
@@ -130,6 +146,7 @@ export class ContentService extends ApiService {
         resilientReq$.pipe(
           catchError(error => {
             console.error('Failed to load branding:', error);
+            this.markSsrDegraded('branding', error);
             return of({} as IBranding);
           }),
           shareReplay(1)
@@ -153,6 +170,7 @@ export class ContentService extends ApiService {
         resilientReq$.pipe(
           catchError(error => {
             console.error('base json not found:', error);
+            this.markSsrDegraded('core-config', error);
             return of({} as ICoreConfig);
           }),
           shareReplay(1)

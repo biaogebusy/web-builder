@@ -18,6 +18,8 @@
 <p align="center">
   <a href="https://github.com/biaogebusy/builder-cms">Builder CMS</a>
   ·
+  <a href="https://github.com/biaogebusy/web-builder-skills">Web Builder Skills</a>
+  ·
   <a href="https://github.com/biaogebusy/xinshi-mini">信使小程序</a>
   ·
   <a href="https://docs.builder.design"> 文档 </a>
@@ -78,6 +80,17 @@
 | ![chat-entry](src/assets/images/builder/chat-entry.png) | ![chat-tailwind](src/assets/images/builder/chat-tailwind.png) |
 | ![chat-chart](src/assets/images/builder/chat-chart.png) | ![chat-mermaid](src/assets/images/builder/chat-mermaid.png)   |
 
+## Web Builder Skills
+
+[Web Builder Skills](https://github.com/biaogebusy/web-builder-skills) 是为 Web Builder
+提供的 Claude Code 技能包，覆盖 UI 构建、多语言翻译和网页配图提示词生成。
+
+| Skill                                                                                               | 能力说明                                                                |
+| --------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| [`ui-builder`](https://github.com/biaogebusy/web-builder-skills/tree/master/ui-builder)             | 在 Storybook 中创建、优化 UI 组件，并生成 stories 与 AI 提示词文档      |
+| [`translate-json`](https://github.com/biaogebusy/web-builder-skills/tree/master/translate-json)     | 翻译页面或组件 JSON 的可见文案，并为站内链接添加对应语言前缀            |
+| [`web-image-prompt`](https://github.com/biaogebusy/web-builder-skills/tree/master/web-image-prompt) | 为网页组件生成面向 gpt-image-2 的中文配图提示词，支持多种风格与图片比例 |
+
 ## 信使 Mini 小程序
 
 <p align="center">
@@ -112,6 +125,7 @@
 
 | Web builder | Angular | Node     | TS     |
 | :---------- | :------ | :------- | :----- |
+| v12         | v20     | v22+     | v5.8+  |
 | v11         | v20     | v22+     | v5.8+  |
 | v10         | v19     | v18+     | v5.5+  |
 | v9          | v18     | v18+     | v5.4   |
@@ -151,10 +165,13 @@
 ## 常用命令
 
 - `npm start` — 本地开发服务（自动通过 `config/proxy.config.js` 代理 API 到 `https://base.builder.design`）
-- `npm run build` — 生产环境打包（`ng build --configuration production`）
-- `npm test` — 单元测试（Karma + Jasmine）
+- `npm run build` — 生产环境打包并预压缩静态资源（`ng build --configuration production && npm run precompress`）
+- `npm test` — 单元测试（Vitest，覆盖 `src/**` 下除 `src/server/**` 外的所有 spec）
+- `npm run test:server` — 服务端单元测试（`src/server/**`，经根目录 `vitest.config.ts` 运行）
+- `npm run test:watch` — 单元测试 watch 模式
 - `npm run lint` — ESLint 代码检查（flat config）
-- `npm run e2e` — 端到端测试（Protractor）
+- `npm run e2e` — 端到端测试（Playwright）
+- `npm run e2e:ui` — Playwright UI 模式
 - `npm run serve:ssr:xinshi` — 运行 SSR 构建产物（`node dist/server/server.mjs`）
 
 提交时 husky 会触发 `lint-staged`，自动用 ESLint 修复 `*.ts`/`*.html`，并用 Prettier 格式化 `*.md`。
@@ -172,13 +189,11 @@ export const environment: IEnvironment = {
     {
       label: '中文',
       langCode: 'zh-hans',
-      prefix: '/',
       default: true,
     },
     {
       label: 'EN',
       langCode: 'en',
-      prefix: '/en',
     },
   ],
   oauth: {
@@ -195,7 +210,7 @@ export const environment: IEnvironment = {
 - apiUrl: 整个应用的 Base api 参数；
 - production: 为 false 时页面内容 api 调用本地 json 文件，true 时调用线上接口；
 - port: 自定义 Node 端口；
-- multiLang / langs: 多语言开关及前缀路由配置；
+- multiLang / langs: 多语言开关及语言列表配置（默认语言不带前缀，其余语言以 langCode 作为路由前缀）；
 - oauth: 基于 Drupal simple_oauth 的 OAuth2 认证配置（授权码模式）。
 
 ## 本地开发环境 Proxy 代理
@@ -241,6 +256,29 @@ module.exports = PROXY_CONFIG;
 ## 为生产环境打包
 
 `npm run build`
+
+## 上线前检查：扫描线上内容的 Tailwind class
+
+Tailwind 的 safelist 已从全量颜色矩阵收敛为「布局 pattern + 历史精确类清单」（`config/tailwind.safelist.json`），线上 CMS 内容若用到清单之外的颜色类，构建产物中将没有对应样式。发布前请扫描一次线上内容。
+
+第一步，在 Drupal 侧导出 builder 内容。node 侧的 `landing_page`（页面）、`json`（页头/页脚品牌配置）、`component`（自定义组件）都把页面 JSON 存在 `body` 字段；前台展示的区块（自定义区块 `block_content`，如首页区块）同样把 JSON 存在 `body` 字段。
+
+```bash
+$(drush sql:connect) -q -C -B -N --max-allowed-packet=1G \
+  -e "SELECT body_value FROM node__body WHERE bundle IN ('landing_page','json','component') AND deleted = 0" \
+  | gzip > prod-content.txt.gz
+$(drush sql:connect) -q -C -B -N --max-allowed-packet=1G \
+  -e "SELECT body_value FROM block_content__body WHERE deleted = 0" \
+  | gzip > prod-blocks.txt.gz
+```
+
+第二步，处理结果。全部缺失类会自动并入 `config/tailwind.safelist.json`（`group`/`peer` 这类无 CSS 的标记类自动排除），再正常重跑一次确认 OK：
+
+```bash
+node scripts/scan-content-classes.mjs --fix prod-content.txt.gz prod-blocks.txt.gz
+```
+
+> 新内容的颜色请写在组件的 `<style>` 块或行内 style 中，不要再依赖调色板工具类，避免清单再次膨胀。
 
 ## 最后
 

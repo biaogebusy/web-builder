@@ -79,7 +79,7 @@ export function getCard(widget: any): FormlyFieldConfig {
                       updateLabel: 'BUILDER.FACTORY.IMG_UPDATE',
                       addLabel: 'BUILDER.FACTORY.IMG_ADD',
                       deleteLabel: 'BUILDER.FACTORY.IMG_DELETE',
-                      fileName: widget?.feature?.img?.src.split('/').pop(),
+                      fileName: widget?.feature?.img?.src?.split('/').pop(),
                       alt: widget?.feature?.img?.alt ?? '',
                     },
                   },

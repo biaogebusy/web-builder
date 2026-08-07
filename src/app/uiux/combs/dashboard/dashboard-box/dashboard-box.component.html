@@ -22,7 +22,7 @@
       </div>
     </div>
   }
-  @if (widget$ | async; as widget) {
+  @if (widget(); as widget) {
     <app-dynamic-component [attr.data-path]="'widget'" [inputs]="widget" />
   }
   @if (loading()) {

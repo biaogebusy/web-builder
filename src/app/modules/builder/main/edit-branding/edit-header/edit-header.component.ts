@@ -20,9 +20,11 @@ import { FormlyMatToggleModule } from '@ngx-formly/material/toggle';
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { TranslateService } from '@ngx-translate/core';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { FormModule } from '@uiux/combs/form/form.module';
+import { SHARE_IMPORTS } from '@share/share-imports';
+import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
+import { FORM_IMPORTS } from '@uiux/combs/form/form-imports';
+import { provideXinshiFormly } from '@uiux/combs/form/formly-feature.config';
+import { shadcnFormOptions } from '@uiux/combs/form/formly-shadcn/formly-shadcn.config';
 import { merge } from 'rxjs';
 
 import { IBranding, IHeader, IMainMenu } from '@core/interface/branding/IBranding';
@@ -30,6 +32,7 @@ import { ContentService } from '@core/service/content.service';
 import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { HasUnsavedChanges } from '@core/guards/unsaved-changes.guard';
+import { BrandingPreviewComponent } from '../branding-preview/branding-preview.component';
 import { formatBrandingJson, getBrandingJsonError, mergeBrandingJson } from '../branding-json.util';
 import { buildHeaderConfig } from '../branding-config.util';
 import {
@@ -55,9 +58,9 @@ import {
   styleUrl: './edit-header.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    ShareModule,
-    WidgetsModule,
-    FormModule,
+    SHARE_IMPORTS,
+    WIDGETS_IMPORTS,
+    FORM_IMPORTS,
     FormsModule,
     RouterLink,
     DragDropModule,
@@ -68,7 +71,9 @@ import {
     FormlyMatToggleModule,
     MonacoEditorModule,
     NgxSkeletonLoaderModule,
+    BrandingPreviewComponent,
   ],
+  providers: [provideXinshiFormly()],
 })
 export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
   loading = signal(false);
@@ -78,11 +83,13 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
   header = signal<IHeader | null>(null);
   menuItems = signal<IMainMenu[]>([]);
   expandedMenuIndex = signal<number>(-1);
+  expandedChildKey = signal<string>('');
   nodeUuid = signal('');
   nodeLangcode = signal('');
   queryParams: Record<string, string> = {};
   activeSection = signal<string>('params');
   showJson = signal(false);
+  previewBranding = signal<IBranding | null>(null);
 
   // JSON panel
   jsonEditMode = signal(false);
@@ -98,18 +105,27 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
   paramsForm = new UntypedFormGroup({});
   paramsModel: Record<string, unknown> = {};
   paramsFields: FormlyFieldConfig[] = [];
+  paramsOptions = shadcnFormOptions();
 
   logoForm = new UntypedFormGroup({});
   logoModel: Record<string, unknown> = {};
   logoFields: FormlyFieldConfig[] = [];
+  logoOptions = shadcnFormOptions();
 
   searchForm = new UntypedFormGroup({});
   searchModel: Record<string, unknown> = {};
   searchFields: FormlyFieldConfig[] = [];
+  searchOptions = shadcnFormOptions();
 
   actionsForm = new UntypedFormGroup({});
   actionsModel: Record<string, unknown> = {};
   actionsFields: FormlyFieldConfig[] = [];
+  actionsOptions = shadcnFormOptions();
+
+  topForm = new UntypedFormGroup({});
+  topModel: Record<string, unknown> = {};
+  topFields: FormlyFieldConfig[] = [];
+  topOptions = shadcnFormOptions();
 
   monacoReadonlyOptions = {
     theme: 'vs',
@@ -183,6 +199,7 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
           this.initLogoFields(branding.header);
           this.initSearchFields(branding.header);
           this.initActionsFields(branding.header);
+          this.initTopFields(branding.header);
           this.updateJsonPreview();
           this.loading.set(false);
           this.dirty.set(false);
@@ -201,7 +218,8 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
       this.paramsForm.valueChanges,
       this.logoForm.valueChanges,
       this.searchForm.valueChanges,
-      this.actionsForm.valueChanges
+      this.actionsForm.valueChanges,
+      this.topForm.valueChanges
     )
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
@@ -219,9 +237,18 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
       return;
     }
     try {
-      this.jsonPreview.set(formatBrandingJson(this.buildHeader()));
+      const built = this.buildHeader();
+      this.jsonPreview.set(formatBrandingJson(built));
+      this.updateLivePreview(built);
     } catch {
       // skip
+    }
+  }
+
+  private updateLivePreview(header: IHeader): void {
+    const branding = this.branding();
+    if (branding) {
+      this.previewBranding.set({ ...branding, header });
     }
   }
 
@@ -238,7 +265,15 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
   onJsonChange(value: string): void {
     this.customJson = value;
     this.markDirty();
-    this.jsonError.set(getBrandingJsonError(value));
+    const error = getBrandingJsonError(value);
+    this.jsonError.set(error);
+    if (!error) {
+      try {
+        this.updateLivePreview(mergeBrandingJson(this.buildHeader(), value));
+      } catch {
+        // keep last valid preview
+      }
+    }
   }
 
   initParamsFields(header: IHeader): void {
@@ -266,7 +301,90 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
             defaultValue: params.menuHoverOpen,
             props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.HOVER_MENU') },
           },
+          {
+            key: 'inverse',
+            type: 'toggle',
+            defaultValue: params.inverse ?? false,
+            props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.INVERSE_HEADER') },
+          },
         ],
+      },
+    ];
+  }
+
+  initTopFields(header: IHeader): void {
+    const banner = header.top?.banner;
+    this.topModel = {
+      left: (banner?.left ?? []).map(item => ({
+        svg: item.icon?.svg ?? '',
+        label: item.label ?? '',
+      })),
+      right: (banner?.right ?? []).map(item => ({
+        label: item.label ?? '',
+        svg: item.svg ?? '',
+        href: item.href ?? '',
+      })),
+    };
+    this.topFields = [
+      {
+        template: `<div class="field-label">${this.translate.instant('BUILDER.EDIT_BRANDING.TOP_LEFT')}</div>`,
+      },
+      {
+        key: 'left',
+        type: 'repeat',
+        props: {
+          addText: this.translate.instant('BUILDER.EDIT_BRANDING.ADD_TOP_LEFT'),
+        },
+        fieldArray: {
+          fieldGroupClassName: 'grid gap-0',
+          fieldGroup: [
+            {
+              key: 'label',
+              type: 'input',
+              className: 'w-full',
+              props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.LABEL'), required: true },
+            },
+            {
+              key: 'svg',
+              type: 'input',
+              className: 'w-full',
+              props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.ICON_SVG') },
+            },
+          ],
+        },
+      },
+      {
+        template: `<div class="field-label">${this.translate.instant('BUILDER.EDIT_BRANDING.TOP_RIGHT')}</div>`,
+      },
+      {
+        key: 'right',
+        type: 'repeat',
+        props: {
+          addText: this.translate.instant('BUILDER.EDIT_BRANDING.ADD_TOP_RIGHT'),
+        },
+        fieldArray: {
+          fieldGroupClassName: 'grid gap-0',
+          fieldGroup: [
+            {
+              key: 'label',
+              type: 'input',
+              className: 'w-full',
+              props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.LABEL'), required: true },
+            },
+            {
+              key: 'svg',
+              type: 'input',
+              className: 'w-full',
+              props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.ICON_SVG') },
+            },
+            {
+              key: 'href',
+              type: 'input',
+              className: 'w-full',
+              props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.LINK_FIELD') },
+            },
+          ],
+        },
       },
     ];
   }
@@ -534,16 +652,142 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
     this.updateJsonPreview();
   }
 
+  // ── Dynamic menu / target / third-level menu ──
+
+  toggleMenuDynamic(index: number, enabled: boolean): void {
+    this.menuItems.set(updateBrandingItem(this.menuItems(), index, 'dynamicMenu', enabled || undefined));
+    this.onMenuChange();
+  }
+
+  updateMenuUuid(index: number, value: string): void {
+    this.menuItems.set(updateBrandingItem(this.menuItems(), index, 'uuid', value || undefined));
+    this.onMenuChange();
+  }
+
+  toggleChildTarget(menuIndex: number, childIndex: number): void {
+    const current = this.menuItems()[menuIndex].child?.[childIndex]?.target;
+    this.menuItems.set(
+      updateBrandingChild(
+        this.menuItems(),
+        menuIndex,
+        childIndex,
+        'target',
+        current === '_blank' ? undefined : '_blank'
+      )
+    );
+    this.onMenuChange();
+  }
+
+  toggleChildExpand(menuIndex: number, childIndex: number): void {
+    const key = `${menuIndex}:${childIndex}`;
+    this.expandedChildKey.set(this.expandedChildKey() === key ? '' : key);
+  }
+
+  isChildExpanded(menuIndex: number, childIndex: number): boolean {
+    return this.expandedChildKey() === `${menuIndex}:${childIndex}`;
+  }
+
+  private setChildren(menuIndex: number, children: IMainMenu[]): void {
+    const items = [...this.menuItems()];
+    items[menuIndex] = { ...items[menuIndex], child: children };
+    this.menuItems.set(items);
+  }
+
+  private childrenOf(menuIndex: number): IMainMenu[] {
+    return [...(this.menuItems()[menuIndex].child ?? [])];
+  }
+
+  addGrandChild(menuIndex: number, childIndex: number): void {
+    this.setChildren(
+      menuIndex,
+      appendBrandingChild(this.childrenOf(menuIndex), childIndex, {
+        label: this.translate.instant('BUILDER.EDIT_BRANDING.NEW_CHILD_MENU'),
+      })
+    );
+    this.onMenuChange();
+  }
+
+  updateGrandChild(
+    menuIndex: number,
+    childIndex: number,
+    grandIndex: number,
+    field: string,
+    value: string
+  ): void {
+    this.setChildren(
+      menuIndex,
+      updateBrandingChild(this.childrenOf(menuIndex), childIndex, grandIndex, field, value)
+    );
+    this.onMenuChange();
+  }
+
+  toggleGrandChildTarget(menuIndex: number, childIndex: number, grandIndex: number): void {
+    const current =
+      this.menuItems()[menuIndex].child?.[childIndex]?.child?.[grandIndex]?.target;
+    this.setChildren(
+      menuIndex,
+      updateBrandingChild(
+        this.childrenOf(menuIndex),
+        childIndex,
+        grandIndex,
+        'target',
+        current === '_blank' ? undefined : '_blank'
+      )
+    );
+    this.onMenuChange();
+  }
+
+  removeGrandChild(menuIndex: number, childIndex: number, grandIndex: number): void {
+    const removed = this.menuItems()[menuIndex].child?.[childIndex]?.child?.[grandIndex];
+    this.setChildren(
+      menuIndex,
+      removeBrandingChild(this.childrenOf(menuIndex), childIndex, grandIndex)
+    );
+    this.onMenuChange();
+    if (removed) {
+      const ref = this.snackBar.open(
+        this.translate.instant('BUILDER.EDIT_BRANDING.DELETED_TOAST', { label: removed.label }),
+        this.translate.instant('BUILDER.EDIT_BRANDING.UNDO'),
+        { duration: 5000 }
+      );
+      ref
+        .onAction()
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(() => {
+          this.setChildren(
+            menuIndex,
+            insertBrandingChild(this.childrenOf(menuIndex), childIndex, grandIndex, removed)
+          );
+          this.onMenuChange();
+        });
+    }
+  }
+
+  onGrandChildDrop(menuIndex: number, childIndex: number, event: CdkDragDrop<IMainMenu[]>): void {
+    const children = this.childrenOf(menuIndex);
+    const grandChildren = moveBrandingItems(
+      children[childIndex].child ?? [],
+      event.previousIndex,
+      event.currentIndex
+    );
+    children[childIndex] = { ...children[childIndex], child: grandChildren };
+    this.setChildren(menuIndex, children);
+    this.onMenuChange();
+  }
+
   // ── Build & Save ──
 
   buildHeader(): IHeader {
+    // Merge model under form.value: collapsed sections never render their
+    // formly-form, leaving the FormGroup empty — the model keeps the values.
     return buildHeaderConfig(
       this.header()!,
-      this.paramsForm.value,
-      this.logoForm.value,
+      { ...this.paramsModel, ...this.paramsForm.value },
+      { ...this.logoModel, ...this.logoForm.value },
       this.menuItems(),
-      this.searchForm.value,
-      this.actionsForm.value
+      { ...this.searchModel, ...this.searchForm.value },
+      { ...this.actionsModel, ...this.actionsForm.value },
+      { ...this.topModel, ...this.topForm.value }
     );
   }
 

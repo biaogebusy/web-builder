@@ -26,7 +26,16 @@ import { IManageAssets } from '@core/interface/manage/IManage';
 import { ILanguage } from '@core/interface/IEnvironment';
 import { CookieService } from 'ngx-cookie-service';
 import { ComponentService } from '@core/service/component.service';
-import { DestroyRef, DOCUMENT, inject, Injector, signal, WritableSignal } from '@angular/core';
+import {
+  computed,
+  DestroyRef,
+  DOCUMENT,
+  inject,
+  Injector,
+  signal,
+  Signal,
+  WritableSignal,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 import { BuilderService } from '@core/service/builder.service';
@@ -97,32 +106,27 @@ export function builderFullScreenFactory(): WritableSignal<boolean> {
   return isFull;
 }
 
-export function builderCurrentPageFactory(): WritableSignal<IPage | undefined | false> {
+export function builderCurrentPageFactory(): Signal<IPage | undefined | false> {
   const router = inject(Router);
-  const versionKey = 'version';
-  const currentPage = signal<IPage | undefined | false>(false);
-  const storage = inject(LocalStorageService);
   const injector = inject(Injector);
-  const destroyRef = inject(DestroyRef);
-  const localVersion = storage.retrieve(versionKey);
+  const builder = inject(BuilderState);
 
-  if (localVersion) {
-    const found = localVersion.find((page: IPage) => page.current === true);
-    if (router.url.includes(BUILDERPATH)) {
+  // 统一以 BuilderState.version signal 为数据源(与版本面板/工具栏一致);
+  // 跨上下文(/preview 新标签或 iframe)的变更由 BuilderState 的 storage 事件桥接进 signal
+  const currentPage = computed<IPage | undefined | false>(() => {
+    const version = builder.version();
+    if (!version.length) {
+      return false;
+    }
+    return version.find((page: IPage) => page.current === true) || version[0];
+  });
+
+  if (router.url.includes(BUILDERPATH)) {
+    const found = currentPage();
+    if (found) {
       injector.get(BuilderService).checkIsLatestPage(found);
     }
-    currentPage.set(found);
   }
-
-  storage
-    .observe(versionKey)
-    .pipe(takeUntilDestroyed(destroyRef))
-    .subscribe((version: IPage[]) => {
-      if (version?.length > 0) {
-        const current = version.find((page: IPage) => page.current === true) || version[0];
-        currentPage.set(current);
-      }
-    });
 
   return currentPage;
 }
@@ -138,7 +142,7 @@ export function debugAnimateFactory(): WritableSignal<boolean> {
     builder.renderMarkers(isDebugAnimate);
   }, 2000);
 
-  builder.debugeAnimate$.pipe(takeUntilDestroyed(destroyRef)).subscribe(state => {
+  builder.debugAnimate$.pipe(takeUntilDestroyed(destroyRef)).subscribe(state => {
     storage.store(DEBUG_ANIMATE_KEY, state);
     debugAnimate.set(state);
   });
@@ -332,7 +336,7 @@ export function mediaAssetsFactory(): WritableSignal<IManageAssets | boolean> {
                 title: decodeURIComponent(item.title),
               };
             }),
-            pager: nodeService.handlerPager(res.pager, res.rows.length),
+            pager: nodeService.handlePager(res.pager, res.rows.length),
           });
         });
     });

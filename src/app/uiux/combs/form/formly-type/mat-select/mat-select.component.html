@@ -1,7 +1,7 @@
-<mat-form-field [appearance]="to.appearance || 'fill'" class="field-full">
-  <mat-label>{{ to.label }}</mat-label>
+<mat-form-field [appearance]="props.appearance || 'fill'" class="field-full">
+  <mat-label>{{ props.label }}</mat-label>
   <!-- 单选不开启搜索 -->
-  @if (!to.multiple && !to.search) {
+  @if (!props.multiple && !props.search) {
     <mat-select
       disableOptionCentering="true"
       panelClass="custom-select"
@@ -12,7 +12,7 @@
     >
       <cdk-virtual-scroll-viewport itemSize="48" minBufferPx="400" maxBufferPx="800">
         <mat-option *cdkVirtualFor="let option of matOptions()" [value]="option.value">
-          @if (to.icon) {
+          @if (props.icon) {
             <mat-icon [svgIcon]="option.value" />
           }
           {{ option.label }}
@@ -22,7 +22,7 @@
   }
 
   <!-- 单选开启搜索 -->
-  @if (!to.multiple && to.search) {
+  @if (!props.multiple && props.search) {
     <mat-select
       disableOptionCentering="true"
       panelClass="custom-select"
@@ -33,14 +33,14 @@
     >
       <mat-option>
         <ngx-mat-select-search
-          [placeholderLabel]="to.placeholder || '搜索'"
-          [noEntriesFoundLabel]="to.noFound || '没有找到'"
+          [placeholderLabel]="props.placeholder || '搜索'"
+          [noEntriesFoundLabel]="props.noFound || '没有找到'"
           [formControl]="searchCtrl"
         />
       </mat-option>
       <cdk-virtual-scroll-viewport itemSize="48" minBufferPx="400" maxBufferPx="800">
         <mat-option *cdkVirtualFor="let option of filteredOptions | async" [value]="option.value">
-          @if (to.type === 'icon') {
+          @if (props.type === 'icon') {
             <mat-icon [svgIcon]="option.value" />
           }
           {{ option.label }}
@@ -49,7 +49,7 @@
     </mat-select>
   }
   <!-- 多选不开启搜索 -->
-  @if (to.multiple && !to.search) {
+  @if (props.multiple && !props.search) {
     <mat-select
       disableOptionCentering="true"
       panelClass="custom-select"
@@ -61,7 +61,7 @@
     >
       <cdk-virtual-scroll-viewport itemSize="48" minBufferPx="400" maxBufferPx="800">
         <mat-option *cdkVirtualFor="let option of matOptions()" [value]="option.value">
-          @if (to.type === 'icon') {
+          @if (props.type === 'icon') {
             <mat-icon [svgIcon]="option.value" />
           }
           {{ option.label }}
@@ -71,7 +71,7 @@
   }
 
   <!-- 多选开启搜索 -->
-  @if (to.multiple && to.search) {
+  @if (props.multiple && props.search) {
     <mat-select
       disableOptionCentering="true"
       panelClass="custom-select"
@@ -83,14 +83,14 @@
     >
       <mat-option>
         <ngx-mat-select-search
-          [placeholderLabel]="to.placeholder || '搜索'"
-          [noEntriesFoundLabel]="to.noFound || '没有找到'"
+          [placeholderLabel]="props.placeholder || '搜索'"
+          [noEntriesFoundLabel]="props.noFound || '没有找到'"
           [formControl]="searchCtrl"
         />
       </mat-option>
       <cdk-virtual-scroll-viewport itemSize="48" minBufferPx="400" maxBufferPx="800">
         <mat-option *cdkVirtualFor="let option of filteredOptions | async" [value]="option.value">
-          @if (to.type === 'icon') {
+          @if (props.type === 'icon') {
             <mat-icon [svgIcon]="option.value" />
           }
           {{ option.label }}

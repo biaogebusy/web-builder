@@ -78,11 +78,16 @@
       "DRAFT_BADGE_TIP": "This page is unpublished and in draft state. Click the button on the right to publish.",
       "SELECT_TEMPLATE": "Select a template to create page",
       "TRANSLATE_SUCCESS": "Translated to {{target}} successfully",
+      "TRANSLATE_FAIL": "Failed to submit {{target}} translation. Please retry.",
+      "TRANSLATION_EXISTS": "A {{target}} translation already exists. Your local draft is kept — load the existing translation from the page list to edit it.",
       "ADD_COMPONENT_FIRST": "Please add a component first",
       "UPDATING": "Updating...",
       "CREATE_FAILED": "Creation failed",
       "TRANSLATION_DRAFT": "Translation draft",
-      "TRANSLATION_DRAFT_TIP": "Target language: {{lang}}"
+      "TRANSLATION_DRAFT_TIP": "Target language: {{lang}}",
+      "UPDATE_SUCCESS": "Updated successfully",
+      "UNSAVED_CHANGES": "Unsaved changes",
+      "UNSAVED_CHANGES_TIP": "This page has local changes that are not submitted yet. Click the submit button on the right to sync."
     },
     "SWITCH_PREVIEW": {
       "TOOLTIP": "Switch device",
@@ -143,16 +148,21 @@
       "PAGE_PROPS": "Page settings",
       "CHECK_LANDING_VIEW": "Please check the LandingPage View config",
       "TRANSLATION_EXISTS": "{{label}} translation already exists. Loading...",
+      "LOAD_TRANSLATION_FAIL": "Failed to load {{title}}. Please retry.",
       "LOADING_TRANSLATION": "Loading {{title}}. Please update content to {{lang}}.",
       "CREATE_LANG_TITLE": "Create language version",
       "CREATE_LANG_CONFIRM": "Confirm creating <strong>{{title}}</strong> <strong>{{lang}}</strong> version?",
       "CREATE_LANG_YES": "Confirm",
-      "EDITING_TRANSLATION": "Editing {{lang}} draft"
+      "EDITING_TRANSLATION": "Editing {{lang}} draft",
+      "DELETE_PAGE": "Delete page",
+      "DELETE_TITLE": "Delete page",
+      "DELETE_CONFIRM": "Confirm deleting <strong>{{title}}</strong>? This cannot be undone."
     },
     "VERSION": {
       "HISTORY": "History",
       "DELETE": "Delete",
-      "CLEAR_ALL": "Clear all"
+      "CLEAR_ALL": "Clear all",
+      "UNSAVED": "Unsaved"
     },
     "SHOWCASE": {
       "COPY_JSON": "Copy JSON",
@@ -232,6 +242,8 @@
       "EDIT_JSON": "Edit JSON",
       "PREVIEW": "Preview",
       "ALIAS_FAIL": "Failed to update alias. Please contact admin.",
+      "ALIAS_SYNC_PARTIAL_FAIL": "Failed to sync the URL alias for some languages. Please check manually.",
+      "TRANSLATION_ALIAS_SYNC_FAIL": "Failed to sync the URL alias for the translated page. Please check manually.",
       "UPDATE_SUCCESS": "{{title}} updated",
       "NO_PERMISSION": "Permission denied",
       "DELETE_FAIL": "Failed to delete {{title}}. Please contact admin.",
@@ -360,7 +372,32 @@
       "TOOLTIP": "Tooltip",
       "SEARCH_URL": "Search URL",
       "TYPE": "Type",
-      "KEYWORD_PARAM": "Query param name"
+      "KEYWORD_PARAM": "Query param name",
+      "TOP_BANNER_SECTION": "Top banner",
+      "TOP_LEFT": "Left items",
+      "TOP_RIGHT": "Right links",
+      "ADD_TOP_LEFT": "Add left item",
+      "ADD_TOP_RIGHT": "Add right link",
+      "DYNAMIC_MENU": "Dynamic menu",
+      "MENU_UUID": "Menu UUID",
+      "THIRD_MENU": "Third-level menu",
+      "OPEN_NEW_WINDOW": "Open in new window",
+      "INVERSE_HEADER": "Inverse mode",
+      "LIVE_PREVIEW": "Live preview",
+      "PREVIEW_HINT": "Preview reflects unsaved edits, scaled to desktop width",
+      "COPY_FROM_MAIN": "Copy from main menu",
+      "COPIED_FROM_MAIN": "Copied main menu to mobile nav",
+      "DYNAMIC_SECTION": "Custom block",
+      "DYNAMIC_EMPTY": "No custom block yet. Add custom HTML content (e.g. contact info).",
+      "ADD_DYNAMIC": "Add custom block",
+      "REMOVE_DYNAMIC": "Remove custom block",
+      "DYNAMIC_HTML": "Custom HTML content",
+      "FIXBAR_SECTION": "Fixed action bar",
+      "ADD_FIXBAR": "Add action item",
+      "TARGET": "Target",
+      "ELEMENT_ID": "Element ID",
+      "INTERACTIVE_MODE": "Interactive",
+      "INTERACTIVE_TIP": "Menus can open; link navigation and form submits are blocked"
     },
     "ROOT": {
       "COLLAPSE": "Collapse"
@@ -370,14 +407,52 @@
     },
     "NODE_ADD": {
       "CREATE_TITLE": "Create {{type}} page",
+      "EDIT_TITLE": "Edit {{type}} content",
+      "UPDATE_SUCCESS": "Saved successfully!",
+      "LOAD_NODE_FAILED": "Failed to load node data. Showing a blank form.",
+      "TYPE_TITLE": "Content type",
+      "PANEL_ATTRS": "Article attributes",
+      "TOOLBAR": "Editor toolbar",
       "FIELD_TITLE": "Title",
+      "TITLE_PLACEHOLDER": "Add a title",
       "SUBMIT": "Submit",
-      "LOGIN_FIRST": "Please log in first!"
+      "LOGIN_FIRST": "Please log in first!",
+      "SUBMIT_FAILED": "Submit failed: {{message}}",
+      "SUBMIT_SUCCESS": "Created successfully! You can continue creating.",
+      "NO_FIELDS": "No fields available. Check that your role has the \"administer node fields\" permission in Drupal."
+    },
+    "NODE_MANAGE": {
+      "PAGE_TITLE": "Content management",
+      "ADD": "Add content",
+      "SEARCH": "Search title",
+      "TYPE": "Content type",
+      "STATUS": "Status",
+      "LANG": "Language",
+      "ALL": "All",
+      "PUBLISHED": "Published",
+      "UNPUBLISHED": "Unpublished",
+      "TITLE_COL": "Title",
+      "UPDATED": "Updated",
+      "ACTIONS": "Actions",
+      "EDIT": "Edit",
+      "DELETE": "Delete",
+      "CONFIRM_DELETE": "Confirm delete?",
+      "CANCEL": "Cancel",
+      "DELETED": "Deleted.",
+      "DELETE_FAILED": "Delete failed: {{message}}",
+      "LOAD_FAILED": "Failed to load content list. Please try again.",
+      "EMPTY": "No content found",
+      "PREV": "Previous",
+      "NEXT": "Next",
+      "PAGE": "Page {{page}}"
     },
     "FORM_VALIDATION": {
       "REQUIRED": "This field is required",
       "MAX": "Exceeds maximum value",
       "MIN": "Below minimum value"
+    },
+    "FORM_EDITOR": {
+      "PLACEHOLDER": "Start writing"
     },
     "FACTORY": {
       "NONE": "None",

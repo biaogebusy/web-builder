@@ -252,7 +252,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
                         },
                       ],
                     },
-                    hideExpression: '!model.src',
+                    expressions: { hide: '!model.src' },
                   },
                   {
                     key: 'alt',
@@ -271,7 +271,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
                 props: {
                   label: 'Bg Class',
                 },
-                hideExpression: '!model.src',
+                expressions: { hide: '!model.src' },
               },
             ],
           },
