@@ -61,6 +61,11 @@ export function removeBuilderTreeValue<T>(root: T[], path: string): T[] {
   const lastDotIndex = path.lastIndexOf('.');
   const parentPath = path.slice(0, lastDotIndex);
   const targetIndex = Number(path.slice(lastDotIndex + 1));
+
+  if (lastDotIndex === -1) {
+    return [...root.slice(0, targetIndex), ...root.slice(targetIndex + 1)];
+  }
+
   const targetArray = get(root, parentPath);
 
   if (!Array.isArray(targetArray)) {

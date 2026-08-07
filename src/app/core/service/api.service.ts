@@ -119,7 +119,7 @@ export class ApiService {
       encodeKeys: false,
     });
   }
-  handlerPager(pager: any, length?: number): IPager {
+  handlePager(pager: any, length?: number): IPager {
     const { current_page, total_pages, total_items, items_per_page } = pager;
     if (current_page === null && total_pages === 0) {
       return {

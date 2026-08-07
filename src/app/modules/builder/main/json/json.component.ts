@@ -1,5 +1,5 @@
 import { Component, inject, ChangeDetectionStrategy, input } from '@angular/core';
-import { ShareModule } from '@share/share.module';
+import { SHARE_IMPORTS } from '@share/share-imports';
 import { IJSON } from '@core/interface/IBuilder';
 
 @Component({
@@ -7,7 +7,7 @@ import { IJSON } from '@core/interface/IBuilder';
   selector: 'app-json',
   templateUrl: './json.component.html',
   styleUrl: './json.component.scss',
-  imports: [ShareModule],
+  imports: [SHARE_IMPORTS],
 })
 export class JsonComponent {
   readonly content = input.required<IJSON>();

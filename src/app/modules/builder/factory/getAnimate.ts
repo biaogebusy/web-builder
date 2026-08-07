@@ -18,9 +18,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
             const { form } = formGroup;
             return form!.valueChanges.pipe(
               tap((value: any) => {
-                const {
-                  animate: { aos, gsap },
-                } = value;
+                const { aos, gsap } = value?.animate ?? {};
                 if (aos?.enable) {
                   form
                     ?.get(['animate', 'gsap', 'enable'])

@@ -1,6 +1,8 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
 export function getVideo(widget: any): FormlyFieldConfig {
+  const options = widget?.options ?? {};
+  const sources = Array.isArray(options.sources) ? options.sources : [];
   const fields = {
     key: 'video',
     type: 'tabs',
@@ -14,7 +16,7 @@ export function getVideo(widget: any): FormlyFieldConfig {
           {
             type: 'select',
             key: 'autoplay',
-            defaultValue: widget.options.autoplay,
+            defaultValue: options.autoplay,
             props: {
               label: 'BUILDER.FACTORY.AUTOPLAY',
               options: [
@@ -36,7 +38,7 @@ export function getVideo(widget: any): FormlyFieldConfig {
           {
             type: 'toggle',
             key: 'loop',
-            defaultValue: widget.options.loop ?? false,
+            defaultValue: options.loop ?? false,
             props: {
               label: 'BUILDER.FACTORY.VIDEO_LOOP',
             },
@@ -44,7 +46,7 @@ export function getVideo(widget: any): FormlyFieldConfig {
           {
             type: 'toggle',
             key: 'controls',
-            defaultValue: widget.options.controls ?? true,
+            defaultValue: options.controls ?? true,
             props: {
               label: 'BUILDER.FACTORY.VIDEO_CONTROLS',
             },
@@ -52,7 +54,7 @@ export function getVideo(widget: any): FormlyFieldConfig {
           {
             type: 'select',
             key: 'mode',
-            defaultValue: widget.options.mode,
+            defaultValue: options.mode,
             props: {
               label: 'BUILDER.FACTORY.VIDEO_FIT',
               options: [
@@ -74,7 +76,7 @@ export function getVideo(widget: any): FormlyFieldConfig {
           {
             type: 'toggle',
             key: 'fluid',
-            defaultValue: widget.options.fluid,
+            defaultValue: options.fluid,
             props: {
               label: 'BUILDER.FACTORY.VIDEO_FLUID',
             },
@@ -83,7 +85,7 @@ export function getVideo(widget: any): FormlyFieldConfig {
             type: 'input',
             key: 'aspectRatio',
             className: 'w-full',
-            defaultValue: widget.options.aspectRatio,
+            defaultValue: options.aspectRatio,
             props: {
               label: 'BUILDER.FACTORY.VIDEO_RATIO',
               placeholder: 'BUILDER.FACTORY.VIDEO_RATIO_HINT',
@@ -93,7 +95,7 @@ export function getVideo(widget: any): FormlyFieldConfig {
             key: 'poster',
             type: 'img-picker',
             className: 'w-full',
-            defaultValue: widget.options.poster,
+            defaultValue: options.poster,
             props: {
               updateLabel: 'BUILDER.FACTORY.POSTER_UPDATE',
               addLabel: 'BUILDER.FACTORY.POSTER_ADD',
@@ -103,7 +105,7 @@ export function getVideo(widget: any): FormlyFieldConfig {
           {
             key: 'sources',
             type: 'repeat',
-            defaultValue: widget.options.sources,
+            defaultValue: sources,
             className: 'w-full',
             props: {
               addText: 'BUILDER.FACTORY.ADD_NEW',
@@ -114,7 +116,7 @@ export function getVideo(widget: any): FormlyFieldConfig {
                   key: 'src',
                   type: 'input',
                   className: 'w-full',
-                  defaultValue: widget.options.sources[0].src,
+                  defaultValue: sources[0]?.src ?? '',
                   props: {
                     label: 'BUILDER.FACTORY.VIDEO_URL',
                   },

@@ -12,8 +12,8 @@ import {
   input,
   viewChild,
 } from '@angular/core';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { SHARE_IMPORTS } from '@share/share-imports';
+import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import type {
   IBuilderComponent,
   IBuilderComponentElement,
@@ -41,7 +41,7 @@ interface ISearchHit {
   selector: 'app-widget-picker',
   templateUrl: './widget-picker.component.html',
   styleUrls: ['./widget-picker.component.scss'],
-  imports: [ShareModule, WidgetsModule],
+  imports: [SHARE_IMPORTS, WIDGETS_IMPORTS],
 })
 export class WidgetPickerComponent implements OnInit {
   readonly content = input<IWidgetPicker>();

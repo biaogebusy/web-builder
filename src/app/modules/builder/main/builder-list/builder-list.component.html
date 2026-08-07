@@ -17,7 +17,7 @@
           [cdkDropListData]="page.body"
           (cdkDropListDropped)="drop($event)"
         >
-          @for (item of page.body; track item; let i = $index) {
+          @for (item of page.body; track $index; let i = $index) {
             <div
               id="item-{{ i }}"
               class="component-item"
@@ -73,7 +73,7 @@
             </div>
           }
         </div>
-        @if (builder.switchPreivew$ | async) {
+        @if (builder.switchPreview$ | async) {
           <div class="iframe-wrapper">
             <app-iframe class="preview-iframe" [content]="{ url: '/preview' }" />
           </div>

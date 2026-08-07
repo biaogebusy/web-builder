@@ -1,0 +1,51 @@
+// 无字段 wrapper,间距由自身承担(与 wrapper 的 mb-2 一致)
+:host {
+  @apply block mb-2;
+}
+
+.switch-row {
+  @apply relative inline-flex items-center gap-2 cursor-pointer select-none;
+}
+
+// 覆盖在轨道上方的透明原生 checkbox:保留原生点击/键盘/焦点语义
+.switch-input {
+  @apply absolute w-9 h-5 m-0 opacity-0 cursor-pointer;
+}
+
+.switch-track {
+  @apply relative inline-block w-9 h-5 rounded-full flex-shrink-0;
+  background: var(--shadcn-input);
+  transition: background 0.15s;
+}
+
+.switch-thumb {
+  @apply absolute top-0.5 left-0.5 w-4 h-4 rounded-full;
+  background: var(--shadcn-background);
+  box-shadow: var(--shadcn-shadow-sm);
+  transition: transform 0.15s;
+}
+
+.switch-input:checked + .switch-track {
+  background: var(--shadcn-primary);
+}
+
+.switch-input:checked + .switch-track .switch-thumb {
+  transform: translateX(1rem);
+}
+
+.switch-input:focus-visible + .switch-track {
+  box-shadow:
+    0 0 0 var(--shadcn-ring-offset-width) var(--shadcn-ring-offset-color),
+    0 0 0 calc(var(--shadcn-ring-offset-width) + var(--shadcn-ring-width))
+      var(--shadcn-ring-subtle);
+}
+
+.switch-input:disabled ~ .switch-track,
+.switch-input:disabled ~ .switch-label {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+.switch-label {
+  @apply text-sm font-medium;
+  color: var(--shadcn-foreground);
+}

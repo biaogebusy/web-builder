@@ -71,8 +71,8 @@ export abstract class BaseComponent {
     return query;
   }
 
-  handlerPager(pager: any, length?: number): IPager {
-    return this.apiService.handlerPager(pager, length);
+  handlePager(pager: any, length?: number): IPager {
+    return this.apiService.handlePager(pager, length);
   }
 
   getScroller(): HTMLElement | Window {

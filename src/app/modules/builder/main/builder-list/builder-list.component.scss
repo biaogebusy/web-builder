@@ -192,6 +192,11 @@
             display: block !important;
           }
         }
+        // 菜单打开后 backdrop 会挡住 :hover，需保持触发按钮可见，
+        // 否则触发元素 rect 为 0，overlay 会定位到屏幕左上角
+        > .toolbar:has(.mat-mdc-menu-trigger[aria-expanded='true']) {
+          display: block !important;
+        }
       }
       .layout-inner {
         > .layout {

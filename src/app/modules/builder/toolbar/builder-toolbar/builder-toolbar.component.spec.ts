@@ -1,7 +1,6 @@
 import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import type { IPage } from '@core/interface/IAppConfig';
 import { BuilderService } from '@core/service/builder.service';
 import { ScreenService } from '@core/service/screen.service';
@@ -24,14 +23,18 @@ describe('BuilderToolbarComponent', () => {
 
   const builder = {
     currentPage: {} as IPage,
+    version: signal<IPage[]>([]),
     loading: { set: vi.fn() },
     updateSuccess$: { next: vi.fn() },
     deleteLocalPageByPage: vi.fn(),
+    markPageSynced: vi.fn(),
+    markCurrentPageDirty: vi.fn(),
     fullScreen$: { next: vi.fn() },
     saveLocalVersions: vi.fn(),
   };
   const builderService = {
     addTranslation: vi.fn(),
+    checkTranslationExists: vi.fn(() => of(false)),
     createLandingPage: vi.fn(),
     updateLandingPage: vi.fn(),
     loadPage: vi.fn(),
@@ -40,9 +43,6 @@ describe('BuilderToolbarComponent', () => {
   const storage = { retrieve: vi.fn(), observe: vi.fn(() => of([])), store: vi.fn() };
   const userService = { openLoginDialog: vi.fn() };
   const user = signal<unknown>(true);
-  const router = {
-    navigate: vi.fn(),
-  };
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -63,25 +63,28 @@ describe('BuilderToolbarComponent', () => {
         { provide: ScreenService, useValue: { isPlatformBrowser: vi.fn(() => false) } },
         { provide: BuilderService, useValue: builderService },
         { provide: UserService, useValue: userService },
-        { provide: Router, useValue: router },
         { provide: TranslateService, useValue: { instant: vi.fn((key: string) => key) } },
       ],
     });
     component = TestBed.runInInjectionContext(() => new BuilderToolbarComponent());
   });
 
-  it('deletes the submitted draft history after creating a page', () => {
+  it('keeps the draft and upgrades it in place after creating a page', () => {
     const page: IPage = {
       title: 'New page',
       body: [{ type: 'text' }],
     };
     builder.currentPage = page;
-    builderService.createLandingPage.mockReturnValue(of({ status: true, message: 'created' }));
+    builderService.createLandingPage.mockReturnValue(
+      of({ status: true, message: 'created', data: { nid: 42 } })
+    );
 
     component.onSubmit(page);
 
     expect(builderService.createLandingPage).toHaveBeenCalledWith(page, false);
-    expect(builder.deleteLocalPageByPage).toHaveBeenCalledWith(page);
+    expect(builder.deleteLocalPageByPage).not.toHaveBeenCalled();
+    expect(builder.markPageSynced).toHaveBeenCalledWith(page, { nid: '42' });
+    expect(builderService.loadPage).toHaveBeenCalledWith({ nid: '42' }, true);
   });
 
   it('deletes the translation draft history after submitting a translation', () => {
@@ -106,12 +109,33 @@ describe('BuilderToolbarComponent', () => {
     });
   });
 
-  it('deletes the submitted page history after updating a page', () => {
+  it('keeps the draft and skips submission when the translation already exists', () => {
+    const page: IPage = {
+      title: 'Translation draft',
+      body: [{ type: 'text' }],
+      uuid: 'page-uuid',
+      nid: '42',
+      langcode: 'en',
+      translation: true,
+      target: 'zh-hans',
+    };
+    builder.currentPage = page;
+    builderService.checkTranslationExists.mockReturnValueOnce(of(true));
+
+    component.onSubmit(page);
+
+    expect(builderService.addTranslation).not.toHaveBeenCalled();
+    expect(builder.deleteLocalPageByPage).not.toHaveBeenCalled();
+    expect(util.openSnackbar).toHaveBeenCalledWith('BUILDER.TOOLBAR.TRANSLATION_EXISTS', 'ok');
+  });
+
+  it('keeps the page history and marks it synced after updating a page', () => {
     const page: IPage = {
       title: 'Existing page',
       body: [{ type: 'text' }],
       uuid: 'page-uuid',
       nid: '42',
+      langcode: 'en',
     };
     builder.currentPage = page;
     builderService.updateLandingPage.mockReturnValue(of({ status: true, message: 'updated' }));
@@ -119,7 +143,9 @@ describe('BuilderToolbarComponent', () => {
     component.onSubmit(page);
 
     expect(builderService.updateLandingPage).toHaveBeenCalledWith(page, false);
-    expect(builder.deleteLocalPageByPage).toHaveBeenCalledWith(page);
+    expect(builder.deleteLocalPageByPage).not.toHaveBeenCalled();
+    expect(builder.markPageSynced).toHaveBeenCalledWith(page);
+    expect(builderService.loadPage).toHaveBeenCalledWith({ langcode: 'en', nid: '42' });
   });
 
   it('keeps page history when the update fails', () => {
@@ -134,10 +160,11 @@ describe('BuilderToolbarComponent', () => {
 
     component.onSubmit(page);
 
-    expect(builder.deleteLocalPageByPage).not.toHaveBeenCalled();
+    expect(builder.markPageSynced).not.toHaveBeenCalled();
+    expect(builderService.loadPage).not.toHaveBeenCalled();
   });
 
-  it('navigates to the page list and broadcasts success after updating', () => {
+  it('broadcasts success without leaving the builder after updating', () => {
     const page: IPage = {
       title: 'Existing page',
       body: [{ type: 'text' }],
@@ -150,7 +177,7 @@ describe('BuilderToolbarComponent', () => {
     component.onSubmit(page);
 
     expect(builder.updateSuccess$.next).toHaveBeenCalledWith(true);
-    expect(router.navigate).toHaveBeenCalledWith(['/builder/page-list'], { queryParams: {} });
+    expect(builderService.loadPage).toHaveBeenCalledWith({ langcode: undefined, nid: '42' });
   });
 
   it('sends signed-out users to the login dialog instead of saving', () => {
@@ -188,6 +215,7 @@ describe('BuilderToolbarComponent', () => {
     component.onTitle({ target: { textContent: '新标题' } });
 
     expect(builder.currentPage.title).toBe('新标题');
+    expect(builder.markCurrentPageDirty).toHaveBeenCalled();
     expect(builder.saveLocalVersions).toHaveBeenCalled();
   });
 

@@ -7,6 +7,7 @@ import type { IPage } from '@core/interface/IAppConfig';
 import type { IBuilderConfig } from '@core/interface/IBuilder';
 import { BuilderState } from '@core/state/BuilderState';
 import { API_URL } from '@core/token/token-providers';
+import { TranslateService } from '@ngx-translate/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { of, Subject } from 'rxjs';
 import { BuilderService } from './builder.service';
@@ -35,6 +36,7 @@ describe('BuilderService', () => {
         { provide: ContentService, useValue: { loadBuilderConfig: () => builderConfig$ } },
         { provide: Router, useValue: { url: '/builder' } },
         { provide: LocalStorageService, useValue: {} },
+        { provide: TranslateService, useValue: { instant: (key: string) => key } },
       ],
     });
 

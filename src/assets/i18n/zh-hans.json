@@ -78,11 +78,16 @@
       "DRAFT_BADGE_TIP": "当前页面尚未发布,处于草稿状态,点击右侧按钮可发布",
       "SELECT_TEMPLATE": "选择模板创建页面",
       "TRANSLATE_SUCCESS": "翻译{{target}}成功",
+      "TRANSLATE_FAIL": "提交{{target}}翻译失败，请重试",
+      "TRANSLATION_EXISTS": "{{target}}翻译已存在，本地草稿已保留，请从页面列表载入已有翻译编辑",
       "ADD_COMPONENT_FIRST": "请先添加组件",
       "UPDATING": "正在更新！",
       "CREATE_FAILED": "新建失败！",
       "TRANSLATION_DRAFT": "翻译草稿",
-      "TRANSLATION_DRAFT_TIP": "目标语言：{{lang}}"
+      "TRANSLATION_DRAFT_TIP": "目标语言：{{lang}}",
+      "UPDATE_SUCCESS": "更新成功",
+      "UNSAVED_CHANGES": "未提交更改",
+      "UNSAVED_CHANGES_TIP": "页面有未提交到线上的本地修改，点击右侧提交更新按钮同步"
     },
     "SWITCH_PREVIEW": {
       "TOOLTIP": "切换设备",
@@ -143,16 +148,21 @@
       "PAGE_PROPS": "页面属性",
       "CHECK_LANDING_VIEW": "请检查 LandingPage View 配置",
       "TRANSLATION_EXISTS": "已有{{label}}语言页面，正在载入",
+      "LOAD_TRANSLATION_FAIL": "载入 {{title}} 失败，请重试",
       "LOADING_TRANSLATION": "正在载入{{title}}，请修改页面内容为{{lang}}语言",
       "CREATE_LANG_TITLE": "创建语言版本",
       "CREATE_LANG_CONFIRM": "确认为 <strong>{{title}}</strong> 创建 <strong>{{lang}}</strong> 版本？",
       "CREATE_LANG_YES": "确认创建",
-      "EDITING_TRANSLATION": "正在编辑 {{lang}} 草稿版本"
+      "EDITING_TRANSLATION": "正在编辑 {{lang}} 草稿版本",
+      "DELETE_PAGE": "删除页面",
+      "DELETE_TITLE": "删除页面",
+      "DELETE_CONFIRM": "确认删除 <strong>{{title}}</strong>？删除后不可恢复！"
     },
     "VERSION": {
       "HISTORY": "历史记录",
       "DELETE": "删除",
-      "CLEAR_ALL": "清空所有"
+      "CLEAR_ALL": "清空所有",
+      "UNSAVED": "未提交"
     },
     "SHOWCASE": {
       "COPY_JSON": "复制 JSON",
@@ -232,6 +242,8 @@
       "EDIT_JSON": "编辑JSON",
       "PREVIEW": "预览",
       "ALIAS_FAIL": "更新别名失败，请联系管理员！",
+      "ALIAS_SYNC_PARTIAL_FAIL": "部分语言的 URL 别名同步失败，请手动检查",
+      "TRANSLATION_ALIAS_SYNC_FAIL": "翻译页面 URL 别名同步失败，请手动检查",
       "UPDATE_SUCCESS": "更新{{title}}成功",
       "NO_PERMISSION": "权限不足！",
       "DELETE_FAIL": "删除{{title}}失败，请联系管理员！",
@@ -360,7 +372,32 @@
       "TOOLTIP": "提示文本",
       "SEARCH_URL": "搜索链接",
       "TYPE": "类型",
-      "KEYWORD_PARAM": "关键字参数名"
+      "KEYWORD_PARAM": "关键字参数名",
+      "TOP_BANNER_SECTION": "顶部横幅",
+      "TOP_LEFT": "左侧项目",
+      "TOP_RIGHT": "右侧链接",
+      "ADD_TOP_LEFT": "添加左侧项",
+      "ADD_TOP_RIGHT": "添加右侧链接",
+      "DYNAMIC_MENU": "动态菜单",
+      "MENU_UUID": "菜单 UUID",
+      "THIRD_MENU": "三级菜单",
+      "OPEN_NEW_WINDOW": "新窗口打开",
+      "INVERSE_HEADER": "反色模式",
+      "LIVE_PREVIEW": "实时预览",
+      "PREVIEW_HINT": "预览基于未保存的编辑内容，按桌面端宽度缩放显示",
+      "COPY_FROM_MAIN": "从主菜单复制",
+      "COPIED_FROM_MAIN": "已从主菜单复制到移动端导航",
+      "DYNAMIC_SECTION": "自定义区块",
+      "DYNAMIC_EMPTY": "暂无自定义区块，可添加自定义 HTML 内容（如联系方式）",
+      "ADD_DYNAMIC": "添加自定义区块",
+      "REMOVE_DYNAMIC": "移除自定义区块",
+      "DYNAMIC_HTML": "自定义 HTML 内容",
+      "FIXBAR_SECTION": "固定操作栏",
+      "ADD_FIXBAR": "添加操作项",
+      "TARGET": "打开方式",
+      "ELEMENT_ID": "元素 ID",
+      "INTERACTIVE_MODE": "交互模式",
+      "INTERACTIVE_TIP": "菜单可展开；链接跳转与表单提交已拦截"
     },
     "ROOT": {
       "COLLAPSE": "收起"
@@ -370,14 +407,52 @@
     },
     "NODE_ADD": {
       "CREATE_TITLE": "创建 {{type}} 页面",
+      "EDIT_TITLE": "编辑 {{type}} 内容",
+      "UPDATE_SUCCESS": "保存成功！",
+      "LOAD_NODE_FAILED": "加载节点数据失败，当前为新建表单。",
+      "TYPE_TITLE": "内容类型",
+      "PANEL_ATTRS": "文章属性",
+      "TOOLBAR": "编辑工具栏",
       "FIELD_TITLE": "标题",
+      "TITLE_PLACEHOLDER": "请输入标题",
       "SUBMIT": "确认提交",
-      "LOGIN_FIRST": "请登录后再试！"
+      "LOGIN_FIRST": "请登录后再试！",
+      "SUBMIT_FAILED": "提交失败：{{message}}",
+      "SUBMIT_SUCCESS": "创建成功！可继续创建新内容。",
+      "NO_FIELDS": "无法获取字段配置，请确认当前角色在 Drupal 中拥有 \"administer node fields\" 权限。"
+    },
+    "NODE_MANAGE": {
+      "PAGE_TITLE": "内容管理",
+      "ADD": "新建内容",
+      "SEARCH": "搜索标题",
+      "TYPE": "内容类型",
+      "STATUS": "发布状态",
+      "LANG": "语言",
+      "ALL": "全部",
+      "PUBLISHED": "已发布",
+      "UNPUBLISHED": "未发布",
+      "TITLE_COL": "标题",
+      "UPDATED": "更新时间",
+      "ACTIONS": "操作",
+      "EDIT": "编辑",
+      "DELETE": "删除",
+      "CONFIRM_DELETE": "确认删除？",
+      "CANCEL": "取消",
+      "DELETED": "已删除",
+      "DELETE_FAILED": "删除失败：{{message}}",
+      "LOAD_FAILED": "加载内容列表失败，请稍后重试。",
+      "EMPTY": "暂无内容",
+      "PREV": "上一页",
+      "NEXT": "下一页",
+      "PAGE": "第 {{page}} 页"
     },
     "FORM_VALIDATION": {
       "REQUIRED": "该字段必填",
       "MAX": "不能超过最大值",
       "MIN": "不能小于最小值"
+    },
+    "FORM_EDITOR": {
+      "PLACEHOLDER": "请输入正文内容"
     },
     "FACTORY": {
       "NONE": "无",

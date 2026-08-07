@@ -135,7 +135,7 @@ export class LinkComponent extends BaseComponent implements OnInit {
           }
         });
     }
-    this.dialogService.handlerIframe(this.dialog);
+    this.dialogService.handleIframe(this.dialog);
   }
 
   getClasses(): void {

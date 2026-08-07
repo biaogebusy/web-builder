@@ -30,7 +30,7 @@ export class ConfigService {
       if (this.coreConfig) {
         this.initializeTelemetryWhenIdle();
         if (this.coreConfig?.dialog?.forceDialog) {
-          this.dialogService.forceDialog(this.coreConfig.dialog.forceDialog);
+          this.dialogService.openForcedDialog(this.coreConfig.dialog.forceDialog);
         }
         if (this.coreConfig?.animate) {
           if (this.coreConfig.librariesUseLocal) {

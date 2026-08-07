@@ -1,0 +1,58 @@
+:host {
+  @apply block w-full;
+}
+
+.preview-toolbar {
+  @apply flex items-center justify-end gap-2 mb-1;
+}
+
+.interact-tip {
+  @apply text-xs;
+  color: var(--mat-sys-outline);
+}
+
+.interact-btn {
+  @apply inline-flex items-center gap-1 text-xs font-medium h-7 px-2 rounded cursor-pointer bg-transparent;
+  border: 1px solid var(--mat-sys-outline-variant);
+  color: var(--mat-sys-on-surface-variant);
+  transition: all 0.15s;
+
+  mat-icon {
+    @apply w-4 h-4 text-base;
+  }
+
+  &:hover {
+    color: var(--mat-sys-on-surface);
+    border-color: var(--mat-sys-outline);
+  }
+
+  &.on {
+    background: var(--mat-sys-primary-container);
+    border-color: transparent;
+    color: var(--mat-sys-on-primary-container);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--mat-sys-primary);
+    @apply outline-offset-2;
+  }
+}
+
+.preview-viewport {
+  @apply relative w-full overflow-hidden rounded-lg;
+  border: 1px solid var(--mat-sys-outline-variant);
+  background: var(--mat-sys-surface);
+  transition: height 0.2s ease;
+
+  &.interactive {
+    @apply overflow-x-auto;
+  }
+}
+
+.preview-canvas {
+  @apply origin-top-left;
+
+  &.scaled {
+    @apply absolute top-0 left-0 pointer-events-none select-none;
+  }
+}

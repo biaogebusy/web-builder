@@ -1,4 +1,4 @@
-<div class="edit-page">
+<div class="edit-page shadcn-theme">
   <header class="toolbar">
     <nav class="nav-tabs" role="tablist">
       <a
@@ -42,210 +42,278 @@
   }
 
   <div class="scroll-area">
-    <div class="container">
-      @if (loading() && !footer()) {
-        @for (_ of [1, 2, 3]; track $index) {
-          <div class="skeleton-block">
-            <ngx-skeleton-loader
-              count="1"
-              appearance="line"
-              [theme]="{ height: '44px', 'border-radius': '8px' }"
-            />
-          </div>
-        }
-      }
+    <div class="workspace">
+      <aside class="preview-pane">
+        <div class="preview-head">
+          <app-icon [content]="{ svg: 'eye-outline' }" />
+          <span>{{ 'BUILDER.EDIT_BRANDING.LIVE_PREVIEW' | translate }}</span>
+        </div>
+        <app-branding-preview mode="footer" [branding]="previewBranding()" />
+        <span class="preview-hint">{{ 'BUILDER.EDIT_BRANDING.PREVIEW_HINT' | translate }}</span>
+      </aside>
 
-      @if (footer()) {
-        <section class="card">
-          <button class="card-header" (click)="toggleSection('params')">
-            <mat-icon svgIcon="cog-outline" class="card-icon" />
-            <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.PARAMS_SECTION' | translate }}</span>
-            <mat-icon
-              [svgIcon]="isSectionOpen('params') ? 'chevron-up' : 'chevron-down'"
-              class="card-chevron"
-            />
-          </button>
-          @if (isSectionOpen('params')) {
-            <div class="card-body">
-              <form [formGroup]="paramsForm">
-                <formly-form [form]="paramsForm" [fields]="paramsFields" [model]="paramsModel" />
-              </form>
-            </div>
-          }
-        </section>
-
-        <section class="card">
-          <button class="card-header" (click)="toggleSection('brand')">
-            <mat-icon svgIcon="image-outline" class="card-icon" />
-            <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.BRAND_SECTION' | translate }}</span>
-            <mat-icon
-              [svgIcon]="isSectionOpen('brand') ? 'chevron-up' : 'chevron-down'"
-              class="card-chevron"
-            />
-          </button>
-          @if (isSectionOpen('brand')) {
-            <div class="card-body">
-              <form [formGroup]="brandForm">
-                <formly-form [form]="brandForm" [fields]="brandFields" [model]="brandModel" />
-              </form>
-            </div>
-          }
-        </section>
-
-        <section class="card">
-          <button class="card-header" (click)="toggleSection('social')">
-            <mat-icon svgIcon="share-variant-outline" class="card-icon" />
-            <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.SOCIAL_SECTION' | translate }}</span>
-            <mat-icon
-              [svgIcon]="isSectionOpen('social') ? 'chevron-up' : 'chevron-down'"
-              class="card-chevron"
-            />
-          </button>
-          @if (isSectionOpen('social')) {
-            <div class="card-body">
-              <form [formGroup]="socialForm">
-                <formly-form [form]="socialForm" [fields]="socialFields" [model]="socialModel" />
-              </form>
-            </div>
-          }
-        </section>
-
-        <section class="card">
-          <button class="card-header" (click)="toggleSection('menu')">
-            <mat-icon svgIcon="menu" class="card-icon" />
-            <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.BOTTOM_NAV_SECTION' | translate }}</span>
-            @if (menuItems().length) {
-              <span class="card-badge">{{ menuItems().length }}</span>
-            }
-            <mat-icon
-              [svgIcon]="isSectionOpen('menu') ? 'chevron-up' : 'chevron-down'"
-              class="card-chevron"
-            />
-          </button>
-          @if (isSectionOpen('menu')) {
-            <div class="card-body">
-              <ng-container
-                *ngTemplateOutlet="
-                  menuTpl;
-                  context: { $implicit: menuItems, list: 'main', expanded: expandedMenuIndex }
-                "
-              />
-            </div>
-          }
-        </section>
-
-        <section class="card">
-          <button class="card-header" (click)="toggleSection('mobile')">
-            <mat-icon svgIcon="cellphone" class="card-icon" />
-            <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.MOBILE_NAV_SECTION' | translate }}</span>
-            @if (mobileMenuItems().length) {
-              <span class="card-badge">{{ mobileMenuItems().length }}</span>
-            }
-            <mat-icon
-              [svgIcon]="isSectionOpen('mobile') ? 'chevron-up' : 'chevron-down'"
-              class="card-chevron"
-            />
-          </button>
-          @if (isSectionOpen('mobile')) {
-            <div class="card-body">
-              <ng-container
-                *ngTemplateOutlet="
-                  menuTpl;
-                  context: {
-                    $implicit: mobileMenuItems,
-                    list: 'mobile',
-                    expanded: expandedMobileMenuIndex,
-                  }
-                "
-              />
-            </div>
-          }
-        </section>
-
-        <section class="card">
-          <button class="card-header" (click)="toggleSection('newsletter')">
-            <mat-icon svgIcon="email-outline" class="card-icon" />
-            <span class="card-title">Newsletter</span>
-            <mat-icon
-              [svgIcon]="isSectionOpen('newsletter') ? 'chevron-up' : 'chevron-down'"
-              class="card-chevron"
-            />
-          </button>
-          @if (isSectionOpen('newsletter')) {
-            <div class="card-body">
-              <form [formGroup]="newsletterForm">
-                <formly-form
-                  [form]="newsletterForm"
-                  [fields]="newsletterFields"
-                  [model]="newsletterModel"
+      <div class="form-col">
+        <div class="container">
+          @if (loading() && !footer()) {
+            @for (_ of [1, 2, 3]; track $index) {
+              <div class="skeleton-block">
+                <ngx-skeleton-loader
+                  count="1"
+                  appearance="line"
+                  [theme]="{ height: '44px', 'border-radius': '8px' }"
                 />
-              </form>
-            </div>
-          }
-        </section>
-
-        <section class="card">
-          <button class="card-header" (click)="toggleSection('bottom')">
-            <mat-icon svgIcon="dock-bottom" class="card-icon" />
-            <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.BOTTOM_BAR_SECTION' | translate }}</span>
-            <mat-icon
-              [svgIcon]="isSectionOpen('bottom') ? 'chevron-up' : 'chevron-down'"
-              class="card-chevron"
-            />
-          </button>
-          @if (isSectionOpen('bottom')) {
-            <div class="card-body">
-              <form [formGroup]="bottomForm">
-                <formly-form [form]="bottomForm" [fields]="bottomFields" [model]="bottomModel" />
-              </form>
-            </div>
-          }
-        </section>
-
-        <section class="card json-card">
-          <button class="card-header" (click)="showJson.set(!showJson())">
-            <mat-icon svgIcon="code-json" class="card-icon" />
-            <span class="card-title">JSON</span>
-            @if (jsonEditMode()) {
-              <span class="card-badge accent">{{ 'BUILDER.EDIT_BRANDING.EDITING_BADGE' | translate }}</span>
-            }
-            @if (jsonError()) {
-              <span class="card-badge warn">{{ 'BUILDER.EDIT_BRANDING.SYNTAX_ERROR_BADGE' | translate }}</span>
-            }
-            <mat-icon [svgIcon]="showJson() ? 'chevron-up' : 'chevron-down'" class="card-chevron" />
-          </button>
-          @if (showJson()) {
-            <div class="json-body">
-              <div class="json-toolbar">
-                <button class="ghost-btn" (click)="toggleJsonEditMode()">
-                  <mat-icon
-                    [svgIcon]="jsonEditMode() ? 'eye-outline' : 'pencil-outline'"
-                    class="btn-icon"
-                  />
-                  {{ (jsonEditMode() ? 'BUILDER.EDIT_BRANDING.TOGGLE_PREVIEW' : 'BUILDER.COMMON.EDIT_JSON') | translate }}
-                </button>
-                @if (jsonEditMode()) {
-                  <span class="json-hint">{{ 'BUILDER.EDIT_BRANDING.JSON_HINT_FOOTER' | translate }}</span>
-                }
               </div>
-              @if (jsonEditMode()) {
-                <ngx-monaco-editor
-                  class="json-editor"
-                  [options]="monacoEditableOptions"
-                  [ngModel]="customJson"
-                  (ngModelChange)="onJsonChange($event)"
-                />
-              } @else {
-                <ngx-monaco-editor
-                  class="json-editor"
-                  [options]="monacoReadonlyOptions"
-                  [ngModel]="jsonPreview()"
-                />
-              }
-            </div>
+            }
           }
-        </section>
-      }
+
+          @if (footer()) {
+            <section class="card">
+              <button class="card-header" (click)="toggleSection('params')">
+                <app-icon class="card-icon" [content]="{ svg: 'cog-outline' }" />
+                <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.PARAMS_SECTION' | translate }}</span>
+                <app-icon class="card-chevron" [content]="{ svg: isSectionOpen('params') ? 'chevron-up' : 'chevron-down' }" />
+              </button>
+              @if (isSectionOpen('params')) {
+                <div class="card-body">
+                  <form [formGroup]="paramsForm">
+                    <formly-form [form]="paramsForm" [fields]="paramsFields" [model]="paramsModel" [options]="paramsOptions" />
+                  </form>
+                </div>
+              }
+            </section>
+
+            <section class="card">
+              <button class="card-header" (click)="toggleSection('brand')">
+                <app-icon class="card-icon" [content]="{ svg: 'image-outline' }" />
+                <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.BRAND_SECTION' | translate }}</span>
+                <app-icon class="card-chevron" [content]="{ svg: isSectionOpen('brand') ? 'chevron-up' : 'chevron-down' }" />
+              </button>
+              @if (isSectionOpen('brand')) {
+                <div class="card-body">
+                  <form [formGroup]="brandForm">
+                    <formly-form [form]="brandForm" [fields]="brandFields" [model]="brandModel" [options]="brandOptions" />
+                  </form>
+                </div>
+              }
+            </section>
+
+            <section class="card">
+              <button class="card-header" (click)="toggleSection('social')">
+                <app-icon class="card-icon" [content]="{ svg: 'share-variant-outline' }" />
+                <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.SOCIAL_SECTION' | translate }}</span>
+                <app-icon class="card-chevron" [content]="{ svg: isSectionOpen('social') ? 'chevron-up' : 'chevron-down' }" />
+              </button>
+              @if (isSectionOpen('social')) {
+                <div class="card-body">
+                  <form [formGroup]="socialForm">
+                    <formly-form [form]="socialForm" [fields]="socialFields" [model]="socialModel" [options]="socialOptions" />
+                  </form>
+                </div>
+              }
+            </section>
+
+            <section class="card">
+              <button class="card-header" (click)="toggleSection('menu')">
+                <app-icon class="card-icon" [content]="{ svg: 'menu' }" />
+                <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.BOTTOM_NAV_SECTION' | translate }}</span>
+                @if (menuItems().length) {
+                  <span class="card-badge">{{ menuItems().length }}</span>
+                }
+                <app-icon class="card-chevron" [content]="{ svg: isSectionOpen('menu') ? 'chevron-up' : 'chevron-down' }" />
+              </button>
+              @if (isSectionOpen('menu')) {
+                <div class="card-body">
+                  <ng-container
+                    *ngTemplateOutlet="
+                      menuTpl;
+                      context: { $implicit: menuItems, list: 'main', expanded: expandedMenuIndex }
+                    "
+                  />
+                </div>
+              }
+            </section>
+
+            <section class="card">
+              <button class="card-header" (click)="toggleSection('mobile')">
+                <app-icon class="card-icon" [content]="{ svg: 'cellphone' }" />
+                <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.MOBILE_NAV_SECTION' | translate }}</span>
+                @if (mobileMenuItems().length) {
+                  <span class="card-badge">{{ mobileMenuItems().length }}</span>
+                }
+                <app-icon class="card-chevron" [content]="{ svg: isSectionOpen('mobile') ? 'chevron-up' : 'chevron-down' }" />
+              </button>
+              @if (isSectionOpen('mobile')) {
+                <div class="card-body">
+                  <button class="ghost-btn mb-2" (click)="copyMainToMobile()">
+                    <mat-icon svgIcon="content-copy" class="btn-icon" />{{
+                      'BUILDER.EDIT_BRANDING.COPY_FROM_MAIN' | translate
+                    }}
+                  </button>
+                  <ng-container
+                    *ngTemplateOutlet="
+                      menuTpl;
+                      context: {
+                        $implicit: mobileMenuItems,
+                        list: 'mobile',
+                        expanded: expandedMobileMenuIndex,
+                      }
+                    "
+                  />
+                </div>
+              }
+            </section>
+
+            <section class="card">
+              <button class="card-header" (click)="toggleSection('dynamic')">
+                <app-icon class="card-icon" [content]="{ svg: 'code-tags' }" />
+                <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.DYNAMIC_SECTION' | translate }}</span>
+                @if (dynamicEnabled()) {
+                  <span class="card-badge accent">HTML</span>
+                }
+                <app-icon class="card-chevron" [content]="{ svg: isSectionOpen('dynamic') ? 'chevron-up' : 'chevron-down' }" />
+              </button>
+              @if (isSectionOpen('dynamic')) {
+                <div class="card-body">
+                  @if (!dynamicEnabled()) {
+                    <div class="empty">
+                      <p>{{ 'BUILDER.EDIT_BRANDING.DYNAMIC_EMPTY' | translate }}</p>
+                    </div>
+                    <button class="ghost-btn add-row-btn" (click)="addDynamicBlock()">
+                      <mat-icon svgIcon="plus" class="btn-icon" />{{
+                        'BUILDER.EDIT_BRANDING.ADD_DYNAMIC' | translate
+                      }}
+                    </button>
+                  } @else {
+                    <label class="field-label" for="dynamic-classes">{{
+                      'BUILDER.EDIT_BRANDING.CSS_CLASS' | translate
+                    }}</label>
+                    <input
+                      id="dynamic-classes"
+                      class="field field-block"
+                      [value]="dynamicClasses()"
+                      placeholder="flex-12/12 md:flex-3/12"
+                      (input)="onDynamicClassesChange($any($event.target).value)"
+                    />
+                    <div class="field-label">{{
+                      'BUILDER.EDIT_BRANDING.DYNAMIC_HTML' | translate
+                    }}</div>
+                    <ngx-monaco-editor
+                      class="json-editor"
+                      role="textbox"
+                      [attr.aria-label]="'BUILDER.EDIT_BRANDING.DYNAMIC_HTML' | translate"
+                      [options]="monacoHtmlOptions"
+                      [ngModel]="dynamicHtml()"
+                      (ngModelChange)="onDynamicHtmlChange($event)"
+                    />
+                    <button class="ghost-btn add-row-btn" (click)="removeDynamicBlock()">
+                      <mat-icon svgIcon="close" class="btn-icon" />{{
+                        'BUILDER.EDIT_BRANDING.REMOVE_DYNAMIC' | translate
+                      }}
+                    </button>
+                  }
+                </div>
+              }
+            </section>
+
+            <section class="card">
+              <button class="card-header" (click)="toggleSection('newsletter')">
+                <app-icon class="card-icon" [content]="{ svg: 'email-outline' }" />
+                <span class="card-title">Newsletter</span>
+                <app-icon class="card-chevron" [content]="{ svg: isSectionOpen('newsletter') ? 'chevron-up' : 'chevron-down' }" />
+              </button>
+              @if (isSectionOpen('newsletter')) {
+                <div class="card-body">
+                  <form [formGroup]="newsletterForm">
+                    <formly-form
+                      [form]="newsletterForm"
+                      [fields]="newsletterFields"
+                      [model]="newsletterModel"
+                      [options]="newsletterOptions"
+                    />
+                  </form>
+                </div>
+              }
+            </section>
+
+            <section class="card">
+              <button class="card-header" (click)="toggleSection('bottom')">
+                <app-icon class="card-icon" [content]="{ svg: 'dock-bottom' }" />
+                <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.BOTTOM_BAR_SECTION' | translate }}</span>
+                <app-icon class="card-chevron" [content]="{ svg: isSectionOpen('bottom') ? 'chevron-up' : 'chevron-down' }" />
+              </button>
+              @if (isSectionOpen('bottom')) {
+                <div class="card-body">
+                  <form [formGroup]="bottomForm">
+                    <formly-form [form]="bottomForm" [fields]="bottomFields" [model]="bottomModel" [options]="bottomOptions" />
+                  </form>
+                </div>
+              }
+            </section>
+
+            <section class="card">
+              <button class="card-header" (click)="toggleSection('fixbar')">
+                <app-icon class="card-icon" [content]="{ svg: 'dock-right' }" />
+                <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.FIXBAR_SECTION' | translate }}</span>
+                @if ($any(fixBarModel)['fixBar']?.length) {
+                  <span class="card-badge">{{ $any(fixBarModel)['fixBar'].length }}</span>
+                }
+                <app-icon class="card-chevron" [content]="{ svg: isSectionOpen('fixbar') ? 'chevron-up' : 'chevron-down' }" />
+              </button>
+              @if (isSectionOpen('fixbar')) {
+                <div class="card-body">
+                  <form [formGroup]="fixBarForm">
+                    <formly-form [form]="fixBarForm" [fields]="fixBarFields" [model]="fixBarModel" [options]="fixBarOptions" />
+                  </form>
+                </div>
+              }
+            </section>
+
+            <section class="card json-card">
+              <button class="card-header" (click)="showJson.set(!showJson())">
+                <app-icon class="card-icon" [content]="{ svg: 'code-json' }" />
+                <span class="card-title">JSON</span>
+                @if (jsonEditMode()) {
+                  <span class="card-badge accent">{{ 'BUILDER.EDIT_BRANDING.EDITING_BADGE' | translate }}</span>
+                }
+                @if (jsonError()) {
+                  <span class="card-badge warn">{{ 'BUILDER.EDIT_BRANDING.SYNTAX_ERROR_BADGE' | translate }}</span>
+                }
+                <app-icon class="card-chevron" [content]="{ svg: showJson() ? 'chevron-up' : 'chevron-down' }" />
+              </button>
+              @if (showJson()) {
+                <div class="json-body">
+                  <div class="json-toolbar">
+                    <button class="ghost-btn" (click)="toggleJsonEditMode()">
+                      <mat-icon
+                        [svgIcon]="jsonEditMode() ? 'eye-outline' : 'pencil-outline'"
+                        class="btn-icon"
+                      />
+                      {{ (jsonEditMode() ? 'BUILDER.EDIT_BRANDING.TOGGLE_PREVIEW' : 'BUILDER.COMMON.EDIT_JSON') | translate }}
+                    </button>
+                    @if (jsonEditMode()) {
+                      <span class="json-hint">{{ 'BUILDER.EDIT_BRANDING.JSON_HINT_FOOTER' | translate }}</span>
+                    }
+                  </div>
+                  @if (jsonEditMode()) {
+                    <ngx-monaco-editor
+                      class="json-editor"
+                      [options]="monacoEditableOptions"
+                      [ngModel]="customJson"
+                      (ngModelChange)="onJsonChange($event)"
+                    />
+                  } @else {
+                    <ngx-monaco-editor
+                      class="json-editor"
+                      [options]="monacoReadonlyOptions"
+                      [ngModel]="jsonPreview()"
+                    />
+                  }
+                </div>
+              }
+            </section>
+          }
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -330,7 +398,22 @@
                         [placeholder]="'BUILDER.EDIT_BRANDING.LINK' | translate"
                         (input)="updateChildLink(list, i, j, 'href', $any($event.target).value)"
                       />
+                      <input
+                        class="field"
+                        [value]="child.icon?.svg || ''"
+                        [placeholder]="'BUILDER.EDIT_BRANDING.ICON_SVG' | translate"
+                        (input)="updateChildLinkIcon(list, i, j, $any($event.target).value)"
+                      />
                     </div>
+                    <button
+                      class="icon-btn sm"
+                      [class.active]="child.target === '_blank'"
+                      (click)="toggleChildLinkTarget(list, i, j)"
+                      [attr.aria-pressed]="child.target === '_blank'"
+                      [attr.aria-label]="'BUILDER.EDIT_BRANDING.OPEN_NEW_WINDOW' | translate"
+                    >
+                      <mat-icon svgIcon="open-in-new" />
+                    </button>
                     <button
                       class="icon-btn sm danger"
                       (click)="removeChildLink(list, i, j)"

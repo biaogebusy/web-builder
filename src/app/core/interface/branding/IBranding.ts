@@ -44,6 +44,7 @@ export interface IHeaderParams {
 export interface IFooter {
   params: FooterParams;
   dynamicFooter?: any;
+  dynamic?: IFooterDynamic;
   footerBrand?: FooterBrand;
   mainMenu?: FooterMenu[];
   mobileMenu?: FooterMenu[];
@@ -67,8 +68,19 @@ export interface IFooter {
 }
 
 interface FooterBottom {
-  left: string;
+  left?: string;
   right: ILink[];
+}
+
+export interface IFooterDynamic {
+  classes?: string;
+  content?: {
+    type: string;
+    fullWidth?: boolean;
+    isAPI?: boolean;
+    html?: string;
+    [key: string]: any;
+  };
 }
 
 interface FooterNewsletter {

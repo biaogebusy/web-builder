@@ -3,8 +3,8 @@ import { AfterViewInit, Component, DestroyRef, inject, OnInit, DOCUMENT, ChangeD
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { RouterOutlet } from '@angular/router';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { SHARE_IMPORTS } from '@share/share-imports';
+import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { ICoreConfig } from '@core/interface/IAppConfig';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
@@ -26,8 +26,8 @@ import { BuilderListComponent } from '../builder-list/builder-list.component';
   templateUrl: './builder-workspace.component.html',
   styleUrl: './builder-workspace.component.scss',
   imports: [
-    ShareModule,
-    WidgetsModule,
+    SHARE_IMPORTS,
+    WIDGETS_IMPORTS,
     MatSidenavModule,
     RouterOutlet,
     BuilderToolbarComponent,

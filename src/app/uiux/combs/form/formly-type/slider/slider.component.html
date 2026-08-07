@@ -1,17 +1,17 @@
 <div class="slider">
   <mat-slider
     [style.width]="'100%'"
-    [tabIndex]="to.tabIndex"
-    [color]="to.color"
-    [min]="to.min"
-    [max]="to.max"
-    [step]="to.step"
-    [discrete]="to.thumbLabel"
+    [tabIndex]="props.tabIndex"
+    [color]="props.color"
+    [min]="props.min"
+    [max]="props.max"
+    [step]="props.step"
+    [discrete]="props.thumbLabel"
   >
     <input [id]="id" [formlyAttributes]="field" [formControl]="formControl" matSliderThumb />
   </mat-slider>
   <div class="value">
     <input matInput class="value-input" [formlyAttributes]="field" [formControl]="formControl" />
-    <span class="suffix">{{ to.unit || '' }}</span>
+    <span class="suffix">{{ props.unit || '' }}</span>
   </div>
 </div>

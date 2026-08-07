@@ -1,6 +1,5 @@
 import { ITitle } from '../widgets/ITitle';
 import { ICombsBase } from './ICombsBase';
-import { ICard1v3 } from '../widgets/ICard';
 
 export interface ILocation extends ICombsBase {
   type: string;
@@ -11,15 +10,4 @@ export interface ILocation extends ICombsBase {
     params?: any;
     company?: any;
   }[];
-}
-
-export interface IMapListv1 {
-  type: string;
-  title: ITitle;
-  meta: {
-    label: string;
-    value: string;
-  }[];
-  map: ICard1v3;
-  sidebarRight?: any[];
 }

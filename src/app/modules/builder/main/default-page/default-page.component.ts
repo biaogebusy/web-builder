@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, OnInit, inject } from '@angular/core';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { SHARE_IMPORTS } from '@share/share-imports';
+import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { IPage } from '@core/interface/IAppConfig';
 import { Observable } from 'rxjs';
 import { BuilderService } from '@core/service/builder.service';
@@ -11,7 +11,7 @@ import { ScreenService } from '@core/service/screen.service';
   templateUrl: './default-page.component.html',
   styleUrl: './default-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ShareModule, WidgetsModule],
+  imports: [SHARE_IMPORTS, WIDGETS_IMPORTS],
 })
 export class DefaultPageComponent implements OnInit {
   public content$: Observable<IPage>;

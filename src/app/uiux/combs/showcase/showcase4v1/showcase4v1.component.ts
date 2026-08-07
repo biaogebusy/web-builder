@@ -1,11 +1,11 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   DestroyRef,
   OnInit,
+  computed,
   inject,
-  input
+  input,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { IShowcase4v1 } from '@core/interface/combs/IShowcase';
@@ -14,8 +14,6 @@ import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 import { DialogService } from '@core/service/dialog.service';
 import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
-import { of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
 import { ImgComponent } from '@uiux/widgets/img/img.component';
 import { NumberAnimateComponent } from '@uiux/widgets/number-animate/number-animate.component';
@@ -37,58 +35,52 @@ import { TextComponent } from '@uiux/widgets/text/text.component';
 })
 export class Showcase4v1Component extends BaseComponent implements OnInit {
   private nodeService = inject(NodeService);
-  private cd = inject(ChangeDetectorRef);
   private dialogService = inject(DialogService);
   private destroyRef = inject(DestroyRef);
 
   readonly content = input.required<IShowcase4v1>();
-  elements: any[];
+
+  private statsRes = this.nodeService.fetchResource(() => {
+    const api = this.getParams(this.content(), 'api');
+    return api ? { api } : undefined;
+  });
+
+  elements = computed<any[]>(() => {
+    const api = this.getParams(this.content(), 'api');
+    if (!api) {
+      return this.content().elements ?? [];
+    }
+    const res = this.statsRes.error() ? { rows: [] } : this.statsRes.value();
+    if (!res) {
+      return [];
+    }
+    return res.rows.map((item: any) => {
+      return {
+        icon: item.icon,
+        digit: {
+          value: item.value,
+          from: item.from || 0,
+          duration: item.duration || 4,
+        },
+        title: item.title,
+      };
+    });
+  });
 
   ngOnInit(): void {
     const api = this.getParams(this.content(), 'api');
-    if (!api) {
-      this.elements = this.content().elements;
-      this.cd.detectChanges();
-    } else {
-      this.getContentFormApi(api);
-      this.handleDialogClosed(api);
+    if (api) {
+      this.handleDialogClosed();
     }
   }
 
-  getContentFormApi(api: string): void {
-    this.nodeService
-      .fetch(api, '')
-      .pipe(
-        catchError(() => {
-          return of({
-            rows: [],
-          });
-        }),
-        takeUntilDestroyed(this.destroyRef)
-      )
-      .subscribe(res => {
-        this.elements = res.rows.map((item: any) => {
-          return {
-            icon: item.icon,
-            digit: {
-              value: item.value,
-              from: item.from || 0,
-              duration: item.duration || 4,
-            },
-            title: item.title,
-          };
-        });
-        this.cd.detectChanges();
-      });
-  }
-
-  handleDialogClosed(api: string): void {
+  handleDialogClosed(): void {
     if (this.dialogService.dialogState$) {
       this.dialogService.dialogState$
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(state => {
           if (!state) {
-            this.getContentFormApi(api);
+            this.statsRes.reload();
           }
         });
     }

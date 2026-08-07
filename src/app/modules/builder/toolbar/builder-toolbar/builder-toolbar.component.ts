@@ -9,13 +9,13 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { SHARE_IMPORTS } from '@share/share-imports';
+import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { BuilderState } from '@core/state/BuilderState';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, switchMap } from 'rxjs/operators';
 import { BUILDER_CURRENT_PAGE, BUILDER_FULL_SCREEN, USER } from '@core/token/token-providers';
 import { ScreenService } from '@core/service/screen.service';
 import type { IPage } from '@core/interface/IAppConfig';
@@ -27,10 +27,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSlideToggleChange, MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UserService } from '@core/service/user.service';
-import { Router } from '@angular/router';
 import { IDialog } from '@core/interface/IDialog';
 import { TranslateService } from '@ngx-translate/core';
-import qs from 'qs';
+import { BuilderMenuComponent } from '../builder-menu/builder-menu.component';
 import { SwitchPreviewComponent } from '../switch-preview/switch-preview.component';
 import { environment } from 'src/environments/environment';
 
@@ -39,10 +38,15 @@ import { environment } from 'src/environments/environment';
   templateUrl: './builder-toolbar.component.html',
   styleUrls: ['./builder-toolbar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ShareModule, WidgetsModule, MatSlideToggleModule, SwitchPreviewComponent],
+  imports: [
+    SHARE_IMPORTS,
+    WIDGETS_IMPORTS,
+    MatSlideToggleModule,
+    BuilderMenuComponent,
+    SwitchPreviewComponent,
+  ],
 })
 export class BuilderToolbarComponent implements OnInit, AfterViewInit {
-  public version = signal<IPage[] | undefined>(undefined);
   private user = inject(USER);
   public builderFullScreen = inject(BUILDER_FULL_SCREEN);
   public currentPage = inject(BUILDER_CURRENT_PAGE);
@@ -50,6 +54,8 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
   public page?: IPage;
   private dialog = inject(MatDialog);
   private builder = inject(BuilderState);
+  // 直接读 BuilderState 的 version signal,与版本面板保持同一数据源
+  public version = this.builder.version.asReadonly();
   private util = inject(UtilitiesService);
   private screenState = inject(ScreenState);
   private storage = inject(LocalStorageService);
@@ -57,7 +63,6 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
   private builderService = inject(BuilderService);
   private destroyRef = inject(DestroyRef);
   private userService = inject(UserService);
-  private router = inject(Router);
   private translate = inject(TranslateService);
   public date = signal<Date>(new Date());
   private injector = inject(Injector);
@@ -75,13 +80,6 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
         }
       }
     }, { injector: this.injector });
-    this.version.set(this.storage.retrieve('version'));
-    this.storage
-      .observe('version')
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((version: IPage[]) => {
-        this.version.set(version);
-      });
   }
 
   ngAfterViewInit(): void {
@@ -103,6 +101,7 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
     } = event;
     if (textContent) {
       this.builder.currentPage.title = textContent;
+      this.builder.markCurrentPageDirty();
       this.builder.saveLocalVersions();
     }
   }
@@ -149,34 +148,65 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
     }
 
     if (page.translation && page.target) {
-      // 新增翻译
+      // 新增翻译：提交前再校验一次目标语言翻译是否已存在
+      const target = page.target;
       this.builder.loading.set(true);
       this.builderService
-        .addTranslation(page)
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(res => {
-          if (res.status) {
+        .checkTranslationExists(page.nid ?? '', target)
+        .pipe(
+          switchMap(exists =>
+            exists ? of({ exists: true }) : this.builderService.addTranslation(page)
+          ),
+          takeUntilDestroyed(this.destroyRef)
+        )
+        .subscribe({
+          next: res => {
+            this.builder.loading.set(false);
+            if (res.exists) {
+              // 翻译已存在，保留本地草稿，交由用户处理
+              this.util.openSnackbar(
+                this.translate.instant('BUILDER.TOOLBAR.TRANSLATION_EXISTS', { target }),
+                'ok'
+              );
+              return;
+            }
+            if (!res.status) {
+              this.util.openSnackbar(
+                res.message ||
+                  this.translate.instant('BUILDER.TOOLBAR.TRANSLATE_FAIL', { target }),
+                'ok'
+              );
+              return;
+            }
             this.util.openSnackbar(
-              this.translate.instant('BUILDER.TOOLBAR.TRANSLATE_SUCCESS', { target: page.target }),
+              this.translate.instant('BUILDER.TOOLBAR.TRANSLATE_SUCCESS', { target }),
               this.translate.instant('BUILDER.COMMON.CLOSE'),
               {
                 duration: 2000,
               }
             );
-            this.builder.loading.set(false);
             this.builder.deleteLocalPageByPage(page);
             this.builder.updateSuccess$.next(true);
             if (page.nid) {
               this.builderService.loadPage({
-                langcode: page.target,
+                langcode: target,
                 nid: page.nid,
               });
             }
-          }
+          },
+          error: () => {
+            this.builder.loading.set(false);
+            this.util.openSnackbar(
+              this.translate.instant('BUILDER.TOOLBAR.TRANSLATE_FAIL', { target }),
+              'ok'
+            );
+          },
         });
     } else {
       if (page.uuid && page.nid) {
         // update page
+        const nid = page.nid;
+        const langcode = page.langcode;
         const submittedPage = this.builder.currentPage;
         this.util.openSnackbar(this.translate.instant('BUILDER.TOOLBAR.UPDATING'), 'ok');
         this.builderService
@@ -185,10 +215,18 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
           .subscribe(res => {
             const { status, message } = res;
             this.builder.loading.set(false);
-            this.gotoPageList();
             if (status) {
-              this.builder.deleteLocalPageByPage(submittedPage);
+              // 提交成功不删除本地记录：标记为已同步并原地载入服务端最新版
+              this.builder.markPageSynced(submittedPage);
               this.builder.updateSuccess$.next(true);
+              this.util.openSnackbar(
+                this.translate.instant('BUILDER.TOOLBAR.UPDATE_SUCCESS'),
+                this.translate.instant('BUILDER.COMMON.CLOSE'),
+                {
+                  duration: 2000,
+                }
+              );
+              this.builderService.loadPage({ langcode, nid });
             } else {
               this.util.openSnackbar(message, 'ok');
             }
@@ -211,9 +249,13 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
             .subscribe(res => {
               const { status, message } = res;
               this.builder.loading.set(false);
-              this.gotoPageList();
               if (status) {
-                this.builder.deleteLocalPageByPage(submittedPage);
+                // 提交成功不删除本地记录：补上服务端 nid 后重载,草稿原地升级为线上页面
+                const nid = res?.data?.nid;
+                if (nid) {
+                  this.builder.markPageSynced(submittedPage, { nid: String(nid) });
+                  this.builderService.loadPage({ nid: String(nid) }, true);
+                }
                 this.util.openSnackbar(message, 'ok');
                 this.builder.updateSuccess$.next(true);
               } else {
@@ -223,16 +265,6 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
         }
       }
     }
-  }
-
-  gotoPageList(): void {
-    const { search } = window.location;
-    const query = qs.parse(search, { ignoreQueryPrefix: true });
-    this.router.navigate(['/builder/page-list'], {
-      queryParams: {
-        ...query,
-      },
-    });
   }
 
   openLogin(): void {

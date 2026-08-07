@@ -1,3 +1,5 @@
+import { MatPaginatorIntlCro } from '@core/service/paginator.service';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 import { Component, ChangeDetectionStrategy, output, input } from '@angular/core';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatDividerModule } from '@angular/material/divider';
@@ -6,6 +8,7 @@ import { SpinnerComponent } from '@uiux/widgets/spinner/spinner.component';
 import { CustomTemplateComponent } from '@uiux/combs/other/custom-template/custom-template.component';
 
 @Component({
+  providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorIntlCro }],
   selector: 'app-search-list',
   templateUrl: './search-list.component.html',
   styleUrls: ['./search-list.component.scss'],

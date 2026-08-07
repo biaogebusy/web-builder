@@ -1,0 +1,73 @@
+// shadcn/ui-inspired semantic token layer.
+// Maps --shadcn-* tokens to the project's --mat-sys-* values so they
+// automatically follow the active Material theme (light/dark) and any
+// custom seed-driven palette. Opt-in: components using --shadcn-* vars
+// get the shadcn look without disturbing the rest of the app.
+
+:root {
+  // ── Surfaces ──
+  --shadcn-background: var(--mat-sys-surface);
+  --shadcn-foreground: var(--mat-sys-on-surface);
+  --shadcn-card: var(--mat-sys-surface);
+  --shadcn-card-foreground: var(--mat-sys-on-surface);
+  --shadcn-popover: var(--mat-sys-surface-container-high);
+  --shadcn-popover-foreground: var(--mat-sys-on-surface);
+
+  // ── Brand roles ──
+  --shadcn-primary: var(--mat-sys-primary);
+  --shadcn-primary-foreground: var(--mat-sys-on-primary);
+  --shadcn-secondary: var(--mat-sys-surface-container);
+  --shadcn-secondary-foreground: var(--mat-sys-on-surface);
+  --shadcn-muted: var(--mat-sys-surface-container-low);
+  --shadcn-muted-foreground: var(--mat-sys-on-surface-variant);
+  --shadcn-accent: var(--mat-sys-surface-container-high);
+  --shadcn-accent-foreground: var(--mat-sys-on-surface);
+  --shadcn-destructive: var(--mat-sys-error);
+  --shadcn-destructive-foreground: var(--mat-sys-on-error);
+
+  // ── Lines & focus ──
+  // border=结构细线(卡片/分隔线,弱);input=可交互控件描边。
+  // 本主题把 --mat-sys-outline(-variant) 都定制为发丝线级的浅色,
+  // 直接引用会淡到不可辨,故用前景色 50% 混合:随主题翻转,
+  // 浅/暗色下均约 3:1,满足 WCAG 1.4.11 非文本对比
+  --shadcn-border: var(--mat-sys-outline-variant);
+  --shadcn-input: color-mix(in srgb, var(--mat-sys-on-surface) 50%, transparent);
+  // 输入类控件底色:浅色透明,暗色下微填充(见 .dark-theme,shadcn v4 的 dark:bg-input/30)
+  --shadcn-input-fill: transparent;
+  --shadcn-ring: var(--mat-sys-primary);
+  --shadcn-ring-subtle: color-mix(in srgb, var(--mat-sys-primary) 30%, transparent);
+
+  // ── Radii ──
+  --shadcn-radius: 0.5rem;
+  --shadcn-radius-sm: 0.25rem;
+  --shadcn-radius-lg: 0.75rem;
+
+  // ── Focus ring ──
+  // shadcn v4 风格贴边柔环:无 offset,3px 半透明环紧贴控件边框
+  --shadcn-ring-width: 3px;
+  --shadcn-ring-offset-width: 0px;
+  --shadcn-ring-offset-color: var(--mat-sys-surface);
+
+  // ── Control sizing ──
+  --shadcn-control-height: 2rem;
+  --shadcn-control-sm-height: 1.75rem;
+
+  // ── Elevation ──
+  --shadcn-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+  --shadcn-shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.08);
+}
+
+// Dark-theme overrides — strengthen border contrast and surface separation
+// so shadcn's "neutral but crisp" aesthetic holds on the dark Material palette.
+// --shadcn-input 不需覆盖:50% on-surface 混合随主题自动翻转。
+// --shadcn-ring-offset-color intentionally not overridden: it points at
+// --mat-sys-surface which already flips between themes.
+.dark-theme {
+  --shadcn-card: var(--mat-sys-surface-container-low);
+  --shadcn-popover: var(--mat-sys-surface-container-highest);
+  --shadcn-secondary: var(--mat-sys-surface-container);
+  --shadcn-muted: var(--mat-sys-surface-container);
+  --shadcn-accent: var(--mat-sys-surface-container-high);
+  --shadcn-border: var(--mat-sys-outline);
+  --shadcn-input-fill: color-mix(in srgb, var(--shadcn-input) 30%, transparent);
+}

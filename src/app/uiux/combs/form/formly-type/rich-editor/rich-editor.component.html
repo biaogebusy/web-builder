@@ -1,6 +1,7 @@
 <div class="rich-editor">
   <quill-editor
     class="editor-full"
+    [placeholder]="placeholder"
     (onEditorCreated)="editorCreated($event)"
     [modules]="modules"
     (onContentChanged)="onContentChanged($event)"

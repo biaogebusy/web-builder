@@ -1,3 +1,5 @@
+import { MatPaginatorIntlCro } from '@core/service/paginator.service';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -35,6 +37,7 @@ import { DynamicTableComponent } from '../dynamic-table/dynamic-table.component'
 import { TextComponent } from '../text/text.component';
 
 @Component({
+  providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorIntlCro }],
   selector: 'app-view-list',
   templateUrl: './view-list.component.html',
   styleUrls: ['./view-list.component.scss'],
@@ -71,7 +74,7 @@ export class ViewListComponent extends BaseComponent implements OnInit, AfterVie
   private formService = inject(FormService);
   private dialogService = inject(DialogService);
   private screenService = inject(ScreenService);
-  private userSerivice = inject(UserService);
+  private userService = inject(UserService);
   private destroyRef = inject(DestroyRef);
   private ele = inject(ElementRef);
   constructor() {
@@ -80,7 +83,7 @@ export class ViewListComponent extends BaseComponent implements OnInit, AfterVie
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.afterClosedDialog();
+      this.reloadOnDialogClose();
       this.form().valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(value => {
         this.form().get('page')?.patchValue(0, { onlySelf: true, emitEvent: false });
         const mergeValue = merge(value, this.form().getRawValue());
@@ -92,7 +95,7 @@ export class ViewListComponent extends BaseComponent implements OnInit, AfterVie
 
   ngAfterViewInit(): void {
     const emptyHidden = this.getParams(this.content(), 'emptyHidden');
-    if (this.userSerivice.checkShow(this.content(), this.user() as IUser) && !emptyHidden) {
+    if (this.userService.checkShow(this.content(), this.user() as IUser) && !emptyHidden) {
       this.canShow = true;
       this.cd.detectChanges();
     }
@@ -103,7 +106,7 @@ export class ViewListComponent extends BaseComponent implements OnInit, AfterVie
   }
 
   getViews(options = {}): void {
-    const isRole = this.userSerivice.checkShow(this.content(), this.user() as IUser);
+    const isRole = this.userService.checkShow(this.content(), this.user() as IUser);
     if (!isRole) {
       this.canShow = false;
       this.cd.detectChanges();
@@ -152,13 +155,13 @@ export class ViewListComponent extends BaseComponent implements OnInit, AfterVie
           classes: this.content()?.tableClasses || '',
           params: this.content()?.tableParams || {},
         };
-        this.pager = this.handlerPager(res.pager, res.rows.length);
+        this.pager = this.handlePager(res.pager, res.rows.length);
         this.loading = false;
         this.cd.detectChanges();
       });
   }
 
-  afterClosedDialog(): void {
+  reloadOnDialogClose(): void {
     if (this.dialogService.dialogState$) {
       this.dialogService.dialogState$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(state => {
         if (!state) {

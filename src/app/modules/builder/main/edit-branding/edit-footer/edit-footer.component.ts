@@ -19,9 +19,11 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
 import { FormlyMatToggleModule } from '@ngx-formly/material/toggle';
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { FormModule } from '@uiux/combs/form/form.module';
+import { SHARE_IMPORTS } from '@share/share-imports';
+import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
+import { FORM_IMPORTS } from '@uiux/combs/form/form-imports';
+import { provideXinshiFormly } from '@uiux/combs/form/formly-feature.config';
+import { shadcnFormOptions } from '@uiux/combs/form/formly-shadcn/formly-shadcn.config';
 import { merge } from 'rxjs';
 
 import { IBranding, IFooter } from '@core/interface/branding/IBranding';
@@ -30,6 +32,7 @@ import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { HasUnsavedChanges } from '@core/guards/unsaved-changes.guard';
 import { TranslateService } from '@ngx-translate/core';
+import { BrandingPreviewComponent } from '../branding-preview/branding-preview.component';
 import { formatBrandingJson, getBrandingJsonError, mergeBrandingJson } from '../branding-json.util';
 import { buildFooterConfig } from '../branding-config.util';
 import {
@@ -51,7 +54,7 @@ import {
 
 interface FooterMenuGroup {
   label: string;
-  child: { label: string; href?: string }[];
+  child: { label: string; href?: string; target?: string; icon?: { svg: string } }[];
 }
 
 @Component({
@@ -60,9 +63,9 @@ interface FooterMenuGroup {
   styleUrl: './edit-footer.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    ShareModule,
-    WidgetsModule,
-    FormModule,
+    SHARE_IMPORTS,
+    WIDGETS_IMPORTS,
+    FORM_IMPORTS,
     FormsModule,
     RouterLink,
     DragDropModule,
@@ -73,7 +76,9 @@ interface FooterMenuGroup {
     FormlyMatToggleModule,
     MonacoEditorModule,
     NgxSkeletonLoaderModule,
+    BrandingPreviewComponent,
   ],
+  providers: [provideXinshiFormly()],
 })
 export class EditFooterComponent implements OnInit, HasUnsavedChanges {
   loading = signal(false);
@@ -90,6 +95,12 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
   queryParams: Record<string, string> = {};
   activeSection = signal<string>('params');
   showJson = signal(false);
+  previewBranding = signal<IBranding | null>(null);
+
+  // Custom dynamic block (rendered by the inverse footer)
+  dynamicEnabled = signal(false);
+  dynamicClasses = signal('');
+  dynamicHtml = signal('');
 
   jsonEditMode = signal(false);
   jsonPreview = signal('');
@@ -103,22 +114,32 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
   paramsForm = new UntypedFormGroup({});
   paramsModel: Record<string, unknown> = {};
   paramsFields: FormlyFieldConfig[] = [];
+  paramsOptions = shadcnFormOptions();
 
   brandForm = new UntypedFormGroup({});
   brandModel: Record<string, unknown> = {};
   brandFields: FormlyFieldConfig[] = [];
+  brandOptions = shadcnFormOptions();
 
   socialForm = new UntypedFormGroup({});
   socialModel: Record<string, unknown> = {};
   socialFields: FormlyFieldConfig[] = [];
+  socialOptions = shadcnFormOptions();
 
   newsletterForm = new UntypedFormGroup({});
   newsletterModel: Record<string, unknown> = {};
   newsletterFields: FormlyFieldConfig[] = [];
+  newsletterOptions = shadcnFormOptions();
 
   bottomForm = new UntypedFormGroup({});
   bottomModel: Record<string, unknown> = {};
   bottomFields: FormlyFieldConfig[] = [];
+  bottomOptions = shadcnFormOptions();
+
+  fixBarForm = new UntypedFormGroup({});
+  fixBarModel: Record<string, unknown> = {};
+  fixBarFields: FormlyFieldConfig[] = [];
+  fixBarOptions = shadcnFormOptions();
 
   monacoReadonlyOptions = {
     theme: 'vs',
@@ -134,6 +155,17 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
   monacoEditableOptions = {
     theme: 'vs',
     language: 'json',
+    automaticLayout: true,
+    minimap: { enabled: false },
+    scrollBeyondLastLine: false,
+    wordWrap: 'on' as const,
+    fontSize: 14,
+    readOnly: false,
+  };
+
+  monacoHtmlOptions = {
+    theme: 'vs',
+    language: 'html',
     automaticLayout: true,
     minimap: { enabled: false },
     scrollBeyondLastLine: false,
@@ -194,6 +226,8 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
           this.initSocialFields(footer);
           this.initNewsletterFields(footer);
           this.initBottomFields(footer);
+          this.initFixBarFields(footer);
+          this.initDynamic(footer);
           this.updateJsonPreview();
           this.loading.set(false);
           this.dirty.set(false);
@@ -212,7 +246,8 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
       this.brandForm.valueChanges,
       this.socialForm.valueChanges,
       this.newsletterForm.valueChanges,
-      this.bottomForm.valueChanges
+      this.bottomForm.valueChanges,
+      this.fixBarForm.valueChanges
     )
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
@@ -230,9 +265,18 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
       return;
     }
     try {
-      this.jsonPreview.set(formatBrandingJson(this.buildFooter()));
+      const built = this.buildFooter();
+      this.jsonPreview.set(formatBrandingJson(built));
+      this.updateLivePreview(built);
     } catch {
       /* skip */
+    }
+  }
+
+  private updateLivePreview(footer: IFooter): void {
+    const branding = this.branding();
+    if (branding) {
+      this.previewBranding.set({ ...branding, footer });
     }
   }
 
@@ -247,7 +291,15 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
   onJsonChange(value: string): void {
     this.customJson = value;
     this.markDirty();
-    this.jsonError.set(getBrandingJsonError(value));
+    const error = getBrandingJsonError(value);
+    this.jsonError.set(error);
+    if (!error) {
+      try {
+        this.updateLivePreview(mergeBrandingJson(this.buildFooter(), value));
+      } catch {
+        // keep last valid preview
+      }
+    }
   }
 
   // ── Field init (unchanged) ──
@@ -261,7 +313,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
         fieldGroup: [
           {
             key: 'mode',
-            type: 'mat-select',
+            type: 'select',
             defaultValue: params.mode,
             className: 'w-full',
             props: {
@@ -462,6 +514,114 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
     ];
   }
 
+  initFixBarFields(footer: IFooter): void {
+    this.fixBarModel = { fixBar: footer.fixBar ?? [] };
+    this.fixBarFields = [
+      {
+        key: 'fixBar',
+        type: 'repeat',
+        props: { addText: this.translate.instant('BUILDER.EDIT_BRANDING.ADD_FIXBAR') },
+        fieldArray: {
+          fieldGroupClassName: 'grid gap-0',
+          fieldGroup: [
+            {
+              key: 'type',
+              type: 'select',
+              className: 'w-full',
+              defaultValue: 'link',
+              props: {
+                label: this.translate.instant('BUILDER.EDIT_BRANDING.TYPE'),
+                options: [
+                  { label: this.translate.instant('BUILDER.EDIT_BRANDING.LINK'), value: 'link' },
+                  { label: 'Popup', value: 'popup' },
+                ],
+              },
+            },
+            {
+              key: 'label',
+              type: 'input',
+              className: 'w-full',
+              props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.LABEL'), required: true },
+            },
+            {
+              key: 'href',
+              type: 'input',
+              className: 'w-full',
+              props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.LINK_FIELD') },
+            },
+            {
+              key: 'icon',
+              fieldGroup: [
+                {
+                  key: 'svg',
+                  type: 'input',
+                  className: 'w-full',
+                  props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.ICON_SVG') },
+                },
+              ],
+            },
+            {
+              key: 'target',
+              type: 'select',
+              className: 'w-full',
+              defaultValue: '_self',
+              props: {
+                label: this.translate.instant('BUILDER.EDIT_BRANDING.TARGET'),
+                options: [
+                  { label: '_self', value: '_self' },
+                  { label: '_blank', value: '_blank' },
+                ],
+              },
+            },
+            {
+              key: 'id',
+              type: 'input',
+              className: 'w-full',
+              props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.ELEMENT_ID') },
+            },
+          ],
+        },
+      },
+    ];
+  }
+
+  // ── Dynamic custom block ──
+
+  initDynamic(footer: IFooter): void {
+    const dynamic = footer.dynamic;
+    this.dynamicEnabled.set(!!dynamic);
+    this.dynamicClasses.set(dynamic?.classes ?? '');
+    this.dynamicHtml.set(dynamic?.content?.html ?? '');
+  }
+
+  addDynamicBlock(): void {
+    this.dynamicEnabled.set(true);
+    if (!this.dynamicClasses()) {
+      this.dynamicClasses.set('flex-12/12 md:flex-3/12');
+    }
+    this.onDynamicChange();
+  }
+
+  removeDynamicBlock(): void {
+    this.dynamicEnabled.set(false);
+    this.onDynamicChange();
+  }
+
+  onDynamicClassesChange(value: string): void {
+    this.dynamicClasses.set(value);
+    this.onDynamicChange();
+  }
+
+  onDynamicHtmlChange(value: string): void {
+    this.dynamicHtml.set(value);
+    this.onDynamicChange();
+  }
+
+  private onDynamicChange(): void {
+    this.markDirty();
+    this.updateJsonPreview();
+  }
+
   // ── Menu management ──
 
   onMenuDrop(event: CdkDragDrop<FooterMenuGroup[]>): void {
@@ -544,6 +704,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
       appendBrandingChild(source(), menuIndex, {
         label: this.translate.instant('BUILDER.EDIT_BRANDING.NEW_LINK'),
         href: '',
+        icon: { svg: 'chevron-right' },
       })
     );
     this.onMenuChange();
@@ -587,18 +748,73 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
     this.updateJsonPreview();
   }
 
+  toggleChildLinkTarget(list: 'main' | 'mobile', menuIndex: number, childIndex: number): void {
+    const source = list === 'main' ? this.menuItems : this.mobileMenuItems;
+    const current = source()[menuIndex].child?.[childIndex]?.target;
+    source.set(
+      updateBrandingChild(
+        source(),
+        menuIndex,
+        childIndex,
+        'target',
+        current === '_blank' ? undefined : '_blank'
+      )
+    );
+    this.onMenuChange();
+  }
+
+  updateChildLinkIcon(
+    list: 'main' | 'mobile',
+    menuIndex: number,
+    childIndex: number,
+    svg: string
+  ): void {
+    const source = list === 'main' ? this.menuItems : this.mobileMenuItems;
+    source.set(
+      updateBrandingChild(source(), menuIndex, childIndex, 'icon', svg ? { svg } : undefined)
+    );
+    this.onMenuChange();
+  }
+
+  // Replace the mobile menu with a deep copy of the main menu (undoable)
+  copyMainToMobile(): void {
+    const previous = this.mobileMenuItems();
+    this.mobileMenuItems.set(structuredClone(this.menuItems()));
+    this.onMenuChange();
+    const ref = this.snackBar.open(
+      this.translate.instant('BUILDER.EDIT_BRANDING.COPIED_FROM_MAIN'),
+      this.translate.instant('BUILDER.EDIT_BRANDING.UNDO'),
+      { duration: 5000 }
+    );
+    ref
+      .onAction()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.mobileMenuItems.set(previous);
+        this.onMenuChange();
+      });
+  }
+
   // ── Build & Save ──
 
   buildFooter(): IFooter {
+    // Merge model under form.value: collapsed sections never render their
+    // formly-form, leaving the FormGroup empty — the model keeps the values.
     return buildFooterConfig(
       this.footer()!,
-      this.paramsForm.value,
-      this.brandForm.value,
-      this.socialForm.value,
-      this.newsletterForm.value,
-      this.bottomForm.value,
+      { ...this.paramsModel, ...this.paramsForm.value },
+      { ...this.brandModel, ...this.brandForm.value },
+      { ...this.socialModel, ...this.socialForm.value },
+      { ...this.newsletterModel, ...this.newsletterForm.value },
+      { ...this.bottomModel, ...this.bottomForm.value },
       this.menuItems(),
-      this.mobileMenuItems()
+      this.mobileMenuItems(),
+      { ...this.fixBarModel, ...this.fixBarForm.value },
+      {
+        enabled: this.dynamicEnabled(),
+        classes: this.dynamicClasses(),
+        html: this.dynamicHtml(),
+      }
     );
   }
 

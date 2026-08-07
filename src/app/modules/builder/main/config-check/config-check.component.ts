@@ -1,14 +1,14 @@
 import { Component, DestroyRef, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ApiTestResult, ConfigCheckService } from '@core/service/config-check.service';
 import { API_CHECK_LIST } from './api-check-list';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { SHARE_IMPORTS } from '@share/share-imports';
+import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-config-check',
-  imports: [ShareModule, WidgetsModule],
+  imports: [SHARE_IMPORTS, WIDGETS_IMPORTS],
   templateUrl: './config-check.component.html',
   styleUrl: './config-check.component.scss',
 })

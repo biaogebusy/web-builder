@@ -1,0 +1,177 @@
+import {
+  AfterViewInit,
+  Component,
+  DestroyRef,
+  ElementRef,
+  Injector,
+  OnInit,
+  effect,
+  inject,
+  signal,
+  ChangeDetectionStrategy,
+  input,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatDialog } from '@angular/material/dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { IPage } from '@core/interface/IAppConfig';
+import { IDialog } from '@core/interface/IDialog';
+import type { IComponentToolbar } from '@core/interface/combs/IBuilder';
+import { UtilitiesService } from '@core/service/utilities.service';
+import { BuilderState } from '@core/state/BuilderState';
+import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
+import { generatePath } from '@core/util/dom-path.util';
+import { getComponentSetting } from '@modules/builder/factory/getComponentSetting';
+import { FormlyFieldConfig } from '@ngx-formly/core';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { get } from 'lodash-es';
+import { LocalStorageService } from 'ngx-webstorage';
+import { BtnComponent } from '@uiux/widgets/btn/btn.component';
+import { DividerComponent } from '@uiux/widgets/divider/divider.component';
+
+@Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'app-component-toolbar',
+  templateUrl: './component-toolbar.component.html',
+  styleUrls: ['./component-toolbar.component.scss'],
+  imports: [BtnComponent, DividerComponent, MatTooltipModule],
+  host: {
+    class: 'component-toolbar',
+  },
+})
+export class ComponentToolbarComponent implements OnInit, AfterViewInit {
+  private currentPage = inject(BUILDER_CURRENT_PAGE);
+
+  readonly content = input.required<IComponentToolbar>();
+  public index = signal(0);
+  public length = signal(0);
+
+  public bcData = signal(false);
+
+  private builder = inject(BuilderState);
+  private storage = inject(LocalStorageService);
+  private util = inject(UtilitiesService);
+  private ele = inject(ElementRef);
+  private destroyRef = inject(DestroyRef);
+  private dialog = inject(MatDialog);
+  private injector = inject(Injector);
+  public type = signal('');
+  private component = signal<any>(null);
+  private path = signal('');
+
+  ngOnInit(): void {
+    this.storage
+      .observe(this.builder.COPYCOMPONENTKEY)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(data => {
+        this.bcData.set(data);
+      });
+  }
+
+  ngAfterViewInit(): void {
+    const content = this.content();
+    this.type.set(content.type || content.content?.type || '');
+    this.component.set(this.type() ? content : content.content);
+    this.path.set(generatePath(this.ele.nativeElement));
+    effect(
+      () => {
+        const page = this.currentPage();
+        this.path.set(generatePath(this.ele.nativeElement));
+        this.getIndex();
+      },
+      { injector: this.injector }
+    );
+  }
+
+  getIndex(): void {
+    const index = this.builder.targetIndex(this.path());
+    this.index.set(index);
+    const lastDotIndex = this.path().lastIndexOf('.');
+    const body = (this.currentPage() as IPage | undefined)?.body;
+    if (lastDotIndex !== -1) {
+      // child component
+      const before = this.path().slice(0, lastDotIndex);
+      const targetArray = get(body, before);
+      if (Array.isArray(targetArray)) {
+        this.length.set(targetArray.length);
+      }
+    } else {
+      // top parent component
+      this.length.set(body?.length ?? 0);
+    }
+  }
+
+  onUpdown(direction: string): void {
+    this.builder.moveComponent(direction, this.path());
+    this.hidePicker();
+  }
+
+  onCopy(): void {
+    if (this.component()) {
+      delete this.component().extra;
+      delete this.component().relationships;
+      this.util.copy(JSON.stringify(this.component()));
+      this.util.openSnackbar(`已复制${this.component().type}JSON`, 'ok', {
+        verticalPosition: 'bottom',
+      });
+      this.storage.store(this.builder.COPYCOMPONENTKEY, this.component());
+    }
+  }
+
+  onPaste(content: any): void {
+    this.builder.updatePageContentByPath(this.path(), content, 'add');
+    this.hidePicker();
+    this.storage.clear(this.builder.COPYCOMPONENTKEY);
+  }
+
+  onSetting(): void {
+    const fields: FormlyFieldConfig[] = getComponentSetting(this.component(), this.path());
+    this.hidePicker();
+    this.dialog.getDialogById('code-editor-dialog')?.close();
+    this.builder.showComponentSetting(this.component(), fields, this.path());
+  }
+
+  onDelete(): void {
+    const config: IDialog = {
+      title: '删除组件',
+      titleClasses: 'text-red-500',
+      noLabel: '取消',
+      yesLabel: '确认删除',
+      inputData: {
+        content: {
+          type: 'text',
+          fullWidth: true,
+          body: `是否要删除<strong class="text-black-500 text-primary">${this.content().type}</strong>组件？`,
+        },
+      },
+    };
+
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '340px',
+      data: config,
+    });
+    dialogRef
+      .afterClosed()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(result => {
+        if (result) {
+          this.hidePicker();
+          this.builder.deleteComponent(this.path());
+        }
+      });
+  }
+
+  hidePicker(): void {
+    this.builder.closeRightDrawer$.next(true);
+  }
+
+  onEditorCode(): void {
+    this.builder.editorCode({
+      path: this.path(),
+      content: {
+        type: this.type(),
+        content: this.component(),
+      },
+    });
+  }
+}

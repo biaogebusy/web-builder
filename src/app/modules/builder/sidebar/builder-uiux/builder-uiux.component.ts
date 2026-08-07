@@ -6,8 +6,8 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { SHARE_IMPORTS } from '@share/share-imports';
+import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { TagsService } from '@core/service/tags.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { UIUX } from '@core/token/token-providers';
@@ -20,7 +20,7 @@ import { BuilderPanelComponent } from '../builder-panel/builder-panel.component'
   templateUrl: './builder-uiux.component.html',
   styleUrls: ['./builder-uiux.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ShareModule, WidgetsModule, BuilderPanelComponent],
+  imports: [SHARE_IMPORTS, WIDGETS_IMPORTS, BuilderPanelComponent],
 })
 export class BuilderUiuxComponent implements OnInit {
   private builder = inject(BuilderState);

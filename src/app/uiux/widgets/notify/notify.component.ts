@@ -11,6 +11,7 @@ import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { INotify } from '@core/interface/widgets/IWidgets';
 import { NodeService } from '@core/service/node.service';
 import { CORE_CONFIG, NOTIFY_CONTENT } from '@core/token/token-providers';
+import { notifyFactory } from '@core/factory/factory';
 import { NgPipesModule } from 'ngx-pipes';
 import { IconComponent } from '../icon/icon.component';
 import { LinkComponent } from '../link/link.component';
@@ -20,6 +21,7 @@ import { LinkComponent } from '../link/link.component';
   templateUrl: './notify.component.html',
   styleUrls: ['./notify.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [{ provide: NOTIFY_CONTENT, useFactory: notifyFactory, deps: [CORE_CONFIG] }],
   imports: [
     DatePipe,
     MatBadgeModule,

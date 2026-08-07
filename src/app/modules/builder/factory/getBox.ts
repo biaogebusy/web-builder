@@ -74,7 +74,7 @@ export function getBox(widget: any): FormlyFieldConfig {
                   updateLabel: 'BUILDER.FACTORY.IMG_UPDATE',
                   addLabel: 'BUILDER.FACTORY.IMG_ADD',
                   deleteLabel: 'BUILDER.FACTORY.IMG_DELETE',
-                  fileName: widget?.img?.src.split('/').pop(),
+                  fileName: widget?.img?.src?.split('/').pop(),
                   alt: widget?.img?.alt ?? '',
                 },
               },

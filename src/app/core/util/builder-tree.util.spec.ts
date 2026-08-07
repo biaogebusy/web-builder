@@ -49,4 +49,14 @@ describe('builder tree utilities', () => {
 
     expect(removeBuilderTreeValue(body, '0.missing.0')).toBe(body);
   });
+
+  it('removes a root-level value without mutating the original body', () => {
+    const body = [{ type: 'text' }, { type: 'img' }, { type: 'hero' }];
+
+    const next = removeBuilderTreeValue(body, '1');
+
+    expect(next.map(item => item.type)).toEqual(['text', 'hero']);
+    expect(next).not.toBe(body);
+    expect(body.map(item => item.type)).toEqual(['text', 'img', 'hero']);
+  });
 });

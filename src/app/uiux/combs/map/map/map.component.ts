@@ -195,7 +195,7 @@ export class MapComponent implements OnInit {
   setMarkers(lists: any[]): void {
     this.markers = lists.map((item: any, index: number) => {
       return new this.AMap.Marker({
-        content: this.simpleMarkerTem(),
+        content: this.simpleMarkerTemplate(),
         position: item.position,
         title: item.title,
       })
@@ -216,7 +216,7 @@ export class MapComponent implements OnInit {
     this.cd.detectChanges();
   }
 
-  simpleMarkerTem(): any {
+  simpleMarkerTemplate(): any {
     return `
       <div class="mark"></div>
     `;

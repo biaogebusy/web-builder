@@ -1,0 +1,213 @@
+<div class="node-manage">
+  <div class="container">
+    <header class="header">
+      <app-title [content]="{ label: 'BUILDER.NODE_MANAGE.PAGE_TITLE' | translate, style: 'none' }" />
+      <app-btn
+        (click)="addNode()"
+        [content]="{
+          label: 'BUILDER.NODE_MANAGE.ADD' | translate,
+          color: 'primary',
+          mode: 'raised',
+          icon: {
+            svg: 'plus',
+          },
+        }"
+      />
+    </header>
+
+    <div class="filters">
+      <div class="filter filter-search">
+        <label class="shad-label" for="nm-search">
+          {{ 'BUILDER.NODE_MANAGE.SEARCH' | translate }}
+        </label>
+        <input
+          id="nm-search"
+          class="shad-input"
+          type="text"
+          [formControl]="searchCtrl"
+          [placeholder]="'BUILDER.NODE_MANAGE.SEARCH' | translate"
+        />
+      </div>
+      <div class="filter">
+        <label class="shad-label" for="nm-type">{{ 'BUILDER.NODE_MANAGE.TYPE' | translate }}</label>
+        <span class="select-wrap">
+          <select id="nm-type" class="shad-input shad-select" (change)="onTypeSelect($event)">
+            @for (nodeType of nodeTypes(); track nodeType.value) {
+              <option [value]="nodeType.value" [selected]="nodeType.value === type()">
+                {{ nodeType.label }}
+              </option>
+            }
+          </select>
+          <svg class="chevron" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+            <path
+              d="M7 10l5 5 5-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </span>
+      </div>
+      <div class="filter">
+        <label class="shad-label" for="nm-status">
+          {{ 'BUILDER.NODE_MANAGE.STATUS' | translate }}
+        </label>
+        <span class="select-wrap">
+          <select id="nm-status" class="shad-input shad-select" (change)="onStatusSelect($event)">
+            <option value="" [selected]="status() === ''">
+              {{ 'BUILDER.NODE_MANAGE.ALL' | translate }}
+            </option>
+            <option value="1" [selected]="status() === '1'">
+              {{ 'BUILDER.NODE_MANAGE.PUBLISHED' | translate }}
+            </option>
+            <option value="0" [selected]="status() === '0'">
+              {{ 'BUILDER.NODE_MANAGE.UNPUBLISHED' | translate }}
+            </option>
+          </select>
+          <svg class="chevron" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+            <path
+              d="M7 10l5 5 5-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </span>
+      </div>
+      <div class="filter">
+        <label class="shad-label" for="nm-lang">{{ 'BUILDER.NODE_MANAGE.LANG' | translate }}</label>
+        <span class="select-wrap">
+          <select id="nm-lang" class="shad-input shad-select" (change)="onLangSelect($event)">
+            <option value="" [selected]="langcode() === ''">
+              {{ 'BUILDER.NODE_MANAGE.ALL' | translate }}
+            </option>
+            @for (lang of langs; track lang.langCode) {
+              <option [value]="lang.langCode" [selected]="langcode() === lang.langCode">
+                {{ lang.label }}
+              </option>
+            }
+          </select>
+          <svg class="chevron" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+            <path
+              d="M7 10l5 5 5-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="table-card">
+      @if (loading()) {
+        <div class="table-skeleton">
+          @for (_ of [1, 2, 3, 4, 5, 6]; track $index) {
+            <ngx-skeleton-loader
+              count="1"
+              appearance="line"
+              [theme]="{
+                height: '44px',
+                'border-radius': 'var(--shadcn-radius)',
+                'background-color': 'var(--shadcn-muted)',
+                margin: '0',
+              }"
+            />
+          }
+        </div>
+      } @else if (rows().length === 0) {
+        <div class="empty">{{ 'BUILDER.NODE_MANAGE.EMPTY' | translate }}</div>
+      } @else {
+        <table class="node-table">
+          <thead>
+            <tr>
+              <th>{{ 'BUILDER.NODE_MANAGE.TITLE_COL' | translate }}</th>
+              <th>{{ 'BUILDER.NODE_MANAGE.STATUS' | translate }}</th>
+              <th>{{ 'BUILDER.NODE_MANAGE.LANG' | translate }}</th>
+              <th>{{ 'BUILDER.NODE_MANAGE.UPDATED' | translate }}</th>
+              <th class="th-actions">{{ 'BUILDER.NODE_MANAGE.ACTIONS' | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (row of rows(); track row.uuid) {
+              <tr>
+                <td class="td-title">
+                  <a [href]="row.path" target="_blank" rel="noopener">{{ row.title }}</a>
+                </td>
+                <td>
+                  <span class="shad-badge" [class.accent]="row.status">
+                    {{
+                      (row.status
+                        ? 'BUILDER.NODE_MANAGE.PUBLISHED'
+                        : 'BUILDER.NODE_MANAGE.UNPUBLISHED'
+                      ) | translate
+                    }}
+                  </span>
+                </td>
+                <td>{{ row.langcode }}</td>
+                <td>{{ row.changed | date: 'yyyy-MM-dd HH:mm' }}</td>
+                <td class="td-actions">
+                  @if (deleting() === row.uuid) {
+                    <app-spinner [content]="{ size: 20, color: 'primary' }" />
+                  } @else if (confirmUuid() === row.uuid) {
+                    <button class="shad-btn-ghost confirm-delete" (click)="onDelete(row)">
+                      {{ 'BUILDER.NODE_MANAGE.CONFIRM_DELETE' | translate }}
+                    </button>
+                    <button class="shad-btn-ghost" (click)="cancelDelete()">
+                      {{ 'BUILDER.NODE_MANAGE.CANCEL' | translate }}
+                    </button>
+                  } @else {
+                    <button
+                      mat-icon-button
+                      [matMenuTriggerFor]="rowMenu"
+                      [attr.aria-label]="'BUILDER.NODE_MANAGE.ACTIONS' | translate"
+                    >
+                      <app-icon [content]="{ svg: 'dots-horizontal' }" />
+                    </button>
+                    <mat-menu #rowMenu="matMenu" xPosition="before">
+                      <button mat-menu-item (click)="onEdit(row)">
+                        <app-icon class="menu-icon" [content]="{ svg: 'pencil-outline' }" />
+                        <span>{{ 'BUILDER.NODE_MANAGE.EDIT' | translate }}</span>
+                      </button>
+                      <button mat-menu-item (click)="onDelete(row)">
+                        <app-icon class="menu-icon" [content]="{ svg: 'delete-outline' }" />
+                        <span>{{ 'BUILDER.NODE_MANAGE.DELETE' | translate }}</span>
+                      </button>
+                    </mat-menu>
+                  }
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+      <footer class="pager">
+        <app-btn
+          (click)="prevPage()"
+          [content]="{
+            label: 'BUILDER.NODE_MANAGE.PREV' | translate,
+            mode: 'stroked',
+            disabled: page() === 0 || loading(),
+          }"
+        />
+        <span class="page-indicator">
+          {{ 'BUILDER.NODE_MANAGE.PAGE' | translate: { page: page() + 1 } }}
+        </span>
+        <app-btn
+          (click)="nextPage()"
+          [content]="{
+            label: 'BUILDER.NODE_MANAGE.NEXT' | translate,
+            mode: 'stroked',
+            disabled: !hasNext() || loading(),
+          }"
+        />
+      </footer>
+    </div>
+  </div>
+</div>
