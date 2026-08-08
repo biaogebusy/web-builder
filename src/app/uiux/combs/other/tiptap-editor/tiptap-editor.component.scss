@@ -1,0 +1,60 @@
+.editor-container {
+  box-shadow:
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0.06) 0px 12px 33px 0;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: var(--mat-sys-surface);
+  border: 1px solid var(--mat-sys-surface-container-low);
+  .toolbar {
+    @apply flex flex-wrap gap-1 px-2;
+    border-bottom: 1px solid var(--mat-sys-outline-variant);
+    --mat-icon-button-icon-size: 16px;
+    --mat-icon-button-state-layer-size: 32px;
+    ::ng-deep {
+      .mat-icon {
+        height: inherit;
+        width: inherit;
+        .mat-mdc-button-touch-target {
+          width: 32px;
+          height: 32px;
+        }
+      }
+    }
+    .mat-divider {
+      height: 20px;
+      margin-top: 6px;
+    }
+  }
+
+  .bubble-menu {
+    background-color: var(--mat-sys-surface);
+    border-radius: 4px;
+    visibility: hidden;
+    position: absolute;
+  }
+  ::ng-deep {
+    .ProseMirror {
+      min-height: 200px;
+    }
+    [contenteditable='true'] {
+      background-color: transparent !important;
+    }
+    /* 链接样式 */
+    .ProseMirror a {
+      color: var(--mat-sys-primary);
+      text-decoration: underline;
+    }
+
+    .ProseMirror a:hover {
+      color: var(--mat-sys-primary);
+    }
+    code {
+      background-color: var(--mat-sys-inverse-primary);
+      border-radius: 0.4rem;
+      font-size: 0.85rem;
+      padding: 0.25em 0.3em;
+    }
+  }
+}
