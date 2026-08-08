@@ -8,15 +8,19 @@ import { FORM_IMPORTS } from '@uiux/combs/form/form-imports';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import { IUser } from '@core/interface/IUser';
+import { ICoreConfig } from '@core/interface/IAppConfig';
 import { NodeService } from '@core/service/node.service';
 import { INodeFieldMeta, NodeFieldFormService } from '@core/service/node-field-form.service';
 import { TagsService } from '@core/service/tags.service';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { USER } from '@core/token/token-providers';
+import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import { TranslateService } from '@ngx-translate/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { forkJoin, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+
+/** 默认开放的内容类型(机器名):博客、新闻、应用中心、文章、组件 */
+const DEFAULT_NODE_TYPES = ['blog', 'news', 'json', 'article', 'component'];
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -31,6 +35,7 @@ export class NodeAddComponent implements OnInit {
   private tagsService = inject(TagsService);
   private activateRoute = inject(ActivatedRoute);
   public user = inject(USER);
+  private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   private util = inject(UtilitiesService);
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);
@@ -62,7 +67,7 @@ export class NodeAddComponent implements OnInit {
       .getNodeTypes()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(types => {
-        this.nodeTypes.set(types);
+        this.nodeTypes.set(this.filterNodeTypes(types));
         this.typesLoading.set(false);
       });
 
@@ -167,6 +172,20 @@ export class NodeAddComponent implements OnInit {
             });
       }
     });
+  }
+
+  /**
+   * 默认只开放 DEFAULT_NODE_TYPES;core_config 的 builder.nodeTypes 可在
+   * 默认清单上禁用(disable)或额外开放(enable),disable 优先。
+   */
+  private filterNodeTypes(
+    types: { label: string; value: string }[]
+  ): { label: string; value: string }[] {
+    const { disable = [], enable = [] } = this.coreConfig?.builder?.nodeTypes ?? {};
+    const allowed = new Set(
+      [...DEFAULT_NODE_TYPES, ...enable].filter(type => !disable.includes(type))
+    );
+    return types.filter(type => allowed.has(type.value));
   }
 
   /** json 类型的 body 以字符串存储,回填前还原为对象 */

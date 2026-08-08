@@ -45,12 +45,12 @@
     // 覆盖 snow 主题的盒式边框,只留下边细线,并 sticky 在顶栏(h-14)之下
     .editor-toolbar {
       @apply sticky top-14 z-10 px-6 py-2;
+      background: var(--shadcn-background);
+      border-bottom: 1px solid var(--shadcn-border);
       // lg+ 主区自身是滚动容器(顶栏在容器之外),工具栏吸附容器顶部
       @screen lg {
         @apply top-0;
       }
-      background: var(--shadcn-background);
-      border-bottom: 1px solid var(--shadcn-border);
       &.ql-toolbar.ql-snow {
         @apply border-x-0 border-t-0 px-6 py-2 font-sans;
         border-bottom: 1px solid var(--shadcn-border);

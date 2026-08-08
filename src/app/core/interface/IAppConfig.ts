@@ -47,6 +47,11 @@ export interface ICoreConfig {
     params: {
       reqRoles: string[];
     };
+    /** node-add 发布入口开放的内容类型:在默认清单基础上禁用或新增(机器名) */
+    nodeTypes?: {
+      disable?: string[];
+      enable?: string[];
+    };
   };
   access: {
     check: true;
