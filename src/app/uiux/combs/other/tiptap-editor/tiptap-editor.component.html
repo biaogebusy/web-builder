@@ -1,0 +1,219 @@
+<div class="editor-container">
+  <!-- 气泡菜单 -->
+  <div class="bubble-menu" #bubbleMenu>
+    @if (editor(); as editor) {
+      <app-btn
+        (click)="editor.chain().focus().toggleBold().run()"
+        [content]="{
+          label: '加粗',
+          color: editor.isActive('bold') ? 'primary' : undefined,
+        }"
+      />
+      <app-btn
+        (click)="editor.chain().focus().toggleItalic().run()"
+        [content]="{
+          label: '斜体',
+          color: editor.isActive('italic') ? 'primary' : undefined,
+        }"
+      />
+      <app-btn
+        (click)="editor.chain().focus().toggleStrike().run()"
+        [content]="{
+          label: '删除线',
+          color: editor.isActive('strike') ? 'primary' : undefined,
+        }"
+      />
+      <app-btn
+        (click)="editor.chain().focus().toggleCode().run()"
+        [content]="{
+          label: 'Code',
+          color: editor.isActive('code') ? 'primary' : undefined,
+        }"
+      />
+    }
+  </div>
+  @if (editor(); as editor) {
+    <div class="toolbar">
+      <app-btn
+        (click)="editor.chain().focus().undo().run()"
+        [content]="{
+          mode: 'icon',
+          disabled: !editor.can().chain().focus().undo().run(),
+          icon: { svg: 'arrow-left-top' },
+        }"
+      />
+      <app-btn
+        (click)="editor.chain().focus().redo().run()"
+        [content]="{
+          mode: 'icon',
+          disabled: !editor.can().chain().focus().redo().run(),
+          icon: { svg: 'arrow-right-top' },
+        }"
+      />
+      <mat-divider [vertical]="true" />
+      <app-btn
+        [mat-menu-trigger-for]="header"
+        [content]="{
+          mode: 'icon',
+          icon: { svg: 'format-header-1' },
+        }"
+      />
+      <mat-menu #header="matMenu">
+        <button mat-menu-item (click)="editor.chain().focus().toggleHeading({ level: 1 }).run()">
+          <span [class.text-primary]="editor.isActive('heading', { level: 1 })">
+            H1 一级标题
+          </span>
+        </button>
+        <button mat-menu-item (click)="editor.chain().focus().toggleHeading({ level: 2 }).run()">
+          <span [class.text-primary]="editor.isActive('heading', { level: 2 })">
+            H2 二级标题
+          </span>
+        </button>
+        <button mat-menu-item (click)="editor.chain().focus().toggleHeading({ level: 3 }).run()">
+          <span [class.text-primary]="editor.isActive('heading', { level: 3 })">
+            H3 三级标题
+          </span>
+        </button>
+        <button mat-menu-item (click)="editor.chain().focus().toggleHeading({ level: 4 }).run()">
+          <span [class.text-primary]="editor.isActive('heading', { level: 4 })">
+            H4 四级标题
+          </span>
+        </button>
+        <button mat-menu-item (click)="editor.chain().focus().toggleHeading({ level: 5 }).run()">
+          <span [class.text-primary]="editor.isActive('heading', { level: 5 })">
+            H5 五级标题
+          </span>
+        </button>
+        <button mat-menu-item (click)="editor.chain().focus().toggleHeading({ level: 6 }).run()">
+          <span [class.text-primary]="editor.isActive('heading', { level: 6 })">
+            H6 六级标题
+          </span>
+        </button>
+      </mat-menu>
+      <app-btn
+        [mat-menu-trigger-for]="lists"
+        [content]="{
+          mode: 'icon',
+          icon: { svg: 'format-list-bulleted' },
+        }"
+      />
+      <mat-menu #lists="matMenu">
+        <button mat-menu-item (click)="editor.chain().focus().toggleBulletList().run()">
+          <div class="flex items-center" [class.text-primary]="editor.isActive('bulletList')">
+            <app-icon [content]="{ svg: 'format-list-bulleted' }" />
+            无序列表
+          </div>
+        </button>
+        <button mat-menu-item (click)="editor.chain().focus().toggleOrderedList().run()">
+          <div class="flex items-center" [class.text-primary]="editor.isActive('orderedList')">
+            <app-icon [content]="{ svg: 'format-list-numbered' }" />
+            有序列表
+          </div>
+        </button>
+      </mat-menu>
+      <app-btn
+        [mat-menu-trigger-for]="align"
+        [content]="{
+          mode: 'icon',
+          icon: { svg: 'format-align-left' },
+        }"
+      />
+      <mat-menu #align="matMenu">
+        <button mat-menu-item (click)="editor.chain().focus().setTextAlign('left').run()">
+          <div
+            class="flex items-center"
+            [class.text-primary]="editor.isActive({ textAlign: 'left' })"
+          >
+            <app-icon [content]="{ svg: 'format-align-left' }" />
+            左对齐
+          </div>
+        </button>
+        <button mat-menu-item (click)="editor.chain().focus().setTextAlign('center').run()">
+          <div
+            class="flex items-center"
+            [class.text-primary]="editor.isActive({ textAlign: 'center' })"
+          >
+            <app-icon [content]="{ svg: 'format-align-center' }" />
+            居中对齐
+          </div>
+        </button>
+        <button mat-menu-item (click)="editor.chain().focus().setTextAlign('right').run()">
+          <div
+            class="flex items-center"
+            [class.text-primary]="editor.isActive({ textAlign: 'right' })"
+          >
+            <app-icon [content]="{ svg: 'format-align-right' }" />
+            右对齐
+          </div>
+        </button>
+        <button mat-menu-item (click)="editor.chain().focus().setTextAlign('justify').run()">
+          <div
+            class="flex items-center"
+            [class.text-primary]="editor.isActive({ textAlign: 'justify' })"
+          >
+            <app-icon [content]="{ svg: 'format-align-justify' }" />
+            两端对齐
+          </div>
+        </button>
+      </mat-menu>
+      <mat-divider [vertical]="true" />
+      <app-btn
+        (click)="editor.chain().focus().toggleBlockquote().run()"
+        [content]="{
+          mode: 'icon',
+          color: editor.isActive('blockquote') ? 'primary' : undefined,
+          icon: { svg: 'format-quote-open' },
+        }"
+      />
+      <app-btn
+        (click)="editor.chain().focus().toggleCodeBlock().run()"
+        [content]="{
+          mode: 'icon',
+          color: editor.isActive('codeBlock') ? 'primary' : undefined,
+          icon: { svg: 'xml' },
+        }"
+      />
+      <app-btn
+        (click)="editor.chain().focus().unsetAllMarks().run()"
+        [content]="{
+          mode: 'icon',
+          icon: { svg: 'format-clear' },
+        }"
+      />
+      <mat-divider [vertical]="true" />
+      <app-btn
+        (click)="editor.chain().focus().setParagraph().run()"
+        [content]="{
+          mode: 'icon',
+          color: editor.isActive('paragraph') ? 'primary' : undefined,
+          icon: { svg: 'format-paragraph' },
+        }"
+      />
+      <app-btn
+        (click)="addLink()"
+        [content]="{
+          mode: 'icon',
+          color: editor.isActive('link') ? 'primary' : undefined,
+          icon: { svg: 'link-variant' },
+        }"
+      />
+      <app-btn
+        (click)="addImage()"
+        [content]="{
+          mode: 'icon',
+          icon: { svg: 'image' },
+        }"
+      />
+      <app-btn
+        (click)="editor.chain().focus().setHorizontalRule().run()"
+        [content]="{
+          mode: 'icon',
+          icon: { svg: 'border-horizontal' },
+        }"
+      />
+    </div>
+  }
+
+  <!-- 编辑器区域 -->
+  <div #tiptapEditor></div>
+</div>
