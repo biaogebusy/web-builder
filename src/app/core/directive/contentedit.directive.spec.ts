@@ -89,17 +89,19 @@ describe('ContenteditDirective', () => {
     expect(options.profile).toBe('inline');
   });
 
-  it('rich:onActivated 打开右侧样式面板(保留原内联面板行为)', async () => {
+  it('rich:不打开右侧文本面板(该面板会改写元素 DOM,与原位编辑器互斥)', async () => {
     const emissions: unknown[] = [];
     builderMock.rightContent$.subscribe(content => emissions.push(content));
     const rich = fixture.nativeElement.querySelector('.rich') as HTMLElement;
 
     rich.dispatchEvent(new MouseEvent('click', { bubbles: true }));
     await vi.waitFor(() => expect(activateMock).toHaveBeenCalled());
-    activateMock.mock.calls[0][0].onActivated();
+    await flushDynamicImport();
 
-    // openMetaPanel 内部还有一层 getInlineText 动态 import
-    await vi.waitFor(() => expect(emissions.length).toBe(1));
+    expect(emissions.length).toBe(0);
+    const options = activateMock.mock.calls[0][0];
+    expect(options.onActivated).toBeUndefined();
+    expect(options.onCommitted).toBeUndefined();
   });
 
   it('plain:默认走裸 contenteditable,行为不变', async () => {

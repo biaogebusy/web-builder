@@ -141,7 +141,9 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
     } else if (this.contenteditProfile() !== 'plain') {
       const profile = this.contenteditProfile() as 'rich' | 'inline';
       const clickCoords = { x: event.clientX, y: event.clientY };
-      // 仅 builder 画布内触发,动态加载 tiptap 内联编辑器,避免公共页面把编辑器打进首包
+      // 仅 builder 画布内触发,动态加载 tiptap 内联编辑器,避免公共页面把编辑器打进首包。
+      // 不打开右侧文本面板:该面板会向元素注入 <p> 包裹(见 InlineEditComponent.initTextView),
+      // 与原位挂载的编辑器互斥;drawer.open() 还会夺焦触发误提交。格式化由气泡工具栏承担
       void import('@modules/builder/inline-editor/inline-editor.service').then(
         ({ InlineEditorService }) => {
           if (this.destroyed) {
@@ -152,8 +154,6 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
             path,
             profile,
             clickCoords,
-            onActivated: () => this.openMetaPanel(currentTarget, path),
-            onCommitted: () => this.openMetaPanel(currentTarget, path),
           });
         }
       );
