@@ -1,0 +1,49 @@
+// 宿主元素由 tiptap BubbleMenu 扩展接管定位:show() 时挂到 body 并按
+// floating-ui 计算 top/left,隐藏由插件把元素移出 DOM,初始不可见
+:host {
+  @apply z-50 block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: max-content;
+  visibility: hidden;
+  background-color: var(--mat-sys-surface-container);
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+
+  // 图标按钮紧凑尺寸,与 tiptap-editor 工具栏一致
+  --mat-icon-button-icon-size: 16px;
+  --mat-icon-button-state-layer-size: 32px;
+  ::ng-deep {
+    .mat-icon {
+      height: inherit;
+      width: inherit;
+      .mat-mdc-button-touch-target {
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
+}
+
+.bubble-row {
+  @apply flex gap-1 p-1;
+}
+
+.link-panel {
+  @apply flex items-center gap-1 px-2 py-1;
+  border-top: 1px solid var(--mat-sys-outline-variant);
+
+  .link-input {
+    @apply h-8 w-56 min-w-0 rounded border px-2 text-sm;
+    border-color: var(--mat-sys-outline-variant);
+    background: transparent;
+    color: var(--mat-sys-on-surface);
+
+    &:focus {
+      outline: none;
+      border-color: var(--mat-sys-primary);
+    }
+  }
+}

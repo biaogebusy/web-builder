@@ -134,3 +134,9 @@ pre {
   }
   --sidebar-width: 68px;
 }
+
+// 画布内联富文本编辑态(InlineEditorService 原位挂载的 tiptap 根节点):
+// 排版完全继承宿主正文元素,不引入编辑器外框;焦点提示交给气泡与光标本身
+.inline-tiptap {
+  outline: none;
+}

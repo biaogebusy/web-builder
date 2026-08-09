@@ -92,7 +92,12 @@
         </div>
       </div>
       @if (contentValue.body) {
-        <div contentedit="body" class="card-body" [innerHTML]="contentValue.body | safeHtml"></div>
+        <div
+          contentedit="body"
+          contenteditProfile="rich"
+          class="card-body"
+          [innerHTML]="contentValue.body | safeHtml"
+        ></div>
       }
     </mat-card-content>
     @if (contentValue.actions) {

@@ -5,7 +5,13 @@
         <app-title [attr.data-path]="'title'" #title [content]="textContent.title" />
       }
       @if (textContent.body) {
-        <div #body class="text-body" contentedit="body" [innerHTML]="textContent.body | safeHtml"></div>
+        <div
+          #body
+          class="text-body"
+          contentedit="body"
+          contenteditProfile="rich"
+          [innerHTML]="textContent.body | safeHtml"
+        ></div>
       }
       @if (textContent.actions) {
         <div

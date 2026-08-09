@@ -1,4 +1,13 @@
-import { AfterViewInit, Directive, ElementRef, OnInit, inject, input } from '@angular/core';
+import {
+  AfterViewInit,
+  DestroyRef,
+  Directive,
+  ElementRef,
+  Injector,
+  OnInit,
+  inject,
+  input,
+} from '@angular/core';
 import { IMetaEdit } from '@core/interface/IBuilder';
 import { BuilderState } from '@core/state/BuilderState';
 import { generatePath } from '@core/util/dom-path.util';
@@ -14,6 +23,11 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class ContenteditDirective implements AfterViewInit, OnInit {
   readonly contentedit = input.required<string>();
+  /**
+   * 编辑形态:plain 维持裸 contenteditable(标签/短文本);
+   * rich 原位挂载 tiptap(正文类 HTML 字段),带气泡格式工具栏
+   */
+  readonly contenteditProfile = input<'plain' | 'rich'>('plain');
 
   private componentItem: Element | null = null;
   // 进入编辑时的原始内容，用于跳过未修改的保存，避免产生多余版本快照
@@ -21,8 +35,13 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
   private el = inject(ElementRef);
   private builder = inject(BuilderState);
   private translate = inject(TranslateService);
+  private injector = inject(Injector);
+  private destroyRef = inject(DestroyRef);
+  // 指令销毁(组件重渲染/路由切换)与动态 import 在途的竞态:销毁后不得再触碰注入器
+  private destroyed = false;
 
   ngOnInit(): void {
+    this.destroyRef.onDestroy(() => (this.destroyed = true));
     this.componentItem = this.el.nativeElement.closest('.component-item');
   }
 
@@ -118,6 +137,23 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
           elements: [meta],
         });
       });
+    } else if (this.contenteditProfile() === 'rich') {
+      const clickCoords = { x: event.clientX, y: event.clientY };
+      // 仅 builder 画布内触发,动态加载 tiptap 内联编辑器,避免公共页面把编辑器打进首包
+      void import('@modules/builder/inline-editor/inline-editor.service').then(
+        ({ InlineEditorService }) => {
+          if (this.destroyed) {
+            return;
+          }
+          this.injector.get(InlineEditorService).activate({
+            element: currentTarget,
+            path,
+            clickCoords,
+            onActivated: () => this.openMetaPanel(currentTarget, path),
+            onCommitted: () => this.openMetaPanel(currentTarget, path),
+          });
+        }
+      );
     } else {
       currentTarget.contentEditable = 'true';
       this.originalHtml = currentTarget.innerHTML;

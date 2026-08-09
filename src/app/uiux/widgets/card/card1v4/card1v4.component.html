@@ -9,7 +9,12 @@
           <app-icon [content]="{ svg: 'star' }" />
         }
       </div>
-      <div contentedit="body" class="content" [innerHTML]="contentValue.body | safeHtml"></div>
+      <div
+        contentedit="body"
+        contenteditProfile="rich"
+        class="content"
+        [innerHTML]="contentValue.body | safeHtml"
+      ></div>
       <div class="author-info">
         <div contentedit="title" class="title" [innerHTML]="contentValue.title | safeHtml"></div>
         @if (contentValue.subTitle) {
