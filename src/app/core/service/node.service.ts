@@ -282,4 +282,11 @@ export class NodeService extends ApiService {
       this.uploadImage(fileName, imageData)
     );
   }
+
+  /** 与编辑器实现无关的图片上传:选图 → 上传 → 回调图片地址 */
+  pickAndUploadImage(insert: (url: string) => void): void {
+    this.mediaUploadService.pickAndUploadImage(insert, (fileName, imageData) =>
+      this.uploadImage(fileName, imageData)
+    );
+  }
 }

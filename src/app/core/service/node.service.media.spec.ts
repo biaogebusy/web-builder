@@ -4,6 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import type { IMediaAttr } from '@core/interface/manage/IManage';
 import { BuilderState } from '@core/state/BuilderState';
 import { API_URL, USER } from '@core/token/token-providers';
+import { TranslateService } from '@ngx-translate/core';
 import { firstValueFrom, of } from 'rxjs';
 import { CommentService } from './comment.service';
 import { NodeService } from './node.service';
@@ -19,6 +20,7 @@ describe('NodeService media API', () => {
   function createService(post = vi.fn(() => of({})), user: unknown = signal(true)) {
     const utilitiesService = {
       openSnackbar: vi.fn(),
+      dismissSnackbar: vi.fn(),
     };
 
     TestBed.configureTestingModule({
@@ -29,6 +31,7 @@ describe('NodeService media API', () => {
         { provide: HttpClient, useValue: { post } },
         { provide: USER, useValue: user },
         { provide: UtilitiesService, useValue: utilitiesService },
+        { provide: TranslateService, useValue: { instant: (key: string) => key } },
         { provide: BuilderState, useValue: { currentPage: {} } },
         { provide: CommentService, useValue: {} },
       ],
@@ -135,7 +138,10 @@ describe('NodeService media API', () => {
 
     service.imageHandler(editor);
 
-    expect(utilitiesService.openSnackbar).toHaveBeenCalledWith('请登录后上传图片！', 'ok');
+    expect(utilitiesService.openSnackbar).toHaveBeenCalledWith(
+      'BUILDER.FORM_EDITOR.IMAGE_LOGIN_REQUIRED',
+      'ok'
+    );
     expect(createElement).not.toHaveBeenCalled();
   });
 });

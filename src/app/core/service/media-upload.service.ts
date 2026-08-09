@@ -1,7 +1,8 @@
 import { HttpHeaders } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable, Injector, inject } from '@angular/core';
 import type { IMediaAttr } from '@core/interface/manage/IManage';
 import { USER } from '@core/token/token-providers';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, switchMap, take } from 'rxjs/operators';
 import { ApiService } from './api.service';
@@ -13,6 +14,7 @@ import { UtilitiesService } from './utilities.service';
 export class MediaUploadService extends ApiService {
   private user = inject(USER);
   private util = inject(UtilitiesService);
+  private injector = inject(Injector);
 
   uploadImage(
     fileName: string,
@@ -70,13 +72,16 @@ export class MediaUploadService extends ApiService {
     );
   }
 
-  imageHandler(
-    editor: any,
+  /** 选取本地图片并上传,成功后把图片地址交给 insert 回调(与编辑器实现无关) */
+  pickAndUploadImage(
+    insert: (url: string) => void,
     uploadImage: (fileName: string, imageData: any) => Observable<IMediaAttr> = (fileName, data) =>
       this.uploadImage(fileName, data)
   ): void {
+    // 懒取 TranslateService:仅浏览器交互路径需要,避免服务构造期的强依赖
+    const translate = this.injector.get(TranslateService);
     if (!this.user()) {
-      this.util.openSnackbar('请登录后上传图片！', 'ok');
+      this.util.openSnackbar(translate.instant('BUILDER.FORM_EDITOR.IMAGE_LOGIN_REQUIRED'), 'ok');
       return;
     }
     const Imageinput: any = document.createElement('input');
@@ -90,11 +95,22 @@ export class MediaUploadService extends ApiService {
           const reader = new FileReader();
           reader.onload = (e: any) => {
             const data = e.target.result;
+            // 上传耗时对用户不可见,常驻提示进行中;成功后收起,失败给出重试提示
+            this.util.openSnackbar(translate.instant('BUILDER.FORM_EDITOR.IMAGE_UPLOADING'), '', {
+              duration: 0,
+            });
             uploadImage(file.name, data)
               .pipe(take(1))
-              .subscribe((img: IMediaAttr) => {
-                const range = editor.getSelection(true);
-                editor.insertEmbed(range.index, 'image', img.uri.url);
+              .subscribe({
+                next: (img: IMediaAttr) => {
+                  this.util.dismissSnackbar();
+                  insert(img.uri.url);
+                },
+                error: () =>
+                  this.util.openSnackbar(
+                    translate.instant('BUILDER.FORM_EDITOR.IMAGE_UPLOAD_FAILED'),
+                    'ok'
+                  ),
               });
           };
           reader.readAsArrayBuffer(file);
@@ -102,5 +118,16 @@ export class MediaUploadService extends ApiService {
       });
       Imageinput.click();
     }
+  }
+
+  imageHandler(
+    editor: any,
+    uploadImage: (fileName: string, imageData: any) => Observable<IMediaAttr> = (fileName, data) =>
+      this.uploadImage(fileName, data)
+  ): void {
+    this.pickAndUploadImage(url => {
+      const range = editor.getSelection(true);
+      editor.insertEmbed(range.index, 'image', url);
+    }, uploadImage);
   }
 }

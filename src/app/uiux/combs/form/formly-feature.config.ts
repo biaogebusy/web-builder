@@ -25,6 +25,7 @@ import { RichEditorComponent } from './formly-type/rich-editor/rich-editor.compo
 import { RichTextComponent } from './formly-type/rich-text/rich-text.component';
 import { SliderComponent } from './formly-type/slider/slider.component';
 import { TabsTypeComponent } from './formly-type/tabs/tabs.component';
+import { TiptapFieldType } from './formly-type/tiptap/tiptap.component';
 
 const TRANSLATABLE_PROPS = [
   'label',
@@ -42,6 +43,7 @@ export const XINSHI_FORMLY_CONFIG: ConfigOption = {
   types: [
     { name: 'rich-text', component: RichTextComponent },
     { name: 'rich-editor', component: RichEditorComponent },
+    { name: 'tiptap', component: TiptapFieldType },
     { name: 'mat-select', component: MatSelectComponent },
     { name: 'date-range', component: DateRangeComponent },
     { name: 'repeat', component: RepeatTypeComponent },

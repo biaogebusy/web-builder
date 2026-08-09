@@ -1,10 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { provideRouter } from '@angular/router';
 import { of } from 'rxjs';
 import { vi } from 'vitest';
 import { provideBuilderMocks } from '@modules/builder/testing/mocks';
 import { createNodeServiceMock } from '@core/testing/mocks';
 import { NodeService } from '@core/service/node.service';
+import { NodeFieldFormService } from '@core/service/node-field-form.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 
 import { NodeAddComponent } from './node-add.component';
@@ -27,7 +29,7 @@ describe('NodeAddComponent', () => {
   let component: NodeAddComponent;
   let fixture: ComponentFixture<NodeAddComponent>;
 
-  const setup = async (coreConfig: any = {}) => {
+  const setup = async (coreConfig: any = {}, fieldFormService?: any) => {
     const nodeServiceMock = createNodeServiceMock();
     nodeServiceMock.fetch = vi.fn((api: string) =>
       api === '/api/v1/node_type/node_type' ? of(NODE_TYPE_RESPONSE) : of({})
@@ -39,11 +41,15 @@ describe('NodeAddComponent', () => {
         ...provideBuilderMocks(),
         { provide: NodeService, useValue: nodeServiceMock },
         { provide: CORE_CONFIG, useValue: coreConfig },
+        ...(fieldFormService
+          ? [{ provide: NodeFieldFormService, useValue: fieldFormService }]
+          : []),
       ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NodeAddComponent);
     component = fixture.componentInstance;
+    return nodeServiceMock;
   };
 
   it('should create', async () => {
@@ -85,5 +91,73 @@ describe('NodeAddComponent', () => {
       'component',
       'landing_page',
     ]);
+  });
+
+  it('正文字段换用 tiptap,工具栏投影到顶栏下的通栏容器', async () => {
+    await setup(
+      {},
+      {
+        getNodeTypes: () => of([{ label: '博客', value: 'blog' }]),
+        getForm: () =>
+          of({
+            fields: [
+              { key: 'body', type: 'rich-editor', props: { label: '正文' } },
+              { key: 'field_tags', type: 'mat-select', props: {} },
+            ],
+            meta: [
+              { key: 'body', fieldType: 'text_long' },
+              { key: 'field_tags', fieldType: 'entity_reference' },
+            ],
+          }),
+        buildModel: () => ({}),
+      }
+    );
+
+    component.ngOnInit();
+
+    const body = component.mainFields().find(field => field.key === 'body');
+    expect(body?.type).toBe('tiptap');
+    expect(body?.props?.['toolbarContainer']).toBe('#node-editor-toolbar');
+    expect(component.hasRichEditor()).toBe(true);
+    // 非正文字段仍留在右侧属性面板
+    expect(component.sideFields().map(field => field.key)).toEqual(['field_tags']);
+  });
+
+  it('多个长文本字段时只有第一个接管通栏工具栏', async () => {
+    await setup(
+      {},
+      {
+        getNodeTypes: () => of([{ label: '博客', value: 'blog' }]),
+        getForm: () =>
+          of({
+            fields: [
+              { key: 'body', type: 'rich-editor', props: {} },
+              { key: 'field_extra', type: 'rich-editor', props: {} },
+            ],
+            meta: [
+              { key: 'body', fieldType: 'text_with_summary' },
+              { key: 'field_extra', fieldType: 'text_long' },
+            ],
+          }),
+        buildModel: () => ({}),
+      }
+    );
+
+    component.ngOnInit();
+
+    const [, body, extra] = component.mainFields();
+    expect(body.props?.['toolbarContainer']).toBe('#node-editor-toolbar');
+    expect(extra.props?.['toolbarContainer']).toBeUndefined();
+  });
+
+  it('表单无效时不提交,标记 touched 并提示', async () => {
+    const nodeServiceMock = await setup();
+    component.form.addControl('title', new UntypedFormControl(null, Validators.required));
+
+    component.onSubmit(component.form.value, { id: 1 });
+
+    expect(nodeServiceMock.addEntity).not.toHaveBeenCalled();
+    expect(component.form.touched).toBe(true);
+    expect(component.submitting()).toBe(false);
   });
 });
