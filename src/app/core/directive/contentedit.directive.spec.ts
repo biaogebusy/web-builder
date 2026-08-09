@@ -104,7 +104,9 @@ describe('ContenteditDirective', () => {
     expect(options.onCommitted).toBeUndefined();
   });
 
-  it('plain:默认走裸 contenteditable,行为不变', async () => {
+  it('plain:兜底裸 contenteditable,不再打开旧文本面板', async () => {
+    const emissions: unknown[] = [];
+    builderMock.rightContent$.subscribe(content => emissions.push(content));
     const plain = fixture.nativeElement.querySelector('.plain') as HTMLElement;
 
     plain.dispatchEvent(new MouseEvent('click', { bubbles: true }));
@@ -113,5 +115,6 @@ describe('ContenteditDirective', () => {
 
     expect(plain.contentEditable).toBe('true');
     expect(activateMock).not.toHaveBeenCalled();
+    expect(emissions.length).toBe(0);
   });
 });

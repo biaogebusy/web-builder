@@ -27,7 +27,11 @@
       @if (contentValue.more && contentValue.more.label) {
         <div class="read-more">
           <a href="{{ contentValue.more.href }}" target="{{ contentValue.more.target || '_blank' }}"
-            ><span contentedit="more.label" [innerHTML]="contentValue.more.label | safeHtml"></span
+            ><span
+              contentedit="more.label"
+              contenteditProfile="inline"
+              [innerHTML]="contentValue.more.label | safeHtml"
+            ></span
           ></a>
         </div>
       }

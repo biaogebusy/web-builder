@@ -23,7 +23,11 @@
       <div class="post-meta">
         @if (c.link) {
           <a [href]="c.link.href" class="text-muted readmore">
-            <span contentedit="moreLabel" [innerHTML]="c.moreLabel | safeHtml"></span>
+            <span
+              contentedit="moreLabel"
+              contenteditProfile="inline"
+              [innerHTML]="c.moreLabel | safeHtml"
+            ></span>
             <mat-icon>navigate_next</mat-icon>
           </a>
         }

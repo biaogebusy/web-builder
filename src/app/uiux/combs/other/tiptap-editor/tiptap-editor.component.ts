@@ -20,6 +20,7 @@ import { DomPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
 import { NgTemplateOutlet } from '@angular/common';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
+import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Editor, Extensions } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
@@ -44,10 +45,18 @@ import { TiptapBubbleMenuComponent } from './bubble-menu/tiptap-bubble-menu.comp
     NgTemplateOutlet,
     MatDividerModule,
     MatMenuModule,
+    MatTooltipModule,
     TranslateModule,
     BtnComponent,
     IconComponent,
     TiptapBubbleMenuComponent,
+  ],
+  providers: [
+    // 工具栏提示统一显示在按钮上方,避免遮住正下方的编辑内容
+    {
+      provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
+      useValue: { showDelay: 0, hideDelay: 0, touchendHideDelay: 1500, position: 'above' },
+    },
   ],
 })
 export class TiptapEditorComponent implements AfterViewInit, OnDestroy {

@@ -172,22 +172,14 @@ export interface IWidgets {
   elements: IDynamicInputs[];
 }
 
-export type IMetaEdit = IMetaTextEdit | IMetaImageEdit;
+// 文本变体已随旧文本面板退役(文本编辑走 tiptap 气泡),现仅存图片编辑
+export type IMetaEdit = IMetaImageEdit;
 
 interface IMetaEditBase {
   type: string;
   path: string;
   fields?: FormlyFieldConfig[];
   fullWidth: boolean;
-}
-
-export interface IMetaTextEdit extends IMetaEditBase {
-  mode: 'text';
-  ele: HTMLElement;
-  data: {
-    innerHTML: string;
-    tag: string;
-  };
 }
 
 export interface IMetaImageEdit extends IMetaEditBase {

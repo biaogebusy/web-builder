@@ -59,7 +59,6 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
     }
     const path = generatePath(currentTarget);
     this.builder.updatePageContentByPath(path, currentTarget.innerHTML);
-    this.openMetaPanel(currentTarget, path);
   }
 
   /**
@@ -158,38 +157,11 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
         }
       );
     } else {
+      // 兜底档:number-animate(JS 动画持有文本节点)与自定义模板等场景,
+      // 原地编辑文本节点、失焦保存;旧文本样式面板已退役,不再随编辑打开
       currentTarget.contentEditable = 'true';
       this.originalHtml = currentTarget.innerHTML;
-      this.openMetaPanel(currentTarget, path);
     }
-  }
-
-  openMetaPanel(ele: HTMLElement, path: string): void {
-    // 仅 builder 画布内触发，动态加载编辑表单工厂，避免公共页面静态依赖 builder 模块
-    void import('@modules/builder/factory/getInlineText').then(({ getInlineText }) => {
-      const meta: IMetaEdit = {
-        type: 'inline-editor',
-        mode: 'text',
-        fullWidth: true,
-        path,
-        ele,
-        fields: [getInlineText(ele)],
-        data: {
-          innerHTML: ele.innerHTML,
-          tag: ele.tagName,
-        },
-      };
-      this.builder.rightContent$.next({
-        title: this.translate.instant('BUILDER.INLINE_EDITOR.EDIT_TEXT'),
-        mode: 'push',
-        hasBackdrop: false,
-        style: {
-          'width': '300px',
-          'max-width': 'calc(100vw - 140px)',
-        },
-        elements: [meta],
-      });
-    });
   }
 
   ngAfterViewInit(): void {

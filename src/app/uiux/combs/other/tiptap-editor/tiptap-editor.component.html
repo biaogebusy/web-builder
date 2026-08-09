@@ -12,6 +12,7 @@
         (keydown)="onToolbarKeydown($event)"
       >
         <app-btn
+          [matTooltip]="'BUILDER.TIPTAP.UNDO' | translate"
           (click)="editor.chain().focus().undo().run()"
           [content]="{
             mode: 'icon',
@@ -21,6 +22,7 @@
           }"
         />
         <app-btn
+          [matTooltip]="'BUILDER.TIPTAP.REDO' | translate"
           (click)="editor.chain().focus().redo().run()"
           [content]="{
             mode: 'icon',
@@ -31,6 +33,7 @@
         />
         <mat-divider [vertical]="true" />
         <app-btn
+          [matTooltip]="'BUILDER.TIPTAP.HEADING' | translate"
           [mat-menu-trigger-for]="header"
           [content]="{
             mode: 'icon',
@@ -72,6 +75,7 @@
           </button>
         </mat-menu>
         <app-btn
+          [matTooltip]="'BUILDER.TIPTAP.LIST' | translate"
           [mat-menu-trigger-for]="lists"
           [content]="{
             mode: 'icon',
@@ -98,6 +102,7 @@
           </button>
         </mat-menu>
         <app-btn
+          [matTooltip]="'BUILDER.TIPTAP.ALIGN' | translate"
           [mat-menu-trigger-for]="align"
           [content]="{
             mode: 'icon',
@@ -145,6 +150,7 @@
         </mat-menu>
         <mat-divider [vertical]="true" />
         <app-btn
+          [matTooltip]="'BUILDER.TIPTAP.BOLD' | translate"
           (click)="editor.chain().focus().toggleBold().run()"
           [content]="{
             mode: 'icon',
@@ -154,6 +160,7 @@
           }"
         />
         <app-btn
+          [matTooltip]="'BUILDER.TIPTAP.ITALIC' | translate"
           (click)="editor.chain().focus().toggleItalic().run()"
           [content]="{
             mode: 'icon',
@@ -163,6 +170,7 @@
           }"
         />
         <app-btn
+          [matTooltip]="'BUILDER.TIPTAP.UNDERLINE' | translate"
           (click)="editor.chain().focus().toggleUnderline().run()"
           [content]="{
             mode: 'icon',
@@ -172,6 +180,7 @@
           }"
         />
         <app-btn
+          [matTooltip]="'BUILDER.TIPTAP.STRIKE' | translate"
           (click)="editor.chain().focus().toggleStrike().run()"
           [content]="{
             mode: 'icon',
@@ -181,6 +190,7 @@
           }"
         />
         <app-btn
+          [matTooltip]="'BUILDER.TIPTAP.HIGHLIGHT' | translate"
           (click)="editor.chain().focus().toggleHighlight().run()"
           [content]="{
             mode: 'icon',
@@ -191,6 +201,7 @@
         />
         <mat-divider [vertical]="true" />
         <app-btn
+          [matTooltip]="'BUILDER.TIPTAP.BLOCKQUOTE' | translate"
           (click)="editor.chain().focus().toggleBlockquote().run()"
           [content]="{
             mode: 'icon',
@@ -200,6 +211,7 @@
           }"
         />
         <app-btn
+          [matTooltip]="'BUILDER.TIPTAP.CODE_BLOCK' | translate"
           (click)="editor.chain().focus().toggleCodeBlock().run()"
           [content]="{
             mode: 'icon',
@@ -209,6 +221,7 @@
           }"
         />
         <app-btn
+          [matTooltip]="'BUILDER.TIPTAP.CLEAR_FORMAT' | translate"
           (click)="editor.chain().focus().unsetAllMarks().run()"
           [content]="{
             mode: 'icon',
@@ -218,6 +231,7 @@
         />
         <mat-divider [vertical]="true" />
         <app-btn
+          [matTooltip]="'BUILDER.TIPTAP.PARAGRAPH' | translate"
           (click)="editor.chain().focus().setParagraph().run()"
           [content]="{
             mode: 'icon',
@@ -227,6 +241,7 @@
           }"
         />
         <app-btn
+          [matTooltip]="'BUILDER.TIPTAP.LINK' | translate"
           (click)="openLinkPanel()"
           [content]="{
             mode: 'icon',
@@ -236,6 +251,7 @@
           }"
         />
         <app-btn
+          [matTooltip]="'BUILDER.TIPTAP.IMAGE' | translate"
           (click)="addImage()"
           [content]="{
             mode: 'icon',
@@ -244,6 +260,7 @@
           }"
         />
         <app-btn
+          [matTooltip]="'BUILDER.TIPTAP.HR' | translate"
           (click)="editor.chain().focus().setHorizontalRule().run()"
           [content]="{
             mode: 'icon',
@@ -280,6 +297,7 @@
       />
       @if (editor()?.isActive('link')) {
         <app-btn
+          [matTooltip]="'BUILDER.TIPTAP.LINK_OPEN' | translate"
           (click)="openLink()"
           [content]="{
             mode: 'icon',
@@ -288,6 +306,7 @@
           }"
         />
         <app-btn
+          [matTooltip]="'BUILDER.TIPTAP.LINK_REMOVE' | translate"
           (click)="removeLink()"
           [content]="{
             mode: 'icon',
@@ -297,6 +316,7 @@
         />
       }
       <app-btn
+        [matTooltip]="'BUILDER.TIPTAP.CLOSE' | translate"
         (click)="closeLinkPanel()"
         [content]="{
           mode: 'icon',

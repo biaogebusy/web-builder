@@ -1,11 +1,4 @@
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  inject,
-  input
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, input } from '@angular/core';
 import { SHARE_IMPORTS } from '@share/share-imports';
 import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { FORM_IMPORTS } from '@uiux/combs/form/form-imports';
@@ -17,6 +10,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { ManageService } from '@core/service/manage.service';
 import { IDialog } from '@core/interface/IDialog';
 
+/**
+ * 画布内联编辑的右侧属性面板。现仅承担图片(mode: 'img')的编辑;
+ * 文本模式已退役——文本的格式化与文字样式由 tiptap 气泡工具栏
+ * (InlineEditorService)承担,元素级样式走组件设置
+ */
 @Component({
   selector: 'app-inline-editor',
   templateUrl: './inline-editor.component.html',
@@ -24,77 +22,24 @@ import { IDialog } from '@core/interface/IDialog';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SHARE_IMPORTS, WIDGETS_IMPORTS, FORM_IMPORTS],
 })
-export class InlineEditComponent implements AfterViewInit {
+export class InlineEditComponent {
   readonly content = input.required<IMetaEdit>();
   form = new UntypedFormGroup({});
   model: any = {};
-  private viewHTML: any;
-  private guiHTML: any;
 
   private dialog = inject(MatDialog);
   private builder = inject(BuilderState);
   private cd = inject(ChangeDetectorRef);
   private manageService = inject(ManageService);
-  constructor() {}
-
-
-  ngAfterViewInit(): void {
-    this.initTextView();
-  }
-
-  initTextView(): void {
-    const content = this.content();
-    if (content.mode === 'text') {
-      const currentValue = content.data.innerHTML;
-      const isHtmlWrapper = this.isHTMLWrapper(currentValue);
-      const div = document.createElement('div');
-      const p = document.createElement('p');
-      div.appendChild(p);
-
-      if (isHtmlWrapper) {
-        p.outerHTML = currentValue;
-      } else {
-        p.innerHTML = currentValue;
-      }
-
-      this.guiHTML = div.querySelector('p');
-      if (content.ele.querySelector('p')) {
-        this.viewHTML = content.ele.querySelector('p');
-      } else {
-        const text = content.ele.innerHTML;
-        const pEle = document.createElement('p');
-        pEle.innerHTML = text;
-        pEle.style.display = 'inline-block';
-        pEle.style.marginBottom = '0px';
-        content.ele.innerHTML = pEle.outerHTML;
-        this.viewHTML = content.ele.querySelector('p');
-      }
-      if (!this.guiHTML) {
-        return;
-      }
-      this.guiHTML.style.display = 'inline-block';
-      p.style.marginBottom = '0px';
-    }
-  }
 
   onClear(): void {
     const content = this.content();
-    if (content.mode === 'text') {
-      this.viewHTML.removeAttribute('style');
-      this.builder.updatePageContentByPath(content.path, this.viewHTML.outerHTML);
-    }
-
     if (content.mode === 'img') {
       const src = content.path;
       const imgPath = src.substring(0, src.lastIndexOf('.'));
       content.ele.removeAttribute('style');
       this.builder.updatePageContentByPath(`${imgPath}.style`, {});
     }
-  }
-
-  isHTMLWrapper(str: string): boolean {
-    const pattern = /^<([a-zA-Z][\w:-]*)(?:\s[^<>]*?)?>[\s\S]*?<\/\1>$/;
-    return pattern.test(str);
   }
 
   openMedias(): void {
@@ -113,9 +58,14 @@ export class InlineEditComponent implements AfterViewInit {
       data: config,
     });
   }
+
   onModelChange(value: any): void {
-    const path = this.content().path;
-    const { style, src } = value;
+    const content = this.content();
+    if (content.mode !== 'img') {
+      return;
+    }
+    const path = content.path;
+    const { style } = value;
     for (const key of Object.keys(style)) {
       switch (key) {
         case 'maxWidth': {
@@ -131,30 +81,23 @@ export class InlineEditComponent implements AfterViewInit {
           break;
         }
         case 'width':
-          this.content().ele.setAttribute('width', String(parseInt(style[key])));
+          content.ele.setAttribute('width', String(parseInt(style[key])));
           break;
         case 'height':
-          this.content().ele.setAttribute('height', String(parseInt(style[key])));
+          content.ele.setAttribute('height', String(parseInt(style[key])));
           break;
         default:
           this.setStyle(key, style[key], value);
           break;
       }
     }
-    const content = this.content();
-    if (content.mode === 'img') {
-      const imgPath = path.substring(0, path.lastIndexOf('.'));
-      this.builder.updatePageContentByPath(`${imgPath}.style`, style);
-      this.builder.updatePageContentByPath(`${imgPath}.src`, src);
-      this.builder.updatePageContentByPath(`${imgPath}.width`, parseInt(style.width));
-      delete style.width;
-      this.builder.updatePageContentByPath(`${imgPath}.height`, parseInt(style.height));
-      delete style.height;
-    }
-
-    if (content.mode === 'text') {
-      this.builder.updatePageContentByPath(path, this.guiHTML.outerHTML);
-    }
+    const imgPath = path.substring(0, path.lastIndexOf('.'));
+    this.builder.updatePageContentByPath(`${imgPath}.style`, style);
+    this.builder.updatePageContentByPath(`${imgPath}.src`, value.src);
+    this.builder.updatePageContentByPath(`${imgPath}.width`, parseInt(style.width));
+    delete style.width;
+    this.builder.updatePageContentByPath(`${imgPath}.height`, parseInt(style.height));
+    delete style.height;
 
     this.builder.saveLocalVersions();
     setTimeout(() => {
@@ -165,13 +108,9 @@ export class InlineEditComponent implements AfterViewInit {
   setStyle(key: string, value: any, formValue: any): void {
     const { style, src } = formValue;
     const content = this.content();
-    if (content.mode === 'img') {
-      style[key] = value;
-      (content.ele.style as unknown as Record<string, string>)[key] = value;
-      content.ele.src = src;
-    } else {
-      this.viewHTML.style[key] = value;
-      this.guiHTML.style[key] = value;
-    }
+    style[key] = value;
+    (content.ele.style as unknown as Record<string, string>)[key] = value;
+    // 面板现仅服务 img 模式(onModelChange/onClear 已作 mode 守卫)
+    (content.ele as HTMLImageElement).src = src;
   }
 }

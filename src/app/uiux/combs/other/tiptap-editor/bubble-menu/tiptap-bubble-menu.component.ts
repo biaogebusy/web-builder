@@ -12,6 +12,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipModule } from '@angular/material/tooltip';
 import { Editor } from '@tiptap/core';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 
@@ -48,7 +49,14 @@ const ALIGN_ORDER = ['left', 'center', 'right', 'justify'];
   host: {
     '(mousedown)': 'onMousedown($event)',
   },
-  imports: [TranslateModule, BtnComponent],
+  imports: [TranslateModule, MatTooltipModule, BtnComponent],
+  providers: [
+    // 工具栏提示统一显示在按钮上方,避免遮住正下方的编辑内容
+    {
+      provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
+      useValue: { showDelay: 0, hideDelay: 0, touchendHideDelay: 1500, position: 'above' },
+    },
+  ],
 })
 export class TiptapBubbleMenuComponent {
   /** 当前活跃的编辑器;为空时不渲染任何按钮 */
