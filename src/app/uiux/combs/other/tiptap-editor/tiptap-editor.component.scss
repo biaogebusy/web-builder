@@ -1,3 +1,19 @@
+// 图标按钮紧凑尺寸,工具栏与气泡菜单共用
+@mixin compact-icon-buttons {
+  --mat-icon-button-icon-size: 16px;
+  --mat-icon-button-state-layer-size: 32px;
+  ::ng-deep {
+    .mat-icon {
+      height: inherit;
+      width: inherit;
+      .mat-mdc-button-touch-target {
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
+}
+
 .editor-container {
   box-shadow:
     rgba(0, 0, 0, 0) 0px 0px 0px 0px,
@@ -7,32 +23,38 @@
   overflow: hidden;
   background-color: var(--mat-sys-surface);
   border: 1px solid var(--mat-sys-surface-container-low);
-  .toolbar {
-    @apply flex flex-wrap gap-1 px-2;
-    border-bottom: 1px solid var(--mat-sys-outline-variant);
-    --mat-icon-button-icon-size: 16px;
-    --mat-icon-button-state-layer-size: 32px;
-    ::ng-deep {
-      .mat-icon {
-        height: inherit;
-        width: inherit;
-        .mat-mdc-button-touch-target {
-          width: 32px;
-          height: 32px;
-        }
-      }
-    }
-    .mat-divider {
-      height: 20px;
-      margin-top: 6px;
-    }
+
+  // 焦点提示:主题色描边(替代内容区的硬编码蓝色 focus ring)
+  &:focus-within {
+    border-color: var(--mat-sys-primary);
   }
 
   .bubble-menu {
-    background-color: var(--mat-sys-surface);
-    border-radius: 4px;
+    @apply z-10 flex gap-1 p-1;
+    @include compact-icon-buttons;
+    background-color: var(--mat-sys-surface-container);
+    border: 1px solid var(--mat-sys-outline-variant);
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
     visibility: hidden;
     position: absolute;
+  }
+
+  .link-panel {
+    @apply flex items-center gap-2 px-2 py-2;
+    border-bottom: 1px solid var(--mat-sys-outline-variant);
+
+    .link-input {
+      @apply h-8 min-w-0 flex-1 rounded border px-2 text-sm;
+      border-color: var(--mat-sys-outline-variant);
+      background: transparent;
+      color: var(--mat-sys-on-surface);
+
+      &:focus {
+        outline: none;
+        border-color: var(--mat-sys-primary);
+      }
+    }
   }
   ::ng-deep {
     .ProseMirror {
@@ -56,5 +78,24 @@
       font-size: 0.85rem;
       padding: 0.25em 0.3em;
     }
+    // Placeholder 扩展把占位文案挂在空文档首行的 data-placeholder 上
+    .ProseMirror p.is-editor-empty:first-child::before {
+      content: attr(data-placeholder);
+      color: var(--mat-sys-outline);
+      float: left;
+      height: 0;
+      pointer-events: none;
+    }
+  }
+}
+
+// 工具栏可被投影到组件外的容器(toolbarContainer),选择器不能依赖 .editor-container 层级
+.toolbar {
+  @apply flex flex-wrap gap-1 px-2;
+  @include compact-icon-buttons;
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+  .mat-divider {
+    height: 20px;
+    margin-top: 6px;
   }
 }

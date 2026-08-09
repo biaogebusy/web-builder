@@ -1,5 +1,5 @@
 // Frase 式布局:顶栏、编辑器工具栏、右侧属性面板都用 1px 细线(--shadcn-border)分隔,
-// 无浮动圆角卡片;编辑区为白底文档流,quill 工具栏做成顶栏下的通栏 sticky 工具条
+// 无浮动圆角卡片;编辑区为白底文档流,tiptap 工具栏投影成顶栏下的通栏 sticky 工具条
 .node-add {
   @apply flex min-h-full flex-col;
   background: var(--shadcn-background);
@@ -41,96 +41,37 @@
       @apply overflow-y-auto;
     }
 
-    // 独立工具栏通栏:quill 初始化时会给容器加上 ql-toolbar/ql-snow 类,
-    // 覆盖 snow 主题的盒式边框,只留下边细线,并 sticky 在顶栏(h-14)之下
+    // 独立工具栏通栏:tiptap 把工具栏 portal 投影进来,边框/内边距由本容器接管,
+    // 并 sticky 在顶栏(h-14)之下
     .editor-toolbar {
       @apply sticky top-14 z-10 px-6 py-2;
+      background: var(--shadcn-background);
+      border-bottom: 1px solid var(--shadcn-border);
       // lg+ 主区自身是滚动容器(顶栏在容器之外),工具栏吸附容器顶部
       @screen lg {
         @apply top-0;
       }
-      background: var(--shadcn-background);
-      border-bottom: 1px solid var(--shadcn-border);
-      &.ql-toolbar.ql-snow {
-        @apply border-x-0 border-t-0 px-6 py-2 font-sans;
-        border-bottom: 1px solid var(--shadcn-border);
-
-        // quill snow 主题的图标/下拉颜色硬编码为 #444/#06c/#fff 系,
-        // 映射到 shadcn 令牌以保证暗色主题下的对比度
-        ::ng-deep {
-          .ql-stroke,
-          .ql-stroke-miter {
-            stroke: var(--shadcn-foreground);
-          }
-          .ql-fill,
-          .ql-stroke.ql-fill {
-            fill: var(--shadcn-foreground);
-          }
-          .ql-picker {
-            color: var(--shadcn-foreground);
-          }
-          button:hover,
-          button:focus,
-          button.ql-active,
-          .ql-picker-label:hover,
-          .ql-picker-label.ql-active,
-          .ql-picker-item:hover,
-          .ql-picker-item.ql-selected {
-            color: var(--shadcn-primary);
-            .ql-stroke,
-            .ql-stroke-miter {
-              stroke: var(--shadcn-primary);
-            }
-            .ql-fill,
-            .ql-stroke.ql-fill {
-              fill: var(--shadcn-primary);
-            }
-          }
-          .ql-picker-options {
-            background-color: var(--shadcn-popover);
-            color: var(--shadcn-popover-foreground);
-            border-radius: var(--shadcn-radius-sm);
-            box-shadow: var(--shadcn-shadow-md);
-          }
-          .ql-picker.ql-expanded .ql-picker-label,
-          .ql-picker.ql-expanded .ql-picker-options {
-            border-color: var(--shadcn-border);
-          }
-        }
+      // 投影进来的工具栏只保留按钮排布,盒式边框交给通栏容器
+      ::ng-deep .toolbar {
+        @apply border-0 px-0;
       }
     }
-    ::ng-deep .ql-container.ql-snow {
-      @apply border-0 text-base;
-
-      // 内容区/链接 tooltip 的硬编码浅色系(#06c 链接、#f0f0f0 行内代码、
-      // #ccc 引用线、#fff tooltip)映射到 shadcn 令牌,适配暗色主题
+    // 编辑器在文档流里是无边框白底,tiptap 组件自带的卡片外观(圆角/阴影/边框)去掉
+    ::ng-deep .editor-container {
+      @apply rounded-none border-0 shadow-none;
+      background: transparent;
+    }
+    ::ng-deep .ProseMirror {
+      @apply min-h-[50vh] px-0 py-4 text-base;
       a {
         color: var(--shadcn-primary);
       }
-      .ql-editor code {
+      code {
         background-color: var(--shadcn-muted);
       }
-      .ql-editor blockquote {
-        border-left-color: var(--shadcn-border);
-      }
-      // 占位符对齐 px-0 的正文(quill 默认 left/right 15px)
-      .ql-editor.ql-blank::before {
-        @apply left-0 right-0;
-        color: var(--shadcn-muted-foreground);
-      }
-      .ql-tooltip {
-        background-color: var(--shadcn-popover);
-        border-color: var(--shadcn-border);
-        color: var(--shadcn-popover-foreground);
-        box-shadow: var(--shadcn-shadow-md);
-        input[type='text'] {
-          background: transparent;
-          border-color: var(--shadcn-input);
-          color: var(--shadcn-foreground);
-        }
-        a.ql-action::after {
-          border-right-color: var(--shadcn-border);
-        }
+      blockquote {
+        @apply pl-4;
+        border-left: 4px solid var(--shadcn-border);
       }
     }
     // 标题与正文共用同一左对齐文档容器(mx-auto 限宽 + px-6),内部控件一律 px-0,
@@ -158,13 +99,8 @@
     ::ng-deep .node-body-field {
       @apply mx-auto block max-w-3xl px-6 pb-8;
     }
-    ::ng-deep .ql-editor {
-      @apply min-h-[50vh] px-0 py-4;
-    }
-    // 编辑器 px-0 后,空内容占位符也贴齐左边线(quill.snow 默认 left/right 15px、斜体),
-    // 颜色与标题占位符一致,深色主题下也可读
-    ::ng-deep .ql-editor.ql-blank::before {
-      @apply left-0 right-0 not-italic;
+    // 空文档占位符与标题占位符同一视觉(tiptap Placeholder 扩展挂在首行 ::before)
+    ::ng-deep .ProseMirror p.is-editor-empty:first-child::before {
       color: var(--shadcn-muted-foreground);
       opacity: 0.6;
     }

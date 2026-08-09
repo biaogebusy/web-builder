@@ -116,6 +116,11 @@ export class UtilitiesService {
     });
   }
 
+  /** 关闭当前 snackbar(用于"进行中"类常驻提示在完成后收起) */
+  dismissSnackbar(): void {
+    this.snackbar.dismiss();
+  }
+
   loadScript(src: string, id?: string, defer?: boolean): Promise<void> {
     if (!this.screenService.isPlatformBrowser()) {
       return Promise.resolve();

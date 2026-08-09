@@ -8,15 +8,19 @@ import { FORM_IMPORTS } from '@uiux/combs/form/form-imports';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import { IUser } from '@core/interface/IUser';
+import { ICoreConfig } from '@core/interface/IAppConfig';
 import { NodeService } from '@core/service/node.service';
 import { INodeFieldMeta, NodeFieldFormService } from '@core/service/node-field-form.service';
 import { TagsService } from '@core/service/tags.service';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { USER } from '@core/token/token-providers';
+import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import { TranslateService } from '@ngx-translate/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { forkJoin, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+
+/** 默认开放的内容类型(机器名):博客、新闻、应用中心、文章、组件 */
+const DEFAULT_NODE_TYPES = ['blog', 'news', 'json', 'article', 'component'];
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -31,6 +35,7 @@ export class NodeAddComponent implements OnInit {
   private tagsService = inject(TagsService);
   private activateRoute = inject(ActivatedRoute);
   public user = inject(USER);
+  private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   private util = inject(UtilitiesService);
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);
@@ -54,7 +59,7 @@ export class NodeAddComponent implements OnInit {
     () => this.nodeTypes().find(t => t.value === this.type())?.label ?? this.type()
   );
   /** 中间区含富文本时,顶栏下渲染独立的编辑器工具栏通栏 */
-  public hasRichEditor = computed(() => this.mainFields().some(f => f.type === 'rich-editor'));
+  public hasRichEditor = computed(() => this.mainFields().some(f => f.type === 'tiptap'));
   private fieldMeta: INodeFieldMeta[] = [];
 
   ngOnInit(): void {
@@ -62,7 +67,7 @@ export class NodeAddComponent implements OnInit {
       .getNodeTypes()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(types => {
-        this.nodeTypes.set(types);
+        this.nodeTypes.set(this.filterNodeTypes(types));
         this.typesLoading.set(false);
       });
 
@@ -143,18 +148,30 @@ export class NodeAddComponent implements OnInit {
                   .filter(m => m.fieldType === 'text_long' || m.fieldType === 'text_with_summary')
                   .map(m => m.key)
               );
-              // 富文本工具栏抽离到顶栏下的独立通栏容器(模板中的 #node-editor-toolbar);
-              // node-body-field 与标题字段共用同一左对齐文档容器(见 scss)
+              // 正文富文本统一换用 tiptap,工具栏抽离到顶栏下的独立通栏容器
+              // (模板中的 #node-editor-toolbar);node-body-field 与标题字段共用同一
+              // 左对齐文档容器(见 scss)
+              const richBodyKey = fields.find(
+                f => bodyKeys.has(f.key as string) && f.type === 'rich-editor'
+              )?.key;
               const bodyFields = fields
                 .filter(f => bodyKeys.has(f.key as string))
-                .map(f => ({
-                  ...f,
-                  className: 'node-body-field',
-                  props:
-                    f.type === 'rich-editor'
-                      ? { ...f.props, toolbarContainer: '#node-editor-toolbar' }
-                      : f.props,
-                }));
+                .map(f => {
+                  if (f.type !== 'rich-editor') {
+                    return { ...f, className: 'node-body-field' };
+                  }
+                  return {
+                    ...f,
+                    className: 'node-body-field',
+                    type: 'tiptap',
+                    // 一个内容类型可能有多个长文本字段,只让第一个接管通栏工具栏,
+                    // 其余在各自的编辑器盒子内渲染工具栏,避免多条工具栏叠进同一容器
+                    props:
+                      f.key === richBodyKey
+                        ? { ...f.props, toolbarContainer: '#node-editor-toolbar' }
+                        : f.props,
+                  };
+                });
               this.mainFields.set([this.getTitleField(), ...bodyFields]);
               this.sideFields.set(fields.filter(f => !bodyKeys.has(f.key as string)));
               // field_config 需要 administer node fields 权限,无权限时 data 为空
@@ -167,6 +184,20 @@ export class NodeAddComponent implements OnInit {
             });
       }
     });
+  }
+
+  /**
+   * 默认只开放 DEFAULT_NODE_TYPES;core_config 的 builder.nodeTypes 可在
+   * 默认清单上禁用(disable)或额外开放(enable),disable 优先。
+   */
+  private filterNodeTypes(
+    types: { label: string; value: string }[]
+  ): { label: string; value: string }[] {
+    const { disable = [], enable = [] } = this.coreConfig?.builder?.nodeTypes ?? {};
+    const allowed = new Set(
+      [...DEFAULT_NODE_TYPES, ...enable].filter(type => !disable.includes(type))
+    );
+    return types.filter(type => allowed.has(type.value));
   }
 
   /** json 类型的 body 以字符串存储,回填前还原为对象 */
@@ -213,6 +244,12 @@ export class NodeAddComponent implements OnInit {
       return;
     }
     if (this.submitting()) {
+      return;
+    }
+    // 必填项前端先校验并标记 touched 显示错误,避免依赖后端 422 才有反馈
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      this.util.openSnackbar(this.translate.instant('BUILDER.NODE_ADD.FORM_INVALID'), 'ok');
       return;
     }
     this.submitting.set(true);
