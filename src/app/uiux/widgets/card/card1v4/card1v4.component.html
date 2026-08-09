@@ -16,10 +16,16 @@
         [innerHTML]="contentValue.body | safeHtml"
       ></div>
       <div class="author-info">
-        <div contentedit="title" class="title" [innerHTML]="contentValue.title | safeHtml"></div>
+        <div
+          contentedit="title"
+          contenteditProfile="inline"
+          class="title"
+          [innerHTML]="contentValue.title | safeHtml"
+        ></div>
         @if (contentValue.subTitle) {
           <div
             contentedit="subTitle"
+            contenteditProfile="inline"
             class="sub-title"
             [innerHTML]="contentValue.subTitle | safeHtml"
           ></div>

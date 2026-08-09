@@ -136,4 +136,59 @@ describe('InlineEditorService', () => {
     expect(builderMock.updatePageContentByPath).not.toHaveBeenCalled();
     expect(host.innerHTML).toBe('<p>hello</p>');
   });
+
+  describe('inline 单行档', () => {
+    it('文档无段落包裹,标题存取均为裸行内 HTML', () => {
+      host.innerHTML = 'Hello <strong>world</strong>';
+      service.activate({ element: host, path: '0.title', profile: 'inline' });
+
+      expect(service.activeEditor?.getHTML()).toBe('Hello <strong>world</strong>');
+
+      // 未修改提交:不写回,原样恢复
+      service.commit();
+      expect(builderMock.updatePageContentByPath).not.toHaveBeenCalled();
+      expect(host.innerHTML).toBe('Hello <strong>world</strong>');
+    });
+
+    it('修改后提交裸行内 HTML,块级包装(如模板包裹 div)被拍平', () => {
+      // card 标题旧数据可能带 <div> 包裹;单行档读入即拍平
+      host.innerHTML = '<div>old title</div>';
+      service.activate({ element: host, path: '0.title', profile: 'inline' });
+      service.activeEditor!.commands.setContent('New <em>title</em>');
+
+      service.commit();
+
+      expect(builderMock.updatePageContentByPath).toHaveBeenCalledWith(
+        '0.title',
+        'New <em>title</em>'
+      );
+      expect(host.innerHTML).not.toContain('<p>');
+    });
+
+    it('Enter 视为完成编辑并提交,不产生分段', async () => {
+      host.innerHTML = 'hello';
+      service.activate({ element: host, path: '0.title', profile: 'inline' });
+      service.activeEditor!.commands.setContent('changed');
+
+      service.activeEditor!.view.dom.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'Enter', bubbles: true })
+      );
+      await flushMicrotasks();
+
+      expect(builderMock.updatePageContentByPath).toHaveBeenCalledWith('0.title', 'changed');
+      expect(service.activeEditor).toBeNull();
+    });
+
+    it('多段内容插入被拍平成行内', () => {
+      host.innerHTML = 'x';
+      service.activate({ element: host, path: '0.title', profile: 'inline' });
+
+      service.activeEditor!.commands.insertContent('<p>aaa</p><p>bbb</p>');
+
+      const html = service.activeEditor!.getHTML();
+      expect(html).not.toContain('<p>');
+      expect(html).toContain('aaa');
+      expect(html).toContain('bbb');
+    });
+  });
 });

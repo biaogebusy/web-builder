@@ -25,9 +25,10 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
   readonly contentedit = input.required<string>();
   /**
    * 编辑形态:plain 维持裸 contenteditable(标签/短文本);
-   * rich 原位挂载 tiptap(正文类 HTML 字段),带气泡格式工具栏
+   * rich 原位挂载 tiptap(多段落正文),带气泡格式工具栏;
+   * inline 单行 tiptap(标题类),仅行内标记、Enter 提交、无段落包裹
    */
-  readonly contenteditProfile = input<'plain' | 'rich'>('plain');
+  readonly contenteditProfile = input<'plain' | 'rich' | 'inline'>('plain');
 
   private componentItem: Element | null = null;
   // 进入编辑时的原始内容，用于跳过未修改的保存，避免产生多余版本快照
@@ -137,7 +138,8 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
           elements: [meta],
         });
       });
-    } else if (this.contenteditProfile() === 'rich') {
+    } else if (this.contenteditProfile() !== 'plain') {
+      const profile = this.contenteditProfile() as 'rich' | 'inline';
       const clickCoords = { x: event.clientX, y: event.clientY };
       // 仅 builder 画布内触发,动态加载 tiptap 内联编辑器,避免公共页面把编辑器打进首包
       void import('@modules/builder/inline-editor/inline-editor.service').then(
@@ -148,6 +150,7 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
           this.injector.get(InlineEditorService).activate({
             element: currentTarget,
             path,
+            profile,
             clickCoords,
             onActivated: () => this.openMetaPanel(currentTarget, path),
             onCommitted: () => this.openMetaPanel(currentTarget, path),

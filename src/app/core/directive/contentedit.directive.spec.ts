@@ -22,6 +22,7 @@ vi.mock('@modules/builder/inline-editor/inline-editor.service', () => ({
       <div class="rich" contentedit="body" contenteditProfile="rich">
         <p>rich body</p>
       </div>
+      <h2 class="inline" contentedit="title" contenteditProfile="inline">title</h2>
       <span class="plain" contentedit="label">label</span>
     </div>
   `,
@@ -72,7 +73,20 @@ describe('ContenteditDirective', () => {
     const options = activateMock.mock.calls[0][0];
     expect(options.element).toBe(rich);
     expect(options.path).toBe('body');
+    expect(options.profile).toBe('rich');
     expect(options.clickCoords).toEqual({ x: 12, y: 34 });
+  });
+
+  it('inline:透传单行档给 InlineEditorService', async () => {
+    const inline = fixture.nativeElement.querySelector('.inline') as HTMLElement;
+
+    inline.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    await vi.waitFor(() => expect(activateMock).toHaveBeenCalledTimes(1));
+
+    expect(inline.contentEditable).not.toBe('true');
+    const options = activateMock.mock.calls[0][0];
+    expect(options.path).toBe('title');
+    expect(options.profile).toBe('inline');
   });
 
   it('rich:onActivated 打开右侧样式面板(保留原内联面板行为)', async () => {

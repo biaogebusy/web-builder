@@ -7,7 +7,7 @@ import {
   createComponent,
   inject,
 } from '@angular/core';
-import { Editor, Extensions } from '@tiptap/core';
+import { Editor, Extensions, Node as TiptapNode } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import Highlight from '@tiptap/extension-highlight';
 import Image from '@tiptap/extension-image';
@@ -15,11 +15,28 @@ import BubbleMenu from '@tiptap/extension-bubble-menu';
 import { BuilderState } from '@core/state/BuilderState';
 import { TiptapBubbleMenuComponent } from '@uiux/combs/other/tiptap-editor/bubble-menu/tiptap-bubble-menu.component';
 
+export type InlineEditorProfile = 'rich' | 'inline';
+
+/**
+ * inline(单行)档的顶层文档节点:内容直接是行内节点,序列化无 <p> 包裹,
+ * 契合标题字段"裸行内 HTML"的存储形态;块级粘贴会被拍平成行内内容
+ */
+const InlineDocument = TiptapNode.create({
+  name: 'doc',
+  topNode: true,
+  content: 'inline*',
+});
+
 export interface IInlineEditorActivateOptions {
   /** 画布内被点击的正文元素(ContenteditDirective 宿主) */
   element: HTMLElement;
   /** 组件配置树中的写回路径(generatePath 产物) */
   path: string;
+  /**
+   * rich:多段落正文(默认);inline:单行标题,仅行内标记,
+   * Enter 提交而非分段,文档无段落包裹
+   */
+  profile?: InlineEditorProfile;
   /** 触发点击的视口坐标,用于把光标定位到点击处;缺省聚焦到末尾 */
   clickCoords?: { x: number; y: number };
   onActivated?: () => void;
@@ -74,6 +91,7 @@ export class InlineEditorService {
     this.commit();
 
     const bubbleEl = this.ensureBubble();
+    const profile = options.profile ?? 'rich';
     this.options = options;
     this.activeElement = element;
     this.originalHtml = element.innerHTML;
@@ -81,22 +99,7 @@ export class InlineEditorService {
 
     const editor = new Editor({
       element,
-      extensions: [
-        StarterKit.configure({
-          // 编辑态点击链接不跳转,避免误触离开画布
-          link: {
-            openOnClick: false,
-          },
-        }),
-        Highlight,
-        Image,
-        BubbleMenu.configure({
-          element: bubbleEl,
-          // show() 默认把气泡塞进编辑器父元素(即正在编辑的组件内部),
-          // 显式挂到 body,避免继承组件样式或被 overflow 裁剪
-          appendTo: () => this.doc.body,
-        }),
-      ] as Extensions,
+      extensions: this.buildExtensions(profile, bubbleEl),
       content: this.originalHtml,
       onBlur: ({ event }) => {
         const next = event.relatedTarget as Node | null;
@@ -115,6 +118,11 @@ export class InlineEditorService {
         handleKeyDown: (_view, event) => {
           if (event.key === 'Escape') {
             queueMicrotask(() => this.cancel());
+            return true;
+          }
+          // 单行档:Enter 不分段,视为完成编辑
+          if (profile === 'inline' && event.key === 'Enter') {
+            queueMicrotask(() => this.commit());
             return true;
           }
           return false;
@@ -178,6 +186,53 @@ export class InlineEditorService {
     this.editor = null;
     this.activeElement = null;
     this.options = null;
+  }
+
+  /** 按编辑档组装扩展;气泡工具栏两档共用(按钮全部为行内标记) */
+  private buildExtensions(profile: InlineEditorProfile, bubbleEl: HTMLElement): Extensions {
+    const bubble = BubbleMenu.configure({
+      element: bubbleEl,
+      // show() 默认把气泡塞进编辑器父元素(即正在编辑的组件内部),
+      // 显式挂到 body,避免继承组件样式或被 overflow 裁剪
+      appendTo: () => this.doc.body,
+    });
+    if (profile === 'inline') {
+      return [
+        InlineDocument,
+        StarterKit.configure({
+          document: false,
+          heading: false,
+          blockquote: false,
+          bulletList: false,
+          orderedList: false,
+          listItem: false,
+          listKeymap: false,
+          codeBlock: false,
+          horizontalRule: false,
+          hardBreak: false,
+          // trailingNode 会向文档尾部补块节点,与 inline* 顶层节点冲突
+          trailingNode: false,
+          dropcursor: false,
+          gapcursor: false,
+          // 编辑态点击链接不跳转,避免误触离开画布
+          link: {
+            openOnClick: false,
+          },
+        }),
+        Highlight,
+        bubble,
+      ];
+    }
+    return [
+      StarterKit.configure({
+        link: {
+          openOnClick: false,
+        },
+      }),
+      Highlight,
+      Image,
+      bubble,
+    ];
   }
 
   /** 把光标定位到点击处;无布局环境(jsdom)或坐标不可解析时回退到末尾 */

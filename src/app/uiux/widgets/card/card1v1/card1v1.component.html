@@ -8,7 +8,7 @@
   }
   @if (c.components) {
     <div class="components">
-      @for (item of c.components; track item; let i = $index) {
+      @for (item of c.components; track $index; let i = $index) {
         <app-dynamic-component [attr.data-path]="'components.' + i" [inputs]="item" />
       }
     </div>
