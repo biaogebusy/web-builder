@@ -494,6 +494,11 @@
       "LINK_APPLY": "应用",
       "LINK_OPEN": "打开链接",
       "LINK_REMOVE": "移除链接",
+      "TEXT_STYLE": "文字样式",
+      "FONT_COLOR": "文字颜色",
+      "BG_COLOR": "背景颜色",
+      "FONT_SIZE": "字号",
+      "SIZE_DEFAULT": "默认",
       "CLOSE": "关闭"
     },
     "FACTORY": {

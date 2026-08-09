@@ -494,6 +494,11 @@
       "LINK_APPLY": "Apply",
       "LINK_OPEN": "Open link",
       "LINK_REMOVE": "Remove link",
+      "TEXT_STYLE": "Text style",
+      "FONT_COLOR": "Font color",
+      "BG_COLOR": "Background color",
+      "FONT_SIZE": "Font size",
+      "SIZE_DEFAULT": "Default",
       "CLOSE": "Close"
     },
     "FACTORY": {

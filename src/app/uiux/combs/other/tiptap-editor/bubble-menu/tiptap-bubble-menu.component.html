@@ -52,6 +52,34 @@
       }"
     />
     <app-btn
+      (click)="editor.chain().focus().toggleCode().run()"
+      [content]="{
+        mode: 'icon',
+        ariaLabel: 'BUILDER.TIPTAP.CODE' | translate,
+        color: editor.isActive('code') ? 'primary' : undefined,
+        icon: { svg: 'code-tags' },
+      }"
+    />
+    <app-btn
+      (click)="toggleStylePanel()"
+      [content]="{
+        mode: 'icon',
+        ariaLabel: 'BUILDER.TIPTAP.TEXT_STYLE' | translate,
+        color: stylePanelOpen() ? 'primary' : undefined,
+        icon: { svg: 'format-color-text' },
+      }"
+    />
+    @if (hasAlign(editor)) {
+      <app-btn
+        (click)="cycleAlign(editor)"
+        [content]="{
+          mode: 'icon',
+          ariaLabel: 'BUILDER.TIPTAP.ALIGN' | translate,
+          icon: { svg: alignIcon(editor) },
+        }"
+      />
+    }
+    <app-btn
       (click)="openLinkPanel()"
       [content]="{
         mode: 'icon',
@@ -69,6 +97,47 @@
       }"
     />
   </div>
+  @if (stylePanelOpen()) {
+    <div class="style-panel" role="group" [attr.aria-label]="'BUILDER.TIPTAP.TEXT_STYLE' | translate">
+      <label class="style-item">
+        <span class="style-label">{{ 'BUILDER.TIPTAP.FONT_COLOR' | translate }}</span>
+        <input
+          #colorInput
+          class="color-input"
+          type="color"
+          [value]="colorValue(editor, 'color', '#000000')"
+          [attr.aria-label]="'BUILDER.TIPTAP.FONT_COLOR' | translate"
+          (input)="applyColor(editor, colorInput.value)"
+        />
+      </label>
+      <label class="style-item">
+        <span class="style-label">{{ 'BUILDER.TIPTAP.BG_COLOR' | translate }}</span>
+        <input
+          #bgInput
+          class="color-input"
+          type="color"
+          [value]="colorValue(editor, 'backgroundColor', '#ffffff')"
+          [attr.aria-label]="'BUILDER.TIPTAP.BG_COLOR' | translate"
+          (input)="applyBgColor(editor, bgInput.value)"
+        />
+      </label>
+      <label class="style-item">
+        <span class="style-label">{{ 'BUILDER.TIPTAP.FONT_SIZE' | translate }}</span>
+        <select
+          #sizeSelect
+          class="size-select"
+          [value]="fontSizeValue(editor)"
+          [attr.aria-label]="'BUILDER.TIPTAP.FONT_SIZE' | translate"
+          (change)="applyFontSize(editor, sizeSelect.value)"
+        >
+          <option value="">{{ 'BUILDER.TIPTAP.SIZE_DEFAULT' | translate }}</option>
+          @for (size of fontSizes; track size) {
+            <option [value]="size" [selected]="size === fontSizeValue(editor)">{{ size }}</option>
+          }
+        </select>
+      </label>
+    </div>
+  }
   @if (linkPanelOpen()) {
     <div class="link-panel" role="group" [attr.aria-label]="'BUILDER.TIPTAP.LINK' | translate">
       <input

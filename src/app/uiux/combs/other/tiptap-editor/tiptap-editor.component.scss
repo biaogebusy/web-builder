@@ -29,17 +29,6 @@
     border-color: var(--mat-sys-primary);
   }
 
-  .bubble-menu {
-    @apply z-10 flex gap-1 p-1;
-    @include compact-icon-buttons;
-    background-color: var(--mat-sys-surface-container);
-    border: 1px solid var(--mat-sys-outline-variant);
-    border-radius: 8px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-    visibility: hidden;
-    position: absolute;
-  }
-
   .link-panel {
     @apply flex items-center gap-2 px-2 py-2;
     border-bottom: 1px solid var(--mat-sys-outline-variant);

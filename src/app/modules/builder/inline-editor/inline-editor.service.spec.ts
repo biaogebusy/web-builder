@@ -191,4 +191,45 @@ describe('InlineEditorService', () => {
       expect(html).toContain('bbb');
     });
   });
+
+  describe('选区级文字样式(TextStyleKit)', () => {
+    it('rich:选区颜色以 span 样式写回字段 HTML', () => {
+      service.activate({ element: host, path: '0.body' });
+      const editor = service.activeEditor!;
+      editor.commands.selectAll();
+      editor.commands.setColor('#ff0000');
+
+      service.commit();
+
+      const html = builderMock.updatePageContentByPath.mock.calls[0][1] as string;
+      // 浏览器 CSSOM 可能把 hex 归一为 rgb(),两种形式均合法
+      expect(html).toMatch(/color: (#ff0000|rgb\(255, 0, 0\))/);
+    });
+
+    it('inline:字号写入裸行内 HTML,仍无段落包裹', () => {
+      host.innerHTML = 'hello';
+      service.activate({ element: host, path: '0.title', profile: 'inline' });
+      const editor = service.activeEditor!;
+      editor.commands.selectAll();
+      editor.commands.setFontSize('24px');
+
+      service.commit();
+
+      const html = builderMock.updatePageContentByPath.mock.calls[0][1] as string;
+      expect(html).toContain('font-size: 24px');
+      expect(html).not.toContain('<p>');
+    });
+
+    it('TextAlign 仅注册于 rich 档(气泡对齐按钮的显隐依据)', () => {
+      const hasAlign = (): boolean =>
+        service.activeEditor!.extensionManager.extensions.some(ext => ext.name === 'textAlign');
+
+      service.activate({ element: host, path: '0.body' });
+      expect(hasAlign()).toBe(true);
+      service.cancel();
+
+      service.activate({ element: host, path: '0.title', profile: 'inline' });
+      expect(hasAlign()).toBe(false);
+    });
+  });
 });

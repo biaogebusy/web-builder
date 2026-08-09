@@ -31,6 +31,38 @@
   @apply flex gap-1 p-1;
 }
 
+.style-panel {
+  @apply flex items-center gap-3 px-2 py-1;
+  border-top: 1px solid var(--mat-sys-outline-variant);
+
+  .style-item {
+    @apply flex cursor-pointer items-center gap-1;
+  }
+
+  .style-label {
+    @apply text-xs whitespace-nowrap;
+    color: var(--mat-sys-on-surface-variant);
+  }
+
+  .color-input {
+    @apply h-6 w-8 cursor-pointer rounded border p-0;
+    border-color: var(--mat-sys-outline-variant);
+    background: transparent;
+  }
+
+  .size-select {
+    @apply h-7 rounded border px-1 text-sm;
+    border-color: var(--mat-sys-outline-variant);
+    background: transparent;
+    color: var(--mat-sys-on-surface);
+
+    &:focus {
+      outline: none;
+      border-color: var(--mat-sys-primary);
+    }
+  }
+}
+
 .link-panel {
   @apply flex items-center gap-1 px-2 py-1;
   border-top: 1px solid var(--mat-sys-outline-variant);

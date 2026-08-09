@@ -30,8 +30,10 @@ import BubbleMenu from '@tiptap/extension-bubble-menu';
 import { TextAlign } from '@tiptap/extension-text-align';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
+import { TextStyleKit } from '@tiptap/extension-text-style';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
+import { TiptapBubbleMenuComponent } from './bubble-menu/tiptap-bubble-menu.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -45,6 +47,7 @@ import { IconComponent } from '@uiux/widgets/icon/icon.component';
     TranslateModule,
     BtnComponent,
     IconComponent,
+    TiptapBubbleMenuComponent,
   ],
 })
 export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
@@ -56,7 +59,8 @@ export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
   readonly htmlChange = output<string>();
 
   private readonly editorElement = viewChild.required<ElementRef<HTMLDivElement>>('tiptapEditor');
-  private readonly bubbleMenu = viewChild.required<ElementRef<HTMLDivElement>>('bubbleMenu');
+  /** 共享气泡组件的宿主元素,交给 BubbleMenu 扩展定位 */
+  private readonly bubbleMenu = viewChild.required('bubbleMenu', { read: ElementRef });
   private readonly toolbarTpl = viewChild.required<TemplateRef<unknown>>('toolbarTpl');
   private readonly linkInput = viewChild<ElementRef<HTMLInputElement>>('linkInput');
 
@@ -101,6 +105,8 @@ export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
         }),
         TextAlign.configure({ types: ['heading', 'paragraph'] }),
         Highlight,
+        // 选区级文字样式(字色/背景/字号),补齐 Quill 迁移时缺失的颜色能力
+        TextStyleKit,
         Image,
         Placeholder.configure({
           placeholder:
@@ -109,6 +115,9 @@ export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
         }),
         BubbleMenu.configure({
           element: this.bubbleMenu().nativeElement,
+          // 挂到 body:插件默认 append 到编辑器父元素,会被 .editor-container 的
+          // overflow:hidden 裁剪
+          appendTo: () => this.doc.body,
         }),
       ] as Extensions,
       content: this.content()?.html ?? '',

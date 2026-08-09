@@ -12,6 +12,8 @@ import StarterKit from '@tiptap/starter-kit';
 import Highlight from '@tiptap/extension-highlight';
 import Image from '@tiptap/extension-image';
 import BubbleMenu from '@tiptap/extension-bubble-menu';
+import { TextAlign } from '@tiptap/extension-text-align';
+import { TextStyleKit } from '@tiptap/extension-text-style';
 import { BuilderState } from '@core/state/BuilderState';
 import { TiptapBubbleMenuComponent } from '@uiux/combs/other/tiptap-editor/bubble-menu/tiptap-bubble-menu.component';
 
@@ -220,6 +222,8 @@ export class InlineEditorService {
           },
         }),
         Highlight,
+        // 选区级文字样式(字色/背景/字号),标题同样适用;元素级样式仍归组件设置
+        TextStyleKit,
         bubble,
       ];
     }
@@ -230,6 +234,9 @@ export class InlineEditorService {
         },
       }),
       Highlight,
+      TextStyleKit,
+      // 段落/标题对齐是文档内属性,仅多段落正文可用;气泡的对齐按钮按此探测显隐
+      TextAlign.configure({ types: ['heading', 'paragraph'] }),
       Image,
       bubble,
     ];

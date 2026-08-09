@@ -54,6 +54,7 @@
     "@tiptap/extension-image": "^3.29.2",
     "@tiptap/extension-placeholder": "^3.29.2",
     "@tiptap/extension-text-align": "^3.29.2",
+    "@tiptap/extension-text-style": "^3.29.2",
     "@tiptap/pm": "^3.29.2",
     "@tiptap/starter-kit": "^3.29.2",
     "aos": "^3.0.0-beta.6",
