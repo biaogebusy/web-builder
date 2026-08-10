@@ -127,6 +127,11 @@ Angular SSR via `@angular/ssr` (`outputMode: server`). Express entry point: `src
   - `forwardRef(() => Component)` in `@Component.imports` resolves circular dependencies — required for recursive components (`SubMenuComponent`, `AccordionMenuComponent`, `CommentItemComponent`, `DialogComponent ↔ DynamicComponentComponent`)
   - All dependencies must be explicitly imported in `@Component.imports`: Material modules (MatButtonModule, MatIconModule, etc.), Angular pipes (AsyncPipe, DatePipe, etc.), NgPipesModule, custom pipes (SafeHtmlPipe), directives (ReqRolesDirective, CheckChildMenuActiveDirective), Router primitives (RouterOutlet, RouterLink, RouterLinkActive), and child standalone components
 - Use `inject()` function for DI (not constructor injection)
+- **Builder-only code must never ship in public-page bundles**: if a component, service, or library (e.g., tiptap) is only used inside the builder canvas, keep it out of the chunks that public CMS pages load. Chunking follows imports (not directories), so the rules are about import style:
+  - Put builder-only components/services under `modules/builder/` (lazy `/builder` route) and let them import shared pieces from `uiux/`/`core/` — never the reverse: no static `import '@modules/builder/...'` from `core/`, `uiux/`, or anything in `SHARE_IMPORTS`
+  - When shared code (used on public pages) needs builder behavior, gate it: dynamic `import('@modules/builder/...')` triggered only inside the canvas (see `ContenteditDirective`), or wrap builder-only template regions in `@defer` (see `dynamic-component` / `layout-builder` toolbars)
+  - Editor libraries reachable from public registries (e.g., `tiptap-editor` in `DYNAMIC_COMPONENT_LOADERS` / formly types) must stay behind their lazy loaders — never import them eagerly from shared code
+  - Before adding such a dependency, verify: does any public-page chunk now pull it in?
 - Use `npm install` only (not yarn or pnpm) — respects `package-lock.json`
 - ESLint rules: single quotes, semicolons required, max line length 100 (warnings), `any` type is allowed
 - Angular self-closing tags preferred in templates
