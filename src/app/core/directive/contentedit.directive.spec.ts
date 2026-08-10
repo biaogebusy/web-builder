@@ -1,19 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, EnvironmentInjector } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Subject } from 'rxjs';
 import { vi } from 'vitest';
 
 import { BuilderState } from '@core/state/BuilderState';
 import { InlineEditorService } from '@modules/builder/inline-editor/inline-editor.service';
+import { InlineImageService } from '@modules/builder/inline-editor/inline-image.service';
 import { provideCoreMocks } from '@core/testing/mocks';
 
 import { ContenteditDirective } from './contentedit.directive';
 
-const { activateMock } = vi.hoisted(() => ({ activateMock: vi.fn() }));
+const { activateMock, selectMock } = vi.hoisted(() => ({
+  activateMock: vi.fn(),
+  selectMock: vi.fn(),
+}));
 
-// rich 分支动态 import 该模块;mock 掉避免真实拉起 tiptap
+// rich/inline 分支动态 import 该模块;mock 掉避免真实拉起 tiptap
 vi.mock('@modules/builder/inline-editor/inline-editor.service', () => ({
   InlineEditorService: class {},
+}));
+// img 分支动态 import 图片内联编辑服务
+vi.mock('@modules/builder/inline-editor/inline-image.service', () => ({
+  InlineImageService: class {},
 }));
 
 @Component({
@@ -24,6 +32,7 @@ vi.mock('@modules/builder/inline-editor/inline-editor.service', () => ({
       </div>
       <h2 class="inline" contentedit="title" contenteditProfile="inline">title</h2>
       <span class="plain" contentedit="label">label</span>
+      <img class="cimg" contentedit="src" src="/files/a.png" alt="" />
     </div>
   `,
   imports: [ContenteditDirective],
@@ -42,6 +51,7 @@ describe('ContenteditDirective', () => {
 
   beforeEach(async () => {
     activateMock.mockClear();
+    selectMock.mockClear();
     builderMock = {
       rightContent$: new Subject(),
       updatePageContentByPath: vi.fn(),
@@ -52,6 +62,7 @@ describe('ContenteditDirective', () => {
         ...provideCoreMocks(),
         { provide: BuilderState, useValue: builderMock },
         { provide: InlineEditorService, useValue: { activate: activateMock } },
+        { provide: InlineImageService, useValue: { select: selectMock } },
       ],
     }).compileComponents();
 
@@ -102,6 +113,21 @@ describe('ContenteditDirective', () => {
     const options = activateMock.mock.calls[0][0];
     expect(options.onActivated).toBeUndefined();
     expect(options.onCommitted).toBeUndefined();
+  });
+
+  it('img:交给 InlineImageService 选中,不再直推 drawer', async () => {
+    const emissions: unknown[] = [];
+    builderMock.rightContent$.subscribe(content => emissions.push(content));
+    const cimg = fixture.nativeElement.querySelector('.cimg') as HTMLImageElement;
+
+    cimg.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    await vi.waitFor(() => expect(selectMock).toHaveBeenCalledTimes(1));
+
+    expect(selectMock.mock.calls[0][0]).toBe(cimg);
+    expect(selectMock.mock.calls[0][1]).toBe('src');
+    // 第三参是点击处的环境注入器:媒体库对话框靠它解析路由级 BUILDER_CONFIG
+    expect(selectMock.mock.calls[0][2]).toBeInstanceOf(EnvironmentInjector);
+    expect(emissions.length).toBe(0);
   });
 
   it('plain:兜底裸 contenteditable,不再打开旧文本面板', async () => {

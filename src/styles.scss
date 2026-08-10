@@ -140,3 +140,9 @@ pre {
 .inline-tiptap {
   outline: none;
 }
+
+// 画布图片选中态(InlineImageService):描边高亮,操作条浮于图片上方
+.inline-img-selected {
+  outline: 2px solid var(--mat-sys-primary);
+  outline-offset: 2px;
+}

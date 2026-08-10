@@ -3,15 +3,14 @@ import {
   DestroyRef,
   Directive,
   ElementRef,
+  EnvironmentInjector,
   Injector,
   OnInit,
   inject,
   input,
 } from '@angular/core';
-import { IMetaEdit } from '@core/interface/IBuilder';
 import { BuilderState } from '@core/state/BuilderState';
 import { generatePath } from '@core/util/dom-path.util';
-import { TranslateService } from '@ngx-translate/core';
 @Directive({
    selector: '[contentedit]',
   host: {
@@ -35,7 +34,6 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
   private originalHtml: string | null = null;
   private el = inject(ElementRef);
   private builder = inject(BuilderState);
-  private translate = inject(TranslateService);
   private injector = inject(Injector);
   private destroyRef = inject(DestroyRef);
   // 指令销毁(组件重渲染/路由切换)与动态 import 在途的竞态:销毁后不得再触碰注入器
@@ -109,34 +107,21 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
     }
     const path = generatePath(currentTarget);
     if (currentTarget.tagName === 'IMG') {
-      const src = currentTarget.getAttribute('src') ?? '';
-      // 仅 builder 画布内触发，动态加载编辑表单工厂，避免公共页面静态依赖 builder 模块
-      void import('@modules/builder/factory/getInlinImg').then(({ getInlineImg }) => {
-        const meta: IMetaEdit = {
-          type: 'inline-editor',
-          mode: 'img',
-          path,
-          fullWidth: true,
-          ele: currentTarget as HTMLImageElement,
-          fields: getInlineImg(currentTarget),
-          data: {
-            src,
-            fileName: src.split('/').pop() ?? '',
-            alt: currentTarget.getAttribute('alt'),
-            tag: currentTarget.tagName,
-          },
-        };
-        this.builder.rightContent$.next({
-          title: this.translate.instant('BUILDER.INLINE_EDITOR.EDIT_IMG'),
-          mode: 'over',
-          hasBackdrop: false,
-          style: {
-            'width': '284px',
-            'max-width': 'calc(100vw - 50px)',
-          },
-          elements: [meta],
-        });
-      });
+      // 仅 builder 画布内触发,动态加载图片内联编辑(选中态 + 悬浮操作条),
+      // 完整表单经操作条"更多设置"回落 drawer
+      void import('@modules/builder/inline-editor/inline-image.service').then(
+        ({ InlineImageService }) => {
+          if (this.destroyed) {
+            return;
+          }
+          // 传入点击处的环境注入器:媒体库对话框内容(ManageMediaComponent)依赖
+          // BUILDER_CONFIG 等路由级令牌,root 单例服务自身的注入器解析不到
+          const envInjector = this.injector.get(EnvironmentInjector);
+          this.injector
+            .get(InlineImageService)
+            .select(currentTarget as HTMLImageElement, path, envInjector);
+        }
+      );
     } else if (this.contenteditProfile() !== 'plain') {
       const profile = this.contenteditProfile() as 'rich' | 'inline';
       const clickCoords = { x: event.clientX, y: event.clientY };

@@ -1,0 +1,85 @@
+@if (img()) {
+  <div
+    class="bar-row"
+    role="toolbar"
+    tabindex="-1"
+    [attr.aria-label]="'BUILDER.INLINE_EDITOR.IMG_TOOLBAR' | translate"
+  >
+    <app-btn
+      [matTooltip]="'BUILDER.INLINE_EDITOR.UPLOAD' | translate"
+      (click)="upload.emit()"
+      [content]="{
+        mode: 'icon',
+        ariaLabel: 'BUILDER.INLINE_EDITOR.UPLOAD' | translate,
+        icon: { svg: 'upload' },
+      }"
+    />
+    <app-btn
+      [matTooltip]="'BUILDER.INLINE_EDITOR.LIBRARY' | translate"
+      (click)="library.emit()"
+      [content]="{
+        mode: 'icon',
+        ariaLabel: 'BUILDER.INLINE_EDITOR.LIBRARY' | translate,
+        icon: { svg: 'folder-image' },
+      }"
+    />
+    <app-btn
+      [matTooltip]="'BUILDER.INLINE_EDITOR.ALT' | translate"
+      (click)="toggleAltPanel()"
+      [content]="{
+        mode: 'icon',
+        ariaLabel: 'BUILDER.INLINE_EDITOR.ALT' | translate,
+        color: altPanelOpen() ? 'primary' : undefined,
+        icon: { svg: 'alphabetical' },
+      }"
+    />
+    <app-btn
+      [matTooltip]="'BUILDER.INLINE_EDITOR.CLEAR_STYLES' | translate"
+      (click)="clearStyles.emit()"
+      [content]="{
+        mode: 'icon',
+        ariaLabel: 'BUILDER.INLINE_EDITOR.CLEAR_STYLES' | translate,
+        icon: { svg: 'format-clear' },
+      }"
+    />
+    <app-btn
+      [matTooltip]="'BUILDER.INLINE_EDITOR.MORE' | translate"
+      (click)="more.emit()"
+      [content]="{
+        mode: 'icon',
+        ariaLabel: 'BUILDER.INLINE_EDITOR.MORE' | translate,
+        icon: { svg: 'tune' },
+      }"
+    />
+    <app-btn
+      [matTooltip]="'BUILDER.TIPTAP.CLOSE' | translate"
+      (click)="closed.emit()"
+      [content]="{
+        mode: 'icon',
+        ariaLabel: 'BUILDER.TIPTAP.CLOSE' | translate,
+        icon: { svg: 'close' },
+      }"
+    />
+  </div>
+  @if (altPanelOpen()) {
+    <div class="alt-panel" role="group" [attr.aria-label]="'BUILDER.INLINE_EDITOR.ALT' | translate">
+      <input
+        #altInput
+        class="alt-input"
+        type="text"
+        [value]="altValue()"
+        [placeholder]="'BUILDER.INLINE_EDITOR.ALT' | translate"
+        [attr.aria-label]="'BUILDER.INLINE_EDITOR.ALT' | translate"
+        (keydown.enter)="applyAlt(altInput.value)"
+        (keydown.escape)="altPanelOpen.set(false)"
+      />
+      <app-btn
+        (click)="applyAlt(altInput.value)"
+        [content]="{
+          label: 'BUILDER.TIPTAP.LINK_APPLY' | translate,
+          color: 'primary',
+        }"
+      />
+    </div>
+  }
+}

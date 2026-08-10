@@ -183,7 +183,12 @@
     "INLINE_EDITOR": {
       "CLEAR_STYLES": "清空样式",
       "EDIT_TEXT": "编辑文本",
-      "EDIT_IMG": "编辑图片"
+      "EDIT_IMG": "编辑图片",
+      "IMG_TOOLBAR": "图片操作",
+      "UPLOAD": "上传替换",
+      "LIBRARY": "媒体库",
+      "ALT": "替代文本",
+      "MORE": "更多设置"
     },
     "CODE_EDITOR": {
       "EXPAND": "展开",

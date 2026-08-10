@@ -1,0 +1,52 @@
+// 宿主由 InlineImageService 定位:置于图片上方(translateY(-100%)),
+// 无选中图片时模板为空,不渲染任何可见内容
+:host {
+  @apply z-50 block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: max-content;
+  transform: translateY(-100%) translateY(-8px);
+}
+
+.bar-row,
+.alt-panel {
+  background-color: var(--mat-sys-surface-container);
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.bar-row {
+  @apply flex gap-1 p-1;
+
+  // 图标按钮紧凑尺寸,与 tiptap 工具栏一致
+  --mat-icon-button-icon-size: 16px;
+  --mat-icon-button-state-layer-size: 32px;
+  ::ng-deep {
+    .mat-icon {
+      height: inherit;
+      width: inherit;
+      .mat-mdc-button-touch-target {
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
+}
+
+.alt-panel {
+  @apply mt-1 flex items-center gap-1 px-2 py-1;
+
+  .alt-input {
+    @apply h-8 w-56 min-w-0 rounded border px-2 text-sm;
+    border-color: var(--mat-sys-outline-variant);
+    background: transparent;
+    color: var(--mat-sys-on-surface);
+
+    &:focus {
+      outline: none;
+      border-color: var(--mat-sys-primary);
+    }
+  }
+}

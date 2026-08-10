@@ -183,7 +183,12 @@
     "INLINE_EDITOR": {
       "CLEAR_STYLES": "Clear styles",
       "EDIT_TEXT": "Edit text",
-      "EDIT_IMG": "Edit image"
+      "EDIT_IMG": "Edit image",
+      "IMG_TOOLBAR": "Image actions",
+      "UPLOAD": "Upload & replace",
+      "LIBRARY": "Media library",
+      "ALT": "Alt text",
+      "MORE": "More settings"
     },
     "CODE_EDITOR": {
       "EXPAND": "Expand",
