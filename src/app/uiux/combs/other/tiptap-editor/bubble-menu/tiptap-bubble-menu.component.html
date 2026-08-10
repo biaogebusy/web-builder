@@ -3,8 +3,8 @@
     class="bubble-row"
     role="toolbar"
     tabindex="-1"
+    toolbarKeynav
     [attr.aria-label]="'BUILDER.TIPTAP.TOOLBAR' | translate"
-    (keydown)="onToolbarKeydown($event)"
   >
     <app-btn
       [matTooltip]="'BUILDER.TIPTAP.BOLD' | translate"
@@ -149,44 +149,6 @@
     </div>
   }
   @if (linkPanelOpen()) {
-    <div class="link-panel" role="group" [attr.aria-label]="'BUILDER.TIPTAP.LINK' | translate">
-      <input
-        #linkInput
-        class="link-input"
-        type="url"
-        [value]="linkUrl()"
-        [placeholder]="'BUILDER.TIPTAP.LINK_URL' | translate"
-        [attr.aria-label]="'BUILDER.TIPTAP.LINK_URL' | translate"
-        (keydown.enter)="applyLink(linkInput.value)"
-        (keydown.escape)="closeLinkPanel()"
-      />
-      <app-btn
-        (click)="applyLink(linkInput.value)"
-        [content]="{
-          label: 'BUILDER.TIPTAP.LINK_APPLY' | translate,
-          color: 'primary',
-        }"
-      />
-      @if (editor.isActive('link')) {
-        <app-btn
-          [matTooltip]="'BUILDER.TIPTAP.LINK_REMOVE' | translate"
-          (click)="removeLink()"
-          [content]="{
-            mode: 'icon',
-            ariaLabel: 'BUILDER.TIPTAP.LINK_REMOVE' | translate,
-            icon: { svg: 'link-off' },
-          }"
-        />
-      }
-      <app-btn
-        [matTooltip]="'BUILDER.TIPTAP.CLOSE' | translate"
-        (click)="closeLinkPanel()"
-        [content]="{
-          mode: 'icon',
-          ariaLabel: 'BUILDER.TIPTAP.CLOSE' | translate,
-          icon: { svg: 'close' },
-        }"
-      />
-    </div>
+    <app-tiptap-link-panel [editor]="editor" (closed)="closeLinkPanel()" />
   }
 }

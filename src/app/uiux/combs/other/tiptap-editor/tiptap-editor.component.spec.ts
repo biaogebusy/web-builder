@@ -1,10 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { provideUiuxMocks } from '@uiux/testing/mocks';
 import { vi } from 'vitest';
 
+import { TiptapLinkPanelComponent } from './link-panel/tiptap-link-panel.component';
 import { TiptapEditorComponent } from './tiptap-editor.component';
 
 describe('TiptapEditorComponent', () => {
@@ -138,16 +140,21 @@ describe('TiptapEditorComponent', () => {
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelector('.link-panel input')).toBeTruthy();
 
-    component.applyLink('https://example.com');
+    // 链接行为收敛到共享子组件(气泡工具栏同款),父组件只管开合
+    const panel = (): TiptapLinkPanelComponent =>
+      fixture.debugElement.query(By.directive(TiptapLinkPanelComponent)).componentInstance;
+    panel().apply('https://example.com');
     expect(editor.getHTML()).toContain('href="https://example.com"');
     expect(editor.getHTML()).not.toContain('text-blue-500');
     expect(component.linkPanelOpen()).toBe(false);
+    fixture.detectChanges();
 
     // 再次打开面板带回当前链接,移除后链接消失
     editor.commands.setTextSelection({ from: 1, to: 6 });
     component.openLinkPanel();
-    expect(component.linkUrl()).toBe('https://example.com');
-    component.removeLink();
+    fixture.detectChanges();
+    expect(panel().linkUrl()).toBe('https://example.com');
+    panel().remove();
     expect(editor.getHTML()).not.toContain('href=');
   });
 

@@ -29,21 +29,9 @@
     border-color: var(--mat-sys-primary);
   }
 
-  .link-panel {
-    @apply flex items-center gap-2 px-2 py-2;
+  app-tiptap-link-panel {
+    @apply block;
     border-bottom: 1px solid var(--mat-sys-outline-variant);
-
-    .link-input {
-      @apply h-8 min-w-0 flex-1 rounded border px-2 text-sm;
-      border-color: var(--mat-sys-outline-variant);
-      background: transparent;
-      color: var(--mat-sys-on-surface);
-
-      &:focus {
-        outline: none;
-        border-color: var(--mat-sys-primary);
-      }
-    }
   }
   ::ng-deep {
     .ProseMirror {

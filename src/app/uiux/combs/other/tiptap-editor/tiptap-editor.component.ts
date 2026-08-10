@@ -5,11 +5,9 @@ import {
   Component,
   DOCUMENT,
   ElementRef,
-  Injector,
   OnDestroy,
   TemplateRef,
   ViewContainerRef,
-  afterNextRender,
   inject,
   input,
   output,
@@ -20,21 +18,17 @@ import { DomPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
 import { NgTemplateOutlet } from '@angular/common';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
-import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipModule } from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Editor, Extensions } from '@tiptap/core';
-import StarterKit from '@tiptap/starter-kit';
-import Highlight from '@tiptap/extension-highlight';
-import Image from '@tiptap/extension-image';
-import Placeholder from '@tiptap/extension-placeholder';
-import BubbleMenu from '@tiptap/extension-bubble-menu';
-import { TextAlign } from '@tiptap/extension-text-align';
+import { Editor } from '@tiptap/core';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
-import { TextStyleKit } from '@tiptap/extension-text-style';
+import { TOOLBAR_TOOLTIP_ABOVE, ToolbarKeynavDirective } from '@core/directive/toolbar-keynav.directive';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
 import { TiptapBubbleMenuComponent } from './bubble-menu/tiptap-bubble-menu.component';
+import { TiptapLinkPanelComponent } from './link-panel/tiptap-link-panel.component';
+import { buildRichExtensions, alignIcon as resolveAlignIcon } from './tiptap-extensions';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -50,14 +44,10 @@ import { TiptapBubbleMenuComponent } from './bubble-menu/tiptap-bubble-menu.comp
     BtnComponent,
     IconComponent,
     TiptapBubbleMenuComponent,
+    TiptapLinkPanelComponent,
+    ToolbarKeynavDirective,
   ],
-  providers: [
-    // 工具栏提示统一显示在按钮上方,避免遮住正下方的编辑内容
-    {
-      provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
-      useValue: { showDelay: 0, hideDelay: 0, touchendHideDelay: 1500, position: 'above' },
-    },
-  ],
+  providers: [TOOLBAR_TOOLTIP_ABOVE],
 })
 export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
   readonly content = input<{ html?: string; placeholder?: string }>();
@@ -71,22 +61,19 @@ export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
   /** 共享气泡组件的宿主元素,交给 BubbleMenu 扩展定位 */
   private readonly bubbleMenu = viewChild.required('bubbleMenu', { read: ElementRef });
   private readonly toolbarTpl = viewChild.required<TemplateRef<unknown>>('toolbarTpl');
-  private readonly linkInput = viewChild<ElementRef<HTMLInputElement>>('linkInput');
 
   private screenService = inject(ScreenService);
   private nodeService = inject(NodeService);
   private translate = inject(TranslateService);
   private cdr = inject(ChangeDetectorRef);
   private viewContainerRef = inject(ViewContainerRef);
-  private injector = inject(Injector);
   private doc = inject(DOCUMENT);
 
   public editor = signal<Editor | null>(null);
   /** 工具栏已投影到外部容器,盒子内不再重复渲染 */
   public toolbarDetached = signal(false);
-  /** 链接编辑面板(替代 window.prompt):打开时带入光标处链接地址 */
+  /** 链接编辑面板(共享子组件):打开时带入光标处链接地址 */
   public linkPanelOpen = signal(false);
-  public linkUrl = signal('');
   private toolbarOutlet: DomPortalOutlet | null = null;
 
   ngAfterViewInit(): void {
@@ -101,34 +88,13 @@ export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
     const editor = new Editor({
       element: this.editorElement().nativeElement,
       editable: this.editable(),
-      extensions: [
-        StarterKit.configure({
-          heading: {
-            levels: [1, 2, 3, 4, 5, 6],
-          },
-          // 编辑态点击链接不跳转,避免误触离开;打开动作在链接面板里
-          // 链接颜色由 .ProseMirror a 样式接管,不注入 class 以免写进存储的 HTML
-          link: {
-            openOnClick: false,
-          },
-        }),
-        TextAlign.configure({ types: ['heading', 'paragraph'] }),
-        Highlight,
-        // 选区级文字样式(字色/背景/字号),补齐 Quill 迁移时缺失的颜色能力
-        TextStyleKit,
-        Image,
-        Placeholder.configure({
-          placeholder:
-            this.content()?.placeholder ??
-            this.translate.instant('BUILDER.FORM_EDITOR.PLACEHOLDER'),
-        }),
-        BubbleMenu.configure({
-          element: this.bubbleMenu().nativeElement,
-          // 挂到 body:插件默认 append 到编辑器父元素,会被 .editor-container 的
-          // overflow:hidden 裁剪
-          appendTo: () => this.doc.body,
-        }),
-      ] as Extensions,
+      // 与画布内联编辑 rich 档同一扩展配方,保证表单与画布两处行为一致
+      extensions: buildRichExtensions({
+        bubbleElement: this.bubbleMenu().nativeElement,
+        appendTo: () => this.doc.body,
+        placeholder:
+          this.content()?.placeholder ?? this.translate.instant('BUILDER.FORM_EDITOR.PLACEHOLDER'),
+      }),
       content: this.content()?.html ?? '',
       onUpdate: ({ editor }) => {
         // 清空后 getHTML() 仍是 '<p></p>',对表单必填校验等消费方按空值处理
@@ -176,46 +142,12 @@ export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
   }
 
   openLinkPanel(): void {
-    const editor = this.editor();
-    if (!editor) {
-      return;
-    }
-    this.linkUrl.set(editor.getAttributes('link').href ?? '');
     this.linkPanelOpen.set(true);
-    afterNextRender(() => this.linkInput()?.nativeElement.select(), { injector: this.injector });
   }
 
   closeLinkPanel(): void {
     this.linkPanelOpen.set(false);
     this.editor()?.commands.focus();
-  }
-
-  /** 应用链接;空 URL 视为移除 */
-  applyLink(url: string): void {
-    const editor = this.editor();
-    if (!editor) {
-      return;
-    }
-    const href = url.trim();
-    const chain = editor.chain().focus().extendMarkRange('link');
-    if (href) {
-      chain.setLink({ href }).run();
-    } else {
-      chain.unsetLink().run();
-    }
-    this.linkPanelOpen.set(false);
-  }
-
-  removeLink(): void {
-    this.editor()?.chain().focus().extendMarkRange('link').unsetLink().run();
-    this.linkPanelOpen.set(false);
-  }
-
-  openLink(): void {
-    const href = this.editor()?.getAttributes('link').href;
-    if (href) {
-      this.doc.defaultView?.open(href, '_blank', 'noopener');
-    }
   }
 
   addImage(): void {
@@ -231,30 +163,7 @@ export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
   /** 对齐触发钮图标跟随当前对齐方式 */
   alignIcon(): string {
     const editor = this.editor();
-    const active = ['center', 'right', 'justify'].find(align =>
-      editor?.isActive({ textAlign: align })
-    );
-    return `format-align-${active ?? 'left'}`;
-  }
-
-  /** WAI-ARIA toolbar 惯例:左右方向键在工具栏按钮间移动焦点 */
-  onToolbarKeydown(event: KeyboardEvent): void {
-    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') {
-      return;
-    }
-    const buttons = Array.from(
-      (event.currentTarget as HTMLElement).querySelectorAll<HTMLButtonElement>(
-        'button:not([disabled])'
-      )
-    );
-    const current = (event.target as HTMLElement).closest('button');
-    const index = current ? buttons.indexOf(current as HTMLButtonElement) : -1;
-    if (index < 0) {
-      return;
-    }
-    event.preventDefault();
-    const step = event.key === 'ArrowRight' ? 1 : -1;
-    buttons[(index + step + buttons.length) % buttons.length].focus();
+    return editor ? resolveAlignIcon(editor) : 'format-align-left';
   }
 
   ngOnDestroy(): void {

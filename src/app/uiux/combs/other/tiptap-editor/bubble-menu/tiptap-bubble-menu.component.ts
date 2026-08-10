@@ -2,19 +2,18 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  ElementRef,
-  Injector,
-  afterNextRender,
   effect,
   inject,
   input,
   signal,
-  viewChild,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipModule } from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { Editor } from '@tiptap/core';
+import { TOOLBAR_TOOLTIP_ABOVE, ToolbarKeynavDirective } from '@core/directive/toolbar-keynav.directive';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
+import { TiptapLinkPanelComponent } from '../link-panel/tiptap-link-panel.component';
+import { ALIGN_ORDER, alignIcon as resolveAlignIcon } from '../tiptap-extensions';
 
 /** 归一化 rgb()/#rgb 为 input[type=color] 要求的 #rrggbb */
 function toHex(value: string | undefined, fallback: string): string {
@@ -34,8 +33,6 @@ function toHex(value: string | undefined, fallback: string): string {
   return fallback;
 }
 
-const ALIGN_ORDER = ['left', 'center', 'right', 'justify'];
-
 /**
  * tiptap 气泡工具栏:画布内联编辑(InlineEditorService)与 tiptap-editor comb 共用,
  * 元素交给 BubbleMenu 扩展定位与显隐(选中文本时浮现)。
@@ -49,29 +46,27 @@ const ALIGN_ORDER = ['left', 'center', 'right', 'justify'];
   host: {
     '(mousedown)': 'onMousedown($event)',
   },
-  imports: [TranslateModule, MatTooltipModule, BtnComponent],
-  providers: [
-    // 工具栏提示统一显示在按钮上方,避免遮住正下方的编辑内容
-    {
-      provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
-      useValue: { showDelay: 0, hideDelay: 0, touchendHideDelay: 1500, position: 'above' },
-    },
+  imports: [
+    TranslateModule,
+    MatTooltipModule,
+    BtnComponent,
+    TiptapLinkPanelComponent,
+    ToolbarKeynavDirective,
   ],
+  providers: [TOOLBAR_TOOLTIP_ABOVE],
 })
 export class TiptapBubbleMenuComponent {
   /** 当前活跃的编辑器;为空时不渲染任何按钮 */
   readonly editor = input<Editor | null>(null);
 
-  private readonly linkInput = viewChild<ElementRef<HTMLInputElement>>('linkInput');
   private cdr = inject(ChangeDetectorRef);
-  private injector = inject(Injector);
 
-  /** 链接编辑面板(替代 window.prompt):打开时带入光标处链接地址 */
+  /** 链接编辑面板(共享子组件):打开时带入光标处链接地址 */
   public linkPanelOpen = signal(false);
-  public linkUrl = signal('');
   /** 选区级文字样式面板:字色/背景色/字号 */
   public stylePanelOpen = signal(false);
   public readonly fontSizes = ['12px', '14px', '16px', '18px', '20px', '24px', '30px', '36px', '48px'];
+  public readonly alignIcon = resolveAlignIcon;
 
   constructor() {
     // tiptap 事件在 Angular 之外触发,zoneless 下需手动调度变更检测以刷新按钮激活态;
@@ -97,40 +92,13 @@ export class TiptapBubbleMenuComponent {
   }
 
   openLinkPanel(): void {
-    const editor = this.editor();
-    if (!editor) {
-      return;
-    }
     this.stylePanelOpen.set(false);
-    this.linkUrl.set(editor.getAttributes('link').href ?? '');
     this.linkPanelOpen.set(true);
-    afterNextRender(() => this.linkInput()?.nativeElement.select(), { injector: this.injector });
   }
 
   closeLinkPanel(): void {
     this.linkPanelOpen.set(false);
     this.editor()?.commands.focus();
-  }
-
-  /** 应用链接;空 URL 视为移除 */
-  applyLink(url: string): void {
-    const editor = this.editor();
-    if (!editor) {
-      return;
-    }
-    const href = url.trim();
-    const chain = editor.chain().focus().extendMarkRange('link');
-    if (href) {
-      chain.setLink({ href }).run();
-    } else {
-      chain.unsetLink().run();
-    }
-    this.linkPanelOpen.set(false);
-  }
-
-  removeLink(): void {
-    this.editor()?.chain().focus().extendMarkRange('link').unsetLink().run();
-    this.linkPanelOpen.set(false);
   }
 
   toggleStylePanel(): void {
@@ -141,11 +109,6 @@ export class TiptapBubbleMenuComponent {
   /** TextAlign 仅注册于多段落档(rich/comb);单行标题无段落,不显示对齐按钮 */
   hasAlign(editor: Editor): boolean {
     return editor.extensionManager.extensions.some(ext => ext.name === 'textAlign');
-  }
-
-  alignIcon(editor: Editor): string {
-    const active = ALIGN_ORDER.slice(1).find(align => editor.isActive({ textAlign: align }));
-    return `format-align-${active ?? 'left'}`;
   }
 
   /** 对齐单键循环切换(左→中→右→两端);气泡内不用 mat-menu,避免夺焦 */
@@ -181,25 +144,5 @@ export class TiptapBubbleMenuComponent {
     } else {
       chain.unsetFontSize().run();
     }
-  }
-
-  /** WAI-ARIA toolbar 惯例:左右方向键在工具栏按钮间移动焦点 */
-  onToolbarKeydown(event: KeyboardEvent): void {
-    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') {
-      return;
-    }
-    const buttons = Array.from(
-      (event.currentTarget as HTMLElement).querySelectorAll<HTMLButtonElement>(
-        'button:not([disabled])'
-      )
-    );
-    const current = (event.target as HTMLElement).closest('button');
-    const index = current ? buttons.indexOf(current as HTMLButtonElement) : -1;
-    if (index < 0) {
-      return;
-    }
-    event.preventDefault();
-    const step = event.key === 'ArrowRight' ? 1 : -1;
-    buttons[(index + step + buttons.length) % buttons.length].focus();
   }
 }

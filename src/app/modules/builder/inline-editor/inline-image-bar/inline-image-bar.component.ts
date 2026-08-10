@@ -11,8 +11,9 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipModule } from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
+import { TOOLBAR_TOOLTIP_ABOVE, ToolbarKeynavDirective } from '@core/directive/toolbar-keynav.directive';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 
 /**
@@ -25,14 +26,8 @@ import { BtnComponent } from '@uiux/widgets/btn/btn.component';
   selector: 'app-inline-image-bar',
   templateUrl: './inline-image-bar.component.html',
   styleUrl: './inline-image-bar.component.scss',
-  providers: [
-    // 提示统一显示在按钮上方,避免遮住正下方的图片
-    {
-      provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
-      useValue: { showDelay: 0, hideDelay: 0, touchendHideDelay: 1500, position: 'above' },
-    },
-  ],
-  imports: [TranslateModule, MatTooltipModule, BtnComponent],
+  providers: [TOOLBAR_TOOLTIP_ABOVE],
+  imports: [TranslateModule, MatTooltipModule, BtnComponent, ToolbarKeynavDirective],
 })
 export class InlineImageBarComponent {
   /** 当前选中的图片;为空时整条隐藏 */

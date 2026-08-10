@@ -10,12 +10,11 @@ import {
 import { Editor, Extensions, Node as TiptapNode } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import Highlight from '@tiptap/extension-highlight';
-import Image from '@tiptap/extension-image';
 import BubbleMenu from '@tiptap/extension-bubble-menu';
-import { TextAlign } from '@tiptap/extension-text-align';
 import { TextStyleKit } from '@tiptap/extension-text-style';
 import { BuilderState } from '@core/state/BuilderState';
 import { TiptapBubbleMenuComponent } from '@uiux/combs/other/tiptap-editor/bubble-menu/tiptap-bubble-menu.component';
+import { buildRichExtensions } from '@uiux/combs/other/tiptap-editor/tiptap-extensions';
 
 export type InlineEditorProfile = 'rich' | 'inline';
 
@@ -192,12 +191,9 @@ export class InlineEditorService {
 
   /** 按编辑档组装扩展;气泡工具栏两档共用(按钮全部为行内标记) */
   private buildExtensions(profile: InlineEditorProfile, bubbleEl: HTMLElement): Extensions {
-    const bubble = BubbleMenu.configure({
-      element: bubbleEl,
-      // show() 默认把气泡塞进编辑器父元素(即正在编辑的组件内部),
-      // 显式挂到 body,避免继承组件样式或被 overflow 裁剪
-      appendTo: () => this.doc.body,
-    });
+    // show() 默认把气泡塞进编辑器父元素(即正在编辑的组件内部),
+    // 显式挂到 body,避免继承组件样式或被 overflow 裁剪
+    const appendTo = (): HTMLElement => this.doc.body;
     if (profile === 'inline') {
       return [
         InlineDocument,
@@ -224,22 +220,11 @@ export class InlineEditorService {
         Highlight,
         // 选区级文字样式(字色/背景/字号),标题同样适用;元素级样式仍归组件设置
         TextStyleKit,
-        bubble,
+        BubbleMenu.configure({ element: bubbleEl, appendTo }),
       ];
     }
-    return [
-      StarterKit.configure({
-        link: {
-          openOnClick: false,
-        },
-      }),
-      Highlight,
-      TextStyleKit,
-      // 段落/标题对齐是文档内属性,仅多段落正文可用;气泡的对齐按钮按此探测显隐
-      TextAlign.configure({ types: ['heading', 'paragraph'] }),
-      Image,
-      bubble,
-    ];
+    // 多段落正文:与 tiptap-editor comb 同一配方,保证画布与表单编辑行为一致
+    return buildRichExtensions({ bubbleElement: bubbleEl, appendTo });
   }
 
   /** 把光标定位到点击处;无布局环境(jsdom)或坐标不可解析时回退到末尾 */
