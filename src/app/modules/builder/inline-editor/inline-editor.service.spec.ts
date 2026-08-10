@@ -78,6 +78,17 @@ describe('InlineEditorService', () => {
     expect(builderMock.updatePageContentByPath).toHaveBeenCalledWith('0.body', '');
   });
 
+  it('无 path:不直接写回,落盘交给 onCommitted(custom-template 拼回模板源码)', () => {
+    const onCommitted = vi.fn();
+    service.activate({ element: host, onCommitted });
+    service.activeEditor!.commands.setContent('<p>world</p>');
+
+    service.commit();
+
+    expect(builderMock.updatePageContentByPath).not.toHaveBeenCalled();
+    expect(onCommitted).toHaveBeenCalledWith('<p>world</p>');
+  });
+
   it('取消:恢复原内容且不写回', () => {
     service.activate({ element: host, path: '0.body' });
     service.activeEditor!.commands.setContent('<p>world</p>');

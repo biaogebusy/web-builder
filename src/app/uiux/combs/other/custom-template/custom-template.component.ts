@@ -5,6 +5,7 @@ import {
   Component,
   DestroyRef,
   ElementRef,
+  Injector,
   inject,
   signal,
   ChangeDetectionStrategy,
@@ -49,6 +50,7 @@ export class CustomTemplateComponent implements AfterViewInit {
   private nodeService = inject(NodeService);
   private template: Element;
   private destroyRef = inject(DestroyRef);
+  private injector = inject(Injector);
   private util = inject(UtilitiesService);
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   private dialog = inject(MatDialog);
@@ -62,9 +64,10 @@ export class CustomTemplateComponent implements AfterViewInit {
   private pristine: HTMLElement | null = null;
   // 源码定位编辑：画布内的 Mustache/API 模板，点选后在源码中唯一匹配
   private locateBound = false;
-  private pendingEdit: { el: HTMLElement; snippet: string; mode: 'html' | 'text' } | null = null;
   // 自定义 JS 返回的清理函数，重渲染/销毁时调用
   private jsCleanup: (() => void) | null = null;
+  // 组件销毁与内联编辑器动态 import 在途的竞态：销毁后不得再触碰注入器
+  private destroyed = false;
 
   constructor() {
     afterRenderEffect(() => {
@@ -93,12 +96,15 @@ export class CustomTemplateComponent implements AfterViewInit {
     this.inlineEditable = this.inCanvas && !isAPI && !(html ?? '').includes('{{');
     const fontawesome = this.util.getLibraries('fontAwesome', 'cdn', 'style');
     this.util.loadStyle(fontawesome);
-    this.destroyRef.onDestroy(() => this.runJsCleanup());
+    this.destroyRef.onDestroy(() => {
+      this.destroyed = true;
+      this.runJsCleanup();
+    });
   }
 
   async render(content: any): Promise<void> {
     if (this.screenService.isPlatformBrowser()) {
-      const { html, json, isAPI, api } = content;
+      const { html = '', json, isAPI, api } = content;
       if (isAPI && api) {
         this.fetchContent('');
       } else {
@@ -266,7 +272,6 @@ export class CustomTemplateComponent implements AfterViewInit {
     if (!js?.trim()) {
       return;
     }
-    this.runJsCleanup();
     try {
       const fn = new Function('root', 'data', `'use strict';\n${js}`);
       const cleanup = fn(this.template, data);
@@ -301,16 +306,16 @@ export class CustomTemplateComponent implements AfterViewInit {
     this.pristine = this.template.cloneNode(true) as HTMLElement;
     this.template.classList.add('inline-editable');
     this.template.addEventListener('click', this.onEditClick);
-    this.template.addEventListener('focusout', this.onEditBlur);
-    this.template.addEventListener('paste', this.onEditPaste);
     this.destroyRef.onDestroy(() => {
       this.template.removeEventListener('click', this.onEditClick);
-      this.template.removeEventListener('focusout', this.onEditBlur);
-      this.template.removeEventListener('paste', this.onEditPaste);
     });
   }
 
   private onEditClick = (event: Event): void => {
+    // 点击落在已挂载的编辑器内部:光标与选区交给 tiptap,不重复进入编辑流程
+    if ((event.target as HTMLElement | null)?.isContentEditable) {
+      return;
+    }
     const target = (event.target as HTMLElement | null)?.closest?.(
       '[data-xs-i]'
     ) as HTMLElement | null;
@@ -331,50 +336,50 @@ export class CustomTemplateComponent implements AfterViewInit {
     if (this.revealInOpenEditor(target)) {
       return;
     }
-    if (!target.isContentEditable) {
-      target.contentEditable = 'true';
-      target.focus();
-    }
+    this.activateEditor(target, event as MouseEvent, html => this.saveIndexed(target, html));
   };
 
-  private onEditBlur = (event: Event): void => {
-    const target = event.target as HTMLElement | null;
-    if (!target?.isContentEditable || !this.pristine) {
-      return;
-    }
-    target.contentEditable = 'false';
+  /** 编辑结果按索引写回净拷贝，再整体序列化保存 */
+  private saveIndexed(target: HTMLElement, html: string): void {
     const index = target.getAttribute('data-xs-i');
-    if (index === null) {
+    const source = index === null ? null : this.pristine?.querySelector(`[data-xs-i="${index}"]`);
+    if (!source) {
       return;
     }
-    const source = this.pristine.querySelector(`[data-xs-i="${index}"]`);
-    if (!source || source.innerHTML === target.innerHTML) {
-      return;
-    }
-    source.innerHTML = target.innerHTML;
+    source.innerHTML = html;
     this.saveTemplate();
-  };
+  }
 
-  // 粘贴时清除剪切板格式，与 ContenteditDirective 行为一致
-  private onEditPaste = (event: Event): void => {
-    const target = event.target as HTMLElement | null;
-    if (!target?.isContentEditable) {
-      return;
-    }
-    event.preventDefault();
-    const clipboardData = (event as ClipboardEvent).clipboardData;
-    const selection = window.getSelection();
-    if (!clipboardData || !selection?.rangeCount) {
-      return;
-    }
-    const range = selection.getRangeAt(0);
-    range.deleteContents();
-    const textNode = document.createTextNode(clipboardData.getData('text/plain'));
-    range.insertNode(textNode);
-    range.selectNodeContents(textNode);
-    selection.removeAllRanges();
-    selection.addRange(range);
-  };
+  /**
+   * 画布内联富文本编辑：与正文组件共用 InlineEditorService（tiptap + 气泡工具栏）。
+   * 服务只在画布内动态载入，公共页面不会打进编辑器代码；
+   * 写回不走 path，由调用方在 onCommitted 里按各自的落盘方式保存。
+   * 含块级子元素的容器用 rich 档（保留段落/标题），单段文本用 inline 档（不加 <p> 包裹）
+   */
+  private activateEditor(
+    target: HTMLElement,
+    event: MouseEvent,
+    onCommitted: (html: string) => void
+  ): void {
+    const profile = target.querySelector(
+      'p, div, h1, h2, h3, h4, h5, h6, ul, ol, blockquote, pre'
+    )
+      ? 'rich'
+      : 'inline';
+    void import('@modules/builder/inline-editor/inline-editor.service').then(
+      ({ InlineEditorService }) => {
+        if (this.destroyed) {
+          return;
+        }
+        this.injector.get(InlineEditorService).activate({
+          element: target,
+          profile,
+          clickCoords: { x: event.clientX, y: event.clientY },
+          onCommitted,
+        });
+      }
+    );
+  }
 
   private isEditableElement(el: HTMLElement): boolean {
     if (CustomTemplateComponent.NON_EDITABLE_TAGS.has(el.tagName)) {
@@ -419,18 +424,18 @@ export class CustomTemplateComponent implements AfterViewInit {
     this.locateBound = true;
     this.template.classList.add('locate-editable');
     this.template.addEventListener('click', this.onLocateClick);
-    this.template.addEventListener('focusout', this.onLocateBlur);
-    this.template.addEventListener('paste', this.onEditPaste);
     this.destroyRef.onDestroy(() => {
       this.template.removeEventListener('click', this.onLocateClick);
-      this.template.removeEventListener('focusout', this.onLocateBlur);
-      this.template.removeEventListener('paste', this.onEditPaste);
     });
   }
 
   private onLocateClick = (event: Event): void => {
     const target = event.target as HTMLElement | null;
     if (!target || !this.template.contains(target)) {
+      return;
+    }
+    // 点击落在已挂载的编辑器内部:光标与选区交给 tiptap,不重复进入编辑流程
+    if (target.isContentEditable) {
       return;
     }
     if (target.tagName === 'IMG') {
@@ -447,55 +452,38 @@ export class CustomTemplateComponent implements AfterViewInit {
     if (this.revealInOpenEditor(target)) {
       return;
     }
-    if (target.isContentEditable) {
-      return;
-    }
     const source = this.content().html ?? '';
-    const match = this.findUniqueSnippet(target, source);
-    if (match) {
-      this.pendingEdit = { el: target, ...match };
-      target.contentEditable = 'true';
-      target.focus();
+    const snippet = this.findUniqueSnippet(target, source);
+    if (snippet) {
+      this.activateEditor(target, event as MouseEvent, html => this.saveLocated(snippet, html));
     } else {
       this.openCodeEditor(target, source);
     }
   };
 
-  private onLocateBlur = (event: Event): void => {
-    const target = event.target as HTMLElement | null;
-    const pending = this.pendingEdit;
-    if (!target?.isContentEditable || !pending || pending.el !== target) {
-      return;
-    }
-    target.contentEditable = 'false';
-    this.pendingEdit = null;
-    const updated = pending.mode === 'html' ? target.innerHTML : (target.textContent?.trim() ?? '');
-    if (updated === pending.snippet) {
-      return;
-    }
+  /** 编辑结果精确替换源码中的原片段；期间源码被改动（唯一性丢失）则放弃并提示 */
+  private saveLocated(snippet: string, updated: string): void {
     const source = this.content().html ?? '';
-    if (this.countOccurrences(source, pending.snippet) !== 1) {
+    if (this.countOccurrences(source, snippet) !== 1) {
       this.util.openSnackbar(
         this.translate.instant('BUILDER.CUSTOM_TEMPLATE.LOCATE_CHANGED'),
         'ok'
       );
       return;
     }
-    const index = source.indexOf(pending.snippet);
-    this.saveHtml(source.slice(0, index) + updated + source.slice(index + pending.snippet.length));
-  };
+    const index = source.indexOf(snippet);
+    this.saveHtml(source.slice(0, index) + updated + source.slice(index + snippet.length));
+  }
 
-  private findUniqueSnippet(
-    el: HTMLElement,
-    source: string
-  ): { snippet: string; mode: 'html' | 'text' } | null {
+  /** 元素内容在源码中唯一命中的片段（优先整段 HTML，回落到纯文本），命中不了返回 null */
+  private findUniqueSnippet(el: HTMLElement, source: string): string | null {
     const html = el.innerHTML;
     if (html && this.countOccurrences(source, html) === 1) {
-      return { snippet: html, mode: 'html' };
+      return html;
     }
     const text = el.childElementCount === 0 ? (el.textContent?.trim() ?? '') : '';
     if (text && this.countOccurrences(source, text) === 1) {
-      return { snippet: text, mode: 'text' };
+      return text;
     }
     return null;
   }
@@ -536,8 +524,7 @@ export class CustomTemplateComponent implements AfterViewInit {
       return false;
     }
     const source = this.content().html ?? '';
-    const reveal =
-      this.findUniqueSnippet(target, source)?.snippet ?? this.fallbackReveal(target, source);
+    const reveal = this.findUniqueSnippet(target, source) ?? this.fallbackReveal(target, source);
     if (reveal) {
       this.builder.revealCode$.next(reveal);
     }

@@ -31,8 +31,11 @@ const InlineDocument = TiptapNode.create({
 export interface IInlineEditorActivateOptions {
   /** 画布内被点击的正文元素(ContenteditDirective 宿主) */
   element: HTMLElement;
-  /** 组件配置树中的写回路径(generatePath 产物) */
-  path: string;
+  /**
+   * 组件配置树中的写回路径(generatePath 产物);
+   * 缺省表示写回由调用方在 onCommitted 里自理(如 custom-template 需把片段拼回模板源码)
+   */
+  path?: string;
   /**
    * rich:多段落正文(默认);inline:单行标题,仅行内标记,
    * Enter 提交而非分段,文档无段落包裹
@@ -41,7 +44,7 @@ export interface IInlineEditorActivateOptions {
   /** 触发点击的视口坐标,用于把光标定位到点击处;缺省聚焦到末尾 */
   clickCoords?: { x: number; y: number };
   onActivated?: () => void;
-  /** 仅在内容有变化、已写回 BuilderState 后调用 */
+  /** 仅在内容有变化时调用;有 path 时已写回 BuilderState */
   onCommitted?: (html: string) => void;
 }
 
@@ -159,7 +162,9 @@ export class InlineEditorService {
     const value = editor.isEmpty ? '' : html;
     this.teardown(changed ? value : this.originalHtml);
     if (changed) {
-      this.builder.updatePageContentByPath(options.path, value);
+      if (options.path) {
+        this.builder.updatePageContentByPath(options.path, value);
+      }
       options.onCommitted?.(value);
     }
   }
