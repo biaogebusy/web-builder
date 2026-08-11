@@ -6,9 +6,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Xinshi (信使) Web Builder** — an AI-powered low-code platform for building modern responsive web applications. Built with Angular 20 (standalone-only, zoneless, SSR) + Angular Material + TailwindCSS, using Drupal as headless CMS backend via JSON:API.
 
+## Branches & Deployments
+
+- **`master` is the open-source base branch and the single source of truth.** Downstream deployment branches build on it: they merge `master` in, never the other way. Anything that is not part of the base product stays out of `master`.
+- **Order matters**: land base work on `master` first, then merge it downstream and add the deployment-specific delta there. Building everything downstream and back-porting later conflicts in the shared files.
+- **Keep the seam thin in shared files.** When base code has to know about an optional feature, use the smallest hook available: one entry in a registry/route/provider pointing at a separate file, or a flag input on a shared component that defaults to off — with the optional UI referenced **inside `@defer`**, the same gate that keeps builder code out of public-page bundles.
+- **Never hardcode values that differ per deployment.** Backend origins live in `config/proxy.config.js` and `src/environments/environment*.ts` and differ per deployment — point at the files, never copy a domain into code, comments or docs.
+
 ## Common Commands
 
-- `npm start` — local dev server (proxies API to base.builder.design via `config/proxy.config.js`)
+- `npm start` — local dev server (proxies API to the backend configured in `config/proxy.config.js`; the target differs per branch)
 - `npm run build` — production build plus static asset precompression (`ng build --configuration production && npm run precompress`)
 - `npm test` — run unit tests once (Vitest via `@angular/build:unit-test` builder); covers all `src/**` specs except `src/server/**`; setup in `src/test-setup.ts`, shared test providers in `src/test-providers.ts`
 - `npm run test:server` — run server-side specs (`src/server/**`, need node built-ins) via root `vitest.config.ts`; the two channels split coverage with no overlap
@@ -71,7 +78,7 @@ Global app state is provided via InjectionToken factories in `core/token/token-p
 
 Both files implement `IEnvironment`: `apiUrl`, `production`, `port`, `multiLang`, `langs`, `oauth` (OAuth2 client/endpoints).
 
-- `environment.ts` — dev config (`apiUrl: http://localhost:4200`); production builds swap in `environment.prod.ts` (`apiUrl: https://base.builder.design`) via `fileReplacements`
+- `environment.ts` — dev config (`apiUrl: http://localhost:4200`); production builds swap in `environment.prod.ts` via `fileReplacements`. The production `apiUrl` and the dev proxy target are **branch-specific** — read the files instead of assuming a domain
 - Both files ship `production: true` — dev fetches live data through the proxy. A legacy `production: false` branch in `ContentService.loadPageContent` reads page JSON from `{apiUrl}/assets/app/**.json`, but the local JSON samples were removed from the repo
 - `multiLang` / `langs` — multi-language support with lang prefix routing (zh-hans default, en); UI strings loaded via @ngx-translate from `{apiUrl}/assets/i18n/*.json`
 
