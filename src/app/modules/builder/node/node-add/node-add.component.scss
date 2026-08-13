@@ -22,7 +22,7 @@
     color: var(--shadcn-foreground);
   }
   .actions {
-    @apply flex items-center;
+    @apply flex items-center gap-2;
   }
   // 不用 .container 命名:Tailwind 的 container 工具类自带 max-width/边距,会污染布局。
   // 通高铺满(减去 h-14 顶栏),保证右栏左侧细线始终触底。
@@ -89,7 +89,7 @@
       }
       input::placeholder {
         color: var(--shadcn-muted-foreground);
-        @apply font-bold opacity-60;
+        @apply font-bold;
       }
       label {
         // 视觉隐藏但保留给读屏器,input 的可访问名称来自它

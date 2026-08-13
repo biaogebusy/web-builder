@@ -410,6 +410,19 @@
     "PREVIEW": {
       "DRAFT_TITLE_SUFFIX": "{{title}}草稿预览"
     },
+    "NODE_HUB": {
+      "PAGE_TITLE": "内容中心",
+      "PUBLISH_TITLE": "发布内容",
+      "PUBLISH_DESC": "选择内容类型，创建并发布新内容。",
+      "ADD_HINT": "新建",
+      "MANAGE_TITLE": "内容管理",
+      "MANAGE_DESC": "维护站点上已有的内容。",
+      "MANAGE_ENTRY": "内容管理列表",
+      "MANAGE_ENTRY_DESC": "搜索、编辑、删除全部内容",
+      "UIUX_ENTRY": "组件管理",
+      "UIUX_ENTRY_DESC": "维护组件库（component 节点）的分组与定义",
+      "EMPTY_TYPES": "暂无可发布的内容类型。"
+    },
     "NODE_ADD": {
       "CREATE_TITLE": "创建 {{type}} 页面",
       "EDIT_TITLE": "编辑 {{type}} 内容",
@@ -420,7 +433,13 @@
       "TOOLBAR": "编辑工具栏",
       "FIELD_TITLE": "标题",
       "TITLE_PLACEHOLDER": "请输入标题",
-      "SUBMIT": "确认提交",
+      "SAVE_DRAFT": "保存草稿",
+      "PUBLISH": "发布",
+      "PANEL_PUBLISH": "发布设置",
+      "FIELD_ALIAS": "URL 别名",
+      "FIELD_REVISION_LOG": "修订说明",
+      "REVISION_LOG_PLACEHOLDER": "本次修改说明（可选）",
+      "EDIT_CONFLICT": "内容已被他人修改，请刷新后再保存。",
       "LOGIN_FIRST": "请登录后再试！",
       "FORM_INVALID": "请完善必填字段后再提交！",
       "SUBMIT_FAILED": "提交失败：{{message}}",
@@ -438,6 +457,7 @@
       "PUBLISHED": "已发布",
       "UNPUBLISHED": "未发布",
       "TITLE_COL": "标题",
+      "URL_COL": "URL",
       "UPDATED": "更新时间",
       "ACTIONS": "操作",
       "EDIT": "编辑",

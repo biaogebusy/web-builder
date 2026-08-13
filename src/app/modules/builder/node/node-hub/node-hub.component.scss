@@ -1,0 +1,46 @@
+.node-hub {
+  .container {
+    @apply max-w-6xl mx-auto flex flex-col gap-6 px-4 py-8;
+  }
+  .header {
+    @apply flex items-center justify-between gap-4;
+  }
+  .hub-section {
+    @apply flex flex-col gap-3;
+  }
+  .section-title {
+    @apply text-base font-semibold m-0;
+  }
+  .section-desc {
+    @apply text-sm m-0;
+    color: var(--shadcn-muted-foreground);
+  }
+  .entry-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3;
+  }
+  .entry-card {
+    @apply flex flex-col gap-1 p-4 no-underline transition-colors;
+    background: var(--shadcn-card);
+    border: 1px solid var(--shadcn-border);
+    border-radius: var(--shadcn-radius-lg);
+    color: inherit;
+    &:hover {
+      border-color: var(--shadcn-ring);
+    }
+    &:focus-visible {
+      outline: 2px solid var(--shadcn-ring);
+      outline-offset: 2px;
+    }
+  }
+  .entry-name {
+    @apply text-sm font-medium;
+  }
+  .entry-desc {
+    @apply text-xs;
+    color: var(--shadcn-muted-foreground);
+  }
+  .empty {
+    @apply py-8 text-center text-sm m-0;
+    color: var(--shadcn-muted-foreground);
+  }
+}

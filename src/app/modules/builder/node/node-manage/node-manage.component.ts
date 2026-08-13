@@ -17,12 +17,14 @@ import { TagsService } from '@core/service/tags.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { forkJoin, of } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 const PAGE_SIZE = 20;
 
 interface INodeRow {
   uuid: string;
+  type: string;
   title: string;
   status: boolean;
   langcode: string;
@@ -49,7 +51,7 @@ export class NodeManageComponent implements OnInit {
   public nodeTypes = signal<{ label: string; value: string }[]>([]);
   public rows = signal<INodeRow[]>([]);
   public loading = signal(true);
-  /** 当前内容类型;JSON:API 集合按 bundle 提供,须选定一个类型 */
+  /** 当前内容类型;空串为"全部"(JSON:API 集合按 bundle 提供,逐类型查询后合并) */
   public type = signal('');
   /** '' 全部 | '1' 已发布 | '0' 未发布 */
   public status = signal('');
@@ -65,6 +67,8 @@ export class NodeManageComponent implements OnInit {
   public pageSize = PAGE_SIZE;
   /** 过滤请求先发后至的竞态保护 */
   private reqId = 0;
+  /** "全部"模式分页:每页开始时各类型已消费的条数(offset)快照,索引即页码 */
+  private allOffsets: Record<string, number>[] = [{}];
 
   ngOnInit(): void {
     this.tagsService.setTitle(this.translate.instant('BUILDER.NODE_MANAGE.PAGE_TITLE'));
@@ -74,10 +78,9 @@ export class NodeManageComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(types => {
         this.nodeTypes.set(types);
-        if (!this.type() && types.length > 0) {
-          this.type.set(types[0].value);
+        if (types.length > 0) {
           this.fetchList();
-        } else if (types.length === 0) {
+        } else {
           this.loading.set(false);
         }
       });
@@ -110,35 +113,27 @@ export class NodeManageComponent implements OnInit {
 
   onFilterChange(): void {
     this.page.set(0);
+    this.allOffsets = [{}];
     this.fetchList();
   }
 
   fetchList(): void {
-    const type = this.type();
-    if (!type) {
-      return;
-    }
     this.loading.set(true);
     this.confirmUuid.set('');
     const id = ++this.reqId;
+    if (!this.type()) {
+      this.fetchAllTypes(id);
+      return;
+    }
     this.nodeService
-      .fetch(`/api/v1/node/${type}`, this.buildParams())
+      .fetch(`/api/v1/node/${this.type()}`, this.buildParams(this.page() * PAGE_SIZE))
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: res => {
           if (id !== this.reqId) {
             return;
           }
-          this.rows.set(
-            (res?.data || []).map((node: any) => ({
-              uuid: node.id,
-              title: node.attributes?.title,
-              status: !!node.attributes?.status,
-              langcode: node.attributes?.langcode,
-              changed: node.attributes?.changed,
-              path: this.nodeService.getNodePath(node.attributes),
-            }))
-          );
+          this.rows.set((res?.data || []).map((node: any) => this.toRow(node, this.type())));
           this.hasNext.set(!!res?.links?.next);
           this.loading.set(false);
         },
@@ -146,21 +141,86 @@ export class NodeManageComponent implements OnInit {
           if (id !== this.reqId) {
             return;
           }
-          console.error('加载内容列表失败', err);
-          this.rows.set([]);
-          this.hasNext.set(false);
-          this.loading.set(false);
-          this.util.openSnackbar(this.translate.instant('BUILDER.NODE_MANAGE.LOAD_FAILED'), 'ok');
+          this.onLoadError(err);
         },
       });
   }
 
-  private buildParams(): string {
-    const parts = [
-      'sort=-changed',
-      `page[limit]=${PAGE_SIZE}`,
-      `page[offset]=${this.page() * PAGE_SIZE}`,
-    ];
+  /**
+   * "全部"模式:JSON:API 无跨 bundle 集合,逐类型并发取当前页再合并。
+   * 每个类型都按 -changed 从各自的 offset 取整页,全局最新的一页必然
+   * 落在这些前缀的并集内,合并排序后截取即精确分页;本页各类型实际
+   * 消费的条数记入下一页的 offset 快照(allOffsets),翻页按快照续取。
+   */
+  private fetchAllTypes(id: number): void {
+    const types = this.nodeTypes();
+    if (types.length === 0) {
+      this.rows.set([]);
+      this.hasNext.set(false);
+      this.loading.set(false);
+      return;
+    }
+    const offsets = this.allOffsets[this.page()] ?? {};
+    forkJoin(
+      types.map(type =>
+        this.nodeService
+          .fetch(`/api/v1/node/${type.value}`, this.buildParams(offsets[type.value] ?? 0))
+          // 单个类型失败(如无查看权限)不拖垮整页,置 null 跳过
+          .pipe(catchError(() => of(null)))
+      )
+    )
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(results => {
+        if (id !== this.reqId) {
+          return;
+        }
+        if (results.every(res => res === null)) {
+          this.onLoadError('所有内容类型均加载失败');
+          return;
+        }
+        const merged = results
+          .flatMap((res, i) =>
+            (res?.data || []).map((node: any) => this.toRow(node, types[i].value))
+          )
+          .sort((a, b) => (a.changed === b.changed ? 0 : a.changed < b.changed ? 1 : -1));
+        const pageRows = merged.slice(0, PAGE_SIZE);
+        const nextOffsets = { ...offsets };
+        pageRows.forEach(row => {
+          nextOffsets[row.type] = (nextOffsets[row.type] ?? 0) + 1;
+        });
+        this.allOffsets[this.page() + 1] = nextOffsets;
+        this.rows.set(pageRows);
+        this.hasNext.set(merged.length > PAGE_SIZE || results.some(res => !!res?.links?.next));
+        this.loading.set(false);
+      });
+  }
+
+  private toRow(node: any, type: string): INodeRow {
+    return {
+      uuid: node.id,
+      type,
+      title: node.attributes?.title,
+      status: !!node.attributes?.status,
+      langcode: node.attributes?.langcode,
+      changed: node.attributes?.changed,
+      path: this.nodeService.getNodePath(node.attributes),
+    };
+  }
+
+  private onLoadError(err: any): void {
+    console.error('加载内容列表失败', err);
+    this.rows.set([]);
+    this.hasNext.set(false);
+    this.loading.set(false);
+    this.util.openSnackbar(this.translate.instant('BUILDER.NODE_MANAGE.LOAD_FAILED'), 'ok');
+  }
+
+  typeLabel(type: string): string {
+    return this.nodeTypes().find(t => t.value === type)?.label ?? type;
+  }
+
+  private buildParams(offset: number): string {
+    const parts = ['sort=-changed', `page[limit]=${PAGE_SIZE}`, `page[offset]=${offset}`];
     const keyword = (this.searchCtrl.value || '').trim();
     if (keyword) {
       parts.push('filter[search][condition][path]=title');
@@ -190,12 +250,17 @@ export class NodeManageComponent implements OnInit {
     }
   }
 
+  /** "全部"模式下无当前类型,回内容中心按类型选择发布入口 */
   addNode(): void {
-    this.router.navigate(['/builder/node-add', this.type()]);
+    if (this.type()) {
+      this.router.navigate(['/builder/node/add', this.type()]);
+    } else {
+      this.router.navigate(['/builder/node']);
+    }
   }
 
   onEdit(row: INodeRow): void {
-    this.router.navigate(['/builder/node-add', this.type(), row.uuid]);
+    this.router.navigate(['/builder/node/edit', row.type, row.uuid]);
   }
 
   /** 第一次点击进入确认态,再次点击才真正删除 */
@@ -207,7 +272,7 @@ export class NodeManageComponent implements OnInit {
     this.confirmUuid.set('');
     this.deleting.set(row.uuid);
     this.nodeService
-      .deleteEntity(`/api/v1/node/${this.type()}`, row.uuid)
+      .deleteEntity(`/api/v1/node/${row.type}`, row.uuid)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {

@@ -410,6 +410,19 @@
     "PREVIEW": {
       "DRAFT_TITLE_SUFFIX": "{{title}} Draft Preview"
     },
+    "NODE_HUB": {
+      "PAGE_TITLE": "Content hub",
+      "PUBLISH_TITLE": "Publish content",
+      "PUBLISH_DESC": "Pick a content type to create and publish.",
+      "ADD_HINT": "Create",
+      "MANAGE_TITLE": "Manage content",
+      "MANAGE_DESC": "Maintain existing site content.",
+      "MANAGE_ENTRY": "Content list",
+      "MANAGE_ENTRY_DESC": "Search, edit and delete all content",
+      "UIUX_ENTRY": "Component library",
+      "UIUX_ENTRY_DESC": "Maintain component nodes, groups and definitions",
+      "EMPTY_TYPES": "No content types available."
+    },
     "NODE_ADD": {
       "CREATE_TITLE": "Create {{type}} page",
       "EDIT_TITLE": "Edit {{type}} content",
@@ -420,7 +433,13 @@
       "TOOLBAR": "Editor toolbar",
       "FIELD_TITLE": "Title",
       "TITLE_PLACEHOLDER": "Add a title",
-      "SUBMIT": "Submit",
+      "SAVE_DRAFT": "Save draft",
+      "PUBLISH": "Publish",
+      "PANEL_PUBLISH": "Publishing",
+      "FIELD_ALIAS": "URL alias",
+      "FIELD_REVISION_LOG": "Revision log",
+      "REVISION_LOG_PLACEHOLDER": "Describe this change (optional)",
+      "EDIT_CONFLICT": "This content was changed by someone else. Reload before saving.",
       "LOGIN_FIRST": "Please log in first!",
       "FORM_INVALID": "Please complete the required fields before submitting.",
       "SUBMIT_FAILED": "Submit failed: {{message}}",
@@ -438,6 +457,7 @@
       "PUBLISHED": "Published",
       "UNPUBLISHED": "Unpublished",
       "TITLE_COL": "Title",
+      "URL_COL": "URL",
       "UPDATED": "Updated",
       "ACTIONS": "Actions",
       "EDIT": "Edit",

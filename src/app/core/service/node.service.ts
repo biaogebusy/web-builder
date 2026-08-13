@@ -132,7 +132,8 @@ export class NodeService extends ApiService {
   }
 
   // path: /api/v1/taxonomy_term/page_group
-  addEntity(path: string, attr: any, relationships?: any): Observable<any> {
+  // langCode: 非默认语言传入,写请求走语言前缀(如 /en/api/v1/...)以命中对应翻译
+  addEntity(path: string, attr: any, relationships?: any, langCode?: string): Observable<any> {
     const post = {
       data: {
         type: this.getEntityType(path),
@@ -143,7 +144,7 @@ export class NodeService extends ApiService {
       },
     };
     return this.http.post<any>(
-      `${this.apiUrl}${path}`,
+      `${this.apiUrl}${this.writeLangPrefix(langCode)}${path}`,
       JSON.stringify(post),
       this.optionsWithBearerToken()
     );
@@ -154,7 +155,13 @@ export class NodeService extends ApiService {
     return `${arr[arr.length - 2]}--${arr[arr.length - 1]}`;
   }
 
-  updateEntity(path: string, uuid: string, attr: any, relationships?: any): Observable<any> {
+  updateEntity(
+    path: string,
+    uuid: string,
+    attr: any,
+    relationships?: any,
+    langCode?: string
+  ): Observable<any> {
     const post = {
       data: {
         type: this.getEntityType(path),
@@ -166,10 +173,14 @@ export class NodeService extends ApiService {
       },
     };
     return this.http.patch<any>(
-      `${this.apiUrl}${path}/${uuid}`,
+      `${this.apiUrl}${this.writeLangPrefix(langCode)}${path}/${uuid}`,
       JSON.stringify(post),
       this.optionsWithBearerToken()
     );
+  }
+
+  private writeLangPrefix(langCode?: string): string {
+    return langCode ? getLangPrefix({ langCode }) : '';
   }
 
   getNodePath(attr: any): string {

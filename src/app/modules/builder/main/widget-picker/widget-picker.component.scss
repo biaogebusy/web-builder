@@ -50,8 +50,7 @@
       color: var(--mat-sys-on-surface);
 
       &::placeholder {
-        color: var(--mat-sys-on-surface-variant);
-        opacity: 0.7;
+        color: var(--shadcn-muted-foreground);
       }
     }
 

@@ -2,7 +2,12 @@ import { Injectable, inject } from '@angular/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { EMPTY, forkJoin, Observable, of } from 'rxjs';
 import { catchError, expand, map, reduce, switchMap } from 'rxjs/operators';
+import { ICoreConfig } from '@core/interface/IAppConfig';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { NodeService } from './node.service';
+
+/** 默认开放的内容类型(机器名):博客、新闻、应用中心、文章、组件 */
+const DEFAULT_NODE_TYPES = ['blog', 'news', 'json', 'article', 'component'];
 
 export interface INodeFieldMeta {
   key: string;
@@ -33,6 +38,7 @@ export interface INodePayload {
 })
 export class NodeFieldFormService {
   private nodeService = inject(NodeService);
+  private coreConfig = inject<ICoreConfig | null>(CORE_CONFIG, { optional: true });
 
   /** 站点全部内容类型,用于发布页切换 */
   getNodeTypes(): Observable<{ label: string; value: string }[]> {
@@ -48,6 +54,19 @@ export class NodeFieldFormService {
         return of([]);
       })
     );
+  }
+
+  /**
+   * 发布入口开放的内容类型。默认只开放 DEFAULT_NODE_TYPES;
+   * core_config 的 builder.nodeTypes 可在默认清单上禁用(disable)或
+   * 额外开放(enable),disable 优先。
+   */
+  getAllowedNodeTypes(): Observable<{ label: string; value: string }[]> {
+    const { disable = [], enable = [] } = this.coreConfig?.builder?.nodeTypes ?? {};
+    const allowed = new Set(
+      [...DEFAULT_NODE_TYPES, ...enable].filter(type => !disable.includes(type))
+    );
+    return this.getNodeTypes().pipe(map(types => types.filter(type => allowed.has(type.value))));
   }
 
   /**
@@ -134,8 +153,10 @@ export class NodeFieldFormService {
 
     const meta: INodeFieldMeta[] = [];
     const fields: FormlyFieldConfig[] = [];
-    // 无法用简单控件表达且原样提交会报错的字段类型
-    const skipTypes = ['metatag'];
+    // 无法用简单控件表达且原样提交会报错的字段类型:metatag/link 需要结构化值,
+    // image/file 是带 meta 的文件引用,date 类要求严格格式;跳过(编辑时不提交
+    // 即保持原值),避免渲染成文本框后以纯文本提交导致 422 或坏数据
+    const skipTypes = ['metatag', 'image', 'file', 'link', 'datetime', 'daterange'];
 
     configs.forEach(config => {
       const attrs = config.attributes;
@@ -265,21 +286,41 @@ export class NodeFieldFormService {
     }
   }
 
-  buildPayload(meta: INodeFieldMeta[], value: Record<string, any>): INodePayload {
+  /**
+   * @param original 编辑时加载的节点原始数据(JSON:API resource object)。传入即编辑模式:
+   * - 清空的字段提交显式 null / 空 data(JSON:API 语义:缺省 = 不变,null = 清空)
+   * - 文本字段沿用原 format(避免把 basic_html 内容静默升级为 full_html)并保留 summary
+   * - 引用字段按目标 id 回带原 meta(如图片 alt),避免 PATCH 关系时丢失
+   */
+  buildPayload(meta: INodeFieldMeta[], value: Record<string, any>, original?: any): INodePayload {
     const attributes: Record<string, any> = {};
     const relationships: Record<string, any> = {};
 
     meta.forEach(field => {
       const fieldValue = value[field.key];
+      const isRef = field.fieldType === 'entity_reference' && !!field.targetType;
       if (fieldValue === undefined || fieldValue === null || fieldValue === '') {
+        // 新建时跳过空值即可;编辑时须显式清空,否则旧值保留
+        if (original) {
+          if (isRef) {
+            relationships[field.key] = { data: field.multiple ? [] : null };
+          } else {
+            attributes[field.key] = null;
+          }
+        }
         return;
       }
-      if (field.fieldType === 'entity_reference' && field.targetType) {
+      if (isRef) {
         const type = `${field.targetType}--${field.targetBundle || field.targetType}`;
+        const originalMeta = this.originalRefMeta(original, field.key);
+        const toRef = (id: string) => {
+          const refMeta = originalMeta.get(id);
+          return { type, id, ...(refMeta ? { meta: refMeta } : {}) };
+        };
         relationships[field.key] = {
           data: field.multiple
-            ? (Array.isArray(fieldValue) ? fieldValue : [fieldValue]).map(id => ({ type, id }))
-            : { type, id: fieldValue },
+            ? (Array.isArray(fieldValue) ? fieldValue : [fieldValue]).map(toRef)
+            : toRef(fieldValue),
         };
       } else if (field.fieldType === 'text_long' || field.fieldType === 'text_with_summary') {
         if (field.jsonFormat) {
@@ -288,7 +329,14 @@ export class NodeFieldFormService {
             format: 'json',
           };
         } else {
-          attributes[field.key] = { value: fieldValue, format: 'full_html' };
+          const originalText = original?.attributes?.[field.key];
+          attributes[field.key] = {
+            value: fieldValue,
+            format: originalText?.format ?? 'full_html',
+            ...(field.fieldType === 'text_with_summary' && originalText?.summary != null
+              ? { summary: originalText.summary }
+              : {}),
+          };
         }
       } else {
         attributes[field.key] = fieldValue;
@@ -296,5 +344,18 @@ export class NodeFieldFormService {
     });
 
     return { attributes, relationships };
+  }
+
+  /** 原始关系数据按目标 id 索引 meta,提交仍指向同一目标时回带 */
+  private originalRefMeta(original: any, key: string): Map<string, any> {
+    const data = original?.relationships?.[key]?.data;
+    const items = Array.isArray(data) ? data : data ? [data] : [];
+    const map = new Map<string, any>();
+    items.forEach((item: any) => {
+      if (item?.id && item.meta) {
+        map.set(item.id, item.meta);
+      }
+    });
+    return map;
   }
 }

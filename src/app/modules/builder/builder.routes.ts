@@ -6,7 +6,6 @@ import { PageListComponent } from './sidebar/page-list/page-list.component';
 import { BuilderWorkspaceComponent } from './main/builder-workspace/builder-workspace.component';
 import { ManagePageComponent } from './main/manage-page/manage-page.component';
 import { BuilderPageComponent } from './sidebar/builder-page/builder-page.component';
-import { superAdminGuard } from '@core/guards/super-admin.guard';
 import {
   BUILDER_CURRENT_PAGE,
   UIUX,
@@ -89,19 +88,8 @@ export const routes: Routes = [
         loadChildren: () => import('./main/edit-branding/edit-branding.routes').then(m => m.routes),
       },
       {
-        path: 'node-add',
-        loadChildren: () => import('./node/node-add/node-add.routes').then(m => m.routes),
-      },
-      {
-        path: 'node-manage',
-        loadComponent: () =>
-          import('./node/node-manage/node-manage.component').then(m => m.NodeManageComponent),
-      },
-      {
-        path: 'manage-uiux',
-        canActivate: [superAdminGuard],
-        loadComponent: () =>
-          import('./main/manage-uiux/manage-uiux.component').then(m => m.ManageUiuxComponent),
+        path: 'node',
+        loadChildren: () => import('./node/node.routes').then(m => m.routes),
       },
       {
         path: '**',

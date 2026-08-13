@@ -47,10 +47,12 @@ export interface ICoreConfig {
     params: {
       reqRoles: string[];
     };
-    /** node-add 发布入口开放的内容类型:在默认清单基础上禁用或新增(机器名) */
+    /** 内容发布入口(node/add、内容中心)开放的内容类型:在默认清单基础上禁用或新增(机器名) */
     nodeTypes?: {
       disable?: string[];
       enable?: string[];
+      /** 启用内容审核(content moderation)的类型:发布状态写 moderation_state 而非 status */
+      moderated?: string[];
     };
   };
   access: {

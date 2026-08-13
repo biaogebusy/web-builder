@@ -55,10 +55,11 @@
       font-size: 0.85rem;
       padding: 0.25em 0.3em;
     }
-    // Placeholder 扩展把占位文案挂在空文档首行的 data-placeholder 上
+    // Placeholder 扩展把占位文案挂在空文档首行的 data-placeholder 上。
+    // 颜色走 shadcn 前景层级(本主题的 outline 是发丝线级,浅色下约 1.3:1 不可读)
     .ProseMirror p.is-editor-empty:first-child::before {
       content: attr(data-placeholder);
-      color: var(--mat-sys-outline);
+      color: var(--shadcn-muted-foreground);
       float: left;
       height: 0;
       pointer-events: none;

@@ -3,6 +3,14 @@
 // automatically follow the active Material theme (light/dark) and any
 // custom seed-driven palette. Opt-in: components using --shadcn-* vars
 // get the shadcn look without disturbing the rest of the app.
+//
+// ── 前景层级契约(Foreground ramp)──
+// 文本只用三档,不要在组件里叠 opacity 或直引 --mat-sys-* 私调:
+//   1. --shadcn-foreground        正文/标签(on-surface,≈15:1)
+//   2. --shadcn-muted-foreground  次要文本 + placeholder(见下方校准说明)
+//   3. 禁用态                      统一 opacity: 0.5(shad-btn-base)
+// placeholder 一律引用 --shadcn-muted-foreground(与 shadcn/ui 一致:
+// placeholder:text-muted-foreground),不得另配颜色。
 
 :root {
   // ── Surfaces ──
@@ -19,7 +27,17 @@
   --shadcn-secondary: var(--mat-sys-surface-container);
   --shadcn-secondary-foreground: var(--mat-sys-on-surface);
   --shadcn-muted: var(--mat-sys-surface-container-low);
-  --shadcn-muted-foreground: var(--mat-sys-on-surface-variant);
+  // 真正的"弱化前景"。不用 on-surface-variant:本主题把它配得很深
+  // (浅色下 ≈8.9:1),placeholder/次要文本和正文几乎无层次。改为
+  // on-surface 与 surface 定比混合,比例经校准:在最深的容器面
+  // (accent/popover)上仍 ≥4.5:1(WCAG AA),surface 上约 5.4:1,
+  // 观感对齐 shadcn/ui 的 muted-foreground(zinc-500 ≈4.8:1)。
+  // 换种子色板后需复核该比例。
+  --shadcn-muted-foreground: color-mix(
+    in srgb,
+    var(--mat-sys-on-surface) 66%,
+    var(--mat-sys-surface)
+  );
   --shadcn-accent: var(--mat-sys-surface-container-high);
   --shadcn-accent-foreground: var(--mat-sys-on-surface);
   --shadcn-destructive: var(--mat-sys-error);
@@ -70,4 +88,11 @@
   --shadcn-accent: var(--mat-sys-surface-container-high);
   --shadcn-border: var(--mat-sys-outline);
   --shadcn-input-fill: color-mix(in srgb, var(--shadcn-input) 30%, transparent);
+  // 暗色的容器面和输入微填充把底色垫亮了,66% 会跌破 4.5:1;70% 校准后
+  // 最深组合(卡片上的输入微填充 ≈4.6、popover ≈5.0)仍达标,surface 上约 7.4:1
+  --shadcn-muted-foreground: color-mix(
+    in srgb,
+    var(--mat-sys-on-surface) 70%,
+    var(--mat-sys-surface)
+  );
 }

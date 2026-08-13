@@ -108,6 +108,15 @@ describe('NodeFieldFormService', () => {
       expect(meta.find(m => m.key === 'body')?.jsonFormat).toBe(false);
       expect(meta.find(m => m.key === 'field_tags')?.targetBundle).toBe('tags');
     });
+
+    it('无法用简单控件表达的字段类型不进表单(避免以纯文本提交)', () => {
+      const configs = ['metatag', 'image', 'file', 'link', 'datetime', 'daterange'].map(type => ({
+        attributes: { field_name: `field_${type}`, field_type: type, label: type, settings: {} },
+      }));
+      const { fields, meta } = service.buildForm(configs, []);
+      expect(fields.length).toBe(0);
+      expect(meta.length).toBe(0);
+    });
   });
 
   describe('buildPayload', () => {
@@ -174,6 +183,101 @@ describe('NodeFieldFormService', () => {
       const meta = [{ key: 'data', fieldType: 'text_long', jsonFormat: true }];
       const { attributes } = service.buildPayload(meta, { data: { a: 1 } });
       expect(attributes['data']).toEqual({ value: '{"a":1}', format: 'json' });
+    });
+
+    it('编辑时沿用原文本格式并保留摘要', () => {
+      const meta = [
+        { key: 'body', fieldType: 'text_with_summary' },
+        { key: 'field_desc', fieldType: 'text_long' },
+      ];
+      const original = {
+        attributes: {
+          body: { value: '<p>old</p>', format: 'basic_html', summary: '摘要' },
+          field_desc: { value: 'old', format: 'restricted_html' },
+        },
+      };
+      const { attributes } = service.buildPayload(
+        meta,
+        { body: '<p>new</p>', field_desc: 'new' },
+        original
+      );
+      expect(attributes['body']).toEqual({
+        value: '<p>new</p>',
+        format: 'basic_html',
+        summary: '摘要',
+      });
+      // text_long 无 summary 概念,只沿用格式
+      expect(attributes['field_desc']).toEqual({ value: 'new', format: 'restricted_html' });
+    });
+
+    it('编辑时清空的字段提交显式 null / 空 data 以真正清除', () => {
+      const meta = [
+        { key: 'field_summary', fieldType: 'string' },
+        {
+          key: 'field_tags',
+          fieldType: 'entity_reference',
+          targetType: 'taxonomy_term',
+          targetBundle: 'tags',
+          multiple: true,
+        },
+        {
+          key: 'field_cover',
+          fieldType: 'entity_reference',
+          targetType: 'media',
+          targetBundle: 'image',
+          multiple: false,
+        },
+      ];
+      const original = { attributes: { field_summary: 'old' }, relationships: {} };
+      const { attributes, relationships } = service.buildPayload(
+        meta,
+        { field_summary: '', field_tags: null, field_cover: '' },
+        original
+      );
+      expect(attributes['field_summary']).toBeNull();
+      expect(relationships['field_tags']).toEqual({ data: [] });
+      expect(relationships['field_cover']).toEqual({ data: null });
+    });
+
+    it('编辑时引用字段回带原 meta(如图片 alt),目标变化则不带', () => {
+      const meta = [
+        {
+          key: 'field_cover',
+          fieldType: 'entity_reference',
+          targetType: 'media',
+          targetBundle: 'image',
+          multiple: false,
+        },
+        {
+          key: 'field_gallery',
+          fieldType: 'entity_reference',
+          targetType: 'media',
+          targetBundle: 'image',
+          multiple: true,
+        },
+      ];
+      const original = {
+        relationships: {
+          field_cover: { data: { type: 'media--image', id: 'uuid-3', meta: { alt: '封面' } } },
+          field_gallery: {
+            data: [{ type: 'media--image', id: 'uuid-4', meta: { alt: '图一' } }],
+          },
+        },
+      };
+      const { relationships } = service.buildPayload(
+        meta,
+        { field_cover: 'uuid-3', field_gallery: ['uuid-4', 'uuid-5'] },
+        original
+      );
+      expect(relationships['field_cover'].data).toEqual({
+        type: 'media--image',
+        id: 'uuid-3',
+        meta: { alt: '封面' },
+      });
+      expect(relationships['field_gallery'].data).toEqual([
+        { type: 'media--image', id: 'uuid-4', meta: { alt: '图一' } },
+        { type: 'media--image', id: 'uuid-5' },
+      ]);
     });
   });
 

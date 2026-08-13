@@ -1,7 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UntypedFormControl, Validators } from '@angular/forms';
-import { provideRouter } from '@angular/router';
+import { ActivatedRoute, Router, provideRouter } from '@angular/router';
+import { RouterTestingHarness } from '@angular/router/testing';
 import { of } from 'rxjs';
+import { delay } from 'rxjs/operators';
 import { vi } from 'vitest';
 import { provideBuilderMocks } from '@modules/builder/testing/mocks';
 import { createNodeServiceMock } from '@core/testing/mocks';
@@ -29,7 +31,7 @@ describe('NodeAddComponent', () => {
   let component: NodeAddComponent;
   let fixture: ComponentFixture<NodeAddComponent>;
 
-  const setup = async (coreConfig: any = {}, fieldFormService?: any) => {
+  const setup = async (coreConfig: any = {}, fieldFormService?: any, routeParams?: any) => {
     const nodeServiceMock = createNodeServiceMock();
     nodeServiceMock.fetch = vi.fn((api: string) =>
       api === '/api/v1/node_type/node_type' ? of(NODE_TYPE_RESPONSE) : of({})
@@ -44,11 +46,47 @@ describe('NodeAddComponent', () => {
         ...(fieldFormService
           ? [{ provide: NodeFieldFormService, useValue: fieldFormService }]
           : []),
+        ...(routeParams
+          ? [{ provide: ActivatedRoute, useValue: { params: of(routeParams) } }]
+          : []),
       ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NodeAddComponent);
     component = fixture.componentInstance;
+    return nodeServiceMock;
+  };
+
+  /** 编辑模式:路由带 uuid,fetch 回节点数据;preFetchChanged 为保存前比对到的 changed */
+  const setupEdit = async (nodeAttributes: any = {}, preFetchChanged?: string) => {
+    const attributes = {
+      title: 'Old title',
+      status: true,
+      changed: '2026-01-01T00:00:00+00:00',
+      path: { alias: '/old-alias' },
+      ...nodeAttributes,
+    };
+    const nodeServiceMock = await setup(
+      {},
+      {
+        getAllowedNodeTypes: () => of([{ label: '博客', value: 'blog' }]),
+        getForm: () => of({ fields: [], meta: [] }),
+        buildModel: () => ({}),
+        buildPayload: () => ({ attributes: {}, relationships: {} }),
+      },
+      { type: 'blog', uuid: 'u1' }
+    );
+    nodeServiceMock.fetch = vi.fn((api: string, params?: any) => {
+      if (api === '/api/v1/node/blog/u1') {
+        // 带 fields 参数的是保存前的 changed 预检,否则为编辑回填加载
+        return params
+          ? of({ data: { attributes: { changed: preFetchChanged ?? attributes.changed } } })
+          : of({ data: { id: 'u1', attributes, relationships: {} } });
+      }
+      return of({});
+    });
+    vi.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
+    component.ngOnInit();
     return nodeServiceMock;
   };
 
@@ -97,7 +135,7 @@ describe('NodeAddComponent', () => {
     await setup(
       {},
       {
-        getNodeTypes: () => of([{ label: '博客', value: 'blog' }]),
+        getAllowedNodeTypes: () => of([{ label: '博客', value: 'blog' }]),
         getForm: () =>
           of({
             fields: [
@@ -127,7 +165,7 @@ describe('NodeAddComponent', () => {
     await setup(
       {},
       {
-        getNodeTypes: () => of([{ label: '博客', value: 'blog' }]),
+        getAllowedNodeTypes: () => of([{ label: '博客', value: 'blog' }]),
         getForm: () =>
           of({
             fields: [
@@ -154,10 +192,261 @@ describe('NodeAddComponent', () => {
     const nodeServiceMock = await setup();
     component.form.addControl('title', new UntypedFormControl(null, Validators.required));
 
-    component.onSubmit(component.form.value, { id: 1 });
+    component.onSubmit(component.form.value, { id: 1 }, true);
 
     expect(nodeServiceMock.addEntity).not.toHaveBeenCalled();
     expect(component.form.touched).toBe(true);
     expect(component.submitting()).toBe(false);
+  });
+
+  it('新建按动作提交 status,非默认语言下携带 langcode 并走语言前缀', async () => {
+    const nodeServiceMock = await setup();
+    component.type.set('blog');
+
+    component.onSubmit({ title: 'Hi' }, { id: 1 }, true);
+    expect(nodeServiceMock.addEntity).toHaveBeenCalledWith(
+      '/api/v1/node/blog',
+      expect.objectContaining({ title: 'Hi', status: true }),
+      {},
+      undefined
+    );
+
+    nodeServiceMock.resolveLangCode = vi.fn(() => 'en');
+    component.onSubmit({ title: 'Hi' }, { id: 1 }, false);
+    const [, attrs, , lang] = (nodeServiceMock.addEntity as any).mock.calls[1];
+    expect(attrs.status).toBe(false);
+    expect(attrs.langcode).toBe('en');
+    expect(lang).toBe('en');
+  });
+
+  it('配置为审核类型时新建写 moderation_state 而非 status', async () => {
+    const nodeServiceMock = await setup({ builder: { nodeTypes: { moderated: ['blog'] } } });
+    component.type.set('blog');
+
+    component.onSubmit({ title: 'Hi' }, { id: 1 }, true);
+
+    const attrs = (nodeServiceMock.addEntity as any).mock.calls[0][1];
+    expect(attrs.moderation_state).toBe('published');
+    expect(attrs.status).toBeUndefined();
+  });
+
+  it('编辑回填发布设置,基础字段仅提交有变化的部分(最小差异)', async () => {
+    const nodeServiceMock = await setupEdit();
+
+    expect(component.publishFields().map(f => f.key)).toEqual(['path_alias', 'revision_log']);
+    expect(component.model().path_alias).toBe('/old-alias');
+
+    // 状态(已发布→发布)与别名均未变化:不提交 status/path;修订说明按填写提交
+    component.onSubmit(
+      { title: 'New', path_alias: '/old-alias', revision_log: '修正错字' },
+      { id: 1 },
+      true
+    );
+    const [path, uuid, attrs, , lang] = (nodeServiceMock.updateEntity as any).mock.calls[0];
+    expect(path).toBe('/api/v1/node/blog');
+    expect(uuid).toBe('u1');
+    expect(attrs.status).toBeUndefined();
+    expect(attrs.path).toBeUndefined();
+    expect(attrs.langcode).toBeUndefined();
+    expect(attrs.revision_log).toBe('修正错字');
+    expect(lang).toBeUndefined();
+  });
+
+  it('编辑转草稿提交 status=false,清空别名提交 path.alias=null', async () => {
+    const nodeServiceMock = await setupEdit();
+
+    component.onSubmit({ title: 'New', path_alias: '' }, { id: 1 }, false);
+
+    const attrs = (nodeServiceMock.updateEntity as any).mock.calls[0][2];
+    expect(attrs.status).toBe(false);
+    expect(attrs.path).toEqual({ alias: null });
+  });
+
+  it('节点受内容审核时按 moderation_state 流转,不写 status', async () => {
+    const nodeServiceMock = await setupEdit({ moderation_state: 'draft', status: false });
+
+    component.onSubmit({ title: 'New', path_alias: '/old-alias' }, { id: 1 }, true);
+
+    const attrs = (nodeServiceMock.updateEntity as any).mock.calls[0][2];
+    expect(attrs.moderation_state).toBe('published');
+    expect(attrs.status).toBeUndefined();
+  });
+
+  it('保存前比对 changed,他人已修改则中止更新并复位提交态', async () => {
+    const nodeServiceMock = await setupEdit({}, '2026-02-02T00:00:00+00:00');
+
+    component.onSubmit({ title: 'New', path_alias: '/old-alias' }, { id: 1 }, true);
+
+    expect(nodeServiceMock.updateEntity).not.toHaveBeenCalled();
+    expect(component.submitting()).toBe(false);
+  });
+
+  it('json 类型编辑时 body 带回原文本格式', async () => {
+    const nodeServiceMock = await setup(
+      {},
+      { getAllowedNodeTypes: () => of([{ label: '应用中心', value: 'json' }]) },
+      { type: 'json', uuid: 'u1' }
+    );
+    nodeServiceMock.fetch = vi.fn((api: string, params?: any) => {
+      if (api === '/api/v1/node/json/u1') {
+        return params
+          ? of({ data: { attributes: { changed: '2026-01-01T00:00:00+00:00' } } })
+          : of({
+              data: {
+                id: 'u1',
+                attributes: {
+                  title: 'App',
+                  status: true,
+                  changed: '2026-01-01T00:00:00+00:00',
+                  body: { value: '{"a":1}', format: 'json' },
+                },
+              },
+            });
+      }
+      return of({});
+    });
+    vi.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
+    component.ngOnInit();
+
+    component.onSubmit({ title: 'App', body: { a: 2 } }, { id: 1 }, true);
+
+    const attrs = (nodeServiceMock.updateEntity as any).mock.calls[0][2];
+    expect(attrs.body).toEqual({ value: '{"a":2}', format: 'json' });
+  });
+});
+
+/**
+ * 真实路由导航下的页面切换:编辑/新建间跳转与在途请求竞态,
+ * 验证上一页面的数据不会残留或迟到写入下一页面
+ */
+describe('NodeAddComponent 路由切换', () => {
+  const NODE_U1 = {
+    data: {
+      id: 'u1',
+      attributes: {
+        title: 'U1 title',
+        status: true,
+        changed: '2026-01-01T00:00:00+00:00',
+        path: { alias: '/old-alias' },
+      },
+      relationships: {},
+    },
+  };
+  const NODE_U2 = {
+    data: {
+      id: 'u2',
+      attributes: {
+        title: 'U2 title',
+        status: true,
+        changed: '2026-01-02T00:00:00+00:00',
+        path: { alias: '/u2-alias' },
+      },
+      relationships: {},
+    },
+  };
+
+  /** u1 慢速返回(30ms)、u2 快速返回,用于模拟切换时上一请求仍在途 */
+  const setupHarness = async (getFormByBundle?: (bundle: string) => any) => {
+    const nodeServiceMock = createNodeServiceMock();
+    nodeServiceMock.fetch = vi.fn((api: string) => {
+      if (api === '/api/v1/node/article/u1') {
+        return of(NODE_U1).pipe(delay(30));
+      }
+      if (api === '/api/v1/node/article/u2') {
+        return of(NODE_U2).pipe(delay(1));
+      }
+      return of({});
+    });
+    const fieldFormMock = {
+      getAllowedNodeTypes: () =>
+        of([
+          { label: '文章', value: 'article' },
+          { label: '博客', value: 'blog' },
+        ]),
+      getForm: vi.fn((bundle: string) =>
+        getFormByBundle ? getFormByBundle(bundle) : of({ fields: [], meta: [] }).pipe(delay(1))
+      ),
+      buildModel: () => ({}),
+      buildPayload: () => ({ attributes: {}, relationships: {} }),
+    };
+    TestBed.configureTestingModule({
+      providers: [
+        provideRouter([
+          { path: 'builder/node/add/:type', component: NodeAddComponent },
+          { path: 'builder/node/edit/:type/:uuid', component: NodeAddComponent },
+        ]),
+        ...provideBuilderMocks(),
+        { provide: NodeService, useValue: nodeServiceMock },
+        { provide: CORE_CONFIG, useValue: {} },
+        { provide: NodeFieldFormService, useValue: fieldFormMock },
+      ],
+    });
+    const harness = await RouterTestingHarness.create();
+    return { harness, nodeServiceMock, fieldFormMock };
+  };
+
+  const flush = async (harness: RouterTestingHarness, ms = 60) => {
+    await new Promise(resolve => setTimeout(resolve, ms));
+    harness.detectChanges();
+  };
+
+  const inputValues = (harness: RouterTestingHarness) =>
+    Array.from(
+      harness.routeNativeElement?.querySelectorAll<HTMLInputElement>('input.shad-input') ?? []
+    ).map(el => el.value);
+
+  it('编辑加载完成后切到新建,别名与标题不残留', async () => {
+    const { harness } = await setupHarness();
+    const edit = await harness.navigateByUrl(
+      '/builder/node/edit/article/u1',
+      NodeAddComponent
+    );
+    await flush(harness);
+    expect(edit.model().path_alias).toBe('/old-alias');
+    expect(inputValues(harness)).toContain('/old-alias');
+
+    const create = await harness.navigateByUrl('/builder/node/add/article', NodeAddComponent);
+    await flush(harness);
+    expect(create.model().path_alias ?? '').toBe('');
+    expect(inputValues(harness)).not.toContain('/old-alias');
+  });
+
+  it('编辑数据仍在途时切到新建,迟到的加载结果不得写入新建表单', async () => {
+    const { harness } = await setupHarness();
+    await harness.navigateByUrl('/builder/node/edit/article/u1', NodeAddComponent);
+    // 不等 u1 返回,立即切到新建
+    const create = await harness.navigateByUrl('/builder/node/add/article', NodeAddComponent);
+    await flush(harness);
+    expect(create.model().path_alias ?? '').toBe('');
+    expect(inputValues(harness)).not.toContain('/old-alias');
+  });
+
+  it('编辑页仍在加载时切到另一节点,旧节点数据不得迟到覆盖', async () => {
+    const { harness } = await setupHarness();
+    await harness.navigateByUrl('/builder/node/edit/article/u1', NodeAddComponent);
+    // u1(慢)在途中即切到 u2(快):同一路由配置,组件复用
+    const edit2 = await harness.navigateByUrl(
+      '/builder/node/edit/article/u2',
+      NodeAddComponent
+    );
+    await flush(harness);
+    expect(edit2.model().path_alias).toBe('/u2-alias');
+    expect(inputValues(harness)).not.toContain('/old-alias');
+  });
+
+  it('新建页字段仍在加载时切换类型,上一类型的字段不得迟到写入', async () => {
+    const { harness } = await setupHarness(bundle =>
+      bundle === 'article'
+        ? of({
+            fields: [{ key: 'field_article_only', type: 'input', props: {} }],
+            meta: [{ key: 'field_article_only', fieldType: 'string' }],
+          }).pipe(delay(30))
+        : of({ fields: [], meta: [] }).pipe(delay(1))
+    );
+    await harness.navigateByUrl('/builder/node/add/article', NodeAddComponent);
+    // article 的字段内省(慢)在途中即切到 blog:同一路由配置,组件复用
+    const create = await harness.navigateByUrl('/builder/node/add/blog', NodeAddComponent);
+    await flush(harness);
+    expect(create.sideFields().map(f => f.key)).not.toContain('field_article_only');
   });
 });

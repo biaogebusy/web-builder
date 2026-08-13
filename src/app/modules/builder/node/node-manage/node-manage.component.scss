@@ -60,6 +60,13 @@
         @apply underline;
       }
     }
+    .td-type {
+      @apply whitespace-nowrap;
+    }
+    .td-path {
+      @apply max-w-48 truncate;
+      color: var(--shadcn-muted-foreground);
+    }
     .th-actions {
       @apply text-right;
     }
