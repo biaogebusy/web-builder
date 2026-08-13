@@ -46,6 +46,7 @@ describe('NodeHubComponent', () => {
       (fixture.nativeElement as HTMLElement).querySelectorAll<HTMLAnchorElement>('a.entry-card')
     ).map(a => a.getAttribute('href') ?? '');
 
+  // 共享 mock 的 UserService.checkShow 恒为 true,管理员专属的组件管理入口也会渲染
   it('按开放的内容类型渲染发布入口,并有管理列表固定入口', async () => {
     await setup();
     expect(links()).toEqual([
@@ -53,6 +54,7 @@ describe('NodeHubComponent', () => {
       '/builder/node/add/blog',
       '/builder/node/add/news',
       '/builder/node/manage',
+      '/builder/node/uiux',
     ]);
   });
 
@@ -63,6 +65,7 @@ describe('NodeHubComponent', () => {
       '/builder/node/add/blog',
       '/builder/node/add/case',
       '/builder/node/manage',
+      '/builder/node/uiux',
     ]);
   });
 });
