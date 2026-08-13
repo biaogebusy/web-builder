@@ -108,11 +108,43 @@ export class NodeFieldFormService {
           return of([]);
         })
       ),
+      enabledKeys: this.getFormDisplayKeys(bundle),
     }).pipe(
-      map(({ configs, storages }) => this.buildForm(configs, storages)),
+      map(({ configs, storages, enabledKeys }) => this.buildForm(configs, storages, enabledKeys)),
       // app-formly 会对 fields 做 cloneDeep,options 不能是 Observable,须先解析为数组
       switchMap(form => this.resolveTermOptions(form))
     );
+  }
+
+  /**
+   * 该内容类型默认表单显示(entity_form_display)中启用的字段集合(content 键)。
+   * 后台「管理表单显示」拖入"已禁用"区的字段只存在 hidden 中,Drupal 节点表单
+   * 不渲染,这里同样以 content 为白名单。加载失败或无数据(如无
+   * administer node form display 权限)返回 null 表示未知,调用方不做过滤。
+   */
+  private getFormDisplayKeys(bundle: string): Observable<Set<string> | null> {
+    return this.nodeService
+      .fetch(
+        '/api/v1/entity_form_display/entity_form_display',
+        `filter[targetEntityType]=node&filter[bundle]=${bundle}&filter[mode]=default`
+      )
+      .pipe(
+        map(res => {
+          // 再按属性核对一次,防止过滤参数失效时误用其他类型的显示配置
+          const display = (res?.data || []).find(
+            (d: any) =>
+              d?.attributes?.targetEntityType === 'node' &&
+              d?.attributes?.bundle === bundle &&
+              d?.attributes?.mode === 'default'
+          );
+          const content = display?.attributes?.content;
+          return content ? new Set(Object.keys(content)) : null;
+        }),
+        catchError(err => {
+          console.error(`加载 ${bundle} 表单显示配置失败`, err);
+          return of(null);
+        })
+      );
   }
 
   private resolveTermOptions(form: INodeForm): Observable<INodeForm> {
@@ -145,7 +177,7 @@ export class NodeFieldFormService {
     );
   }
 
-  buildForm(configs: any[], storages: any[]): INodeForm {
+  buildForm(configs: any[], storages: any[], enabledKeys?: Set<string> | null): INodeForm {
     const storageMap = new Map<string, any>();
     storages.forEach(storage => {
       storageMap.set(storage.attributes.field_name, storage.attributes);
@@ -161,6 +193,11 @@ export class NodeFieldFormService {
     configs.forEach(config => {
       const attrs = config.attributes;
       if (skipTypes.includes(attrs.field_type)) {
+        return;
+      }
+      // 表单显示中禁用的字段不渲染(与 Drupal 节点表单一致);也不进 meta,
+      // 编辑提交时不触碰该字段,原值得以保留
+      if (enabledKeys && !enabledKeys.has(attrs.field_name)) {
         return;
       }
       const storage = storageMap.get(attrs.field_name);

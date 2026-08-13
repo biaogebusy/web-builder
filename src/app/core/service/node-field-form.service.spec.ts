@@ -117,6 +117,20 @@ describe('NodeFieldFormService', () => {
       expect(fields.length).toBe(0);
       expect(meta.length).toBe(0);
     });
+
+    it('传入表单显示白名单时,禁用字段不进 fields 也不进 meta', () => {
+      const configs = [
+        {
+          attributes: { field_name: 'field_summary', field_type: 'string', label: 'S', settings: {} },
+        },
+        {
+          attributes: { field_name: 'field_tags', field_type: 'string', label: 'T', settings: {} },
+        },
+      ];
+      const { fields, meta } = service.buildForm(configs, [], new Set(['title', 'field_summary']));
+      expect(fields.map(f => f.key)).toEqual(['field_summary']);
+      expect(meta.map(m => m.key)).toEqual(['field_summary']);
+    });
   });
 
   describe('buildPayload', () => {
@@ -375,6 +389,77 @@ describe('NodeFieldFormService', () => {
       service.getForm('article').subscribe(r => (result = r));
 
       expect(result).toEqual({ fields: [], meta: [] });
+    });
+
+    const fieldConfigs = [
+      {
+        attributes: {
+          field_name: 'field_summary',
+          field_type: 'string',
+          label: 'Summary',
+          settings: {},
+        },
+      },
+      {
+        attributes: {
+          field_name: 'field_tags',
+          field_type: 'entity_reference',
+          label: 'Tags',
+          settings: {
+            handler: 'default:taxonomy_term',
+            handler_settings: { target_bundles: { tags: 'tags' } },
+          },
+        },
+      },
+    ];
+
+    const mockApis = (formDisplayRes: any) => {
+      nodeServiceMock.fetch.mockReset();
+      nodeServiceMock.fetch.mockImplementation((api: string) => {
+        if (api.startsWith('/api/v1/field_config')) {
+          return of({ data: fieldConfigs });
+        }
+        if (api.startsWith('/api/v1/entity_form_display')) {
+          return of(formDisplayRes);
+        }
+        return of({ data: [] });
+      });
+    };
+
+    it('表单显示(管理表单显示)中禁用的字段不渲染,也不再加载其词汇表', () => {
+      mockApis({
+        data: [
+          {
+            attributes: {
+              targetEntityType: 'node',
+              bundle: 'article',
+              mode: 'default',
+              content: { title: { type: 'string_textfield' }, field_summary: { type: 'string_textfield' } },
+              hidden: { field_tags: true },
+            },
+          },
+        ],
+      });
+
+      let result: any;
+      service.getForm('article').subscribe(r => (result = r));
+
+      expect(result.fields.map((f: any) => f.key)).toEqual(['field_summary']);
+      expect(result.meta.map((m: any) => m.key)).toEqual(['field_summary']);
+      expect(
+        nodeServiceMock.fetch.mock.calls.some(call =>
+          (call[0] as string).includes('/taxonomy_term/')
+        )
+      ).toBe(false);
+    });
+
+    it('表单显示配置不可用时(如无权限)不过滤,保持全部字段', () => {
+      mockApis({ data: [] });
+
+      let result: any;
+      service.getForm('article').subscribe(r => (result = r));
+
+      expect(result.fields.map((f: any) => f.key)).toEqual(['field_summary', 'field_tags']);
     });
   });
 });
