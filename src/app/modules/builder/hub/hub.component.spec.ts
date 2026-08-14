@@ -7,7 +7,7 @@ import { createNodeServiceMock } from '@core/testing/mocks';
 import { NodeService } from '@core/service/node.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 
-import { NodeHubComponent } from './node-hub.component';
+import { HubComponent } from './hub.component';
 
 const NODE_TYPE_RESPONSE = {
   data: [
@@ -18,8 +18,19 @@ const NODE_TYPE_RESPONSE = {
   ],
 };
 
-describe('NodeHubComponent', () => {
-  let fixture: ComponentFixture<NodeHubComponent>;
+/** 分组入口的固定链接(发布入口之后按分组顺序渲染) */
+const GROUP_LINKS = [
+  '/builder/node/manage',
+  '/builder/page-list',
+  '/builder/edit-branding/header',
+  '/builder/edit-branding/footer',
+  '/builder/node/uiux',
+  '/builder/settings',
+  '/builder/config-check',
+];
+
+describe('HubComponent', () => {
+  let fixture: ComponentFixture<HubComponent>;
 
   const setup = async (coreConfig: any = {}) => {
     const nodeServiceMock = createNodeServiceMock();
@@ -27,7 +38,7 @@ describe('NodeHubComponent', () => {
       api === '/api/v1/node_type/node_type' ? of(NODE_TYPE_RESPONSE) : of({})
     );
     await TestBed.configureTestingModule({
-      imports: [NodeHubComponent],
+      imports: [HubComponent],
       providers: [
         provideRouter([]),
         ...provideBuilderMocks(),
@@ -36,7 +47,7 @@ describe('NodeHubComponent', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(NodeHubComponent);
+    fixture = TestBed.createComponent(HubComponent);
     fixture.detectChanges();
     fixture.detectChanges();
   };
@@ -47,14 +58,13 @@ describe('NodeHubComponent', () => {
     ).map(a => a.getAttribute('href') ?? '');
 
   // 共享 mock 的 UserService.checkShow 恒为 true,管理员专属的组件管理入口也会渲染
-  it('按开放的内容类型渲染发布入口,并有管理列表固定入口', async () => {
+  it('按开放的内容类型渲染发布入口,并渲染全部分组管理入口', async () => {
     await setup();
     expect(links()).toEqual([
       '/builder/node/add/article',
       '/builder/node/add/blog',
       '/builder/node/add/news',
-      '/builder/node/manage',
-      '/builder/node/uiux',
+      ...GROUP_LINKS,
     ]);
   });
 
@@ -64,8 +74,7 @@ describe('NodeHubComponent', () => {
       '/builder/node/add/article',
       '/builder/node/add/blog',
       '/builder/node/add/case',
-      '/builder/node/manage',
-      '/builder/node/uiux',
+      ...GROUP_LINKS,
     ]);
   });
 });

@@ -13,20 +13,23 @@ import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { NodeFieldFormService } from '@core/service/node-field-form.service';
 import { TagsService } from '@core/service/tags.service';
 import { TranslateService } from '@ngx-translate/core';
+import { HUB_GROUPS } from './hub-entries';
 
-/** 内容中心:聚合内容操作的固定入口(按类型发布、内容管理列表) */
+/** 管理中心:聚合内容发布与各分散管理入口(内容、页面、外观、系统) */
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'app-node-hub',
-  templateUrl: './node-hub.component.html',
-  styleUrl: './node-hub.component.scss',
+  selector: 'app-hub',
+  templateUrl: './hub.component.html',
+  styleUrl: './hub.component.scss',
   imports: [SHARE_IMPORTS, WIDGETS_IMPORTS, RouterLink],
 })
-export class NodeHubComponent implements OnInit {
+export class HubComponent implements OnInit {
   private fieldFormService = inject(NodeFieldFormService);
   private tagsService = inject(TagsService);
   private translate = inject(TranslateService);
   private destroyRef = inject(DestroyRef);
+
+  public groups = HUB_GROUPS;
 
   /** 发布入口开放的内容类型(默认清单 + core_config 增删) */
   public nodeTypes = signal<{ label: string; value: string }[]>([]);
@@ -34,7 +37,7 @@ export class NodeHubComponent implements OnInit {
   public typesLoading = signal(true);
 
   ngOnInit(): void {
-    this.tagsService.setTitle(this.translate.instant('BUILDER.NODE_HUB.PAGE_TITLE'));
+    this.tagsService.setTitle(this.translate.instant('BUILDER.HUB.PAGE_TITLE'));
     this.fieldFormService
       .getAllowedNodeTypes()
       .pipe(takeUntilDestroyed(this.destroyRef))

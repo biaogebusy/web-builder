@@ -1,4 +1,11 @@
-import { ChangeDetectorRef, Component, DestroyRef, OnInit, inject, ChangeDetectionStrategy, signal } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  OnInit,
+  inject,
+  ChangeDetectionStrategy,
+  signal,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { SHARE_IMPORTS } from '@share/share-imports';
@@ -25,7 +32,6 @@ export class BuilderPageComponent implements OnInit {
   loading = signal(true);
   public name: string | null;
   private builder = inject(BuilderState);
-  private cd = inject(ChangeDetectorRef);
   private util = inject(UtilitiesService);
   private destroyRef = inject(DestroyRef);
   private tagService = inject(TagsService);

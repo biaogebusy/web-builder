@@ -5,13 +5,15 @@ import { AccordionMenuComponent } from '@core/branding/accordion-menu/accordion-
 import { IBranding } from '@core/interface/branding/IBranding';
 import { BuilderState } from '@core/state/BuilderState';
 import { BRANDING, BUILDER_CONFIG } from '@core/token/token-providers';
-import { Observable } from 'rxjs';
+import { combineLatest, map, Observable } from 'rxjs';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ManageService } from '@core/service/manage.service';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 import { MatDrawer } from '@angular/material/sidenav';
 import { IDialog } from '@core/interface/IDialog';
+import { TranslateService } from '@ngx-translate/core';
+import { buildHubMenu, HUB_MENU_KEYS } from '../../hub/hub-entries';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,7 +24,17 @@ import { IDialog } from '@core/interface/IDialog';
 })
 export class BuilderSidebarComponent {
   public branding$ = inject(BRANDING);
-  public builderConfig$ = inject(BUILDER_CONFIG);
+  private translate = inject(TranslateService);
+  // 固定追加"管理"菜单(持久导航),入口清单与 /builder/hub 页共用 hub-entries
+  public builderConfig$: Observable<IBuilderConfig> = combineLatest([
+    inject(BUILDER_CONFIG),
+    this.translate.stream(HUB_MENU_KEYS),
+  ]).pipe(
+    map(([config, labels]) => ({
+      ...config,
+      menu: [...(config.menu ?? []), buildHubMenu(key => labels[key])],
+    }))
+  );
 
   readonly sidebarDrawer = input.required<MatDrawer>();
   readonly drawerContentRef = input<any>();

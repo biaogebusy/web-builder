@@ -1,0 +1,61 @@
+<div class="hub">
+  <div class="container">
+    <header class="header">
+      <app-title [content]="{ label: 'BUILDER.HUB.PAGE_TITLE' | translate, style: 'none' }" />
+    </header>
+
+    <section class="hub-section" aria-labelledby="hub-publish-title">
+      <h2 class="section-title" id="hub-publish-title">
+        {{ 'BUILDER.HUB.PUBLISH_TITLE' | translate }}
+      </h2>
+      <p class="section-desc">{{ 'BUILDER.HUB.PUBLISH_DESC' | translate }}</p>
+      @if (nodeTypes().length > 0) {
+        <div class="entry-grid">
+          @for (nodeType of nodeTypes(); track nodeType.value) {
+            <a class="entry-card" [routerLink]="['/builder/node/add', nodeType.value]">
+              <span class="entry-name">{{ nodeType.label }}</span>
+              <span class="entry-desc">{{ 'BUILDER.HUB.ADD_HINT' | translate }}</span>
+            </a>
+          }
+        </div>
+      } @else if (typesLoading()) {
+        <div class="entry-grid">
+          @for (i of [1, 2, 3]; track i) {
+            <ngx-skeleton-loader
+              count="1"
+              appearance="line"
+              [theme]="{
+                height: '5rem',
+                'border-radius': 'var(--shadcn-radius-lg)',
+                'background-color': 'var(--shadcn-muted)',
+                margin: '0',
+              }"
+            />
+          }
+        </div>
+      } @else {
+        <p class="empty">{{ 'BUILDER.HUB.EMPTY_TYPES' | translate }}</p>
+      }
+    </section>
+
+    @for (group of groups; track group.title) {
+      <section class="hub-section" [attr.aria-labelledby]="'hub-group-' + $index">
+        <h2 class="section-title" [id]="'hub-group-' + $index">
+          {{ group.title | translate }}
+        </h2>
+        <p class="section-desc">{{ group.desc | translate }}</p>
+        <div class="entry-grid">
+          @for (entry of group.entries; track entry.link) {
+            <!-- 受限路由由各自 guard 限制,此入口按同一角色隐藏 -->
+            <ng-container *reqRolesIf="{ params: { reqRoles: entry.reqRoles ?? [] } }">
+              <a class="entry-card" [routerLink]="entry.link">
+                <span class="entry-name">{{ entry.label | translate }}</span>
+                <span class="entry-desc">{{ entry.desc | translate }}</span>
+              </a>
+            </ng-container>
+          }
+        </div>
+      </section>
+    }
+  </div>
+</div>

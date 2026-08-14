@@ -250,12 +250,12 @@ export class NodeManageComponent implements OnInit {
     }
   }
 
-  /** "全部"模式下无当前类型,回内容中心按类型选择发布入口 */
+  /** "全部"模式下无当前类型,回管理中心按类型选择发布入口 */
   addNode(): void {
     if (this.type()) {
       this.router.navigate(['/builder/node/add', this.type()]);
     } else {
-      this.router.navigate(['/builder/node']);
+      this.router.navigate(['/builder/hub']);
     }
   }
 

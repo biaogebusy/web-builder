@@ -79,6 +79,10 @@ export const routes: Routes = [
         ],
       },
       {
+        path: 'hub',
+        loadComponent: () => import('./hub/hub.component').then(m => m.HubComponent),
+      },
+      {
         path: 'config-check',
         loadComponent: () =>
           import('./main/config-check/config-check.component').then(m => m.ConfigCheckComponent),

@@ -410,17 +410,34 @@
     "PREVIEW": {
       "DRAFT_TITLE_SUFFIX": "{{title}} Draft Preview"
     },
-    "NODE_HUB": {
-      "PAGE_TITLE": "Content hub",
+    "HUB": {
+      "PAGE_TITLE": "Admin hub",
+      "MENU": "Manage",
       "PUBLISH_TITLE": "Publish content",
       "PUBLISH_DESC": "Pick a content type to create and publish.",
       "ADD_HINT": "Create",
-      "MANAGE_TITLE": "Manage content",
-      "MANAGE_DESC": "Maintain existing site content.",
+      "CONTENT_TITLE": "Content",
+      "CONTENT_DESC": "Maintain existing site content.",
       "MANAGE_ENTRY": "Content list",
       "MANAGE_ENTRY_DESC": "Search, edit and delete all content",
+      "PAGES_TITLE": "Pages",
+      "PAGES_DESC": "Maintain pages built with the builder.",
+      "PAGE_LIST_ENTRY": "Page list",
+      "PAGE_LIST_ENTRY_DESC": "Browse and edit site pages",
+      "APPEARANCE_TITLE": "Appearance",
+      "APPEARANCE_DESC": "Maintain site branding and the component library.",
+      "HEADER_ENTRY": "Edit header",
+      "HEADER_ENTRY_DESC": "Edit logo, main menu and header options",
+      "FOOTER_ENTRY": "Edit footer",
+      "FOOTER_ENTRY_DESC": "Edit footer menus, social links and bottom bar",
       "UIUX_ENTRY": "Component library",
       "UIUX_ENTRY_DESC": "Maintain component nodes, groups and definitions",
+      "SYSTEM_TITLE": "System",
+      "SYSTEM_DESC": "Site-wide configuration and self checks.",
+      "SETTINGS_ENTRY": "Settings",
+      "SETTINGS_ENTRY_DESC": "Site-level builder settings",
+      "CONFIG_CHECK_ENTRY": "Config check",
+      "CONFIG_CHECK_ENTRY_DESC": "Check site configuration integrity",
       "EMPTY_TYPES": "No content types available."
     },
     "NODE_ADD": {

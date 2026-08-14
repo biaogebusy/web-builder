@@ -29,6 +29,7 @@ import { merge } from 'rxjs';
 
 import { IBranding, IHeader, IMainMenu } from '@core/interface/branding/IBranding';
 import { ContentService } from '@core/service/content.service';
+import { NodeService } from '@core/service/node.service';
 import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { HasUnsavedChanges } from '@core/guards/unsaved-changes.guard';
@@ -39,6 +40,7 @@ import {
   BRANDING_JSON_ENDPOINT,
   buildBrandingUpdateBody,
   canSaveBranding,
+  resolveBrandingNode,
 } from '../branding-save.util';
 import {
   appendBrandingChild,
@@ -152,6 +154,7 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
   private route = inject(ActivatedRoute);
   private contentService = inject(ContentService);
   private builderService = inject(BuilderService);
+  private nodeService = inject(NodeService);
   private util = inject(UtilitiesService);
   private snackBar = inject(MatSnackBar);
   private destroyRef = inject(DestroyRef);
@@ -173,15 +176,28 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
   ngOnInit(): void {
     this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
       const { uuid, langcode } = params;
-      if (!uuid) {
-        this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.MISSING_NODE'));
+      if (uuid) {
+        this.initNode(uuid, langcode ?? '');
         return;
       }
-      this.nodeUuid.set(uuid);
-      this.nodeLangcode.set(langcode ?? '');
-      this.queryParams = { uuid, langcode: langcode ?? '' };
-      this.loadData();
+      // 从管理中心/菜单直接进入时无参数,按别名解析品牌节点
+      resolveBrandingNode(this.nodeService)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(node => {
+          if (!node) {
+            this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.MISSING_NODE'));
+            return;
+          }
+          this.initNode(node.uuid, node.langcode);
+        });
     });
+  }
+
+  private initNode(uuid: string, langcode: string): void {
+    this.nodeUuid.set(uuid);
+    this.nodeLangcode.set(langcode);
+    this.queryParams = { uuid, langcode };
+    this.loadData();
   }
 
   loadData(): void {
