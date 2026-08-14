@@ -11,11 +11,17 @@ export const BRANDING_ALIAS = '/core/branding';
 export function resolveBrandingNode(
   nodeService: NodeService
 ): Observable<{ uuid: string; langcode: string } | null> {
+  // 不能用 filter[path.alias](computed 字段,部分 Drupal 版本直接 500):
+  // node--json 是核心配置节点,数量固定为个位数,列出后在前端按别名+语言匹配
   return nodeService
-    .fetch(BRANDING_JSON_ENDPOINT, { 'filter[path.alias]': BRANDING_ALIAS })
+    .fetch(BRANDING_JSON_ENDPOINT, { 'fields[node--json]': 'langcode,path', 'page[limit]': 50 })
     .pipe(
       map((res: any) => {
-        const node = res?.data?.[0];
+        const rows = (res?.data ?? []).filter(
+          (row: any) => row?.attributes?.path?.alias === BRANDING_ALIAS
+        );
+        const langCode = nodeService.getLang(nodeService.pageUrl)?.langCode;
+        const node = rows.find((row: any) => row.attributes?.langcode === langCode) ?? rows[0];
         return node ? { uuid: node.id, langcode: node.attributes?.langcode ?? '' } : null;
       })
     );
