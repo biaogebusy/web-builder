@@ -214,6 +214,7 @@ export const createBuilderServiceMock = () => ({
   updateLandingPage: vi.fn(() => of({})),
   getDefaultPage: vi.fn(() => of({ title: '', body: [] })),
   addTranslation: vi.fn(() => of({})),
+  deleteTranslation: vi.fn(() => of({})),
   checkTranslationExists: vi.fn(() => of(false)),
   updateAttributes: vi.fn(() => of({})),
   updateUrlalias: vi.fn(() => of({})),

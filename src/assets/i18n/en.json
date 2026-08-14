@@ -155,6 +155,7 @@
       "CREATE_LANG_YES": "Confirm",
       "EDITING_TRANSLATION": "Editing {{lang}} draft",
       "DELETE_PAGE": "Delete page",
+      "DELETE_TRANSLATION": "Delete translation",
       "DELETE_TITLE": "Delete page",
       "DELETE_CONFIRM": "Confirm deleting <strong>{{title}}</strong>? This cannot be undone."
     },
@@ -251,6 +252,14 @@
       "TRANSLATION_ALIAS_SYNC_FAIL": "Failed to sync the URL alias for the translated page. Please check manually.",
       "UPDATE_SUCCESS": "{{title}} updated",
       "NO_PERMISSION": "Permission denied",
+      "DELETE_TITLE": "Delete page",
+      "DELETE_CONFIRM": "Confirm deleting <strong>{{title}}</strong>? This cannot be undone.",
+      "DELETE_ALL_LANG_CONFIRM": "<strong>{{title}}</strong> is the source language version. Deleting it removes <strong>all language versions</strong> of this page and cannot be undone. Continue?",
+      "DELETE_TRANSLATION": "Delete translation",
+      "DELETE_TRANSLATION_TITLE": "Delete translation",
+      "DELETE_TRANSLATION_CONFIRM": "Confirm deleting the <strong>{{lang}}</strong> version of <strong>{{title}}</strong>? Other language versions stay untouched. This cannot be undone.",
+      "DELETE_TRANSLATION_SUCCESS": "{{lang}} version of {{title}} deleted",
+      "DELETE_TRANSLATION_FAIL": "Failed to delete the {{lang}} version of {{title}}. Please contact admin.",
       "DELETE_FAIL": "Failed to delete {{title}}. Please contact admin.",
       "DELETE_SUCCESS": "{{title}} deleted"
     },

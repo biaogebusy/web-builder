@@ -30,7 +30,11 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState, IBuilderPendingPageLoad } from '@core/state/BuilderState';
 import { BUILDER_CURRENT_PAGE, USER } from '@core/token/token-providers';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { formatToExtraData, getPageParams } from '@core/util/builder-page.util';
+import {
+  formatToExtraData,
+  getPageParams,
+  isTranslationLang,
+} from '@core/util/builder-page.util';
 import type { QueryParams } from '@core/util/http-params.util';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { BaseComponent } from '@uiux/base/base.widget';
@@ -368,18 +372,41 @@ export class PageListComponent extends BaseComponent implements OnInit {
   }
 
   deletePage(page: IPageMeta): void {
-    const config: IDialog = {
-      title: this.translate.instant('BUILDER.PAGE_LIST.DELETE_TITLE'),
-      noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
-      yesLabel: this.translate.instant('BUILDER.PAGE_SETTING.DELETE'),
-      inputData: {
-        content: {
-          type: 'text',
-          fullWidth: true,
-          body: this.translate.instant('BUILDER.PAGE_LIST.DELETE_CONFIRM', { title: page.title }),
-        },
-      },
-    };
+    const translation = this.isTranslation(page);
+    const lang = this.getLangLabel(page.langcode);
+    const config: IDialog = translation
+      ? {
+          title: this.translate.instant('BUILDER.PAGE_SETTING.DELETE_TRANSLATION_TITLE'),
+          noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
+          yesLabel: this.translate.instant('BUILDER.PAGE_SETTING.DELETE_TRANSLATION'),
+          inputData: {
+            content: {
+              type: 'text',
+              fullWidth: true,
+              body: this.translate.instant('BUILDER.PAGE_SETTING.DELETE_TRANSLATION_CONFIRM', {
+                title: page.title,
+                lang,
+              }),
+            },
+          },
+        }
+      : {
+          title: this.translate.instant('BUILDER.PAGE_LIST.DELETE_TITLE'),
+          noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
+          yesLabel: this.translate.instant('BUILDER.PAGE_SETTING.DELETE'),
+          inputData: {
+            content: {
+              type: 'text',
+              fullWidth: true,
+              body: this.translate.instant(
+                environment.multiLang
+                  ? 'BUILDER.PAGE_SETTING.DELETE_ALL_LANG_CONFIRM'
+                  : 'BUILDER.PAGE_LIST.DELETE_CONFIRM',
+                { title: page.title }
+              ),
+            },
+          },
+        };
     this.dialog
       .open(DialogComponent, { width: '340px', data: config })
       .afterClosed()
@@ -387,29 +414,43 @@ export class PageListComponent extends BaseComponent implements OnInit {
       .subscribe(result => {
         if (!result) return;
         this.builder.loading.set(true);
-        this.nodeService
-          .deleteEntity('/api/v1/node/landing_page', page.uuid)
-          .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe({
-            next: () => {
-              this.builder.loading.set(false);
+        const request$ = translation
+          ? this.builderService.deleteTranslation(page.nid, page.langcode)
+          : this.nodeService.deleteEntity('/api/v1/node/landing_page', page.uuid);
+        request$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+          next: () => {
+            this.builder.loading.set(false);
+            this.util.openSnackbar(
+              translation
+                ? this.translate.instant('BUILDER.PAGE_SETTING.DELETE_TRANSLATION_SUCCESS', {
+                    title: page.title,
+                    lang,
+                  })
+                : this.translate.instant('BUILDER.PAGE_SETTING.DELETE_SUCCESS', {
+                    title: page.title,
+                  }),
+              'ok'
+            );
+            this.onReload();
+          },
+          error: err => {
+            this.builder.loading.set(false);
+            if (err.status === 403) {
+              this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_SETTING.NO_PERMISSION'));
+            } else {
               this.util.openSnackbar(
-                this.translate.instant('BUILDER.PAGE_SETTING.DELETE_SUCCESS', { title: page.title }),
-                'ok'
+                translation
+                  ? this.translate.instant('BUILDER.PAGE_SETTING.DELETE_TRANSLATION_FAIL', {
+                      title: page.title,
+                      lang,
+                    })
+                  : this.translate.instant('BUILDER.PAGE_SETTING.DELETE_FAIL', {
+                      title: page.title,
+                    })
               );
-              this.onReload();
-            },
-            error: err => {
-              this.builder.loading.set(false);
-              if (err.status === 403) {
-                this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_SETTING.NO_PERMISSION'));
-              } else {
-                this.util.openSnackbar(
-                  this.translate.instant('BUILDER.PAGE_SETTING.DELETE_FAIL', { title: page.title })
-                );
-              }
-            },
-          });
+            }
+          },
+        });
       });
   }
 
@@ -420,5 +461,9 @@ export class PageListComponent extends BaseComponent implements OnInit {
 
   getLangLabel(code: string): string {
     return this.langs?.find(l => l.langCode === code)?.label ?? code;
+  }
+
+  isTranslation(page: IPageMeta): boolean {
+    return isTranslationLang(page.langcode);
   }
 }

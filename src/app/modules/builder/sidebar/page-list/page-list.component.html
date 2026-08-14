@@ -102,7 +102,12 @@
                 </button>
                 <button mat-menu-item (click)="deletePage(page)">
                   <app-icon [content]="{ svg: 'trash-can-outline', color: 'warn' }" />
-                  <span>{{ 'BUILDER.PAGE_LIST.DELETE_PAGE' | translate }}</span>
+                  <span>{{
+                    (isTranslation(page)
+                      ? 'BUILDER.PAGE_LIST.DELETE_TRANSLATION'
+                      : 'BUILDER.PAGE_LIST.DELETE_PAGE'
+                    ) | translate
+                  }}</span>
                 </button>
                 <mat-divider />
                 <button mat-menu-item (click)="updateByJSON(page)">

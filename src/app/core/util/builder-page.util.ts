@@ -13,6 +13,11 @@ export function getApiLang(langcode?: string): string {
   return lang;
 }
 
+// 翻译版本 = 多语言站点下的非默认语言版本；默认语言即源语言，对应节点本身
+export function isTranslationLang(langcode?: string): boolean {
+  return Boolean(environment.multiLang) && Boolean(getApiLang(langcode));
+}
+
 export function getPageParams(include: string[]): string {
   const apiParams = new DrupalJsonApiParams();
   apiParams.addCustomParam({ noCache: true });

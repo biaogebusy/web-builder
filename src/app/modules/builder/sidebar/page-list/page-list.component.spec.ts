@@ -142,4 +142,38 @@ describe('PageListComponent', () => {
     expect(nodeService.fetch).not.toHaveBeenCalled();
     expect(builderState.loadNewPage).not.toHaveBeenCalled();
   });
+
+  it('deletes only the current translation for a non default language page', () => {
+    confirmWith(true);
+
+    component.deletePage({ nid: '7', uuid: 'uuid-7', langcode: 'en', title: 'Home' } as never);
+
+    expect(builderService.deleteTranslation).toHaveBeenCalledWith('7', 'en');
+    expect(nodeService.deleteEntity).not.toHaveBeenCalled();
+  });
+
+  it('deletes the whole node for the source language page', () => {
+    confirmWith(true);
+
+    component.deletePage({ nid: '7', uuid: 'uuid-7', langcode: 'zh-hans', title: 'Home' } as never);
+
+    expect(nodeService.deleteEntity).toHaveBeenCalledWith('/api/v1/node/landing_page', 'uuid-7');
+    expect(builderService.deleteTranslation).not.toHaveBeenCalled();
+  });
+
+  it('warns that every language version goes away before deleting the source language', () => {
+    const open = confirmWith(false);
+
+    component.deletePage({ nid: '7', uuid: 'uuid-7', langcode: 'zh-hans', title: 'Home' } as never);
+
+    const config: any = open.mock.calls[0][1];
+    expect(config.data.inputData.content.body).toBe('BUILDER.PAGE_SETTING.DELETE_ALL_LANG_CONFIRM');
+    expect(nodeService.deleteEntity).not.toHaveBeenCalled();
+    expect(builderService.deleteTranslation).not.toHaveBeenCalled();
+  });
+
+  it('flags non default language pages as translations', () => {
+    expect(component.isTranslation({ langcode: 'en' } as never)).toBe(true);
+    expect(component.isTranslation({ langcode: 'zh-hans' } as never)).toBe(false);
+  });
 });

@@ -155,6 +155,7 @@
       "CREATE_LANG_YES": "确认创建",
       "EDITING_TRANSLATION": "正在编辑 {{lang}} 草稿版本",
       "DELETE_PAGE": "删除页面",
+      "DELETE_TRANSLATION": "删除翻译",
       "DELETE_TITLE": "删除页面",
       "DELETE_CONFIRM": "确认删除 <strong>{{title}}</strong>？删除后不可恢复！"
     },
@@ -251,6 +252,14 @@
       "TRANSLATION_ALIAS_SYNC_FAIL": "翻译页面 URL 别名同步失败，请手动检查",
       "UPDATE_SUCCESS": "更新{{title}}成功",
       "NO_PERMISSION": "权限不足！",
+      "DELETE_TITLE": "删除页面",
+      "DELETE_CONFIRM": "确认删除 <strong>{{title}}</strong>？删除后不可恢复！",
+      "DELETE_ALL_LANG_CONFIRM": "<strong>{{title}}</strong> 是源语言版本，删除后该页面的<strong>全部语言版本</strong>将一并删除，且不可恢复！确认删除？",
+      "DELETE_TRANSLATION": "删除翻译",
+      "DELETE_TRANSLATION_TITLE": "删除翻译",
+      "DELETE_TRANSLATION_CONFIRM": "确认删除 <strong>{{title}}</strong> 的 <strong>{{lang}}</strong> 版本？其他语言版本不受影响，删除后不可恢复！",
+      "DELETE_TRANSLATION_SUCCESS": "已删除 {{title}} 的 {{lang}} 版本",
+      "DELETE_TRANSLATION_FAIL": "删除 {{title}} 的 {{lang}} 版本失败，请联系管理员！",
       "DELETE_FAIL": "删除{{title}}失败，请联系管理员！",
       "DELETE_SUCCESS": "删除{{title}}成功"
     },

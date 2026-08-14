@@ -407,6 +407,23 @@ export class BuilderService extends ApiService {
   }
 
   /**
+   * 只删除指定语言的翻译，源语言与其他语言版本保留。
+   * 删除源语言（节点本身）仍走 JSON:API 的节点删除，会连带删除全部语言版本。
+   */
+  deleteTranslation(nid: string | number, langcode: string): Observable<any> {
+    return this.builderConfig$.pipe(
+      take(1),
+      switchMap(({ api: { translate } }) =>
+        this.http.post(
+          `${this.apiUrl}${translate}/delete/${nid}/${langcode}`,
+          {},
+          this.optionsWithBearerToken()
+        )
+      )
+    );
+  }
+
+  /**
    * 新建翻译后，把源语言的 path_alias 复制到目标语言，
    * 保证翻译页面 URL 与默认页面只差语言前缀。
    */

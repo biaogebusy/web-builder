@@ -23,9 +23,11 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { USER } from '@core/token/token-providers';
 import { appendQueryParams } from '@core/util/http-params.util';
+import { isTranslationLang } from '@core/util/builder-page.util';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
 import { buildPageSettingCommonField, buildPageSettingFields } from './page-setting-fields';
 import { buildPageSettingAttributes, buildPageSettingRelationships } from './page-setting-payload';
 
@@ -45,6 +47,8 @@ export class PageSettingComponent implements OnInit {
   public fields: FormlyFieldConfig[];
   public loading = signal<boolean>(false);
   public type: 'node--landing_page' | 'node--json';
+  // 翻译版本只删当前语言，源语言版本删的是节点本身(全部语言)
+  public isTranslation = false;
 
   private dialog = inject(MatDialog);
   private builder = inject(BuilderState);
@@ -69,6 +73,7 @@ export class PageSettingComponent implements OnInit {
         attributes: { langcode },
       } = data;
       this.type = type;
+      this.isTranslation = type === 'node--landing_page' && isTranslationLang(langcode);
       this.fields = buildPageSettingFields({
         data,
         included,
@@ -269,47 +274,107 @@ export class PageSettingComponent implements OnInit {
     const { type } = value;
     const nodeType = type.split('--')[1];
     const api = `/api/v1/node/${nodeType}`;
-    this.loading.set(true);
     const { content } = this.content();
     const { data } = content;
     const {
       id,
-      attributes: { title },
+      attributes: { title, langcode, drupal_internal__nid },
     } = data;
-    this.nodeService
-      .deleteEntity(api, id)
+    const lang = this.getLangLabel(langcode);
+    const config: IDialog = this.isTranslation
+      ? {
+          title: this.translate.instant('BUILDER.PAGE_SETTING.DELETE_TRANSLATION_TITLE'),
+          noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
+          yesLabel: this.translate.instant('BUILDER.PAGE_SETTING.DELETE_TRANSLATION'),
+          inputData: {
+            content: {
+              type: 'text',
+              fullWidth: true,
+              body: this.translate.instant('BUILDER.PAGE_SETTING.DELETE_TRANSLATION_CONFIRM', {
+                title,
+                lang,
+              }),
+            },
+          },
+        }
+      : {
+          title: this.translate.instant('BUILDER.PAGE_SETTING.DELETE_TITLE'),
+          noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
+          yesLabel: this.translate.instant('BUILDER.PAGE_SETTING.DELETE'),
+          inputData: {
+            content: {
+              type: 'text',
+              fullWidth: true,
+              body: this.translate.instant(
+                environment.multiLang
+                  ? 'BUILDER.PAGE_SETTING.DELETE_ALL_LANG_CONFIRM'
+                  : 'BUILDER.PAGE_SETTING.DELETE_CONFIRM',
+                { title }
+              ),
+            },
+          },
+        };
+    this.dialog
+      .open(DialogComponent, { width: '340px', data: config })
+      .afterClosed()
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: () => {
-          this.util.openSnackbar(
-            this.translate.instant('BUILDER.PAGE_SETTING.DELETE_SUCCESS', { title }),
-            'ok'
-          );
-          this.loading.set(false);
-          this.builder.updateSuccess$.next(true);
-          this.builder.closeRightDrawer$.next(true);
-          this.deleteLocalPage(id);
-        },
-        error: err => {
-          const { status } = err;
-          switch (status) {
-            case 403:
-              this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_SETTING.NO_PERMISSION'));
-              break;
-            default:
-              this.util.openSnackbar(
-                this.translate.instant('BUILDER.PAGE_SETTING.DELETE_FAIL', { title })
-              );
-              break;
-          }
-          this.loading.set(false);
-        },
+      .subscribe(result => {
+        if (!result) return;
+        this.loading.set(true);
+        const request$ = this.isTranslation
+          ? this.builderService.deleteTranslation(drupal_internal__nid, langcode)
+          : this.nodeService.deleteEntity(api, id);
+        request$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+          next: () => {
+            this.util.openSnackbar(
+              this.isTranslation
+                ? this.translate.instant('BUILDER.PAGE_SETTING.DELETE_TRANSLATION_SUCCESS', {
+                    title,
+                    lang,
+                  })
+                : this.translate.instant('BUILDER.PAGE_SETTING.DELETE_SUCCESS', { title }),
+              'ok'
+            );
+            this.loading.set(false);
+            this.builder.updateSuccess$.next(true);
+            this.builder.closeRightDrawer$.next(true);
+            // 删翻译只清掉该语言的本地草稿，其他语言的草稿保留
+            this.deleteLocalPage(id, this.isTranslation ? langcode : undefined);
+          },
+          error: err => {
+            const { status } = err;
+            switch (status) {
+              case 403:
+                this.util.openSnackbar(
+                  this.translate.instant('BUILDER.PAGE_SETTING.NO_PERMISSION')
+                );
+                break;
+              default:
+                this.util.openSnackbar(
+                  this.isTranslation
+                    ? this.translate.instant('BUILDER.PAGE_SETTING.DELETE_TRANSLATION_FAIL', {
+                        title,
+                        lang,
+                      })
+                    : this.translate.instant('BUILDER.PAGE_SETTING.DELETE_FAIL', { title })
+                );
+                break;
+            }
+            this.loading.set(false);
+          },
+        });
       });
   }
 
-  deleteLocalPage(uuid: string): void {
+  deleteLocalPage(uuid: string, langcode?: string): void {
     const versions = this.builder.version();
-    const index = versions.findIndex(item => item.uuid === uuid);
+    const index = versions.findIndex(
+      item => item.uuid === uuid && (langcode === undefined || item.langcode === langcode)
+    );
     this.builder.deleteLocalPage(index);
+  }
+
+  private getLangLabel(code: string): string {
+    return environment.langs?.find(item => item.langCode === code)?.label ?? code;
   }
 }
