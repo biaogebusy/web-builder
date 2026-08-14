@@ -3,7 +3,7 @@
     @apply max-w-6xl mx-auto flex flex-col gap-6 px-4 py-8;
   }
   .header {
-    @apply flex items-center justify-between gap-4;
+    @apply flex items-center gap-4;
   }
   .page-title {
     @apply text-2xl font-semibold m-0;
@@ -23,6 +23,8 @@
   }
   .entry-card {
     @apply flex flex-col gap-1 p-4 no-underline transition-all;
+    // 与发布区骨架屏的 height 保持一致(见 hub.component.html),避免加载完成后跳动
+    min-height: 6.5rem;
     background: var(--shadcn-card);
     border: 1px solid var(--shadcn-border);
     border-radius: var(--shadcn-radius-lg);
@@ -36,6 +38,17 @@
       outline: 2px solid var(--shadcn-ring);
       outline-offset: 2px;
     }
+    // 发布卡:虚线边框 + 主色加号,把"新建"与"跳转"两类动作在扫视时就区分开
+    &.is-publish {
+      border-style: dashed;
+      .entry-icon {
+        color: var(--mat-sys-primary);
+      }
+    }
+  }
+  .entry-icon {
+    @apply mb-1;
+    color: var(--shadcn-muted-foreground);
   }
   .entry-name {
     @apply text-sm font-medium;

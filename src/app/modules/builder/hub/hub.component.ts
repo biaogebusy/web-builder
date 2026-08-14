@@ -11,7 +11,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { SHARE_IMPORTS } from '@share/share-imports';
 import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
-import { NodeFieldFormService } from '@core/service/node-field-form.service';
+import { NodeFieldFormService, INodeTypeOption } from '@core/service/node-field-form.service';
 import { TagsService } from '@core/service/tags.service';
 import { UserService } from '@core/service/user.service';
 import { USER } from '@core/token/token-providers';
@@ -50,10 +50,17 @@ export class HubComponent implements OnInit {
   });
 
   /** 发布入口开放的内容类型(默认清单 + core_config 增删) */
-  public nodeTypes = signal<{ label: string; value: string }[]>([]);
+  public nodeTypes = signal<INodeTypeOption[]>([]);
   public typesLoading = signal(true);
   /** 加载失败与"站点没有可发布类型"是两种状态,文案和可用操作都不同 */
   public typesError = signal(false);
+  /**
+   * 骨架屏占位数量:按配置允许发布的类型数,而不是固定值,
+   * 让加载完成后的真实卡片数尽量与占位一致,减少高度跳动。
+   */
+  public skeletonSlots = this.fieldFormService
+    .getAllowedTypeNames()
+    .map((_, index) => index);
 
   ngOnInit(): void {
     this.tagsService.setTitle(this.translate.instant('BUILDER.HUB.PAGE_TITLE'));

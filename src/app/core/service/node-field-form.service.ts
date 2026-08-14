@@ -29,6 +29,16 @@ export interface INodePayload {
   relationships: Record<string, any>;
 }
 
+/** 发布入口的内容类型选项 */
+export interface INodeTypeOption {
+  /** 显示名,如"博客" */
+  label: string;
+  /** 机器名,如 blog */
+  value: string;
+  /** 内容类型自身的说明(Drupal node_type.description),站点未填时为空串 */
+  desc: string;
+}
+
 /**
  * 通过 Drupal field config API 内省内容类型字段,动态生成 formly 表单,
  * 并按 JSON:API 规范把表单值拆分为 attributes 与 relationships。
@@ -45,14 +55,26 @@ export class NodeFieldFormService {
    * 这里不吞错误:空数组表示"站点没有可用类型",与"加载失败"是两种状态,
    * 调用方需分别处理(否则失败会被渲染成空态,且加载中标记无法复位)。
    */
-  getNodeTypes(): Observable<{ label: string; value: string }[]> {
+  getNodeTypes(): Observable<INodeTypeOption[]> {
     return this.nodeService.fetch('/api/v1/node_type/node_type').pipe(
       map(res =>
         (res?.data || []).map((type: any) => ({
           label: type.attributes.name,
           value: type.attributes.drupal_internal__type,
+          desc: type.attributes.description ?? '',
         }))
       )
+    );
+  }
+
+  /**
+   * 允许发布的内容类型机器名。只按配置计算,不考虑站点是否真的存在该类型,
+   * 因此可同步取用(如发布区骨架屏按此数量占位,避免加载完成后高度跳动)。
+   */
+  getAllowedTypeNames(): string[] {
+    const { disable = [], enable = [] } = this.coreConfig?.builder?.nodeTypes ?? {};
+    return [...new Set([...DEFAULT_NODE_TYPES, ...enable])].filter(
+      type => !disable.includes(type)
     );
   }
 
@@ -61,11 +83,8 @@ export class NodeFieldFormService {
    * core_config 的 builder.nodeTypes 可在默认清单上禁用(disable)或
    * 额外开放(enable),disable 优先。
    */
-  getAllowedNodeTypes(): Observable<{ label: string; value: string }[]> {
-    const { disable = [], enable = [] } = this.coreConfig?.builder?.nodeTypes ?? {};
-    const allowed = new Set(
-      [...DEFAULT_NODE_TYPES, ...enable].filter(type => !disable.includes(type))
-    );
+  getAllowedNodeTypes(): Observable<INodeTypeOption[]> {
+    const allowed = new Set(this.getAllowedTypeNames());
     return this.getNodeTypes().pipe(map(types => types.filter(type => allowed.has(type.value))));
   }
 

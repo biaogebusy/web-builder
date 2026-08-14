@@ -12,27 +12,33 @@
       @if (nodeTypes().length > 0) {
         <div class="entry-grid">
           @for (nodeType of nodeTypes(); track nodeType.value) {
-            <!-- 副标题每张卡都相同,对屏幕阅读器是噪音:隐藏它,改由 aria-label 给出完整动作名 -->
+            <!-- 发布卡:虚线边框 + 加号图标,与下方"跳转到管理页"的实线卡区分开 -->
             <a
-              class="entry-card"
+              class="entry-card is-publish"
               [routerLink]="['/builder/node/add', nodeType.value]"
               [attr.aria-label]="'BUILDER.HUB.ADD_ARIA' | translate: { type: nodeType.label }"
+              [attr.aria-describedby]="nodeType.desc ? 'hub-type-' + nodeType.value : null"
             >
+              <app-icon class="entry-icon" [content]="{ svg: 'plus' }" />
               <span class="entry-name">{{ nodeType.label }}</span>
-              <span class="entry-desc" aria-hidden="true">
-                {{ 'BUILDER.HUB.ADD_HINT' | translate }}
-              </span>
+              <!-- 说明来自内容类型自身(node_type.description);站点没填就不占位,
+                   而不是给每张卡重复同一句提示 -->
+              @if (nodeType.desc) {
+                <span class="entry-desc" [id]="'hub-type-' + nodeType.value">
+                  {{ nodeType.desc }}
+                </span>
+              }
             </a>
           }
         </div>
       } @else if (typesLoading()) {
         <div class="entry-grid">
-          @for (i of [1, 2, 3]; track i) {
+          @for (slot of skeletonSlots; track slot) {
             <ngx-skeleton-loader
               count="1"
               appearance="line"
               [theme]="{
-                height: '5rem',
+                height: '6.5rem',
                 'border-radius': 'var(--shadcn-radius-lg)',
                 'background-color': 'var(--shadcn-muted)',
                 margin: '0',
@@ -66,6 +72,7 @@
               [routerLink]="entry.link"
               [attr.aria-describedby]="'hub-entry-' + groupIndex + '-' + $index"
             >
+              <app-icon class="entry-icon" [content]="{ svg: entry.icon }" />
               <span class="entry-name">{{ entry.label | translate }}</span>
               <span class="entry-desc" [id]="'hub-entry-' + groupIndex + '-' + $index">
                 {{ entry.desc | translate }}
