@@ -10,7 +10,6 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { SHARE_IMPORTS } from '@share/share-imports';
 import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { FORM_IMPORTS } from '@uiux/combs/form/form-imports';
@@ -55,7 +54,6 @@ export class PageSettingComponent implements OnInit {
   private builderService = inject(BuilderService);
   private destroyRef = inject(DestroyRef);
   private userService = inject(UserService);
-  private router = inject(Router);
   private translate = inject(TranslateService);
 
   constructor() {}
@@ -256,18 +254,6 @@ export class PageSettingComponent implements OnInit {
         },
       },
     } = this.content();
-    if (alias.includes('/core/branding')) {
-      this.router.navigate(['/builder/edit-branding/header'], {
-        queryParams: {
-          uuid: id,
-          nid: drupal_internal__nid,
-          langcode,
-        },
-      });
-      this.loading.set(false);
-      this.builder.closeRightDrawer$.next(true);
-      return;
-    }
     this.builderService.loadNodeJson({
       langcode,
       nid: drupal_internal__nid,
