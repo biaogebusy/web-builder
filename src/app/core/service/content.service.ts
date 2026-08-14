@@ -4,8 +4,8 @@ import { isPlatformServer } from '@angular/common';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { environment } from 'src/environments/environment';
-import { Observable, lastValueFrom, of } from 'rxjs';
-import { catchError, retry, shareReplay, take, tap, timeout } from 'rxjs/operators';
+import { BehaviorSubject, Observable, lastValueFrom, of } from 'rxjs';
+import { catchError, retry, shareReplay, switchMap, take, tap, timeout } from 'rxjs/operators';
 import { isArray } from 'lodash-es';
 import { TagsService } from '@core/service/tags.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
@@ -38,6 +38,7 @@ export class ContentService extends ApiService {
   private coreConfigCache = new Map<string, Observable<ICoreConfig>>();
   private activeConfigPath = '';
   private uiuxCache: Observable<IUiux[]>;
+  private uiuxRefresh$ = new BehaviorSubject<void>(undefined);
   private pageCache = new Map<string, Observable<IPage>>();
   private pageValueCache = new Map<string, IPage>();
   private brandingCache = new Map<string, Observable<IBranding>>();
@@ -205,12 +206,17 @@ export class ContentService extends ApiService {
     const { lang } = this.getUrlPath(this.pageUrl);
     const api = `${this.apiUrl}${lang}/api/v3/node/component`;
     if (!this.uiuxCache) {
-      this.uiuxCache = this.http.get<IUiux[]>(api).pipe(
-        catchError(() => of([])),
+      this.uiuxCache = this.uiuxRefresh$.pipe(
+        switchMap(() => this.http.get<IUiux[]>(api).pipe(catchError(() => of([])))),
         shareReplay(1)
       );
     }
     return this.uiuxCache;
+  }
+
+  // 组件库增删改后调用：所有 UIUX 消费方（组件面板、组件管理）共享同一缓存，会一并收到新数据
+  reloadUIUX(): void {
+    this.uiuxRefresh$.next();
   }
 
   loadBuilderConfig(): Observable<IBuilderConfig> {

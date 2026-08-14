@@ -9,12 +9,21 @@ import {
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { FormControl, FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
+import {
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ContentService } from '@core/service/content.service';
 import { NodeService } from '@core/service/node.service';
 import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -26,8 +35,8 @@ import { IDialog } from '@core/interface/IDialog';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 import { IBuilderComponent, IUiux } from '@core/interface/IBuilder';
 import { UIUX } from '@core/token/token-providers';
-import { Observable, finalize, forkJoin } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
+import { Observable, forkJoin, of } from 'rxjs';
+import { catchError, map, skip, switchMap, take, tap } from 'rxjs/operators';
 
 interface IComponentItem {
   uuid: string;
@@ -71,13 +80,16 @@ type TableRow = GroupL1Row | GroupL2Row | IComponentItem;
     MatIconModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatDividerModule,
     MatMenuModule,
+    MatTooltipModule,
     IconComponent,
     LoadingComponent,
   ],
 })
 export class NodeUiuxComponent {
-  private uiuxData = toSignal(inject<Observable<IUiux[]>>(UIUX), { initialValue: [] as IUiux[] });
+  private uiux$ = inject<Observable<IUiux[]>>(UIUX);
+  private uiuxData = toSignal(this.uiux$, { initialValue: [] as IUiux[] });
   private orderedUiuxData = computed(() => {
     const groups = this.uiuxData();
     const regularGroups = groups.filter(group => !this.isWidgetGroup(group));
@@ -86,6 +98,7 @@ export class NodeUiuxComponent {
   });
   private nodeService = inject(NodeService);
   private builderService = inject(BuilderService);
+  private contentService = inject(ContentService);
   private util = inject(UtilitiesService);
   private dialog = inject(MatDialog);
   private destroyRef = inject(DestroyRef);
@@ -100,10 +113,6 @@ export class NodeUiuxComponent {
   selectedIds = signal<Set<string>>(new Set());
   private injector = inject(Injector);
   private groupsInitialized = false;
-
-  readonly displayedColumns = ['label', 'icon', 'actions'];
-  readonly l1GroupColumns = ['l1group'];
-  readonly l2GroupColumns = ['l2group'];
 
   totalCount = computed(() =>
     this.orderedUiuxData().reduce((sum, l1) => {
@@ -181,6 +190,20 @@ export class NodeUiuxComponent {
     this.selectedIds.set(new Set());
   }
 
+  // CRUD 成功后刷新共享的 UIUX 数据：等新数据落地再收起 loading，并清理已不存在的选中项
+  private refreshList(): void {
+    this.uiux$.pipe(skip(1), take(1), takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+      const valid = new Set(
+        this.tableRows()
+          .filter((row): row is IComponentItem => 'uuid' in row)
+          .map(item => item.uuid)
+      );
+      this.selectedIds.update(set => new Set([...set].filter(id => valid.has(id))));
+      this.loading.set(false);
+    });
+    this.contentService.reloadUIUX();
+  }
+
   constructor() {
     effect(() => {
       const data = this.orderedUiuxData();
@@ -205,6 +228,19 @@ export class NodeUiuxComponent {
 
   isExpanded(name: string): boolean {
     return this.expandedGroups().has(name);
+  }
+
+  allExpanded = computed(() => {
+    const groups = this.orderedUiuxData();
+    return groups.length > 0 && groups.every(group => this.expandedGroups().has(group.label));
+  });
+
+  toggleExpandAll(): void {
+    if (this.allExpanded()) {
+      this.expandedGroups.set(new Set());
+    } else {
+      this.expandedGroups.set(new Set(this.orderedUiuxData().map(group => group.label)));
+    }
   }
 
   tableRows = computed<TableRow[]>(() => {
@@ -323,12 +359,12 @@ export class NodeUiuxComponent {
 
   onCopyId(item: IComponentItem): void {
     this.util.copy(item.uuid);
-    this.util.openSnackbar('组件 ID 已复制', 'ok');
+    this.util.openSnackbar('组件 ID 已复制', '确定');
   }
 
   onPreview(item: IComponentItem): void {
     if (!item.content || typeof item.content !== 'object') {
-      this.util.openSnackbar('该组件暂无可预览内容', 'ok');
+      this.util.openSnackbar('该组件暂无可预览内容', '确定');
       return;
     }
 
@@ -349,87 +385,144 @@ export class NodeUiuxComponent {
   }
 
   onAdd(): void {
-    this.withCategories(cats => {
-      const form = new UntypedFormGroup({
-        title: new FormControl(''),
-        icon: new FormControl(''),
-        category: new FormControl([]),
-        body: new FormControl({}),
-      });
-      const model = { title: '', icon: '', category: [], body: {} };
-      this.dialog
-        .open(DialogComponent, { width: '900px', data: this.buildFormDialog('新增组件', form, model, cats, true) })
-        .afterClosed()
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(confirmed => {
-          if (confirmed !== true) return;
-          const { title, icon, category, body } = form.value;
-          const trimmedTitle = title?.trim();
-          if (!trimmedTitle) return;
-          const bodyValue = body && typeof body === 'object' ? body : {};
-          const catData = (category || []).map((id: string) => ({
-            type: 'taxonomy_term--component_type', id,
-          }));
-          this.loading.set(true);
-          this.nodeService
-            .addEntity('/api/v1/node/component', {
-              title: trimmedTitle,
-              icon: icon || null,
-              body: JSON.stringify(bodyValue),
+    this.loading.set(true);
+    this.categories$()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: cats => {
+          this.loading.set(false);
+          const form = new UntypedFormGroup({
+            title: new FormControl('', Validators.required),
+            icon: new FormControl(''),
+            category: new FormControl([]),
+            body: new FormControl({}),
+          });
+          const model = { title: '', icon: '', category: [], body: {} };
+          this.dialog
+            .open(DialogComponent, {
+              width: '900px',
+              disableClose: true,
+              data: this.buildFormDialog('新增组件', form, model, cats, true),
             })
-            .pipe(
-              switchMap((res: any) =>
-                this.builderService.updateAttributes(
-                  { uuid: res.data.id },
-                  '/api/v1/node/component',
-                  {},
-                  { category: { data: catData } }
+            .afterClosed()
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe(confirmed => {
+              if (confirmed !== true) return;
+              const { title, icon, category, body } = form.value;
+              const trimmedTitle = title?.trim();
+              if (!trimmedTitle) {
+                this.util.openSnackbar('标题不能为空', '确定');
+                return;
+              }
+              const bodyValue = body && typeof body === 'object' ? body : {};
+              const catData = (category || []).map((id: string) => ({
+                type: 'taxonomy_term--component_type', id,
+              }));
+              this.loading.set(true);
+              this.nodeService
+                .addEntity('/api/v1/node/component', {
+                  title: trimmedTitle,
+                  icon: icon || null,
+                  body: JSON.stringify(bodyValue),
+                })
+                .pipe(
+                  switchMap((res: any) =>
+                    this.builderService.updateAttributes(
+                      { uuid: res.data.id },
+                      '/api/v1/node/component',
+                      {},
+                      { category: { data: catData } }
+                    )
+                  ),
+                  takeUntilDestroyed(this.destroyRef)
                 )
-              ),
-              finalize(() => this.loading.set(false)),
-              takeUntilDestroyed(this.destroyRef)
-            )
-            .subscribe({
-              next: () => this.util.openSnackbar('创建成功', 'ok'),
-              error: () => this.util.openSnackbar('创建失败，请稍后重试', 'ok'),
+                .subscribe({
+                  next: () => {
+                    this.util.openSnackbar('创建成功', '确定');
+                    this.refreshList();
+                  },
+                  error: () => {
+                    this.loading.set(false);
+                    this.util.openSnackbar('创建失败，请稍后重试', '确定');
+                  },
+                });
             });
-        });
-    });
+        },
+        error: () => {
+          this.loading.set(false);
+          this.util.openSnackbar('加载分类失败，请稍后重试', '确定');
+        },
+      });
   }
 
   onEdit(item: IComponentItem): void {
-    this.withCategories(cats => {
-      const form = new UntypedFormGroup({
-        title: new FormControl(item.label),
-        icon: new FormControl(item.icon || ''),
-        category: new FormControl([]),
-      });
-      const model = { title: item.label, icon: item.icon || '', category: [] };
-      this.dialog
-        .open(DialogComponent, { width: '500px', data: this.buildFormDialog('编辑组件', form, model, cats) })
-        .afterClosed()
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(confirmed => {
-          if (!confirmed) return;
-          const { title, icon, category } = form.value;
-          this.loading.set(true);
-          const catData = (category || []).map((id: string) => ({
-            type: 'taxonomy_term--component_type', id,
-          }));
-          this.builderService
-            .updateAttributes(
-              { uuid: item.uuid },
-              '/api/v1/node/component',
-              { title: title?.trim(), icon: icon || null },
-              { category: { data: catData } }
-            )
+    this.loading.set(true);
+    forkJoin({
+      cats: this.categories$(),
+      node: this.nodeService.fetch(
+        `/api/v1/node/component/${item.uuid}`,
+        'fields[node--component]=category'
+      ),
+    })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: ({ cats, node }) => {
+          this.loading.set(false);
+          // 回填当前分类，避免保存时把既有分类清空
+          const currentCatIds: string[] = (node?.data?.relationships?.category?.data || []).map(
+            (c: any) => c.id
+          );
+          const form = new UntypedFormGroup({
+            title: new FormControl(item.label, Validators.required),
+            icon: new FormControl(item.icon || ''),
+            category: new FormControl(currentCatIds),
+          });
+          const model = { title: item.label, icon: item.icon || '', category: currentCatIds };
+          this.dialog
+            .open(DialogComponent, {
+              width: '500px',
+              disableClose: true,
+              data: this.buildFormDialog('编辑组件', form, model, cats),
+            })
+            .afterClosed()
             .pipe(takeUntilDestroyed(this.destroyRef))
-            .subscribe(() => {
-              this.util.openSnackbar('更新成功', 'ok');
-              this.loading.set(false);
+            .subscribe(confirmed => {
+              if (confirmed !== true) return;
+              const { title, icon, category } = form.value;
+              const trimmedTitle = title?.trim();
+              if (!trimmedTitle) {
+                this.util.openSnackbar('标题不能为空', '确定');
+                return;
+              }
+              this.loading.set(true);
+              const catData = (category || []).map((id: string) => ({
+                type: 'taxonomy_term--component_type', id,
+              }));
+              this.builderService
+                .updateAttributes(
+                  { uuid: item.uuid },
+                  '/api/v1/node/component',
+                  { title: trimmedTitle, icon: icon || null },
+                  { category: { data: catData } }
+                )
+                .pipe(takeUntilDestroyed(this.destroyRef))
+                .subscribe({
+                  next: () => {
+                    this.util.openSnackbar('更新成功', '确定');
+                    this.refreshList();
+                  },
+                  error: () => {
+                    this.loading.set(false);
+                    this.util.openSnackbar('更新失败，请稍后重试', '确定');
+                  },
+                });
             });
-        });
-    });
+        },
+        error: () => {
+          this.loading.set(false);
+          this.util.openSnackbar('加载组件信息失败，请稍后重试', '确定');
+        },
+      });
   }
 
   onEditJson(item: IComponentItem): void {
@@ -443,6 +536,7 @@ export class NodeUiuxComponent {
     };
     this.dialog.open(DialogComponent, {
       width: '900px',
+      disableClose: true,
       panelClass: ['close-outside', 'close-icon-white'],
       data: { disableActions: true, inputData: { content: jsonWidget } } as IDialog,
     });
@@ -466,9 +560,15 @@ export class NodeUiuxComponent {
         this.nodeService
           .deleteEntity('/api/v1/node/component', item.uuid)
           .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe(() => {
-            this.util.openSnackbar('删除成功', 'ok');
-            this.loading.set(false);
+          .subscribe({
+            next: () => {
+              this.util.openSnackbar('删除成功', '确定');
+              this.refreshList();
+            },
+            error: () => {
+              this.loading.set(false);
+              this.util.openSnackbar('删除失败，请稍后重试', '确定');
+            },
           });
       });
   }
@@ -478,6 +578,15 @@ export class NodeUiuxComponent {
     if (ids.length === 0) {
       return;
     }
+    // 确认框中列出将被删除的组件名单，避免误删视野外的选中项
+    const labelByUuid = new Map(
+      this.tableRows()
+        .filter((row): row is IComponentItem => 'uuid' in row)
+        .map(item => [item.uuid, item.label] as [string, string])
+    );
+    const names = ids.map(id => labelByUuid.get(id) || id);
+    const shownNames = names.slice(0, 8).join('、');
+    const restCount = names.length - Math.min(names.length, 8);
     const config: IDialog = {
       title: '批量删除组件',
       titleClasses: 'text-red-500',
@@ -487,43 +596,52 @@ export class NodeUiuxComponent {
         content: {
           type: 'text',
           fullWidth: true,
-          body: `确定要删除选中的 <strong>${ids.length}</strong> 个组件吗？`,
+          body:
+            `确定要删除以下 <strong>${ids.length}</strong> 个组件吗？<br>` +
+            `${shownNames}${restCount > 0 ? `……（另 ${restCount} 个）` : ''}`,
         },
       },
     };
     this.dialog
-      .open(DialogComponent, { width: '340px', data: config })
+      .open(DialogComponent, { width: '420px', data: config })
       .afterClosed()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(confirmed => {
         if (!confirmed) return;
         this.loading.set(true);
+        // 逐项收集结果而非 fail-fast，部分失败时保留失败项以便针对性重试
         const requests = ids.map(uuid =>
-          this.nodeService.deleteEntity('/api/v1/node/component', uuid),
+          this.nodeService.deleteEntity('/api/v1/node/component', uuid).pipe(
+            map(() => ({ uuid, ok: true })),
+            catchError(() => of({ uuid, ok: false }))
+          )
         );
         forkJoin(requests)
           .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe({
-            next: () => {
+          .subscribe(results => {
+            const failed = results.filter(result => !result.ok);
+            const succeeded = results.length - failed.length;
+            if (failed.length === 0) {
               this.clearSelection();
-              this.util.openSnackbar(`成功删除 ${ids.length} 个组件`, 'ok');
-              this.loading.set(false);
-            },
-            error: () => {
-              this.util.openSnackbar('部分删除失败，请稍后重试', 'ok');
-              this.loading.set(false);
-            },
+              this.util.openSnackbar(`成功删除 ${succeeded} 个组件`, '确定');
+            } else {
+              this.selectedIds.set(new Set(failed.map(result => result.uuid)));
+              this.util.openSnackbar(
+                `已删除 ${succeeded} 个，${failed.length} 个删除失败，已保留其选中状态`,
+                '确定'
+              );
+            }
+            this.refreshList();
           });
       });
   }
 
   // Lazily fetch categories once, then cache
-  private withCategories(cb: (cats: ICategoryOption[]) => void): void {
+  private categories$(): Observable<ICategoryOption[]> {
     if (this.categoriesLoaded()) {
-      cb(this.categories());
-      return;
+      return of(this.categories());
     }
-    this.nodeService
+    return this.nodeService
       .fetch('/api/v1/taxonomy_term/component_type', 'include=parent&page[limit]=200')
       .pipe(
         take(1),
@@ -557,13 +675,12 @@ export class NodeUiuxComponent {
             name: getPath(t.id),
             l1Name: getL1(t.id),
           }));
+        }),
+        tap(cats => {
+          this.categories.set(cats);
+          this.categoriesLoaded.set(true);
         })
-      )
-      .subscribe(cats => {
-        this.categories.set(cats);
-        this.categoriesLoaded.set(true);
-        cb(cats);
-      });
+      );
   }
 
   private buildFormDialog(

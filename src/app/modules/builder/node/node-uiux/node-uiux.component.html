@@ -21,6 +21,7 @@
               class="search-clear"
               (click)="clearSearch()"
               aria-label="清除搜索"
+              matTooltip="清除搜索"
             >
               <mat-icon>close</mat-icon>
             </button>
@@ -28,6 +29,18 @@
         </div>
       </div>
       <div class="toolbar-right">
+        @if (!hasSearchQuery()) {
+          <button
+            type="button"
+            mat-icon-button
+            class="expand-toggle"
+            (click)="toggleExpandAll()"
+            [matTooltip]="allExpanded() ? '全部收起' : '全部展开'"
+            [attr.aria-label]="allExpanded() ? '全部收起' : '全部展开'"
+          >
+            <mat-icon>{{ allExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
+          </button>
+        }
         <span class="total-text">共 {{ totalCount() }} 个</span>
         @if (selectedCount() > 0) {
           <span class="divider"></span>
@@ -36,7 +49,7 @@
             <button mat-stroked-button color="warn" (click)="onDeleteSelected()">
               <mat-icon>delete_sweep</mat-icon>删除选中
             </button>
-            <button mat-button (click)="clearSelection()" aria-label="取消选择">
+            <button mat-button (click)="clearSelection()" aria-label="取消选择" matTooltip="取消选择">
               <mat-icon>close</mat-icon>
             </button>
           </div>
@@ -77,11 +90,9 @@
             [attr.role]="hasSearchQuery() ? null : 'button'"
             [attr.tabindex]="hasSearchQuery() ? null : 0"
             [attr.aria-expanded]="hasSearchQuery() ? null : isExpanded(asL1(row).name)"
-            (keyup.enter)="hasSearchQuery() ? null : toggleGroup(asL1(row).name)"
-            (keyup.space)="
-              hasSearchQuery() ? null : toggleGroup(asL1(row).name);
-              $event.preventDefault()
-            "
+            (keydown.enter)="hasSearchQuery() ? null : toggleGroup(asL1(row).name)"
+            (keydown.space)="$event.preventDefault()"
+            (keyup.space)="hasSearchQuery() ? null : toggleGroup(asL1(row).name)"
           >
             <mat-icon class="folder-icon">folder_open</mat-icon>
             <span class="group-name">{{ asL1(row).name }}</span>
@@ -124,6 +135,7 @@
                 mat-icon-button
                 class="action-menu-trigger"
                 [matMenuTriggerFor]="actionsMenu"
+                matTooltip="更多操作"
                 [attr.aria-label]="'打开操作菜单：' + asItem(row).label"
               >
                 <mat-icon>more_vert</mat-icon>
@@ -133,19 +145,25 @@
                   <mat-icon>visibility</mat-icon>
                   <span>预览</span>
                 </button>
-                <button type="button" mat-menu-item (click)="onCopyId(asItem(row))">
-                  <mat-icon>content_copy</mat-icon>
-                  <span>复制组件 ID</span>
+                <button type="button" mat-menu-item (click)="onEdit(asItem(row))">
+                  <mat-icon>edit</mat-icon>
+                  <span>编辑</span>
                 </button>
                 <button type="button" mat-menu-item (click)="onEditJson(asItem(row))">
                   <mat-icon>code</mat-icon>
                   <span>编辑 JSON</span>
                 </button>
-                <button type="button" mat-menu-item (click)="onEdit(asItem(row))">
-                  <mat-icon>edit</mat-icon>
-                  <span>编辑</span>
+                <button type="button" mat-menu-item (click)="onCopyId(asItem(row))">
+                  <mat-icon>content_copy</mat-icon>
+                  <span>复制组件 ID</span>
                 </button>
-                <button type="button" mat-menu-item (click)="onDelete(asItem(row))">
+                <mat-divider />
+                <button
+                  type="button"
+                  mat-menu-item
+                  class="menu-item-danger"
+                  (click)="onDelete(asItem(row))"
+                >
                   <mat-icon>delete_outline</mat-icon>
                   <span>删除</span>
                 </button>

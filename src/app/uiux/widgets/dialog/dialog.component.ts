@@ -1,4 +1,5 @@
 import { Component, forwardRef, inject, ChangeDetectionStrategy } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -31,6 +32,13 @@ export class DialogComponent {
   }
 
   onYesClick(): void {
+    // 表单对话框（inputData.content.form 约定）：表单无效时显示校验错误并阻止关闭，
+    // 避免必填项为空却被静默确认
+    const form: unknown = this.data.inputData?.content?.form;
+    if (form instanceof FormGroup && form.invalid) {
+      form.markAllAsTouched();
+      return;
+    }
     this.dialogRef.close(true);
   }
 }

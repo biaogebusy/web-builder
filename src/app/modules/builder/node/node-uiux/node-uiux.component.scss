@@ -34,6 +34,10 @@
     color: var(--mat-sys-on-surface-variant);
   }
 
+  .expand-toggle {
+    color: var(--mat-sys-on-surface-variant);
+  }
+
   .divider {
     @apply w-px h-5;
     background: var(--mat-sys-outline-variant);
@@ -335,9 +339,6 @@
 .action-menu-trigger {
   @apply rounded-md;
   color: var(--mat-sys-on-surface-variant);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 120ms;
 
   ::ng-deep .mat-icon {
     font-size: 20px;
@@ -346,17 +347,10 @@
   }
 }
 
-.item-row:hover .action-menu-trigger,
-.item-row:focus-within .action-menu-trigger {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-@media (hover: none) {
-  .action-menu-trigger {
-    opacity: 1;
-    pointer-events: auto;
-  }
+// 危险操作菜单项（删除）：用 Material 菜单令牌覆盖文字与图标颜色
+.menu-item-danger {
+  --mat-menu-item-label-text-color: var(--mat-sys-error);
+  --mat-menu-item-icon-color: var(--mat-sys-error);
 }
 
 // ── Empty state ───────────────────────────────────────────
