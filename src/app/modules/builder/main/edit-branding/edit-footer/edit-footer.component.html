@@ -12,6 +12,21 @@
       <a class="tab active" role="tab" aria-selected="true">Footer</a>
     </nav>
     <div class="toolbar-right">
+      @if (showLangSwitch) {
+        <div class="lang-switch" role="group" [attr.aria-label]="'BUILDER.EDIT_BRANDING.LANG_SWITCH' | translate">
+          @for (lang of langs; track lang.langCode) {
+            <button
+              type="button"
+              class="lang-btn"
+              [class.active]="lang.langCode === nodeLangcode()"
+              [disabled]="isLangMissing(lang.langCode)"
+              [attr.aria-pressed]="lang.langCode === nodeLangcode()"
+              [attr.title]="isLangMissing(lang.langCode) ? ('BUILDER.EDIT_BRANDING.LANG_MISSING' | translate) : null"
+              (click)="switchLang(lang.langCode)"
+            >{{ lang.label }}</button>
+          }
+        </div>
+      }
       @if (dirty()) {
         <span class="dirty-dot"></span>
         <span class="dirty-label">{{ 'BUILDER.EDIT_BRANDING.UNSAVED' | translate }}</span>
