@@ -76,13 +76,20 @@ export class NodeManageComponent implements OnInit {
     this.fieldFormService
       .getNodeTypes()
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(types => {
-        this.nodeTypes.set(types);
-        if (types.length > 0) {
-          this.fetchList();
-        } else {
+      .subscribe({
+        next: types => {
+          this.nodeTypes.set(types);
+          if (types.length > 0) {
+            this.fetchList();
+          } else {
+            this.loading.set(false);
+          }
+        },
+        // 失败与"站点没有内容类型"不同:复位加载态并提示,否则会一直停在加载中
+        error: () => {
           this.loading.set(false);
-        }
+          this.util.openSnackbar(this.translate.instant('BUILDER.NODE_MANAGE.LOAD_FAILED'), 'ok');
+        },
       });
 
     this.searchCtrl.valueChanges

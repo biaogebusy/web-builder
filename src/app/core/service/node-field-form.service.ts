@@ -40,7 +40,11 @@ export class NodeFieldFormService {
   private nodeService = inject(NodeService);
   private coreConfig = inject<ICoreConfig | null>(CORE_CONFIG, { optional: true });
 
-  /** 站点全部内容类型,用于发布页切换 */
+  /**
+   * 站点全部内容类型,用于发布页切换。
+   * 这里不吞错误:空数组表示"站点没有可用类型",与"加载失败"是两种状态,
+   * 调用方需分别处理(否则失败会被渲染成空态,且加载中标记无法复位)。
+   */
   getNodeTypes(): Observable<{ label: string; value: string }[]> {
     return this.nodeService.fetch('/api/v1/node_type/node_type').pipe(
       map(res =>
@@ -48,11 +52,7 @@ export class NodeFieldFormService {
           label: type.attributes.name,
           value: type.attributes.drupal_internal__type,
         }))
-      ),
-      catchError(err => {
-        console.error('加载内容类型列表失败', err);
-        return of([]);
-      })
+      )
     );
   }
 

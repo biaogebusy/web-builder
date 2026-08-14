@@ -73,9 +73,13 @@ export class NodeAddComponent implements OnInit {
     this.fieldFormService
       .getAllowedNodeTypes()
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(types => {
-        this.nodeTypes.set(types);
-        this.typesLoading.set(false);
+      .subscribe({
+        next: types => {
+          this.nodeTypes.set(types);
+          this.typesLoading.set(false);
+        },
+        // 失败时也要复位,否则类型选择区的骨架屏会一直转
+        error: () => this.typesLoading.set(false),
       });
 
     // switchMap:路由参数一变即取消上一轮在途加载,防止旧页面数据迟到写入新页面

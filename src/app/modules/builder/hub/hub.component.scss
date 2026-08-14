@@ -5,11 +5,14 @@
   .header {
     @apply flex items-center justify-between gap-4;
   }
+  .page-title {
+    @apply text-2xl font-semibold m-0;
+  }
   .hub-section {
     @apply flex flex-col gap-3;
   }
   .section-title {
-    @apply text-base font-semibold m-0;
+    @apply text-lg font-semibold m-0;
   }
   .section-desc {
     @apply text-sm m-0;
@@ -19,13 +22,15 @@
     @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3;
   }
   .entry-card {
-    @apply flex flex-col gap-1 p-4 no-underline transition-colors;
+    @apply flex flex-col gap-1 p-4 no-underline transition-all;
     background: var(--shadcn-card);
     border: 1px solid var(--shadcn-border);
     border-radius: var(--shadcn-radius-lg);
     color: inherit;
     &:hover {
       border-color: var(--shadcn-ring);
+      background: var(--shadcn-accent);
+      box-shadow: var(--mat-sys-level1);
     }
     &:focus-visible {
       outline: 2px solid var(--shadcn-ring);
@@ -37,6 +42,13 @@
   }
   .entry-desc {
     @apply text-xs;
+    color: var(--shadcn-muted-foreground);
+  }
+  .state {
+    @apply flex flex-col items-center gap-3 py-8;
+  }
+  .state-text {
+    @apply text-sm text-center m-0;
     color: var(--shadcn-muted-foreground);
   }
   .empty {

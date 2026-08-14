@@ -14,15 +14,12 @@ export interface IHubEntry {
 export interface IHubGroup {
   /** i18n key */
   title: string;
-  /** i18n key */
-  desc: string;
   entries: IHubEntry[];
 }
 
 export const HUB_GROUPS: IHubGroup[] = [
   {
     title: 'BUILDER.HUB.CONTENT_TITLE',
-    desc: 'BUILDER.HUB.CONTENT_DESC',
     entries: [
       {
         label: 'BUILDER.HUB.MANAGE_ENTRY',
@@ -33,7 +30,6 @@ export const HUB_GROUPS: IHubGroup[] = [
   },
   {
     title: 'BUILDER.HUB.PAGES_TITLE',
-    desc: 'BUILDER.HUB.PAGES_DESC',
     entries: [
       {
         label: 'BUILDER.HUB.PAGE_LIST_ENTRY',
@@ -44,7 +40,6 @@ export const HUB_GROUPS: IHubGroup[] = [
   },
   {
     title: 'BUILDER.HUB.APPEARANCE_TITLE',
-    desc: 'BUILDER.HUB.APPEARANCE_DESC',
     entries: [
       {
         label: 'BUILDER.HUB.HEADER_ENTRY',
@@ -66,7 +61,6 @@ export const HUB_GROUPS: IHubGroup[] = [
   },
   {
     title: 'BUILDER.HUB.SYSTEM_TITLE',
-    desc: 'BUILDER.HUB.SYSTEM_DESC',
     entries: [
       {
         label: 'BUILDER.HUB.SETTINGS_ENTRY',

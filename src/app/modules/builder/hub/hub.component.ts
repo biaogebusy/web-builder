@@ -3,6 +3,7 @@ import {
   Component,
   DestroyRef,
   OnInit,
+  computed,
   inject,
   signal,
 } from '@angular/core';
@@ -12,6 +13,8 @@ import { SHARE_IMPORTS } from '@share/share-imports';
 import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { NodeFieldFormService } from '@core/service/node-field-form.service';
 import { TagsService } from '@core/service/tags.service';
+import { UserService } from '@core/service/user.service';
+import { USER } from '@core/token/token-providers';
 import { TranslateService } from '@ngx-translate/core';
 import { HUB_GROUPS } from './hub-entries';
 
@@ -27,23 +30,55 @@ export class HubComponent implements OnInit {
   private fieldFormService = inject(NodeFieldFormService);
   private tagsService = inject(TagsService);
   private translate = inject(TranslateService);
+  private userService = inject(UserService);
+  private user = inject(USER);
   private destroyRef = inject(DestroyRef);
 
-  public groups = HUB_GROUPS;
+  /**
+   * 当前用户可见的分组。入口按角色过滤(受限路由由各自 guard 兜底),
+   * 过滤后为空的分组整组不渲染,避免留下没有任何入口的孤儿标题。
+   */
+  public groups = computed(() => {
+    const user = this.user();
+    const resolvedUser = user && typeof user === 'object' ? user : undefined;
+    return HUB_GROUPS.map(group => ({
+      ...group,
+      entries: group.entries.filter(entry =>
+        this.userService.checkShow({ params: { reqRoles: entry.reqRoles ?? [] } }, resolvedUser)
+      ),
+    })).filter(group => group.entries.length > 0);
+  });
 
   /** 发布入口开放的内容类型(默认清单 + core_config 增删) */
   public nodeTypes = signal<{ label: string; value: string }[]>([]);
-  // getAllowedNodeTypes 出错时会发出空数组,需与"加载中"区分,避免骨架屏常驻
   public typesLoading = signal(true);
+  /** 加载失败与"站点没有可发布类型"是两种状态,文案和可用操作都不同 */
+  public typesError = signal(false);
 
   ngOnInit(): void {
     this.tagsService.setTitle(this.translate.instant('BUILDER.HUB.PAGE_TITLE'));
+    this.loadNodeTypes();
+  }
+
+  onRetryTypes(): void {
+    this.loadNodeTypes();
+  }
+
+  private loadNodeTypes(): void {
+    this.typesLoading.set(true);
+    this.typesError.set(false);
     this.fieldFormService
       .getAllowedNodeTypes()
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(types => {
-        this.nodeTypes.set(types);
-        this.typesLoading.set(false);
+      .subscribe({
+        next: types => {
+          this.nodeTypes.set(types);
+          this.typesLoading.set(false);
+        },
+        error: () => {
+          this.typesError.set(true);
+          this.typesLoading.set(false);
+        },
       });
   }
 }
