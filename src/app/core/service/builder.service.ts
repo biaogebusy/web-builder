@@ -29,6 +29,12 @@ import { TranslateService } from '@ngx-translate/core';
 const BUILDERPATH = '/builder';
 const VERSION_KEY = 'version';
 const VERSION_CHECK_INTERVAL = 30000;
+// 着陆页读写接口：路径各部署一致，域名由 apiUrl 决定(见 environments / config/proxy.config.js)
+const LANDING_PAGE_API = {
+  create: '/api/v3/landingPage/builder',
+  update: '/api/v3/landingPage/update',
+  translate: '/api/v3/landingPage/translations',
+};
 
 @Injectable({
   providedIn: 'root',
@@ -39,7 +45,6 @@ export class BuilderService extends ApiService {
   private util = inject(UtilitiesService);
   private nodeService = inject(NodeService);
   private contentService = inject(ContentService);
-  private builderConfig$ = this.contentService.loadBuilderConfig();
   private destroyRef = inject(DestroyRef);
   private router = inject(Router);
   private storage = inject(LocalStorageService);
@@ -275,29 +280,31 @@ export class BuilderService extends ApiService {
 
   createLandingPage(page: IPage, loadPage = true): Observable<any> {
     this.builder.loading.set(true);
-    return this.builderConfig$.pipe(
-      take(1),
-      switchMap(({ api: { create } }) =>
-        this.http.post(`${this.apiUrl}${create}`, formatPage(page), this.optionsWithBearerToken())
-      ),
-      tap((res: any) => {
-        const {
-          data: { nid },
-        } = res;
-        if (loadPage) {
-          this.loadPage({ nid }, true);
-        }
-      }),
-      catchError((error: any) => {
-        this.builder.loading.set(false);
-        if (error?.status === 403) {
-          this.util.openSnackbar('无权限执行此操作', 'ok');
-        } else {
-          this.util.openSnackbar('创建页面失败，请重试', 'ok');
-        }
-        return of(false);
-      })
-    );
+    return this.http
+      .post(
+        `${this.apiUrl}${LANDING_PAGE_API.create}`,
+        formatPage(page),
+        this.optionsWithBearerToken()
+      )
+      .pipe(
+        tap((res: any) => {
+          const {
+            data: { nid },
+          } = res;
+          if (loadPage) {
+            this.loadPage({ nid }, true);
+          }
+        }),
+        catchError((error: any) => {
+          this.builder.loading.set(false);
+          if (error?.status === 403) {
+            this.util.openSnackbar('无权限执行此操作', 'ok');
+          } else {
+            this.util.openSnackbar('创建页面失败，请重试', 'ok');
+          }
+          return of(false);
+        })
+      );
   }
 
   updateLandingPage(page: IPage, loadPage = true): Observable<any> {
@@ -309,32 +316,30 @@ export class BuilderService extends ApiService {
       prefix = `/${lang}`;
     }
     this.builder.loading.set(true);
-    return this.builderConfig$.pipe(
-      take(1),
-      switchMap(({ api: { update } }) =>
-        this.http.patch(
-          `${this.apiUrl}${prefix}${update}/${nid}`,
-          coverExtraData(page),
-          this.optionsWithBearerToken()
-        )
-      ),
-      tap((res: any) => {
-        const { status } = res;
-        if (status) {
-          if (loadPage && langcode && nid) {
-            this.loadPage(
-              {
-                langcode,
-                nid,
-              },
-              true
-            );
+    return this.http
+      .patch(
+        `${this.apiUrl}${prefix}${LANDING_PAGE_API.update}/${nid}`,
+        coverExtraData(page),
+        this.optionsWithBearerToken()
+      )
+      .pipe(
+        tap((res: any) => {
+          const { status } = res;
+          if (status) {
+            if (loadPage && langcode && nid) {
+              this.loadPage(
+                {
+                  langcode,
+                  nid,
+                },
+                true
+              );
+            }
+          } else {
+            this.util.openSnackbar('保存失败，请重试', 'ok');
           }
-        } else {
-          this.util.openSnackbar('保存失败，请重试', 'ok');
-        }
-      })
-    );
+        })
+      );
   }
 
   getDefaultPage(url: string): Observable<IPage> {
@@ -378,32 +383,30 @@ export class BuilderService extends ApiService {
 
   addTranslation(page: IPage): Observable<any> {
     const { nid, target, langcode } = page;
-    return this.builderConfig$.pipe(
-      take(1),
-      switchMap(({ api: { translate } }) =>
-        this.http.post(
-          `${this.apiUrl}${translate}/add/${nid}/${langcode}/${target}`,
-          formatPage(page),
-          this.optionsWithBearerToken()
-        )
-      ),
-      switchMap((res: any) => {
-        if (!res?.status || !nid || !target) {
-          return of(res);
-        }
-        return this.copyAliasToLang(nid, langcode, target).pipe(
-          map(synced => {
-            if (!synced) {
-              this.util.openSnackbar(
-                this.translate.instant('BUILDER.PAGE_SETTING.TRANSLATION_ALIAS_SYNC_FAIL'),
-                'ok'
-              );
-            }
-            return res;
-          })
-        );
-      })
-    );
+    return this.http
+      .post(
+        `${this.apiUrl}${LANDING_PAGE_API.translate}/add/${nid}/${langcode}/${target}`,
+        formatPage(page),
+        this.optionsWithBearerToken()
+      )
+      .pipe(
+        switchMap((res: any) => {
+          if (!res?.status || !nid || !target) {
+            return of(res);
+          }
+          return this.copyAliasToLang(nid, langcode, target).pipe(
+            map(synced => {
+              if (!synced) {
+                this.util.openSnackbar(
+                  this.translate.instant('BUILDER.PAGE_SETTING.TRANSLATION_ALIAS_SYNC_FAIL'),
+                  'ok'
+                );
+              }
+              return res;
+            })
+          );
+        })
+      );
   }
 
   /**
@@ -411,15 +414,10 @@ export class BuilderService extends ApiService {
    * 删除源语言（节点本身）仍走 JSON:API 的节点删除，会连带删除全部语言版本。
    */
   deleteTranslation(nid: string | number, langcode: string): Observable<any> {
-    return this.builderConfig$.pipe(
-      take(1),
-      switchMap(({ api: { translate } }) =>
-        this.http.post(
-          `${this.apiUrl}${translate}/delete/${nid}/${langcode}`,
-          {},
-          this.optionsWithBearerToken()
-        )
-      )
+    return this.http.post(
+      `${this.apiUrl}${LANDING_PAGE_API.translate}/delete/${nid}/${langcode}`,
+      {},
+      this.optionsWithBearerToken()
     );
   }
 

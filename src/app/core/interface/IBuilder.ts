@@ -19,11 +19,6 @@ export interface IBuilderConfig {
     steps: JsonObject[];
   };
   generater: FormlyFieldConfig[];
-  api: {
-    create: string;
-    update: string;
-    translate: string;
-  };
   widgetPicker: {
     help: {
       tooltip: string;
