@@ -18,7 +18,6 @@ export interface IBuilderConfig {
     delay: number;
     steps: JsonObject[];
   };
-  generater: FormlyFieldConfig[];
   widgetPicker: {
     help: {
       tooltip: string;

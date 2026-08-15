@@ -24,14 +24,11 @@
         "widgetPicker": {
           "$ref": "#/definitions/WidgetPicker"
         },
-        "generater": {
-          "type": "array"
-        },
         "manageMedia": {
           "$ref": "#/definitions/ManageMedia"
         }
       },
-      "required": ["api", "generater", "manageMedia", "menu", "newSection", "tour", "widgetPicker"],
+      "required": ["api", "manageMedia", "menu", "newSection", "tour", "widgetPicker"],
       "title": "Builder"
     },
     "API": {
