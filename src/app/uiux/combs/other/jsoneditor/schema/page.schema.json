@@ -6,6 +6,15 @@
       "type": "object",
       "additionalProperties": true,
       "properties": {
+        "meta": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "config": {
+          "type": "object"
+        },
         "status": {
           "type": "boolean"
         },
@@ -35,13 +44,25 @@
           "type": "string"
         },
         "body": {
-          "type": "array"
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
         },
         "current": {
           "type": "boolean"
         },
-        "time": {
+        "dirty": {
+          "type": "boolean"
+        },
+        "translation": {
+          "type": "boolean"
+        },
+        "target": {
           "type": "string"
+        },
+        "time": {
+          "type": ["string", "object"]
         }
       },
       "required": ["body", "title"],
