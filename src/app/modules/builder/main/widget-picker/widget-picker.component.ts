@@ -52,7 +52,7 @@ export class WidgetPickerComponent implements OnInit {
   readonly pickerRoot = viewChild<ElementRef>('picker');
 
   private readonly VIEWPORT_RATIO = 0.85;
-  /** popup 内边距（左右/上下各 12px），用于尺寸计算 */
+  /** Padding of the preview popup (12px per side), used for size calculation */
   private readonly PREVIEW_PADDING = 24;
 
   public bcData = signal(false);
@@ -65,7 +65,7 @@ export class WidgetPickerComponent implements OnInit {
     return Array.isArray(elements) ? elements : [];
   });
 
-  /** 搜索时跨分类聚合所有匹配的组件 */
+  /** Aggregates all matching components across categories while searching */
   public searchResults = computed<ISearchHit[]>(() => {
     const q = this.searchQuery().trim().toLowerCase();
     if (!q) return [];
@@ -138,9 +138,10 @@ export class WidgetPickerComponent implements OnInit {
     if (previewPopup?.nativeElement) {
       const popupEl: HTMLElement = previewPopup.nativeElement;
       const pickerEl: HTMLElement | null = this.pickerRoot()?.nativeElement ?? null;
-      // 用 card 作为 reference（与原实现一致，保证 popup 一定显示 + Popper 内部 reference rect 正确）。
-      // 通过自定义 modifier 把 popup 的 x 坐标钉到 picker 左外侧，
-      // 让左右两列卡片悬浮时 popup 横向位置一致，纵向仍跟随当前 hover 卡片。
+      // Use the card as the reference (same as the original implementation, so the popup always
+      // shows and Popper's internal reference rect stays correct). A custom modifier pins the
+      // popup's x to the left of the picker, so hovering cards in either column keeps the popup
+      // horizontally aligned while its vertical position still follows the hovered card.
       this.widgetPopper = createPopper(anchor, popupEl, {
         strategy: 'fixed',
         placement: 'left',
@@ -223,19 +224,19 @@ export class WidgetPickerComponent implements OnInit {
     }
     const popupEl: HTMLElement = previewPopup.nativeElement;
     const canvas = popupEl.querySelector('.preview-canvas') as HTMLElement | null;
-    // popup box-sizing: border-box，padding 占用尺寸，所以先扣除得到内容可用空间
+    // Popup uses box-sizing: border-box, so padding eats into the size; subtract it for usable space
     const maxW = window.innerWidth * this.VIEWPORT_RATIO - this.PREVIEW_PADDING;
     const maxH = window.innerHeight * this.VIEWPORT_RATIO - this.PREVIEW_PADDING;
 
     if (canvas) {
-      // 先按桌面端设计宽度渲染，再根据视口统一缩放，避免预览随组件原生宽度抖动
+      // Render at the desktop design width first, then scale uniformly to the viewport, avoiding jitter
       const naturalWidth = Math.max(canvas.scrollWidth, canvas.offsetWidth, 1);
       const naturalHeight = Math.max(canvas.scrollHeight, canvas.offsetHeight, 1);
       const scale = Math.min(maxW / naturalWidth, maxH / naturalHeight, 1);
       const contentW = scale < 1 ? naturalWidth * scale : naturalWidth;
       const contentH = scale < 1 ? naturalHeight * scale : naturalHeight;
       canvas.style.transform = scale < 1 ? `scale(${scale})` : '';
-      // popup 总尺寸 = 内容尺寸 + padding，min-width / min-height 由 CSS 兜底
+      // Popup total size = content size + padding; min-width / min-height are CSS fallbacks
       popupEl.style.width = `${contentW + this.PREVIEW_PADDING}px`;
       popupEl.style.height = `${contentH + this.PREVIEW_PADDING}px`;
     } else {

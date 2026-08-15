@@ -23,20 +23,21 @@ import { generatePath } from '@core/util/dom-path.util';
 export class ContenteditDirective implements AfterViewInit, OnInit {
   readonly contentedit = input.required<string>();
   /**
-   * 编辑形态:plain 维持裸 contenteditable(标签/短文本);
-   * rich 原位挂载 tiptap(多段落正文),带气泡格式工具栏;
-   * inline 单行 tiptap(标题类),仅行内标记、Enter 提交、无段落包裹
+   * Edit profile: 'plain' keeps a bare contenteditable (labels/short text);
+   * 'rich' mounts tiptap in place (multi-paragraph bodies) with a bubble format toolbar;
+   * 'inline' is single-line tiptap (headings): inline marks only, Enter commits, no paragraph wrapper
    */
   readonly contenteditProfile = input<'plain' | 'rich' | 'inline'>('plain');
 
   private componentItem: Element | null = null;
-  // 进入编辑时的原始内容，用于跳过未修改的保存，避免产生多余版本快照
+  // Original content at edit start, used to skip unchanged saves and avoid extra version snapshots
   private originalHtml: string | null = null;
   private el = inject(ElementRef);
   private builder = inject(BuilderState);
   private injector = inject(Injector);
   private destroyRef = inject(DestroyRef);
-  // 指令销毁(组件重渲染/路由切换)与动态 import 在途的竞态:销毁后不得再触碰注入器
+  // Race between directive destruction (re-render/route change) and an in-flight dynamic
+  // import: never touch the injector after destruction
   private destroyed = false;
 
   ngOnInit(): void {
@@ -62,11 +63,12 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
   /**
    *
    * @param event
-   * 清除剪切板格式
+   * Strip clipboard formatting
    */
   onPaste(event: ClipboardEvent): void {
     const currentTarget = event.currentTarget as HTMLElement | null;
-    // 非编辑态不拦截，避免劫持前台页面或嵌套表单控件的粘贴
+    // Do not intercept outside edit mode, so pasting on front-page content or nested
+    // form controls is never hijacked
     if (!this.componentItem || currentTarget?.contentEditable !== 'true') {
       return;
     }
@@ -78,17 +80,14 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
     }
     const plainText = clipboardData.getData('text/plain');
 
-    // 保存当前选区（光标位置）
     const range = selection.getRangeAt(0);
 
-    // 清除选区，准备插入纯文本
     range.deleteContents();
 
-    // 创建新的文本节点并插入到Range中
     const textNode = document.createTextNode(plainText);
     range.insertNode(textNode);
 
-    // 恢复选区，确保光标位置正确
+    // Restore the selection so the caret stays at the right position
     range.selectNodeContents(textNode);
     selection.removeAllRanges();
     selection.addRange(range);
@@ -101,21 +100,23 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
     }
     event.preventDefault();
     event.stopPropagation();
-    // 已处于编辑态：仅移动光标，不重复刷新右侧面板
+    // Already in edit state: only move the caret, do not refresh the right panel again
     if (currentTarget.contentEditable === 'true') {
       return;
     }
     const path = generatePath(currentTarget);
     if (currentTarget.tagName === 'IMG') {
-      // 仅 builder 画布内触发,动态加载图片内联编辑(选中态 + 悬浮操作条),
-      // 完整表单经操作条"更多设置"回落 drawer
+      // Only triggered inside the builder canvas; dynamically load the image inline editor
+      // (selected state + floating action bar); the full form falls back to the drawer via
+      // the action bar's "more settings"
       void import('@modules/builder/inline-editor/inline-image.service').then(
         ({ InlineImageService }) => {
           if (this.destroyed) {
             return;
           }
-          // 传入点击处的环境注入器:媒体库对话框内容(ManageMediaComponent)依赖
-          // BUILDER_CONFIG 等路由级令牌,root 单例服务自身的注入器解析不到
+          // Pass the environment injector at the click site: the media library dialog
+          // content (ManageMediaComponent) depends on route-level tokens like
+          // BUILDER_CONFIG, which the root singleton service's own injector cannot resolve
           const envInjector = this.injector.get(EnvironmentInjector);
           this.injector
             .get(InlineImageService)
@@ -125,9 +126,11 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
     } else if (this.contenteditProfile() !== 'plain') {
       const profile = this.contenteditProfile() as 'rich' | 'inline';
       const clickCoords = { x: event.clientX, y: event.clientY };
-      // 仅 builder 画布内触发,动态加载 tiptap 内联编辑器,避免公共页面把编辑器打进首包。
-      // 不打开右侧文本面板:该面板会向元素注入 <p> 包裹(见 InlineEditComponent.initTextView),
-      // 与原位挂载的编辑器互斥;drawer.open() 还会夺焦触发误提交。格式化由气泡工具栏承担
+      // Only triggered inside the builder canvas; dynamically load the tiptap inline editor
+      // so public pages never pull it into the first bundle. Do not open the right text panel:
+      // it injects a <p> wrapper into the element (see InlineEditComponent.initTextView),
+      // which conflicts with the in-place editor; drawer.open() also steals focus and causes
+      // false commits. Formatting is handled by the bubble toolbar
       void import('@modules/builder/inline-editor/inline-editor.service').then(
         ({ InlineEditorService }) => {
           if (this.destroyed) {
@@ -142,8 +145,9 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
         }
       );
     } else {
-      // 兜底档:number-animate(JS 动画持有文本节点)与自定义模板等场景,
-      // 原地编辑文本节点、失焦保存;旧文本样式面板已退役,不再随编辑打开
+      // Fallback profile: number-animate (JS animation owns the text node) and custom
+      // templates etc. edit the text node in place and save on blur; the legacy text style
+      // panel is retired and no longer opens with editing
       currentTarget.contentEditable = 'true';
       this.originalHtml = currentTarget.innerHTML;
     }

@@ -47,11 +47,11 @@ export interface ICoreConfig {
     params: {
       reqRoles: string[];
     };
-    /** 内容发布入口(node/add、内容中心)开放的内容类型:在默认清单基础上禁用或新增(机器名) */
+    /** Content types exposed at content publishing entry points (node/add, content center): disable or add machine names on top of the default list */
     nodeTypes?: {
       disable?: string[];
       enable?: string[];
-      /** 启用内容审核(content moderation)的类型:发布状态写 moderation_state 而非 status */
+      /** Types with content moderation enabled: publish status is written to moderation_state instead of status */
       moderated?: string[];
     };
   };
@@ -259,7 +259,7 @@ export interface IPage {
   status?: boolean;
   message?: string;
   current?: boolean;
-  // 本地草稿是否有未提交到服务端的修改；nid && !dirty 视为已同步
+  // Whether the local draft has changes not yet submitted to the server; nid && !dirty means synced
   dirty?: boolean;
   langcode?: string;
   vid?: string;

@@ -166,7 +166,7 @@ export interface IWidgets {
   elements: IDynamicInputs[];
 }
 
-// 文本变体已随旧文本面板退役(文本编辑走 tiptap 气泡),现仅存图片编辑
+// The text variant was retired with the old text panel (text editing uses the tiptap bubble); only image editing remains
 export type IMetaEdit = IMetaImageEdit;
 
 interface IMetaEditBase {
@@ -194,7 +194,7 @@ export interface ICustomTemplate extends ICombsBase {
   isAPI?: boolean;
   api?: string;
   dialogs?: ICustomTemplateDialog[];
-  /** 自定义 JS 逻辑（仅管理员可编辑），前台渲染后执行，可 return 清理函数 */
+  /** Custom JS logic (admin-editable only), executed after front-end rendering; may return a cleanup function */
   js?: string;
 }
 
@@ -218,7 +218,7 @@ export interface ICodeEditor {
     js?: string;
   };
   path: string;
-  /** 打开编辑器后定位并选中的源码片段 */
+  /** Source snippet to locate and select after opening the editor */
   reveal?: string;
 }
 

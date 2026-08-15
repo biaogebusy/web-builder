@@ -1,17 +1,20 @@
-// Frase 式布局:顶栏、编辑器工具栏、右侧属性面板都用 1px 细线(--shadcn-border)分隔,
-// 无浮动圆角卡片;编辑区为白底文档流,tiptap 工具栏投影成顶栏下的通栏 sticky 工具条
+// Frase-style layout: the top bar, editor toolbar, and right property panel are all separated
+// by 1px hairlines (--shadcn-border), no floating rounded cards; the edit area is a white
+// document flow, and the tiptap toolbar projects as a full-width sticky bar under the top bar
 .node-add {
   @apply flex min-h-full flex-col;
   background: var(--shadcn-background);
   color: var(--shadcn-foreground);
-  // lg+:整页锁定为视口高度并接管滚动,外层壳(.builder 100vh 滚动容器)
-  // 不再产生滚动;主区/右栏各自内部滚动,工具栏因此永远可见
+  // lg+: the page locks to the viewport height and takes over scrolling; the outer shell
+  // (.builder 100vh scroll container) no longer scrolls, main and right column scroll
+  // internally instead, keeping the toolbar always visible
   @screen lg {
     @apply h-screen overflow-hidden;
   }
 
-  // 顶栏固定 h-14(box-border:项目无全局 border-box,显式包含底边框),
-  // 编辑器工具栏 sticky 时以 top-14 衔接,两者共用同一条细线体系
+  // Top bar fixed at h-14 (box-border: no global border-box in this project, so the bottom
+  // border is explicitly included); the sticky editor toolbar sits at top-14 below it, both
+  // sharing the same hairline system
   .editor-topbar {
     @apply sticky top-0 z-20 flex h-14 shrink-0 box-border items-center justify-between gap-4 px-6;
     background: var(--shadcn-background);
@@ -24,10 +27,11 @@
   .actions {
     @apply flex items-center gap-2;
   }
-  // 不用 .container 命名:Tailwind 的 container 工具类自带 max-width/边距,会污染布局。
-  // 通高铺满(减去 h-14 顶栏),保证右栏左侧细线始终触底。
-  // lg+ 高度由 flex 计算(根节点 h-screen - 顶栏),不做 100vh 减法,
-  // 对边框/内容盒模型免疫;min-h-0 允许收缩以触发子级内部滚动
+  // Avoid the .container name: Tailwind's container utility class carries max-width/margins
+  // that would pollute the layout. Fill the full height (minus the h-14 top bar) so the right
+  // column's left hairline always reaches the bottom. On lg+ the height comes from flex
+  // (root h-screen minus the top bar), not a 100vh subtraction, making it immune to border /
+  // content-box sizing; min-h-0 allows shrinking to trigger internal scrolling of children
   .node-layout {
     @apply flex flex-1 flex-col items-stretch lg:flex-row;
     min-height: calc(100vh - 3.5rem);
@@ -41,22 +45,22 @@
       @apply overflow-y-auto;
     }
 
-    // 独立工具栏通栏:tiptap 把工具栏 portal 投影进来,边框/内边距由本容器接管,
-    // 并 sticky 在顶栏(h-14)之下
+    // Full-width standalone toolbar: tiptap projects its toolbar portal here, this container
+    // owns the border/padding, and it sticks below the top bar (h-14)
     .editor-toolbar {
       @apply sticky top-14 z-10 px-6 py-2;
       background: var(--shadcn-background);
       border-bottom: 1px solid var(--shadcn-border);
-      // lg+ 主区自身是滚动容器(顶栏在容器之外),工具栏吸附容器顶部
+      // On lg+ the main area is its own scroll container (top bar sits outside it), so the toolbar sticks to the container top
       @screen lg {
         @apply top-0;
       }
-      // 投影进来的工具栏只保留按钮排布,盒式边框交给通栏容器
+      // Keep only the button layout from the projected toolbar; the boxed border belongs to the full-width container
       ::ng-deep .toolbar {
         @apply border-0 px-0;
       }
     }
-    // 编辑器在文档流里是无边框白底,tiptap 组件自带的卡片外观(圆角/阴影/边框)去掉
+    // In the document flow the editor is borderless on white; strip tiptap's built-in card look (radius/shadow/border)
     ::ng-deep .editor-container {
       @apply rounded-none border-0 shadow-none;
       background: transparent;
@@ -74,8 +78,8 @@
         border-left: 4px solid var(--shadcn-border);
       }
     }
-    // 标题与正文共用同一左对齐文档容器(mx-auto 限宽 + px-6),内部控件一律 px-0,
-    // 保证标题文本与正文文本严格左对齐
+    // Title and body share the same left-aligned document container (mx-auto max-width + px-6);
+    // inner controls all use px-0 so title and body text stay strictly left-aligned
     ::ng-deep formly-form {
       @apply block;
     }
@@ -92,14 +96,14 @@
         @apply font-bold;
       }
       label {
-        // 视觉隐藏但保留给读屏器,input 的可访问名称来自它
+        // Visually hidden but kept for screen readers; the input's accessible name comes from it
         @apply sr-only;
       }
     }
     ::ng-deep .node-body-field {
       @apply mx-auto block max-w-3xl px-6 pb-8;
     }
-    // 空文档占位符与标题占位符同一视觉(tiptap Placeholder 扩展挂在首行 ::before)
+    // Empty-document placeholder matches the title placeholder visually (tiptap Placeholder extension hangs off the first line's ::before)
     ::ng-deep .ProseMirror p.is-editor-empty:first-child::before {
       color: var(--shadcn-muted-foreground);
       opacity: 0.6;
@@ -112,8 +116,8 @@
       }
     }
   }
-  // 通高右栏:与主区以一条细线分隔,内部分区用细线而非卡片;
-  // lg+ 独立滚动,滚到底不向外穿透
+  // Full-height right column: separated from the main area by a hairline; inner sections use
+  // hairlines instead of cards; on lg+ it scrolls independently without overscroll bleeding out
   .node-aside {
     @apply w-full shrink-0 lg:w-[340px];
     border-top: 1px solid var(--shadcn-border);
@@ -132,7 +136,7 @@
     @apply text-sm font-medium;
     color: var(--shadcn-muted-foreground);
   }
-  // 类型切换下拉的原生 select 外壳与箭头,与 node-manage 筛选栏保持一致
+  // Native select shell and chevron for the type-switch dropdown, consistent with the node-manage filter bar
   .select-wrap {
     @apply relative block;
   }

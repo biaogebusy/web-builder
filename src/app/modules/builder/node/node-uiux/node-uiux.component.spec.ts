@@ -63,7 +63,7 @@ describe('NodeUiuxComponent', () => {
     nodeService.deleteEntity.mockReturnValue(of({}));
     nodeService.fetch.mockReturnValue(of({ data: [], included: [] }));
     builderService.updateAttributes.mockReturnValue(of(true));
-    // 模拟 ContentService：触发刷新时让共享 UIUX 数据重新发射
+    // Mock ContentService: re-emit the shared UIUX data when a refresh is triggered
     contentService.reloadUIUX.mockImplementation(() => uiux$.next(uiux$.value));
 
     TestBed.configureTestingModule({

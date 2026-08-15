@@ -25,7 +25,7 @@ import { buildHubMenu, HUB_MENU_KEYS } from '../../hub/hub-entries';
 export class BuilderSidebarComponent {
   public branding$ = inject(BRANDING);
   private translate = inject(TranslateService);
-  // 固定追加"管理"菜单(持久导航),入口清单与 /builder/hub 页共用 hub-entries
+  // Always append the "Manage" menu (persistent navigation); entries shared with the /builder/hub page via hub-entries
   public builderConfig$: Observable<IBuilderConfig> = combineLatest([
     inject(BUILDER_CONFIG),
     this.translate.stream(HUB_MENU_KEYS),

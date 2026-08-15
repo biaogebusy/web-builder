@@ -45,17 +45,19 @@ import {
 } from '@core/token/token-providers';
 
 /**
- * 脚手架(should create)spec 的共享 mock 工厂。
+ * Shared mock factory for scaffolding (should create) specs.
  *
- * 约定(见 docs/testing-recovery-wbs.md 第 3 节):
- * - 方法一律 `vi.fn()`,返回流的用 `vi.fn(() => of(...))`;流属性用 `new Subject()`;
- *   signal 型用 `signal(值)`;令牌给惰性最小值。
- * - 需要"断言 mock 调用"的行为测试请勿依赖本工厂的实例:自建局部 mock,
- *   并在 `providers` 数组中排在 `...provideCoreMocks()` 之后覆盖同名 provider。
+ * Conventions (see docs/testing-recovery-wbs.md, section 3):
+ * - Methods are always `vi.fn()`; stream-returning ones use `vi.fn(() => of(...))`;
+ *   stream properties use `new Subject()`; signal-typed ones use `signal(value)`;
+ *   tokens get a lazy minimal value.
+ * - Behavior tests that need to assert mock calls must not rely on this factory's
+ *   instances: build a local mock and place it after `...provideCoreMocks()` in the
+ *   `providers` array to override the same-named provider.
  */
 
 export const createScreenServiceMock = () => ({
-  // 统一按服务端环境短路,绕开 echarts/swiper/video.js 等 jsdom 跑不动的初始化
+  // Short-circuit to the server environment to skip initializations jsdom cannot run (echarts/swiper/video.js)
   isPlatformServer: vi.fn(() => true),
   isPlatformBrowser: vi.fn(() => false),
   isElementInViewport: vi.fn(() => false),
@@ -326,8 +328,8 @@ export const createBreakpointObserverMock = () => ({
 });
 
 /**
- * 核心令牌 + 常用单例服务的一揽子 mock。
- * 典型用法:
+ * One-stop mocks for core tokens and commonly used singleton services.
+ * Typical usage:
  * ```ts
  * await TestBed.configureTestingModule({
  *   imports: [XxxComponent],
@@ -337,7 +339,7 @@ export const createBreakpointObserverMock = () => ({
  */
 export function provideCoreMocks(): (Provider | EnvironmentProviders)[] {
   return [
-    // 未被 mock 覆盖的真实服务(如 ConfigCheckService)兜底用的 HttpClient 测试后端
+    // HttpClient testing backend as fallback for real services not covered by mocks (e.g. ConfigCheckService)
     provideHttpClient(),
     provideHttpClientTesting(),
     importProvidersFrom(TranslateModule.forRoot()),

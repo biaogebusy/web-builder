@@ -53,7 +53,7 @@ describe('TiptapBubbleMenuComponent', () => {
 
     fixture.componentInstance.applyColor(editor, '#ff0000');
     fixture.componentInstance.applyFontSize(editor, '24px');
-    // 浏览器 CSSOM 可能把 hex 归一为 rgb(),两种形式均合法
+    // The browser CSSOM may normalize hex to rgb(); both forms are valid
     expect(editor.getHTML()).toMatch(/color: (#ff0000|rgb\(255, 0, 0\))/);
     expect(editor.getHTML()).toContain('font-size: 24px');
 

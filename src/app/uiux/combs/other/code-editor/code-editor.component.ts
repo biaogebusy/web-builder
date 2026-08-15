@@ -74,27 +74,27 @@ export class CodeEditorComponent implements OnInit {
   public jsForm = new UntypedFormControl('');
   public js = signal<string>('');
   public activeTab = signal<'html' | 'js'>('html');
-  // 自定义 JS 仅管理员可见可编辑（前台会对所有访客执行，作者即信任边界）
+  // Custom JS is only visible/editable for admins (it runs for every visitor, so the author is the trust boundary)
   public isAdmin = signal<boolean>(false);
   public model: any = {};
   public fields: FormlyFieldConfig[];
   public MonacoOptions = {
     theme: 'vs-dark',
     language: 'html',
-    automaticLayout: true, // 自动布局
-    wordWrap: 'on', // 自动换行
-    minimap: { enabled: false }, // 代码缩略图
+    automaticLayout: true,
+    wordWrap: 'on',
+    minimap: { enabled: false },
     scrollBeyondLastLine: false,
     suggest: {
       showIcons: true,
       snippetsPreventQuickSuggestions: false,
     },
-    quickSuggestions: true, // 快速建议
-    codeLens: true, // 代码透镜
-    folding: true, // 代码折叠
-    formatOnPaste: true, // 自动格式化粘贴内容
-    formatOnType: true, // 实时格式化
-    lightbulb: { enabled: true }, // 显示快速修复灯泡
+    quickSuggestions: true,
+    codeLens: true,
+    folding: true,
+    formatOnPaste: true,
+    formatOnType: true,
+    lightbulb: { enabled: true },
     fontSize: 14,
   };
   public jsMonacoOptions = { ...this.MonacoOptions, language: 'javascript' };
@@ -257,7 +257,7 @@ export class CodeEditorComponent implements OnInit {
       // remove ai generator relationships
       delete content.relationships;
       this.builder.updatePageContentByPath(`${path}`, content);
-      // 同步快照，避免切换 HTML/JS 标签重建编辑器时回退到打开时的旧内容
+      // Keep the snapshot in sync so switching HTML/JS tabs does not rebuild the editor with stale content
       this.html.set(html);
     }
   }

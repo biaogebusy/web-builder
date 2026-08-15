@@ -8,16 +8,17 @@ import { TextAlign } from '@tiptap/extension-text-align';
 import { TextStyleKit } from '@tiptap/extension-text-style';
 
 /**
- * 多段落富文本的扩展配方:tiptap-editor comb(表单)与画布内联编辑 rich 档
- * (InlineEditorService)共用,保证两处的能力与序列化行为一致——
- * 新增能力(如 iframe/视频扩展)只需改这一处
+ * Extension recipe for multi-paragraph rich text, shared by the tiptap-editor comb
+ * (form) and the canvas inline-edit 'rich' profile (InlineEditorService), so both
+ * keep identical capabilities and serialization behavior — adding a capability
+ * (e.g. iframe/video extensions) only requires changing this one place.
  */
 export function buildRichExtensions(options: {
-  /** 气泡工具栏宿主元素,交给 BubbleMenu 扩展定位与显隐 */
+  /** Host element for the bubble toolbar, handed to the BubbleMenu extension for positioning and visibility */
   bubbleElement: HTMLElement;
-  /** 气泡挂载点:插件默认 append 到编辑器父元素,会被 overflow:hidden 容器裁剪,统一挂 body */
+  /** Bubble mount point: the plugin appends to the editor's parent by default, which overflow:hidden containers clip; always mount on body */
   appendTo: () => HTMLElement;
-  /** 空文档占位文案(仅表单场景;画布内联编辑不需要) */
+  /** Placeholder text for an empty document (form scenario only; canvas inline editing does not need it) */
   placeholder?: string;
 }): Extensions {
   return [
@@ -25,16 +26,18 @@ export function buildRichExtensions(options: {
       heading: {
         levels: [1, 2, 3, 4, 5, 6],
       },
-      // 编辑态点击链接不跳转,避免误触离开;打开动作在链接面板里
-      // 链接颜色由 .ProseMirror a 样式接管,不注入 class 以免写进存储的 HTML
+      // Do not navigate when clicking a link while editing, to avoid accidental
+      // leaves; opening is done from the link panel. Link color is taken over by
+      // the .ProseMirror a styles, no class is injected so it never ends up in the stored HTML
       link: {
         openOnClick: false,
       },
     }),
-    // 段落/标题对齐是文档内属性,仅多段落正文可用;气泡的对齐按钮按此探测显隐
+    // Paragraph/heading alignment is a document-level attribute, only usable in
+    // multi-paragraph bodies; the bubble's align buttons probe it for visibility
     TextAlign.configure({ types: ['heading', 'paragraph'] }),
     Highlight,
-    // 选区级文字样式(字色/背景/字号)
+    // Selection-level text styles (text color/background/font size)
     TextStyleKit,
     Image,
     ...(options.placeholder ? [Placeholder.configure({ placeholder: options.placeholder })] : []),
@@ -44,7 +47,7 @@ export function buildRichExtensions(options: {
 
 export const ALIGN_ORDER = ['left', 'center', 'right', 'justify'];
 
-/** 对齐按钮图标跟随当前对齐方式(默认左对齐) */
+/** The align button icon follows the current alignment (defaults to left) */
 export function alignIcon(editor: Editor): string {
   const active = ALIGN_ORDER.slice(1).find(align => editor.isActive({ textAlign: align }));
   return `format-align-${active ?? 'left'}`;

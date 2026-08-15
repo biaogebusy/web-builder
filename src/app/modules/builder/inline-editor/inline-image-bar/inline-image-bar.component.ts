@@ -17,9 +17,11 @@ import { TOOLBAR_TOOLTIP_ABOVE, ToolbarKeynavDirective } from '@core/directive/t
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 
 /**
- * 画布图片的悬浮操作条,由 InlineImageService 动态创建并定位在选中图片上方。
- * 动作经 output 交给服务执行(写回/媒体库/上传),组件自身不持有业务状态,
- * 也不反向注入服务,避免与服务文件形成模块循环
+ * Floating action bar for canvas images, dynamically created by
+ * InlineImageService and positioned above the selected image. Actions are
+ * handed to the service via outputs (write-back/media library/upload); the
+ * component holds no business state and does not inject the service back,
+ * avoiding a module cycle with the service file.
  */
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,7 +32,7 @@ import { BtnComponent } from '@uiux/widgets/btn/btn.component';
   imports: [TranslateModule, MatTooltipModule, BtnComponent, ToolbarKeynavDirective],
 })
 export class InlineImageBarComponent {
-  /** 当前选中的图片;为空时整条隐藏 */
+  /** Currently selected image; the whole bar hides when null */
   readonly img = input<HTMLImageElement | null>(null);
 
   readonly upload = output<void>();
@@ -47,7 +49,7 @@ export class InlineImageBarComponent {
   public altValue = signal('');
 
   constructor() {
-    // 切换选中图片时收起 ALT 输入行,并带入该图片当前的替代文本
+    // Collapse the ALT input row on selection change and pull in the image's current alt text
     effect(() => {
       const img = this.img();
       this.altPanelOpen.set(false);

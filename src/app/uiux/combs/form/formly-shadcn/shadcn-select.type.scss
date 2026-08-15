@@ -2,7 +2,7 @@
   @apply relative block;
 }
 
-// 触发按钮基于全局 .shad-input;选中值单行截断,箭头随内容布局
+// Trigger button is based on the global .shad-input; the selected value truncates to one line, the arrow follows the content layout
 .select-trigger {
   @apply flex cursor-pointer items-center justify-between gap-2 text-left;
 }
@@ -21,7 +21,7 @@
   color: var(--shadcn-muted-foreground);
 }
 
-// 单选的选中指示:左侧对勾;未选中时占位透明,保持选项文本列对齐
+// Single-select indicator: leading check; transparent when unselected to keep option text column-aligned
 .option-check {
   @apply inline-flex h-4 w-4 flex-shrink-0 items-center justify-center;
   color: transparent;

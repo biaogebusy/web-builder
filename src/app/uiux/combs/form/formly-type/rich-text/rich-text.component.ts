@@ -30,7 +30,7 @@ export class RichTextComponent extends FieldType<FieldTypeConfig> implements Aft
   readonly formFieldControl = viewChild.required(MatInput);
   readonly popup = viewChild<ElementRef>('popup');
   private value: any;
-  private contentChunks: string[] = []; // 分段内容
+  private contentChunks: string[] = [];
   private popper: any;
   public modules: QuillModule = {
     toolbar: [

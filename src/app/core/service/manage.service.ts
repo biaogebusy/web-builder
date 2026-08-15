@@ -61,14 +61,14 @@ export class ManageService extends ApiService {
       apiParams.addSort('created', direction);
     }
 
-    // 所有文件
+    // All files
     if (type.includes('file')) {
       if (key) {
         apiParams.addFilter('filename', key, 'CONTAINS');
       }
     }
 
-    // 图片库
+    // Image library
     if (type.includes('image')) {
       apiParams.addFields('file--file', ['uri']);
       apiParams.addInclude(['field_media_image']);
@@ -77,7 +77,7 @@ export class ManageService extends ApiService {
       }
     }
 
-    // 文档库 or 视频库
+    // Document library or video library
     if (type.includes('document') || type.includes('video')) {
       this.util.openSnackbar('文档库和视频库功能未完善！', 'Ok');
     }

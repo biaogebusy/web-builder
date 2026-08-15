@@ -347,7 +347,7 @@
   }
 }
 
-// 危险操作菜单项（删除）：用 Material 菜单令牌覆盖文字与图标颜色
+// Dangerous menu item (delete): override text and icon colors with Material menu tokens
 .menu-item-danger {
   --mat-menu-item-label-text-color: var(--mat-sys-error);
   --mat-menu-item-icon-color: var(--mat-sys-error);

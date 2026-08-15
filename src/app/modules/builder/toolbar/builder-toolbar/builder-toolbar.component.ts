@@ -54,7 +54,7 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
   public page?: IPage;
   private dialog = inject(MatDialog);
   private builder = inject(BuilderState);
-  // 直接读 BuilderState 的 version signal,与版本面板保持同一数据源
+  // Read BuilderState's version signal directly so the toolbar and version panel share one source
   public version = this.builder.version.asReadonly();
   private util = inject(UtilitiesService);
   private screenState = inject(ScreenState);
@@ -148,7 +148,7 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
     }
 
     if (page.translation && page.target) {
-      // 新增翻译：提交前再校验一次目标语言翻译是否已存在
+      // New translation: re-check whether the target-language translation already exists before submitting
       const target = page.target;
       this.builder.loading.set(true);
       this.builderService
@@ -163,7 +163,7 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
           next: res => {
             this.builder.loading.set(false);
             if (res.exists) {
-              // 翻译已存在，保留本地草稿，交由用户处理
+              // Translation already exists; keep the local draft and let the user handle it
               this.util.openSnackbar(
                 this.translate.instant('BUILDER.TOOLBAR.TRANSLATION_EXISTS', { target }),
                 'ok'
@@ -216,7 +216,7 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
             const { status, message } = res;
             this.builder.loading.set(false);
             if (status) {
-              // 提交成功不删除本地记录：标记为已同步并原地载入服务端最新版
+              // Keep the local record on success: mark it as synced and load the latest server version in place
               this.builder.markPageSynced(submittedPage);
               this.builder.updateSuccess$.next(true);
               this.util.openSnackbar(
@@ -250,7 +250,7 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
               const { status, message } = res;
               this.builder.loading.set(false);
               if (status) {
-                // 提交成功不删除本地记录：补上服务端 nid 后重载,草稿原地升级为线上页面
+                // Keep the local record on success: attach the server nid and reload, promoting the draft in place
                 const nid = res?.data?.nid;
                 if (nid) {
                   this.builder.markPageSynced(submittedPage, { nid: String(nid) });

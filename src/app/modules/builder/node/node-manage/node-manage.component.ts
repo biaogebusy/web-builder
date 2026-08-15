@@ -51,23 +51,23 @@ export class NodeManageComponent implements OnInit {
   public nodeTypes = signal<{ label: string; value: string }[]>([]);
   public rows = signal<INodeRow[]>([]);
   public loading = signal(true);
-  /** 当前内容类型;空串为"全部"(JSON:API 集合按 bundle 提供,逐类型查询后合并) */
+  /** Current content type; empty string means "all" (JSON:API collections are per-bundle, so all types are fetched then merged) */
   public type = signal('');
-  /** '' 全部 | '1' 已发布 | '0' 未发布 */
+  /** '' all | '1' published | '0' unpublished */
   public status = signal('');
   public langcode = signal('');
   public page = signal(0);
   public hasNext = signal(false);
-  /** 正在删除的行 uuid */
+  /** uuid of the row currently being deleted */
   public deleting = signal('');
-  /** 等待二次点击确认删除的行 uuid */
+  /** uuid of the row awaiting a second click to confirm deletion */
   public confirmUuid = signal('');
   public searchCtrl = new FormControl('');
   public langs = environment.langs || [];
   public pageSize = PAGE_SIZE;
-  /** 过滤请求先发后至的竞态保护 */
+  /** Race protection for filter requests arriving out of order */
   private reqId = 0;
-  /** "全部"模式分页:每页开始时各类型已消费的条数(offset)快照,索引即页码 */
+  /** "All" mode pagination: snapshot of per-type consumed offsets at the start of each page, indexed by page number */
   private allOffsets: Record<string, number>[] = [{}];
 
   ngOnInit(): void {
@@ -85,7 +85,7 @@ export class NodeManageComponent implements OnInit {
             this.loading.set(false);
           }
         },
-        // 失败与"站点没有内容类型"不同:复位加载态并提示,否则会一直停在加载中
+        // Failure differs from "site has no content types": reset the loading state and notify, otherwise it would stay loading forever
         error: () => {
           this.loading.set(false);
           this.util.openSnackbar(this.translate.instant('BUILDER.NODE_MANAGE.LOAD_FAILED'), 'ok');
@@ -154,10 +154,13 @@ export class NodeManageComponent implements OnInit {
   }
 
   /**
-   * "全部"模式:JSON:API 无跨 bundle 集合,逐类型并发取当前页再合并。
-   * 每个类型都按 -changed 从各自的 offset 取整页,全局最新的一页必然
-   * 落在这些前缀的并集内,合并排序后截取即精确分页;本页各类型实际
-   * 消费的条数记入下一页的 offset 快照(allOffsets),翻页按快照续取。
+   * "All" mode: JSON:API has no cross-bundle collections, so fetch the current
+   * page per type concurrently and merge. Each type takes a full page sorted
+   * by -changed from its own offset; the globally newest page is guaranteed to
+   * fall within the union of these prefixes, so merging, sorting and slicing
+   * yields exact pagination; the per-type counts actually consumed this page
+   * are recorded in the next page's offset snapshot (allOffsets) and
+   * pagination continues from that snapshot.
    */
   private fetchAllTypes(id: number): void {
     const types = this.nodeTypes();
@@ -172,7 +175,7 @@ export class NodeManageComponent implements OnInit {
       types.map(type =>
         this.nodeService
           .fetch(`/api/v1/node/${type.value}`, this.buildParams(offsets[type.value] ?? 0))
-          // 单个类型失败(如无查看权限)不拖垮整页,置 null 跳过
+          // A single type failing (e.g. no view permission) must not break the whole page; skip it as null
           .pipe(catchError(() => of(null)))
       )
     )
@@ -257,7 +260,7 @@ export class NodeManageComponent implements OnInit {
     }
   }
 
-  /** "全部"模式下无当前类型,回管理中心按类型选择发布入口 */
+  /** In "all" mode there is no current type; go back to the management center to pick a publish entry by type */
   addNode(): void {
     if (this.type()) {
       this.router.navigate(['/builder/node/add', this.type()]);
@@ -270,7 +273,7 @@ export class NodeManageComponent implements OnInit {
     this.router.navigate(['/builder/node/edit', row.type, row.uuid]);
   }
 
-  /** 第一次点击进入确认态,再次点击才真正删除 */
+  /** First click enters the confirm state; only a second click actually deletes */
   onDelete(row: INodeRow): void {
     if (this.confirmUuid() !== row.uuid) {
       this.confirmUuid.set(row.uuid);

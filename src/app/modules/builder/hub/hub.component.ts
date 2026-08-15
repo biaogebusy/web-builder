@@ -18,7 +18,7 @@ import { USER } from '@core/token/token-providers';
 import { TranslateService } from '@ngx-translate/core';
 import { HUB_GROUPS } from './hub-entries';
 
-/** 管理中心:聚合内容发布与各分散管理入口(内容、页面、外观、系统) */
+/** Management center: aggregates content publishing and the scattered management entries (content, pages, appearance, system) */
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-hub',
@@ -35,8 +35,9 @@ export class HubComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
 
   /**
-   * 当前用户可见的分组。入口按角色过滤(受限路由由各自 guard 兜底),
-   * 过滤后为空的分组整组不渲染,避免留下没有任何入口的孤儿标题。
+   * Groups visible to the current user. Entries are filtered by role (the
+   * restricted routes are each backed by their own guard); groups that end up
+   * empty are not rendered at all, avoiding orphan titles with no entries.
    */
   public groups = computed(() => {
     const user = this.user();
@@ -49,14 +50,16 @@ export class HubComponent implements OnInit {
     })).filter(group => group.entries.length > 0);
   });
 
-  /** 发布入口开放的内容类型(默认清单 + core_config 增删) */
+  /** Content types open for publish entries (default list + core_config additions/removals) */
   public nodeTypes = signal<INodeTypeOption[]>([]);
   public typesLoading = signal(true);
-  /** 加载失败与"站点没有可发布类型"是两种状态,文案和可用操作都不同 */
+  /** Load failure and "site has no publishable types" are two distinct states with different copy and actions */
   public typesError = signal(false);
   /**
-   * 骨架屏占位数量:按配置允许发布的类型数,而不是固定值,
-   * 让加载完成后的真实卡片数尽量与占位一致,减少高度跳动。
+   * Number of skeleton placeholders: follows the configured number of
+   * publishable types instead of a fixed value, so the real card count after
+   * loading matches the placeholders as closely as possible and height jumps
+   * are reduced.
    */
   public skeletonSlots = this.fieldFormService
     .getAllowedTypeNames()

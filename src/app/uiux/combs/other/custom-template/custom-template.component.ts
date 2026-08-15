@@ -58,15 +58,16 @@ export class CustomTemplateComponent implements AfterViewInit {
   private manageService = inject(ManageService);
   private translate = inject(TranslateService);
   private dialogClickHandler?: (event: Event) => void;
-  // 内联编辑：仅 builder 画布内的静态模板（非 API、无 Mustache 标签）
+  // Inline editing: only for static templates inside the builder canvas (non-API, no Mustache tags)
   private inCanvas = false;
   private inlineEditable = false;
   private pristine: HTMLElement | null = null;
-  // 源码定位编辑：画布内的 Mustache/API 模板，点选后在源码中唯一匹配
+  // Source-locate editing: for Mustache/API templates in the canvas, uniquely matches the clicked element in the source
   private locateBound = false;
-  // 自定义 JS 返回的清理函数，重渲染/销毁时调用
+  // Cleanup function returned by custom JS, called on re-render or destroy
   private jsCleanup: (() => void) | null = null;
-  // 组件销毁与内联编辑器动态 import 在途的竞态：销毁后不得再触碰注入器
+  // Race between component destroy and the in-flight dynamic import of the inline editor:
+  // after destroy the injector must not be touched
   private destroyed = false;
 
   constructor() {
@@ -210,7 +211,7 @@ export class CustomTemplateComponent implements AfterViewInit {
   }
 
   private bindDialogTriggers(): void {
-    // 画布内点击用于内联/定位编辑，不触发弹窗（预览模式/前台不受影响）
+    // Clicks inside the canvas drive inline/locate editing, not dialogs (preview/frontend unaffected)
     if (this.inCanvas) {
       return;
     }
@@ -262,9 +263,11 @@ export class CustomTemplateComponent implements AfterViewInit {
   }
 
   /**
-   * 执行管理员配置的自定义 JS（content.js）。作者侧已按管理员角色门控（代码编辑器），
-   * 运行侧以 new Function 限定入参作用域执行：root 为模板根元素、data 为模板数据。
-   * 脚本可 return 一个函数，在重渲染（如分页）或组件销毁时清理（解绑事件、销毁实例）。
+   * Runs admin-configured custom JS (content.js). Authoring is already gated by the
+   * administrator role (code editor); on the run side it executes via new Function
+   * with a scoped set of arguments: root is the template root element, data the
+   * template data. The script may return a function, called to clean up (unbind
+   * events, destroy instances) on re-render (e.g. paging) or component destroy.
    */
   private runCustomJs(data: any): void {
     this.runJsCleanup();
@@ -293,8 +296,9 @@ export class CustomTemplateComponent implements AfterViewInit {
   }
 
   /**
-   * 点哪改哪：给渲染后的元素打索引标记，并保留一份未被运行时库（swiper/echarts）
-   * 污染的净拷贝；编辑落点通过标记映射回净拷贝后整体序列化写回 widget.html。
+   * Click-to-edit: tags the rendered elements with index markers and keeps a clean
+   * copy untouched by runtime libraries (swiper/echarts); edits are mapped back to
+   * the clean copy via the markers and serialized into widget.html as a whole.
    */
   private setupInlineEdit(): void {
     if (!this.inlineEditable) {
@@ -312,7 +316,7 @@ export class CustomTemplateComponent implements AfterViewInit {
   }
 
   private onEditClick = (event: Event): void => {
-    // 点击落在已挂载的编辑器内部:光标与选区交给 tiptap,不重复进入编辑流程
+    // Click landed inside a mounted editor: leave cursor and selection to tiptap, do not re-enter the edit flow
     if ((event.target as HTMLElement | null)?.isContentEditable) {
       return;
     }
@@ -339,7 +343,7 @@ export class CustomTemplateComponent implements AfterViewInit {
     this.activateEditor(target, event as MouseEvent, html => this.saveIndexed(target, html));
   };
 
-  /** 编辑结果按索引写回净拷贝，再整体序列化保存 */
+  /** Write the edit result back into the clean copy by index, then serialize and save as a whole */
   private saveIndexed(target: HTMLElement, html: string): void {
     const index = target.getAttribute('data-xs-i');
     const source = index === null ? null : this.pristine?.querySelector(`[data-xs-i="${index}"]`);
@@ -351,10 +355,12 @@ export class CustomTemplateComponent implements AfterViewInit {
   }
 
   /**
-   * 画布内联富文本编辑：与正文组件共用 InlineEditorService（tiptap + 气泡工具栏）。
-   * 服务只在画布内动态载入，公共页面不会打进编辑器代码；
-   * 写回不走 path，由调用方在 onCommitted 里按各自的落盘方式保存。
-   * 含块级子元素的容器用 rich 档（保留段落/标题），单段文本用 inline 档（不加 <p> 包裹）
+   * In-canvas inline rich-text editing: shares InlineEditorService (tiptap + bubble
+   * toolbar) with the body component. The service is only loaded dynamically inside
+   * the canvas, so public pages never ship editor code; write-back does not go
+   * through a path, the caller persists per its own mechanism in onCommitted.
+   * Containers with block-level children use the 'rich' profile (keeps
+   * paragraphs/headings), single-paragraph text uses 'inline' (no <p> wrapper).
    */
   private activateEditor(
     target: HTMLElement,
@@ -388,7 +394,7 @@ export class CustomTemplateComponent implements AfterViewInit {
     if (el.closest('svg')) {
       return false;
     }
-    // 含运行时托管内容（图表、轮播结构）的容器整体不可编辑，需点击其内部文本
+    // Containers holding runtime-managed content (charts, carousel structures) are not editable as a whole; click the inner text instead
     if (el.querySelector('canvas, svg, video, iframe, .swiper-slide, [data-echarts]')) {
       return false;
     }
@@ -413,9 +419,11 @@ export class CustomTemplateComponent implements AfterViewInit {
   }
 
   /**
-   * 源码定位编辑：渲染结果与源码不一致（Mustache/API）时，点选元素后
-   * 在 widget.html 源码中做唯一文本匹配——命中则就地编辑并精确替换该片段，
-   * 未命中（数据生成的内容/歧义）则打开代码编辑器并定位到最接近的位置。
+   * Source-locate editing: when the rendered result differs from the source
+   * (Mustache/API), clicking an element performs a unique text match in the
+   * widget.html source. On a hit, edit in place and replace exactly that snippet;
+   * on a miss (data-generated content/ambiguity), open the code editor and
+   * position it at the closest location.
    */
   private setupLocateEdit(): void {
     if (!this.inCanvas || this.inlineEditable || this.locateBound) {
@@ -434,7 +442,7 @@ export class CustomTemplateComponent implements AfterViewInit {
     if (!target || !this.template.contains(target)) {
       return;
     }
-    // 点击落在已挂载的编辑器内部:光标与选区交给 tiptap,不重复进入编辑流程
+    // Click landed inside a mounted editor: leave cursor and selection to tiptap, do not re-enter the edit flow
     if (target.isContentEditable) {
       return;
     }
@@ -461,7 +469,7 @@ export class CustomTemplateComponent implements AfterViewInit {
     }
   };
 
-  /** 编辑结果精确替换源码中的原片段；期间源码被改动（唯一性丢失）则放弃并提示 */
+  /** Replace the original snippet in the source exactly with the edit result; abort with a notice if the source changed in the meantime (uniqueness lost) */
   private saveLocated(snippet: string, updated: string): void {
     const source = this.content().html ?? '';
     if (this.countOccurrences(source, snippet) !== 1) {
@@ -475,7 +483,7 @@ export class CustomTemplateComponent implements AfterViewInit {
     this.saveHtml(source.slice(0, index) + updated + source.slice(index + snippet.length));
   }
 
-  /** 元素内容在源码中唯一命中的片段（优先整段 HTML，回落到纯文本），命中不了返回 null */
+  /** Snippet of the element's content uniquely matching in the source (full HTML first, falling back to plain text); null if nothing matches */
   private findUniqueSnippet(el: HTMLElement, source: string): string | null {
     const html = el.innerHTML;
     if (html && this.countOccurrences(source, html) === 1) {
@@ -510,9 +518,11 @@ export class CustomTemplateComponent implements AfterViewInit {
   }
 
   /**
-   * 代码编辑器已打开且属于当前组件时，点击仅在编辑器中定位对应源码，
-   * 不进入内联编辑，避免重复弹窗及画布与编辑器的双向写入冲突；
-   * 属于其他组件时关闭旧编辑器，继续当前组件的正常编辑流程。
+   * When the code editor is open and belongs to the current component, a click
+   * only locates the matching source in the editor instead of entering inline
+   * editing, avoiding duplicate dialogs and two-way write conflicts between
+   * canvas and editor; when it belongs to another component, close the old
+   * editor and continue the current component's normal edit flow.
    */
   private revealInOpenEditor(target: HTMLElement): boolean {
     const existing = this.dialog.getDialogById('code-editor-dialog');
@@ -539,8 +549,9 @@ export class CustomTemplateComponent implements AfterViewInit {
   }
 
   /**
-   * 图片点哪换哪：可定位时打开媒体库选图并精确替换源码中的 src，
-   * 无法定位（src 由数据生成/歧义）则打开代码编辑器定位。
+   * Click-to-swap images: when locatable, opens the media library to pick an image
+   * and replaces the src in the source exactly; when not locatable (src generated
+   * from data/ambiguous), opens the code editor at the location.
    */
   private handleImgClick(img: HTMLImageElement): void {
     if (this.revealInOpenEditor(img)) {

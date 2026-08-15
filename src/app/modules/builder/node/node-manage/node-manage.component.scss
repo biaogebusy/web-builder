@@ -14,7 +14,7 @@
       @apply w-full md:w-72;
     }
   }
-  // 下拉外壳与箭头,与 formly shadcn-select 的实现保持一致
+  // Dropdown shell and chevron, kept consistent with the formly shadcn-select implementation
   .select-wrap {
     @apply relative block;
   }

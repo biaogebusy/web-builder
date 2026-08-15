@@ -32,8 +32,8 @@ export class DialogComponent {
   }
 
   onYesClick(): void {
-    // 表单对话框（inputData.content.form 约定）：表单无效时显示校验错误并阻止关闭，
-    // 避免必填项为空却被静默确认
+    // Form dialogs (inputData.content.form convention): when the form is invalid,
+    // show validation errors and block closing so required fields are not silently confirmed empty
     const form: unknown = this.data.inputData?.content?.form;
     if (form instanceof FormGroup && form.invalid) {
       form.markAllAsTouched();

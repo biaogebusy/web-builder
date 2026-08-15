@@ -19,10 +19,10 @@ html {
   overflow-x: hidden;
 }
 
-// transform 系工具类(translate/rotate/scale/skew)依赖的 --tw-* 变量默认值,
-// 取值与 tailwind base 的官方默认一致。base 层保持不引入(避免同时激活
-// ring/filter 等其他变量族,影响 CMS 历史内容),此处用通用选择器只补齐
-// transform 一族,让 class 字面量与组件样式里的 @apply 两种用法都能生效。
+// Defaults for the --tw-* variables the transform utilities (translate/rotate/scale/skew) rely on,
+// matching Tailwind base's official values. The base layer stays unimported (activating it would
+// also enable the ring/filter variable families and affect legacy CMS content), so a universal
+// selector fills in only the transform family — covering both literal classes and @apply usage.
 *,
 ::before,
 ::after {
@@ -135,13 +135,14 @@ pre {
   --sidebar-width: 68px;
 }
 
-// 画布内联富文本编辑态(InlineEditorService 原位挂载的 tiptap 根节点):
-// 排版完全继承宿主正文元素,不引入编辑器外框;焦点提示交给气泡与光标本身
+// Canvas inline rich-text editing (tiptap root mounted in place by InlineEditorService):
+// typography fully inherits the host content element, no editor chrome; focus feedback is
+// left to the bubble menu and the caret itself
 .inline-tiptap {
   outline: none;
 }
 
-// 画布图片选中态(InlineImageService):描边高亮,操作条浮于图片上方
+// Canvas image selection (InlineImageService): outline highlight, action bar floats above the image
 .inline-img-selected {
   outline: 2px solid var(--mat-sys-primary);
   outline-offset: 2px;

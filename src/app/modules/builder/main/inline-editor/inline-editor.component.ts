@@ -11,9 +11,9 @@ import { ManageService } from '@core/service/manage.service';
 import { IDialog } from '@core/interface/IDialog';
 
 /**
- * 画布内联编辑的右侧属性面板。现仅承担图片(mode: 'img')的编辑;
- * 文本模式已退役——文本的格式化与文字样式由 tiptap 气泡工具栏
- * (InlineEditorService)承担,元素级样式走组件设置
+ * Right-side property panel for inline editing in the canvas. Only image (mode: 'img') editing
+ * remains; the text mode is retired — formatting and text styles are handled by the tiptap
+ * bubble toolbar (InlineEditorService), element-level styles go through component settings
  */
 @Component({
   selector: 'app-inline-editor',
@@ -110,7 +110,7 @@ export class InlineEditComponent {
     const content = this.content();
     style[key] = value;
     (content.ele.style as unknown as Record<string, string>)[key] = value;
-    // 面板现仅服务 img 模式(onModelChange/onClear 已作 mode 守卫)
+    // The panel now only serves img mode (onModelChange/onClear already guard on mode)
     (content.ele as HTMLImageElement).src = src;
   }
 }

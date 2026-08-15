@@ -1,4 +1,4 @@
-// 图标按钮紧凑尺寸,工具栏与气泡菜单共用
+// Compact icon-button sizing, shared by the toolbar and the bubble menu
 @mixin compact-icon-buttons {
   --mat-icon-button-icon-size: 16px;
   --mat-icon-button-state-layer-size: 32px;
@@ -24,7 +24,7 @@
   background-color: var(--mat-sys-surface);
   border: 1px solid var(--mat-sys-surface-container-low);
 
-  // 焦点提示:主题色描边(替代内容区的硬编码蓝色 focus ring)
+  // Focus indication: themed outline (replaces the hardcoded blue focus ring in the content area)
   &:focus-within {
     border-color: var(--mat-sys-primary);
   }
@@ -40,7 +40,6 @@
     [contenteditable='true'] {
       background-color: transparent !important;
     }
-    /* 链接样式 */
     .ProseMirror a {
       color: var(--mat-sys-primary);
       text-decoration: underline;
@@ -55,8 +54,9 @@
       font-size: 0.85rem;
       padding: 0.25em 0.3em;
     }
-    // Placeholder 扩展把占位文案挂在空文档首行的 data-placeholder 上。
-    // 颜色走 shadcn 前景层级(本主题的 outline 是发丝线级,浅色下约 1.3:1 不可读)
+    // The Placeholder extension hangs the placeholder text on the empty document's
+    // first line via data-placeholder. The color uses the shadcn foreground tier
+    // (this theme's outline is hairline-level, roughly 1.3:1 in light mode, unreadable)
     .ProseMirror p.is-editor-empty:first-child::before {
       content: attr(data-placeholder);
       color: var(--shadcn-muted-foreground);
@@ -67,7 +67,8 @@
   }
 }
 
-// 工具栏可被投影到组件外的容器(toolbarContainer),选择器不能依赖 .editor-container 层级
+// The toolbar can be projected into a container outside this component (toolbarContainer),
+// so selectors must not depend on the .editor-container hierarchy
 .toolbar {
   @apply flex flex-wrap gap-1 px-2;
   @include compact-icon-buttons;

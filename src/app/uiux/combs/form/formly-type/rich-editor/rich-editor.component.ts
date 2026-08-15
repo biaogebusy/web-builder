@@ -18,8 +18,8 @@ export class RichEditorComponent extends FieldType implements OnInit, AfterViewI
   private util = inject(UtilitiesService);
   private nodeService = inject(NodeService);
   private translate = inject(TranslateService);
-  private contentChunks: string[] = []; // 分段内容
-  /** 空内容占位文案:props.placeholder(翻译扩展已处理)优先,否则用通用 i18n 文案 */
+  private contentChunks: string[] = [];
+  /** Placeholder for empty content: props.placeholder (already resolved by the translation extension) wins, otherwise use the generic i18n text */
   public placeholder = '';
   public modules: QuillModule = {
     toolbar: [
@@ -56,8 +56,10 @@ export class RichEditorComponent extends FieldType implements OnInit, AfterViewI
   ngOnInit(): void {
     this.placeholder =
       this.props?.['placeholder'] || this.translate.instant('BUILDER.FORM_EDITOR.PLACEHOLDER');
-    // props.toolbarContainer 指向页面上已有的工具栏容器选择器(如 '#node-editor-toolbar'),
-    // 用于把工具栏从编辑器盒子里抽离为独立通栏(Frase 式布局);容器内按钮由调用方提供
+    // props.toolbarContainer points to an existing toolbar container selector on the
+    // page (e.g. '#node-editor-toolbar'), used to detach the toolbar from the editor
+    // box into a standalone full-width bar (Frase-style layout); the caller supplies
+    // the buttons inside the container
     const container = this.props?.['toolbarContainer'];
     if (container) {
       this.modules = { toolbar: container };

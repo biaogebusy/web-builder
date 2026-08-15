@@ -47,7 +47,7 @@ export class PageSettingComponent implements OnInit {
   public fields: FormlyFieldConfig[];
   public loading = signal<boolean>(false);
   public type: 'node--landing_page' | 'node--json';
-  // 翻译版本只删当前语言，源语言版本删的是节点本身(全部语言)
+  // Deleting a translation version removes only the current language; the source-language version deletes the node itself (all languages)
   public isTranslation = false;
 
   private dialog = inject(MatDialog);
@@ -338,7 +338,7 @@ export class PageSettingComponent implements OnInit {
             this.loading.set(false);
             this.builder.updateSuccess$.next(true);
             this.builder.closeRightDrawer$.next(true);
-            // 删翻译只清掉该语言的本地草稿，其他语言的草稿保留
+            // Deleting a translation clears only that language's local draft; other languages' drafts stay
             this.deleteLocalPage(id, this.isTranslation ? langcode : undefined);
           },
           error: err => {

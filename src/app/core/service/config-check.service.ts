@@ -12,10 +12,10 @@ export class ConfigCheckService {
   private destroyRef = inject(DestroyRef);
   private resultSubject = new Subject<ApiTestResult>();
 
-  // 暴露结果流
+  // Expose the result stream
   public results$ = this.resultSubject.asObservable();
 
-  // 启动检测（使用RxJS流处理）
+  // Start the check (processed as an RxJS stream)
   startCheck(): void {
     from(API_CHECK_LIST)
       .pipe(

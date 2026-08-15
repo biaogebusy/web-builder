@@ -15,11 +15,11 @@ const { activateMock, selectMock } = vi.hoisted(() => ({
   selectMock: vi.fn(),
 }));
 
-// rich/inline 分支动态 import 该模块;mock 掉避免真实拉起 tiptap
+// The rich/inline branches dynamically import this module; mock it to avoid pulling in real tiptap
 vi.mock('@modules/builder/inline-editor/inline-editor.service', () => ({
   InlineEditorService: class {},
 }));
-// img 分支动态 import 图片内联编辑服务
+// The img branch dynamically imports the image inline editing service
 vi.mock('@modules/builder/inline-editor/inline-image.service', () => ({
   InlineImageService: class {},
 }));
@@ -39,7 +39,7 @@ vi.mock('@modules/builder/inline-editor/inline-image.service', () => ({
 })
 class HostComponent {}
 
-/** 等待 rich 分支的动态 import 完成 */
+/** Wait for the rich branch's dynamic import to finish */
 const flushDynamicImport = (): Promise<void> => new Promise(resolve => setTimeout(resolve));
 
 describe('ContenteditDirective', () => {
@@ -125,7 +125,7 @@ describe('ContenteditDirective', () => {
 
     expect(selectMock.mock.calls[0][0]).toBe(cimg);
     expect(selectMock.mock.calls[0][1]).toBe('src');
-    // 第三参是点击处的环境注入器:媒体库对话框靠它解析路由级 BUILDER_CONFIG
+    // The third arg is the environment injector at the click site: the media library dialog resolves route-level BUILDER_CONFIG through it
     expect(selectMock.mock.calls[0][2]).toBeInstanceOf(EnvironmentInjector);
     expect(emissions.length).toBe(0);
   });

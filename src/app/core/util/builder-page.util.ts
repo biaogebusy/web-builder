@@ -13,7 +13,7 @@ export function getApiLang(langcode?: string): string {
   return lang;
 }
 
-// 翻译版本 = 多语言站点下的非默认语言版本；默认语言即源语言，对应节点本身
+// Translation = non-default-language version on a multilingual site; the default language is the source language of the node itself
 export function isTranslationLang(langcode?: string): boolean {
   return Boolean(environment.multiLang) && Boolean(getApiLang(langcode));
 }

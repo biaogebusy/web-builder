@@ -18,9 +18,11 @@ import { TOOLBAR_TOOLTIP_ABOVE } from '@core/directive/toolbar-keynav.directive'
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 
 /**
- * tiptap 链接编辑面板(替代 window.prompt):tiptap-editor comb 与气泡工具栏共用。
- * 由父级按需创建(打开即挂载),创建时带入光标处链接并全选输入框;
- * 应用/移除后经 closed 通知父级收起,边框与摆放由父级样式决定
+ * Tiptap link editing panel (replaces window.prompt), shared by the tiptap-editor
+ * comb and the bubble toolbar. The parent creates it on demand (mounted when
+ * opened); on creation it carries the link at the cursor and selects the input.
+ * After apply/remove it notifies the parent via closed to collapse; border and
+ * placement are decided by the parent's styles.
  */
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -41,12 +43,12 @@ export class TiptapLinkPanelComponent {
   public linkUrl = signal('');
 
   constructor() {
-    // 编辑器就绪/切换时带入光标处链接地址,并全选输入框便于覆盖输入
+    // When the editor is ready or the selection changes, bring in the link at the cursor and select the input for easy overwrite
     effect(() => {
       this.linkUrl.set(this.editor().getAttributes('link').href ?? '');
       queueMicrotask(() => this.linkInput()?.nativeElement.select());
     });
-    // tiptap 事件在 Angular 之外触发,zoneless 下需手动调度变更检测刷新按钮显隐
+    // Tiptap events fire outside Angular; under zoneless we must manually schedule change detection to refresh button visibility
     effect(onCleanup => {
       const editor = this.editor();
       const refresh = (): void => this.cdr.markForCheck();
@@ -55,7 +57,7 @@ export class TiptapLinkPanelComponent {
     });
   }
 
-  /** 应用链接;空 URL 视为移除 */
+  /** Apply the link; an empty URL is treated as removal */
   apply(url: string): void {
     const href = url.trim();
     const chain = this.editor().chain().focus().extendMarkRange('link');

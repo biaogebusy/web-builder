@@ -88,7 +88,7 @@ export class CommentFormComponent implements OnInit {
     const token = (this.user() as IUser)?.access_token;
     const params = this.content().params?.comment as ICommentParams;
     const type = params.attributes?.field_name || '';
-    // reply, update 在组件内判断处理，默认新增，包括外部组件
+    // reply/update are handled inside this component; default is add, including for external components
     switch (this.type()) {
       case 'reply':
         this.reply(value, params, type, token);
@@ -103,7 +103,7 @@ export class CommentFormComponent implements OnInit {
   }
 
   add(value: string, params: ICommentParams, type: string, token: string): void {
-    // 默认comment_boyd，不一致的在后台覆写字段 /admin/config/services/jsonapi/add/resource_types
+    // Defaults to comment_body; fields that differ are overridden in the backend at /admin/config/services/jsonapi/add/resource_types
     params.attributes.comment_body = {
       value,
       format: 'full_html',

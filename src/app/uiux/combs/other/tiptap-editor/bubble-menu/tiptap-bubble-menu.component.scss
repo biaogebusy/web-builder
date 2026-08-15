@@ -1,5 +1,6 @@
-// 宿主元素由 tiptap BubbleMenu 扩展接管定位:show() 时挂到 body 并按
-// floating-ui 计算 top/left,隐藏由插件把元素移出 DOM,初始不可见
+// The host element's positioning is taken over by the tiptap BubbleMenu extension:
+// on show() it mounts to body and computes top/left via floating-ui; hiding is done
+// by the plugin removing the element from the DOM, so it starts invisible
 :host {
   @apply z-50 block;
   position: absolute;
@@ -12,7 +13,7 @@
   border-radius: 8px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 
-  // 图标按钮紧凑尺寸,与 tiptap-editor 工具栏一致
+  // Compact icon-button sizing, matching the tiptap-editor toolbar
   --mat-icon-button-icon-size: 16px;
   --mat-icon-button-state-layer-size: 32px;
   ::ng-deep {

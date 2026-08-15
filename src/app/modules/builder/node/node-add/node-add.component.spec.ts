@@ -13,7 +13,7 @@ import { CORE_CONFIG } from '@core/token/token-providers';
 
 import { NodeAddComponent } from './node-add.component';
 
-/** 后端内容类型多于默认开放清单,用于验证过滤 */
+/** Backend content types exceed the default open list; used to verify filtering */
 const NODE_TYPE_RESPONSE = {
   data: [
     { attributes: { name: '文章', drupal_internal__type: 'article' } },
@@ -57,7 +57,7 @@ describe('NodeAddComponent', () => {
     return nodeServiceMock;
   };
 
-  /** 编辑模式:路由带 uuid,fetch 回节点数据;preFetchChanged 为保存前比对到的 changed */
+  /** Edit mode: the route carries uuid and fetch returns the node; preFetchChanged is the changed value seen by the pre-save comparison */
   const setupEdit = async (nodeAttributes: any = {}, preFetchChanged?: string) => {
     const attributes = {
       title: 'Old title',
@@ -78,7 +78,7 @@ describe('NodeAddComponent', () => {
     );
     nodeServiceMock.fetch = vi.fn((api: string, params?: any) => {
       if (api === '/api/v1/node/blog/u1') {
-        // 带 fields 参数的是保存前的 changed 预检,否则为编辑回填加载
+        // A request with fields params is the pre-save changed check; otherwise it is the edit backfill load
         return params
           ? of({ data: { attributes: { changed: preFetchChanged ?? attributes.changed } } })
           : of({ data: { id: 'u1', attributes, relationships: {} } });
@@ -157,7 +157,7 @@ describe('NodeAddComponent', () => {
     expect(body?.type).toBe('tiptap');
     expect(body?.props?.['toolbarContainer']).toBe('#node-editor-toolbar');
     expect(component.hasRichEditor()).toBe(true);
-    // 非正文字段仍留在右侧属性面板
+    // Non-body fields still stay in the right property panel
     expect(component.sideFields().map(field => field.key)).toEqual(['field_tags']);
   });
 
@@ -236,7 +236,7 @@ describe('NodeAddComponent', () => {
     expect(component.publishFields().map(f => f.key)).toEqual(['path_alias', 'revision_log']);
     expect(component.model().path_alias).toBe('/old-alias');
 
-    // 状态(已发布→发布)与别名均未变化:不提交 status/path;修订说明按填写提交
+    // Status (published -> publish) and alias are both unchanged: no status/path submitted; the revision note is submitted as entered
     component.onSubmit(
       { title: 'New', path_alias: '/old-alias', revision_log: '修正错字' },
       { id: 1 },
@@ -316,8 +316,9 @@ describe('NodeAddComponent', () => {
 });
 
 /**
- * 真实路由导航下的页面切换:编辑/新建间跳转与在途请求竞态,
- * 验证上一页面的数据不会残留或迟到写入下一页面
+ * Page switching under real route navigation: jumps between edit/create and
+ * races with in-flight requests, verifying that data from the previous page
+ * neither lingers nor lands late in the next page.
  */
 describe('NodeAddComponent 路由切换', () => {
   const NODE_U1 = {
@@ -345,7 +346,7 @@ describe('NodeAddComponent 路由切换', () => {
     },
   };
 
-  /** u1 慢速返回(30ms)、u2 快速返回,用于模拟切换时上一请求仍在途 */
+  /** u1 responds slowly (30ms), u2 fast, to simulate a still in-flight request while switching */
   const setupHarness = async (getFormByBundle?: (bundle: string) => any) => {
     const nodeServiceMock = createNodeServiceMock();
     nodeServiceMock.fetch = vi.fn((api: string) => {
@@ -414,7 +415,7 @@ describe('NodeAddComponent 路由切换', () => {
   it('编辑数据仍在途时切到新建,迟到的加载结果不得写入新建表单', async () => {
     const { harness } = await setupHarness();
     await harness.navigateByUrl('/builder/node/edit/article/u1', NodeAddComponent);
-    // 不等 u1 返回,立即切到新建
+    // Switch to create immediately without waiting for u1
     const create = await harness.navigateByUrl('/builder/node/add/article', NodeAddComponent);
     await flush(harness);
     expect(create.model().path_alias ?? '').toBe('');
@@ -424,7 +425,7 @@ describe('NodeAddComponent 路由切换', () => {
   it('编辑页仍在加载时切到另一节点,旧节点数据不得迟到覆盖', async () => {
     const { harness } = await setupHarness();
     await harness.navigateByUrl('/builder/node/edit/article/u1', NodeAddComponent);
-    // u1(慢)在途中即切到 u2(快):同一路由配置,组件复用
+    // Switch to u2 (fast) while u1 (slow) is in flight: same route config, component reused
     const edit2 = await harness.navigateByUrl(
       '/builder/node/edit/article/u2',
       NodeAddComponent
@@ -444,7 +445,7 @@ describe('NodeAddComponent 路由切换', () => {
         : of({ fields: [], meta: [] }).pipe(delay(1))
     );
     await harness.navigateByUrl('/builder/node/add/article', NodeAddComponent);
-    // article 的字段内省(慢)在途中即切到 blog:同一路由配置,组件复用
+    // Switch to blog while article's field introspection (slow) is in flight: same route config, component reused
     const create = await harness.navigateByUrl('/builder/node/add/blog', NodeAddComponent);
     await flush(harness);
     expect(create.sideFields().map(f => f.key)).not.toContain('field_article_only');

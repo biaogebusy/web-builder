@@ -27,19 +27,22 @@ import { IconComponent } from '../icon/icon.component';
 export class BtnComponent {
   readonly content = input<IBtn>();
   /**
-   * 按钮点击输出。无论按钮是"无 href 纯按钮"还是"带 href 的导航按钮",
-   * 都会先 emit 再走原有的 RouteService 导航逻辑,让消费者既能做 tracking
-   * 又能把 app-btn 当成纯动作按钮(content 不带 href 时,emit 是唯一副作用)。
+   * Button click output. Whether the button is a plain button without href or a
+   * navigation button with href, it emits first and then runs the original
+   * RouteService navigation, so consumers can both track and use app-btn as a
+   * pure action button (when content has no href, the emit is the only side effect).
    *
-   * Disabled 状态下原生 button/anchor 已经会阻止点击事件,因此无需额外保护。
+   * When disabled, the native button/anchor already blocks click events, so no
+   * extra guard is needed.
    */
   readonly btnClick = output<MouseEvent>();
 
   /**
-   * 所有模式的无障碍名称兜底(AXE: button-name / link-name):
-   * icon/fab/mini-fab 只渲染图标,raised/stroked/flat/text 的 label 也可能为空或纯
-   * HTML(如仅图片),CMS 数据又无法保证带 ariaLabel,这里统一兜底:
-   * ariaLabel → label(label 经 safeHtml 渲染可能带 HTML 标签,需去掉)→ 图标名。
+   * Fallback accessible name for all modes (AXE: button-name / link-name):
+   * icon/fab/mini-fab render only an icon, raised/stroked/flat/text labels may be
+   * empty or pure HTML (e.g. image only), and CMS data cannot guarantee an
+   * ariaLabel. Unified fallback here: ariaLabel -> label (safeHtml-rendered label
+   * may carry HTML tags, so strip them) -> icon name.
    */
   readonly ariaLabel = computed(() => {
     const content = this.content();

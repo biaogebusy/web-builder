@@ -1,7 +1,7 @@
 @if (data(); as data) {
   <div class="chart-box">
     <div class="chart-info">
-      <!-- 插值会让 Angular 持有文本节点,内联编辑清空宿主后绑定失联;改 innerHTML 绑定 -->
+      <!-- Interpolation makes Angular hold a text node, so the binding is lost once inline editing clears the host; use an innerHTML binding instead -->
       <div
         class="title mat-h3 one-line"
         [attr.data-path]="'label'"

@@ -2,15 +2,16 @@ import { Directive, Provider } from '@angular/core';
 import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
 
 /**
- * 编辑类工具栏的 tooltip 约定:即显即隐、统一显示在按钮上方,
- * 避免遮住正下方的编辑内容(tiptap 工具栏/气泡、图片操作条共用)
+ * Tooltip convention for editing toolbars: show and hide instantly, always above the
+ * button, so the tooltip never covers the edited content directly below (shared by the
+ * tiptap toolbar/bubble and the image action bar)
  */
 export const TOOLBAR_TOOLTIP_ABOVE: Provider = {
   provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
   useValue: { showDelay: 0, hideDelay: 0, touchendHideDelay: 1500, position: 'above' },
 };
 
-/** WAI-ARIA toolbar 惯例:左右方向键在工具栏按钮间循环移动焦点 */
+/** WAI-ARIA toolbar convention: left/right arrow keys cycle focus between toolbar buttons */
 @Directive({
   selector: '[toolbarKeynav]',
   host: {

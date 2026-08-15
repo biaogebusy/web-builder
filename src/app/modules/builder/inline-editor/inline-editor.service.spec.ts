@@ -6,7 +6,7 @@ import { vi } from 'vitest';
 
 import { InlineEditorService } from './inline-editor.service';
 
-/** 排空 queueMicrotask 推迟的提交/取消 */
+/** Drain commits/cancels deferred via queueMicrotask */
 const flushMicrotasks = (): Promise<void> => new Promise(resolve => setTimeout(resolve));
 
 describe('InlineEditorService', () => {
@@ -46,7 +46,7 @@ describe('InlineEditorService', () => {
   });
 
   it('未修改提交:不写回并恢复原始 HTML,schema 归一化差异不算修改', () => {
-    // 裸文本经 tiptap 归一化为 <p>bare</p>,基线若比对原始串会产生伪写回
+    // Bare text is normalized by tiptap to <p>bare</p>; comparing the baseline against the raw string would produce a spurious write-back
     host.innerHTML = 'bare';
     service.activate({ element: host, path: '0.body' });
 
@@ -155,14 +155,14 @@ describe('InlineEditorService', () => {
 
       expect(service.activeEditor?.getHTML()).toBe('Hello <strong>world</strong>');
 
-      // 未修改提交:不写回,原样恢复
+      // Unchanged commit: no write-back, restore as-is
       service.commit();
       expect(builderMock.updatePageContentByPath).not.toHaveBeenCalled();
       expect(host.innerHTML).toBe('Hello <strong>world</strong>');
     });
 
     it('修改后提交裸行内 HTML,块级包装(如模板包裹 div)被拍平', () => {
-      // card 标题旧数据可能带 <div> 包裹;单行档读入即拍平
+      // Old card title data may come wrapped in <div>; the inline profile flattens it on load
       host.innerHTML = '<div>old title</div>';
       service.activate({ element: host, path: '0.title', profile: 'inline' });
       service.activeEditor!.commands.setContent('New <em>title</em>');
@@ -213,7 +213,7 @@ describe('InlineEditorService', () => {
       service.commit();
 
       const html = builderMock.updatePageContentByPath.mock.calls[0][1] as string;
-      // 浏览器 CSSOM 可能把 hex 归一为 rgb(),两种形式均合法
+      // The browser CSSOM may normalize hex to rgb(); both forms are valid
       expect(html).toMatch(/color: (#ff0000|rgb\(255, 0, 0\))/);
     });
 

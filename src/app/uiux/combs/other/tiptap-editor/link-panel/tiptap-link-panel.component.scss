@@ -1,4 +1,4 @@
-// 边框(上/下)与外围间距由父级决定:comb 里贴在工具栏下方,气泡里贴在按钮行下方
+// Borders (top/bottom) and outer spacing are decided by the parent: in the comb it sits below the toolbar, in the bubble below the button row
 :host {
   @apply block;
 }

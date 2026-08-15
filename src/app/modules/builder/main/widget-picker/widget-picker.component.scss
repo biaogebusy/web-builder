@@ -6,7 +6,7 @@
   color: var(--mat-sys-on-surface);
   animation: picker-fade 0.18s ease-out;
 
-  // ---------- 顶部栏 ----------
+  // ---------- Header bar ----------
   .picker-header {
     @apply flex items-center gap-2 px-3 py-2 sticky top-0 z-10 border-b min-h-[52px];
     background-color: var(--mat-sys-surface);
@@ -27,7 +27,7 @@
     }
   }
 
-  // ---------- 搜索框 ----------
+  // ---------- Search box ----------
   .search-box {
     @apply flex items-center gap-2 mx-3 mt-3 mb-2 px-3 rounded-lg border h-10;
     background-color: var(--mat-sys-surface-container-low);
@@ -69,7 +69,7 @@
     color: var(--mat-sys-on-surface-variant);
   }
 
-  // ---------- 分类列表 ----------
+  // ---------- Category list ----------
   .category-list {
     @apply flex flex-col py-1;
   }
@@ -143,7 +143,7 @@
     }
   }
 
-  // ---------- 组件列表 ----------
+  // ---------- Widget list ----------
   .widget-list {
     @apply grid grid-cols-2 gap-2 p-3;
   }
@@ -222,7 +222,7 @@
     }
   }
 
-  // ---------- 空态 ----------
+  // ---------- Empty state ----------
   .empty-state {
     @apply flex flex-col items-center justify-center text-center px-4 py-10 gap-2;
     color: var(--mat-sys-on-surface-variant);
@@ -258,7 +258,7 @@
   }
 }
 
-// ---------- 左侧悬浮预览 ----------
+// ---------- Left floating preview ----------
 .widget-preview-popup {
   @apply fixed z-[10000] pointer-events-none opacity-0 rounded-xl p-3 min-w-[120px] min-h-14 overflow-hidden box-border border;
   background-color: var(--mat-sys-surface);

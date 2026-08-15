@@ -6,7 +6,7 @@ import { ICoreConfig } from '@core/interface/IAppConfig';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { NodeService } from './node.service';
 
-/** 默认开放的内容类型(机器名):博客、新闻、应用中心、文章、组件 */
+/** Default open content types (machine names): blog, news, app center, article, component */
 const DEFAULT_NODE_TYPES = ['blog', 'news', 'json', 'article', 'component'];
 
 export interface INodeFieldMeta {
@@ -15,7 +15,7 @@ export interface INodeFieldMeta {
   targetType?: string;
   targetBundle?: string;
   multiple?: boolean;
-  /** 文本字段绑定了 json 文本格式(filter.format.json),用 JSON 编辑器并按 json 格式提交 */
+  /** Text field bound to the json text format (filter.format.json): use the JSON editor and submit as json */
   jsonFormat?: boolean;
 }
 
@@ -29,19 +29,19 @@ export interface INodePayload {
   relationships: Record<string, any>;
 }
 
-/** 发布入口的内容类型选项 */
+/** Content type options for the publishing entry point */
 export interface INodeTypeOption {
-  /** 显示名,如"博客" */
+  /** Display name, e.g. "Blog" */
   label: string;
-  /** 机器名,如 blog */
+  /** Machine name, e.g. blog */
   value: string;
-  /** 内容类型自身的说明(Drupal node_type.description),站点未填时为空串 */
+  /** Content type description (Drupal node_type.description); empty string when the site has none */
   desc: string;
 }
 
 /**
- * 通过 Drupal field config API 内省内容类型字段,动态生成 formly 表单,
- * 并按 JSON:API 规范把表单值拆分为 attributes 与 relationships。
+ * Introspects content type fields via the Drupal field config API to dynamically build
+ * formly forms, and splits form values into attributes and relationships per JSON:API.
  */
 @Injectable({
   providedIn: 'root',
@@ -51,9 +51,10 @@ export class NodeFieldFormService {
   private coreConfig = inject<ICoreConfig | null>(CORE_CONFIG, { optional: true });
 
   /**
-   * 站点全部内容类型,用于发布页切换。
-   * 这里不吞错误:空数组表示"站点没有可用类型",与"加载失败"是两种状态,
-   * 调用方需分别处理(否则失败会被渲染成空态,且加载中标记无法复位)。
+   * All content types of the site, used by the publishing page switcher.
+   * Errors are not swallowed here: an empty array means "the site has no usable types",
+   * which is distinct from "load failed": callers must handle both separately
+   * (otherwise a failure renders as an empty state and the loading flag never resets).
    */
   getNodeTypes(): Observable<INodeTypeOption[]> {
     return this.nodeService.fetch('/api/v1/node_type/node_type').pipe(
@@ -68,8 +69,10 @@ export class NodeFieldFormService {
   }
 
   /**
-   * 允许发布的内容类型机器名。只按配置计算,不考虑站点是否真的存在该类型,
-   * 因此可同步取用(如发布区骨架屏按此数量占位,避免加载完成后高度跳动)。
+   * Machine names of content types allowed for publishing. Computed from config only,
+   * regardless of whether the type really exists on the site, so it can be used
+   * synchronously (e.g. the publishing skeleton reserves this many placeholders to
+   * avoid height jumps after loading).
    */
   getAllowedTypeNames(): string[] {
     const { disable = [], enable = [] } = this.coreConfig?.builder?.nodeTypes ?? {};
@@ -79,9 +82,9 @@ export class NodeFieldFormService {
   }
 
   /**
-   * 发布入口开放的内容类型。默认只开放 DEFAULT_NODE_TYPES;
-   * core_config 的 builder.nodeTypes 可在默认清单上禁用(disable)或
-   * 额外开放(enable),disable 优先。
+   * Content types open at the publishing entry point. Only DEFAULT_NODE_TYPES are open
+   * by default; core_config's builder.nodeTypes can disable or enable extra types on
+   * top of the default list, with disable taking precedence.
    */
   getAllowedNodeTypes(): Observable<INodeTypeOption[]> {
     const allowed = new Set(this.getAllowedTypeNames());
@@ -89,9 +92,10 @@ export class NodeFieldFormService {
   }
 
   /**
-   * 拉取 JSON:API 集合的全部分页数据。Drupal 每页上限 50 条,跟随 links.next
-   * 逐页取完。next 是指向后端源站的绝对地址,需转回相对路径经 apiUrl
-   * (开发环境为本地代理)重发,避免跨域直连后端丢失会话。
+   * Fetches all pages of a JSON:API collection. Drupal caps each page at 50 items, so
+   * follow links.next until the end. next points to an absolute backend URL, so it is
+   * converted back to a relative path and re-sent through apiUrl (the local proxy in
+   * dev) to avoid cross-origin requests that lose the session.
    */
   private fetchAllPages(api: string, params = ''): Observable<any[]> {
     return this.nodeService.fetch(api, params).pipe(
@@ -130,16 +134,18 @@ export class NodeFieldFormService {
       enabledKeys: this.getFormDisplayKeys(bundle),
     }).pipe(
       map(({ configs, storages, enabledKeys }) => this.buildForm(configs, storages, enabledKeys)),
-      // app-formly 会对 fields 做 cloneDeep,options 不能是 Observable,须先解析为数组
+      // app-formly cloneDeep's fields, so options cannot be Observables; resolve them to arrays first
       switchMap(form => this.resolveTermOptions(form))
     );
   }
 
   /**
-   * 该内容类型默认表单显示(entity_form_display)中启用的字段集合(content 键)。
-   * 后台「管理表单显示」拖入"已禁用"区的字段只存在 hidden 中,Drupal 节点表单
-   * 不渲染,这里同样以 content 为白名单。加载失败或无数据(如无
-   * administer node form display 权限)返回 null 表示未知,调用方不做过滤。
+   * Field set enabled in the content type's default form display (entity_form_display,
+   * the "content" keys). Fields dragged into the "disabled" area in the admin form
+   * display only exist in hidden, and Drupal's node form does not render them; content
+   * is used as the whitelist here too. On load failure or missing data (e.g. no
+   * administer node form display permission) returns null meaning unknown, and callers
+   * skip filtering.
    */
   private getFormDisplayKeys(bundle: string): Observable<Set<string> | null> {
     return this.nodeService
@@ -149,7 +155,7 @@ export class NodeFieldFormService {
       )
       .pipe(
         map(res => {
-          // 再按属性核对一次,防止过滤参数失效时误用其他类型的显示配置
+          // Double-check against the attributes in case the filter params fail and a display config of another type slips in
           const display = (res?.data || []).find(
             (d: any) =>
               d?.attributes?.targetEntityType === 'node' &&
@@ -204,9 +210,11 @@ export class NodeFieldFormService {
 
     const meta: INodeFieldMeta[] = [];
     const fields: FormlyFieldConfig[] = [];
-    // 无法用简单控件表达且原样提交会报错的字段类型:metatag/link 需要结构化值,
-    // image/file 是带 meta 的文件引用,date 类要求严格格式;跳过(编辑时不提交
-    // 即保持原值),避免渲染成文本框后以纯文本提交导致 422 或坏数据
+    // Field types that no simple control can express and that would error when submitted
+    // as-is: metatag/link need structured values, image/file are file references with
+    // meta, date types require a strict format. Skip them (not submitting on edit keeps
+    // the original value) so they never render as text boxes whose plain-text submission
+    // would cause 422s or corrupt data
     const skipTypes = ['metatag', 'image', 'file', 'link', 'datetime', 'daterange'];
 
     configs.forEach(config => {
@@ -214,8 +222,9 @@ export class NodeFieldFormService {
       if (skipTypes.includes(attrs.field_type)) {
         return;
       }
-      // 表单显示中禁用的字段不渲染(与 Drupal 节点表单一致);也不进 meta,
-      // 编辑提交时不触碰该字段,原值得以保留
+      // Fields disabled in the form display are not rendered (matching the Drupal node
+      // form); they also stay out of meta so edits never touch them and the original
+      // values are preserved
       if (enabledKeys && !enabledKeys.has(attrs.field_name)) {
         return;
       }
@@ -225,11 +234,11 @@ export class NodeFieldFormService {
       const fieldMeta: INodeFieldMeta = {
         key: attrs.field_name,
         fieldType: attrs.field_type,
-        // storage 缺失时(如无权限)从 handler(default:taxonomy_term)推断目标类型
+        // When storage is missing (e.g. no permission), infer the target type from the handler (default: taxonomy_term)
         targetType: storage?.settings?.target_type ?? attrs.settings?.handler?.split(':')[1],
         targetBundle: targetBundles ? Object.keys(targetBundles)[0] : undefined,
         multiple: storage ? storage.cardinality !== 1 : false,
-        // 字段配置依赖 filter.format.json 即该文本字段存储 JSON 内容
+        // A field whose config depends on filter.format.json stores JSON content
         jsonFormat: isText && (attrs.dependencies?.config || []).includes('filter.format.json'),
       };
       meta.push(fieldMeta);
@@ -251,7 +260,7 @@ export class NodeFieldFormService {
     switch (meta.fieldType) {
       case 'text_long':
       case 'text_with_summary':
-        // JSON 格式的文本字段(如 component 的 body)用 JSON 编辑器,而非富文本
+        // Text fields in JSON format (e.g. component body) use the JSON editor, not rich text
         if (meta.jsonFormat) {
           return { ...base, type: 'json' };
         }
@@ -272,7 +281,7 @@ export class NodeFieldFormService {
             props: {
               ...base.props,
               multiple: meta.multiple,
-              // 选项由 resolveTermOptions 异步填充
+              // Options are filled asynchronously by resolveTermOptions
               options: [],
             },
           };
@@ -284,7 +293,7 @@ export class NodeFieldFormService {
             props: {
               ...base.props,
               valueIsUUID: true,
-              // 按钮文案由 formly translate extension 翻译
+              // Button labels are translated by the formly translate extension
               addLabel: 'BUILDER.FACTORY.IMG_ADD',
               updateLabel: 'BUILDER.FACTORY.IMG_UPDATE',
               deleteLabel: 'BUILDER.FACTORY.IMG_DELETE',
@@ -308,7 +317,7 @@ export class NodeFieldFormService {
     );
   }
 
-  /** buildPayload 的逆向:把节点 JSON:API 数据映射为 formly 表单模型(编辑回填) */
+  /** Reverse of buildPayload: map node JSON:API data back to the formly form model (edit prefill) */
   buildModel(meta: INodeFieldMeta[], node: any): Record<string, any> {
     const model: Record<string, any> = {};
     meta.forEach(field => {
@@ -330,7 +339,7 @@ export class NodeFieldFormService {
     return model;
   }
 
-  /** JSON 编辑器的值是对象,回填前把存储的字符串还原;解析失败保留原文 */
+  /** The JSON editor holds an object; restore the stored string before prefilling; keep the raw value if parsing fails */
   private parseJsonValue(raw: any): any {
     if (typeof raw !== 'string' || raw === '') {
       return raw;
@@ -343,10 +352,11 @@ export class NodeFieldFormService {
   }
 
   /**
-   * @param original 编辑时加载的节点原始数据(JSON:API resource object)。传入即编辑模式:
-   * - 清空的字段提交显式 null / 空 data(JSON:API 语义:缺省 = 不变,null = 清空)
-   * - 文本字段沿用原 format(避免把 basic_html 内容静默升级为 full_html)并保留 summary
-   * - 引用字段按目标 id 回带原 meta(如图片 alt),避免 PATCH 关系时丢失
+   * @param original the node's original data loaded for editing (JSON:API resource object).
+   * When passed, edit mode applies:
+   * - Cleared fields submit explicit null / empty data (JSON:API semantics: absent = unchanged, null = cleared)
+   * - Text fields keep the original format (avoid silently upgrading basic_html content to full_html) and retain summary
+   * - Reference fields carry back the original meta (e.g. image alt) by target id, so PATCHing relationships loses nothing
    */
   buildPayload(meta: INodeFieldMeta[], value: Record<string, any>, original?: any): INodePayload {
     const attributes: Record<string, any> = {};
@@ -356,7 +366,7 @@ export class NodeFieldFormService {
       const fieldValue = value[field.key];
       const isRef = field.fieldType === 'entity_reference' && !!field.targetType;
       if (fieldValue === undefined || fieldValue === null || fieldValue === '') {
-        // 新建时跳过空值即可;编辑时须显式清空,否则旧值保留
+        // On create, skipping empty values is enough; on edit they must be cleared explicitly or the old value persists
         if (original) {
           if (isRef) {
             relationships[field.key] = { data: field.multiple ? [] : null };
@@ -402,7 +412,7 @@ export class NodeFieldFormService {
     return { attributes, relationships };
   }
 
-  /** 原始关系数据按目标 id 索引 meta,提交仍指向同一目标时回带 */
+  /** Index original relationship meta by target id, carried back when the submission still points at the same target */
   private originalRefMeta(original: any, key: string): Map<string, any> {
     const data = original?.relationships?.[key]?.data;
     const items = Array.isArray(data) ? data : data ? [data] : [];

@@ -27,7 +27,7 @@ describe('PageSettingComponent', () => {
   const screenService = createScreenServiceMock();
   const user = signal<unknown>(false);
 
-  // MatDialog 由组件 standalone imports 内的模块提供,须 spy 实际实例
+  // MatDialog comes from modules in the component's standalone imports, so spy the real instance
   const confirmWith = (result: boolean) => {
     const dialog = fixture.debugElement.injector.get(MatDialog);
     return vi
@@ -35,7 +35,7 @@ describe('PageSettingComponent', () => {
       .mockReturnValue({ afterClosed: () => of(result) } as unknown as MatDialogRef<unknown>);
   };
 
-  // ngOnInit 只在浏览器端建表单,登录用户才可删除
+  // ngOnInit builds the form only in the browser, and only signed-in users can delete
   const initAs = (langcode: string): void => {
     user.set({ id: 'user-1' });
     screenService.isPlatformBrowser.mockReturnValue(true);

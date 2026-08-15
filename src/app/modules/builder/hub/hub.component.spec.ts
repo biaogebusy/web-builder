@@ -10,7 +10,7 @@ import { CORE_CONFIG } from '@core/token/token-providers';
 
 import { HubComponent } from './hub.component';
 
-// description 分三种情况:有说明、显式 null、字段缺失
+// description comes in three variants: present, explicit null, and missing field
 const NODE_TYPE_RESPONSE = {
   data: [
     {
@@ -24,7 +24,7 @@ const NODE_TYPE_RESPONSE = {
 
 const TYPES_API = '/api/v1/node_type/node_type';
 
-/** 分组入口的固定链接(发布入口之后按分组顺序渲染) */
+/** Fixed links of the group entries (rendered after publish entries in group order) */
 const GROUP_LINKS = [
   '/builder/node/manage',
   '/builder/page-list',
@@ -42,9 +42,9 @@ describe('HubComponent', () => {
   const setup = async (
     coreConfig: any = {},
     options: {
-      /** 内容类型接口的返回,默认成功 */
+      /** Content-type API response; defaults to success */
       types?: Observable<any>;
-      /** 角色判定,默认全部可见(同共享 mock) */
+      /** Role check; defaults to visible for all (same as shared mocks) */
       checkShow?: (content: any) => boolean;
     } = {}
   ) => {
@@ -82,7 +82,7 @@ describe('HubComponent', () => {
   const sectionTitles = (): string[] =>
     Array.from(el().querySelectorAll('.section-title')).map(node => node.textContent?.trim() ?? '');
 
-  // 共享 mock 的 UserService.checkShow 恒为 true,管理员专属的组件管理入口也会渲染
+  // The shared mock's UserService.checkShow is always true, so the admin-only component management entry renders too
   it('按开放的内容类型渲染发布入口,并渲染全部分组管理入口', async () => {
     await setup();
     expect(links()).toEqual([
@@ -107,7 +107,7 @@ describe('HubComponent', () => {
     await setup();
     expect(el().querySelectorAll('h1').length).toBe(1);
     expect(el().querySelector('h1')?.textContent?.trim()).toBe('BUILDER.HUB.PAGE_TITLE');
-    // 发布区 + 3 个分组,全部是 h2
+    // Publish section + 3 groups, all h2
     expect(el().querySelectorAll('h2.section-title').length).toBe(4);
   });
 
@@ -116,7 +116,7 @@ describe('HubComponent', () => {
     const cards = el().querySelectorAll('a.entry-card.is-publish');
     expect(cards.length).toBe(3);
     expect(cards[0].getAttribute('aria-label')).toBe('BUILDER.HUB.ADD_ARIA');
-    // 有说明时渲染,并用 aria-describedby 关联而非拼进链接的无障碍名
+    // Rendered when a description exists, linked via aria-describedby rather than merged into the link's accessible name
     expect(cards[0].querySelector('.entry-desc')?.textContent?.trim()).toBe('常规图文内容');
     expect(cards[0].getAttribute('aria-describedby')).toBe('hub-type-article');
     expect(cards[0].querySelector('.entry-desc')?.id).toBe('hub-type-article');
@@ -125,7 +125,7 @@ describe('HubComponent', () => {
   it('内容类型没有说明时不渲染副标题,不再逐张重复同一句提示', async () => {
     await setup();
     const cards = el().querySelectorAll('a.entry-card.is-publish');
-    // 博客 description 为 null,新闻没有该字段
+    // Blog description is null, news lacks the field entirely
     expect(cards[1].querySelector('.entry-desc')).toBeNull();
     expect(cards[1].getAttribute('aria-describedby')).toBeNull();
     expect(cards[2].querySelector('.entry-desc')).toBeNull();
@@ -143,7 +143,7 @@ describe('HubComponent', () => {
 
   it('骨架屏按配置允许发布的类型数占位,而不是固定值', async () => {
     await setup({}, { types: NEVER });
-    // 默认清单 5 种
+    // Default list has 5 types
     expect(el().querySelectorAll('ngx-skeleton-loader').length).toBe(5);
   });
 
@@ -156,7 +156,7 @@ describe('HubComponent', () => {
     await setup({}, { types: throwError(() => new Error('network')) });
     expect(el().querySelector('.state-text')?.textContent?.trim()).toBe('BUILDER.HUB.LOAD_FAILED');
     expect(el().querySelector('.empty')).toBeNull();
-    // 骨架屏必须复位,否则会常驻
+    // The skeleton must reset, otherwise it would stay forever
     expect(el().querySelector('ngx-skeleton-loader')).toBeNull();
     expect(el().querySelector('.state button')).not.toBeNull();
   });
@@ -182,7 +182,7 @@ describe('HubComponent', () => {
 
   it('分组入口被角色全部过滤后,不渲染该分组标题(避免孤儿标题)', async () => {
     await setup({}, { checkShow: () => false });
-    // 只剩发布区标题,3 个分组连标题一起消失
+    // Only the publish title remains; all 3 groups vanish along with their titles
     expect(sectionTitles()).toEqual(['BUILDER.HUB.PUBLISH_TITLE']);
     expect(links().every(href => href.startsWith('/builder/node/add/'))).toBe(true);
   });

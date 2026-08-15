@@ -20,10 +20,13 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { InlineImageBarComponent } from './inline-image-bar/inline-image-bar.component';
 
 /**
- * 画布图片内联编辑:点击图片进入选中态(描边高亮),在图片上方浮出操作条
- * (上传替换/媒体库/ALT/清除样式/更多设置),替代旧的右侧 drawer 首选路径;
- * 完整表单(宽高/圆角/阴影/比例/填充)仍以"更多设置"回落到 drawer。
- * 全局同一时刻只有一张选中图片;本服务只应经 ContenteditDirective 动态 import
+ * Inline image editing on the canvas: clicking an image selects it (outline
+ * highlight) and floats an action bar above it (upload/replace, media library,
+ * ALT, clear styles, more settings), replacing the old right drawer as the
+ * primary path; the full form (width/height, radius, shadow, ratio, object-fit)
+ * still falls back to the drawer via "More settings". Only one image is
+ * selected globally at a time; this service must only be dynamically imported
+ * via ContenteditDirective.
  */
 @Injectable({
   providedIn: 'root',
@@ -38,14 +41,14 @@ export class InlineImageService {
   private nodeService = inject(NodeService);
   private translate = inject(TranslateService);
 
-  /** 当前选中图片、其 src 字段路径(generatePath 产物)与点击处的路由级环境注入器 */
+  /** Currently selected image, its src field path (produced by generatePath), and the route-level environment injector at the click site */
   private readonly active = signal<{
     img: HTMLImageElement;
     path: string;
     envInjector: EnvironmentInjector;
   } | null>(null);
   private barRef: ComponentRef<InlineImageBarComponent> | null = null;
-  /** 媒体库选择的匹配令牌,同 img-picker 的 time 机制 */
+  /** Matching token for media-library selections, same time mechanism as img-picker */
   private mediaToken: Date | null = null;
 
   private readonly onDocPointerDown = (event: Event): void => {
@@ -55,7 +58,7 @@ export class InlineImageService {
     }
     const target = event.target as HTMLElement;
     const host = this.barRef?.location.nativeElement as HTMLElement | undefined;
-    // 点击图片自身、操作条、以及浮层(媒体库对话框/tooltip)不取消选中
+    // Clicking the image itself, the action bar, or overlays (media-library dialog/tooltip) must not deselect
     if (
       current.img === target ||
       host?.contains(target) ||
@@ -80,7 +83,7 @@ export class InlineImageService {
   };
 
   constructor() {
-    // 媒体库对话框的选择结果:令牌匹配才认领(同页可能有其他 img-picker 在监听)
+    // Media-library dialog selection: claim only on token match (other img-pickers may be listening on the same page)
     this.builder.selectedMedia$.subscribe(({ img, time }) => {
       if (this.mediaToken && time === this.mediaToken) {
         this.mediaToken = null;
@@ -124,12 +127,12 @@ export class InlineImageService {
     this.doc.defaultView?.removeEventListener('resize', this.onViewportChange);
   }
 
-  /** 本地上传并替换(同 tiptap 编辑器的图片插入通道) */
+  /** Upload locally and replace (same channel as the tiptap editor's image insertion) */
   uploadImage(): void {
     this.nodeService.pickAndUploadImage(url => this.replaceSrc(url));
   }
 
-  /** 打开媒体库对话框,选择结果经 selectedMedia$ 回填 */
+  /** Open the media-library dialog; the selection is fed back via selectedMedia$ */
   openMediaLibrary(): void {
     this.mediaToken = new Date();
     const config: IDialog = {
@@ -147,8 +150,10 @@ export class InlineImageService {
       panelClass: this.manageService.mediaDialogClass,
       id: 'inline-image-media',
       data: config,
-      // 本服务是 root 单例,root MatDialog 默认用根注入器创建对话框内容,
-      // 解析不到路由级令牌(BUILDER_CONFIG 等);改用选中时捕获的环境注入器
+      // This service is a root singleton, and the root MatDialog creates dialog
+      // content with the root injector by default, so route-level tokens
+      // (BUILDER_CONFIG etc.) would not resolve; use the injector captured at
+      // selection time instead.
       injector: this.active()?.envInjector,
     });
   }
@@ -178,7 +183,7 @@ export class InlineImageService {
     this.builder.updatePageContentByPath(this.fieldPath(current.path, 'style'), {});
   }
 
-  /** 完整图片表单(宽高/圆角/阴影/比例/填充)回落到右侧 drawer */
+  /** Full image form (width/height, radius, shadow, ratio, object-fit) falls back to the right drawer */
   openFullPanel(): void {
     const current = this.active();
     if (!current) {
@@ -213,7 +218,7 @@ export class InlineImageService {
     });
   }
 
-  /** src 路径(如 'img.src' 或 'src')换算到同级字段路径 */
+  /** Convert an src path (e.g. 'img.src' or 'src') to the sibling field path */
   private fieldPath(srcPath: string, field: string): string {
     const dotIndex = srcPath.lastIndexOf('.');
     return dotIndex === -1 ? field : `${srcPath.slice(0, dotIndex)}.${field}`;

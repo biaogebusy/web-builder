@@ -192,8 +192,8 @@
             display: block !important;
           }
         }
-        // 菜单打开后 backdrop 会挡住 :hover，需保持触发按钮可见，
-        // 否则触发元素 rect 为 0，overlay 会定位到屏幕左上角
+        // Once the menu opens, the backdrop blocks :hover, so keep the trigger button visible;
+        // otherwise the trigger's rect is 0 and the overlay anchors to the top-left of the screen
         > .toolbar:has(.mat-mdc-menu-trigger[aria-expanded='true']) {
           display: block !important;
         }

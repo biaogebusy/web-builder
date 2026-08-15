@@ -61,7 +61,8 @@ export class ContentService extends ApiService {
       const key = this.getLandingPageUrl(lang, path);
       if (!this.pageCache.has(key)) {
         const req$ = this.http.get<IPage>(key);
-        // SSR 下由全局 HTTP 超时兜底，不重试，避免慢请求成倍占用渲染预算。
+        // Under SSR the global HTTP timeout covers the fallback; do not retry, so slow
+        // requests do not multiply the render budget
         const withRetry$ = this.isServer ? req$ : req$.pipe(retry({ count: 1, delay: 500 }));
         this.pageCache.set(
           key,
@@ -116,7 +117,7 @@ export class ContentService extends ApiService {
 
   // Rendering continues with empty content (graceful degradation), but a
   // transient upstream failure means this render must not enter the SSR HTML
-  // cache — server.ts reads the flag after the render. Stable 4xx answers
+  // cache: server.ts reads the flag after the render. Stable 4xx answers
   // keep the normal caching behavior.
   private markSsrDegraded(source: string, error: unknown): void {
     if (this.isServer && isTransientContentError(error)) {
@@ -214,7 +215,8 @@ export class ContentService extends ApiService {
     return this.uiuxCache;
   }
 
-  // 组件库增删改后调用：所有 UIUX 消费方（组件面板、组件管理）共享同一缓存，会一并收到新数据
+  // Call after the component library is added/removed/updated: all UIUX consumers
+  // (component panel, component management) share the same cache and receive the new data together
   reloadUIUX(): void {
     this.uiuxRefresh$.next();
   }

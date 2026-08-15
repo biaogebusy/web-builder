@@ -12,7 +12,7 @@
       @if (nodeTypes().length > 0) {
         <div class="entry-grid">
           @for (nodeType of nodeTypes(); track nodeType.value) {
-            <!-- 发布卡:虚线边框 + 加号图标,与下方"跳转到管理页"的实线卡区分开 -->
+            <!-- Publish card: dashed border + plus icon, distinguished from the solid "go to manage" cards below -->
             <a
               class="entry-card is-publish"
               [routerLink]="['/builder/node/add', nodeType.value]"
@@ -21,8 +21,9 @@
             >
               <app-icon class="entry-icon" [content]="{ svg: 'plus' }" />
               <span class="entry-name">{{ nodeType.label }}</span>
-              <!-- 说明来自内容类型自身(node_type.description);站点没填就不占位,
-                   而不是给每张卡重复同一句提示 -->
+              <!-- Description comes from the content type itself (node_type.description);
+                   when the site has none, no placeholder is rendered instead of repeating
+                   the same hint on every card -->
               @if (nodeType.desc) {
                 <span class="entry-desc" [id]="'hub-type-' + nodeType.value">
                   {{ nodeType.desc }}
@@ -66,7 +67,7 @@
         </h2>
         <div class="entry-grid">
           @for (entry of group.entries; track entry.link) {
-            <!-- 描述用 aria-describedby 挂载,避免被拼进链接的无障碍名 -->
+            <!-- Description is attached via aria-describedby to avoid merging it into the link's accessible name -->
             <a
               class="entry-card"
               [routerLink]="entry.link"

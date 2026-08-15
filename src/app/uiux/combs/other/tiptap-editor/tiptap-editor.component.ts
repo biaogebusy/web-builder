@@ -51,14 +51,14 @@ import { buildRichExtensions, alignIcon as resolveAlignIcon } from './tiptap-ext
 })
 export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
   readonly content = input<{ html?: string; placeholder?: string }>();
-  /** 外部工具栏容器选择器:传入时工具栏投影到该容器(如编辑区上方的通栏),否则在编辑器盒子内渲染 */
+  /** External toolbar container selector: when set, the toolbar is projected into that container (e.g. a full-width bar above the edit area), otherwise rendered inside the editor box */
   readonly toolbarContainer = input<string>();
-  /** 初始可编辑状态(随表单控件禁用态传入);运行期变更走 setEditable() */
+  /** Initial editable state (passed along from the form control's disabled state); runtime changes go through setEditable() */
   readonly editable = input<boolean>(true);
   readonly htmlChange = output<string>();
 
   private readonly editorElement = viewChild.required<ElementRef<HTMLDivElement>>('tiptapEditor');
-  /** 共享气泡组件的宿主元素,交给 BubbleMenu 扩展定位 */
+  /** Host element of the shared bubble component, handed to the BubbleMenu extension for positioning */
   private readonly bubbleMenu = viewChild.required('bubbleMenu', { read: ElementRef });
   private readonly toolbarTpl = viewChild.required<TemplateRef<unknown>>('toolbarTpl');
 
@@ -70,14 +70,14 @@ export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
   private doc = inject(DOCUMENT);
 
   public editor = signal<Editor | null>(null);
-  /** 工具栏已投影到外部容器,盒子内不再重复渲染 */
+  /** Toolbar has been projected into the external container; the box no longer renders a duplicate */
   public toolbarDetached = signal(false);
-  /** 链接编辑面板(共享子组件):打开时带入光标处链接地址 */
+  /** Link editing panel (shared child component): on open it carries the link address at the cursor */
   public linkPanelOpen = signal(false);
   private toolbarOutlet: DomPortalOutlet | null = null;
 
   ngAfterViewInit(): void {
-    // tiptap 依赖真实 DOM，SSR 环境下跳过初始化
+    // Tiptap depends on a real DOM; skip initialization under SSR
     if (this.screenService.isPlatformBrowser()) {
       this.initEditor();
       this.attachToolbar();
@@ -88,7 +88,7 @@ export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
     const editor = new Editor({
       element: this.editorElement().nativeElement,
       editable: this.editable(),
-      // 与画布内联编辑 rich 档同一扩展配方,保证表单与画布两处行为一致
+      // Same extension recipe as the canvas inline-edit 'rich' profile, so the form and canvas behave identically
       extensions: buildRichExtensions({
         bubbleElement: this.bubbleMenu().nativeElement,
         appendTo: () => this.doc.body,
@@ -97,16 +97,16 @@ export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
       }),
       content: this.content()?.html ?? '',
       onUpdate: ({ editor }) => {
-        // 清空后 getHTML() 仍是 '<p></p>',对表单必填校验等消费方按空值处理
+        // getHTML() still returns '<p></p>' after clearing; consumers such as required validation treat it as empty
         this.htmlChange.emit(editor.isEmpty ? '' : editor.getHTML());
       },
-      // tiptap 事件在 Angular 之外触发，zoneless 下需手动调度变更检测以刷新工具栏激活态
+      // Tiptap events fire outside Angular; under zoneless we must manually schedule change detection to refresh the toolbar active state
       onTransaction: () => {
         this.cdr.markForCheck();
       },
       editorProps: {
         attributes: {
-          // 焦点提示交给 .editor-container:focus-within 的主题色描边,不用硬编码 ring
+          // Focus indication is left to the .editor-container:focus-within themed outline, no hardcoded ring
           class: 'p-4 min-h-[200px] focus:outline-none',
         },
       },
@@ -114,7 +114,7 @@ export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
     this.editor.set(editor);
   }
 
-  /** 工具栏以 portal 投影到外部容器,视图仍归本组件所有(样式、变更检测不受影响) */
+  /** Project the toolbar into an external container via portal; the view still belongs to this component (styles, change detection unaffected) */
   private attachToolbar(): void {
     const selector = this.toolbarContainer();
     const target = selector ? this.doc.querySelector(selector) : null;
@@ -126,7 +126,7 @@ export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
     this.toolbarDetached.set(true);
   }
 
-  /** 外部值写入(表单 reset/回填):与当前内容一致时跳过,避免打断输入与光标 */
+  /** External value write (form reset/backfill): skip when identical to current content to avoid interrupting input and the cursor */
   setContent(html: string): void {
     const editor = this.editor();
     if (!editor || html === editor.getHTML() || (!html && editor.isEmpty)) {
@@ -135,7 +135,7 @@ export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
     editor.commands.setContent(html || '', { emitUpdate: false });
   }
 
-  /** 表单控件禁用态同步到编辑器;emitUpdate=false,切换编辑态不产生内容更新事件 */
+  /** Sync the form control's disabled state to the editor; emitUpdate=false, toggling editability emits no content-update event */
   setEditable(editable: boolean): void {
     this.editor()?.setEditable(editable, false);
     this.cdr.markForCheck();
@@ -160,14 +160,14 @@ export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-  /** 对齐触发钮图标跟随当前对齐方式 */
+  /** The align trigger button icon follows the current alignment */
   alignIcon(): string {
     const editor = this.editor();
     return editor ? resolveAlignIcon(editor) : 'format-align-left';
   }
 
   ngOnDestroy(): void {
-    // 只回收投影出去的视图:dispose() 会连带移除外部容器元素,而容器不归本组件所有
+    // Only reclaim the projected view: dispose() would also remove the external container element, which is not owned by this component
     this.toolbarOutlet?.detach();
     this.editor()?.destroy();
   }

@@ -29,7 +29,8 @@ import { TranslateService } from '@ngx-translate/core';
 const BUILDERPATH = '/builder';
 const VERSION_KEY = 'version';
 const VERSION_CHECK_INTERVAL = 30000;
-// 着陆页读写接口：路径各部署一致，域名由 apiUrl 决定(见 environments / config/proxy.config.js)
+// Landing page read/write APIs: paths are identical across deployments; the domain is
+// decided by apiUrl (see environments / config/proxy.config.js)
 const LANDING_PAGE_API = {
   create: '/api/v3/landingPage/builder',
   update: '/api/v3/landingPage/update',
@@ -370,9 +371,10 @@ export class BuilderService extends ApiService {
   }
 
   /**
-   * 提交翻译前再校验一次目标语言翻译是否已存在，
-   * 避免加载草稿到提交之间其他人已创建同语言翻译。
-   * 校验请求失败时按不存在处理，交给后端最终裁决。
+   * Re-check whether the target-language translation already exists before submitting,
+   * to avoid someone creating the same-language translation between loading the draft
+   * and submitting. If the check request fails, treat it as not existing and let the
+   * backend make the final call.
    */
   checkTranslationExists(nid: string | number, target: string): Observable<boolean> {
     return this.nodeService.fetch(`/api/v3/landingPage/json/${nid}`, { noCache: 1 }, target).pipe(
@@ -410,8 +412,9 @@ export class BuilderService extends ApiService {
   }
 
   /**
-   * 只删除指定语言的翻译，源语言与其他语言版本保留。
-   * 删除源语言（节点本身）仍走 JSON:API 的节点删除，会连带删除全部语言版本。
+   * Only deletes the translation for the specified language; the source language and
+   * other language versions are kept. Deleting the source language (the node itself)
+   * still goes through JSON:API node deletion, which cascades to all language versions.
    */
   deleteTranslation(nid: string | number, langcode: string): Observable<any> {
     return this.http.post(
@@ -422,8 +425,9 @@ export class BuilderService extends ApiService {
   }
 
   /**
-   * 新建翻译后，把源语言的 path_alias 复制到目标语言，
-   * 保证翻译页面 URL 与默认页面只差语言前缀。
+   * After creating a translation, copy the source language's path_alias to the target
+   * language so the translated page URL differs from the default page only by the
+   * language prefix.
    */
   private copyAliasToLang(
     nid: string | number,
@@ -453,7 +457,7 @@ export class BuilderService extends ApiService {
       switchMap((srcRes: any) => {
         const source = srcRes?.data?.[0];
         if (!source) {
-          // 源页面没有别名，无需同步
+          // Source page has no alias, nothing to sync
           return of(true);
         }
         const alias = source.attributes?.alias;
@@ -690,8 +694,9 @@ export class BuilderService extends ApiService {
   }
 
   /**
-   * 多语言别名只差语言前缀：默认语言别名更新后，
-   * 将同一节点在其他语言下已存在的 path_alias 记录同步为相同别名。
+   * Multilingual aliases differ only by the language prefix: once the default-language
+   * alias is updated, sync existing path_alias records of the same node in other
+   * languages to the same alias.
    */
   private syncAliasToOtherLangs(
     id: string,

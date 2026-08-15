@@ -2,7 +2,7 @@
   @apply relative block;
 }
 
-// 触发按钮基于全局 .shad-input 外观;多个徽章时自动增高换行
+// Trigger button is based on the global .shad-input look; grows and wraps with multiple badges
 .multi-trigger {
   @apply flex cursor-pointer items-center justify-between gap-2 text-left;
   height: auto;
@@ -23,7 +23,7 @@
   color: var(--shadcn-muted-foreground);
 }
 
-// 多选的选中指示:与 shadcn-checkbox 同款方框,选中态填充主色并显示对勾
+// Multiselect selection indicator: same box as shadcn-checkbox, filled with the primary color and a check when selected
 .option-box {
   @apply inline-flex h-4 w-4 flex-shrink-0 items-center justify-center;
   border: 1px solid var(--shadcn-input);

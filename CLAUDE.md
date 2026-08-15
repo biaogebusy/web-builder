@@ -143,6 +143,16 @@ Angular SSR via `@angular/ssr` (`outputMode: server`). Express entry point: `src
 - ESLint rules: single quotes, semicolons required, max line length 100 (warnings), `any` type is allowed
 - Angular self-closing tags preferred in templates
 
+### Comments
+
+- **Language: all code comments are written in English** (TS/SCSS/HTML alike). Never mix Chinese and English in the same file.
+- Use half-width punctuation and a space after the comment marker (`// text`, `/* text */`, `/** text */`) — enforced by the `spaced-comment` ESLint rule.
+- Use JSDoc (`/** ... */`) for exported APIs: interfaces/fields, public methods of services/state classes, `input()`/`output()` on components, and standalone exported functions. Single-line entries may use the inline form `/** ... */`.
+- Use `//` line comments for internal logic. Multi-line comments put each line under `//` (no `/* */` blocks).
+- Explain **why**, not **what** — the code already says what it does. Delete redundant "what" comments (e.g. `// create the button`) rather than translating them.
+- Keep comment lines under 100 chars where practical.
+- Mark unfinished work as `// TODO: <what and why>`; reference a ticket ID when one exists.
+
 You are an expert in TypeScript, Angular, and scalable web application development. You write functional, maintainable, performant, and accessible code following Angular and TypeScript best practices.
 
 ## TypeScript Best Practices

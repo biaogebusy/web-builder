@@ -42,31 +42,31 @@ export class NodeAddComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   private translate = inject(TranslateService);
   public type = signal<string>('');
-  /** 编辑模式下的节点 uuid;为空即新建 */
+  /** Node uuid in edit mode; empty means create-new */
   public editUuid = signal<string>('');
   public form: UntypedFormGroup = new UntypedFormGroup({});
-  /** 中间编辑区字段:标题 + 正文类(rich-editor/json) */
+  /** Middle editing area fields: title + body fields (rich-editor/json) */
   public mainFields = signal<FormlyFieldConfig[]>([]);
-  /** 右侧属性面板字段:标签、布尔、数值等元数据 */
+  /** Right property panel fields: metadata such as labels, booleans, numbers */
   public sideFields = signal<FormlyFieldConfig[]>([]);
-  /** 发布设置字段:URL 别名、修订说明(写入 path.alias / revision_log 基础字段) */
+  /** Publish settings fields: URL alias, revision note (written to the path.alias / revision_log base fields) */
   public publishFields = signal<FormlyFieldConfig[]>([]);
-  /** 编辑模式的表单回填模型 */
+  /** Form backfill model for edit mode */
   public model = signal<any>({});
   public nodeTypes = signal<{ label: string; value: string }[]>([]);
-  // getNodeTypes 出错时会发出空数组,需与"加载中"区分,避免骨架屏常驻
+  // getNodeTypes emits an empty array on error, which must be distinguished from "loading" to avoid a stuck skeleton
   public typesLoading = signal(true);
   public submitting = signal(false);
-  /** 当前类型的显示名(如 "博客"),未匹配时回退机器名 */
+  /** Display name of the current type (e.g. "Blog"); falls back to the machine name when unmatched */
   public typeLabel = computed(
     () => this.nodeTypes().find(t => t.value === this.type())?.label ?? this.type()
   );
-  /** 中间区含富文本时,顶栏下渲染独立的编辑器工具栏通栏 */
+  /** When the middle area has rich text, render a standalone editor toolbar bar under the top bar */
   public hasRichEditor = computed(() => this.mainFields().some(f => f.type === 'tiptap'));
   private fieldMeta: INodeFieldMeta[] = [];
-  /** 编辑模式加载的节点原始数据,用于 PATCH 时的往返保真与最小差异提交 */
+  /** Raw node data loaded in edit mode, used for round-trip fidelity and minimal-diff commits on PATCH */
   private originalNode: any = null;
-  /** 编辑加载时的 changed 时间戳,保存前比对检测并发修改 */
+  /** changed timestamp from the edit-time load; compared before saving to detect concurrent edits */
   private loadedChanged = '';
 
   ngOnInit(): void {
@@ -78,12 +78,12 @@ export class NodeAddComponent implements OnInit {
           this.nodeTypes.set(types);
           this.typesLoading.set(false);
         },
-        // 失败时也要复位,否则类型选择区的骨架屏会一直转
+        // Reset on failure too, otherwise the type-picker skeleton spins forever
         error: () => this.typesLoading.set(false),
       });
 
-    // switchMap:路由参数一变即取消上一轮在途加载,防止旧页面数据迟到写入新页面
-    // (同一路由配置间导航时组件被复用,如编辑切另一节点、新建切换类型)
+    // switchMap: any route-param change cancels the previous in-flight load, preventing stale page data from landing in the new page
+    // (navigating within the same route config reuses the component, e.g. editing another node or switching type on create)
     this.activateRoute.params
       .pipe(
         tap(params => this.resetForParams(params)),
@@ -93,7 +93,7 @@ export class NodeAddComponent implements OnInit {
       .subscribe(load => this.applyForm(load));
   }
 
-  /** 每次路由参数变化:重置全部页面状态,销毁旧表单(app-formly 只在创建时快照 fields 与 model) */
+  /** On every route-param change: reset all page state and destroy the old form (app-formly snapshots fields and model only at creation) */
   private resetForParams(params: Params): void {
     const type = params['type'];
     const uuid = params['uuid'] || '';
@@ -118,8 +118,8 @@ export class NodeAddComponent implements OnInit {
   private loadForm$(params: Params): Observable<{ node: any; form?: INodeForm }> {
     const type = params['type'];
     const uuid = params['uuid'] || '';
-    // 编辑模式先取节点数据用于回填(带语言前缀,命中当前语言的翻译);
-    // 失败时回落为新建表单
+    // Edit mode first fetches the node for backfill (with the language prefix,
+    // hitting the current language's translation); on failure it falls back to the create form
     const node$ = uuid
       ? this.nodeService
           .fetch(`/api/v1/node/${type}/${uuid}`, '', this.nodeService.resolveLangCode())
@@ -142,14 +142,14 @@ export class NodeAddComponent implements OnInit {
     if (type === 'json') {
       return node$.pipe(map(node => ({ node })));
     }
-    // 通过 field config API 内省该内容类型的字段,动态生成表单
+    // Introspect the content type's fields via the field config API to build the form dynamically
     return forkJoin({
       form: this.fieldFormService.getForm(type),
       node: node$,
     }).pipe(map(({ form, node }) => ({ node, form })));
   }
 
-  /** form 缺省即 json 类型(不走字段内省),否则按内省结果构建动态表单 */
+  /** Missing form means the json type (no field introspection); otherwise build the dynamic form from the introspection result */
   private applyForm({ node, form }: { node: any; form?: INodeForm }): void {
     if (!form) {
       if (node) {
@@ -184,15 +184,16 @@ export class NodeAddComponent implements OnInit {
         ...this.fieldFormService.buildModel(meta, node),
       });
     }
-    // 正文类字段进中间编辑区,其余元数据进右侧属性面板
+    // Body fields go to the middle editing area; remaining metadata goes to the right property panel
     const bodyKeys = new Set(
       meta
         .filter(m => m.fieldType === 'text_long' || m.fieldType === 'text_with_summary')
         .map(m => m.key)
     );
-    // 正文富文本统一换用 tiptap,工具栏抽离到顶栏下的独立通栏容器
-    // (模板中的 #node-editor-toolbar);node-body-field 与标题字段共用同一
-    // 左对齐文档容器(见 scss)
+    // Rich-text bodies uniformly switch to tiptap, with the toolbar lifted into
+    // the standalone bar under the top bar (#node-editor-toolbar in the
+    // template); node-body-field shares the same left-aligned document
+    // container as the title field (see scss)
     const richBodyKey = fields.find(
       f => bodyKeys.has(f.key as string) && f.type === 'rich-editor'
     )?.key;
@@ -206,8 +207,9 @@ export class NodeAddComponent implements OnInit {
           ...f,
           className: 'node-body-field',
           type: 'tiptap',
-          // 一个内容类型可能有多个长文本字段,只让第一个接管通栏工具栏,
-          // 其余在各自的编辑器盒子内渲染工具栏,避免多条工具栏叠进同一容器
+          // A content type may have multiple long-text fields; only the first
+          // takes over the bar toolbar, the rest render their toolbars inside
+          // their own editor boxes to avoid stacking several toolbars in one container
           props:
             f.key === richBodyKey
               ? { ...f.props, toolbarContainer: '#node-editor-toolbar' }
@@ -217,13 +219,13 @@ export class NodeAddComponent implements OnInit {
     this.mainFields.set([this.getTitleField(), ...bodyFields]);
     this.sideFields.set(fields.filter(f => !bodyKeys.has(f.key as string)));
     this.publishFields.set(this.getPublishFields());
-    // field_config 需要 administer node fields 权限,无权限时 data 为空
+    // field_config requires the administer node fields permission; data is empty without it
     if (fields.length === 0) {
       this.util.openSnackbar(this.translate.instant('BUILDER.NODE_ADD.NO_FIELDS'), 'ok');
     }
   }
 
-  /** json 类型的 body 以字符串存储,回填前还原为对象 */
+  /** The json type stores body as a string; restore it to an object before backfill */
   private parseJsonBody(node: any): any {
     const raw = node?.attributes?.body?.value ?? node?.attributes?.body ?? '';
     if (typeof raw !== 'string' || !raw) {
@@ -250,18 +252,18 @@ export class NodeAddComponent implements OnInit {
     return {
       key: 'title',
       type: 'input',
-      // 中间编辑区的大号无边框标题样式挂钩(见组件 scss)
+      // Hook for the large borderless title style in the middle editing area (see component scss)
       className: 'node-title-field',
       props: {
         label: this.translate.instant('BUILDER.NODE_ADD.FIELD_TITLE'),
-        // label 视觉隐藏,以占位符提示标题输入位(Frase 式文档标题)
+        // Label is visually hidden; the placeholder hints the title input (Frase-style document title)
         placeholder: this.translate.instant('BUILDER.NODE_ADD.TITLE_PLACEHOLDER'),
         required: true,
       },
     };
   }
 
-  /** 发布设置:URL 别名 + 修订说明。为节点基础字段,须避开 field config 内省的自定义字段键名 */
+  /** Publish settings: URL alias + revision note. These are node base fields and must avoid the custom field keys from the field config introspection */
   private getPublishFields(): FormlyFieldConfig[] {
     return [
       {
@@ -291,7 +293,7 @@ export class NodeAddComponent implements OnInit {
     if (this.submitting()) {
       return;
     }
-    // 必填项前端先校验并标记 touched 显示错误,避免依赖后端 422 才有反馈
+    // Validate required fields client-side and mark them touched to show errors, rather than relying on a backend 422 for feedback
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       this.util.openSnackbar(this.translate.instant('BUILDER.NODE_ADD.FORM_INVALID'), 'ok');
@@ -305,7 +307,7 @@ export class NodeAddComponent implements OnInit {
     let relationships: any;
     if (type === 'json') {
       const { title, body } = value;
-      // 编辑时带回原文本格式,避免纯字符串提交把 json 格式重置为站点默认
+      // Carry the original text format on edit so a plain-string submit does not reset the json format to the site default
       const format = this.originalNode?.attributes?.body?.format;
       attributes = {
         title,
@@ -313,7 +315,7 @@ export class NodeAddComponent implements OnInit {
       };
     } else {
       const { title, ...rest } = value;
-      // 编辑时传入原始节点:清空字段发显式 null,文本沿用原 format/summary,引用回带 meta
+      // Pass the original node on edit: cleared fields send explicit null, text keeps the original format/summary, references carry meta back
       const payload = this.fieldFormService.buildPayload(this.fieldMeta, rest, this.originalNode);
       attributes = { title, ...payload.attributes };
       relationships = payload.relationships;
@@ -330,12 +332,14 @@ export class NodeAddComponent implements OnInit {
   }
 
   /**
-   * 节点基础字段:发布状态、修订说明、URL 别名、语言。
-   * - 启用内容审核(content moderation)的类型禁止直接写 status
-   *   (403: Cannot edit the published field of moderated entities),改写 moderation_state,
-   *   由工作流决定实际发布;其余类型写 status
-   * - 编辑时状态/别名仅在实际变化时提交(最小差异),避免触发不必要的
-   *   权限校验失败(status 需 administer nodes,path 需 url alias 权限)
+   * Node base fields: publish status, revision note, URL alias, language.
+   * - Types with content moderation enabled cannot write status directly
+   *   (403: Cannot edit the published field of moderated entities); write
+   *   moderation_state instead and let the workflow decide the actual publish.
+   *   Other types write status.
+   * - On edit, status/alias are only submitted when actually changed (minimal
+   *   diff), avoiding unnecessary permission-check failures (status needs
+   *   administer nodes, path needs the url alias permission).
    */
   private buildBaseFieldAttributes(
     value: any,
@@ -360,14 +364,14 @@ export class NodeAddComponent implements OnInit {
     if (original ? alias !== originalAlias : alias) {
       attrs.path = { alias: alias || null };
     }
-    // 非默认语言下新建,显式携带 langcode 使节点语言与站点前缀一致
+    // On create in a non-default language, carry langcode explicitly so the node language matches the site prefix
     if (!original && lang) {
       attrs.langcode = lang;
     }
     return attrs;
   }
 
-  /** 编辑时优先按节点响应判断(有 moderation_state 即受审核),新建时按配置 */
+  /** On edit, judge by the node response first (a moderation_state means moderated); on create, use the config */
   private isModeratedType(): boolean {
     if (this.originalNode) {
       return typeof this.originalNode.attributes?.moderation_state === 'string';
@@ -375,7 +379,7 @@ export class NodeAddComponent implements OnInit {
     return (this.coreConfig?.builder?.nodeTypes?.moderated ?? []).includes(this.type());
   }
 
-  /** 别名统一为以 / 开头的路径;空值返回 '' */
+  /** Normalize the alias to a path starting with /; empty values return '' */
   private normalizeAlias(raw: any): string {
     const alias = typeof raw === 'string' ? raw.trim() : '';
     if (!alias) {
@@ -385,8 +389,9 @@ export class NodeAddComponent implements OnInit {
   }
 
   /**
-   * 保存前轻取 changed 比对,他人已修改则中止(JSON:API 无 If-Unmodified-Since,
-   * 只能前端自查);预检请求失败不阻塞保存
+   * Lightly fetch changed before saving and compare; abort when someone else
+   * modified it in the meantime (JSON:API has no If-Unmodified-Since, so the
+   * frontend must check itself); a failed pre-check does not block saving.
    */
   private updateWithConflictCheck$(
     path: string,
@@ -408,7 +413,7 @@ export class NodeAddComponent implements OnInit {
     );
   }
 
-  /** 新建成功清空表单停留本页;编辑成功返回内容管理列表 */
+  /** On create success, clear the form and stay; on edit success, return to the content manage list */
   private onSubmitSuccess(isEdit: boolean): void {
     this.submitting.set(false);
     if (isEdit) {

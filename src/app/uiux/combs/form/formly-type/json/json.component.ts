@@ -26,7 +26,7 @@ export class JsonFieldType extends FieldType<FieldTypeConfig> implements AfterVi
 
   private editorInstance: any;
 
-  /** shadcn 主题表单(formState.uiTheme)下工具按钮换用 shadcn 风格 */
+  /** Tool buttons switch to the shadcn style under shadcn-themed forms (formState.uiTheme) */
   get isShadcn(): boolean {
     return this.options.formState?.uiTheme === 'shadcn';
   }

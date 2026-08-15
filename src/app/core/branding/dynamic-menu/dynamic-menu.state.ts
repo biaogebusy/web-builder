@@ -24,8 +24,10 @@ export class DynamicMenuState {
     }
     const sig = signal<any>({});
     this.cache.set(uuid, sig);
-    // getContent 会在组件的 computed 中首次调用;水合时 HttpTransferCache 同步回放响应,
-    // 订阅需用 untracked 隔离,否则 sig.set 落在 computed 求值期,抛 NG0600。
+    // getContent is first called inside a component computed; during hydration
+    // HttpTransferCache replays the response synchronously, so the subscription
+    // must be isolated with untracked, otherwise sig.set runs during computed
+    // evaluation and throws NG0600.
     untracked(() => {
       this.nodeService
         .fetch(`/api/v1/node/component/${uuid}`, '')

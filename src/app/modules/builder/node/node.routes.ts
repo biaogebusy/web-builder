@@ -2,12 +2,12 @@ import { Routes } from '@angular/router';
 import { superAdminGuard } from '@core/guards/super-admin.guard';
 
 /**
- * 节点内容路由,统一命名规范:
- * - add/:type          新建
- * - edit/:type/:uuid   编辑
- * - manage             内容管理列表
- * - uiux               组件管理(component 节点,仅管理员)
- * 固定入口聚合在管理中心 /builder/hub
+ * Node content routes with a uniform naming convention:
+ * - add/:type          create
+ * - edit/:type/:uuid   edit
+ * - manage             content manage list
+ * - uiux               component manage (component nodes, admin only)
+ * Fixed entries are aggregated in the management center /builder/hub
  */
 export const routes: Routes = [
   {

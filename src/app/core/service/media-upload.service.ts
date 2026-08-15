@@ -72,13 +72,13 @@ export class MediaUploadService extends ApiService {
     );
   }
 
-  /** 选取本地图片并上传,成功后把图片地址交给 insert 回调(与编辑器实现无关) */
+  /** Pick a local image and upload it; on success hand the image URL to the insert callback (editor-implementation-agnostic) */
   pickAndUploadImage(
     insert: (url: string) => void,
     uploadImage: (fileName: string, imageData: any) => Observable<IMediaAttr> = (fileName, data) =>
       this.uploadImage(fileName, data)
   ): void {
-    // 懒取 TranslateService:仅浏览器交互路径需要,避免服务构造期的强依赖
+    // Lazily get TranslateService: only the browser interaction path needs it, avoiding a hard dependency at service construction
     const translate = this.injector.get(TranslateService);
     if (!this.user()) {
       this.util.openSnackbar(translate.instant('BUILDER.FORM_EDITOR.IMAGE_LOGIN_REQUIRED'), 'ok');
@@ -95,7 +95,8 @@ export class MediaUploadService extends ApiService {
           const reader = new FileReader();
           reader.onload = (e: any) => {
             const data = e.target.result;
-            // 上传耗时对用户不可见,常驻提示进行中;成功后收起,失败给出重试提示
+            // Upload time is invisible to the user, so show a persistent in-progress hint;
+            // dismiss it on success and show a retry hint on failure
             this.util.openSnackbar(translate.instant('BUILDER.FORM_EDITOR.IMAGE_UPLOADING'), '', {
               duration: 0,
             });

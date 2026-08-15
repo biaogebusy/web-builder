@@ -190,7 +190,7 @@ export class NodeUiuxComponent {
     this.selectedIds.set(new Set());
   }
 
-  // CRUD 成功后刷新共享的 UIUX 数据：等新数据落地再收起 loading，并清理已不存在的选中项
+  // After successful CRUD, refresh the shared UIUX data: wait for the new data to land before hiding loading, and drop selected items that no longer exist
   private refreshList(): void {
     this.uiux$.pipe(skip(1), take(1), takeUntilDestroyed(this.destroyRef)).subscribe(() => {
       const valid = new Set(
@@ -468,7 +468,7 @@ export class NodeUiuxComponent {
       .subscribe({
         next: ({ cats, node }) => {
           this.loading.set(false);
-          // 回填当前分类，避免保存时把既有分类清空
+          // Backfill the current categories so saving does not clear the existing ones
           const currentCatIds: string[] = (node?.data?.relationships?.category?.data || []).map(
             (c: any) => c.id
           );
@@ -578,7 +578,7 @@ export class NodeUiuxComponent {
     if (ids.length === 0) {
       return;
     }
-    // 确认框中列出将被删除的组件名单，避免误删视野外的选中项
+    // List the components to be deleted in the confirm dialog to avoid deleting off-screen selections by mistake
     const labelByUuid = new Map(
       this.tableRows()
         .filter((row): row is IComponentItem => 'uuid' in row)
@@ -609,7 +609,7 @@ export class NodeUiuxComponent {
       .subscribe(confirmed => {
         if (!confirmed) return;
         this.loading.set(true);
-        // 逐项收集结果而非 fail-fast，部分失败时保留失败项以便针对性重试
+        // Collect results per item instead of fail-fast, keeping failed items for targeted retries
         const requests = ids.map(uuid =>
           this.nodeService.deleteEntity('/api/v1/node/component', uuid).pipe(
             map(() => ({ uuid, ok: true })),

@@ -1,7 +1,7 @@
 <div class="editor-container">
-  <!-- 气泡菜单:选中文本时浮现,行内格式 + 文字样式 + 链接(与画布内联编辑共用) -->
+  <!-- Bubble menu: appears when text is selected, inline formats + text styles + links (shared with the canvas inline editor) -->
   <app-tiptap-bubble-menu #bubbleMenu [editor]="editor()" />
-  <!-- 工具栏模板:toolbarContainer 指定外部容器时投影过去,否则就地渲染 -->
+  <!-- Toolbar template: projected into the external container when toolbarContainer is set, otherwise rendered in place -->
   <ng-template #toolbarTpl>
     @if (editor(); as editor) {
       <div
@@ -275,11 +275,10 @@
     <ng-container [ngTemplateOutlet]="toolbarTpl" />
   }
 
-  <!-- 链接编辑面板(共享子组件):替代 window.prompt,可编辑/打开/移除,Enter 应用、Esc 关闭 -->
+  <!-- Link editing panel (shared child component): replaces window.prompt, edit/open/remove, Enter applies, Esc closes -->
   @if (linkPanelOpen() && editor(); as editor) {
     <app-tiptap-link-panel [editor]="editor" (closed)="closeLinkPanel()" />
   }
 
-  <!-- 编辑器区域 -->
   <div #tiptapEditor></div>
 </div>

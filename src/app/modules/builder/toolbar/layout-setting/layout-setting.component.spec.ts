@@ -13,8 +13,8 @@ describe('LayoutSettingComponent', () => {
   let fixture: ComponentFixture<LayoutSettingComponent>;
   const builderState = createBuilderStateMock();
 
-  // MatDialog 由组件 standalone 注入器内的 MatDialogModule 提供,TestBed 级
-  // override 够不到,只能 spy 组件实际拿到的实例
+  // MatDialog comes from MatDialogModule in the component's standalone injector; TestBed-level
+  // overrides cannot reach it, so spy on the instance the component actually receives
   const confirmWith = (result: boolean) => {
     const dialog = fixture.debugElement.injector.get(MatDialog);
     return vi

@@ -102,7 +102,7 @@ describe('NodeFieldFormService', () => {
       expect(fields[2].props?.multiple).toBe(true);
       expect(fields[3].type).toBe('img-picker');
       expect(fields[3].props?.['valueIsUUID']).toBe(true);
-      // 绑定 json 文本格式的字段用 JSON 编辑器而非富文本
+      // Fields bound to the json text format use the JSON editor, not rich text
       expect(fields[4].type).toBe('json');
       expect(meta.find(m => m.key === 'data')?.jsonFormat).toBe(true);
       expect(meta.find(m => m.key === 'body')?.jsonFormat).toBe(false);
@@ -220,7 +220,7 @@ describe('NodeFieldFormService', () => {
         format: 'basic_html',
         summary: '摘要',
       });
-      // text_long 无 summary 概念,只沿用格式
+      // text_long has no summary concept, only the format is carried over
       expect(attributes['field_desc']).toEqual({ value: 'new', format: 'restricted_html' });
     });
 
@@ -373,7 +373,8 @@ describe('NodeFieldFormService', () => {
         { label: '后端', value: 'uuid-2' },
       ]);
       expect(nodeServiceMock.fetch).toHaveBeenCalledTimes(2);
-      // next 为绝对地址,须转回相对路径经 apiUrl(开发代理)重发
+      // next is an absolute URL, so it must be converted back to a relative path and
+      // re-sent through apiUrl (the dev proxy)
       expect(nodeServiceMock.fetch.mock.calls[1][0]).toBe(
         '/api/v1/taxonomy_term/tags?page%5Boffset%5D=50&page%5Blimit%5D=50'
       );

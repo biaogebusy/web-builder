@@ -15,7 +15,7 @@
       @if (submitting()) {
         <app-spinner [content]="{ size: 32, color: 'primary' }" />
       } @else if (mainFields().length > 0) {
-        <!-- 保存草稿:非审核类型写 status=false,审核类型走 moderation_state=draft -->
+        <!-- Save draft: non-moderated types write status=false, moderated types go through moderation_state=draft -->
         <app-btn
           (click)="onSubmit(form.value, u, false)"
           [content]="{
@@ -39,7 +39,7 @@
   </div>
   <div class="node-layout">
     <div class="node-main">
-      <!-- 独立编辑器工具栏通栏:tiptap 字段以此为外部 toolbar 容器,编辑器初始化后把工具栏投影进来 -->
+      <!-- Full-width bar for the standalone editor toolbar: tiptap fields use this as the external toolbar container and project the toolbar in after editor init -->
       @if (hasRichEditor()) {
         <div
           id="node-editor-toolbar"
@@ -48,7 +48,7 @@
           [attr.aria-label]="'BUILDER.NODE_ADD.TOOLBAR' | translate"
         ></div>
       }
-      <!-- app-formly 在 ngAfterViewInit 一次性快照 fields/model,以 type+uuid 为 key 强制切换时销毁重建 -->
+      <!-- app-formly snapshots fields/model once in ngAfterViewInit; keying by type+uuid forces destroy-and-rebuild on switch -->
       @if (mainFields().length > 0) {
         @for (t of [type() + '/' + editUuid()]; track t) {
           <app-formly
@@ -59,7 +59,7 @@
           />
         }
       } @else {
-        <!-- 字段经 field config API 内省后异步返回,加载中以骨架屏占位 -->
+        <!-- Fields come back asynchronously after introspection via the field config API; show skeletons while loading -->
         <div class="form-skeleton">
           @for (controlHeight of ['3rem', '20rem']; track $index) {
             <div class="skeleton-field">

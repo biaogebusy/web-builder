@@ -97,11 +97,11 @@ describe('InlineImageService', () => {
     service.select(img, 'img.src', envInjector);
     service.openMediaLibrary();
     expect(dialogMock.open).toHaveBeenCalled();
-    // 对话框内容须用点击处的环境注入器创建,否则 ManageMediaComponent 解析不到路由级 BUILDER_CONFIG
+    // Dialog content must be created with the click-site environment injector, otherwise ManageMediaComponent cannot resolve the route-level BUILDER_CONFIG
     expect(dialogMock.open.mock.calls[0][1].injector).toBe(envInjector);
     const time = dialogMock.open.mock.calls[0][1].data.inputData.content.time;
 
-    // 其他 img-picker 的选择(令牌不同)不认领
+    // Selections from other img-pickers (different token) are not claimed
     builderMock.selectedMedia$.next({ img: { src: '/x.png' }, time: new Date(0) });
     expect(builderMock.updatePageContentByPath).not.toHaveBeenCalled();
 

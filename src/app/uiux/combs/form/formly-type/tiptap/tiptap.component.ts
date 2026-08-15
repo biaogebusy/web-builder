@@ -13,8 +13,10 @@ import { FieldType, FieldTypeConfig } from '@ngx-formly/core';
 import { TranslateService } from '@ngx-translate/core';
 
 /**
- * tiptap 富文本字段。tiptap 体积较大,编辑器组件按需动态载入(与 CMS 动态组件共用同一 chunk),
- * 表单值即编辑器 HTML;props.toolbarContainer 可把工具栏投影到页面上已有的通栏容器。
+ * Tiptap rich-text field. Tiptap is large, so the editor component is loaded
+ * dynamically on demand (shares the same chunk as the CMS dynamic components);
+ * the form value is the editor HTML; props.toolbarContainer can project the
+ * toolbar into an existing full-width container on the page.
  */
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -34,14 +36,15 @@ export class TiptapFieldType extends FieldType<FieldTypeConfig> implements After
   }
 
   async ngAfterViewInit(): Promise<void> {
-    // tiptap 依赖真实 DOM,SSR 环境下不创建编辑器
+    // Tiptap depends on a real DOM; do not create the editor in SSR
     if (!this.screenService.isPlatformBrowser()) {
       return;
     }
     const { TiptapEditorComponent } = await import(
       '@uiux/combs/other/tiptap-editor/tiptap-editor.component'
     );
-    // 切换内容类型会在 chunk 加载期间销毁本字段,此时不能再往已销毁的容器里插组件
+    // Switching content type destroys this field while the chunk loads; must not
+    // insert a component into an already-destroyed container
     if (this.destroyed) {
       return;
     }
@@ -53,10 +56,12 @@ export class TiptapFieldType extends FieldType<FieldTypeConfig> implements After
     });
     editorRef.setInput('toolbarContainer', this.props['toolbarContainer']);
     editorRef.setInput('editable', !this.formControl.disabled);
-    // output 的订阅随编辑器组件(挂在本字段视图上)一起销毁,无需手动退订
+    // The output subscription is destroyed together with the editor component
+    // (mounted on this field's view), so no manual unsubscribe is needed
     editorRef.instance.htmlChange.subscribe((html: string) => this.formControl.setValue(html));
-    // 表单侧变更(reset/回填)同步到编辑器,否则所见内容与提交值不一致;
-    // setContent 对相同内容会跳过,不会打断正在输入的光标
+    // Form-side changes (reset/backfill) sync to the editor, otherwise what is
+    // shown differs from the submitted value; setContent skips identical content,
+    // so it does not interrupt the cursor while typing
     this.formControl.valueChanges
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(value => editorRef.instance.setContent(value ?? ''));

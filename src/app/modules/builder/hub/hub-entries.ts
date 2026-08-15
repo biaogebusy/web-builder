@@ -1,15 +1,15 @@
 import { IMainMenu } from '@core/interface/branding/IBranding';
 
-/** 管理中心入口(数据驱动):hub 页分组卡片与侧栏"管理"菜单共用同一份数据 */
+/** Management center entries (data-driven): shared by the hub page group cards and the sidebar "Manage" menu */
 export interface IHubEntry {
   /** i18n key */
   label: string;
   /** i18n key */
   desc: string;
   link: string;
-  /** MDI 图标名(后端 /assets/mdi.svg 提供),卡片与侧栏子菜单共用 */
+  /** MDI icon name (served by the backend /assets/mdi.svg), shared by cards and sidebar submenus */
   icon: string;
-  /** 需要的角色,入口隐藏与路由 guard 双保险(guard 在各自路由上) */
+  /** Required roles; entry hiding and route guards are a double safeguard (guards live on each route) */
   reqRoles?: string[];
 }
 
@@ -21,8 +21,9 @@ export interface IHubGroup {
 
 export const HUB_GROUPS: IHubGroup[] = [
   {
-    // 节点内容与着陆页都是"站点上已发布的东西",合并为一组;
-    // 两张卡靠标签与描述自身区分(所有类型的节点 vs 构建器搭建的着陆页)
+    // Node content and landing pages are both "published things on the site",
+    // so they share one group; the two cards are told apart by their own
+    // labels and descriptions (nodes of all types vs builder-built landing pages)
     title: 'BUILDER.HUB.CONTENT_TITLE',
     entries: [
       {
@@ -82,18 +83,22 @@ export const HUB_GROUPS: IHubGroup[] = [
   },
 ];
 
-/** 侧栏"管理"菜单相关的 i18n key,供 translate.stream 预取 */
+/** i18n keys for the sidebar "Manage" menu, prefetched via translate.stream */
 export const HUB_MENU_KEYS: string[] = [
   'BUILDER.HUB.MENU',
   ...HUB_GROUPS.flatMap(group => group.entries.map(entry => entry.label)),
 ];
 
 /**
- * 由入口数据构建侧栏"管理"菜单项,与 BUILDER_CONFIG.menu 同构。
+ * Builds the sidebar "Manage" menu items from the entry data, structurally
+ * identical to BUILDER_CONFIG.menu.
  *
- * 只含固定的管理入口:发布入口按站点实际内容类型动态生成、数量不定(默认 5 种,
- * core_config 可再增开),放进常驻侧栏会把菜单撑长,因此只在 hub 页呈现。
- * 侧栏是老用户的快捷通道(扁平、无描述),hub 是带说明的枢纽,两者定位不同。
+ * Only fixed management entries are included: publish entries are generated
+ * dynamically from the site's actual content types and vary in number (5 by
+ * default, more can be enabled via core_config), which would stretch a
+ * permanent sidebar menu, so they only appear on the hub page. The sidebar is
+ * a flat quick channel for returning users (no descriptions); the hub is the
+ * hub with explanations - the two serve different purposes.
  */
 export function buildHubMenu(translate: (key: string) => string): IMainMenu {
   return {

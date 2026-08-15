@@ -77,7 +77,7 @@ describe('TiptapEditorComponent', () => {
     expect(container.querySelector('.toolbar')).toBeTruthy();
     expect(fixture.nativeElement.querySelector('.toolbar')).toBeNull();
 
-    // 销毁只回收投影出去的工具栏,外部容器本身仍归调用方所有
+    // Destroy only reclaims the projected toolbar; the external container itself still belongs to the caller
     fixture.destroy();
     expect(container.querySelector('.toolbar')).toBeNull();
     expect(container.isConnected).toBe(true);
@@ -123,7 +123,7 @@ describe('TiptapEditorComponent', () => {
     component.setContent('<p>b</p>');
 
     expect(component.editor()?.getHTML()).toContain('b');
-    // 相同内容不重建文档,正在输入的光标/选区不受影响
+    // Identical content does not rebuild the document, so the active cursor/selection is unaffected
     const doc = component.editor()!.state.doc;
     component.setContent(component.editor()!.getHTML());
     expect(component.editor()!.state.doc).toBe(doc);
@@ -140,7 +140,7 @@ describe('TiptapEditorComponent', () => {
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelector('.link-panel input')).toBeTruthy();
 
-    // 链接行为收敛到共享子组件(气泡工具栏同款),父组件只管开合
+    // Link behavior is consolidated in the shared child component (same as the bubble toolbar); the parent only opens/closes it
     const panel = (): TiptapLinkPanelComponent =>
       fixture.debugElement.query(By.directive(TiptapLinkPanelComponent)).componentInstance;
     panel().apply('https://example.com');
@@ -149,7 +149,7 @@ describe('TiptapEditorComponent', () => {
     expect(component.linkPanelOpen()).toBe(false);
     fixture.detectChanges();
 
-    // 再次打开面板带回当前链接,移除后链接消失
+    // Reopening the panel brings back the current link; removing it clears the link
     editor.commands.setTextSelection({ from: 1, to: 6 });
     component.openLinkPanel();
     fixture.detectChanges();

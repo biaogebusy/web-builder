@@ -116,7 +116,7 @@ export class UtilitiesService {
     });
   }
 
-  /** 关闭当前 snackbar(用于"进行中"类常驻提示在完成后收起) */
+  /** Close the current snackbar (used to dismiss persistent "in progress" hints once done) */
   dismissSnackbar(): void {
     this.snackbar.dismiss();
   }

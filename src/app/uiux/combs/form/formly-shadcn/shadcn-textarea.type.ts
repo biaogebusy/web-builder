@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FieldType, FieldTypeConfig, FormlyModule } from '@ngx-formly/core';
 
-/** shadcn/ui 风格多行文本,对应内置 textarea 类型。 */
+/** shadcn/ui-style multi-line text, mapped from the built-in textarea type. */
 @Component({
   selector: 'formly-shadcn-textarea',
   changeDetection: ChangeDetectionStrategy.OnPush,

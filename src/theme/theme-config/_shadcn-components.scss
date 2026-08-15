@@ -83,7 +83,7 @@
   }
 }
 
-// 破坏性 ghost 按钮(repeat 行删除、img-picker 移除)
+// Destructive ghost button (repeat-row delete, img-picker remove)
 .shad-btn-ghost.danger {
   color: var(--shadcn-destructive);
 
@@ -135,7 +135,7 @@
   }
 }
 
-// textarea 修饰:解除 .shad-input 的固定高度
+// Textarea variant: lift .shad-input's fixed height
 .shad-textarea {
   height: auto;
   min-height: 4.5rem;
@@ -143,16 +143,16 @@
   resize: vertical;
 }
 
-// 原生 select(如 node-manage 筛选栏)的弹出列表由浏览器绘制,
-// 显式给 option 上主题色,避免暗色主题下出现系统默认白底
+// Native select (e.g. node-manage filter bar) popups are drawn by the browser;
+// give option explicit theme colors to avoid a system-white background in dark themes
 select.shad-input option {
   background-color: var(--shadcn-popover);
   color: var(--shadcn-foreground);
 }
 
 // ── Select popover ────────────────────────────────────────────────────────
-// shadcn-select / shadcn-multiselect 共用的下拉面板与选项(role=listbox/option)。
-// 入场动效是表单里唯一的"显性"动效:140ms expo-out,自顶部展开。
+// Shared popover panel and options for shadcn-select / shadcn-multiselect (role=listbox/option).
+// Its entrance animation is the form's only explicit motion: 140ms expo-out, expanding from the top.
 @keyframes shad-popover-in {
   from {
     opacity: 0;
@@ -197,7 +197,7 @@ select.shad-input option {
   padding: 0.375rem 0.5rem;
   border-radius: var(--shadcn-radius-sm);
   font-size: 0.875rem;
-  // 菜单项语义用默认光标(与 shadcn/Radix 一致),选中态由指示列表达
+  // Menu items keep the default cursor (matching shadcn/Radix); the active state is shown by the indicator column
   cursor: default;
   user-select: none;
 

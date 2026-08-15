@@ -13,7 +13,7 @@ describe('TiptapFieldType', () => {
   let formControl: UntypedFormControl;
   let isBrowser: boolean;
 
-  /** 先以 SSR 环境完成首次渲染,再按需切到浏览器环境显式初始化,避免编辑器被创建两次 */
+  /** First render completes in the SSR environment, then switch to browser to initialize explicitly, so the editor is not created twice */
   const setup = async (props: any = {}, value: any = null) => {
     isBrowser = false;
     await TestBed.configureTestingModule({
@@ -90,7 +90,7 @@ describe('TiptapFieldType', () => {
     formControl.reset();
 
     expect(editorInstance().editor().isEmpty).toBe(true);
-    // 同步不回写表单,reset 后保持 null
+    // Reset does not write back to the form; stays null after reset
     expect(formControl.value).toBeNull();
   });
 

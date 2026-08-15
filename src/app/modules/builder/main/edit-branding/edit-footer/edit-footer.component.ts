@@ -101,7 +101,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
   nodeUuid = signal('');
   nodeLangcode = signal('');
   queryParams: Record<string, string> = {};
-  // 语言切换器:多语言部署且配置了多个语言才渲染
+  // Language switcher: rendered only for multi-language deployments with more than one language configured
   langs = environment.langs ?? [];
   showLangSwitch = environment.multiLang && this.langs.length > 1;
   brandingNodes = signal<IBrandingNode[]>([]);
@@ -196,7 +196,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
   private dialog = inject(MatDialog);
   private destroyRef = inject(DestroyRef);
   private translate = inject(TranslateService);
-  /** 品牌节点列表只请求一次,无参进入的解析与语言切换器置灰共用 */
+  /** Branding node list fetched once, shared by param-less entry resolution and language-switcher graying out */
   private brandingNodes$ = listBrandingNodes(this.nodeService).pipe(shareReplay(1));
 
   hasUnsavedChanges(): boolean {
@@ -223,7 +223,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
         this.initNode(uuid, langcode ?? '');
         return;
       }
-      // 从管理中心/菜单直接进入或切换语言时无 uuid,按别名+目标语言解析品牌节点
+      // Entering directly from the management center/menu or switching language has no uuid; resolve the branding node by alias + target language
       const target = langcode || this.nodeService.getLang(this.nodeService.pageUrl)?.langCode;
       this.brandingNodes$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(nodes => {
         const node = pickBrandingNode(nodes, target);
@@ -245,7 +245,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
 
   // ── Content-language switch ──
 
-  /** 节点列表已加载且该语言无品牌节点时置灰对应按钮 */
+  /** Gray out the language button when the node list is loaded and that language has no branding node */
   isLangMissing(langCode: string): boolean {
     const nodes = this.brandingNodes();
     return nodes.length > 0 && !nodes.some(node => node.langcode === langCode);
@@ -259,7 +259,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
       this.navigateToLang(langCode);
       return;
     }
-    // canDeactivate 守卫只拦路由离开,同路由改查询参数不触发,这里手动确认
+    // The canDeactivate guard only intercepts route leaves, not query-param changes on the same route; confirm manually here
     const config: IDialog = {
       title: this.translate.instant('BUILDER.EDIT_BRANDING.SWITCH_LANG_TITLE'),
       yesLabel: this.translate.instant('BUILDER.EDIT_BRANDING.SWITCH_LANG_YES'),
@@ -285,13 +285,13 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
   }
 
   private navigateToLang(langCode: string): void {
-    // 只带 langcode、丢弃旧 uuid,由 queryParams 订阅按目标语言重新解析节点
+    // Carry langcode only and drop the old uuid; the queryParams subscription re-resolves the node for the target language
     this.router.navigate([], { relativeTo: this.route, queryParams: { langcode: langCode } });
   }
 
   loadData(): void {
     this.loading.set(true);
-    // 加载语言必须与保存目标节点一致:用节点 langcode 构造语言前缀,而非当前 URL
+    // The loaded language must match the node being saved: build the language prefix from the node langcode, not the current URL
     this.contentService
       .loadBranding(`/${this.nodeLangcode()}/`)
       .pipe(takeUntilDestroyed(this.destroyRef))

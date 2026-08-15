@@ -59,7 +59,7 @@ describe('branding save utilities', () => {
   });
 
   describe('listBrandingNodes / pickBrandingNode', () => {
-    // 列出 node--json 后按别名匹配(filter[path.alias] 在部分后端 500)
+    // List node--json entries and match by alias (filter[path.alias] 500s on some backends)
     const jsonNode = (id: string, langcode: string, alias: string) => ({
       id,
       attributes: { langcode, path: { alias } },

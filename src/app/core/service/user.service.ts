@@ -110,9 +110,10 @@ export class UserService extends ApiService {
       return;
     }
     this.openAuthChannel();
-    // 打开且带监听器的 BroadcastChannel 会让页面无法进入往返缓存(bfcache),
-    // 所以 pagehide 时关闭通道、bfcache 恢复时重开;页面冻结期间会错过其它
-    // 标签页的登录/登出广播,恢复后按 cookie 里的登录态重新同步一次。
+    // An open BroadcastChannel with listeners prevents the page from entering the
+    // back/forward cache (bfcache), so the channel is closed on pagehide and reopened on
+    // bfcache restore; while the page is frozen it misses login/logout broadcasts from
+    // other tabs, so on restore it re-syncs once from the cookie login state.
     const win = this.doc.defaultView;
     win?.addEventListener('pagehide', () => this.closeAuthChannel());
     win?.addEventListener('pageshow', event => {
@@ -395,7 +396,7 @@ export class UserService extends ApiService {
   }
 
   checkShow(content: RoleRestrictedContent | null | undefined, user: IUser | undefined): boolean {
-    // 没有内容不显示
+    // Hide when there is no content
     if (!content) {
       return false;
     }
@@ -612,7 +613,7 @@ export class UserService extends ApiService {
   }
 
   setUserCookie(user: IUser): void {
-    // Druapl default cookie_lifetime 2000000，if change, need to keep same
+    // Drupal default cookie_lifetime is 2000000; if it changes, keep this in sync
     this.cookieService.set(this.localUserKey, this.cryptoJS.encrypt(JSON.stringify(user)), {
       expires: getCookieExpirationDate(this.coreConfig.cookieLifetime ?? 2000000),
       path: '/',

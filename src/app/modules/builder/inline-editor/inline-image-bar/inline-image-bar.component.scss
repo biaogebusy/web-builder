@@ -1,5 +1,5 @@
-// 宿主由 InlineImageService 定位:置于图片上方(translateY(-100%)),
-// 无选中图片时模板为空,不渲染任何可见内容
+// Host is positioned by InlineImageService above the image (translateY(-100%));
+// with no selected image the template is empty and nothing visible renders
 :host {
   @apply z-50 block;
   position: absolute;
@@ -20,7 +20,7 @@
 .bar-row {
   @apply flex gap-1 p-1;
 
-  // 图标按钮紧凑尺寸,与 tiptap 工具栏一致
+  // Compact icon-button size, consistent with the tiptap toolbar
   --mat-icon-button-icon-size: 16px;
   --mat-icon-button-state-layer-size: 32px;
   ::ng-deep {

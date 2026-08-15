@@ -6,7 +6,6 @@ export function chunkHTMLByBlocks(content: string): string[] {
     return chunks;
   }
 
-  // 匹配所有 HTML 标签，包括起始和结束标签
   const tagRegex = /<\/?([a-zA-Z0-9-]+)[^>]*>/g;
 
   let match: RegExpExecArray | null;

@@ -69,8 +69,9 @@
         }
         <div class="card-title-wrap">
           @if (contentValue.title) {
-            <!-- innerHTML 直接绑在指令宿主上(同 header.title):内联编辑会清空并重建宿主
-                 子树,若包一层模板拥有的 div,该 div 会被移出 DOM 导致后续绑定失联 -->
+            <!-- innerHTML binds directly on the directive host (same as header.title): inline editing
+                 clears and rebuilds the host subtree; wrapping it in a template-owned div would move
+                 that div out of the DOM and break subsequent bindings -->
             <mat-card-title
               contentedit="title"
               contenteditProfile="inline"

@@ -23,7 +23,7 @@
   }
   .entry-card {
     @apply flex flex-col gap-1 p-4 no-underline transition-all;
-    // 与发布区骨架屏的 height 保持一致(见 hub.component.html),避免加载完成后跳动
+    // Keep the same height as the publish section's skeleton (see hub.component.html) to avoid layout shift once loaded
     min-height: 6.5rem;
     background: var(--shadcn-card);
     border: 1px solid var(--shadcn-border);
@@ -38,7 +38,7 @@
       outline: 2px solid var(--shadcn-ring);
       outline-offset: 2px;
     }
-    // 发布卡:虚线边框 + 主色加号,把"新建"与"跳转"两类动作在扫视时就区分开
+    // Publish card: dashed border + primary-colored plus, so "create" vs "navigate" actions are distinguishable at a glance
     &.is-publish {
       border-style: dashed;
       .entry-icon {
