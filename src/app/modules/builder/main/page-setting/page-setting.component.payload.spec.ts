@@ -2,6 +2,7 @@ import { PageSettingComponent } from './page-setting.component';
 
 interface PageSettingPayloadFacade {
   user: () => { id: string };
+  metaTags?: Record<string, string>;
   getAttributesParams: (value: any) => object;
   getRelationshiopParams: (value: any) => object;
 }
@@ -23,6 +24,7 @@ describe('PageSettingComponent payload façade', () => {
       is_transparent: true,
       transparent_style: 'dark',
       page_group: 'group-1',
+      meta_tags: { title: 'SEO title', description: 'SEO description', keywords: '', robots: '' },
       ignored: 'value',
     };
 
@@ -30,6 +32,7 @@ describe('PageSettingComponent payload façade', () => {
       title: 'Landing page',
       is_transparent: true,
       transparent_style: 'dark',
+      meta_tags: '{"title":"SEO title","description":"SEO description"}',
     });
     expect(component.getRelationshiopParams(value)).toEqual({
       uid: {
@@ -67,6 +70,33 @@ describe('PageSettingComponent payload façade', () => {
         data: null,
       },
     });
+  });
+
+  it('keeps tags managed outside the builder and clears the ones emptied in the form', () => {
+    const { component } = createFacade();
+    component.metaTags = { og_image: 'https://cdn/og.png', keywords: 'old, keywords' };
+
+    expect(
+      component.getAttributesParams({
+        type: 'node--landing_page',
+        title: 'Landing page',
+        meta_tags: { description: 'SEO description', keywords: '' },
+      })
+    ).toMatchObject({
+      meta_tags: '{"og_image":"https://cdn/og.png","description":"SEO description"}',
+    });
+  });
+
+  it('clears the field when the SEO group is left empty', () => {
+    const { component } = createFacade();
+
+    expect(
+      component.getAttributesParams({
+        type: 'node--landing_page',
+        title: 'Landing page',
+        meta_tags: { title: '', description: '', keywords: '', robots: '' },
+      })
+    ).toMatchObject({ meta_tags: null });
   });
 
   it('keeps JSON pages limited to title and author', () => {

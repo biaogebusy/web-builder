@@ -23,7 +23,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { USER } from '@core/token/token-providers';
 import { appendQueryParams } from '@core/util/http-params.util';
-import { isTranslationLang } from '@core/util/builder-page.util';
+import { decodeMetaTags, isTranslationLang, type MetaTags } from '@core/util/builder-page.util';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TranslateService } from '@ngx-translate/core';
@@ -49,6 +49,8 @@ export class PageSettingComponent implements OnInit {
   public type: 'node--landing_page' | 'node--json';
   // Deleting a translation version removes only the current language; the source-language version deletes the node itself (all languages)
   public isTranslation = false;
+  // Tags stored on the node, so an update keeps the tags the SEO group does not expose
+  private metaTags: MetaTags = {};
 
   private dialog = inject(MatDialog);
   private builder = inject(BuilderState);
@@ -74,6 +76,7 @@ export class PageSettingComponent implements OnInit {
       } = data;
       this.type = type;
       this.isTranslation = type === 'node--landing_page' && isTranslationLang(langcode);
+      this.metaTags = decodeMetaTags(data.attributes.meta_tags);
       this.fields = buildPageSettingFields({
         data,
         included,
@@ -212,7 +215,7 @@ export class PageSettingComponent implements OnInit {
   }
 
   getAttributesParams(value: any): object {
-    return buildPageSettingAttributes(value);
+    return buildPageSettingAttributes(value, this.metaTags);
   }
 
   getRelationshiopParams(value: any): object {

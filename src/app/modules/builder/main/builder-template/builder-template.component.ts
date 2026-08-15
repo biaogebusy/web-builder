@@ -7,6 +7,7 @@ import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { CORE_CONFIG } from '@core/token/token-providers';
+import { decodeMetaTags } from '@core/util/builder-page.util';
 import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -57,7 +58,7 @@ export class BuilderTemplateComponent {
 
       return {
         title,
-        description: meta_tags ? meta_tags.description : '',
+        description: decodeMetaTags(meta_tags).description ?? '',
         img: this.getCover(page.relationships.cover.data?.id, included),
         langcode,
         nid: drupal_internal__nid,

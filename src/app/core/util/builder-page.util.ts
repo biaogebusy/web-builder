@@ -36,6 +36,50 @@ export function getAttrAlias(attr: any): string {
   return lang ? `/${url}` : url;
 }
 
+/** Meta tag overrides stored in the node `meta_tags` field, keyed by metatag id. */
+export type MetaTags = Record<string, string>;
+
+function isTagRecord(value: unknown): value is MetaTags {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+/**
+ * Read the node `meta_tags` field.
+ *
+ * JSON:API flattens the single-property metatag field to its raw column value,
+ * so the API hands back the JSON string metatag stores; a site that puts the
+ * jsonapi_extras JSON enhancer on the field hands back an object instead.
+ * Accept both so the builder works either way.
+ */
+export function decodeMetaTags(value: unknown): MetaTags {
+  if (!value) {
+    return {};
+  }
+  if (typeof value === 'string') {
+    try {
+      const parsed = JSON.parse(value);
+      return isTagRecord(parsed) ? parsed : {};
+    } catch {
+      return {};
+    }
+  }
+  return isTagRecord(value) ? value : {};
+}
+
+/**
+ * Serialize meta tags for a `meta_tags` PATCH.
+ *
+ * Empty tags are dropped so the page falls back to the Drupal metatag defaults,
+ * and an empty set becomes null, which clears the field.
+ */
+export function encodeMetaTags(tags: MetaTags | undefined | null): string | null {
+  const entries = Object.entries(tags ?? {})
+    .filter(([, content]) => typeof content === 'string' && content.trim().length > 0)
+    .map(([name, content]) => [name, content.trim()]);
+
+  return entries.length ? JSON.stringify(Object.fromEntries(entries)) : null;
+}
+
 export function getTitle(title: string): string {
   // api response title includes site name; strip it
   const index = title.indexOf('|');
