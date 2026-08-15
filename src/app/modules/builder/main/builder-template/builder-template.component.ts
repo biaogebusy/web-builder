@@ -42,7 +42,9 @@ export class BuilderTemplateComponent {
 
   loading = this.templateRes.isLoading;
 
-  content = computed(() => {
+  // Not named `content`: DynamicComponentComponent assigns the dialog's `content`
+  // payload onto the instance every ngDoCheck, which would clobber this computed
+  templates = computed(() => {
     const res = this.templateRes.value();
     if (!res) {
       return [];

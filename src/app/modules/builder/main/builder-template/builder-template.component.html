@@ -10,8 +10,8 @@
       <app-loading />
     </div>
   }
-  @if (content(); as content) {
-    @for (item of content; track item) {
+  @if (templates(); as templateList) {
+    @for (item of templateList; track item) {
       <div class="item">
         <div class="card" role="button" tabindex="0" (click)="onNewPage(item)" (keyup.enter)="onNewPage(item)" matRipple>
           <div class="card-header">
