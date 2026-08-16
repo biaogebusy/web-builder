@@ -16,7 +16,7 @@ import { TagsService } from '@core/service/tags.service';
 import { UserService } from '@core/service/user.service';
 import { USER } from '@core/token/token-providers';
 import { TranslateService } from '@ngx-translate/core';
-import { HUB_GROUPS } from './hub-entries';
+import { HUB_GROUPS, BUILDER_PAGE_GROUP } from './hub-entries';
 
 /** Management center: aggregates content publishing and the scattered management entries (content, pages, appearance, system) */
 @Component({
@@ -65,13 +65,53 @@ export class HubComponent implements OnInit {
     .getAllowedTypeNames()
     .map((_, index) => index);
 
+  /**
+   * Page groups the site actually has (page_group taxonomy). They are per-deployment
+   * data - a site may add or drop libraries - so they are read at runtime rather than
+   * listed in HUB_GROUPS.
+   */
+  public pageGroups = signal<string[]>([]);
+  public pageGroupsLoading = signal(true);
+  public pageGroupsError = signal(false);
+  /** Group count is unknown before the request lands, so the placeholder count is fixed */
+  public pageGroupSlots = [0, 1, 2];
+
   ngOnInit(): void {
     this.tagsService.setTitle(this.translate.instant('BUILDER.HUB.PAGE_TITLE'));
     this.loadNodeTypes();
+    this.loadPageGroups();
   }
 
   onRetryTypes(): void {
     this.loadNodeTypes();
+  }
+
+  onRetryPageGroups(): void {
+    this.loadPageGroups();
+  }
+
+  private loadPageGroups(): void {
+    this.pageGroupsLoading.set(true);
+    this.pageGroupsError.set(false);
+    this.fieldFormService
+      .getTermOptions('page_group')
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: terms => {
+          // The page list filters on group.name, so same-named terms are one
+          // destination; Builder is dropped because it already has a fixed entry
+          this.pageGroups.set([
+            ...new Set(
+              terms.map(term => term.label).filter(label => label !== BUILDER_PAGE_GROUP)
+            ),
+          ]);
+          this.pageGroupsLoading.set(false);
+        },
+        error: () => {
+          this.pageGroupsError.set(true);
+          this.pageGroupsLoading.set(false);
+        },
+      });
   }
 
   private loadNodeTypes(): void {

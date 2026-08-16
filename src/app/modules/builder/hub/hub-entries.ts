@@ -19,6 +19,15 @@ export interface IHubGroup {
   entries: IHubEntry[];
 }
 
+/**
+ * The one page group that ships with the base product: it holds the landing pages
+ * behind the builder's own admin screens (dashboard, users, taxonomy, ...), which
+ * the catch-all ManagePageComponent route renders. Every other page group is
+ * site-specific taxonomy data, so the hub reads those from page_group at runtime
+ * instead of listing them here.
+ */
+export const BUILDER_PAGE_GROUP = 'Builder';
+
 export const HUB_GROUPS: IHubGroup[] = [
   {
     // Node content and landing pages are both "published things on the site",
@@ -72,6 +81,14 @@ export const HUB_GROUPS: IHubGroup[] = [
         desc: 'BUILDER.HUB.SETTINGS_ENTRY_DESC',
         link: '/builder/settings',
         icon: 'cog-outline',
+      },
+      {
+        // "Builder" is fixed, so it earns a permanent entry here; the site-specific
+        // page groups are listed by the hub's dynamic page-group section instead
+        label: 'BUILDER.HUB.BUILDER_PAGES_ENTRY',
+        desc: 'BUILDER.HUB.BUILDER_PAGES_ENTRY_DESC',
+        link: `/builder/pages/${BUILDER_PAGE_GROUP}`,
+        icon: 'tune',
       },
       {
         label: 'BUILDER.HUB.CONFIG_CHECK_ENTRY',

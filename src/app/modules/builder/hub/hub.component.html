@@ -60,6 +60,51 @@
       }
     </section>
 
+    <!-- Page groups come from the site's own page_group taxonomy, so the list is
+         loaded at runtime rather than hardcoded like the fixed entries below -->
+    <section class="hub-section page-groups" aria-labelledby="hub-page-groups-title">
+      <h2 class="section-title" id="hub-page-groups-title">
+        {{ 'BUILDER.HUB.PAGE_GROUPS_TITLE' | translate }}
+      </h2>
+      <p class="section-desc">{{ 'BUILDER.HUB.PAGE_GROUPS_DESC' | translate }}</p>
+      @if (pageGroups().length > 0) {
+        <div class="entry-grid">
+          @for (name of pageGroups(); track name) {
+            <!-- Array form so group names with non-ASCII characters are URL-encoded -->
+            <a class="entry-card" [routerLink]="['/builder/pages', name]">
+              <app-icon class="entry-icon" [content]="{ svg: 'folder-multiple-outline' }" />
+              <span class="entry-name">{{ name }}</span>
+            </a>
+          }
+        </div>
+      } @else if (pageGroupsLoading()) {
+        <div class="entry-grid">
+          @for (slot of pageGroupSlots; track slot) {
+            <ngx-skeleton-loader
+              count="1"
+              appearance="line"
+              [theme]="{
+                height: '6.5rem',
+                'border-radius': 'var(--shadcn-radius-lg)',
+                'background-color': 'var(--shadcn-muted)',
+                margin: '0',
+              }"
+            />
+          }
+        </div>
+      } @else if (pageGroupsError()) {
+        <div class="state">
+          <p class="state-text">{{ 'BUILDER.HUB.LOAD_GROUPS_FAILED' | translate }}</p>
+          <app-btn
+            [content]="{ mode: 'stroked', label: 'BUILDER.HUB.RETRY' | translate }"
+            (btnClick)="onRetryPageGroups()"
+          />
+        </div>
+      } @else {
+        <p class="empty">{{ 'BUILDER.HUB.EMPTY_PAGE_GROUPS' | translate }}</p>
+      }
+    </section>
+
     @for (group of groups(); track group.title; let groupIndex = $index) {
       <section class="hub-section" [attr.aria-labelledby]="'hub-group-' + groupIndex">
         <h2 class="section-title" [id]="'hub-group-' + groupIndex">
