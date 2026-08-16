@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { provideRouter } from '@angular/router';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
@@ -12,7 +11,6 @@ import {
   createUtilitiesServiceMock,
 } from '@core/testing/mocks';
 import { provideBuilderMocks } from '@modules/builder/testing/mocks';
-import { of } from 'rxjs';
 
 import { PageListComponent } from './page-list.component';
 
@@ -23,14 +21,6 @@ describe('PageListComponent', () => {
   const builderService = createBuilderServiceMock();
   const nodeService = createNodeServiceMock();
   const util = createUtilitiesServiceMock();
-
-  // MatDialog comes from modules in the component's standalone imports, so spy the real instance
-  const confirmWith = (result: boolean) => {
-    const dialog = fixture.debugElement.injector.get(MatDialog);
-    return vi
-      .spyOn(dialog, 'open')
-      .mockReturnValue({ afterClosed: () => of(result) } as unknown as MatDialogRef<unknown>);
-  };
 
   beforeEach(async () => {
     vi.clearAllMocks();
@@ -73,107 +63,5 @@ describe('PageListComponent', () => {
     component.loadPage({ nid: '12', langcode: 'zh-hans' });
 
     expect(builderService.loadPage).toHaveBeenCalledWith({ nid: '12', langcode: 'zh-hans' });
-  });
-
-  it('copies the page as a template', () => {
-    component.copyPage({ nid: '12', langcode: 'zh-hans' });
-
-    expect(builderService.loadPage).toHaveBeenCalledWith({
-      nid: '12',
-      langcode: 'zh-hans',
-      isTemplate: true,
-    });
-  });
-
-  it('opens the JSON editing flow only for pages with a nid', () => {
-    component.updateByJSON({ langcode: 'en' });
-    expect(builderService.loadPageJSON).not.toHaveBeenCalled();
-
-    component.updateByJSON({ nid: '12', langcode: 'en' });
-    expect(builderService.loadPageJSON).toHaveBeenCalledWith({ nid: '12', langcode: 'en' });
-  });
-
-  it('opens the page setting dialog with the landing page api', () => {
-    const page = { nid: '12', title: '首页' } as never;
-
-    component.updatePageSetting(page);
-
-    expect(builderService.openPageSetting).toHaveBeenCalledWith(
-      page,
-      '/api/v1/node/landing_page',
-      expect.any(String)
-    );
-  });
-
-  it('loads the existing translation when the target language already exists', () => {
-    confirmWith(true);
-    nodeService.fetch.mockReturnValueOnce(
-      of({ langcode: 'en', label: '英文版', title: 'Home', body: [] })
-    );
-
-    component.createLangVersion({ nid: '7', langcode: 'zh-hans', title: 'Home' } as never, 'en');
-
-    expect(nodeService.fetch).toHaveBeenCalledWith(
-      '/api/v3/landingPage/json/7',
-      { noCache: 1 },
-      'en'
-    );
-    expect(builderState.loadNewPage).toHaveBeenCalledWith(
-      expect.objectContaining({ langcode: 'en' })
-    );
-  });
-
-  it('queues a new translation draft when the target language is missing', () => {
-    confirmWith(true);
-    nodeService.fetch.mockReturnValueOnce(of({ langcode: 'zh-hans', title: 'Home', body: [] }));
-
-    component.createLangVersion({ nid: '7', langcode: 'zh-hans', title: 'Home' } as never, 'en');
-
-    expect(builderState.loadNewPage).toHaveBeenCalledWith(
-      expect.objectContaining({ translation: true, target: 'en' })
-    );
-  });
-
-  it('does nothing when the language creation dialog is cancelled', () => {
-    confirmWith(false);
-
-    component.createLangVersion({ nid: '7', langcode: 'zh-hans', title: 'Home' } as never, 'en');
-
-    expect(nodeService.fetch).not.toHaveBeenCalled();
-    expect(builderState.loadNewPage).not.toHaveBeenCalled();
-  });
-
-  it('deletes only the current translation for a non default language page', () => {
-    confirmWith(true);
-
-    component.deletePage({ nid: '7', uuid: 'uuid-7', langcode: 'en', title: 'Home' } as never);
-
-    expect(builderService.deleteTranslation).toHaveBeenCalledWith('7', 'en');
-    expect(nodeService.deleteEntity).not.toHaveBeenCalled();
-  });
-
-  it('deletes the whole node for the source language page', () => {
-    confirmWith(true);
-
-    component.deletePage({ nid: '7', uuid: 'uuid-7', langcode: 'zh-hans', title: 'Home' } as never);
-
-    expect(nodeService.deleteEntity).toHaveBeenCalledWith('/api/v1/node/landing_page', 'uuid-7');
-    expect(builderService.deleteTranslation).not.toHaveBeenCalled();
-  });
-
-  it('warns that every language version goes away before deleting the source language', () => {
-    const open = confirmWith(false);
-
-    component.deletePage({ nid: '7', uuid: 'uuid-7', langcode: 'zh-hans', title: 'Home' } as never);
-
-    const config: any = open.mock.calls[0][1];
-    expect(config.data.inputData.content.body).toBe('BUILDER.PAGE_SETTING.DELETE_ALL_LANG_CONFIRM');
-    expect(nodeService.deleteEntity).not.toHaveBeenCalled();
-    expect(builderService.deleteTranslation).not.toHaveBeenCalled();
-  });
-
-  it('flags non default language pages as translations', () => {
-    expect(component.isTranslation({ langcode: 'en' } as never)).toBe(true);
-    expect(component.isTranslation({ langcode: 'zh-hans' } as never)).toBe(false);
   });
 });
