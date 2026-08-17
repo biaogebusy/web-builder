@@ -1,42 +1,65 @@
 :host {
   display: block;
 }
+// the row owns the divider, so the last row in a list must not draw one against the container edge
+:host(:last-child) .item {
+  border-bottom: none;
+}
 .item {
+  // one spacing scale: blocks are separated by the flex gap only, no per block margins
   @apply flex flex-col gap-2 relative p-2;
-  border-bottom: 1px solid var(--mat-sys-surface-variant);
-  .item-title {
-    @apply text-sm mr-[72px] inline-flex items-center gap-1;
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+  &:hover {
+    background-color: var(--mat-sys-surface-container-low);
   }
-  .mat-line {
-    font-size: 15px;
+  .item-header {
+    @apply flex items-start justify-between gap-2;
   }
-  a {
+  .title {
+    @apply flex-auto m-0 text-sm font-medium min-w-0;
+  }
+  // the title is the row's primary action: a real button, so it is keyboard reachable
+  .title-btn {
+    @apply w-full p-0 text-left cursor-pointer line-clamp-2;
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    &:hover {
+      color: var(--mat-sys-primary);
+    }
+  }
+  .actions {
+    @apply shrink-0;
+  }
+  .translation-draft-tip {
+    @apply inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full font-medium w-fit;
+    color: var(--mat-sys-on-tertiary-container);
+    background-color: var(--mat-sys-tertiary-container);
+  }
+  // the url identifies the page, so it sits right under the title and wraps instead of truncating
+  .url-link {
+    @apply text-xs font-mono break-all;
+    color: var(--mat-sys-on-surface-variant);
     &:hover {
       color: var(--mat-sys-primary);
     }
   }
   .meta {
-    @apply text-xs font-mono;
+    @apply flex justify-between items-center gap-2 text-xs font-mono;
     opacity: 0.5;
-    .meta-header {
-      @apply flex justify-between my-2 items-center;
-    }
-    .meta-footer {
-      @apply flex justify-between mt-2;
+    .meta-end {
+      @apply flex items-center gap-2 shrink-0;
     }
     .taxonomy-badge {
-      @apply bg-gray-300 rounded-2xl py-1 px-2 leading-none;
+      @apply rounded-2xl py-1 px-2 leading-none;
       font-size: 10px;
-    }
-    .url-link {
-      @apply truncate;
+      color: var(--mat-sys-on-surface-variant);
+      background-color: var(--mat-sys-surface-container-highest);
     }
     .date {
       @apply whitespace-nowrap;
     }
-  }
-  .actions {
-    @apply absolute right-2 top-2;
   }
   ::ng-deep {
     .mdc-button {
@@ -48,11 +71,6 @@
   }
   &.active {
     background-color: var(--mat-sys-secondary-fixed);
-    .translation-draft-tip {
-      @apply inline-flex items-center gap-1 text-[11px] mt-0.5 px-2 py-0.5 rounded-full font-medium w-fit;
-      color: var(--mat-sys-on-tertiary-container);
-      background-color: var(--mat-sys-tertiary-container);
-    }
     &::after {
       content: '';
       position: absolute;

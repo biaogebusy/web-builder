@@ -2,18 +2,19 @@
 .builder-settings {
   padding: 10px;
   .loading-wrapper {
-    @apply mx-auto my-10;
+    @apply flex justify-center py-6;
   }
   .cards {
     @apply flex flex-col gap-1;
     position: relative;
     height: 450px;
+    max-height: 45vh;
     overflow: auto;
     @include scrollbar(var(--mat-sys-primary));
     .item {
       @apply cursor-pointer;
       position: relative;
-      border-bottom: 1px solid var(--mat-sys-surface-dim);
+      border-bottom: 1px solid var(--mat-sys-outline-variant);
       .item-click {
         @apply overflow-hidden;
       }
@@ -23,8 +24,9 @@
         width: 100%;
       }
       .lang-badge {
-        @apply text-xs bg-gray-300 py-1 px-2 rounded-full whitespace-nowrap;
-        opacity: 0.95;
+        @apply text-xs py-1 px-2 rounded-full whitespace-nowrap;
+        color: var(--mat-sys-on-surface-variant);
+        background-color: var(--mat-sys-surface-container-highest);
       }
       .item-meta {
         @apply flex justify-between items-center text-xs;
@@ -39,13 +41,6 @@
         border-radius: 4px;
       }
     }
-  }
-  mat-loading {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
   }
   .pager {
     ::ng-deep {

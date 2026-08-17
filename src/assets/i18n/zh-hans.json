@@ -125,13 +125,13 @@
       "LOCKED_TIP": "已锁定预览，可查看复制组件JSON",
       "ADD_TO_EDITOR": "添加到编辑区"
     },
-    "PAGE": {
-      "MANAGE_SUFFIX": "{{name}}管理",
-      "LOADING": "正在加载{{title}}"
-    },
     "PAGE_LIST": {
       "PAGE_TITLE": "着陆页管理",
+      "MANAGE_SUFFIX": "{{name}}管理",
+      "LOADING_PAGE": "正在加载{{title}}",
       "MANAGE_LIST": "管理列表",
+      "BACK_TO_LIST": "在管理列表中查看",
+      "REFRESH": "刷新",
       "RESET": "重置",
       "BASIC": "基础",
       "ADVANCED": "高级",

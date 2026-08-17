@@ -1,6 +1,21 @@
+@use 'mixins/amixin' as *;
 .builder-page {
-  padding: 10px;
+  // no extra padding: the sidebar already insets the expansion panel body by 16px,
+  // which puts the row at the same distance from the sidebar edge as in the page list
+  .panel-title {
+    @apply m-0 text-base font-medium;
+  }
   .loading-wrapper {
     @apply flex justify-center py-6;
+  }
+  // same viewport as the other sidebar lists
+  .lists {
+    height: 450px;
+    max-height: 45vh;
+    overflow: auto;
+    @include scrollbar(var(--mat-sys-primary));
+  }
+  .pager {
+    @apply flex justify-center;
   }
 }

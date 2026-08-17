@@ -32,11 +32,13 @@
   }
   .lists-wrapper {
     position: relative;
+    // the fades are decoration: without this they swallow clicks on the first and last row
     &::after,
     &::before {
       content: '';
       position: absolute;
       z-index: 10;
+      pointer-events: none;
       width: 100%;
       height: 20px;
       left: 0;
@@ -51,18 +53,15 @@
     }
   }
   .lists {
-    @apply py-4;
+    // px-1 + the row's own p-2 puts the row text 24px from the sidebar edge, as in the group page
+    @apply py-4 px-1;
     position: relative;
     height: 450px;
     max-height: 45vh;
     overflow: auto;
     @include scrollbar(var(--mat-sys-primary));
-    app-loading {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 10;
+    .loading-wrapper {
+      @apply flex justify-center py-6;
     }
   }
   .pager {

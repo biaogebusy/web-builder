@@ -70,9 +70,14 @@ describe('PageItemComponent', () => {
   });
 
   it('loads the selected page into the builder', () => {
+    const load = vi.fn();
+    component.pageLoad.subscribe(load);
+
     component.loadPage();
 
     expect(builderService.loadPage).toHaveBeenCalledWith({ nid: '12', langcode: 'zh-hans' });
+    expect(util.openSnackbar).toHaveBeenCalledWith('BUILDER.PAGE_LIST.LOADING_PAGE', 'ok');
+    expect(load).toHaveBeenCalled();
   });
 
   it('copies the page as a template', () => {

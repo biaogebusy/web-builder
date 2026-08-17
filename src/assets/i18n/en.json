@@ -125,13 +125,13 @@
       "LOCKED_TIP": "Preview locked. You can view and copy the component JSON.",
       "ADD_TO_EDITOR": "Add to editor"
     },
-    "PAGE": {
-      "MANAGE_SUFFIX": "{{name}} management",
-      "LOADING": "Loading {{title}}"
-    },
     "PAGE_LIST": {
       "PAGE_TITLE": "Landing page management",
+      "MANAGE_SUFFIX": "{{name}} management",
+      "LOADING_PAGE": "Loading {{title}}",
       "MANAGE_LIST": "Manage list",
+      "BACK_TO_LIST": "Open in manage list",
+      "REFRESH": "Refresh",
       "RESET": "Reset",
       "BASIC": "Basic",
       "ADVANCED": "Advanced",

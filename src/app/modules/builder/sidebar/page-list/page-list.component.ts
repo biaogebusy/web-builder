@@ -238,6 +238,11 @@ export class PageListComponent extends BaseComponent implements OnInit {
     this.builderService.loadPage({ langcode, nid });
   }
 
+  // This route owns the deep-link params, so it clears them once a row takes over
+  onPageLoaded(): void {
+    this.clearPageLoadQueryParams();
+  }
+
   private clearPageLoadQueryParams(): void {
     const { nid, quickEdit } = this.route.snapshot.queryParams;
     if (!nid && !quickEdit) {

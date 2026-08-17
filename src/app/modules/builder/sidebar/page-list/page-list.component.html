@@ -32,11 +32,13 @@
   <div class="lists-wrapper">
     <div class="lists">
       @if (loading()) {
-        <app-loading [content]="{ size: 50 }" />
+        <div class="loading-wrapper">
+          <app-loading [content]="{ size: 50 }" />
+        </div>
       }
       @if (lists(); as content) {
         @for (page of content; track page) {
-          <app-page-item [page]="page" (refresh)="onReload()" />
+          <app-page-item [page]="page" (refresh)="onReload()" (pageLoad)="onPageLoaded()" />
         }
       }
     </div>

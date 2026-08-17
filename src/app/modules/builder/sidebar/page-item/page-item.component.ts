@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
 import { IPage } from '@core/interface/IAppConfig';
 import { IPageMeta } from '@core/interface/IBuilder';
 import { IDialog } from '@core/interface/IDialog';
@@ -37,6 +36,8 @@ export class PageItemComponent {
   readonly page = input.required<IPageMeta>();
   /** Emitted after a delete succeeds so the owning list can reload */
   readonly refresh = output<void>();
+  /** Emitted after the page is handed to the builder, for list level follow up */
+  readonly pageLoad = output<IPageMeta>();
 
   public langs = environment.langs;
   private currentPage = inject(BUILDER_CURRENT_PAGE);
@@ -44,8 +45,6 @@ export class PageItemComponent {
   private dialog = inject(MatDialog);
   private util = inject(UtilitiesService);
   private nodeService = inject(NodeService);
-  private route = inject(ActivatedRoute);
-  private router = inject(Router);
   private builderService = inject(BuilderService);
   private destroyRef = inject(DestroyRef);
   private translate = inject(TranslateService);
@@ -71,14 +70,19 @@ export class PageItemComponent {
 
   loadPage(): void {
     this.builder.loading.set(true);
-    const { langcode, nid } = this.page();
+    const page = this.page();
+    const { langcode, nid } = page;
     if (!nid) {
       this.builder.loading.set(false);
       this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_LIST.CHECK_LANDING_VIEW'), 'ok');
       return;
     }
-    this.clearPageLoadQueryParams();
+    this.util.openSnackbar(
+      this.translate.instant('BUILDER.PAGE_LIST.LOADING_PAGE', { title: page.title }),
+      'ok'
+    );
     this.builderService.loadPage({ langcode, nid });
+    this.pageLoad.emit(page);
   }
 
   copyPage(): void {
@@ -269,24 +273,5 @@ export class PageItemComponent {
 
   isTranslation(): boolean {
     return isTranslationLang(this.page().langcode);
-  }
-
-  // The builder deep-links a page load through query params; drop them once consumed
-  // so a later reload does not re-trigger the same load
-  private clearPageLoadQueryParams(): void {
-    const { nid, quickEdit } = this.route.snapshot.queryParams;
-    if (!nid && !quickEdit) {
-      return;
-    }
-
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: {
-        nid: null,
-        quickEdit: null,
-      },
-      queryParamsHandling: 'merge',
-      replaceUrl: true,
-    });
   }
 }
