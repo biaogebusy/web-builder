@@ -1,9 +1,9 @@
-import { Editor, Extensions } from '@tiptap/core';
+import { Editor, Extensions, isTextSelection } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import Highlight from '@tiptap/extension-highlight';
 import Image from '@tiptap/extension-image';
 import Placeholder from '@tiptap/extension-placeholder';
-import BubbleMenu from '@tiptap/extension-bubble-menu';
+import BubbleMenu, { type BubbleMenuPluginProps } from '@tiptap/extension-bubble-menu';
 import { TextAlign } from '@tiptap/extension-text-align';
 import { TextStyleKit } from '@tiptap/extension-text-style';
 
@@ -41,9 +41,39 @@ export function buildRichExtensions(options: {
     TextStyleKit,
     Image,
     ...(options.placeholder ? [Placeholder.configure({ placeholder: options.placeholder })] : []),
-    BubbleMenu.configure({ element: options.bubbleElement, appendTo: options.appendTo }),
+    BubbleMenu.configure({
+      element: options.bubbleElement,
+      appendTo: options.appendTo,
+      shouldShow: shouldShowBubbleMenu,
+    }),
   ];
 }
+
+/**
+ * Keep BubbleMenu's default visibility rules while making delayed plugin updates safe during
+ * teardown. The upstream predicate reads the global `document`, which may already be gone when
+ * a debounced update runs after an Angular fixture has been destroyed.
+ */
+export const shouldShowBubbleMenu: NonNullable<BubbleMenuPluginProps['shouldShow']> = ({
+  editor,
+  element,
+  view,
+  state,
+  from,
+  to,
+}) => {
+  if (editor.isDestroyed) {
+    return false;
+  }
+
+  const { doc, selection } = state;
+  const isEmptyTextBlock = !doc.textBetween(from, to).length && isTextSelection(state.selection);
+  const activeElement = element.ownerDocument?.activeElement;
+  const isChildOfMenu = Boolean(activeElement && element.contains(activeElement));
+  const hasEditorFocus = view.hasFocus() || isChildOfMenu;
+
+  return hasEditorFocus && !selection.empty && !isEmptyTextBlock && editor.isEditable;
+};
 
 export const ALIGN_ORDER = ['left', 'center', 'right', 'justify'];
 

@@ -14,7 +14,10 @@ import BubbleMenu from '@tiptap/extension-bubble-menu';
 import { TextStyleKit } from '@tiptap/extension-text-style';
 import { BuilderState } from '@core/state/BuilderState';
 import { TiptapBubbleMenuComponent } from '@uiux/combs/other/tiptap-editor/bubble-menu/tiptap-bubble-menu.component';
-import { buildRichExtensions } from '@uiux/combs/other/tiptap-editor/tiptap-extensions';
+import {
+  buildRichExtensions,
+  shouldShowBubbleMenu,
+} from '@uiux/combs/other/tiptap-editor/tiptap-extensions';
 
 export type InlineEditorProfile = 'rich' | 'inline';
 
@@ -235,7 +238,7 @@ export class InlineEditorService {
         Highlight,
         // Selection-level text styles (color/background/font size), also valid in titles; element-level styles stay with component settings
         TextStyleKit,
-        BubbleMenu.configure({ element: bubbleEl, appendTo }),
+        BubbleMenu.configure({ element: bubbleEl, appendTo, shouldShow: shouldShowBubbleMenu }),
       ];
     }
     // Multi-paragraph body: same recipe as the tiptap-editor comb so canvas and form editing behave identically
