@@ -94,7 +94,7 @@ describe('NodeService media API', () => {
     );
   });
 
-  it('keeps the Quill image handler file selection and insertion sequence', () => {
+  it('keeps the editor image picker file selection and insertion sequence', () => {
     const { service } = createService();
     const input = document.createElement('input');
     const file = new File(['image'], 'editor.png', { type: 'image/png' });
@@ -116,27 +116,21 @@ describe('NodeService media API', () => {
     vi.spyOn(service, 'uploadImage').mockReturnValue(
       of({ uri: { url: '/sites/default/files/editor.png' } } as IMediaAttr)
     );
-    const editor = {
-      getSelection: vi.fn(() => ({ index: 3 })),
-      insertEmbed: vi.fn(),
-    };
+    const insert = vi.fn();
 
-    service.imageHandler(editor);
+    service.pickAndUploadImage(insert);
 
     expect(input.type).toBe('file');
     expect(input.accept).toBe('image/png, image/gif, image/jpeg, image/bmp, image/x-icon');
-    expect(input.classList.contains('ql-image')).toBe(true);
     expect(service.uploadImage).toHaveBeenCalledWith('editor.png', expect.any(ArrayBuffer));
-    expect(editor.getSelection).toHaveBeenCalledWith(true);
-    expect(editor.insertEmbed).toHaveBeenCalledWith(3, 'image', '/sites/default/files/editor.png');
+    expect(insert).toHaveBeenCalledWith('/sites/default/files/editor.png');
   });
 
-  it('blocks the Quill image handler for signed-out visitors', () => {
+  it('blocks the editor image picker for signed-out visitors', () => {
     const { service, utilitiesService } = createService(undefined, signal(false));
     const createElement = vi.spyOn(document, 'createElement');
-    const editor = { getSelection: vi.fn(), insertEmbed: vi.fn() };
 
-    service.imageHandler(editor);
+    service.pickAndUploadImage(vi.fn());
 
     expect(utilitiesService.openSnackbar).toHaveBeenCalledWith(
       'BUILDER.FORM_EDITOR.IMAGE_LOGIN_REQUIRED',

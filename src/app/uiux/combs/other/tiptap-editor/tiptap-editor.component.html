@@ -1,4 +1,4 @@
-<div class="editor-container">
+<div class="editor-container" [style.height]="height() || null">
   <!-- Bubble menu: appears when text is selected, inline formats + text styles + links (shared with the canvas inline editor) -->
   <app-tiptap-bubble-menu #bubbleMenu [editor]="editor()" />
   <!-- Toolbar template: projected into the external container when toolbarContainer is set, otherwise rendered in place -->

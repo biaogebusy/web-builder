@@ -55,6 +55,10 @@ export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
   readonly toolbarContainer = input<string>();
   /** Initial editable state (passed along from the form control's disabled state); runtime changes go through setEditable() */
   readonly editable = input<boolean>(true);
+  /** Optional fixed editor height for compact form and comment contexts. */
+  readonly height = input<string>();
+  /** Place the caret in the editor on creation; used when the editor is mounted by an explicit user click */
+  readonly autofocus = input(false);
   readonly htmlChange = output<string>();
 
   private readonly editorElement = viewChild.required<ElementRef<HTMLDivElement>>('tiptapEditor');
@@ -88,6 +92,7 @@ export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
     const editor = new Editor({
       element: this.editorElement().nativeElement,
       editable: this.editable(),
+      autofocus: this.autofocus() ? 'end' : false,
       // Same extension recipe as the canvas inline-edit 'rich' profile, so the form and canvas behave identically
       extensions: buildRichExtensions({
         bubbleElement: this.bubbleMenu().nativeElement,

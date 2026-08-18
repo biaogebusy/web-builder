@@ -99,7 +99,7 @@ Angular SSR is configured with `@angular/ssr`. Entry point: `src/server.ts`. The
 - **swiper** — carousels/sliders
 - **video.js** — video player
 - **monaco-editor** — code editor
-- **quill** — rich text editor
+- **tiptap** — rich text editor; keep it behind builder-only or interaction-triggered lazy boundaries
 - **lightgallery** — image gallery/lightbox
 - **gsap** + **aos** — animations (GSAP for fine-grained, AOS for scroll-triggered)
 - **openai** — AI chat integration

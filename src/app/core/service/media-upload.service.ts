@@ -24,7 +24,7 @@ export class MediaUploadService extends ApiService {
     return this.http
       .post('/api/v1/media/image/field_media_image', imageData, {
         headers: new HttpHeaders({
-          Accept: 'application/vnd.api+json',
+          'Accept': 'application/vnd.api+json',
           'Content-Type': 'application/octet-stream',
           'Content-Disposition': `file; filename="${encodeURIComponent(fileName)}"`,
         }),
@@ -87,7 +87,6 @@ export class MediaUploadService extends ApiService {
     const Imageinput: any = document.createElement('input');
     Imageinput.setAttribute('type', 'file');
     Imageinput.setAttribute('accept', 'image/png, image/gif, image/jpeg, image/bmp, image/x-icon');
-    Imageinput.classList.add('ql-image');
     if (Imageinput.files) {
       Imageinput.addEventListener('change', () => {
         const file = Imageinput.files[0];
@@ -119,16 +118,5 @@ export class MediaUploadService extends ApiService {
       });
       Imageinput.click();
     }
-  }
-
-  imageHandler(
-    editor: any,
-    uploadImage: (fileName: string, imageData: any) => Observable<IMediaAttr> = (fileName, data) =>
-      this.uploadImage(fileName, data)
-  ): void {
-    this.pickAndUploadImage(url => {
-      const range = editor.getSelection(true);
-      editor.insertEmbed(range.index, 'image', url);
-    }, uploadImage);
   }
 }

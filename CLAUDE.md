@@ -116,7 +116,7 @@ Angular SSR via `@angular/ssr` (`outputMode: server`). Express entry point: `src
 - **@fullcalendar** — calendar combs
 - **video.js** — video player
 - **monaco-editor** (via ngx-monaco-editor-v2) — code editor
-- **quill** (via ngx-quill) — rich text editor
+- **tiptap** — rich text editor (loaded lazily outside builder-only routes)
 - **lightgallery** — image gallery/lightbox
 - **gsap** + **aos** — animations (GSAP for fine-grained, AOS for scroll-triggered)
 - **@amap/amap-jsapi-loader** — AMap maps

@@ -10,16 +10,20 @@
   height: 500px;
   z-index: 100;
   background-color: var(--mat-sys-background);
-  quill-editor {
+  app-tiptap-editor {
+    display: block;
     width: 100%;
     height: calc(100% - 60px);
     ::ng-deep {
-      .ql-toolbar,
-      .ql-container {
-        border-color: var(--mat-sys-surface-dim);
+      .editor-container {
+        height: 100%;
+        box-shadow: none;
+        border: 0;
+        background-color: var(--mat-sys-background);
       }
-      .ql-container {
-        height: calc(100% - 48px) !important;
+      .ProseMirror {
+        height: calc(100% - 48px);
+        min-height: 0;
         font-size: inherit;
         background-color: var(--mat-sys-background);
       }
@@ -30,5 +34,8 @@
   }
   .popup-actions {
     @apply flex justify-center items-center gap-5 mt-5;
+  }
+  .editor-loading {
+    @apply flex justify-center items-center w-full h-full;
   }
 }

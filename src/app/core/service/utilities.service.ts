@@ -50,17 +50,6 @@ export class UtilitiesService {
           script: 'https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/10.0.3/jsoneditor.min.js',
         },
       },
-      quill: {
-        local: {
-          style: ['/assets/injects/quill/quill.core.css', '/assets/injects/quill/quill.snow.css'],
-        },
-        cdn: {
-          style: [
-            'https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.2/quill.core.css',
-            'https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.2/quill.snow.min.css',
-          ],
-        },
-      },
       swiper: {
         local: {
           style: '/assets/injects/swiper/swiper-bundle.min.css',

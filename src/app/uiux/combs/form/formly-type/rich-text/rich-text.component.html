@@ -26,16 +26,11 @@
     }"
   />
 </mat-form-field>
-<div
-  class="popup"
-  #popup
->
-  <quill-editor
-    (onEditorCreated)="editorCreated($event)"
-    [modules]="modules"
-    (onContentChanged)="onContentChanged($event)"
-    [styles]="{ height: '100%' }"
-  />
+<div class="popup" #popup>
+  <ng-container #editorHost />
+  @if (!editorLoaded()) {
+    <app-loading class="editor-loading" [content]="{ size: 40 }" />
+  }
   <div class="popup-actions">
     <app-btn (click)="onCancel()" [content]="{ label: '取消' }" />
     <app-btn (click)="onSave()" [content]="{ label: '保存', mode: 'raised', color: 'primary' }" />

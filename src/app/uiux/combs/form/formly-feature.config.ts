@@ -21,7 +21,6 @@ import { ImgPickerComponent } from './formly-type/img-picker/img-picker.componen
 import { JsonFieldType } from './formly-type/json/json.component';
 import { MatSelectComponent } from './formly-type/mat-select/mat-select.component';
 import { RepeatTypeComponent } from './formly-type/repeat.type';
-import { RichEditorComponent } from './formly-type/rich-editor/rich-editor.component';
 import { RichTextComponent } from './formly-type/rich-text/rich-text.component';
 import { SliderComponent } from './formly-type/slider/slider.component';
 import { TabsTypeComponent } from './formly-type/tabs/tabs.component';
@@ -42,7 +41,8 @@ const TRANSLATION_KEY_RE = /^[A-Z][A-Z0-9_]*(\.[A-Z0-9_]+)+$/;
 export const XINSHI_FORMLY_CONFIG: ConfigOption = {
   types: [
     { name: 'rich-text', component: RichTextComponent },
-    { name: 'rich-editor', component: RichEditorComponent },
+    // Keep the legacy field name for CMS schemas, but use the lazily loaded Tiptap field.
+    { name: 'rich-editor', component: TiptapFieldType },
     { name: 'tiptap', component: TiptapFieldType },
     { name: 'mat-select', component: MatSelectComponent },
     { name: 'date-range', component: DateRangeComponent },

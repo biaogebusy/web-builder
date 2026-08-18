@@ -1,15 +1,24 @@
-import { AfterViewInit, Component, ElementRef, inject, ChangeDetectionStrategy, viewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ComponentRef,
+  ElementRef,
+  OnDestroy,
+  ViewContainerRef,
+  inject,
+  viewChild,
+  signal,
+} from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MAT_INPUT_VALUE_ACCESSOR, MatInput, MatInputModule } from '@angular/material/input';
-import { NodeService } from '@core/service/node.service';
-import { UtilitiesService } from '@core/service/utilities.service';
-import { chunkHTMLByBlocks, lazyLoadContent } from '@core/util/html-chunk.util';
+import { MAT_INPUT_VALUE_ACCESSOR, MatInputModule } from '@angular/material/input';
 import { FieldType, FieldTypeConfig, FormlyModule } from '@ngx-formly/core';
 import { FormlyFieldTextArea } from '@ngx-formly/material/textarea';
-import { createPopper } from '@popperjs/core';
-import { QuillModule } from 'ngx-quill';
+import { createPopper, type Instance as PopperInstance } from '@popperjs/core';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
+import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
+import { ScreenService } from '@core/service/screen.service';
+import type { TiptapEditorComponent } from '@uiux/combs/other/tiptap-editor/tiptap-editor.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -21,84 +30,76 @@ import { BtnComponent } from '@uiux/widgets/btn/btn.component';
     ReactiveFormsModule,
     MatButtonModule,
     MatInputModule,
-    QuillModule,
     FormlyModule,
     BtnComponent,
+    LoadingComponent,
   ],
 })
-export class RichTextComponent extends FieldType<FieldTypeConfig> implements AfterViewInit {
-  readonly formFieldControl = viewChild.required(MatInput);
+export class RichTextComponent extends FieldType<FieldTypeConfig> implements OnDestroy {
   readonly popup = viewChild<ElementRef>('popup');
-  private value: any;
-  private contentChunks: string[] = [];
-  private popper: any;
-  public modules: QuillModule = {
-    toolbar: [
-      [
-        {
-          header: [1, 2, 3, 4, 5, 6, false],
-        },
-      ],
-      ['bold', 'italic', 'underline', 'strike'],
-      [
-        {
-          align: [],
-        },
-      ],
-      [
-        {
-          list: 'ordered',
-        },
-        {
-          list: 'bullet',
-        },
-        {
-          list: 'check',
-        },
-      ],
-      [{ indent: '-1' }, { indent: '+1' }],
-      [{ color: [] }, { background: [] }],
-      ['link', 'image', 'video'],
-      ['blockquote', 'code-block'],
-      ['clean'],
-    ],
-  };
-  private ele = inject(ElementRef);
-  private util = inject(UtilitiesService);
-  private nodeService = inject(NodeService);
+  readonly editorHost = viewChild('editorHost', { read: ViewContainerRef });
 
+  private readonly screenService = inject(ScreenService);
+  private readonly hostElement = inject(ElementRef);
+  private popper: PopperInstance | null = null;
+  private editorRef: ComponentRef<TiptapEditorComponent> | null = null;
+  // Bumped on every open and close, so an editor chunk that resolves after the popup
+  // was closed (or the field destroyed) is discarded instead of mounted
+  private openToken = 0;
 
-  async ngAfterViewInit(): Promise<void> {
-    await this.util.loadStyle('/assets/injects/quill/quill.core.css');
-    await this.util.loadStyle('/assets/injects/quill/quill.snow.css');
-    this.contentChunks = chunkHTMLByBlocks(this.formControl.value);
-  }
+  public value = '';
+  public readonly editorLoaded = signal(false);
 
   openRichText(): void {
-    this.value = this.formControl.value;
-    this.popper = createPopper(this.ele.nativeElement, this.popup()!.nativeElement, {
+    const popup = this.popup()?.nativeElement;
+    if (this.popper || this.props.readonly || !popup || !this.screenService.isPlatformBrowser()) {
+      return;
+    }
+    this.value = this.formControl.value ?? '';
+    this.openToken++;
+    this.popper = createPopper(this.hostElement.nativeElement, popup, {
       placement: 'left',
       strategy: 'fixed',
     });
+    void this.loadEditor(this.openToken);
   }
 
-  editorCreated(quill: any): void {
-    const toolbar = quill.getModule('toolbar');
-    toolbar.addHandler('image', this.nodeService.imageHandler.bind(this.nodeService, quill));
-    lazyLoadContent(quill, this.contentChunks);
-  }
-
-  onContentChanged(event: any): void {
-    const { html } = event;
-    this.value = html;
+  private async loadEditor(openToken: number): Promise<void> {
+    const { TiptapEditorComponent } = await import(
+      '@uiux/combs/other/tiptap-editor/tiptap-editor.component'
+    );
+    const editorHost = this.editorHost();
+    if (openToken !== this.openToken || !editorHost) {
+      return;
+    }
+    const editorRef = editorHost.createComponent(TiptapEditorComponent);
+    editorRef.setInput('content', { html: this.value, placeholder: this.props.placeholder });
+    // The popup is opened by an explicit click, so move the caret into the editor
+    editorRef.setInput('autofocus', true);
+    editorRef.instance.htmlChange.subscribe(html => (this.value = html));
+    this.editorRef = editorRef;
+    this.editorLoaded.set(true);
   }
 
   onSave(): void {
     this.formControl.setValue(this.value);
-    this.popper.destroy();
+    this.closePopup();
   }
 
   onCancel(): void {
-    this.popper.destroy();
+    this.closePopup();
+  }
+
+  private closePopup(): void {
+    this.openToken++;
+    this.popper?.destroy();
+    this.popper = null;
+    this.editorRef?.destroy();
+    this.editorRef = null;
+    this.editorLoaded.set(false);
+  }
+
+  ngOnDestroy(): void {
+    this.closePopup();
   }
 }

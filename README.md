@@ -144,7 +144,7 @@
 - 图表：Echarts
 - 视频：Video.js
 - 日历：FullCalendar
-- 编辑器：quill, jsoneditor, monaco-editor
+- 编辑器：tiptap, jsoneditor, monaco-editor
 - 幻灯片：swiper
 - 图片画廊：lightgallery
 - 字体图标：material design icons + 自定义 svg icon

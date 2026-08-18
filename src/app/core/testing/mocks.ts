@@ -204,7 +204,6 @@ export const createNodeServiceMock = () => ({
   checkNodeAccess: vi.fn(() => of({})),
   uploadImage: vi.fn(() => of({})),
   createMediaImage: vi.fn(() => of(undefined)),
-  imageHandler: vi.fn(),
   pickAndUploadImage: vi.fn(),
 });
 

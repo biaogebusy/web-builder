@@ -21,7 +21,6 @@ export interface ICoreConfig {
   loading: boolean;
   loadingBar: boolean;
   article?: IArticle;
-  editor: IEditor;
   actions: IActions;
   dialog: IForceDialog;
   user: User;
@@ -155,14 +154,6 @@ export interface IArticle {
   login: {
     label: string;
   };
-}
-
-export interface Modules {
-  toolbar: JsonObject[][];
-}
-
-export interface IEditor {
-  modules: Modules;
 }
 
 export interface Button {

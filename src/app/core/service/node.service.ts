@@ -288,12 +288,6 @@ export class NodeService extends ApiService {
     return this.mediaUploadService.createMediaImage(data);
   }
 
-  imageHandler(editor: any): void {
-    this.mediaUploadService.imageHandler(editor, (fileName, imageData) =>
-      this.uploadImage(fileName, imageData)
-    );
-  }
-
   /** Editor-implementation-agnostic image upload: pick a file, upload it, then hand the URL back via the callback */
   pickAndUploadImage(insert: (url: string) => void): void {
     this.mediaUploadService.pickAndUploadImage(insert, (fileName, imageData) =>
