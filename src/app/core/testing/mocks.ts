@@ -1,12 +1,7 @@
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import {
-  EnvironmentProviders,
-  importProvidersFrom,
-  Provider,
-  signal,
-} from '@angular/core';
+import { EnvironmentProviders, importProvidersFrom, Provider, signal } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule } from '@ngx-translate/core';
@@ -108,6 +103,12 @@ export const createBuilderStateMock = () => ({
   showcase: vi.fn(),
   deleteLocalPage: vi.fn(),
   deleteLocalPageByPage: vi.fn(),
+  getLocalPageByPage: vi.fn((_page?: Partial<IPage>): IPage | undefined => undefined),
+  isPageDirty: vi.fn((_page?: Partial<IPage>) => false),
+  // Mirrors the real identity rule: a translation draft is keyed by its target language
+  getPageIdentityLang: vi.fn((page: Partial<IPage>) =>
+    page.translation && page.target ? page.target : (page.langcode ?? '')
+  ),
   markPageSynced: vi.fn(),
   markCurrentPageDirty: vi.fn(),
   clearAllHistory: vi.fn(),

@@ -8,7 +8,7 @@ import { BuilderState } from '@core/state/BuilderState';
 import { API_URL } from '@core/token/token-providers';
 import { TranslateService } from '@ngx-translate/core';
 import { LocalStorageService } from 'ngx-webstorage';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { BuilderService } from './builder.service';
 import { ContentService } from './content.service';
 import { NodeService } from './node.service';
@@ -18,6 +18,9 @@ describe('BuilderService', () => {
   const patch = vi.fn((_url: string, _body: unknown, _options: unknown) => of({ status: true }));
   const post = vi.fn((_url: string, _body: unknown, _options: unknown) => of({ status: true }));
   const loadingSet = vi.fn();
+  const loadNewPage = vi.fn();
+  const fetch = vi.fn();
+  const openSnackbar = vi.fn();
 
   const createService = (): BuilderService => {
     TestBed.configureTestingModule({
@@ -27,9 +30,12 @@ describe('BuilderService', () => {
         { provide: DOCUMENT, useValue: document },
         { provide: HttpClient, useValue: { patch, post } },
         { provide: MatDialog, useValue: {} },
-        { provide: BuilderState, useValue: { loading: { set: loadingSet } } },
-        { provide: UtilitiesService, useValue: { openSnackbar: vi.fn() } },
-        { provide: NodeService, useValue: {} },
+        {
+          provide: BuilderState,
+          useValue: { loading: { set: loadingSet }, loadNewPage },
+        },
+        { provide: UtilitiesService, useValue: { openSnackbar } },
+        { provide: NodeService, useValue: { fetch } },
         { provide: ContentService, useValue: { loadBuilderConfig: () => of({}) } },
         { provide: Router, useValue: { url: '/builder' } },
         { provide: LocalStorageService, useValue: {} },
@@ -41,7 +47,37 @@ describe('BuilderService', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+    fetch.mockReset();
     TestBed.resetTestingModule();
+  });
+
+  it('loads a page and clears the loading state', () => {
+    fetch.mockReturnValueOnce(
+      of({
+        nid: '42',
+        title: 'Test page',
+        body: [{ uuid: 'body-1', type: 'json', attributes: { body: { type: 'text' } } }],
+        status: true,
+      })
+    );
+    const service = createService();
+
+    service.loadPage({ nid: '42', langcode: 'zh-hans' });
+
+    expect(loadNewPage).toHaveBeenCalledOnce();
+    expect(loadingSet).toHaveBeenCalledWith(false);
+    expect(openSnackbar).toHaveBeenCalledWith('BUILDER.PAGE_LIST.LOADED_PAGE', 'ok');
+  });
+
+  it('clears the loading state and reports a failed page load', () => {
+    fetch.mockReturnValueOnce(throwError(() => new Error('request failed')));
+    const service = createService();
+
+    service.loadPage({ nid: '42', langcode: 'zh-hans' });
+
+    expect(loadNewPage).not.toHaveBeenCalled();
+    expect(loadingSet).toHaveBeenCalledWith(false);
+    expect(openSnackbar).toHaveBeenCalledWith('BUILDER.PAGE_LIST.LOAD_PAGE_FAIL', 'ok');
   });
 
   it('patches the landing page endpoint and skips reloading after a toolbar update', () => {

@@ -66,54 +66,68 @@ export class BuilderService extends ApiService {
     this.nodeService
       .fetch(`/api/v3/landingPage/json/${nid}`, { noCache: 1 }, lang)
       .pipe(take(1))
-      .subscribe((content: IPage) => {
-        const { body, status, uuid } = content;
-        this.builder.loading.set(false);
-        if (status) {
-          this.builder.loadNewPage(formatToExtraData(content, isTemplate));
-          if (isTemplate) {
-            this.util.openSnackbar(`已复制${content.title}`, 'ok');
-          } else {
-            this.util.openSnackbar(`已加载${content.title}`, 'ok');
-          }
-          if (openSetting) {
-            const config: IDialog = {
-              title: '页面属性',
-              noLabel: '取消',
-              yesLabel: '确认',
-              inputData: {
-                content: {
-                  type: 'text',
-                  fullWidth: true,
-                  body: `是否需要打开页面属性面板？`,
+      .subscribe({
+        next: (content: IPage) => {
+          const { body, status, uuid } = content;
+          this.builder.loading.set(false);
+          if (status) {
+            this.builder.loadNewPage(formatToExtraData(content, isTemplate));
+            this.util.openSnackbar(
+              this.translate.instant(
+                isTemplate ? 'BUILDER.PAGE_LIST.COPIED_PAGE' : 'BUILDER.PAGE_LIST.LOADED_PAGE',
+                { title: content.title }
+              ),
+              'ok'
+            );
+            if (openSetting) {
+              const config: IDialog = {
+                title: this.translate.instant('BUILDER.PAGE_LIST.PAGE_PROPS'),
+                noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
+                yesLabel: this.translate.instant('BUILDER.COMMON.CONFIRM'),
+                inputData: {
+                  content: {
+                    type: 'text',
+                    fullWidth: true,
+                    body: this.translate.instant('BUILDER.PAGE_LIST.OPEN_PAGE_PROPS_CONFIRM'),
+                  },
                 },
-              },
-            };
-            const dialogRef = this.dialog.open(DialogComponent, {
-              width: '340px',
-              data: config,
-            });
-
-            dialogRef
-              .afterClosed()
-              .pipe(take(1))
-              .subscribe(result => {
-                if (result && uuid) {
-                  this.openPageSetting(
-                    { uuid, langcode },
-                    '/api/v1/node/landing_page',
-                    getPageParams(['uid', 'group', 'cover', 'cover.field_media_image'])
-                  );
-                }
+              };
+              const dialogRef = this.dialog.open(DialogComponent, {
+                width: '340px',
+                data: config,
               });
-          }
 
-          if (body.length === 0) {
-            this.util.openSnackbar('当前内容为空，已为你初始化一个组件', 'ok');
+              dialogRef
+                .afterClosed()
+                .pipe(take(1))
+                .subscribe(result => {
+                  if (result && uuid) {
+                    this.openPageSetting(
+                      { uuid, langcode },
+                      '/api/v1/node/landing_page',
+                      getPageParams(['uid', 'group', 'cover', 'cover.field_media_image'])
+                    );
+                  }
+                });
+            }
+
+            if (body.length === 0) {
+              this.util.openSnackbar(
+                this.translate.instant('BUILDER.PAGE_LIST.EMPTY_PAGE_INITIALIZED'),
+                'ok'
+              );
+            }
+          } else {
+            this.util.openSnackbar(
+              this.translate.instant('BUILDER.PAGE_LIST.NOT_BUILDER_PAGE'),
+              'ok'
+            );
           }
-        } else {
-          this.util.openSnackbar('该页面非builder创建，请到后台编辑', 'ok');
-        }
+        },
+        error: () => {
+          this.builder.loading.set(false);
+          this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_LIST.LOAD_PAGE_FAIL'), 'ok');
+        },
       });
   }
 

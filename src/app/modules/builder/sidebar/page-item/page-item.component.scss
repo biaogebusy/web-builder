@@ -1,86 +1,187 @@
 :host {
-  display: block;
+  @apply block;
 }
-// the row owns the divider, so the last row in a list must not draw one against the container edge
+
 :host(:last-child) .item {
   border-bottom: none;
 }
+
 .item {
-  // one spacing scale: blocks are separated by the flex gap only, no per block margins
-  @apply flex flex-col gap-2 relative p-2;
+  @apply relative flex min-w-0 flex-col gap-2 p-3;
   border-bottom: 1px solid var(--mat-sys-outline-variant);
+  transition:
+    background-color 120ms ease,
+    box-shadow 120ms ease;
+
   &:hover {
     background-color: var(--mat-sys-surface-container-low);
   }
+
   .item-header {
-    @apply flex items-start justify-between gap-2;
+    @apply flex min-w-0 items-start justify-between gap-2;
   }
+
+  .title-block {
+    @apply flex min-w-0 flex-1 items-start gap-2;
+  }
+
   .title {
-    @apply flex-auto m-0 text-sm font-medium min-w-0;
+    @apply m-0 min-w-0 flex-1 text-sm font-medium;
   }
-  // the title is the row's primary action: a real button, so it is keyboard reachable
+
   .title-btn {
-    @apply w-full p-0 text-left cursor-pointer line-clamp-2;
+    @apply line-clamp-2 w-full cursor-pointer p-0 text-left;
     background: none;
     border: none;
-    color: inherit;
+    color: var(--mat-sys-on-surface);
     font: inherit;
-    &:hover {
+
+    &:hover,
+    &:focus-visible {
       color: var(--mat-sys-primary);
     }
+
+    &:focus-visible {
+      outline: 2px solid var(--mat-sys-primary);
+      outline-offset: 2px;
+    }
+
+    // The page is already open, so the click is a no-op: stop advertising it as one
+    &[aria-disabled='true'] {
+      @apply cursor-default;
+
+      &:hover,
+      &:focus-visible {
+        color: var(--mat-sys-on-surface);
+      }
+    }
   }
-  .actions {
-    @apply shrink-0;
+
+  .language-badge,
+  .status-badge {
+    @apply rounded px-1.5 py-0.5 text-[10px] font-medium leading-4;
   }
-  .translation-draft-tip {
-    @apply inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full font-medium w-fit;
+
+  .language-badge {
+    color: var(--mat-sys-on-primary-container);
+    background-color: var(--mat-sys-primary-container);
+  }
+
+  // Alignment only: the trigger keeps the stock mat-icon-button look and hover state layer
+  .more-trigger {
+    @apply -mr-2 -mt-2 shrink-0;
+  }
+
+  .status-row {
+    @apply flex min-w-0 flex-wrap items-center gap-1;
+  }
+
+  .current-badge {
+    color: var(--mat-sys-on-primary-container);
+    background-color: var(--mat-sys-primary-container);
+  }
+
+  .translation-badge {
     color: var(--mat-sys-on-tertiary-container);
     background-color: var(--mat-sys-tertiary-container);
   }
-  // the url identifies the page, so it sits right under the title and wraps instead of truncating
+
+  .unsaved-badge {
+    color: var(--mat-sys-on-error-container);
+    background-color: var(--mat-sys-error-container);
+  }
+
+  .url-row {
+    @apply flex min-w-0 items-center justify-between gap-2;
+  }
+
   .url-link {
-    @apply text-xs font-mono break-all;
+    @apply min-w-0 flex-1 truncate font-mono text-xs;
     color: var(--mat-sys-on-surface-variant);
+  }
+
+  .preview-link {
+    @apply inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full no-underline;
+    color: var(--mat-sys-primary);
+
     &:hover {
-      color: var(--mat-sys-primary);
+      background-color: var(--mat-sys-primary-container);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--mat-sys-primary);
+      outline-offset: 2px;
+    }
+
+    app-icon {
+      @apply inline-flex;
     }
   }
+
+  ::ng-deep .preview-link .mat-icon {
+    @apply h-4 w-4 text-base leading-4;
+  }
+
   .meta {
-    @apply flex justify-between items-center gap-2 text-xs font-mono;
-    opacity: 0.5;
-    .meta-end {
-      @apply flex items-center gap-2 shrink-0;
-    }
-    .taxonomy-badge {
-      @apply rounded-2xl py-1 px-2 leading-none;
-      font-size: 10px;
-      color: var(--mat-sys-on-surface-variant);
-      background-color: var(--mat-sys-surface-container-highest);
-    }
-    .date {
-      @apply whitespace-nowrap;
+    @apply flex min-w-0 items-center justify-between gap-2 overflow-hidden text-xs;
+    color: var(--mat-sys-on-surface-variant);
+  }
+
+  .meta-primary {
+    @apply flex min-w-0 items-center overflow-hidden;
+
+    .meta-item + .meta-item::before {
+      content: '·';
+      @apply mx-1.5;
     }
   }
-  ::ng-deep {
-    .mdc-button {
-      font-size: 12px;
-      line-height: 24px;
-      height: 24px;
-      --mat-button-outlined-horizontal-padding: 18px;
-    }
+
+  .meta-item {
+    @apply min-w-0 truncate;
   }
+
+  .taxonomy {
+    @apply max-w-28;
+  }
+
+  .author {
+    @apply max-w-24;
+  }
+
+  .date {
+    @apply shrink-0 overflow-visible;
+  }
+
   &.active {
-    background-color: var(--mat-sys-secondary-fixed);
-    &::after {
-      content: '';
-      position: absolute;
-      width: 4px;
-      height: 50%;
-      top: 0;
-      transform: translateY(50%);
-      left: 0;
-      border-radius: 0 3px 3px 0;
-      background-color: var(--mat-sys-primary);
-    }
+    background-color: var(--mat-sys-surface-container-high);
+    box-shadow: inset 3px 0 0 var(--mat-sys-primary);
+  }
+
+  &.dirty:not(.active) {
+    box-shadow: inset 3px 0 0 var(--mat-sys-error);
+  }
+}
+
+// The menu panel renders in an overlay outside this component, so its styles have to be
+// global; every class is namespaced to keep them from leaking onto other menus
+::ng-deep .page-item-menu {
+  .mat-mdc-menu-item-text {
+    @apply w-full;
+  }
+
+  .page-item-menu__content {
+    @apply flex w-full items-center gap-3;
+  }
+
+  .page-item-menu__icon {
+    @apply flex h-5 w-5 shrink-0 items-center justify-center;
+  }
+
+  .page-item-menu__icon .mat-icon {
+    @apply h-5 w-5 text-xl leading-5;
+  }
+
+  .page-item-menu__delete:not([disabled]) {
+    color: var(--mat-sys-error);
   }
 }

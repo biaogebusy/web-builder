@@ -18,6 +18,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
 import { formatToExtraData, getPageParams, isTranslationLang } from '@core/util/builder-page.util';
+import { appendQueryParams } from '@core/util/http-params.util';
 import { SHARE_IMPORTS } from '@share/share-imports';
 import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
@@ -39,7 +40,9 @@ export class PageItemComponent {
   /** Emitted after the page is handed to the builder, for list level follow up */
   readonly pageLoad = output<IPageMeta>();
 
-  public langs = environment.langs;
+  public readonly langs = environment.langs;
+  public readonly showLanguage =
+    environment.multiLang && Boolean(environment.langs && environment.langs.length > 1);
   private currentPage = inject(BUILDER_CURRENT_PAGE);
   private builder = inject(BuilderState);
   private dialog = inject(MatDialog);
@@ -56,27 +59,106 @@ export class PageItemComponent {
       return false;
     }
     const page = this.page();
-    return current.nid === page.nid && current.langcode === page.langcode;
+    // A translation draft lives under its target language, so compare the same identity the
+    // local version list uses; otherwise the source row would claim to be the edited page
+    return (
+      current.nid === page.nid &&
+      this.builder.getPageIdentityLang(current) === this.builder.getPageIdentityLang(page)
+    );
   });
 
-  /** Language label of the translation draft being edited, empty when not editing one */
+  /**
+   * Language label of the translation draft started from this row, empty when there is none.
+   * Shown on the source language row, which is the only entry point when the translation does
+   * not exist on the server yet.
+   */
   readonly translationDraft = computed(() => {
     const current = this.currentPage();
-    if (!this.active() || !current || !current.translation || !current.target) {
+    if (!current || !current.translation || !current.target) {
+      return '';
+    }
+    const page = this.page();
+    if (current.nid !== page.nid || (current.langcode ?? '') !== page.langcode) {
       return '';
     }
     return this.getLangLabel(current.target);
   });
 
+  /** True when this page has a local version with changes not saved to the server. */
+  readonly dirty = computed(() => this.builder.isPageDirty(this.page()));
+
+  readonly previewUrl = computed(() => appendQueryParams(this.page().url || '', { preview: true }));
+
+  /** Title click: the page is already open, so opening it again would be a no-op */
   loadPage(): void {
-    this.builder.loading.set(true);
+    if (this.active()) {
+      return;
+    }
+    this.openPage();
+  }
+
+  /**
+   * The single way to put this page in the builder. It only asks which version to open when a
+   * local draft would otherwise be picked or overwritten silently, so the common case where no
+   * draft exists stays one click.
+   */
+  openPage(): void {
+    const localPage = this.builder.getLocalPageByPage(this.page());
+    if (localPage?.dirty) {
+      this.openDraftChoiceDialog(localPage);
+      return;
+    }
+    this.loadPageFromServer();
+  }
+
+  // Dismissing the dialog keeps the draft, so unsaved work is only ever lost by a deliberate click
+  private openDraftChoiceDialog(localPage: IPage): void {
+    const config: IDialog = {
+      title: this.translate.instant('BUILDER.PAGE_LIST.OPEN_DRAFT_TITLE'),
+      noLabel: this.translate.instant('BUILDER.PAGE_LIST.OPEN_DRAFT_KEEP'),
+      yesLabel: this.translate.instant('BUILDER.PAGE_LIST.OPEN_DRAFT_SERVER'),
+      inputData: {
+        content: {
+          type: 'text',
+          fullWidth: true,
+          body: this.translate.instant('BUILDER.PAGE_LIST.OPEN_DRAFT_CONFIRM', {
+            title: this.page().title,
+          }),
+        },
+      },
+    };
+    this.dialog
+      .open(DialogComponent, { width: '340px', data: config })
+      .afterClosed()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(fromServer => {
+        if (fromServer) {
+          this.loadPageFromServer();
+          return;
+        }
+        this.loadLocalDraft(localPage);
+      });
+  }
+
+  private loadLocalDraft(localPage: IPage): void {
+    const page = this.page();
+    this.builder.loading.set(false);
+    this.builder.loadNewPage(localPage);
+    this.util.openSnackbar(
+      this.translate.instant('BUILDER.PAGE_LIST.LOADING_LOCAL_DRAFT', { title: page.title }),
+      'ok'
+    );
+    this.pageLoad.emit(page);
+  }
+
+  private loadPageFromServer(): void {
     const page = this.page();
     const { langcode, nid } = page;
     if (!nid) {
-      this.builder.loading.set(false);
       this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_LIST.CHECK_LANDING_VIEW'), 'ok');
       return;
     }
+    this.builder.loading.set(true);
     this.util.openSnackbar(
       this.translate.instant('BUILDER.PAGE_LIST.LOADING_PAGE', { title: page.title }),
       'ok'
@@ -115,7 +197,67 @@ export class PageItemComponent {
 
   createLangVersion(targetlang: string): void {
     const currentPage = this.page();
+    if (!currentPage.nid) {
+      this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_LIST.CHECK_LANDING_VIEW'), 'ok');
+      return;
+    }
+    const localTranslation = this.builder.getLocalPageByPage({
+      nid: currentPage.nid,
+      langcode: targetlang,
+    });
+    // Only an unsaved draft may skip the server; a synced local copy can be stale
+    if (localTranslation?.dirty) {
+      this.builder.loadNewPage(localTranslation);
+      this.util.openSnackbar(
+        this.translate.instant('BUILDER.PAGE_LIST.LOADING_LOCAL_TRANSLATION', {
+          title: currentPage.title,
+          lang: this.getLangLabel(targetlang),
+        }),
+        'ok'
+      );
+      this.pageLoad.emit(currentPage);
+      return;
+    }
     const lang = this.langs?.find(l => l.langCode === targetlang);
+    this.builder.loading.set(true);
+    this.nodeService
+      .fetch(`/api/v3/landingPage/json/${currentPage.nid}`, { noCache: 1 }, targetlang)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (page: IPage) => {
+          this.builder.loading.set(false);
+          if (targetlang === page.langcode) {
+            this.util.openSnackbar(
+              this.translate.instant('BUILDER.PAGE_LIST.TRANSLATION_EXISTS', {
+                label: page.label || lang?.label || targetlang,
+              }),
+              'ok'
+            );
+            this.builder.loadNewPage(formatToExtraData(page));
+            this.pageLoad.emit(currentPage);
+            return;
+          }
+          const label = lang?.label || targetlang;
+          this.openCreateTranslationDialog(currentPage, targetlang, page, label);
+        },
+        error: () => {
+          this.builder.loading.set(false);
+          this.util.openSnackbar(
+            this.translate.instant('BUILDER.PAGE_LIST.LOAD_TRANSLATION_FAIL', {
+              title: currentPage.title,
+            }),
+            'ok'
+          );
+        },
+      });
+  }
+
+  private openCreateTranslationDialog(
+    currentPage: IPageMeta,
+    targetlang: string,
+    sourcePage: IPage,
+    langLabel: string
+  ): void {
     const config: IDialog = {
       title: this.translate.instant('BUILDER.PAGE_LIST.CREATE_LANG_TITLE'),
       noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
@@ -126,7 +268,7 @@ export class PageItemComponent {
           fullWidth: true,
           body: this.translate.instant('BUILDER.PAGE_LIST.CREATE_LANG_CONFIRM', {
             title: currentPage.title,
-            lang: lang?.label || targetlang,
+            lang: langLabel,
           }),
         },
       },
@@ -137,49 +279,22 @@ export class PageItemComponent {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(result => {
         if (!result) return;
-        this.builder.loading.set(true);
-        this.nodeService
-          .fetch(`/api/v3/landingPage/json/${currentPage.nid}`, { noCache: 1 }, targetlang)
-          .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe({
-            next: (page: IPage) => {
-              this.builder.loading.set(false);
-              if (targetlang === page.langcode) {
-                this.util.openSnackbar(
-                  this.translate.instant('BUILDER.PAGE_LIST.TRANSLATION_EXISTS', {
-                    label: page.label,
-                  }),
-                  'ok'
-                );
-                this.builder.loadNewPage(formatToExtraData(page));
-              } else {
-                this.util.openSnackbar(
-                  this.translate.instant('BUILDER.PAGE_LIST.LOADING_TRANSLATION', {
-                    title: currentPage.title,
-                    lang: targetlang,
-                  }),
-                  'ok'
-                );
-                this.builder.loadNewPage(
-                  formatToExtraData({
-                    langcode: currentPage.langcode,
-                    ...page,
-                    translation: true,
-                    target: targetlang,
-                  })
-                );
-              }
-            },
-            error: () => {
-              this.builder.loading.set(false);
-              this.util.openSnackbar(
-                this.translate.instant('BUILDER.PAGE_LIST.LOAD_TRANSLATION_FAIL', {
-                  title: currentPage.title,
-                }),
-                'ok'
-              );
-            },
-          });
+        this.util.openSnackbar(
+          this.translate.instant('BUILDER.PAGE_LIST.LOADING_TRANSLATION', {
+            title: currentPage.title,
+            lang: langLabel,
+          }),
+          'ok'
+        );
+        this.builder.loadNewPage(
+          formatToExtraData({
+            ...sourcePage,
+            langcode: currentPage.langcode,
+            translation: true,
+            target: targetlang,
+          })
+        );
+        this.pageLoad.emit(currentPage);
       });
   }
 
@@ -233,6 +348,7 @@ export class PageItemComponent {
         request$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
           next: () => {
             this.builder.loading.set(false);
+            this.builder.deleteLocalPageByPage(page, !translation);
             this.util.openSnackbar(
               translation
                 ? this.translate.instant('BUILDER.PAGE_SETTING.DELETE_TRANSLATION_SUCCESS', {

@@ -149,54 +149,75 @@ export class BuilderState {
     if (!Number.isInteger(index) || index < 0 || index >= versions.length) {
       return;
     }
-    this.version.update(v => {
-      const next = v.filter((_, itemIndex) => itemIndex !== index);
-      if (next.length === 0) {
-        return [
-          {
-            ...this.defaultPage,
-            current: true,
-            time: new Date().toLocaleString(),
-          },
-        ];
-      }
-      if (!next.some(page => page.current)) {
-        next[0] = { ...next[0], current: true };
-      }
-      return next;
-    });
-    this.closeRightDrawer$.next(true);
-    this.saveLocalVersions();
+    this.removeLocalPages((_, itemIndex) => itemIndex === index);
   }
 
-  deleteLocalPageByPage(page: IPage): void {
+  /** Remove the local version for a page, optionally including every translation. */
+  deleteLocalPageByPage(page: Partial<IPage>, allLanguages = false): void {
+    if (allLanguages && page.nid) {
+      this.removeLocalPages(item => item.nid === page.nid);
+      return;
+    }
     this.deleteLocalPage(this.findPageIndex(page));
   }
 
-  private findPageIndex(page: IPage): number {
-    const langcode = page.langcode ?? '';
+  getLocalPageByPage(page: Partial<IPage>): IPage | undefined {
+    const index = this.findPageIndex(page);
+    return index < 0 ? undefined : this.version()[index];
+  }
+
+  isPageDirty(page: Partial<IPage>): boolean {
+    return Boolean(this.getLocalPageByPage(page)?.dirty);
+  }
+
+  private removeLocalPages(predicate: (page: IPage, index: number) => boolean): void {
+    const versions = this.version();
+    const removedCurrent = versions.some((page, index) => predicate(page, index) && page.current);
+    const next = versions.filter((page, index) => !predicate(page, index));
+    if (next.length === versions.length) {
+      return;
+    }
+    if (next.length === 0) {
+      next.push({
+        ...this.defaultPage,
+        current: true,
+        time: new Date().toLocaleString(),
+      });
+    } else if (!next.some(page => page.current)) {
+      next[0] = { ...next[0], current: true };
+    }
+    this.version.set(next);
+    // Only the page being edited owns the right drawer, so leave it open for background removals
+    if (removedCurrent) {
+      this.closeRightDrawer$.next(true);
+    }
+    this.saveLocalVersions();
+  }
+
+  private findPageIndex(page: Partial<IPage>): number {
+    const langcode = this.getPageIdentityLang(page);
     return this.version().findIndex(item => {
+      const itemLangcode = this.getPageIdentityLang(item);
       if (item === page) {
         return true;
       }
-      if (
-        page.uuid &&
-        item.uuid &&
-        item.uuid === page.uuid &&
-        (item.langcode ?? '') === langcode
-      ) {
+      if (page.uuid && item.uuid && item.uuid === page.uuid && itemLangcode === langcode) {
         return true;
       }
-      if (
-        page.nid &&
-        item.nid &&
-        item.nid === page.nid &&
-        (item.langcode ?? '') === langcode
-      ) {
+      if (page.nid && item.nid && item.nid === page.nid && itemLangcode === langcode) {
         return true;
       }
       return false;
     });
+  }
+
+  /**
+   * Language that identifies a page in the local version list. A translation draft is stored
+   * under its target language, so it never collides with its source language page.
+   * Callers outside the state must reuse this instead of reading `langcode` directly.
+   */
+  getPageIdentityLang(page: Partial<IPage>): string {
+    return page.translation && page.target ? page.target : (page.langcode ?? '');
   }
 
   markPageSynced(page: IPage, patch: Partial<IPage> = {}): void {
@@ -448,24 +469,15 @@ export class BuilderState {
 
   loadNewPage(page: IPage, close?: boolean): void {
     const currentPage = { ...page, current: true, time: new Date().toLocaleString() };
-    const langcode = page.langcode ?? '';
+    const langcode = this.getPageIdentityLang(page);
     this.version.update(list => {
       const next = list.map(version => ({ ...version, current: false }));
       const somePageIndex = next.findIndex(item => {
-        if (
-          page.uuid &&
-          item.uuid &&
-          item.uuid === page.uuid &&
-          (item.langcode ?? '') === langcode
-        ) {
+        const itemLangcode = this.getPageIdentityLang(item);
+        if (page.uuid && item.uuid && item.uuid === page.uuid && itemLangcode === langcode) {
           return true;
         }
-        if (
-          page.nid &&
-          item.nid &&
-          item.nid === page.nid &&
-          (item.langcode ?? '') === langcode
-        ) {
+        if (page.nid && item.nid && item.nid === page.nid && itemLangcode === langcode) {
           return true;
         }
         return false;
