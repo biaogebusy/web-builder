@@ -1,11 +1,14 @@
 @if (editor(); as editor) {
-  <div
-    class="bubble-row"
-    role="toolbar"
-    tabindex="-1"
-    toolbarKeynav
-    [attr.aria-label]="'BUILDER.TIPTAP.TOOLBAR' | translate"
-  >
+  @if (editor.isActive('image')) {
+    <app-tiptap-image-panel [editor]="editor" />
+  } @else {
+    <div
+      class="bubble-row"
+      role="toolbar"
+      tabindex="-1"
+      toolbarKeynav
+      [attr.aria-label]="'BUILDER.TIPTAP.TOOLBAR' | translate"
+    >
     <app-btn
       [matTooltip]="'BUILDER.TIPTAP.BOLD' | translate"
       (click)="editor.chain().focus().toggleBold().run()"
@@ -106,9 +109,9 @@
         icon: { svg: 'format-clear' },
       }"
     />
-  </div>
-  @if (stylePanelOpen()) {
-    <div class="style-panel" role="group" [attr.aria-label]="'BUILDER.TIPTAP.TEXT_STYLE' | translate">
+    </div>
+    @if (stylePanelOpen()) {
+      <div class="style-panel" role="group" [attr.aria-label]="'BUILDER.TIPTAP.TEXT_STYLE' | translate">
       <label class="style-item">
         <span class="style-label">{{ 'BUILDER.TIPTAP.FONT_COLOR' | translate }}</span>
         <input
@@ -146,9 +149,10 @@
           }
         </select>
       </label>
-    </div>
-  }
-  @if (linkPanelOpen()) {
-    <app-tiptap-link-panel [editor]="editor" (closed)="closeLinkPanel()" />
+      </div>
+    }
+    @if (linkPanelOpen()) {
+      <app-tiptap-link-panel [editor]="editor" (closed)="closeLinkPanel()" />
+    }
   }
 }

@@ -164,7 +164,16 @@ export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
       return;
     }
     this.nodeService.pickAndUploadImage(url => {
-      editor.chain().focus().setImage({ src: url }).run();
+      editor.chain().focus().setImage({ src: url, alt: '' }).run();
+      let imagePosition: number | null = null;
+      editor.state.doc.descendants((node, position) => {
+        if (imagePosition === null && node.type.name === 'image' && node.attrs['src'] === url) {
+          imagePosition = position;
+        }
+      });
+      if (imagePosition !== null) {
+        editor.commands.setNodeSelection(imagePosition);
+      }
     });
   }
 

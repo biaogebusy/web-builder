@@ -1,0 +1,33 @@
+:host {
+  @apply block;
+}
+
+.image-panel {
+  @apply flex flex-wrap items-end gap-2 p-2;
+  width: min(520px, calc(100vw - 16px));
+}
+
+.image-field {
+  @apply flex flex-col gap-1 text-xs;
+  color: var(--mat-sys-on-surface-variant);
+
+  input {
+    @apply h-8 min-w-0 rounded border px-2 text-sm;
+    border-color: var(--mat-sys-outline-variant);
+    background: transparent;
+    color: var(--mat-sys-on-surface);
+
+    &:focus {
+      outline: none;
+      border-color: var(--mat-sys-primary);
+    }
+  }
+}
+
+.image-alt-field {
+  @apply min-w-48 flex-1;
+}
+
+.image-size-field {
+  @apply w-24;
+}

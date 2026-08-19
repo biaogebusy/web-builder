@@ -113,7 +113,11 @@ describe('TiptapEditorComponent', () => {
     insert('/sites/default/files/a.png');
     const html = component.editor()?.getHTML();
     expect(html).toContain('src="/sites/default/files/a.png"');
+    expect(html).toContain('alt=""');
     expect(html).toContain('class="tiptap-image"');
+    expect(component.editor()?.isActive('image')).toBe(true);
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('app-tiptap-image-panel')).toBeTruthy();
   });
 
   it('setContent 应用外部值且不触发 htmlChange,相同内容跳过', () => {

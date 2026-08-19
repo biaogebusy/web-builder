@@ -12,6 +12,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Editor } from '@tiptap/core';
 import { TOOLBAR_TOOLTIP_ABOVE, ToolbarKeynavDirective } from '@core/directive/toolbar-keynav.directive';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
+import { TiptapImagePanelComponent } from '../image-panel/tiptap-image-panel.component';
 import { TiptapLinkPanelComponent } from '../link-panel/tiptap-link-panel.component';
 import { ALIGN_ORDER, alignIcon as resolveAlignIcon } from '../tiptap-extensions';
 
@@ -52,6 +53,7 @@ function toHex(value: string | undefined, fallback: string): string {
     TranslateModule,
     MatTooltipModule,
     BtnComponent,
+    TiptapImagePanelComponent,
     TiptapLinkPanelComponent,
     ToolbarKeynavDirective,
   ],
