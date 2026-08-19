@@ -140,6 +140,18 @@ pre {
 // left to the bubble menu and the caret itself
 .inline-tiptap {
   outline: none;
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+// Images inserted by Tiptap keep this class in their serialized HTML, so the
+// same responsive constraint applies when the content is rendered publicly.
+.tiptap-image {
+  max-width: 100%;
+  height: auto;
 }
 
 // Canvas image selection (InlineImageService): outline highlight, action bar floats above the image

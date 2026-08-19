@@ -111,7 +111,9 @@ describe('TiptapEditorComponent', () => {
     expect(nodeServiceMock.pickAndUploadImage).toHaveBeenCalled();
     const insert = nodeServiceMock.pickAndUploadImage.mock.calls[0][0];
     insert('/sites/default/files/a.png');
-    expect(component.editor()?.getHTML()).toContain('src="/sites/default/files/a.png"');
+    const html = component.editor()?.getHTML();
+    expect(html).toContain('src="/sites/default/files/a.png"');
+    expect(html).toContain('class="tiptap-image"');
   });
 
   it('setContent 应用外部值且不触发 htmlChange,相同内容跳过', () => {

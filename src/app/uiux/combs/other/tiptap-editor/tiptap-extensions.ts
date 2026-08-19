@@ -36,7 +36,11 @@ export function buildRichExtensions(options: {
     TextAlign.configure({ types: ['heading', 'paragraph'] }),
     Highlight,
     TextStyleKit,
-    Image,
+    Image.configure({
+      // Keep the constraint in the serialized HTML as well as the editor CSS,
+      // so newly inserted images remain responsive when rendered publicly.
+      HTMLAttributes: { class: 'tiptap-image' },
+    }),
     ...(options.placeholder ? [Placeholder.configure({ placeholder: options.placeholder })] : []),
     BubbleMenu.configure({
       element: options.bubbleElement,

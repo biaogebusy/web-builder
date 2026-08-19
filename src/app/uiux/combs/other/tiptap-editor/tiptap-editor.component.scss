@@ -37,6 +37,10 @@
     .ProseMirror {
       min-height: 200px;
     }
+    .ProseMirror img {
+      max-width: 100%;
+      height: auto;
+    }
     [contenteditable='true'] {
       background-color: transparent !important;
     }
