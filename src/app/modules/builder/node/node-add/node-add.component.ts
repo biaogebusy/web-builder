@@ -45,7 +45,7 @@ export class NodeAddComponent implements OnInit {
   /** Node uuid in edit mode; empty means create-new */
   public editUuid = signal<string>('');
   public form: UntypedFormGroup = new UntypedFormGroup({});
-  /** Middle editing area fields: title + body fields (rich-editor/json) */
+  /** Middle editing area fields: title + body fields (tiptap/json) */
   public mainFields = signal<FormlyFieldConfig[]>([]);
   /** Right property panel fields: metadata such as labels, booleans, numbers */
   public sideFields = signal<FormlyFieldConfig[]>([]);
@@ -190,24 +190,19 @@ export class NodeAddComponent implements OnInit {
         .filter(m => m.fieldType === 'text_long' || m.fieldType === 'text_with_summary')
         .map(m => m.key)
     );
-    // Rich-text bodies uniformly switch to tiptap, with the toolbar lifted into
-    // the standalone bar under the top bar (#node-editor-toolbar in the
-    // template); node-body-field shares the same left-aligned document
-    // container as the title field (see scss)
-    const richBodyKey = fields.find(
-      f => bodyKeys.has(f.key as string) && f.type === 'rich-editor'
-    )?.key;
+    // The first rich-text body projects its toolbar into the standalone bar under
+    // the top bar. Additional rich-text fields keep their toolbar in their own box.
+    const richBodyKey = fields.find(f => bodyKeys.has(f.key as string) && f.type === 'tiptap')?.key;
     const bodyFields = fields
       .filter(f => bodyKeys.has(f.key as string))
       .map(f => {
-        if (f.type !== 'rich-editor') {
+        if (f.type !== 'tiptap') {
           return { ...f, className: 'node-body-field' };
         }
         const props = { ...f.props, autoLoad: true };
         return {
           ...f,
           className: 'node-body-field',
-          type: 'tiptap',
           // A content type may have multiple long-text fields; only the first
           // takes over the bar toolbar, the rest render their toolbars inside
           // their own editor boxes to avoid stacking several toolbars in one container

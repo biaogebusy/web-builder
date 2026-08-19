@@ -264,7 +264,7 @@ export class NodeFieldFormService {
         if (meta.jsonFormat) {
           return { ...base, type: 'json' };
         }
-        return { ...base, type: 'rich-editor' };
+        return { ...base, type: 'tiptap' };
       case 'string_long':
         return { ...base, type: 'textarea', props: { ...base.props, rows: 4 } };
       case 'boolean':

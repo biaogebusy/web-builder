@@ -41,8 +41,6 @@ const TRANSLATION_KEY_RE = /^[A-Z][A-Z0-9_]*(\.[A-Z0-9_]+)+$/;
 export const XINSHI_FORMLY_CONFIG: ConfigOption = {
   types: [
     { name: 'rich-text', component: RichTextComponent },
-    // Keep the legacy field name for CMS schemas, but use the lazily loaded Tiptap field.
-    { name: 'rich-editor', component: TiptapFieldType },
     { name: 'tiptap', component: TiptapFieldType },
     { name: 'mat-select', component: MatSelectComponent },
     { name: 'date-range', component: DateRangeComponent },

@@ -131,7 +131,7 @@ describe('NodeAddComponent', () => {
     ]);
   });
 
-  it('正文字段换用 tiptap,工具栏投影到顶栏下的通栏容器', async () => {
+  it('tiptap 正文字段将工具栏投影到顶栏下的通栏容器', async () => {
     await setup(
       {},
       {
@@ -139,7 +139,7 @@ describe('NodeAddComponent', () => {
         getForm: () =>
           of({
             fields: [
-              { key: 'body', type: 'rich-editor', props: { label: '正文' } },
+              { key: 'body', type: 'tiptap', props: { label: '正文' } },
               { key: 'field_tags', type: 'mat-select', props: {} },
             ],
             meta: [
@@ -170,8 +170,8 @@ describe('NodeAddComponent', () => {
         getForm: () =>
           of({
             fields: [
-              { key: 'body', type: 'rich-editor', props: {} },
-              { key: 'field_extra', type: 'rich-editor', props: {} },
+              { key: 'body', type: 'tiptap', props: {} },
+              { key: 'field_extra', type: 'tiptap', props: {} },
             ],
             meta: [
               { key: 'body', fieldType: 'text_with_summary' },

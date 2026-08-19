@@ -97,7 +97,7 @@ describe('NodeFieldFormService', () => {
       expect(fields.length).toBe(5);
       expect(fields[0].type).toBe('input');
       expect(fields[0].props?.required).toBe(true);
-      expect(fields[1].type).toBe('rich-editor');
+      expect(fields[1].type).toBe('tiptap');
       expect(fields[2].type).toBe('select');
       expect(fields[2].props?.multiple).toBe(true);
       expect(fields[3].type).toBe('img-picker');
