@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, DestroyRef, ElementRef, inject, ChangeDetectionStrategy, viewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
+import { getLibraryAsset } from '@core/config/library-assets';
 import { ICoreConfig } from '@core/interface/IAppConfig';
 import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -8,6 +9,7 @@ import { CORE_CONFIG } from '@core/token/token-providers';
 import { FieldType, FieldTypeConfig, FormlyModule } from '@ngx-formly/core';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 import { JsonEditorDialogComponent } from './json-editor-dialog.component';
+import { JSONEDITOR_ASSETS } from '@uiux/combs/other/jsoneditor/jsoneditor.assets';
 declare let window: any;
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -33,15 +35,11 @@ export class JsonFieldType extends FieldType<FieldTypeConfig> implements AfterVi
 
   async ngAfterViewInit(): Promise<void> {
     if (this.screenService.isPlatformBrowser()) {
-      if (this.coreConfig.librariesUseLocal) {
-        await this.util.loadStyle('/assets/injects/jsoneditor/jsoneditor.min.css');
-        await this.util.loadScriptWithoutAmd('/assets/injects/jsoneditor/jsoneditor.min.js');
-      } else {
-        const jsoneditorStyle = this.util.getLibraries('jsoneditor', 'cdn', 'style');
-        const jsoneditorJS = this.util.getLibraries('jsoneditor', 'cdn', 'script');
-        await this.util.loadStyle(jsoneditorStyle);
-        await this.util.loadScriptWithoutAmd(jsoneditorJS);
-      }
+      const source = this.coreConfig.librariesUseLocal ? 'local' : 'cdn';
+      await this.util.loadStyle(getLibraryAsset(JSONEDITOR_ASSETS, source, 'style'));
+      await this.util.loadScriptWithoutAmd(
+        getLibraryAsset(JSONEDITOR_ASSETS, source, 'script')
+      );
 
       this.editorInstance = new window.JSONEditor(this.editor()!.nativeElement, {
         mode: 'code',

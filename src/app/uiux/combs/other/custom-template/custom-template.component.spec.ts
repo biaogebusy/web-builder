@@ -23,7 +23,6 @@ describe('CustomTemplateComponent', () => {
     isPlatformBrowser: vi.fn(() => false),
   };
   const utilitiesService = {
-    getLibraries: vi.fn(() => ''),
     loadStyle: vi.fn(),
   };
 

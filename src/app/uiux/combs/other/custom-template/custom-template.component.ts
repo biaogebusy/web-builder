@@ -1,5 +1,6 @@
 import { MatPaginatorIntlCro } from '@core/service/paginator.service';
 import { MatPaginatorIntl } from '@angular/material/paginator';
+import { getLibraryAsset } from '@core/config/library-assets';
 import {
   AfterViewInit,
   Component,
@@ -32,6 +33,8 @@ import { generatePath } from '@core/util/dom-path.util';
 import type { QueryParams } from '@core/util/http-params.util';
 import { ManageService } from '@core/service/manage.service';
 import { TranslateService } from '@ngx-translate/core';
+import { SWIPER_ASSETS } from '@uiux/combs/carousel/swiper/swiper.assets';
+import { ECHARTS_CDN_SCRIPT, FONT_AWESOME_CDN_STYLE } from './custom-template.assets';
 declare let Swiper: any;
 declare let echarts: any;
 @Component({
@@ -95,8 +98,7 @@ export class CustomTemplateComponent implements AfterViewInit {
     const { isAPI, html } = this.content();
     this.inCanvas = !!this.ele.nativeElement.closest('.component-item');
     this.inlineEditable = this.inCanvas && !isAPI && !(html ?? '').includes('{{');
-    const fontawesome = this.util.getLibraries('fontAwesome', 'cdn', 'style');
-    this.util.loadStyle(fontawesome);
+    this.util.loadStyle(FONT_AWESOME_CDN_STYLE);
     this.destroyRef.onDestroy(() => {
       this.destroyed = true;
       this.runJsCleanup();
@@ -132,26 +134,19 @@ export class CustomTemplateComponent implements AfterViewInit {
   }
 
   async loadSwiper(): Promise<void> {
-    if (this.coreConfig.librariesUseLocal) {
-      await this.util.loadStyle('/assets/injects/swiper/swiper-bundle.min.css');
-      await this.util.loadScript('/assets/injects/swiper/swiper-bundle.min.js');
-    } else {
-      const swiperStyle = this.util.getLibraries('swiper', 'cdn', 'style');
-      const swiperScript = this.util.getLibraries('swiper', 'cdn', 'script');
-      await this.util.loadStyle(swiperStyle);
-      await this.util.loadScript(swiperScript);
-      this.ele.nativeElement.querySelectorAll('.swiper').forEach((el: any) => {
-        if (el) {
-          const options = JSON.parse(el.getAttribute('data-swiper'));
-          new Swiper(el, options);
-        }
-      });
-    }
+    const source = this.coreConfig.librariesUseLocal ? 'local' : 'cdn';
+    await this.util.loadStyle(getLibraryAsset(SWIPER_ASSETS, source, 'style'));
+    await this.util.loadScript(getLibraryAsset(SWIPER_ASSETS, source, 'script'));
+    this.ele.nativeElement.querySelectorAll('.swiper').forEach((el: any) => {
+      if (el) {
+        const options = JSON.parse(el.getAttribute('data-swiper'));
+        new Swiper(el, options);
+      }
+    });
   }
 
   async loadEchars(): Promise<void> {
-    const echartsScript = this.util.getLibraries('echarts', 'cdn', 'script');
-    await this.util.loadScript(echartsScript);
+    await this.util.loadScript(ECHARTS_CDN_SCRIPT);
     this.ele.nativeElement.querySelectorAll('.chart').forEach((el: any) => {
       if (el) {
         const options = JSON.parse(el.getAttribute('data-echarts'));

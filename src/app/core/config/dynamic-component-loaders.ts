@@ -67,7 +67,10 @@ export const DYNAMIC_COMPONENT_LOADERS: Readonly<Record<string, ComponentLoader>
   'dropdown-menu': () => loadUtilityWidgets().then(m => m.DropdownMenuComponent),
   'number-animate': () => loadUtilityWidgets().then(m => m.NumberAnimateComponent),
   'progress-group': () => loadUtilityWidgets().then(m => m.ProgressGroupComponent),
-  'inline-lightbox': () => loadUtilityWidgets().then(m => m.InlineLightboxComponent),
+  'inline-lightbox': () =>
+    import('@uiux/widgets/lightbox/inline-lightbox/inline-lightbox.component').then(
+      m => m.InlineLightboxComponent
+    ),
 
   'layout-builder': () =>
     import('@uiux/widgets/builder/layout-builder/layout-builder.component').then(
