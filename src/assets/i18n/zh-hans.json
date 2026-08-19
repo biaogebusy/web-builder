@@ -544,9 +544,12 @@
     },
     "FORM_EDITOR": {
       "PLACEHOLDER": "请输入正文内容",
+      "ACTIVATE": "打开富文本编辑器",
       "IMAGE_LOGIN_REQUIRED": "请登录后上传图片！",
       "IMAGE_UPLOADING": "图片上传中…",
-      "IMAGE_UPLOAD_FAILED": "图片上传失败，请重试。"
+      "IMAGE_UPLOAD_FAILED": "图片上传失败，请重试。",
+      "LOAD_FAILED": "富文本编辑器加载失败，请重试。",
+      "RETRY": "重试"
     },
     "TIPTAP": {
       "TOOLBAR": "编辑工具栏",

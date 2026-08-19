@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 import { ScreenService } from '@core/service/screen.service';
 import { provideUiuxMocks } from '@uiux/testing/mocks';
+import { vi } from 'vitest';
 
 import { TiptapFieldType } from './tiptap.component';
 
@@ -38,9 +39,9 @@ describe('TiptapFieldType', () => {
     fixture.detectChanges();
   };
 
-  const initInBrowser = async () => {
+  const activateInBrowser = async () => {
     isBrowser = true;
-    await component.ngAfterViewInit();
+    await component.activateEditor();
     fixture.detectChanges();
   };
 
@@ -57,17 +58,45 @@ describe('TiptapFieldType', () => {
     expect(editorInstance()).toBeUndefined();
   });
 
+  it('公共表单默认不自动加载编辑器,用户激活后才创建', async () => {
+    await setup();
+    isBrowser = true;
+    const loadEditor = vi.spyOn(component as any, 'loadEditor');
+
+    await component.ngAfterViewInit();
+    fixture.detectChanges();
+
+    expect(loadEditor).not.toHaveBeenCalled();
+    expect(editorInstance()).toBeUndefined();
+    expect(fixture.debugElement.query(By.css('app-btn'))).toBeTruthy();
+
+    await activateInBrowser();
+    expect(editorInstance()).toBeTruthy();
+    expect(editorInstance().autofocus()).toBe(true);
+  });
+
+  it('autoLoad 显式开启时自动加载编辑器', async () => {
+    await setup({ autoLoad: true });
+    isBrowser = true;
+
+    await component.ngAfterViewInit();
+    fixture.detectChanges();
+
+    expect(editorInstance()).toBeTruthy();
+    expect(editorInstance().autofocus()).toBe(false);
+  });
+
   it('以表单值作为编辑器初始内容', async () => {
     await setup({}, '<p>hello</p>');
 
-    await initInBrowser();
+    await activateInBrowser();
 
     expect(editorInstance().editor().getHTML()).toContain('hello');
   });
 
   it('编辑器内容变化回写表单值', async () => {
     await setup();
-    await initInBrowser();
+    await activateInBrowser();
 
     editorInstance().htmlChange.emit('<p>changed</p>');
 
@@ -77,7 +106,7 @@ describe('TiptapFieldType', () => {
   it('把 placeholder 与 toolbarContainer 透传给编辑器', async () => {
     await setup({ placeholder: '请输入正文', toolbarContainer: '#node-editor-toolbar' });
 
-    await initInBrowser();
+    await activateInBrowser();
 
     expect(editorInstance().content().placeholder).toBe('请输入正文');
     expect(editorInstance().toolbarContainer()).toBe('#node-editor-toolbar');
@@ -85,7 +114,7 @@ describe('TiptapFieldType', () => {
 
   it('表单 reset 后编辑器同步清空(所见与提交值一致)', async () => {
     await setup({}, '<p>old</p>');
-    await initInBrowser();
+    await activateInBrowser();
 
     formControl.reset();
 
@@ -96,12 +125,19 @@ describe('TiptapFieldType', () => {
 
   it('外部回填值同步进编辑器,禁用同步为不可编辑', async () => {
     await setup();
-    await initInBrowser();
+    await activateInBrowser();
 
     formControl.setValue('<p>filled</p>');
     expect(editorInstance().editor().getHTML()).toContain('filled');
 
     formControl.disable();
+    expect(editorInstance().editor().isEditable).toBe(false);
+  });
+
+  it('readonly 字段创建只读编辑器', async () => {
+    await setup({ readonly: true });
+    await activateInBrowser();
+
     expect(editorInstance().editor().isEditable).toBe(false);
   });
 });

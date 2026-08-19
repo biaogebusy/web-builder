@@ -14,6 +14,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { TranslateModule } from '@ngx-translate/core';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { ScreenService } from '@core/service/screen.service';
@@ -32,7 +33,7 @@ import type { TiptapEditorComponent } from '@uiux/combs/other/tiptap-editor/tipt
   templateUrl: './comment-form.component.html',
   styleUrls: ['./comment-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatButtonModule, TitleComponent, LoadingComponent],
+  imports: [MatButtonModule, TranslateModule, TitleComponent, LoadingComponent],
 })
 export class CommentFormComponent implements OnInit {
   readonly content = input.required<IBaseNode>();
@@ -43,6 +44,8 @@ export class CommentFormComponent implements OnInit {
 
   readonly editorHost = viewChild.required('editorHost', { read: ViewContainerRef });
   readonly editorLoaded = signal(false);
+  readonly editorLoading = signal(false);
+  readonly editorError = signal(false);
 
   loading = false;
   placeholder = '请输入...';
@@ -56,10 +59,12 @@ export class CommentFormComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   private editorRef: ComponentRef<TiptapEditorComponent> | null = null;
   private destroyed = false;
+  private editorLoadToken = 0;
 
   constructor() {
     this.destroyRef.onDestroy(() => {
       this.destroyed = true;
+      this.editorLoadToken++;
       this.editorRef?.destroy();
     });
   }
@@ -90,31 +95,51 @@ export class CommentFormComponent implements OnInit {
   }
 
   activateEditor(): void {
-    if (this.editorRef || this.destroyed || !this.screenService.isPlatformBrowser()) {
+    if (
+      this.editorRef ||
+      this.editorLoading() ||
+      this.destroyed ||
+      !this.screenService.isPlatformBrowser()
+    ) {
       return;
     }
-    void this.createEditor();
+    const loadToken = ++this.editorLoadToken;
+    void this.createEditor(loadToken);
   }
 
-  private async createEditor(): Promise<void> {
-    const { TiptapEditorComponent } = await import(
-      '@uiux/combs/other/tiptap-editor/tiptap-editor.component'
-    );
-    if (this.destroyed || this.editorRef) {
-      return;
+  private async createEditor(loadToken: number): Promise<void> {
+    this.editorLoading.set(true);
+    this.editorError.set(false);
+
+    try {
+      const { TiptapEditorComponent } = await import(
+        '@uiux/combs/other/tiptap-editor/tiptap-editor.component'
+      );
+      if (this.destroyed || this.editorRef || loadToken !== this.editorLoadToken) {
+        return;
+      }
+      const editorRef = this.editorHost().createComponent(TiptapEditorComponent);
+      editorRef.setInput('content', {
+        html: this.commentContent(),
+        placeholder: this.content().editor?.placeholder || this.placeholder,
+      });
+      editorRef.setInput('height', this.content().editor?.height || '250px');
+      // The editor replaces the placeholder button the visitor just activated, so keep the caret there
+      editorRef.setInput('autofocus', true);
+      editorRef.instance.htmlChange.subscribe(html => this.commentContent.set(html));
+      this.editorRef = editorRef;
+      this.editorLoaded.set(true);
+    } catch (error) {
+      if (!this.destroyed && loadToken === this.editorLoadToken) {
+        console.error('Error loading Tiptap editor:', error);
+        this.editorError.set(true);
+      }
+    } finally {
+      if (!this.destroyed && loadToken === this.editorLoadToken) {
+        this.editorLoading.set(false);
+        this.cd.markForCheck();
+      }
     }
-    const editorRef = this.editorHost().createComponent(TiptapEditorComponent);
-    editorRef.setInput('content', {
-      html: this.commentContent(),
-      placeholder: this.content().editor?.placeholder || this.placeholder,
-    });
-    editorRef.setInput('height', this.content().editor?.height || '250px');
-    // The editor replaces the placeholder button the visitor just activated, so keep the caret there
-    editorRef.setInput('autofocus', true);
-    editorRef.instance.htmlChange.subscribe(html => this.commentContent.set(html));
-    this.editorRef = editorRef;
-    this.editorLoaded.set(true);
-    this.cd.markForCheck();
   }
 
   private syncEditorContent(): void {

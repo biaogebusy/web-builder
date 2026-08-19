@@ -544,9 +544,12 @@
     },
     "FORM_EDITOR": {
       "PLACEHOLDER": "Start writing",
+      "ACTIVATE": "Open rich-text editor",
       "IMAGE_LOGIN_REQUIRED": "Please log in to upload images!",
       "IMAGE_UPLOADING": "Uploading image…",
-      "IMAGE_UPLOAD_FAILED": "Image upload failed. Please try again."
+      "IMAGE_UPLOAD_FAILED": "Image upload failed. Please try again.",
+      "LOAD_FAILED": "The rich-text editor failed to load. Please try again.",
+      "RETRY": "Retry"
     },
     "TIPTAP": {
       "TOOLBAR": "Editor toolbar",

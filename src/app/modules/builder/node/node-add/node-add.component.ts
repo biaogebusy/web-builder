@@ -203,6 +203,7 @@ export class NodeAddComponent implements OnInit {
         if (f.type !== 'rich-editor') {
           return { ...f, className: 'node-body-field' };
         }
+        const props = { ...f.props, autoLoad: true };
         return {
           ...f,
           className: 'node-body-field',
@@ -212,8 +213,8 @@ export class NodeAddComponent implements OnInit {
           // their own editor boxes to avoid stacking several toolbars in one container
           props:
             f.key === richBodyKey
-              ? { ...f.props, toolbarContainer: '#node-editor-toolbar' }
-              : f.props,
+              ? { ...props, toolbarContainer: '#node-editor-toolbar' }
+              : props,
         };
       });
     this.mainFields.set([this.getTitleField(), ...bodyFields]);

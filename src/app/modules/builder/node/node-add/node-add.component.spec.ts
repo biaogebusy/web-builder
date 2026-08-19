@@ -155,6 +155,7 @@ describe('NodeAddComponent', () => {
 
     const body = component.mainFields().find(field => field.key === 'body');
     expect(body?.type).toBe('tiptap');
+    expect(body?.props?.['autoLoad']).toBe(true);
     expect(body?.props?.['toolbarContainer']).toBe('#node-editor-toolbar');
     expect(component.hasRichEditor()).toBe(true);
     // Non-body fields still stay in the right property panel
@@ -184,6 +185,8 @@ describe('NodeAddComponent', () => {
     component.ngOnInit();
 
     const [, body, extra] = component.mainFields();
+    expect(body.props?.['autoLoad']).toBe(true);
+    expect(extra.props?.['autoLoad']).toBe(true);
     expect(body.props?.['toolbarContainer']).toBe('#node-editor-toolbar');
     expect(extra.props?.['toolbarContainer']).toBeUndefined();
   });

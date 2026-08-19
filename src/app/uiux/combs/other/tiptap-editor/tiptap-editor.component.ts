@@ -28,7 +28,10 @@ import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
 import { TiptapBubbleMenuComponent } from './bubble-menu/tiptap-bubble-menu.component';
 import { TiptapLinkPanelComponent } from './link-panel/tiptap-link-panel.component';
-import { buildRichExtensions, alignIcon as resolveAlignIcon } from './tiptap-extensions';
+import {
+  buildRichExtensions,
+  alignIcon as resolveAlignIcon,
+} from './tiptap-extensions';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

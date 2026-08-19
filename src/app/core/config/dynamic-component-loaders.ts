@@ -114,10 +114,9 @@ export const DYNAMIC_COMPONENT_LOADERS: Readonly<Record<string, ComponentLoader>
     import('@uiux/combs/other/custom-template/custom-template.component').then(
       m => m.CustomTemplateComponent
     ),
-  'tiptap-editor': () =>
-    import('@uiux/combs/other/tiptap-editor/tiptap-editor.component').then(
-      m => m.TiptapEditorComponent
-    ),
+  // Tiptap is an editing surface, never a public-page component. Its consumers
+  // load it through feature-local dynamic imports so page preloading cannot pull
+  // the editor into the public bundle.
   'profile-1v1': () => loadProfile().then(m => m.Profile1v1Component),
   search: () => import('@uiux/combs/search/search.component').then(m => m.SearchComponent),
   'showcase-1v1': () => loadShowcase().then(m => m.Showcase1v1Component),

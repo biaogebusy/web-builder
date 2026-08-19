@@ -38,4 +38,8 @@
   .editor-loading {
     @apply flex justify-center items-center w-full h-full;
   }
+  .editor-error {
+    @apply flex flex-col justify-center items-center gap-3 w-full h-full;
+    color: var(--mat-sys-error);
+  }
 }

@@ -9,9 +9,7 @@ import { TextStyleKit } from '@tiptap/extension-text-style';
 
 /**
  * Extension recipe for multi-paragraph rich text, shared by the tiptap-editor comb
- * (form) and the canvas inline-edit 'rich' profile (InlineEditorService), so both
- * keep identical capabilities and serialization behavior — adding a capability
- * (e.g. iframe/video extensions) only requires changing this one place.
+ * (form) and the canvas inline-edit 'rich' profile (InlineEditorService).
  */
 export function buildRichExtensions(options: {
   /** Host element for the bubble toolbar, handed to the BubbleMenu extension for positioning and visibility */
@@ -37,7 +35,6 @@ export function buildRichExtensions(options: {
     // multi-paragraph bodies; the bubble's align buttons probe it for visibility
     TextAlign.configure({ types: ['heading', 'paragraph'] }),
     Highlight,
-    // Selection-level text styles (text color/background/font size)
     TextStyleKit,
     Image,
     ...(options.placeholder ? [Placeholder.configure({ placeholder: options.placeholder })] : []),

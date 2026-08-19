@@ -4,13 +4,14 @@
   <!-- Toolbar template: projected into the external container when toolbarContainer is set, otherwise rendered in place -->
   <ng-template #toolbarTpl>
     @if (editor(); as editor) {
-      <div
-        class="toolbar"
-        tabindex="-1"
-        toolbarKeynav
-        [attr.role]="toolbarDetached() ? null : 'toolbar'"
-        [attr.aria-label]="toolbarDetached() ? null : ('BUILDER.TIPTAP.TOOLBAR' | translate)"
-      >
+      @if (editor.isEditable) {
+        <div
+          class="toolbar"
+          tabindex="-1"
+          toolbarKeynav
+          [attr.role]="toolbarDetached() ? null : 'toolbar'"
+          [attr.aria-label]="toolbarDetached() ? null : ('BUILDER.TIPTAP.TOOLBAR' | translate)"
+        >
         <app-btn
           [matTooltip]="'BUILDER.TIPTAP.UNDO' | translate"
           (click)="editor.chain().focus().undo().run()"
@@ -268,7 +269,8 @@
             icon: { svg: 'border-horizontal' },
           }"
         />
-      </div>
+        </div>
+      }
     }
   </ng-template>
   @if (!toolbarDetached()) {

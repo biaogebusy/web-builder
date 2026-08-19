@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MAT_INPUT_VALUE_ACCESSOR, MatInputModule } from '@angular/material/input';
 import { FieldType, FieldTypeConfig, FormlyModule } from '@ngx-formly/core';
 import { FormlyFieldTextArea } from '@ngx-formly/material/textarea';
+import { TranslateModule } from '@ngx-translate/core';
 import { createPopper, type Instance as PopperInstance } from '@popperjs/core';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
@@ -33,6 +34,7 @@ import type { TiptapEditorComponent } from '@uiux/combs/other/tiptap-editor/tipt
     FormlyModule,
     BtnComponent,
     LoadingComponent,
+    TranslateModule,
   ],
 })
 export class RichTextComponent extends FieldType<FieldTypeConfig> implements OnDestroy {
@@ -49,39 +51,83 @@ export class RichTextComponent extends FieldType<FieldTypeConfig> implements OnD
 
   public value = '';
   public readonly editorLoaded = signal(false);
+  public readonly editorLoading = signal(false);
+  public readonly editorError = signal(false);
 
-  openRichText(): void {
+  async openRichText(): Promise<void> {
     const popup = this.popup()?.nativeElement;
-    if (this.popper || this.props.readonly || !popup || !this.screenService.isPlatformBrowser()) {
+    if (
+      this.popper ||
+      this.props.readonly ||
+      this.formControl.disabled ||
+      !popup ||
+      !this.screenService.isPlatformBrowser()
+    ) {
       return;
     }
     this.value = this.formControl.value ?? '';
     this.openToken++;
+    this.editorError.set(false);
     this.popper = createPopper(this.hostElement.nativeElement, popup, {
       placement: 'left',
       strategy: 'fixed',
     });
-    void this.loadEditor(this.openToken);
+    await this.loadEditor(this.openToken);
   }
 
   private async loadEditor(openToken: number): Promise<void> {
-    const { TiptapEditorComponent } = await import(
-      '@uiux/combs/other/tiptap-editor/tiptap-editor.component'
-    );
-    const editorHost = this.editorHost();
-    if (openToken !== this.openToken || !editorHost) {
+    if (this.editorLoading()) {
       return;
     }
-    const editorRef = editorHost.createComponent(TiptapEditorComponent);
-    editorRef.setInput('content', { html: this.value, placeholder: this.props.placeholder });
-    // The popup is opened by an explicit click, so move the caret into the editor
-    editorRef.setInput('autofocus', true);
-    editorRef.instance.htmlChange.subscribe(html => (this.value = html));
-    this.editorRef = editorRef;
-    this.editorLoaded.set(true);
+    this.editorLoading.set(true);
+    this.editorError.set(false);
+
+    try {
+      const { TiptapEditorComponent } = await import(
+        '@uiux/combs/other/tiptap-editor/tiptap-editor.component'
+      );
+      const editorHost = this.editorHost();
+      if (openToken !== this.openToken || !editorHost) {
+        return;
+      }
+      const editorRef = editorHost.createComponent(TiptapEditorComponent);
+      editorRef.setInput('content', { html: this.value, placeholder: this.props.placeholder });
+      editorRef.setInput('editable', !this.formControl.disabled && !this.props.readonly);
+      // The popup is opened by an explicit click, so move the caret into the editor
+      editorRef.setInput('autofocus', true);
+      editorRef.instance.htmlChange.subscribe(html => (this.value = html));
+      const statusSubscription = this.formControl.statusChanges.subscribe(() => {
+        editorRef.instance.setEditable(!this.formControl.disabled && !this.props.readonly);
+      });
+      editorRef.onDestroy(() => statusSubscription.unsubscribe());
+      this.editorRef = editorRef;
+      this.editorLoaded.set(true);
+    } catch (error) {
+      if (openToken === this.openToken) {
+        console.error('Error loading Tiptap editor:', error);
+        this.editorError.set(true);
+      }
+    } finally {
+      if (openToken === this.openToken) {
+        this.editorLoading.set(false);
+      }
+    }
+  }
+
+  retryEditor(): void {
+    if (this.popper && !this.editorRef) {
+      void this.loadEditor(this.openToken);
+    }
   }
 
   onSave(): void {
+    if (!this.editorLoaded()) {
+      return;
+    }
+    if (this.formControl.disabled || this.props.readonly) {
+      this.closePopup();
+      return;
+    }
     this.formControl.setValue(this.value);
     this.closePopup();
   }
@@ -97,6 +143,8 @@ export class RichTextComponent extends FieldType<FieldTypeConfig> implements OnD
     this.editorRef?.destroy();
     this.editorRef = null;
     this.editorLoaded.set(false);
+    this.editorLoading.set(false);
+    this.editorError.set(false);
   }
 
   ngOnDestroy(): void {
