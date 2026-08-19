@@ -260,6 +260,17 @@
             icon: { svg: 'image' },
           }"
         />
+        @if (mediaLibraryAvailable) {
+          <app-btn
+            [matTooltip]="'BUILDER.TIPTAP.MEDIA_LIBRARY' | translate"
+            (click)="addImageFromLibrary()"
+            [content]="{
+              mode: 'icon',
+              ariaLabel: 'BUILDER.TIPTAP.MEDIA_LIBRARY' | translate,
+              icon: { svg: 'folder-image' },
+            }"
+          />
+        }
         <app-btn
           [matTooltip]="'BUILDER.TIPTAP.HR' | translate"
           (click)="editor.chain().focus().setHorizontalRule().run()"

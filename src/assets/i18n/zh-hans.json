@@ -582,6 +582,7 @@
       "PARAGRAPH": "正文",
       "LINK": "链接",
       "IMAGE": "图片",
+      "MEDIA_LIBRARY": "从媒体库选择图片",
       "IMAGE_SETTINGS": "图片设置",
       "IMAGE_ALT": "替代文本",
       "IMAGE_ALT_PLACEHOLDER": "描述图片内容，装饰图片可留空",

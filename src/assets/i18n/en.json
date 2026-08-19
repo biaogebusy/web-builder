@@ -582,6 +582,7 @@
       "PARAGRAPH": "Paragraph",
       "LINK": "Link",
       "IMAGE": "Image",
+      "MEDIA_LIBRARY": "Choose image from media library",
       "IMAGE_SETTINGS": "Image settings",
       "IMAGE_ALT": "Alternative text",
       "IMAGE_ALT_PLACEHOLDER": "Describe the image; leave empty if decorative",

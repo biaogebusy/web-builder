@@ -4,7 +4,10 @@ import {
   ChangeDetectorRef,
   Component,
   DOCUMENT,
+  DestroyRef,
   ElementRef,
+  EnvironmentInjector,
+  Injector,
   OnDestroy,
   TemplateRef,
   ViewContainerRef,
@@ -14,6 +17,7 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DomPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
 import { NgTemplateOutlet } from '@angular/common';
 import { MatDividerModule } from '@angular/material/divider';
@@ -21,8 +25,11 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Editor } from '@tiptap/core';
+import { filter, take, takeUntil } from 'rxjs';
+import type { IDialog } from '@core/interface/IDialog';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
+import { MEDIA_ASSETS } from '@core/token/token-providers';
 import { TOOLBAR_TOOLTIP_ABOVE, ToolbarKeynavDirective } from '@core/directive/toolbar-keynav.directive';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
@@ -63,6 +70,8 @@ export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
   /** Place the caret in the editor on creation; used when the editor is mounted by an explicit user click */
   readonly autofocus = input(false);
   readonly htmlChange = output<string>();
+  /** The media library is route-scoped to Builder; public forms keep only direct upload. */
+  readonly mediaLibraryAvailable = inject(MEDIA_ASSETS, { optional: true }) !== null;
 
   private readonly editorElement = viewChild.required<ElementRef<HTMLDivElement>>('tiptapEditor');
   /** Host element of the shared bubble component, handed to the BubbleMenu extension for positioning */
@@ -75,6 +84,9 @@ export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
   private cdr = inject(ChangeDetectorRef);
   private viewContainerRef = inject(ViewContainerRef);
   private doc = inject(DOCUMENT);
+  private injector = inject(Injector);
+  private environmentInjector = inject(EnvironmentInjector);
+  private destroyRef = inject(DestroyRef);
 
   public editor = signal<Editor | null>(null);
   /** Toolbar has been projected into the external container; the box no longer renders a duplicate */
@@ -82,6 +94,12 @@ export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
   /** Link editing panel (shared child component): on open it carries the link address at the cursor */
   public linkPanelOpen = signal(false);
   private toolbarOutlet: DomPortalOutlet | null = null;
+  private mediaDialogActive = false;
+  private destroyed = false;
+
+  constructor() {
+    this.destroyRef.onDestroy(() => (this.destroyed = true));
+  }
 
   ngAfterViewInit(): void {
     // Tiptap depends on a real DOM; skip initialization under SSR
@@ -164,17 +182,97 @@ export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
       return;
     }
     this.nodeService.pickAndUploadImage(url => {
-      editor.chain().focus().setImage({ src: url, alt: '' }).run();
-      let imagePosition: number | null = null;
-      editor.state.doc.descendants((node, position) => {
-        if (imagePosition === null && node.type.name === 'image' && node.attrs['src'] === url) {
-          imagePosition = position;
-        }
+      this.insertImage(editor, url, '');
+    });
+  }
+
+  /** Load the existing Builder media picker only after the toolbar command is activated. */
+  async addImageFromLibrary(): Promise<void> {
+    const editor = this.editor();
+    if (!editor || !this.mediaLibraryAvailable || this.mediaDialogActive) {
+      return;
+    }
+    this.mediaDialogActive = true;
+    let dialogOpened = false;
+
+    try {
+      const [{ MatDialog }, { BuilderState }, { ManageService }, { DialogComponent }] =
+        await Promise.all([
+          import('@angular/material/dialog'),
+          import('@core/state/BuilderState'),
+          import('@core/service/manage.service'),
+          import('@uiux/widgets/dialog/dialog.component'),
+        ]);
+      if (this.destroyed || editor.isDestroyed || this.editor() !== editor) {
+        return;
+      }
+
+      const time = new Date();
+      const config: IDialog = {
+        disableActions: true,
+        inputData: {
+          content: {
+            type: 'manage-media',
+            time,
+            fullWidth: true,
+          },
+        },
+      };
+      const dialogRef = this.injector.get(MatDialog).open(DialogComponent, {
+        width: '85vw',
+        panelClass: this.injector.get(ManageService).mediaDialogClass,
+        data: config,
+        // ManageMediaComponent depends on Builder route tokens such as
+        // BUILDER_CONFIG and MEDIA_ASSETS, so preserve the click-site injector.
+        injector: this.environmentInjector,
       });
-      if (imagePosition !== null) {
-        editor.commands.setNodeSelection(imagePosition);
+      dialogOpened = true;
+      dialogRef
+        .afterClosed()
+        .pipe(take(1), takeUntilDestroyed(this.destroyRef))
+        .subscribe(() => (this.mediaDialogActive = false));
+      this.injector
+        .get(BuilderState)
+        .selectedMedia$.pipe(
+          filter(media => media.time === time),
+          take(1),
+          takeUntil(dialogRef.afterClosed()),
+          takeUntilDestroyed(this.destroyRef)
+        )
+        .subscribe(({ img }) => {
+          dialogRef.close();
+          this.insertImage(editor, img.src, img.alt ?? '');
+        });
+    } catch (error) {
+      console.error('Error loading media library:', error);
+    } finally {
+      if (!dialogOpened) {
+        this.mediaDialogActive = false;
+      }
+    }
+  }
+
+  private insertImage(editor: Editor, src: string, alt: string): void {
+    if (!src || editor.isDestroyed) {
+      return;
+    }
+    editor.chain().focus().setImage({ src, alt }).run();
+    const selectionPosition = editor.state.selection.from;
+    let imagePosition: number | null = null;
+    let nearestDistance = Number.POSITIVE_INFINITY;
+    editor.state.doc.descendants((node, position) => {
+      if (node.type.name !== 'image' || node.attrs['src'] !== src) {
+        return;
+      }
+      const distance = Math.abs(position - selectionPosition);
+      if (distance < nearestDistance) {
+        imagePosition = position;
+        nearestDistance = distance;
       }
     });
+    if (imagePosition !== null) {
+      editor.commands.setNodeSelection(imagePosition);
+    }
   }
 
   /** The align trigger button icon follows the current alignment */

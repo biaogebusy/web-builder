@@ -1,9 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialog } from '@angular/material/dialog';
 import { By } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
+import { ManageService } from '@core/service/manage.service';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
+import { BuilderState } from '@core/state/BuilderState';
 import { provideUiuxMocks } from '@uiux/testing/mocks';
+import { Subject } from 'rxjs';
 import { vi } from 'vitest';
 
 import { TiptapLinkPanelComponent } from './link-panel/tiptap-link-panel.component';
@@ -14,10 +18,16 @@ describe('TiptapEditorComponent', () => {
   let fixture: ComponentFixture<TiptapEditorComponent>;
   let isBrowser: boolean;
   let nodeServiceMock: { pickAndUploadImage: ReturnType<typeof vi.fn> };
+  let selectedMedia$: Subject<any>;
+  let dialogRefMock: { close: ReturnType<typeof vi.fn>; afterClosed: () => Subject<void> };
+  let dialogMock: { open: ReturnType<typeof vi.fn> };
 
   beforeEach(async () => {
     isBrowser = true;
     nodeServiceMock = { pickAndUploadImage: vi.fn() };
+    selectedMedia$ = new Subject();
+    dialogRefMock = { close: vi.fn(), afterClosed: () => new Subject<void>() };
+    dialogMock = { open: vi.fn(() => dialogRefMock) };
     await TestBed.configureTestingModule({
       imports: [TiptapEditorComponent],
       providers: [
@@ -25,6 +35,9 @@ describe('TiptapEditorComponent', () => {
         ...provideUiuxMocks(),
         { provide: ScreenService, useValue: { isPlatformBrowser: () => isBrowser } },
         { provide: NodeService, useValue: nodeServiceMock },
+        { provide: BuilderState, useValue: { selectedMedia$ } },
+        { provide: MatDialog, useValue: dialogMock },
+        { provide: ManageService, useValue: { mediaDialogClass: ['media-dialog'] } },
       ],
     }).compileComponents();
 
@@ -117,6 +130,29 @@ describe('TiptapEditorComponent', () => {
     expect(html).toContain('class="tiptap-image"');
     expect(component.editor()?.isActive('image')).toBe(true);
     fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('app-tiptap-image-panel')).toBeTruthy();
+  });
+
+  it('inserts the selected media-library image with its alt text', async () => {
+    fixture.detectChanges();
+
+    await component.addImageFromLibrary();
+
+    expect(dialogMock.open).toHaveBeenCalled();
+    const options = dialogMock.open.mock.calls[0][1];
+    const time = options.data.inputData.content.time;
+    expect(options.injector).toBeTruthy();
+    selectedMedia$.next({
+      img: { src: '/sites/default/files/library.png', alt: 'Library image' },
+      time,
+    });
+    fixture.detectChanges();
+
+    const html = component.editor()?.getHTML();
+    expect(dialogRefMock.close).toHaveBeenCalled();
+    expect(html).toContain('src="/sites/default/files/library.png"');
+    expect(html).toContain('alt="Library image"');
+    expect(component.editor()?.isActive('image')).toBe(true);
     expect(fixture.nativeElement.querySelector('app-tiptap-image-panel')).toBeTruthy();
   });
 
