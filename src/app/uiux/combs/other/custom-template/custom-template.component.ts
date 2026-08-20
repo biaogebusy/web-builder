@@ -6,6 +6,7 @@ import {
   Component,
   DestroyRef,
   ElementRef,
+  EnvironmentInjector,
   Injector,
   inject,
   signal,
@@ -54,6 +55,11 @@ export class CustomTemplateComponent implements AfterViewInit {
   private template: Element;
   private destroyRef = inject(DestroyRef);
   private injector = inject(Injector);
+  // Dialog content is created with whatever injector MatDialog itself was resolved from.
+  // This component only imports MatPaginatorModule, so in a subtree without MatDialogModule
+  // it gets the root MatDialog and the content would miss route-level tokens
+  // (BUILDER_CONFIG / MEDIA_ASSETS / PAGE_CONTENT). Pass this injector to every dialog.
+  private environmentInjector = inject(EnvironmentInjector);
   private util = inject(UtilitiesService);
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   private dialog = inject(MatDialog);
@@ -577,6 +583,7 @@ export class CustomTemplateComponent implements AfterViewInit {
       width: '85vw',
       panelClass: this.manageService.mediaDialogClass,
       data: config,
+      injector: this.environmentInjector,
     });
     this.builder.selectedMedia$
       .pipe(
@@ -637,6 +644,7 @@ export class CustomTemplateComponent implements AfterViewInit {
       ...config.params,
       panelClass,
       data: dialogData,
+      injector: this.environmentInjector,
     });
   }
 }

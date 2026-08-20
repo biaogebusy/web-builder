@@ -7,7 +7,7 @@
 }
 
 .item {
-  @apply relative flex min-w-0 flex-col gap-2 p-3;
+  @apply relative flex min-w-0 flex-col p-3;
   border-bottom: 1px solid var(--mat-sys-outline-variant);
   transition:
     background-color 120ms ease,
@@ -124,7 +124,7 @@
   }
 
   .meta {
-    @apply flex min-w-0 items-center justify-between gap-2 overflow-hidden text-xs;
+    @apply flex min-w-0 items-center justify-between gap-2 overflow-hidden text-xs opacity-70;
     color: var(--mat-sys-on-surface-variant);
   }
 
