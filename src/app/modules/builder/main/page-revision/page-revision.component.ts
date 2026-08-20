@@ -8,11 +8,13 @@ import {
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { HttpErrorResponse } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import type { IPageRevision, IPageRevisionPanel } from '@core/interface/IBuilder';
 import { IDialog } from '@core/interface/IDialog';
 import { BuilderService } from '@core/service/builder.service';
 import { ScreenService } from '@core/service/screen.service';
+import { UserService } from '@core/service/user.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { SHARE_IMPORTS } from '@share/share-imports';
 import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
@@ -35,11 +37,14 @@ export class PageRevisionComponent implements OnInit {
   readonly revisions = signal<IPageRevisionRow[]>([]);
   readonly loading = signal(false);
   readonly error = signal(false);
+  /** The list request was rejected as unauthorized, so signing in is the only way forward */
+  readonly forbidden = signal(false);
 
   private dialog = inject(MatDialog);
   private builder = inject(BuilderState);
   private builderService = inject(BuilderService);
   private screenService = inject(ScreenService);
+  private userService = inject(UserService);
   private destroyRef = inject(DestroyRef);
   private translate = inject(TranslateService);
 
@@ -53,6 +58,7 @@ export class PageRevisionComponent implements OnInit {
     const { nid, langcode } = this.content().content;
     this.loading.set(true);
     this.error.set(false);
+    this.forbidden.set(false);
     this.builderService
       .getPageRevisions({ nid, langcode })
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -70,10 +76,27 @@ export class PageRevisionComponent implements OnInit {
             }))
           );
         },
-        error: () => {
+        error: (err: HttpErrorResponse) => {
           this.loading.set(false);
+          if (err.status === 403) {
+            this.forbidden.set(true);
+            return;
+          }
           this.error.set(true);
         },
+      });
+  }
+
+  /** Reload once the dialog reports a successful login, so the list appears without a click */
+  async openLogin(): Promise<void> {
+    const dialogRef = await this.userService.openLoginDialog();
+    dialogRef
+      .afterClosed()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(loggedIn => {
+        if (loggedIn) {
+          this.load();
+        }
       });
   }
 

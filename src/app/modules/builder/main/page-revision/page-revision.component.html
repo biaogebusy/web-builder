@@ -3,6 +3,18 @@
     <div class="state">
       <app-spinner />
     </div>
+  } @else if (forbidden()) {
+    <div class="state">
+      <p class="state-text">{{ 'BUILDER.REVISION.LOGIN_REQUIRED' | translate }}</p>
+      <app-btn
+        (click)="openLogin()"
+        [content]="{
+          label: 'BUILDER.REVISION.LOGIN' | translate,
+          color: 'primary',
+          icon: { svg: 'login' },
+        }"
+      />
+    </div>
   } @else if (error()) {
     <div class="state">
       <p class="state-text">{{ 'BUILDER.REVISION.LIST_FAIL' | translate }}</p>

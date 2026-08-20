@@ -1,14 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpErrorResponse } from '@angular/common/http';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
 import type { IPageRevisionPanel } from '@core/interface/IBuilder';
 import { BuilderService } from '@core/service/builder.service';
 import { ScreenService } from '@core/service/screen.service';
+import { UserService } from '@core/service/user.service';
 import { BuilderState } from '@core/state/BuilderState';
 import {
   createBuilderServiceMock,
   createBuilderStateMock,
   createScreenServiceMock,
+  createUserServiceMock,
 } from '@core/testing/mocks';
 import { provideBuilderMocks } from '@modules/builder/testing/mocks';
 import { of, throwError } from 'rxjs';
@@ -21,6 +24,7 @@ describe('PageRevisionComponent', () => {
   const builderState = createBuilderStateMock();
   const builderService = createBuilderServiceMock();
   const screenService = createScreenServiceMock();
+  const userService = createUserServiceMock();
 
   const panel: IPageRevisionPanel = {
     type: 'page-revision',
@@ -65,6 +69,7 @@ describe('PageRevisionComponent', () => {
         { provide: BuilderState, useValue: builderState },
         { provide: BuilderService, useValue: builderService },
         { provide: ScreenService, useValue: screenService },
+        { provide: UserService, useValue: userService },
       ],
     }).compileComponents();
 
@@ -106,6 +111,49 @@ describe('PageRevisionComponent', () => {
     init();
 
     expect(component.error()).toBe(true);
+  });
+
+  it('asks an unauthorized user to sign in instead of reporting a failure', () => {
+    builderService.getPageRevisions.mockReturnValue(
+      throwError(() => new HttpErrorResponse({ status: 403 }))
+    );
+
+    init();
+
+    expect(component.forbidden()).toBe(true);
+    expect(component.error()).toBe(false);
+    expect(fixture.nativeElement.querySelector('app-btn')).not.toBeNull();
+  });
+
+  it('reloads the list after the login dialog reports a success', async () => {
+    builderService.getPageRevisions.mockReturnValue(
+      throwError(() => new HttpErrorResponse({ status: 403 }))
+    );
+    init();
+    builderService.getPageRevisions.mockClear();
+    userService.openLoginDialog.mockResolvedValue({ afterClosed: () => of(true) });
+    builderService.getPageRevisions.mockReturnValue(
+      of({ status: true, message: '', revisions: [] })
+    );
+
+    await component.openLogin();
+
+    expect(builderService.getPageRevisions).toHaveBeenCalledTimes(1);
+    expect(component.forbidden()).toBe(false);
+  });
+
+  it('keeps the sign in prompt when the login dialog is dismissed', async () => {
+    builderService.getPageRevisions.mockReturnValue(
+      throwError(() => new HttpErrorResponse({ status: 403 }))
+    );
+    init();
+    builderService.getPageRevisions.mockClear();
+    userService.openLoginDialog.mockResolvedValue({ afterClosed: () => of(undefined) });
+
+    await component.openLogin();
+
+    expect(builderService.getPageRevisions).not.toHaveBeenCalled();
+    expect(component.forbidden()).toBe(true);
   });
 
   it('loads the picked revision into the draft without asking when nothing is unsaved', () => {

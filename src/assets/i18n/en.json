@@ -191,6 +191,8 @@
       "EMPTY": "This page has no revisions yet",
       "HINT": "Clicking a revision loads it into the draft; save it to publish the restore.",
       "LIST_FAIL": "Failed to load the revision list. Please retry.",
+      "LOGIN_REQUIRED": "Sign in to view the revision history of this page",
+      "LOGIN": "Sign in",
       "LOAD_FAIL": "Failed to load this revision. Please retry.",
       "LOADED": "Revision #{{vid}} loaded into the draft. Save it to publish.",
       "RESTORE_ARIA": "Load revision #{{vid}} into the draft",
