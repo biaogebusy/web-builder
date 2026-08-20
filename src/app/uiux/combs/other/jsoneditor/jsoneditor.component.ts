@@ -163,6 +163,28 @@ export class JsoneditorComponent implements AfterViewInit, OnDestroy {
     }
   }
 
+  /**
+   * Save page JSON edited outside the canvas. The service owns the endpoint and keeps the
+   * local version list in sync, so this only reflects the result in the drawer.
+   */
+  onUpdatePage(action: any): void {
+    if (!this.value) {
+      return;
+    }
+    const { nid, langcode } = action.params;
+    this.loading.set(true);
+    this.injector
+      .get(BuilderService)
+      .updatePageJSON({ nid, langcode }, this.value)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(updated => {
+        this.loading.set(false);
+        if (updated) {
+          this.builder.closeRightDrawer$.next(true);
+        }
+      });
+  }
+
   onUpdateAttr(action: any): void {
     if (this.value) {
       const { isSetting, isShowcase } = this.content();

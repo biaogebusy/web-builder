@@ -138,23 +138,21 @@ export class BuilderService extends ApiService {
       .fetch(`/api/v3/landingPage/json/${nid}`, { noCache: 1 }, lang)
       .pipe(take(1))
       .subscribe((content: IPage) => {
-        const { status, uuid } = content;
+        const { status } = content;
         if (status) {
           const jsonWidget: IJsoneditor = {
             type: 'jsoneditor',
             data: formatToExtraData(content),
             classes: 'full-height',
-            isSetting: true,
             schemaType: 'page',
             fullWidth: true,
             actions: [
               {
-                type: 'update',
+                type: 'updatePage',
                 label: '更新JSON',
                 params: {
-                  uuid,
+                  nid,
                   langcode,
-                  api: '/api/v1/node/landing_page',
                 },
               },
             ],
@@ -172,6 +170,51 @@ export class BuilderService extends ApiService {
           this.util.openSnackbar('该页面非builder创建，请到后台编辑', 'ok');
         }
       });
+  }
+
+  /**
+   * Save a page edited as raw JSON from the page list, outside the builder canvas.
+   * `body` items are referenced json nodes, so the write goes through the landing page
+   * endpoint; JSON:API cannot patch them as a plain attribute.
+   */
+  updatePageJSON(page: { langcode?: string; nid: string }, editedPage: IPage): Observable<boolean> {
+    const { langcode, nid } = page;
+    return this.updateLandingPage({ ...editedPage, langcode, nid }, false).pipe(
+      catchError(() => {
+        // A rejected save is reported by updateLandingPage; a failed request never gets there
+        this.util.openSnackbar('更新失败，请重试', 'ok');
+        return of({ status: false });
+      }),
+      map((res: any) => {
+        this.builder.loading.set(false);
+        if (!res.status) {
+          return false;
+        }
+        this.util.openSnackbar('更新成功！', 'ok');
+        this.syncLocalPageAfterJSONUpdate(page);
+        return true;
+      })
+    );
+  }
+
+  /**
+   * The saved page may also live in the local version list, where it is now stale. A clean
+   * copy on the canvas is reloaded in place; a background copy is dropped so it is fetched
+   * again next time it is opened. A dirty canvas draft is left alone on purpose:
+   * `checkIsLatestPage` prompts before overwriting unsaved work.
+   */
+  private syncLocalPageAfterJSONUpdate(page: { langcode?: string; nid: string }): void {
+    const localPage = this.builder.getLocalPageByPage(page);
+    if (!localPage) {
+      return;
+    }
+    if (!localPage.current) {
+      this.builder.deleteLocalPageByPage(page);
+      return;
+    }
+    if (!localPage.dirty) {
+      this.loadPage(page);
+    }
   }
 
   checkIsLatestPage(checkPage: IPage): void {

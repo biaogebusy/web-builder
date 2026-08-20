@@ -21,6 +21,8 @@ describe('BuilderService', () => {
   const loadNewPage = vi.fn();
   const fetch = vi.fn();
   const openSnackbar = vi.fn();
+  const getLocalPageByPage = vi.fn((_page: Partial<IPage>): IPage | undefined => undefined);
+  const deleteLocalPageByPage = vi.fn();
 
   const createService = (): BuilderService => {
     TestBed.configureTestingModule({
@@ -32,7 +34,12 @@ describe('BuilderService', () => {
         { provide: MatDialog, useValue: {} },
         {
           provide: BuilderState,
-          useValue: { loading: { set: loadingSet }, loadNewPage },
+          useValue: {
+            loading: { set: loadingSet },
+            loadNewPage,
+            getLocalPageByPage,
+            deleteLocalPageByPage,
+          },
         },
         { provide: UtilitiesService, useValue: { openSnackbar } },
         { provide: NodeService, useValue: { fetch } },
@@ -48,6 +55,7 @@ describe('BuilderService', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     fetch.mockReset();
+    getLocalPageByPage.mockReturnValue(undefined);
     TestBed.resetTestingModule();
   });
 
@@ -93,8 +101,62 @@ describe('BuilderService', () => {
     expect(loadPage).not.toHaveBeenCalled();
   });
 
-  it('posts to the translation delete endpoint for the given language', () => {
+  it('reloads a clean canvas page in place after a page json update', () => {
+    getLocalPageByPage.mockReturnValue({ nid: '42', current: true } as IPage);
     const service = createService();
+    const loadPage = vi.spyOn(service, 'loadPage').mockImplementation(() => undefined);
+    let updated: boolean | undefined;
+
+    service
+      .updatePageJSON({ nid: '42', langcode: 'zh-hans' }, { title: '页面', body: [] })
+      .subscribe(res => (updated = res));
+
+    expect(patch.mock.calls[0][0]).toBe('https://example.com/api/v3/landingPage/update/42');
+    expect(openSnackbar).toHaveBeenCalledWith('更新成功！', 'ok');
+    expect(loadPage).toHaveBeenCalledWith({ nid: '42', langcode: 'zh-hans' });
+    expect(deleteLocalPageByPage).not.toHaveBeenCalled();
+    expect(updated).toBe(true);
+  });
+
+  it('drops the stale local copy of a page that is not on the canvas', () => {
+    getLocalPageByPage.mockReturnValue({ nid: '42' } as IPage);
+    const service = createService();
+    const loadPage = vi.spyOn(service, 'loadPage').mockImplementation(() => undefined);
+
+    service.updatePageJSON({ nid: '42', langcode: 'zh-hans' }, { title: '页面', body: [] }).subscribe();
+
+    expect(deleteLocalPageByPage).toHaveBeenCalledWith({ nid: '42', langcode: 'zh-hans' });
+    expect(loadPage).not.toHaveBeenCalled();
+  });
+
+  it('leaves a dirty canvas draft untouched after a page json update', () => {
+    getLocalPageByPage.mockReturnValue({ nid: '42', current: true, dirty: true } as IPage);
+    const service = createService();
+    const loadPage = vi.spyOn(service, 'loadPage').mockImplementation(() => undefined);
+
+    service.updatePageJSON({ nid: '42' }, { title: '页面', body: [] }).subscribe();
+
+    expect(loadPage).not.toHaveBeenCalled();
+    expect(deleteLocalPageByPage).not.toHaveBeenCalled();
+  });
+
+  it('reports a failed page json update without syncing the local copy', () => {
+    patch.mockReturnValueOnce(throwError(() => new Error('422')));
+    getLocalPageByPage.mockReturnValue({ nid: '42', current: true } as IPage);
+    const service = createService();
+    const loadPage = vi.spyOn(service, 'loadPage').mockImplementation(() => undefined);
+    let updated: boolean | undefined;
+
+    service
+      .updatePageJSON({ nid: '42' }, { title: '页面', body: [] })
+      .subscribe(res => (updated = res));
+
+    expect(openSnackbar).toHaveBeenCalledWith('更新失败，请重试', 'ok');
+    expect(loadPage).not.toHaveBeenCalled();
+    expect(updated).toBe(false);
+  });
+
+  it('posts to the translation delete endpoint for the given language', () => {    const service = createService();
 
     service.deleteTranslation('42', 'en').subscribe();
 

@@ -209,6 +209,7 @@ export const createNodeServiceMock = () => ({
 export const createBuilderServiceMock = () => ({
   loadPage: vi.fn(() => of({})),
   loadPageJSON: vi.fn(),
+  updatePageJSON: vi.fn(() => of(true)),
   checkIsLatestPage: vi.fn(),
   loadNodeJson: vi.fn(),
   createLandingPage: vi.fn(() => of({})),
