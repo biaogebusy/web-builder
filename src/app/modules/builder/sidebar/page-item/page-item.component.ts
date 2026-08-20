@@ -10,7 +10,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
 import { IPage } from '@core/interface/IAppConfig';
-import { IPageMeta } from '@core/interface/IBuilder';
+import { IPageMeta, IPageRevisionPanel } from '@core/interface/IBuilder';
 import { IDialog } from '@core/interface/IDialog';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
@@ -183,6 +183,34 @@ export class PageItemComponent {
       return;
     }
     this.builderService.loadPageJSON({ langcode, nid });
+  }
+
+  /** Open the server side revision list of this page in the right drawer */
+  openRevisions(): void {
+    const page = this.page();
+    if (!page.nid) {
+      this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_LIST.CHECK_LANDING_VIEW'), 'ok');
+      return;
+    }
+    const element: IPageRevisionPanel = {
+      type: 'page-revision',
+      fullWidth: true,
+      content: {
+        nid: page.nid,
+        title: page.title,
+        langcode: page.langcode,
+      },
+    };
+    this.builder.rightContent$.next({
+      title: this.translate.instant('BUILDER.REVISION.TITLE', { title: page.title }),
+      mode: 'over',
+      hasBackdrop: true,
+      style: {
+        'width': '420px',
+        'max-width': 'calc(100vw - 50px)',
+      },
+      elements: [element],
+    });
   }
 
   updatePageSetting(): void {

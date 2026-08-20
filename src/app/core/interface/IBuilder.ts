@@ -160,6 +160,43 @@ export interface IWidgetPicker {
   };
 }
 
+/** One server side revision of a landing page */
+export interface IPageRevision {
+  /** Node revision id, used to load the page JSON of this revision */
+  vid: string;
+  /** True for the revision the page is currently published from */
+  current: boolean;
+  /** Unix timestamp (seconds) of the revision */
+  changed: number;
+  /** Revision log message, empty when the editor left none */
+  log: string;
+  /** Display name of the revision author */
+  author: string;
+}
+
+/** Response of GET /api/v3/landingPage/revisions/{nid} */
+export interface IPageRevisionList {
+  status: boolean;
+  message: string;
+  nid: string;
+  uuid: string;
+  /** Current default revision id */
+  vid: string;
+  langcode: string;
+  revisions: IPageRevision[];
+}
+
+/** Right drawer element listing the server side revisions of one page */
+export interface IPageRevisionPanel {
+  type: 'page-revision';
+  fullWidth: boolean;
+  content: {
+    nid: string;
+    title: string;
+    langcode?: string;
+  };
+}
+
 export interface IWidgets {
   label: string;
   icon: IIcon;

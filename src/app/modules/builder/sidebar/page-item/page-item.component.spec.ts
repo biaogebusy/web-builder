@@ -233,6 +233,31 @@ describe('PageItemComponent', () => {
     expect(builderService.loadPageJSON).toHaveBeenCalledWith({ nid: '12', langcode: 'en' });
   });
 
+  it('sends the page identity to the revision panel in the right drawer', () => {
+    const emitted: any[] = [];
+    builderState.rightContent$.subscribe(content => emitted.push(content));
+
+    component.openRevisions();
+
+    expect(emitted[0].elements[0]).toEqual(
+      expect.objectContaining({
+        type: 'page-revision',
+        content: { nid: '12', title: '首页', langcode: 'zh-hans' },
+      })
+    );
+  });
+
+  it('does not open the revision panel for a page without a nid', () => {
+    const emitted: any[] = [];
+    builderState.rightContent$.subscribe(content => emitted.push(content));
+    setPage({ langcode: 'en' });
+
+    component.openRevisions();
+
+    expect(emitted.length).toBe(0);
+    expect(util.openSnackbar).toHaveBeenCalledWith('BUILDER.PAGE_LIST.CHECK_LANDING_VIEW', 'ok');
+  });
+
   it('opens the page setting dialog with the landing page api', () => {
     const page = { nid: '12', title: '首页' };
     setPage(page);

@@ -16,6 +16,7 @@ import { ContentService } from './content.service';
 import { isArray } from 'lodash-es';
 import { IDialog } from '@core/interface/IDialog';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
+import type { IPageRevisionList } from '@core/interface/IBuilder';
 import {
   coverExtraData,
   formatPage,
@@ -169,6 +170,48 @@ export class BuilderService extends ApiService {
         } else {
           this.util.openSnackbar('该页面非builder创建，请到后台编辑', 'ok');
         }
+      });
+  }
+
+  /**
+   * Server side revision list of a landing page, newest first.
+   */
+  getPageRevisions(page: { langcode?: string; nid: string }): Observable<IPageRevisionList> {
+    const { langcode, nid } = page;
+    return this.nodeService.fetch(
+      `/api/v3/landingPage/revisions/${nid}`,
+      { noCache: 1 },
+      getApiLang(langcode)
+    );
+  }
+
+  /**
+   * Load one revision into the local draft. The payload reports the *current* revision id and
+   * changed time, so the following save still commits on top of the latest revision instead of
+   * being rejected as stale.
+   */
+  loadPageRevision(page: { langcode?: string; nid: string; vid: string }): void {
+    const { langcode, nid, vid } = page;
+    this.builder.loading.set(true);
+    this.nodeService
+      .fetch(`/api/v3/landingPage/revisions/${nid}/${vid}`, { noCache: 1 }, getApiLang(langcode))
+      .pipe(take(1))
+      .subscribe({
+        next: (content: IPage) => {
+          this.builder.loading.set(false);
+          if (!content?.status) {
+            this.util.openSnackbar(this.translate.instant('BUILDER.REVISION.LOAD_FAIL'), 'ok');
+            return;
+          }
+          // The restored content differs from what the server renders until it is saved, so the
+          // draft has to start out dirty
+          this.builder.loadNewPage({ ...formatToExtraData(content), dirty: true });
+          this.util.openSnackbar(this.translate.instant('BUILDER.REVISION.LOADED', { vid }), 'ok');
+        },
+        error: () => {
+          this.builder.loading.set(false);
+          this.util.openSnackbar(this.translate.instant('BUILDER.REVISION.LOAD_FAIL'), 'ok');
+        },
       });
   }
 

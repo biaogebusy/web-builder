@@ -1,0 +1,80 @@
+:host {
+  @apply block;
+}
+
+.page-revision {
+  @apply flex flex-col;
+}
+
+.state {
+  @apply flex flex-col items-center justify-center gap-3 p-6;
+}
+
+.state-text {
+  @apply m-0 text-center text-sm;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.revision-list {
+  @apply m-0 flex list-none flex-col p-0;
+}
+
+.revision-row {
+  @apply flex w-full cursor-pointer flex-col items-start gap-1 px-3 py-2.5 text-left;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+  color: var(--mat-sys-on-surface);
+  font: inherit;
+  transition: background-color 120ms ease;
+
+  &:hover {
+    background-color: var(--mat-sys-surface-container-low);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--mat-sys-primary);
+    outline-offset: -2px;
+  }
+
+  &.current {
+    box-shadow: inset 3px 0 0 var(--mat-sys-primary);
+  }
+}
+
+.revision-header {
+  @apply flex w-full min-w-0 items-center justify-between gap-2;
+}
+
+.revision-time {
+  @apply text-sm font-medium;
+}
+
+.revision-badge {
+  @apply shrink-0 rounded px-1.5 py-0.5 text-[10px] font-medium leading-4;
+  color: var(--mat-sys-on-primary-container);
+  background-color: var(--mat-sys-primary-container);
+}
+
+.revision-meta {
+  @apply flex min-w-0 items-center gap-1.5 text-xs;
+  color: var(--mat-sys-on-surface-variant);
+
+  .revision-author {
+    @apply min-w-0 max-w-40 truncate;
+  }
+}
+
+.revision-vid {
+  @apply shrink-0 font-mono;
+}
+
+.revision-log {
+  @apply line-clamp-2 text-xs;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.revision-hint {
+  @apply m-0 px-3 py-2 text-xs;
+  color: var(--mat-sys-on-surface-variant);
+}

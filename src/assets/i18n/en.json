@@ -160,6 +160,7 @@
       "COPY_PAGE": "Copy page",
       "EDIT_LANG": "Edit {{label}}",
       "PAGE_JSON": "Page JSON",
+      "PAGE_REVISIONS": "Revisions",
       "PAGE_PROPS": "Page settings",
       "OPEN_PAGE_PROPS_CONFIRM": "Open the page settings panel?",
       "CHECK_LANDING_VIEW": "Please check the LandingPage View config",
@@ -183,6 +184,19 @@
       "DELETE": "Delete",
       "CLEAR_ALL": "Clear all",
       "UNSAVED": "Unsaved"
+    },
+    "REVISION": {
+      "TITLE": "Revisions: {{title}}",
+      "CURRENT": "Current",
+      "EMPTY": "This page has no revisions yet",
+      "HINT": "Clicking a revision loads it into the draft; save it to publish the restore.",
+      "LIST_FAIL": "Failed to load the revision list. Please retry.",
+      "LOAD_FAIL": "Failed to load this revision. Please retry.",
+      "LOADED": "Revision #{{vid}} loaded into the draft. Save it to publish.",
+      "RESTORE_ARIA": "Load revision #{{vid}} into the draft",
+      "RESTORE_TITLE": "Overwrite current draft",
+      "RESTORE_YES": "Overwrite and load",
+      "RESTORE_CONFIRM": "<strong>{{title}}</strong> has unsaved changes. Loading a revision discards them. Continue?"
     },
     "SHOWCASE": {
       "COPY_JSON": "Copy JSON",

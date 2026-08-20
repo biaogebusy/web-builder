@@ -136,6 +136,7 @@ export const DYNAMIC_COMPONENT_LOADERS: Readonly<Record<string, ComponentLoader>
   'card-list': () => loadBuilder().then(m => m.CardListComponent),
   'inline-editor': () => loadBuilder().then(m => m.InlineEditComponent),
   'page-setting': () => loadBuilder().then(m => m.PageSettingComponent),
+  'page-revision': () => loadBuilder().then(m => m.PageRevisionComponent),
   'widget-picker': () => loadBuilder().then(m => m.WidgetPickerComponent),
   'layout-setting': () => loadBuilder().then(m => m.LayoutSettingComponent),
   'builder-template': () => loadBuilder().then(m => m.BuilderTemplateComponent),

@@ -123,6 +123,12 @@
       <span>{{ 'BUILDER.PAGE_LIST.PAGE_JSON' | translate }}</span>
     </span>
   </button>
+  <button mat-menu-item (click)="openRevisions()">
+    <span class="page-item-menu__content">
+      <app-icon class="page-item-menu__icon" [content]="{ svg: 'history' }" />
+      <span>{{ 'BUILDER.PAGE_LIST.PAGE_REVISIONS' | translate }}</span>
+    </span>
+  </button>
   <button mat-menu-item (click)="updatePageSetting()">
     <span class="page-item-menu__content">
       <app-icon class="page-item-menu__icon" [content]="{ svg: 'cog' }" />

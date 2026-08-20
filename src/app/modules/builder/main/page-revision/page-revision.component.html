@@ -1,0 +1,62 @@
+<div class="page-revision">
+  @if (loading()) {
+    <div class="state">
+      <app-spinner />
+    </div>
+  } @else if (error()) {
+    <div class="state">
+      <p class="state-text">{{ 'BUILDER.REVISION.LIST_FAIL' | translate }}</p>
+      <app-btn
+        (click)="load()"
+        [content]="{
+          label: 'BUILDER.PAGE_LIST.REFRESH' | translate,
+          color: 'primary',
+          icon: { svg: 'refresh' },
+        }"
+      />
+    </div>
+  } @else if (revisions().length === 0) {
+    <div class="state">
+      <p class="state-text">{{ 'BUILDER.REVISION.EMPTY' | translate }}</p>
+    </div>
+  } @else {
+    <ul class="revision-list">
+      @for (revision of revisions(); track revision.vid) {
+        <li>
+          <button
+            type="button"
+            class="revision-row"
+            [class.current]="revision.current"
+            [attr.aria-label]="'BUILDER.REVISION.RESTORE_ARIA' | translate: { vid: revision.vid }"
+            (click)="onRevision(revision)"
+          >
+            <span class="revision-header">
+              <time
+                class="revision-time"
+                [attr.datetime]="revision.time | date: 'yyyy-MM-ddTHH:mm:ssZZZZZ'"
+              >
+                {{ revision.time | date: 'yyyy/MM/dd HH:mm:ss' }}
+              </time>
+              @if (revision.current) {
+                <span class="revision-badge">{{ 'BUILDER.REVISION.CURRENT' | translate }}</span>
+              }
+            </span>
+            <span class="revision-meta">
+              <span class="revision-vid">#{{ revision.vid }}</span>
+              @if (revision.author) {
+                <span class="revision-author">
+                  <span class="sr-only">{{ 'BUILDER.PAGE_LIST.AUTHOR' | translate }}: </span>
+                  {{ revision.author }}
+                </span>
+              }
+            </span>
+            @if (revision.log) {
+              <span class="revision-log">{{ revision.log }}</span>
+            }
+          </button>
+        </li>
+      }
+    </ul>
+    <p class="revision-hint">{{ 'BUILDER.REVISION.HINT' | translate }}</p>
+  }
+</div>
