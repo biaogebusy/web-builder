@@ -101,6 +101,34 @@ describe('JsoneditorComponent', () => {
     expect(component.loading()).toBe(false);
   });
 
+  it('saves page json through the landing page endpoint and closes the drawer', () => {
+    const drawerClosed = vi.fn();
+    builderState.closeRightDrawer$.subscribe(drawerClosed);
+    component.value = { title: '页面', body: [] };
+    builderService.updatePageJSON.mockReturnValueOnce(of(true));
+
+    component.onUpdatePage({ params: { nid: '9', langcode: 'zh-hans' } });
+
+    expect(builderService.updatePageJSON).toHaveBeenCalledWith(
+      { nid: '9', langcode: 'zh-hans' },
+      { title: '页面', body: [] }
+    );
+    expect(drawerClosed).toHaveBeenCalledWith(true);
+    expect(component.loading()).toBe(false);
+  });
+
+  it('keeps the drawer open when the page json save fails', () => {
+    const drawerClosed = vi.fn();
+    builderState.closeRightDrawer$.subscribe(drawerClosed);
+    component.value = { title: '页面', body: [] };
+    builderService.updatePageJSON.mockReturnValueOnce(of(false));
+
+    component.onUpdatePage({ params: { nid: '9' } });
+
+    expect(drawerClosed).not.toHaveBeenCalled();
+    expect(component.loading()).toBe(false);
+  });
+
   it('stays quiet when persisting the attributes fails', () => {
     fixture.componentRef.setInput('content', { isSetting: true });
     component.value = { spacing: 'lg' };

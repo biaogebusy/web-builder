@@ -79,7 +79,7 @@ export class BuilderState {
   private screenService = inject(ScreenService);
   private storage = inject(LocalStorageService);
 
-  // code-editor 当前正在编辑的组件路径,跨外部调用方读取
+  // Component path currently being edited in the code editor, read across external callers
   public editingCodePath = signal<string | null>(null);
 
   constructor() {
@@ -93,14 +93,15 @@ export class BuilderState {
     this.listenExternalVersionChanges();
   }
 
-  // 跨上下文同步:其他标签页/iframe(如 /preview)所在上下文保存草稿时,原生 storage 事件
-  // 只在非写入方上下文触发(不会本地回环),借它把最新草稿同步进 version signal,
-  // 让所有以 signal 为数据源的消费方(版本面板/工具栏/BUILDER_CURRENT_PAGE)保持实时
+  // Cross-context sync: when another tab/iframe (e.g. /preview) saves a draft, the native
+  // storage event only fires in non-writing contexts (no local loopback); use it to sync
+  // the latest draft into the version signal so all signal-backed consumers
+  // (version panel/toolbar/BUILDER_CURRENT_PAGE) stay live
   private listenExternalVersionChanges(): void {
     if (!this.screenService.isPlatformBrowser()) {
       return;
     }
-    // key 前缀与 app.config 的 withNgxWebstorageConfig({ separator: ':' }) 保持一致
+    // Key prefix must match withNgxWebstorageConfig({ separator: ':' }) in app.config
     const storageKey = `ngx-webstorage:${this.versionKey}`;
     window.addEventListener('storage', (event: StorageEvent) => {
       if (event.key !== storageKey || !event.newValue) {
@@ -112,7 +113,7 @@ export class BuilderState {
           this.version.set(version);
         }
       } catch {
-        // 数据异常时保持内存状态
+        // Keep the in-memory state if the data is malformed
       }
     });
   }
@@ -148,54 +149,75 @@ export class BuilderState {
     if (!Number.isInteger(index) || index < 0 || index >= versions.length) {
       return;
     }
-    this.version.update(v => {
-      const next = v.filter((_, itemIndex) => itemIndex !== index);
-      if (next.length === 0) {
-        return [
-          {
-            ...this.defaultPage,
-            current: true,
-            time: new Date().toLocaleString(),
-          },
-        ];
-      }
-      if (!next.some(page => page.current)) {
-        next[0] = { ...next[0], current: true };
-      }
-      return next;
-    });
-    this.closeRightDrawer$.next(true);
-    this.saveLocalVersions();
+    this.removeLocalPages((_, itemIndex) => itemIndex === index);
   }
 
-  deleteLocalPageByPage(page: IPage): void {
+  /** Remove the local version for a page, optionally including every translation. */
+  deleteLocalPageByPage(page: Partial<IPage>, allLanguages = false): void {
+    if (allLanguages && page.nid) {
+      this.removeLocalPages(item => item.nid === page.nid);
+      return;
+    }
     this.deleteLocalPage(this.findPageIndex(page));
   }
 
-  private findPageIndex(page: IPage): number {
-    const langcode = page.langcode ?? '';
+  getLocalPageByPage(page: Partial<IPage>): IPage | undefined {
+    const index = this.findPageIndex(page);
+    return index < 0 ? undefined : this.version()[index];
+  }
+
+  isPageDirty(page: Partial<IPage>): boolean {
+    return Boolean(this.getLocalPageByPage(page)?.dirty);
+  }
+
+  private removeLocalPages(predicate: (page: IPage, index: number) => boolean): void {
+    const versions = this.version();
+    const removedCurrent = versions.some((page, index) => predicate(page, index) && page.current);
+    const next = versions.filter((page, index) => !predicate(page, index));
+    if (next.length === versions.length) {
+      return;
+    }
+    if (next.length === 0) {
+      next.push({
+        ...this.defaultPage,
+        current: true,
+        time: new Date().toLocaleString(),
+      });
+    } else if (!next.some(page => page.current)) {
+      next[0] = { ...next[0], current: true };
+    }
+    this.version.set(next);
+    // Only the page being edited owns the right drawer, so leave it open for background removals
+    if (removedCurrent) {
+      this.closeRightDrawer$.next(true);
+    }
+    this.saveLocalVersions();
+  }
+
+  private findPageIndex(page: Partial<IPage>): number {
+    const langcode = this.getPageIdentityLang(page);
     return this.version().findIndex(item => {
+      const itemLangcode = this.getPageIdentityLang(item);
       if (item === page) {
         return true;
       }
-      if (
-        page.uuid &&
-        item.uuid &&
-        item.uuid === page.uuid &&
-        (item.langcode ?? '') === langcode
-      ) {
+      if (page.uuid && item.uuid && item.uuid === page.uuid && itemLangcode === langcode) {
         return true;
       }
-      if (
-        page.nid &&
-        item.nid &&
-        item.nid === page.nid &&
-        (item.langcode ?? '') === langcode
-      ) {
+      if (page.nid && item.nid && item.nid === page.nid && itemLangcode === langcode) {
         return true;
       }
       return false;
     });
+  }
+
+  /**
+   * Language that identifies a page in the local version list. A translation draft is stored
+   * under its target language, so it never collides with its source language page.
+   * Callers outside the state must reuse this instead of reading `langcode` directly.
+   */
+  getPageIdentityLang(page: Partial<IPage>): string {
+    return page.translation && page.target ? page.target : (page.langcode ?? '');
   }
 
   markPageSynced(page: IPage, patch: Partial<IPage> = {}): void {
@@ -211,7 +233,7 @@ export class BuilderState {
     this.saveLocalVersions();
   }
 
-  // 只更新标志不落盘,调用方在完成本次修改后自行 saveLocalVersions
+  // Only flip the flag without persisting; callers run saveLocalVersions themselves after finishing the change
   markCurrentPageDirty(): void {
     this.version.update(list => {
       const currentIndex = list.findIndex(page => page.current === true);
@@ -313,10 +335,10 @@ export class BuilderState {
     this.version.update(list => {
       const next = [...list];
       const currentIndex = next.findIndex((item: IPage) => item.current === true);
-      // 与 currentPage getter 的回退保持一致：无 current 标记时写回第一个页面
+      // Keep consistent with the currentPage getter fallback: write back to the first page when nothing is marked current
       const targetIndex = currentIndex === -1 ? 0 : currentIndex;
       if (next[targetIndex]) {
-        // 所有调用方都是内容编辑,写入即视为有未提交修改
+        // All callers are content edits, so writing always counts as an unsaved change
         next[targetIndex] = { ...page, dirty: true };
       }
       return next;
@@ -341,7 +363,7 @@ export class BuilderState {
     [nextArrs[index], nextArrs[swapIndex]] = [nextArrs[swapIndex], nextArrs[index]];
     const lastDotIndex = path.lastIndexOf('.');
     const parentPath = lastDotIndex === -1 ? '' : path.slice(0, lastDotIndex);
-    // 不可变更新：产生新的 page/body 引用，触发 currentPage signal 通知消费者重渲染
+    // Immutable update: new page/body references let the currentPage signal notify consumers to re-render
     this.setCurrentPage({
       ...currentPage,
       body: setBuilderTreeValue(body, parentPath, nextArrs),
@@ -410,16 +432,16 @@ export class BuilderState {
           ? removeBuilderTreeValue(body, path)
           : setBuilderTreeValue(body, path, content);
 
-    // 不可变更新：产生新的 page/body 引用，触发 currentPage signal 通知消费者重渲染
+    // Immutable update: new page/body references let the currentPage signal notify consumers to re-render
     this.setCurrentPage({ ...currentPage, body: newBody });
   }
 
   onDrop(event: CdkDragDrop<IDynamicInputs[]>): void {
-    // 预览上下排序组件
+    // Reorder components within the preview
     if (event.previousContainer === event.container) {
       this.dropComponent(event);
     } else {
-      // 添加组件到指定位置
+      // Add the component at the target position
       this.transferComponent(event);
     }
     this.closeRightDrawer$.next(true);
@@ -433,10 +455,10 @@ export class BuilderState {
     this.updatePage(event.currentIndex);
   }
 
-  // 边栏拖动添加组件
+  // Component dragged in from the sidebar
   transferComponent(event: CdkDragDrop<IDynamicInputs[]>): void {
     const currentPage = this.currentPage;
-    // base 和 component 数据结构不同，需要做判断
+    // base and component have different data structures, so detect which kind this is
     const { data } = event.item;
     const component = data.type ? data : data.content;
     const body = [...currentPage.body];
@@ -447,24 +469,15 @@ export class BuilderState {
 
   loadNewPage(page: IPage, close?: boolean): void {
     const currentPage = { ...page, current: true, time: new Date().toLocaleString() };
-    const langcode = page.langcode ?? '';
+    const langcode = this.getPageIdentityLang(page);
     this.version.update(list => {
       const next = list.map(version => ({ ...version, current: false }));
       const somePageIndex = next.findIndex(item => {
-        if (
-          page.uuid &&
-          item.uuid &&
-          item.uuid === page.uuid &&
-          (item.langcode ?? '') === langcode
-        ) {
+        const itemLangcode = this.getPageIdentityLang(item);
+        if (page.uuid && item.uuid && item.uuid === page.uuid && itemLangcode === langcode) {
           return true;
         }
-        if (
-          page.nid &&
-          item.nid &&
-          item.nid === page.nid &&
-          (item.langcode ?? '') === langcode
-        ) {
+        if (page.nid && item.nid && item.nid === page.nid && itemLangcode === langcode) {
           return true;
         }
         return false;
@@ -528,7 +541,7 @@ export class BuilderState {
 
   getRandomElements(data: IBuilderComponent[], label: string, count: number): any[] {
     const elements = data.find(item => item.label === label)?.child || [];
-    // 如果元素中包含 content.child，则将其元素也添加到结果中
+    // Flatten nested children: if an element has child, push its content elements into the result
     const result = elements.reduce((acc: any[], element: any) => {
       if (typeof element === 'object' && element.child) {
         map(element.child, (item: any) => {
@@ -540,7 +553,7 @@ export class BuilderState {
       return acc;
     }, []);
 
-    // 无放回抽样：最多返回池内数量个不重复元素
+    // Sampling without replacement: return at most as many distinct elements as the pool holds
     const pool = [...result];
     const randomElements = [];
     const total = Math.min(count, pool.length);
@@ -605,14 +618,14 @@ export class BuilderState {
     if (path && content?.type === 'custom-template') {
       const existing = this.dialog.getDialogById('code-editor-dialog');
       if (existing) {
-        // 同一组件：不重复弹出，仅在已开编辑器中定位
+        // Same component: do not reopen, only locate it in the already-open editor
         if (this.editingCodePath() === path) {
           if (reveal) {
             this.revealCode$.next(reveal);
           }
           return;
         }
-        // 其他组件：关闭旧编辑器后重新打开
+        // Different component: close the old editor, then reopen
         existing.afterClosed().subscribe(() => this.editorCode(component, reveal));
         existing.close();
         return;

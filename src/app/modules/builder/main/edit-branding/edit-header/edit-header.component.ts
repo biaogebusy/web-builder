@@ -9,8 +9,9 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule, UntypedFormGroup } from '@angular/forms';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -25,20 +26,27 @@ import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { FORM_IMPORTS } from '@uiux/combs/form/form-imports';
 import { provideXinshiFormly } from '@uiux/combs/form/formly-feature.config';
 import { shadcnFormOptions } from '@uiux/combs/form/formly-shadcn/formly-shadcn.config';
-import { merge } from 'rxjs';
+import { merge, shareReplay } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 import { IBranding, IHeader, IMainMenu } from '@core/interface/branding/IBranding';
+import { IDialog } from '@core/interface/IDialog';
 import { ContentService } from '@core/service/content.service';
+import { NodeService } from '@core/service/node.service';
 import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { HasUnsavedChanges } from '@core/guards/unsaved-changes.guard';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { BrandingPreviewComponent } from '../branding-preview/branding-preview.component';
 import { formatBrandingJson, getBrandingJsonError, mergeBrandingJson } from '../branding-json.util';
 import { buildHeaderConfig } from '../branding-config.util';
 import {
   BRANDING_JSON_ENDPOINT,
+  IBrandingNode,
   buildBrandingUpdateBody,
   canSaveBranding,
+  listBrandingNodes,
+  pickBrandingNode,
 } from '../branding-save.util';
 import {
   appendBrandingChild,
@@ -87,6 +95,10 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
   nodeUuid = signal('');
   nodeLangcode = signal('');
   queryParams: Record<string, string> = {};
+  // Language switcher: rendered only for multi-language deployments with more than one language configured
+  langs = environment.langs ?? [];
+  showLangSwitch = environment.multiLang && this.langs.length > 1;
+  brandingNodes = signal<IBrandingNode[]>([]);
   activeSection = signal<string>('params');
   showJson = signal(false);
   previewBranding = signal<IBranding | null>(null);
@@ -150,12 +162,17 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
   };
 
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
   private contentService = inject(ContentService);
   private builderService = inject(BuilderService);
+  private nodeService = inject(NodeService);
   private util = inject(UtilitiesService);
   private snackBar = inject(MatSnackBar);
+  private dialog = inject(MatDialog);
   private destroyRef = inject(DestroyRef);
   private translate = inject(TranslateService);
+  /** Branding node list fetched once, shared by param-less entry resolution and language-switcher graying out */
+  private brandingNodes$ = listBrandingNodes(this.nodeService).pipe(shareReplay(1));
 
   // #1 canDeactivate
   hasUnsavedChanges(): boolean {
@@ -171,23 +188,88 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
   }
 
   ngOnInit(): void {
+    if (this.showLangSwitch) {
+      this.brandingNodes$
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(nodes => this.brandingNodes.set(nodes));
+    }
     this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
       const { uuid, langcode } = params;
-      if (!uuid) {
-        this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.MISSING_NODE'));
+      if (uuid) {
+        this.initNode(uuid, langcode ?? '');
         return;
       }
-      this.nodeUuid.set(uuid);
-      this.nodeLangcode.set(langcode ?? '');
-      this.queryParams = { uuid, langcode: langcode ?? '' };
-      this.loadData();
+      // Entering directly from the management center/menu or switching language has no uuid; resolve the branding node by alias + target language
+      const target = langcode || this.nodeService.getLang(this.nodeService.pageUrl)?.langCode;
+      this.brandingNodes$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(nodes => {
+        const node = pickBrandingNode(nodes, target);
+        if (!node) {
+          this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.MISSING_NODE'));
+          return;
+        }
+        this.initNode(node.uuid, node.langcode);
+      });
     });
+  }
+
+  private initNode(uuid: string, langcode: string): void {
+    this.nodeUuid.set(uuid);
+    this.nodeLangcode.set(langcode);
+    this.queryParams = { uuid, langcode };
+    this.loadData();
+  }
+
+  // ── Content-language switch ──
+
+  /** Gray out the language button when the node list is loaded and that language has no branding node */
+  isLangMissing(langCode: string): boolean {
+    const nodes = this.brandingNodes();
+    return nodes.length > 0 && !nodes.some(node => node.langcode === langCode);
+  }
+
+  switchLang(langCode: string): void {
+    if (langCode === this.nodeLangcode()) {
+      return;
+    }
+    if (!this.dirty()) {
+      this.navigateToLang(langCode);
+      return;
+    }
+    // The canDeactivate guard only intercepts route leaves, not query-param changes on the same route; confirm manually here
+    const config: IDialog = {
+      title: this.translate.instant('BUILDER.EDIT_BRANDING.SWITCH_LANG_TITLE'),
+      yesLabel: this.translate.instant('BUILDER.EDIT_BRANDING.SWITCH_LANG_YES'),
+      noLabel: this.translate.instant('BUILDER.EDIT_BRANDING.SWITCH_LANG_NO'),
+      inputData: {
+        content: {
+          type: 'text',
+          fullWidth: true,
+          body: this.translate.instant('BUILDER.EDIT_BRANDING.SWITCH_LANG_CONFIRM'),
+        },
+      },
+    };
+    this.dialog
+      .open(DialogComponent, { width: '360px', data: config })
+      .afterClosed()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(result => {
+        if (result) {
+          this.dirty.set(false);
+          this.navigateToLang(langCode);
+        }
+      });
+  }
+
+  private navigateToLang(langCode: string): void {
+    // Carry langcode only and drop the old uuid; the queryParams subscription re-resolves the node for the target language
+    this.router.navigate([], { relativeTo: this.route, queryParams: { langcode: langCode } });
   }
 
   loadData(): void {
     this.loading.set(true);
+    // The loaded language must match the node being saved: build the language prefix from the node langcode, not the current URL
     this.contentService
-      .loadBranding()
+      .loadBranding(`/${this.nodeLangcode()}/`)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: branding => {

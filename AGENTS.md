@@ -6,9 +6,16 @@ This file provides guidance to Codex and other coding agents when working with c
 
 **Xinshi (信使) Web Builder** — an AI-powered low-code platform for building modern responsive web applications. Built with Angular + Angular Material + TailwindCSS, using Drupal as headless CMS backend via JSON:API.
 
+## Branches & Deployments
+
+- **`master` is the open-source base branch and the single source of truth.** Downstream deployment branches build on it: they merge `master` in, never the other way. Anything that is not part of the base product stays out of `master`.
+- **Order matters**: land base work on `master` first, then merge it downstream and add the deployment-specific delta there. Building everything downstream and back-porting later conflicts in the shared files.
+- **Keep the seam thin in shared files.** When base code has to know about an optional feature, use the smallest hook available: one entry in a registry/route/provider pointing at a separate file, or a flag input on a shared component that defaults to off — with the optional UI referenced **inside `@defer`**, the same gate that keeps builder code out of public-page bundles.
+- **Never hardcode values that differ per deployment.** Backend origins live in `config/proxy.config.js` and `src/environments/environment*.ts` and differ per deployment — point at the files, never copy a domain into code, comments or docs.
+
 ## Common Commands
 
-- `npm start` — local dev server (proxies API to builder.design via `config/proxy.config.js`)
+- `npm start` — local dev server (proxies API to the backend configured in `config/proxy.config.js`; the target differs per branch)
 - `npm run build` — production build plus static asset precompression (`ng build --configuration production && npm run precompress`)
 - `npm test` — run unit tests once (Vitest via Angular unit-test builder)
 - `npm run test:watch` — run unit tests in watch mode
@@ -59,7 +66,7 @@ Global app state is provided via InjectionToken factories in `core/token/token-p
 - `environment.ts` — dev config. Key flags:
   - `production: false` → uses local JSON files for page content instead of live API
   - `multiLang` / `langs` — multi-language support with lang prefix routing
-- `environment.prod.ts` — production config (apiUrl: `https://builder.design`)
+- `environment.prod.ts` — production config; its `apiUrl` and the dev proxy target are **branch-specific** — read the files instead of assuming a domain
 
 ### SSR
 
@@ -92,7 +99,7 @@ Angular SSR is configured with `@angular/ssr`. Entry point: `src/server.ts`. The
 - **swiper** — carousels/sliders
 - **video.js** — video player
 - **monaco-editor** — code editor
-- **quill** — rich text editor
+- **tiptap** — rich text editor; keep it behind builder-only or interaction-triggered lazy boundaries
 - **lightgallery** — image gallery/lightbox
 - **gsap** + **aos** — animations (GSAP for fine-grained, AOS for scroll-triggered)
 - **openai** — AI chat integration

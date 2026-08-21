@@ -24,15 +24,51 @@
         "widgetPicker": {
           "$ref": "#/definitions/WidgetPicker"
         },
-        "generater": {
-          "type": "array"
-        },
         "manageMedia": {
           "$ref": "#/definitions/ManageMedia"
+        },
+        "codeEditor": {
+          "$ref": "#/definitions/CodeEditor"
+        },
+        "ai": {
+          "$ref": "#/definitions/AI"
         }
       },
-      "required": ["api", "generater", "manageMedia", "menu", "newSection", "tour", "widgetPicker"],
+      "required": ["api", "codeEditor", "manageMedia", "menu", "newSection", "tour", "widgetPicker"],
       "title": "Builder"
+    },
+    "CodeEditor": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "help": {
+          "type": "string"
+        }
+      },
+      "required": ["help"],
+      "title": "CodeEditor"
+    },
+    "AI": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "render": {
+          "$ref": "#/definitions/Render"
+        }
+      },
+      "required": ["render"],
+      "title": "AI"
+    },
+    "Render": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "defaultImg": {
+          "type": "string"
+        }
+      },
+      "required": ["defaultImg"],
+      "title": "Render"
     },
     "API": {
       "type": "object",
@@ -139,11 +175,62 @@
           "type": "integer"
         },
         "sidebar": {
-          "type": "object"
+          "$ref": "#/definitions/Sidebar"
         }
       },
       "required": ["row", "sidebar"],
       "title": "ManageMedia"
+    },
+    "Sidebar": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "$ref": "#/definitions/SidebarTitle"
+        },
+        "action": {
+          "$ref": "#/definitions/SidebarAction"
+        },
+        "form": {
+          "type": "array"
+        }
+      },
+      "required": ["action", "form", "title"],
+      "title": "Sidebar"
+    },
+    "SidebarTitle": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "style": {
+          "type": "string"
+        },
+        "classes": {
+          "type": "string"
+        }
+      },
+      "required": ["classes", "label", "style"],
+      "title": "SidebarTitle"
+    },
+    "SidebarAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "color": {
+          "type": "string"
+        },
+        "mode": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        }
+      },
+      "required": ["color", "label", "mode"],
+      "title": "SidebarAction"
     },
     "Menu": {
       "type": "object",
@@ -158,6 +245,9 @@
         "icon": {
           "$ref": "#/definitions/Icon"
         },
+        "params": {
+          "$ref": "#/definitions/MenuParams"
+        },
         "child": {
           "type": "array",
           "items": {
@@ -167,6 +257,20 @@
       },
       "required": ["label"],
       "title": "Menu"
+    },
+    "MenuParams": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "reqRoles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["reqRoles"],
+      "title": "MenuParams"
     },
     "Icon": {
       "type": "object",
@@ -180,7 +284,21 @@
       "title": "Icon"
     },
     "NewSection": {
-      "type": "object"
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "json": {
+          "type": "object"
+        },
+        "html": {
+          "type": "string"
+        }
+      },
+      "required": [],
+      "title": "NewSection"
     },
     "Tour": {
       "type": "object",

@@ -49,6 +49,39 @@
   }
 }
 
+// ── Content-language switcher (segmented) ──
+.lang-switch {
+  @apply inline-flex items-center gap-0.5 p-0.5 rounded-md;
+  background: var(--shadcn-muted);
+}
+
+.lang-btn {
+  @apply inline-flex items-center text-xs font-medium cursor-pointer select-none rounded py-1 px-2.5;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--shadcn-muted-foreground);
+  transition: color 0.12s, background 0.12s;
+
+  &:hover:not(:disabled) {
+    color: var(--shadcn-foreground);
+  }
+
+  &.active {
+    background: var(--shadcn-background);
+    color: var(--shadcn-foreground);
+    border-color: var(--shadcn-border);
+  }
+
+  &:disabled {
+    @apply cursor-not-allowed opacity-50;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--shadcn-ring-subtle);
+    @apply outline-offset-1;
+  }
+}
+
 // Static dirty indicator — no animation per user preference
 .dirty-dot {
   @apply w-2 h-2 rounded-full inline-block;

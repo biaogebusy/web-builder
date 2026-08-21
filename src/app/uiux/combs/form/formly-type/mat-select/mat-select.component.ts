@@ -96,7 +96,7 @@ export class MatSelectComponent extends FieldType<FieldTypeConfig> implements On
           takeUntilDestroyed(this.destroyRef)
         )
         .subscribe(res => {
-          this.setOptions(res.rows);
+          this.setOptions([...options, ...res.rows]);
         });
     }
   }
@@ -104,7 +104,7 @@ export class MatSelectComponent extends FieldType<FieldTypeConfig> implements On
   setOptions(options?: any[]): void {
     const { defaultValue } = this.fieldConfig;
     if (options) {
-      this.matOptions.set([...options, ...options]);
+      this.matOptions.set([...options]);
       // load the initial options
       this.filteredOptions.next([
         { label: defaultValue, value: defaultValue },

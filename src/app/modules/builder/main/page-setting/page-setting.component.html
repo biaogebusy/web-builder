@@ -38,7 +38,11 @@
       <app-btn
         (click)="deletePage(model)"
         [content]="{
-          label: 'BUILDER.PAGE_SETTING.DELETE' | translate,
+          label:
+            (isTranslation
+              ? 'BUILDER.PAGE_SETTING.DELETE_TRANSLATION'
+              : 'BUILDER.PAGE_SETTING.DELETE'
+            ) | translate,
           color: 'warn',
         }"
       />

@@ -19,7 +19,7 @@ import type { FormUiTheme } from '../formly-shadcn/formly-shadcn.config';
 
 interface IFormly {
   fields?: FormlyFieldConfig[];
-  /** 表单 UI 主题;CMS JSON 配置 'shadcn' 即切换为 shadcn/ui 风格 */
+  /** Form UI theme; CMS JSON config 'shadcn' switches to the shadcn/ui style */
   uiTheme?: FormUiTheme;
 }
 
@@ -44,7 +44,7 @@ export class FormlyComponent implements AfterViewInit {
   fieldsConfig = signal<FormlyFieldConfig[]>([]);
   private platformId = inject(PLATFORM_ID);
 
-  /** content.uiTheme 合并进 options.formState;显式传入的 options 优先 */
+  /** content.uiTheme is merged into options.formState; explicitly passed options win */
   formOptions = computed<FormlyFormOptions>(() => {
     const options = this.options();
     if (this.content()?.uiTheme === 'shadcn' && !options.formState?.uiTheme) {

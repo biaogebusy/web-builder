@@ -7,30 +7,39 @@
       <h2
         class="title bold"
         [contentedit]="'title.label'"
+        contenteditProfile="inline"
         [class]="contentValue.title.classes"
         [innerHTML]="contentValue.title.label | safeHtml"
       ></h2>
       <div class="meta">
         <div
           [contentedit]="'prefix'"
+          contenteditProfile="inline"
           class="mat-headline-4 !mb-0"
           [innerHTML]="contentValue.prefix | safeHtml"
         ></div>
         <div
           [contentedit]="'number'"
+          contenteditProfile="inline"
           class="mat-headline-2 !mb-0"
           [innerHTML]="contentValue.number | safeHtml"
         ></div>
         <div
           [contentedit]="'suffix'"
+          contenteditProfile="inline"
           class="suffix mat-headline-4 !mb-0"
           [innerHTML]="contentValue.suffix | safeHtml"
         ></div>
       </div>
-      <div [contentedit]="'body'" class="content" [innerHTML]="contentValue.body | safeHtml"></div>
+      <div
+        [contentedit]="'body'"
+        contenteditProfile="rich"
+        class="content"
+        [innerHTML]="contentValue.body | safeHtml"
+      ></div>
       @if (contentValue.actions) {
         <div class="actions gap-3 flex justify-{{ contentValue.actionsAlign }} items-center">
-          @for (action of contentValue.actions; track action; let i = $index) {
+          @for (action of contentValue.actions; track $index; let i = $index) {
             <app-dynamic-component [attr.data-path]="'actions.' + i" [inputs]="action" />
           }
         </div>

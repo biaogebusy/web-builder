@@ -4,6 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import type { IMediaAttr } from '@core/interface/manage/IManage';
 import { BuilderState } from '@core/state/BuilderState';
 import { API_URL, USER } from '@core/token/token-providers';
+import { TranslateService } from '@ngx-translate/core';
 import { firstValueFrom, of } from 'rxjs';
 import { CommentService } from './comment.service';
 import { NodeService } from './node.service';
@@ -19,6 +20,7 @@ describe('NodeService media API', () => {
   function createService(post = vi.fn(() => of({})), user: unknown = signal(true)) {
     const utilitiesService = {
       openSnackbar: vi.fn(),
+      dismissSnackbar: vi.fn(),
     };
 
     TestBed.configureTestingModule({
@@ -29,6 +31,7 @@ describe('NodeService media API', () => {
         { provide: HttpClient, useValue: { post } },
         { provide: USER, useValue: user },
         { provide: UtilitiesService, useValue: utilitiesService },
+        { provide: TranslateService, useValue: { instant: (key: string) => key } },
         { provide: BuilderState, useValue: { currentPage: {} } },
         { provide: CommentService, useValue: {} },
       ],
@@ -91,7 +94,7 @@ describe('NodeService media API', () => {
     );
   });
 
-  it('keeps the Quill image handler file selection and insertion sequence', () => {
+  it('keeps the editor image picker file selection and insertion sequence', () => {
     const { service } = createService();
     const input = document.createElement('input');
     const file = new File(['image'], 'editor.png', { type: 'image/png' });
@@ -113,29 +116,26 @@ describe('NodeService media API', () => {
     vi.spyOn(service, 'uploadImage').mockReturnValue(
       of({ uri: { url: '/sites/default/files/editor.png' } } as IMediaAttr)
     );
-    const editor = {
-      getSelection: vi.fn(() => ({ index: 3 })),
-      insertEmbed: vi.fn(),
-    };
+    const insert = vi.fn();
 
-    service.imageHandler(editor);
+    service.pickAndUploadImage(insert);
 
     expect(input.type).toBe('file');
     expect(input.accept).toBe('image/png, image/gif, image/jpeg, image/bmp, image/x-icon');
-    expect(input.classList.contains('ql-image')).toBe(true);
     expect(service.uploadImage).toHaveBeenCalledWith('editor.png', expect.any(ArrayBuffer));
-    expect(editor.getSelection).toHaveBeenCalledWith(true);
-    expect(editor.insertEmbed).toHaveBeenCalledWith(3, 'image', '/sites/default/files/editor.png');
+    expect(insert).toHaveBeenCalledWith('/sites/default/files/editor.png');
   });
 
-  it('blocks the Quill image handler for signed-out visitors', () => {
+  it('blocks the editor image picker for signed-out visitors', () => {
     const { service, utilitiesService } = createService(undefined, signal(false));
     const createElement = vi.spyOn(document, 'createElement');
-    const editor = { getSelection: vi.fn(), insertEmbed: vi.fn() };
 
-    service.imageHandler(editor);
+    service.pickAndUploadImage(vi.fn());
 
-    expect(utilitiesService.openSnackbar).toHaveBeenCalledWith('请登录后上传图片！', 'ok');
+    expect(utilitiesService.openSnackbar).toHaveBeenCalledWith(
+      'BUILDER.FORM_EDITOR.IMAGE_LOGIN_REQUIRED',
+      'ok'
+    );
     expect(createElement).not.toHaveBeenCalled();
   });
 });

@@ -13,6 +13,7 @@ import {
   viewChild
 } from '@angular/core';
 
+import { getLibraryAsset } from '@core/config/library-assets';
 import { Subject } from 'rxjs';
 import { ScreenService } from '@core/service/screen.service';
 import type { ISwiper } from '@core/interface/widgets/ISwiper';
@@ -23,6 +24,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { ICoreConfig } from '@core/interface/IAppConfig';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
+import { SWIPER_ASSETS } from './swiper.assets';
 register();
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -117,12 +119,8 @@ export class SwiperComponent implements OnInit, AfterViewInit {
   }
   async ngAfterViewInit(): Promise<void> {
     if (this.screenService.isPlatformBrowser()) {
-      if (this.coreConfig.librariesUseLocal) {
-        await this.util.loadStyle('/assets/injects/swiper/swiper-bundle.min.css');
-      } else {
-        const swiperStyle = this.util.getLibraries('swiper', 'cdn', 'style');
-        await this.util.loadStyle(swiperStyle);
-      }
+      const source = this.coreConfig.librariesUseLocal ? 'local' : 'cdn';
+      await this.util.loadStyle(getLibraryAsset(SWIPER_ASSETS, source, 'style'));
     }
   }
 

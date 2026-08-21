@@ -15,7 +15,7 @@ interface ISpacer {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SpacerComponent {
-  // content and size 是兼容写法
+  // content and size are both accepted for compatibility
   readonly content = input<ISpacer>();
   readonly size = input<'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'none'>();
   constructor() {}

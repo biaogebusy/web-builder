@@ -1,0 +1,20 @@
+// Borders (top/bottom) and outer spacing are decided by the parent: in the comb it sits below the toolbar, in the bubble below the button row
+:host {
+  @apply block;
+}
+
+.link-panel {
+  @apply flex items-center gap-1 px-2 py-1;
+
+  .link-input {
+    @apply h-8 w-56 min-w-0 flex-1 rounded border px-2 text-sm;
+    border-color: var(--mat-sys-outline-variant);
+    background: transparent;
+    color: var(--mat-sys-on-surface);
+
+    &:focus {
+      outline: none;
+      border-color: var(--mat-sys-primary);
+    }
+  }
+}

@@ -2,10 +2,12 @@ import { AfterViewInit, Component, ElementRef, inject, ChangeDetectionStrategy, 
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { getLibraryAsset } from '@core/config/library-assets';
 import { ICoreConfig } from '@core/interface/IAppConfig';
 import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
+import { JSONEDITOR_ASSETS } from '@uiux/combs/other/jsoneditor/jsoneditor.assets';
 
 declare let window: any;
 
@@ -35,15 +37,11 @@ export class JsonEditorDialogComponent implements AfterViewInit {
 
   async ngAfterViewInit(): Promise<void> {
     if (!this.screenService.isPlatformBrowser()) return;
-    if (this.coreConfig.librariesUseLocal) {
-      await this.util.loadStyle('/assets/injects/jsoneditor/jsoneditor.min.css');
-      await this.util.loadScriptWithoutAmd('/assets/injects/jsoneditor/jsoneditor.min.js');
-    } else {
-      const jsoneditorStyle = this.util.getLibraries('jsoneditor', 'cdn', 'style');
-      const jsoneditorJS = this.util.getLibraries('jsoneditor', 'cdn', 'script');
-      await this.util.loadStyle(jsoneditorStyle);
-      await this.util.loadScriptWithoutAmd(jsoneditorJS);
-    }
+    const source = this.coreConfig.librariesUseLocal ? 'local' : 'cdn';
+    await this.util.loadStyle(getLibraryAsset(JSONEDITOR_ASSETS, source, 'style'));
+    await this.util.loadScriptWithoutAmd(
+      getLibraryAsset(JSONEDITOR_ASSETS, source, 'script')
+    );
 
     this.editor = new window.JSONEditor(this.editorHost().nativeElement, {
       mode: 'code',

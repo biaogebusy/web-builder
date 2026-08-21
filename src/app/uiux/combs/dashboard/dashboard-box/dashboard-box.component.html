@@ -3,9 +3,13 @@
   @if (c.title || c.form) {
     <div class="box-header">
       @if (c.title) {
-        <div class="mat-h3 m-bottom-0" [attr.data-path]="'title.label'" contentedit="label">
-          {{ c.title.label }}
-        </div>
+        <div
+          class="mat-h3 m-bottom-0"
+          [attr.data-path]="'title.label'"
+          contentedit="label"
+          contenteditProfile="inline"
+          [innerHTML]="c.title.label"
+        ></div>
       }
       <div class="filter">
         @if (c.form) {

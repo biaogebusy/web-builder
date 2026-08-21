@@ -111,8 +111,9 @@ export function builderCurrentPageFactory(): Signal<IPage | undefined | false> {
   const injector = inject(Injector);
   const builder = inject(BuilderState);
 
-  // 统一以 BuilderState.version signal 为数据源(与版本面板/工具栏一致);
-  // 跨上下文(/preview 新标签或 iframe)的变更由 BuilderState 的 storage 事件桥接进 signal
+  // Always use the BuilderState.version signal as the data source (consistent with the
+  // version panel/toolbar); changes from other contexts (/preview new tab or iframe) are
+  // bridged into the signal by BuilderState's storage event
   const currentPage = computed<IPage | undefined | false>(() => {
     const version = builder.version();
     if (!version.length) {

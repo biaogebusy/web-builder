@@ -3,7 +3,7 @@
     <app-text [attr.data-path]="'text'" [content]="content().text" />
   }
   <div class="inner">
-    @for (item of elements(); track item; let i = $index) {
+    @for (item of elements(); track $index; let i = $index) {
       <div class="stat-col">
         <div class="style04 inv-stats">
           <div class="stats-icon">
@@ -24,6 +24,7 @@
             <div
               class="stats-title"
               [contentedit]="'elements.' + i + '.title'"
+              contenteditProfile="inline"
               [innerHTML]="item.title"
             ></div>
           }
@@ -31,6 +32,7 @@
             <div
               class="stats-desc"
               [contentedit]="'elements.' + i + '.desc'"
+              contenteditProfile="rich"
               [innerHTML]="item.desc"
             ></div>
           }

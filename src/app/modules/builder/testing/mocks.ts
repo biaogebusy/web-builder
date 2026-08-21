@@ -5,9 +5,10 @@ import { TourService } from '@core/service/tour.service';
 import { provideCoreMocks } from '@core/testing/mocks';
 
 /**
- * builder 模块脚手架 spec 的共享 mock 工厂,在 provideCoreMocks 之上补充
- * builder 特有依赖。约定同 @core/testing/mocks:需要断言 mock 的行为测试
- * 自建局部 mock,并在 providers 数组中后置覆盖同名 provider。
+ * Shared mock factory for builder module scaffold specs, adding builder-specific
+ * deps on top of provideCoreMocks. Same convention as @core/testing/mocks:
+ * tests that need to assert on mock behavior build local mocks and override
+ * same-name providers later in the providers array.
  */
 
 export const createTourServiceMock = () => ({

@@ -1,4 +1,5 @@
 import { Component, forwardRef, inject, ChangeDetectionStrategy } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -31,6 +32,13 @@ export class DialogComponent {
   }
 
   onYesClick(): void {
+    // Form dialogs (inputData.content.form convention): when the form is invalid,
+    // show validation errors and block closing so required fields are not silently confirmed empty
+    const form: unknown = this.data.inputData?.content?.form;
+    if (form instanceof FormGroup && form.invalid) {
+      form.markAllAsTouched();
+      return;
+    }
     this.dialogRef.close(true);
   }
 }

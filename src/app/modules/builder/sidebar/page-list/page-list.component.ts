@@ -18,19 +18,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SHARE_IMPORTS } from '@share/share-imports';
 import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { FORM_IMPORTS } from '@uiux/combs/form/form-imports';
-import { IPage } from '@core/interface/IAppConfig';
 import { IPageMeta, IPageList } from '@core/interface/IBuilder';
-import { IUser } from '@core/interface/IUser';
-import { MatDialog } from '@angular/material/dialog';
-import { IDialog } from '@core/interface/IDialog';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
 import { TagsService } from '@core/service/tags.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState, IBuilderPendingPageLoad } from '@core/state/BuilderState';
-import { BUILDER_CURRENT_PAGE, USER } from '@core/token/token-providers';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { formatToExtraData, getPageParams } from '@core/util/builder-page.util';
+import { USER } from '@core/token/token-providers';
+import { PageItemComponent } from '../page-item/page-item.component';
 import type { QueryParams } from '@core/util/http-params.util';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { BaseComponent } from '@uiux/base/base.widget';
@@ -44,10 +39,9 @@ import { environment } from 'src/environments/environment';
   templateUrl: './page-list.component.html',
   styleUrls: ['./page-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SHARE_IMPORTS, WIDGETS_IMPORTS, FORM_IMPORTS, MatPaginatorModule],
+  imports: [SHARE_IMPORTS, WIDGETS_IMPORTS, FORM_IMPORTS, MatPaginatorModule, PageItemComponent],
 })
 export class PageListComponent extends BaseComponent implements OnInit {
-  public currentPage = inject(BUILDER_CURRENT_PAGE);
   private user = inject(USER);
 
   readonly content = input<any>();
@@ -59,7 +53,6 @@ export class PageListComponent extends BaseComponent implements OnInit {
   };
   public langs = environment.langs;
   private builder = inject(BuilderState);
-  private dialog = inject(MatDialog);
   private util = inject(UtilitiesService);
   private nodeService = inject(NodeService);
   private route = inject(ActivatedRoute);
@@ -245,6 +238,11 @@ export class PageListComponent extends BaseComponent implements OnInit {
     this.builderService.loadPage({ langcode, nid });
   }
 
+  // This route owns the deep-link params, so it clears them once a row takes over
+  onPageLoaded(): void {
+    this.clearPageLoadQueryParams();
+  }
+
   private clearPageLoadQueryParams(): void {
     const { nid, quickEdit } = this.route.snapshot.queryParams;
     if (!nid && !quickEdit) {
@@ -262,33 +260,6 @@ export class PageListComponent extends BaseComponent implements OnInit {
     });
   }
 
-  copyPage(page: any): void {
-    this.builderService.loadPage({
-      langcode: page.langcode,
-      nid: page.nid,
-      isTemplate: true,
-    });
-  }
-
-  updateByJSON(page: any): void {
-    const { langcode, nid } = page;
-    if (!nid) {
-      this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_LIST.CHECK_LANDING_VIEW'), 'ok');
-      return;
-    }
-    this.builderService.loadPageJSON({ langcode, nid });
-  }
-
-  updatePageSetting(page: IPageMeta): void {
-    this.builder.loading.set(true);
-
-    this.builderService.openPageSetting(
-      page,
-      '/api/v1/node/landing_page',
-      getPageParams(['uid', 'group', 'cover', 'cover.field_media_image'])
-    );
-  }
-
   onPageChange(page: PageEvent): void {
     this.form.get('page')?.patchValue(page.pageIndex, { onlySelf: true, emitEvent: false });
     const value = merge(this.model, this.form.getRawValue());
@@ -298,127 +269,8 @@ export class PageListComponent extends BaseComponent implements OnInit {
     this.queryParams.set(this.getApiParams(value));
   }
 
-  createLangVersion(currentPage: IPageMeta, targetlang: string): void {
-    const lang = this.langs?.find(l => l.langCode === targetlang);
-    const config: IDialog = {
-      title: this.translate.instant('BUILDER.PAGE_LIST.CREATE_LANG_TITLE'),
-      noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
-      yesLabel: this.translate.instant('BUILDER.PAGE_LIST.CREATE_LANG_YES'),
-      inputData: {
-        content: {
-          type: 'text',
-          fullWidth: true,
-          body: this.translate.instant('BUILDER.PAGE_LIST.CREATE_LANG_CONFIRM', {
-            title: currentPage.title,
-            lang: lang?.label || targetlang,
-          }),
-        },
-      },
-    };
-    this.dialog
-      .open(DialogComponent, { width: '340px', data: config })
-      .afterClosed()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(result => {
-        if (!result) return;
-        this.builder.loading.set(true);
-        this.nodeService
-          .fetch(`/api/v3/landingPage/json/${currentPage.nid}`, { noCache: 1 }, targetlang)
-          .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe({
-            next: (page: IPage) => {
-              this.builder.loading.set(false);
-              if (targetlang === page.langcode) {
-                this.util.openSnackbar(
-                  this.translate.instant('BUILDER.PAGE_LIST.TRANSLATION_EXISTS', {
-                    label: page.label,
-                  }),
-                  'ok'
-                );
-                this.builder.loadNewPage(formatToExtraData(page));
-              } else {
-                this.util.openSnackbar(
-                  this.translate.instant('BUILDER.PAGE_LIST.LOADING_TRANSLATION', {
-                    title: currentPage.title,
-                    lang: targetlang,
-                  }),
-                  'ok'
-                );
-                this.builder.loadNewPage(
-                  formatToExtraData({
-                    langcode: currentPage.langcode,
-                    ...page,
-                    translation: true,
-                    target: targetlang,
-                  })
-                );
-              }
-            },
-            error: () => {
-              this.builder.loading.set(false);
-              this.util.openSnackbar(
-                this.translate.instant('BUILDER.PAGE_LIST.LOAD_TRANSLATION_FAIL', {
-                  title: currentPage.title,
-                }),
-                'ok'
-              );
-            },
-          });
-      });
-  }
-
-  deletePage(page: IPageMeta): void {
-    const config: IDialog = {
-      title: this.translate.instant('BUILDER.PAGE_LIST.DELETE_TITLE'),
-      noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
-      yesLabel: this.translate.instant('BUILDER.PAGE_SETTING.DELETE'),
-      inputData: {
-        content: {
-          type: 'text',
-          fullWidth: true,
-          body: this.translate.instant('BUILDER.PAGE_LIST.DELETE_CONFIRM', { title: page.title }),
-        },
-      },
-    };
-    this.dialog
-      .open(DialogComponent, { width: '340px', data: config })
-      .afterClosed()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(result => {
-        if (!result) return;
-        this.builder.loading.set(true);
-        this.nodeService
-          .deleteEntity('/api/v1/node/landing_page', page.uuid)
-          .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe({
-            next: () => {
-              this.builder.loading.set(false);
-              this.util.openSnackbar(
-                this.translate.instant('BUILDER.PAGE_SETTING.DELETE_SUCCESS', { title: page.title }),
-                'ok'
-              );
-              this.onReload();
-            },
-            error: err => {
-              this.builder.loading.set(false);
-              if (err.status === 403) {
-                this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_SETTING.NO_PERMISSION'));
-              } else {
-                this.util.openSnackbar(
-                  this.translate.instant('BUILDER.PAGE_SETTING.DELETE_FAIL', { title: page.title })
-                );
-              }
-            },
-          });
-      });
-  }
-
   onReload(): void {
     this.form.reset();
     this.onModelChange({ title: '', time: +new Date() });
-  }
-
-  getLangLabel(code: string): string {
-    return this.langs?.find(l => l.langCode === code)?.label ?? code;
   }
 }

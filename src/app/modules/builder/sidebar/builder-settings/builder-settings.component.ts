@@ -109,6 +109,6 @@ export class BuilderSettingsComponent extends BaseComponent implements OnInit {
   }
 
   addJSON(): void {
-    this.router.navigate(['/builder/node-add/json']);
+    this.router.navigate(['/builder/node/add/json']);
   }
 }

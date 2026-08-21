@@ -6,12 +6,15 @@ import { FormlySelectOption, FormlySelectOptionsPipe } from '@ngx-formly/core/se
 import { ShadcnDropdownBase } from './shadcn-dropdown.base';
 
 /**
- * shadcn/ui 风格多选下拉,对应内置 select 类型的多选(props.multiple)场景,
- * 替代 Material mat-select。与 shadcn-select 共用 ShadcnDropdownBase 行为
- * 与全局 .shad-popover/.shad-option 面板样式;选中项以左侧方框指示
- * (区别于单选的对勾),Enter/Space/点击切换选中且面板保持打开,
- * 触发按钮内以徽章展示已选项。值为选中项 value 的数组;选项经
- * formlySelectOptions 管道归一化,分组选项(group)不在此实现。
+ * shadcn/ui-style multiselect dropdown for the built-in select type's multi
+ * (props.multiple) scenario, replacing Material mat-select. Shares the
+ * ShadcnDropdownBase behavior and the global .shad-popover/.shad-option panel
+ * styles with shadcn-select; selected items are marked with a leading box
+ * (distinct from the single-select check), Enter/Space/click toggles the
+ * selection while the panel stays open, and the trigger shows the chosen items
+ * as badges. The value is an array of the selected options' values; options are
+ * normalized through the formlySelectOptions pipe, and grouped options are not
+ * implemented here.
  */
 @Component({
   selector: 'formly-shadcn-multiselect',
@@ -56,7 +59,7 @@ import { ShadcnDropdownBase } from './shadcn-dropdown.base';
         </svg>
       </button>
       @if (open()) {
-        <!-- mousedown 阻止默认行为:点击选项时焦点保持在触发按钮上 -->
+        <!-- mousedown prevents the default behavior: focus stays on the trigger button when clicking an option -->
         <ul
           class="shad-popover"
           role="listbox"
@@ -100,7 +103,7 @@ import { ShadcnDropdownBase } from './shadcn-dropdown.base';
   styleUrl: './shadcn-multiselect.type.scss',
 })
 export class ShadcnMultiselectType extends ShadcnDropdownBase {
-  /** 表单值统一视作数组;编辑回填的单值/空值做归一化 */
+  /** Form value is always treated as an array; single/empty values backfilled from editing are normalized */
   get selectedValues(): unknown[] {
     const value = this.formControl.value;
     if (Array.isArray(value)) {

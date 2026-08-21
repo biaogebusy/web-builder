@@ -1,22 +1,27 @@
 import { Component, DestroyRef, OnInit, computed, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { SHARE_IMPORTS } from '@share/share-imports';
 import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { FORM_IMPORTS } from '@uiux/combs/form/form-imports';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import { IUser } from '@core/interface/IUser';
+import { ICoreConfig } from '@core/interface/IAppConfig';
 import { NodeService } from '@core/service/node.service';
-import { INodeFieldMeta, NodeFieldFormService } from '@core/service/node-field-form.service';
+import {
+  INodeFieldMeta,
+  INodeForm,
+  NodeFieldFormService,
+} from '@core/service/node-field-form.service';
 import { TagsService } from '@core/service/tags.service';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { USER } from '@core/token/token-providers';
+import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import { TranslateService } from '@ngx-translate/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { forkJoin, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { forkJoin, Observable, of, throwError } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -31,61 +36,94 @@ export class NodeAddComponent implements OnInit {
   private tagsService = inject(TagsService);
   private activateRoute = inject(ActivatedRoute);
   public user = inject(USER);
+  private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   private util = inject(UtilitiesService);
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);
   private translate = inject(TranslateService);
   public type = signal<string>('');
-  /** 编辑模式下的节点 uuid;为空即新建 */
+  /** Node uuid in edit mode; empty means create-new */
   public editUuid = signal<string>('');
   public form: UntypedFormGroup = new UntypedFormGroup({});
-  /** 中间编辑区字段:标题 + 正文类(rich-editor/json) */
+  /** Middle editing area fields: title + body fields (tiptap/json) */
   public mainFields = signal<FormlyFieldConfig[]>([]);
-  /** 右侧属性面板字段:标签、布尔、数值等元数据 */
+  /** Right property panel fields: metadata such as labels, booleans, numbers */
   public sideFields = signal<FormlyFieldConfig[]>([]);
-  /** 编辑模式的表单回填模型 */
+  /** Publish settings fields: URL alias, revision note (written to the path.alias / revision_log base fields) */
+  public publishFields = signal<FormlyFieldConfig[]>([]);
+  /** Form backfill model for edit mode */
   public model = signal<any>({});
   public nodeTypes = signal<{ label: string; value: string }[]>([]);
-  // getNodeTypes 出错时会发出空数组,需与"加载中"区分,避免骨架屏常驻
+  // getNodeTypes emits an empty array on error, which must be distinguished from "loading" to avoid a stuck skeleton
   public typesLoading = signal(true);
   public submitting = signal(false);
-  /** 当前类型的显示名(如 "博客"),未匹配时回退机器名 */
+  /** Display name of the current type (e.g. "Blog"); falls back to the machine name when unmatched */
   public typeLabel = computed(
     () => this.nodeTypes().find(t => t.value === this.type())?.label ?? this.type()
   );
-  /** 中间区含富文本时,顶栏下渲染独立的编辑器工具栏通栏 */
-  public hasRichEditor = computed(() => this.mainFields().some(f => f.type === 'rich-editor'));
+  /** When the middle area has rich text, render a standalone editor toolbar bar under the top bar */
+  public hasRichEditor = computed(() => this.mainFields().some(f => f.type === 'tiptap'));
   private fieldMeta: INodeFieldMeta[] = [];
+  /** Raw node data loaded in edit mode, used for round-trip fidelity and minimal-diff commits on PATCH */
+  private originalNode: any = null;
+  /** changed timestamp from the edit-time load; compared before saving to detect concurrent edits */
+  private loadedChanged = '';
 
   ngOnInit(): void {
     this.fieldFormService
-      .getNodeTypes()
+      .getAllowedNodeTypes()
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(types => {
-        this.nodeTypes.set(types);
-        this.typesLoading.set(false);
+      .subscribe({
+        next: types => {
+          this.nodeTypes.set(types);
+          this.typesLoading.set(false);
+        },
+        // Reset on failure too, otherwise the type-picker skeleton spins forever
+        error: () => this.typesLoading.set(false),
       });
 
-    this.activateRoute.params.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
-      const type = params['type'];
-      const uuid = params['uuid'] || '';
-      this.tagsService.setTitle(
-        this.translate.instant(
-          uuid ? 'BUILDER.NODE_ADD.EDIT_TITLE' : 'BUILDER.NODE_ADD.CREATE_TITLE',
-          { type }
-        )
-      );
-      this.type.set(type);
-      this.editUuid.set(uuid);
-      // 切换类型/节点时销毁旧表单(app-formly 只在创建时快照 fields 与 model)
-      this.mainFields.set([]);
-      this.sideFields.set([]);
-      this.model.set({});
-      this.form = new UntypedFormGroup({});
+    // switchMap: any route-param change cancels the previous in-flight load, preventing stale page data from landing in the new page
+    // (navigating within the same route config reuses the component, e.g. editing another node or switching type on create)
+    this.activateRoute.params
+      .pipe(
+        tap(params => this.resetForParams(params)),
+        switchMap(params => this.loadForm$(params)),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe(load => this.applyForm(load));
+  }
 
-      // 编辑模式先取节点数据用于回填;失败时回落为新建表单
-      const node$ = uuid
-        ? this.nodeService.fetch(`/api/v1/node/${type}/${uuid}`).pipe(
+  /** On every route-param change: reset all page state and destroy the old form (app-formly snapshots fields and model only at creation) */
+  private resetForParams(params: Params): void {
+    const type = params['type'];
+    const uuid = params['uuid'] || '';
+    this.tagsService.setTitle(
+      this.translate.instant(
+        uuid ? 'BUILDER.NODE_ADD.EDIT_TITLE' : 'BUILDER.NODE_ADD.CREATE_TITLE',
+        { type }
+      )
+    );
+    this.type.set(type);
+    this.editUuid.set(uuid);
+    this.mainFields.set([]);
+    this.sideFields.set([]);
+    this.publishFields.set([]);
+    this.model.set({});
+    this.form = new UntypedFormGroup({});
+    this.fieldMeta = [];
+    this.originalNode = null;
+    this.loadedChanged = '';
+  }
+
+  private loadForm$(params: Params): Observable<{ node: any; form?: INodeForm }> {
+    const type = params['type'];
+    const uuid = params['uuid'] || '';
+    // Edit mode first fetches the node for backfill (with the language prefix,
+    // hitting the current language's translation); on failure it falls back to the create form
+    const node$ = uuid
+      ? this.nodeService
+          .fetch(`/api/v1/node/${type}/${uuid}`, '', this.nodeService.resolveLangCode())
+          .pipe(
             map(res => res?.data ?? null),
             catchError(err => {
               console.error('加载节点数据失败', err);
@@ -94,82 +132,96 @@ export class NodeAddComponent implements OnInit {
                 'ok'
               );
               return of(null);
+            }),
+            tap(node => {
+              this.originalNode = node;
+              this.loadedChanged = node?.attributes?.changed ?? '';
             })
           )
-        : of(null);
-
-      switch (type) {
-        case 'json':
-          node$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(node => {
-            if (node) {
-              this.model.set({
-                title: node.attributes?.title,
-                body: this.parseJsonBody(node),
-              });
-            }
-            this.mainFields.set([
-              this.getTitleField(),
-              {
-                key: 'body',
-                type: 'json',
-                className: 'node-body-field',
-                props: {
-                  label: 'JSON',
-                  required: true,
-                  rows: 10,
-                },
-              },
-            ]);
-          });
-          break;
-        default:
-          // 通过 field config API 内省该内容类型的字段,动态生成表单
-          forkJoin({
-            form: this.fieldFormService.getForm(type),
-            node: node$,
-          })
-            .pipe(takeUntilDestroyed(this.destroyRef))
-            .subscribe(({ form: { fields, meta }, node }) => {
-              this.fieldMeta = meta;
-              if (node) {
-                this.model.set({
-                  title: node.attributes?.title,
-                  ...this.fieldFormService.buildModel(meta, node),
-                });
-              }
-              // 正文类字段进中间编辑区,其余元数据进右侧属性面板
-              const bodyKeys = new Set(
-                meta
-                  .filter(m => m.fieldType === 'text_long' || m.fieldType === 'text_with_summary')
-                  .map(m => m.key)
-              );
-              // 富文本工具栏抽离到顶栏下的独立通栏容器(模板中的 #node-editor-toolbar);
-              // node-body-field 与标题字段共用同一左对齐文档容器(见 scss)
-              const bodyFields = fields
-                .filter(f => bodyKeys.has(f.key as string))
-                .map(f => ({
-                  ...f,
-                  className: 'node-body-field',
-                  props:
-                    f.type === 'rich-editor'
-                      ? { ...f.props, toolbarContainer: '#node-editor-toolbar' }
-                      : f.props,
-                }));
-              this.mainFields.set([this.getTitleField(), ...bodyFields]);
-              this.sideFields.set(fields.filter(f => !bodyKeys.has(f.key as string)));
-              // field_config 需要 administer node fields 权限,无权限时 data 为空
-              if (fields.length === 0) {
-                this.util.openSnackbar(
-                  this.translate.instant('BUILDER.NODE_ADD.NO_FIELDS'),
-                  'ok'
-                );
-              }
-            });
-      }
-    });
+      : of(null);
+    if (type === 'json') {
+      return node$.pipe(map(node => ({ node })));
+    }
+    // Introspect the content type's fields via the field config API to build the form dynamically
+    return forkJoin({
+      form: this.fieldFormService.getForm(type),
+      node: node$,
+    }).pipe(map(({ form, node }) => ({ node, form })));
   }
 
-  /** json 类型的 body 以字符串存储,回填前还原为对象 */
+  /** Missing form means the json type (no field introspection); otherwise build the dynamic form from the introspection result */
+  private applyForm({ node, form }: { node: any; form?: INodeForm }): void {
+    if (!form) {
+      if (node) {
+        this.model.set({
+          title: node.attributes?.title,
+          path_alias: node.attributes?.path?.alias ?? '',
+          body: this.parseJsonBody(node),
+        });
+      }
+      this.mainFields.set([
+        this.getTitleField(),
+        {
+          key: 'body',
+          type: 'json',
+          className: 'node-body-field',
+          props: {
+            label: 'JSON',
+            required: true,
+            rows: 10,
+          },
+        },
+      ]);
+      this.publishFields.set(this.getPublishFields());
+      return;
+    }
+    const { fields, meta } = form;
+    this.fieldMeta = meta;
+    if (node) {
+      this.model.set({
+        title: node.attributes?.title,
+        path_alias: node.attributes?.path?.alias ?? '',
+        ...this.fieldFormService.buildModel(meta, node),
+      });
+    }
+    // Body fields go to the middle editing area; remaining metadata goes to the right property panel
+    const bodyKeys = new Set(
+      meta
+        .filter(m => m.fieldType === 'text_long' || m.fieldType === 'text_with_summary')
+        .map(m => m.key)
+    );
+    // The first rich-text body projects its toolbar into the standalone bar under
+    // the top bar. Additional rich-text fields keep their toolbar in their own box.
+    const richBodyKey = fields.find(f => bodyKeys.has(f.key as string) && f.type === 'tiptap')?.key;
+    const bodyFields = fields
+      .filter(f => bodyKeys.has(f.key as string))
+      .map(f => {
+        if (f.type !== 'tiptap') {
+          return { ...f, className: 'node-body-field' };
+        }
+        const props = { ...f.props, autoLoad: true };
+        return {
+          ...f,
+          className: 'node-body-field',
+          // A content type may have multiple long-text fields; only the first
+          // takes over the bar toolbar, the rest render their toolbars inside
+          // their own editor boxes to avoid stacking several toolbars in one container
+          props:
+            f.key === richBodyKey
+              ? { ...props, toolbarContainer: '#node-editor-toolbar' }
+              : props,
+        };
+      });
+    this.mainFields.set([this.getTitleField(), ...bodyFields]);
+    this.sideFields.set(fields.filter(f => !bodyKeys.has(f.key as string)));
+    this.publishFields.set(this.getPublishFields());
+    // field_config requires the administer node fields permission; data is empty without it
+    if (fields.length === 0) {
+      this.util.openSnackbar(this.translate.instant('BUILDER.NODE_ADD.NO_FIELDS'), 'ok');
+    }
+  }
+
+  /** The json type stores body as a string; restore it to an object before backfill */
   private parseJsonBody(node: any): any {
     const raw = node?.attributes?.body?.value ?? node?.attributes?.body ?? '';
     if (typeof raw !== 'string' || !raw) {
@@ -188,7 +240,7 @@ export class NodeAddComponent implements OnInit {
 
   switchType(type: string): void {
     if (type !== this.type() || this.editUuid()) {
-      this.router.navigate(['/builder/node-add', type]);
+      this.router.navigate(['/builder/node/add', type]);
     }
   }
 
@@ -196,18 +248,40 @@ export class NodeAddComponent implements OnInit {
     return {
       key: 'title',
       type: 'input',
-      // 中间编辑区的大号无边框标题样式挂钩(见组件 scss)
+      // Hook for the large borderless title style in the middle editing area (see component scss)
       className: 'node-title-field',
       props: {
         label: this.translate.instant('BUILDER.NODE_ADD.FIELD_TITLE'),
-        // label 视觉隐藏,以占位符提示标题输入位(Frase 式文档标题)
+        // Label is visually hidden; the placeholder hints the title input (Frase-style document title)
         placeholder: this.translate.instant('BUILDER.NODE_ADD.TITLE_PLACEHOLDER'),
         required: true,
       },
     };
   }
 
-  onSubmit(value: any, user: IUser | any): void {
+  /** Publish settings: URL alias + revision note. These are node base fields and must avoid the custom field keys from the field config introspection */
+  private getPublishFields(): FormlyFieldConfig[] {
+    return [
+      {
+        key: 'path_alias',
+        type: 'input',
+        props: {
+          label: this.translate.instant('BUILDER.NODE_ADD.FIELD_ALIAS'),
+        },
+      },
+      {
+        key: 'revision_log',
+        type: 'textarea',
+        props: {
+          label: this.translate.instant('BUILDER.NODE_ADD.FIELD_REVISION_LOG'),
+          placeholder: this.translate.instant('BUILDER.NODE_ADD.REVISION_LOG_PLACEHOLDER'),
+          rows: 2,
+        },
+      },
+    ];
+  }
+
+  onSubmit(value: any, user: IUser | any, publish: boolean): void {
     if (!user) {
       this.util.openSnackbar(this.translate.instant('BUILDER.NODE_ADD.LOGIN_FIRST'), 'ok');
       return;
@@ -215,39 +289,132 @@ export class NodeAddComponent implements OnInit {
     if (this.submitting()) {
       return;
     }
+    // Validate required fields client-side and mark them touched to show errors, rather than relying on a backend 422 for feedback
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      this.util.openSnackbar(this.translate.instant('BUILDER.NODE_ADD.FORM_INVALID'), 'ok');
+      return;
+    }
     this.submitting.set(true);
     const type = this.type();
     const uuid = this.editUuid();
-    // 不发送 status:启用内容审核(content moderation)的类型禁止直接写发布状态
-    // (403: Cannot edit the published field of moderated entities),
-    // 由内容类型默认值或审核工作流决定
+    const lang = this.nodeService.resolveLangCode();
     let attributes: any;
     let relationships: any;
     if (type === 'json') {
       const { title, body } = value;
-      attributes = { title, body: JSON.stringify(body) };
+      // Carry the original text format on edit so a plain-string submit does not reset the json format to the site default
+      const format = this.originalNode?.attributes?.body?.format;
+      attributes = {
+        title,
+        body: format ? { value: JSON.stringify(body), format } : JSON.stringify(body),
+      };
     } else {
       const { title, ...rest } = value;
-      const payload = this.fieldFormService.buildPayload(this.fieldMeta, rest);
+      // Pass the original node on edit: cleared fields send explicit null, text keeps the original format/summary, references carry meta back
+      const payload = this.fieldFormService.buildPayload(this.fieldMeta, rest, this.originalNode);
       attributes = { title, ...payload.attributes };
       relationships = payload.relationships;
     }
+    Object.assign(attributes, this.buildBaseFieldAttributes(value, publish, lang));
     const path = `/api/v1/node/${type}`;
     const request$ = uuid
-      ? this.nodeService.updateEntity(path, uuid, attributes, relationships)
-      : this.nodeService.addEntity(path, attributes, relationships);
+      ? this.updateWithConflictCheck$(path, type, uuid, attributes, relationships, lang)
+      : this.nodeService.addEntity(path, attributes, relationships, lang);
     request$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => this.onSubmitSuccess(!!uuid),
       error: err => this.showSubmitError(err),
     });
   }
 
-  /** 新建成功清空表单停留本页;编辑成功返回内容管理列表 */
+  /**
+   * Node base fields: publish status, revision note, URL alias, language.
+   * - Types with content moderation enabled cannot write status directly
+   *   (403: Cannot edit the published field of moderated entities); write
+   *   moderation_state instead and let the workflow decide the actual publish.
+   *   Other types write status.
+   * - On edit, status/alias are only submitted when actually changed (minimal
+   *   diff), avoiding unnecessary permission-check failures (status needs
+   *   administer nodes, path needs the url alias permission).
+   */
+  private buildBaseFieldAttributes(
+    value: any,
+    publish: boolean,
+    lang?: string
+  ): Record<string, any> {
+    const attrs: Record<string, any> = {};
+    const original = this.originalNode;
+    if (this.isModeratedType()) {
+      const state = publish ? 'published' : 'draft';
+      if (!original || original.attributes?.moderation_state !== state) {
+        attrs.moderation_state = state;
+      }
+    } else if (!original || !!original.attributes?.status !== publish) {
+      attrs.status = publish;
+    }
+    if (value.revision_log) {
+      attrs.revision_log = value.revision_log;
+    }
+    const alias = this.normalizeAlias(value.path_alias);
+    const originalAlias = original?.attributes?.path?.alias ?? '';
+    if (original ? alias !== originalAlias : alias) {
+      attrs.path = { alias: alias || null };
+    }
+    // On create in a non-default language, carry langcode explicitly so the node language matches the site prefix
+    if (!original && lang) {
+      attrs.langcode = lang;
+    }
+    return attrs;
+  }
+
+  /** On edit, judge by the node response first (a moderation_state means moderated); on create, use the config */
+  private isModeratedType(): boolean {
+    if (this.originalNode) {
+      return typeof this.originalNode.attributes?.moderation_state === 'string';
+    }
+    return (this.coreConfig?.builder?.nodeTypes?.moderated ?? []).includes(this.type());
+  }
+
+  /** Normalize the alias to a path starting with /; empty values return '' */
+  private normalizeAlias(raw: any): string {
+    const alias = typeof raw === 'string' ? raw.trim() : '';
+    if (!alias) {
+      return '';
+    }
+    return alias.startsWith('/') ? alias : `/${alias}`;
+  }
+
+  /**
+   * Lightly fetch changed before saving and compare; abort when someone else
+   * modified it in the meantime (JSON:API has no If-Unmodified-Since, so the
+   * frontend must check itself); a failed pre-check does not block saving.
+   */
+  private updateWithConflictCheck$(
+    path: string,
+    type: string,
+    uuid: string,
+    attributes: any,
+    relationships: any,
+    lang?: string
+  ) {
+    return this.nodeService.fetch(`${path}/${uuid}`, `fields[node--${type}]=changed`, lang).pipe(
+      catchError(() => of(null)),
+      switchMap(res => {
+        const changed = res?.data?.attributes?.changed;
+        if (this.loadedChanged && changed && changed !== this.loadedChanged) {
+          return throwError(() => ({ editConflict: true }));
+        }
+        return this.nodeService.updateEntity(path, uuid, attributes, relationships, lang);
+      })
+    );
+  }
+
+  /** On create success, clear the form and stay; on edit success, return to the content manage list */
   private onSubmitSuccess(isEdit: boolean): void {
     this.submitting.set(false);
     if (isEdit) {
       this.util.openSnackbar(this.translate.instant('BUILDER.NODE_ADD.UPDATE_SUCCESS'), 'ok');
-      this.router.navigate(['/builder/node-manage']);
+      this.router.navigate(['/builder/node/manage']);
     } else {
       this.form.reset();
       this.util.openSnackbar(this.translate.instant('BUILDER.NODE_ADD.SUBMIT_SUCCESS'), 'ok');
@@ -256,6 +423,10 @@ export class NodeAddComponent implements OnInit {
 
   private showSubmitError(err: any): void {
     this.submitting.set(false);
+    if (err?.editConflict) {
+      this.util.openSnackbar(this.translate.instant('BUILDER.NODE_ADD.EDIT_CONFLICT'), 'ok');
+      return;
+    }
     const message = err?.error?.errors?.[0]?.detail || err?.message || '';
     this.util.openSnackbar(
       this.translate.instant('BUILDER.NODE_ADD.SUBMIT_FAILED', { message }),

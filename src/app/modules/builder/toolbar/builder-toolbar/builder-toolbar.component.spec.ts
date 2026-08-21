@@ -43,15 +43,17 @@ describe('BuilderToolbarComponent', () => {
   const storage = { retrieve: vi.fn(), observe: vi.fn(() => of([])), store: vi.fn() };
   const userService = { openLoginDialog: vi.fn() };
   const user = signal<unknown>(true);
+  const currentPage = signal<IPage | false>(false);
 
   beforeEach(() => {
     vi.clearAllMocks();
     user.set(true);
+    currentPage.set(false);
     TestBed.configureTestingModule({
       providers: [
         { provide: USER, useValue: user },
         { provide: BUILDER_FULL_SCREEN, useValue: signal(false) },
-        { provide: BUILDER_CURRENT_PAGE, useValue: signal(false) },
+        { provide: BUILDER_CURRENT_PAGE, useValue: currentPage },
         { provide: MatDialog, useValue: { open: vi.fn() } },
         { provide: BuilderState, useValue: builder },
         { provide: UtilitiesService, useValue: util },

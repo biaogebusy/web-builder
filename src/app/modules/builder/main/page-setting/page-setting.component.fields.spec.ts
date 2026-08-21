@@ -29,7 +29,7 @@ function createFacade(type: 'node--landing_page' | 'node--json') {
           langcode: 'en',
           title: '  Page title  ',
           path: { alias: '/landing' },
-          meta_tags: { description: 'Page description' },
+          meta_tags: '{"description":"Page description","robots":"noindex, nofollow"}',
           is_transparent: true,
           transparent_style: 'dark',
         },
@@ -57,8 +57,24 @@ function createFacade(type: 'node--landing_page' | 'node--json') {
   return { component, getCommonField, instant, openSnackbar, updateAttributes, user };
 }
 
+function getTabs(fields: FormlyFieldConfig[]): FormlyFieldConfig[] {
+  const tabs = fields[0];
+  if (tabs?.type !== 'tabs' || !tabs.fieldGroup) {
+    throw new Error('Missing tabs field');
+  }
+  return tabs.fieldGroup;
+}
+
+function getTab(fields: FormlyFieldConfig[], key?: string): FormlyFieldConfig[] {
+  const tab = getTabs(fields).find(item => item.key === key);
+  if (!tab?.fieldGroup) {
+    throw new Error(`Missing tab: ${key}`);
+  }
+  return tab.fieldGroup;
+}
+
 function getField(fields: FormlyFieldConfig[], key: string): FormlyFieldConfig {
-  const field = fields.find(item => item.key === key);
+  const field = getTab(fields, undefined).find(item => item.key === key);
   if (!field) {
     throw new Error(`Missing field: ${key}`);
   }
@@ -69,7 +85,16 @@ describe('PageSettingComponent fields façade', () => {
   it('keeps landing page field order, defaults, labels, and special keys', () => {
     const { component, getCommonField, instant } = createFacade('node--landing_page');
 
-    expect(component.fields.map((field: FormlyFieldConfig) => field.key)).toEqual([
+    expect(
+      getTabs(component.fields).map((tab: FormlyFieldConfig) => [tab.key, tab.props?.label])
+    ).toEqual([
+      [undefined, 'BUILDER.PAGE_SETTING.BASIC'],
+      ['meta_tags', 'BUILDER.PAGE_SETTING.SEO'],
+    ]);
+    const basicKeys = getTab(component.fields, undefined).map(
+      (field: FormlyFieldConfig) => field.key
+    );
+    expect(basicKeys).toEqual([
       'title',
       'alias',
       'page_group',
@@ -81,7 +106,6 @@ describe('PageSettingComponent fields façade', () => {
       'type',
       'landcode',
       'id',
-      'meta_tags',
     ]);
     expect(getField(component.fields, 'title').defaultValue).toBe('Page title');
     expect(getField(component.fields, 'alias').defaultValue).toBe('/en/landing');
@@ -98,9 +122,16 @@ describe('PageSettingComponent fields façade', () => {
     expect(getField(component.fields, 'author').defaultValue).toBe('Page author');
     expect(getField(component.fields, 'landcode').defaultValue).toBe('en');
     expect(getField(component.fields, 'id').defaultValue).toBe(42);
-    expect(getField(component.fields, 'meta_tags').fieldGroup?.[0].defaultValue).toBe(
-      'Page description'
-    );
+    expect(
+      getTab(component.fields, 'meta_tags').map(
+        (field: FormlyFieldConfig) => [field.key, field.defaultValue] as const
+      )
+    ).toEqual([
+      ['title', ''],
+      ['description', 'Page description'],
+      ['keywords', ''],
+      ['robots', 'noindex, nofollow'],
+    ]);
     expect(instant.mock.calls.map(([key]) => key)).toEqual([
       'BUILDER.PAGE_SETTING.TITLE',
       'BUILDER.PAGE_SETTING.URL_ALIAS',
@@ -108,7 +139,6 @@ describe('PageSettingComponent fields façade', () => {
       'BUILDER.PAGE_SETTING.UPDATE_TIME',
       'BUILDER.PAGE_SETTING.CONTENT_TYPE',
       'BUILDER.PAGE_SETTING.LANGUAGE',
-      'BUILDER.PAGE_SETTING.PAGE_DESC',
       'BUILDER.PAGE_SETTING.PAGE_CATEGORY',
       'BUILDER.PAGE_SETTING.NONE',
       'BUILDER.PAGE_SETTING.UPDATE_COVER',
@@ -118,6 +148,18 @@ describe('PageSettingComponent fields façade', () => {
       'BUILDER.PAGE_SETTING.TRANSPARENT_STYLE',
       'BUILDER.PAGE_SETTING.LIGHT',
       'BUILDER.PAGE_SETTING.DARK',
+      'BUILDER.PAGE_SETTING.BASIC',
+      'BUILDER.PAGE_SETTING.SEO',
+      'BUILDER.PAGE_SETTING.SEO_TITLE',
+      'BUILDER.PAGE_SETTING.SEO_TITLE_PLACEHOLDER',
+      'BUILDER.PAGE_SETTING.PAGE_DESC',
+      'BUILDER.PAGE_SETTING.SEO_DESC_PLACEHOLDER',
+      'BUILDER.PAGE_SETTING.SEO_KEYWORDS',
+      'BUILDER.PAGE_SETTING.SEO_KEYWORDS_PLACEHOLDER',
+      'BUILDER.PAGE_SETTING.SEO_ROBOTS',
+      'BUILDER.PAGE_SETTING.SEO_ROBOTS_DEFAULT',
+      'BUILDER.PAGE_SETTING.SEO_ROBOTS_INDEX',
+      'BUILDER.PAGE_SETTING.SEO_ROBOTS_NOINDEX',
     ]);
     expect(getCommonField.mock.calls.map(([key]) => key)).toEqual([
       'title',
@@ -126,7 +168,7 @@ describe('PageSettingComponent fields façade', () => {
       'type',
       'langcode',
       'nid',
-      'description',
+      'meta_tags',
     ]);
     expect(component.type).toBe('node--landing_page');
     expect(component.loading()).toBe(false);
@@ -135,16 +177,12 @@ describe('PageSettingComponent fields façade', () => {
   it('keeps JSON pages limited to the common fields', () => {
     const { component } = createFacade('node--json');
 
-    expect(component.fields.map((field: FormlyFieldConfig) => field.key)).toEqual([
-      'title',
-      'alias',
-      'author',
-      'changed',
-      'type',
-      'landcode',
-      'id',
-      'meta_tags',
-    ]);
+    // node--json has no Drupal meta_tags field, so it gets no SEO tab
+    expect(getTabs(component.fields).map((tab: FormlyFieldConfig) => tab.key)).toEqual([undefined]);
+    const basicKeys = getTab(component.fields, undefined).map(
+      (field: FormlyFieldConfig) => field.key
+    );
+    expect(basicKeys).toEqual(['title', 'alias', 'author', 'changed', 'type', 'landcode', 'id']);
   });
 
   it('keeps transparent style visibility tied to is_transparent', () => {

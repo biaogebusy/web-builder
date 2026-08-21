@@ -18,12 +18,6 @@ export interface IBuilderConfig {
     delay: number;
     steps: JsonObject[];
   };
-  generater: FormlyFieldConfig[];
-  api: {
-    create: string;
-    update: string;
-    translate: string;
-  };
   widgetPicker: {
     help: {
       tooltip: string;
@@ -166,28 +160,57 @@ export interface IWidgetPicker {
   };
 }
 
+/** One server side revision of a landing page */
+export interface IPageRevision {
+  /** Node revision id, used to load the page JSON of this revision */
+  vid: string;
+  /** True for the revision the page is currently published from */
+  current: boolean;
+  /** Unix timestamp (seconds) of the revision */
+  changed: number;
+  /** Revision log message, empty when the editor left none */
+  log: string;
+  /** Display name of the revision author */
+  author: string;
+}
+
+/** Response of GET /api/v3/landingPage/revisions/{nid} */
+export interface IPageRevisionList {
+  status: boolean;
+  message: string;
+  nid: string;
+  uuid: string;
+  /** Current default revision id */
+  vid: string;
+  langcode: string;
+  revisions: IPageRevision[];
+}
+
+/** Right drawer element listing the server side revisions of one page */
+export interface IPageRevisionPanel {
+  type: 'page-revision';
+  fullWidth: boolean;
+  content: {
+    nid: string;
+    title: string;
+    langcode?: string;
+  };
+}
+
 export interface IWidgets {
   label: string;
   icon: IIcon;
   elements: IDynamicInputs[];
 }
 
-export type IMetaEdit = IMetaTextEdit | IMetaImageEdit;
+// The text variant was retired with the old text panel (text editing uses the tiptap bubble); only image editing remains
+export type IMetaEdit = IMetaImageEdit;
 
 interface IMetaEditBase {
   type: string;
   path: string;
   fields?: FormlyFieldConfig[];
   fullWidth: boolean;
-}
-
-export interface IMetaTextEdit extends IMetaEditBase {
-  mode: 'text';
-  ele: HTMLElement;
-  data: {
-    innerHTML: string;
-    tag: string;
-  };
 }
 
 export interface IMetaImageEdit extends IMetaEditBase {
@@ -208,7 +231,7 @@ export interface ICustomTemplate extends ICombsBase {
   isAPI?: boolean;
   api?: string;
   dialogs?: ICustomTemplateDialog[];
-  /** 自定义 JS 逻辑（仅管理员可编辑），前台渲染后执行，可 return 清理函数 */
+  /** Custom JS logic (admin-editable only), executed after front-end rendering; may return a cleanup function */
   js?: string;
 }
 
@@ -232,7 +255,7 @@ export interface ICodeEditor {
     js?: string;
   };
   path: string;
-  /** 打开编辑器后定位并选中的源码片段 */
+  /** Source snippet to locate and select after opening the editor */
   reveal?: string;
 }
 

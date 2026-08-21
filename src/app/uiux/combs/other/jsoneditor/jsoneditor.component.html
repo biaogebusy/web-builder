@@ -35,6 +35,17 @@
               {{ action.label }}
             </button>
           }
+          @case ('updatePage') {
+            <button
+              *reqRolesIf="action"
+              (click)="onUpdatePage(action)"
+              mat-raised-button
+              color="{{ action.color || 'primary' }}"
+              [disabled]="!value"
+            >
+              {{ action.label }}
+            </button>
+          }
           @default {
             <app-dynamic-component [inputs]="action" />
           }

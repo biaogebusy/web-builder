@@ -5,7 +5,13 @@
         <app-title [attr.data-path]="'title'" #title [content]="textContent.title" />
       }
       @if (textContent.body) {
-        <div #body class="text-body" contentedit="body" [innerHTML]="textContent.body | safeHtml"></div>
+        <div
+          #body
+          class="text-body"
+          contentedit="body"
+          contenteditProfile="rich"
+          [innerHTML]="textContent.body | safeHtml"
+        ></div>
       }
       @if (textContent.actions) {
         <div
@@ -15,7 +21,7 @@
             textContent.actionsAlign ?? 'center'
           }}"
         >
-          @for (action of textContent.actions; track action; let i = $index) {
+          @for (action of textContent.actions; track $index; let i = $index) {
             @switch (action.type) {
               @case ('closeDialog') {
                 <button

@@ -1,94 +1,161 @@
 import {
-  Component,
-  OnInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  inject,
+  Component,
+  ComponentRef,
   DestroyRef,
-  output,
+  OnInit,
+  ViewContainerRef,
+  inject,
   input,
-  model
+  model,
+  output,
+  signal,
+  viewChild,
 } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { TranslateModule } from '@ngx-translate/core';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { ScreenService } from '@core/service/screen.service';
-import { Observable } from 'rxjs';
 import type { IBaseNode, ICommentParams } from '@core/interface/node/INode';
 import { merge } from 'lodash-es';
 import { ContentState } from '@core/state/ContentState';
-import { QuillModule } from 'ngx-quill';
-import { CORE_CONFIG, USER } from '@core/token/token-providers';
-import type { ICoreConfig } from '@core/interface/IAppConfig';
+import { USER } from '@core/token/token-providers';
 import type { IUser } from '@core/interface/IUser';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TitleComponent } from '@uiux/widgets/title/title.component';
 import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
+import type { TiptapEditorComponent } from '@uiux/combs/other/tiptap-editor/tiptap-editor.component';
 
 @Component({
   selector: 'app-comment-form',
   templateUrl: './comment-form.component.html',
   styleUrls: ['./comment-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, MatButtonModule, QuillModule, TitleComponent, LoadingComponent],
+  imports: [MatButtonModule, TranslateModule, TitleComponent, LoadingComponent],
 })
 export class CommentFormComponent implements OnInit {
-  private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
-  private user = inject(USER);
-
   readonly content = input.required<IBaseNode>();
-  readonly commentContent = model<any>('');
+  readonly commentContent = model<string>('');
   readonly commentId = input<string>();
   readonly type = input<string>();
   readonly dismiss = output<void>();
 
+  readonly editorHost = viewChild.required('editorHost', { read: ViewContainerRef });
+  readonly editorLoaded = signal(false);
+  readonly editorLoading = signal(false);
+  readonly editorError = signal(false);
+
   loading = false;
   placeholder = '请输入...';
-  modules: QuillModule;
 
   cd = inject(ChangeDetectorRef);
   nodeService = inject(NodeService);
   screenService = inject(ScreenService);
   utilitiesService = inject(UtilitiesService);
   contentState = inject(ContentState);
+  private user = inject(USER);
   private destroyRef = inject(DestroyRef);
+  private editorRef: ComponentRef<TiptapEditorComponent> | null = null;
+  private destroyed = false;
+  private editorLoadToken = 0;
 
-  constructor() {}
+  constructor() {
+    this.destroyRef.onDestroy(() => {
+      this.destroyed = true;
+      this.editorLoadToken++;
+      this.editorRef?.destroy();
+    });
+  }
 
   ngOnInit(): void {
-    if (this.screenService.isPlatformBrowser()) {
-      this.modules = Object.assign(
-        this.coreConfig?.editor?.modules || {},
-        this.content().editor?.modules
-      );
-      this.contentState.commentQuote$
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe((quote: any) => {
-          this.screenService.scrollToAnchor('comment');
-          this.commentContent.set(`
+    if (!this.screenService.isPlatformBrowser()) {
+      return;
+    }
+    this.contentState.commentQuote$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((quote: any) => {
+        this.screenService.scrollToAnchor('comment');
+        this.commentContent.set(`
           <br>
           <em style="color: rgb(136, 136, 136);font-style: italic;">
           ====================<br>${quote.author.title}<br>${quote.author.subTitle}<br>
           ${quote.content}
           </em>
           `);
-          this.cd.detectChanges();
-        });
-      this.cd.detectChanges();
+        // A quote must be visible immediately, so mount the editor when it is still collapsed
+        if (this.editorRef) {
+          this.syncEditorContent();
+        } else {
+          this.activateEditor();
+        }
+        this.cd.detectChanges();
+      });
+  }
+
+  activateEditor(): void {
+    if (
+      this.editorRef ||
+      this.editorLoading() ||
+      this.destroyed ||
+      !this.screenService.isPlatformBrowser()
+    ) {
+      return;
     }
+    const loadToken = ++this.editorLoadToken;
+    void this.createEditor(loadToken);
+  }
+
+  private async createEditor(loadToken: number): Promise<void> {
+    this.editorLoading.set(true);
+    this.editorError.set(false);
+
+    try {
+      const { TiptapEditorComponent } = await import(
+        '@uiux/combs/other/tiptap-editor/tiptap-editor.component'
+      );
+      if (this.destroyed || this.editorRef || loadToken !== this.editorLoadToken) {
+        return;
+      }
+      const editorRef = this.editorHost().createComponent(TiptapEditorComponent);
+      editorRef.setInput('content', {
+        html: this.commentContent(),
+        placeholder: this.content().editor?.placeholder || this.placeholder,
+      });
+      editorRef.setInput('height', this.content().editor?.height || '250px');
+      // The editor replaces the placeholder button the visitor just activated, so keep the caret there
+      editorRef.setInput('autofocus', true);
+      editorRef.instance.htmlChange.subscribe(html => this.commentContent.set(html));
+      this.editorRef = editorRef;
+      this.editorLoaded.set(true);
+    } catch (error) {
+      if (!this.destroyed && loadToken === this.editorLoadToken) {
+        console.error('Error loading Tiptap editor:', error);
+        this.editorError.set(true);
+      }
+    } finally {
+      if (!this.destroyed && loadToken === this.editorLoadToken) {
+        this.editorLoading.set(false);
+        this.cd.markForCheck();
+      }
+    }
+  }
+
+  private syncEditorContent(): void {
+    this.editorRef?.instance.setContent(this.commentContent());
   }
 
   onCancel(): void {
     this.dismiss.emit();
   }
 
-  onSubmit(value: any): void {
+  onSubmit(value: string): void {
     this.loading = true;
     const token = (this.user() as IUser)?.access_token;
     const params = this.content().params?.comment as ICommentParams;
     const type = params.attributes?.field_name || '';
-    // reply, update 在组件内判断处理，默认新增，包括外部组件
+    // reply/update are handled inside this component; default is add, including for external components
     switch (this.type()) {
       case 'reply':
         this.reply(value, params, type, token);
@@ -103,7 +170,6 @@ export class CommentFormComponent implements OnInit {
   }
 
   add(value: string, params: ICommentParams, type: string, token: string): void {
-    // 默认comment_boyd，不一致的在后台覆写字段 /admin/config/services/jsonapi/add/resource_types
     params.attributes.comment_body = {
       value,
       format: 'full_html',
@@ -114,6 +180,7 @@ export class CommentFormComponent implements OnInit {
       .subscribe(
         () => {
           this.commentContent.set('');
+          this.syncEditorContent();
           this.done('提交成功！');
           this.cd.detectChanges();
         },
@@ -146,14 +213,10 @@ export class CommentFormComponent implements OnInit {
     const data = merge({}, params, entity);
     this.nodeService
       .replyComment(type, data, token)
-      .pipe(
-        // catchError(() => {
-        //   return of({});
-        // }),
-        takeUntilDestroyed(this.destroyRef)
-      )
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
         this.commentContent.set('');
+        this.syncEditorContent();
         this.done('回复成功！');
         this.cd.detectChanges();
       });
@@ -180,12 +243,7 @@ export class CommentFormComponent implements OnInit {
     };
     this.nodeService
       .updateComment(type, entity, this.commentId() ?? '', token)
-      .pipe(
-        // catchError(() => {
-        //   return of({});
-        // }),
-        takeUntilDestroyed(this.destroyRef)
-      )
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(
         () => {
           this.done('更新成功！');
@@ -202,10 +260,5 @@ export class CommentFormComponent implements OnInit {
     this.cd.detectChanges();
     this.contentState.commentChange.set(true);
     this.utilitiesService.openSnackbar(snack || this.content()?.editor?.success?.label);
-  }
-
-  editorCreated(quill: any): void {
-    const toolbar = quill.getModule('toolbar');
-    toolbar.addHandler('image', this.nodeService.imageHandler.bind(this.nodeService, quill));
   }
 }
