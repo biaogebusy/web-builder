@@ -9,6 +9,15 @@ import { ComponentService } from '@core/service/component.service';
 class PreloadTestComponent {}
 
 describe('ComponentService', () => {
+  it('does not register the editor as a public dynamic component', () => {
+    const service = TestBed.inject(ComponentService);
+    const getComponentType = vi.spyOn(service, 'getComponentType');
+
+    return service.preloadComponentTypes({ body: [{ type: 'tiptap-editor' }] }).then(() => {
+      expect(getComponentType).not.toHaveBeenCalled();
+    });
+  });
+
   it('preloads unique registered component types recursively', async () => {
     const service = TestBed.inject(ComponentService);
     const getComponentType = vi

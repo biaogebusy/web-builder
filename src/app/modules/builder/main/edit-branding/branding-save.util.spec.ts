@@ -1,8 +1,14 @@
+import { of } from 'rxjs';
+import { vi } from 'vitest';
 import type { IBranding, IFooter, IHeader } from '@core/interface/branding/IBranding';
+import type { NodeService } from '@core/service/node.service';
 import {
+  BRANDING_ALIAS,
   BRANDING_JSON_ENDPOINT,
   buildBrandingUpdateBody,
   canSaveBranding,
+  listBrandingNodes,
+  pickBrandingNode,
 } from './branding-save.util';
 
 describe('branding save utilities', () => {
@@ -50,5 +56,51 @@ describe('branding save utilities', () => {
     const payload = buildBrandingUpdateBody(branding, 'footer', updatedFooter);
 
     expect(JSON.parse(payload.body)).toEqual({ header, footer: updatedFooter });
+  });
+
+  describe('listBrandingNodes / pickBrandingNode', () => {
+    // List node--json entries and match by alias (filter[path.alias] 500s on some backends)
+    const jsonNode = (id: string, langcode: string, alias: string) => ({
+      id,
+      attributes: { langcode, path: { alias } },
+    });
+
+    const nodeServiceMock = (rows: unknown[]) =>
+      ({ fetch: vi.fn(() => of({ data: rows })) }) as unknown as NodeService;
+
+    it('lists only branding-alias nodes with a sparse fieldset request', async () => {
+      const service = nodeServiceMock([
+        jsonNode('uuid-base', 'zh-hans', '/core/base'),
+        jsonNode('uuid-zh', 'zh-hans', BRANDING_ALIAS),
+        jsonNode('uuid-en', 'en', BRANDING_ALIAS),
+      ]);
+
+      await expect(listBrandingNodes(service).toPromise()).resolves.toEqual([
+        { uuid: 'uuid-zh', langcode: 'zh-hans' },
+        { uuid: 'uuid-en', langcode: 'en' },
+      ]);
+      expect(service.fetch).toHaveBeenCalledWith(BRANDING_JSON_ENDPOINT, {
+        'fields[node--json]': 'langcode,path',
+        'page[limit]': 50,
+      });
+    });
+
+    it('picks the node matching the target langcode', () => {
+      const nodes = [
+        { uuid: 'uuid-zh', langcode: 'zh-hans' },
+        { uuid: 'uuid-en', langcode: 'en' },
+      ];
+
+      expect(pickBrandingNode(nodes, 'en')).toEqual({ uuid: 'uuid-en', langcode: 'en' });
+      expect(pickBrandingNode(nodes, 'zh-hans')).toEqual({ uuid: 'uuid-zh', langcode: 'zh-hans' });
+    });
+
+    it('falls back to the first node without a match and null when empty', () => {
+      const nodes = [{ uuid: 'uuid-zh', langcode: 'zh-hans' }];
+
+      expect(pickBrandingNode(nodes, 'en')).toEqual({ uuid: 'uuid-zh', langcode: 'zh-hans' });
+      expect(pickBrandingNode(nodes, undefined)).toEqual({ uuid: 'uuid-zh', langcode: 'zh-hans' });
+      expect(pickBrandingNode([], 'en')).toBeNull();
+    });
   });
 });

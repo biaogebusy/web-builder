@@ -1,0 +1,114 @@
+:host {
+  @apply block;
+}
+
+.page-revision {
+  @apply flex flex-col;
+  // Fill the right drawer below its 50px header and the 20px padding of .right-content, so only
+  // the list scrolls and the footer never leaves the viewport
+  height: calc(100vh - 90px);
+}
+
+.revision-page-title {
+  @apply m-0 shrink-0 truncate px-3 pb-2 text-sm font-medium;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.state {
+  @apply flex flex-1 flex-col items-center justify-center gap-3 p-6;
+}
+
+.state-text {
+  @apply m-0 text-center text-sm;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.revision-actions {
+  @apply flex flex-wrap items-center gap-2 px-3;
+}
+
+.revision-actions-hint {
+  @apply text-xs;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.revision-list {
+  @apply m-0 min-h-0 flex-1 list-none overflow-y-auto p-0;
+}
+
+.revision-item {
+  @apply flex items-center;
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  &.current {
+    box-shadow: inset 3px 0 0 var(--mat-sys-primary);
+  }
+}
+
+.revision-select {
+  @apply shrink-0 pl-2;
+}
+
+.revision-row {
+  @apply flex min-w-0 flex-1 cursor-pointer flex-col items-start gap-1 px-3 py-2.5 text-left;
+  background: none;
+  border: none;
+  color: var(--mat-sys-on-surface);
+  font: inherit;
+  transition: background-color 120ms ease;
+
+  &:hover {
+    background-color: var(--mat-sys-surface-container-low);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--mat-sys-primary);
+    outline-offset: -2px;
+  }
+}
+
+.revision-header {
+  @apply flex w-full min-w-0 items-center justify-between gap-2;
+}
+
+.revision-time {
+  @apply text-sm font-medium;
+}
+
+.revision-badge {
+  @apply shrink-0 rounded px-1.5 py-0.5 text-[10px] font-medium leading-4;
+  color: var(--mat-sys-on-primary-container);
+  background-color: var(--mat-sys-primary-container);
+}
+
+.revision-meta {
+  @apply flex min-w-0 items-center gap-1.5 text-xs;
+  color: var(--mat-sys-on-surface-variant);
+
+  .revision-author {
+    @apply min-w-0 max-w-40 truncate;
+  }
+}
+
+.revision-vid {
+  @apply shrink-0 font-mono;
+}
+
+.revision-log {
+  @apply line-clamp-2 text-xs;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.revision-footer {
+  @apply flex shrink-0 flex-col gap-2 pt-2;
+  border-top: 1px solid var(--mat-sys-outline-variant);
+}
+
+.revision-hint {
+  @apply m-0 px-3 text-xs;
+  color: var(--mat-sys-on-surface-variant);
+}

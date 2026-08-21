@@ -274,6 +274,79 @@ describe('BuilderState tree and draft behavior', () => {
     expect(storage.store).toHaveBeenCalledOnce();
   });
 
+  it('keeps a translation draft separate from its source language page', () => {
+    const source = makePage([], { nid: '7', langcode: 'zh-hans', dirty: true });
+    const { state } = createState([source]);
+
+    state.loadNewPage(
+      makePage([], {
+        nid: '7',
+        langcode: 'zh-hans',
+        translation: true,
+        target: 'en',
+        dirty: true,
+      })
+    );
+
+    expect(state.version()).toHaveLength(2);
+    expect(state.version()[1]).toMatchObject({ langcode: 'zh-hans', dirty: true, current: false });
+    expect(state.getLocalPageByPage({ nid: '7', langcode: 'en' })).toMatchObject({
+      translation: true,
+      target: 'en',
+      current: true,
+    });
+  });
+
+  it('finds a local page by nid and language and reports its dirty state', () => {
+    const source = makePage([], { nid: '7', langcode: 'zh-hans', dirty: true });
+    const translation = makePage([], { nid: '7', langcode: 'en', current: false });
+    const { state } = createState([source, translation]);
+
+    expect(state.getLocalPageByPage({ nid: '7', langcode: 'zh-hans' })).toBe(source);
+    expect(state.isPageDirty({ nid: '7', langcode: 'zh-hans' })).toBe(true);
+    expect(state.isPageDirty({ nid: '7', langcode: 'en' })).toBe(false);
+  });
+
+  it('deletes only the matching local language version by default', () => {
+    const source = makePage([], { nid: '7', langcode: 'zh-hans' });
+    const translation = makePage([], { nid: '7', langcode: 'en', current: false });
+    const other = makePage([], { nid: '8', langcode: 'zh-hans', current: false });
+    const { state } = createState([source, translation, other]);
+
+    state.deleteLocalPageByPage({ nid: '7', langcode: 'en' });
+
+    expect(state.version().map(page => `${page.nid}:${page.langcode}`)).toEqual([
+      '7:zh-hans',
+      '8:zh-hans',
+    ]);
+  });
+
+  it('deletes every local language version when the source page is removed', () => {
+    const source = makePage([], { nid: '7', langcode: 'zh-hans' });
+    const translation = makePage([], { nid: '7', langcode: 'en', current: false });
+    const other = makePage([], { nid: '8', langcode: 'zh-hans', current: false });
+    const { state } = createState([source, translation, other]);
+
+    state.deleteLocalPageByPage({ nid: '7', langcode: 'zh-hans' }, true);
+
+    expect(state.version()).toHaveLength(1);
+    expect(state.currentPage).toMatchObject({ nid: '8', current: true });
+  });
+
+  it('keeps the right drawer open when a background page is deleted', () => {
+    const current = makePage([], { nid: '7', langcode: 'zh-hans' });
+    const other = makePage([], { nid: '8', langcode: 'zh-hans', current: false });
+    const { state } = createState([current, other]);
+    const closeDrawer = vi.fn();
+    state.closeRightDrawer$.subscribe(closeDrawer);
+
+    state.deleteLocalPageByPage({ nid: '8', langcode: 'zh-hans' });
+    expect(closeDrawer).not.toHaveBeenCalled();
+
+    state.deleteLocalPageByPage({ nid: '7', langcode: 'zh-hans' });
+    expect(closeDrawer).toHaveBeenCalledWith(true);
+  });
+
   it('marks the current page dirty when its content is edited', () => {
     const { state } = createState([makePage([{ type: 'text' }], { nid: '42' })]);
 

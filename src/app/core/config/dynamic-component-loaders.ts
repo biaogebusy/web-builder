@@ -67,7 +67,10 @@ export const DYNAMIC_COMPONENT_LOADERS: Readonly<Record<string, ComponentLoader>
   'dropdown-menu': () => loadUtilityWidgets().then(m => m.DropdownMenuComponent),
   'number-animate': () => loadUtilityWidgets().then(m => m.NumberAnimateComponent),
   'progress-group': () => loadUtilityWidgets().then(m => m.ProgressGroupComponent),
-  'inline-lightbox': () => loadUtilityWidgets().then(m => m.InlineLightboxComponent),
+  'inline-lightbox': () =>
+    import('@uiux/widgets/lightbox/inline-lightbox/inline-lightbox.component').then(
+      m => m.InlineLightboxComponent
+    ),
 
   'layout-builder': () =>
     import('@uiux/widgets/builder/layout-builder/layout-builder.component').then(
@@ -114,6 +117,9 @@ export const DYNAMIC_COMPONENT_LOADERS: Readonly<Record<string, ComponentLoader>
     import('@uiux/combs/other/custom-template/custom-template.component').then(
       m => m.CustomTemplateComponent
     ),
+  // Tiptap is an editing surface, never a public-page component. Its consumers
+  // load it through feature-local dynamic imports so page preloading cannot pull
+  // the editor into the public bundle.
   'profile-1v1': () => loadProfile().then(m => m.Profile1v1Component),
   search: () => import('@uiux/combs/search/search.component').then(m => m.SearchComponent),
   'showcase-1v1': () => loadShowcase().then(m => m.Showcase1v1Component),
@@ -130,6 +136,7 @@ export const DYNAMIC_COMPONENT_LOADERS: Readonly<Record<string, ComponentLoader>
   'card-list': () => loadBuilder().then(m => m.CardListComponent),
   'inline-editor': () => loadBuilder().then(m => m.InlineEditComponent),
   'page-setting': () => loadBuilder().then(m => m.PageSettingComponent),
+  'page-revision': () => loadBuilder().then(m => m.PageRevisionComponent),
   'widget-picker': () => loadBuilder().then(m => m.WidgetPickerComponent),
   'layout-setting': () => loadBuilder().then(m => m.LayoutSettingComponent),
   'builder-template': () => loadBuilder().then(m => m.BuilderTemplateComponent),

@@ -12,6 +12,7 @@
       @if (contentValue.meta) {
         <div
           contentedit="meta"
+          contenteditProfile="inline"
           class="meta"
           [innerHTML]="contentValue.meta | safeHtml"
         ></div>
@@ -19,21 +20,28 @@
     </div>
     <div class="media-body">
       @if (contentValue.title) {
-        <div contentedit="title" class="title line-height-1 mat-h3">
-          {{ contentValue.title }}
-        </div>
+        <div
+          contentedit="title"
+          contenteditProfile="inline"
+          class="title line-height-1 mat-h3"
+          [innerHTML]="contentValue.title | safeHtml"
+        ></div>
       }
       @if (contentValue.link) {
         <app-link [attr.data-path]="'link'" [content]="contentValue.link" />
       }
       @if (contentValue.subTitle) {
-        <div contentedit="subTitle" class="sub-title">
-          {{ contentValue.subTitle }}
-        </div>
+        <div
+          contentedit="subTitle"
+          contenteditProfile="inline"
+          class="sub-title"
+          [innerHTML]="contentValue.subTitle | safeHtml"
+        ></div>
       }
       @if (contentValue.content) {
         <div
           contentedit="content"
+          contenteditProfile="rich"
           class="media-content"
           [innerHTML]="contentValue.content | safeHtml"
         ></div>

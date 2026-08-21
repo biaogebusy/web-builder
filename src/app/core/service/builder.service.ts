@@ -16,6 +16,7 @@ import { ContentService } from './content.service';
 import { isArray } from 'lodash-es';
 import { IDialog } from '@core/interface/IDialog';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
+import type { IPageRevisionList } from '@core/interface/IBuilder';
 import {
   coverExtraData,
   formatPage,
@@ -29,6 +30,13 @@ import { TranslateService } from '@ngx-translate/core';
 const BUILDERPATH = '/builder';
 const VERSION_KEY = 'version';
 const VERSION_CHECK_INTERVAL = 30000;
+// Landing page read/write APIs: paths are identical across deployments; the domain is
+// decided by apiUrl (see environments / config/proxy.config.js)
+const LANDING_PAGE_API = {
+  create: '/api/v3/landingPage/builder',
+  update: '/api/v3/landingPage/update',
+  translate: '/api/v3/landingPage/translations',
+};
 
 @Injectable({
   providedIn: 'root',
@@ -39,7 +47,6 @@ export class BuilderService extends ApiService {
   private util = inject(UtilitiesService);
   private nodeService = inject(NodeService);
   private contentService = inject(ContentService);
-  private builderConfig$ = this.contentService.loadBuilderConfig();
   private destroyRef = inject(DestroyRef);
   private router = inject(Router);
   private storage = inject(LocalStorageService);
@@ -60,54 +67,68 @@ export class BuilderService extends ApiService {
     this.nodeService
       .fetch(`/api/v3/landingPage/json/${nid}`, { noCache: 1 }, lang)
       .pipe(take(1))
-      .subscribe((content: IPage) => {
-        const { body, status, uuid } = content;
-        this.builder.loading.set(false);
-        if (status) {
-          this.builder.loadNewPage(formatToExtraData(content, isTemplate));
-          if (isTemplate) {
-            this.util.openSnackbar(`已复制${content.title}`, 'ok');
-          } else {
-            this.util.openSnackbar(`已加载${content.title}`, 'ok');
-          }
-          if (openSetting) {
-            const config: IDialog = {
-              title: '页面属性',
-              noLabel: '取消',
-              yesLabel: '确认',
-              inputData: {
-                content: {
-                  type: 'text',
-                  fullWidth: true,
-                  body: `是否需要打开页面属性面板？`,
+      .subscribe({
+        next: (content: IPage) => {
+          const { body, status, uuid } = content;
+          this.builder.loading.set(false);
+          if (status) {
+            this.builder.loadNewPage(formatToExtraData(content, isTemplate));
+            this.util.openSnackbar(
+              this.translate.instant(
+                isTemplate ? 'BUILDER.PAGE_LIST.COPIED_PAGE' : 'BUILDER.PAGE_LIST.LOADED_PAGE',
+                { title: content.title }
+              ),
+              'ok'
+            );
+            if (openSetting) {
+              const config: IDialog = {
+                title: this.translate.instant('BUILDER.PAGE_LIST.PAGE_PROPS'),
+                noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
+                yesLabel: this.translate.instant('BUILDER.COMMON.CONFIRM'),
+                inputData: {
+                  content: {
+                    type: 'text',
+                    fullWidth: true,
+                    body: this.translate.instant('BUILDER.PAGE_LIST.OPEN_PAGE_PROPS_CONFIRM'),
+                  },
                 },
-              },
-            };
-            const dialogRef = this.dialog.open(DialogComponent, {
-              width: '340px',
-              data: config,
-            });
-
-            dialogRef
-              .afterClosed()
-              .pipe(take(1))
-              .subscribe(result => {
-                if (result && uuid) {
-                  this.openPageSetting(
-                    { uuid, langcode },
-                    '/api/v1/node/landing_page',
-                    getPageParams(['uid', 'group', 'cover', 'cover.field_media_image'])
-                  );
-                }
+              };
+              const dialogRef = this.dialog.open(DialogComponent, {
+                width: '340px',
+                data: config,
               });
-          }
 
-          if (body.length === 0) {
-            this.util.openSnackbar('当前内容为空，已为你初始化一个组件', 'ok');
+              dialogRef
+                .afterClosed()
+                .pipe(take(1))
+                .subscribe(result => {
+                  if (result && uuid) {
+                    this.openPageSetting(
+                      { uuid, langcode },
+                      '/api/v1/node/landing_page',
+                      getPageParams(['uid', 'group', 'cover', 'cover.field_media_image'])
+                    );
+                  }
+                });
+            }
+
+            if (body.length === 0) {
+              this.util.openSnackbar(
+                this.translate.instant('BUILDER.PAGE_LIST.EMPTY_PAGE_INITIALIZED'),
+                'ok'
+              );
+            }
+          } else {
+            this.util.openSnackbar(
+              this.translate.instant('BUILDER.PAGE_LIST.NOT_BUILDER_PAGE'),
+              'ok'
+            );
           }
-        } else {
-          this.util.openSnackbar('该页面非builder创建，请到后台编辑', 'ok');
-        }
+        },
+        error: () => {
+          this.builder.loading.set(false);
+          this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_LIST.LOAD_PAGE_FAIL'), 'ok');
+        },
       });
   }
 
@@ -118,23 +139,21 @@ export class BuilderService extends ApiService {
       .fetch(`/api/v3/landingPage/json/${nid}`, { noCache: 1 }, lang)
       .pipe(take(1))
       .subscribe((content: IPage) => {
-        const { status, uuid } = content;
+        const { status } = content;
         if (status) {
           const jsonWidget: IJsoneditor = {
             type: 'jsoneditor',
             data: formatToExtraData(content),
             classes: 'full-height',
-            isSetting: true,
             schemaType: 'page',
             fullWidth: true,
             actions: [
               {
-                type: 'update',
+                type: 'updatePage',
                 label: '更新JSON',
                 params: {
-                  uuid,
+                  nid,
                   langcode,
-                  api: '/api/v1/node/landing_page',
                 },
               },
             ],
@@ -152,6 +171,202 @@ export class BuilderService extends ApiService {
           this.util.openSnackbar('该页面非builder创建，请到后台编辑', 'ok');
         }
       });
+  }
+
+  /**
+   * Server side revision list of a landing page, newest first.
+   */
+  getPageRevisions(page: { langcode?: string; nid: string }): Observable<IPageRevisionList> {
+    const { langcode, nid } = page;
+    return this.nodeService.fetch(
+      `/api/v3/landingPage/revisions/${nid}`,
+      { noCache: 1 },
+      getApiLang(langcode)
+    );
+  }
+
+  /**
+   * Page JSON of a single revision, without touching the local draft.
+   */
+  getPageRevision(page: { langcode?: string; nid: string; vid: string }): Observable<IPage> {
+    const { langcode, nid, vid } = page;
+    return this.nodeService.fetch(
+      `/api/v3/landingPage/revisions/${nid}/${vid}`,
+      { noCache: 1 },
+      getApiLang(langcode)
+    );
+  }
+
+  /**
+   * Load one revision into the local draft. The payload reports the *current* revision id and
+   * changed time, so the following save still commits on top of the latest revision instead of
+   * being rejected as stale.
+   */
+  loadPageRevision(page: { langcode?: string; nid: string; vid: string }): void {
+    const { vid } = page;
+    this.builder.loading.set(true);
+    this.getPageRevision(page)
+      .pipe(take(1))
+      .subscribe({
+        next: (content: IPage) => {
+          this.builder.loading.set(false);
+          if (!content?.status) {
+            this.util.openSnackbar(this.translate.instant('BUILDER.REVISION.LOAD_FAIL'), 'ok');
+            return;
+          }
+          // The restored content differs from what the server renders until it is saved, so the
+          // draft has to start out dirty
+          this.builder.loadNewPage({
+            ...formatToExtraData(content),
+            dirty: true,
+            revisionVid: vid,
+          });
+          this.util.openSnackbar(this.translate.instant('BUILDER.REVISION.LOADED', { vid }), 'ok');
+        },
+        error: () => {
+          this.builder.loading.set(false);
+          this.util.openSnackbar(this.translate.instant('BUILDER.REVISION.LOAD_FAIL'), 'ok');
+        },
+      });
+  }
+
+  /**
+   * Publish an old revision as the newest one, the way Drupal reverts: the content of `vid` is
+   * saved on top of the current revision, so nothing is removed from the history.
+   *
+   * The revision is fetched again instead of reusing the draft on the canvas, so the restore
+   * always commits exactly what the list offered, even after the preview was edited.
+   */
+  restoreRevision(page: { langcode?: string; nid: string; vid: string }): void {
+    const { langcode, nid, vid } = page;
+    const config: IDialog = {
+      title: this.translate.instant('BUILDER.REVISION.RESTORE_TITLE'),
+      noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
+      yesLabel: this.translate.instant('BUILDER.REVISION.RESTORE_YES'),
+      inputData: {
+        content: {
+          type: 'text',
+          fullWidth: true,
+          body: this.translate.instant('BUILDER.REVISION.RESTORE_CONFIRM', { vid }),
+        },
+      },
+    };
+    this.dialog
+      .open(DialogComponent, { width: '340px', data: config })
+      .afterClosed()
+      .pipe(
+        filter(Boolean),
+        switchMap(() => {
+          this.builder.loading.set(true);
+          return this.nodeService.fetch(
+            `/api/v3/landingPage/revisions/${nid}/${vid}`,
+            { noCache: 1 },
+            getApiLang(langcode)
+          );
+        }),
+        switchMap((content: IPage) =>
+          content?.status
+            ? this.updateLandingPage({ ...formatToExtraData(content), langcode, nid }, false)
+            : of({ status: false, message: this.translate.instant('BUILDER.REVISION.LOAD_FAIL') })
+        ),
+        catchError(() => of({ status: false, message: '' })),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe((res: any) => {
+        if (!res?.status) {
+          this.builder.loading.set(false);
+          this.util.openSnackbar(
+            res?.message || this.translate.instant('BUILDER.REVISION.RESTORE_FAIL'),
+            'ok'
+          );
+          return;
+        }
+        this.reloadRestoredPage({ langcode, nid });
+        this.util.openSnackbar(
+          this.translate.instant('BUILDER.REVISION.RESTORE_SUCCESS', { vid }),
+          'ok'
+        );
+      });
+  }
+
+  /**
+   * Replace the draft with the revision the restore just created, so `vid`/`changed` match the
+   * server again and the staleness poll stays quiet. The right drawer keeps its revision list
+   * open, unlike `loadPage`, because the list is what the restore was started from.
+   *
+   * A restore can be started from the page list for a page that is not on the canvas, which must
+   * not steal the canvas from the page being edited: its local copy is dropped instead, so the
+   * next open reads the restored content from the server.
+   */
+  private reloadRestoredPage(page: { langcode?: string; nid: string }): void {
+    const { langcode, nid } = page;
+    if (!this.builder.getLocalPageByPage(page)?.current) {
+      this.builder.deleteLocalPageByPage(page);
+      this.builder.loading.set(false);
+      this.builder.updateSuccess$.next(true);
+      return;
+    }
+    this.nodeService
+      .fetch(`/api/v3/landingPage/json/${nid}`, { noCache: 1 }, getApiLang(langcode))
+      .pipe(take(1))
+      .subscribe({
+        next: (content: IPage) => {
+          this.builder.loading.set(false);
+          if (content?.status) {
+            this.builder.loadNewPage(formatToExtraData(content), false);
+          }
+          this.builder.updateSuccess$.next(true);
+        },
+        error: () => {
+          this.builder.loading.set(false);
+          this.builder.updateSuccess$.next(true);
+        },
+      });
+  }
+
+  /**
+   * Save a page edited as raw JSON from the page list, outside the builder canvas.
+   * `body` items are referenced json nodes, so the write goes through the landing page
+   * endpoint; JSON:API cannot patch them as a plain attribute.
+   */
+  updatePageJSON(page: { langcode?: string; nid: string }, editedPage: IPage): Observable<boolean> {
+    const { langcode, nid } = page;
+    return this.updateLandingPage({ ...editedPage, langcode, nid }, false).pipe(
+      catchError(() => {
+        // A rejected save is reported by updateLandingPage; a failed request never gets there
+        this.util.openSnackbar('更新失败，请重试', 'ok');
+        return of({ status: false });
+      }),
+      map((res: any) => {
+        this.builder.loading.set(false);
+        if (!res.status) {
+          return false;
+        }
+        this.util.openSnackbar('更新成功！', 'ok');
+        this.syncLocalPageAfterJSONUpdate(page);
+        return true;
+      })
+    );
+  }
+
+  /**
+   * The saved page may also live in the local version list, where it is now stale. A clean
+   * copy on the canvas is reloaded in place; a background copy is dropped so it is fetched
+   * again next time it is opened. A dirty canvas draft is left alone on purpose:
+   * `checkIsLatestPage` prompts before overwriting unsaved work.
+   */
+  private syncLocalPageAfterJSONUpdate(page: { langcode?: string; nid: string }): void {
+    const localPage = this.builder.getLocalPageByPage(page);
+    if (!localPage) {
+      return;
+    }
+    if (!localPage.current) {
+      this.builder.deleteLocalPageByPage(page);
+      return;
+    }
+    if (!localPage.dirty) {
+      this.loadPage(page);
+    }
   }
 
   checkIsLatestPage(checkPage: IPage): void {
@@ -275,29 +490,31 @@ export class BuilderService extends ApiService {
 
   createLandingPage(page: IPage, loadPage = true): Observable<any> {
     this.builder.loading.set(true);
-    return this.builderConfig$.pipe(
-      take(1),
-      switchMap(({ api: { create } }) =>
-        this.http.post(`${this.apiUrl}${create}`, formatPage(page), this.optionsWithBearerToken())
-      ),
-      tap((res: any) => {
-        const {
-          data: { nid },
-        } = res;
-        if (loadPage) {
-          this.loadPage({ nid }, true);
-        }
-      }),
-      catchError((error: any) => {
-        this.builder.loading.set(false);
-        if (error?.status === 403) {
-          this.util.openSnackbar('无权限执行此操作', 'ok');
-        } else {
-          this.util.openSnackbar('创建页面失败，请重试', 'ok');
-        }
-        return of(false);
-      })
-    );
+    return this.http
+      .post(
+        `${this.apiUrl}${LANDING_PAGE_API.create}`,
+        formatPage(page),
+        this.optionsWithBearerToken()
+      )
+      .pipe(
+        tap((res: any) => {
+          const {
+            data: { nid },
+          } = res;
+          if (loadPage) {
+            this.loadPage({ nid }, true);
+          }
+        }),
+        catchError((error: any) => {
+          this.builder.loading.set(false);
+          if (error?.status === 403) {
+            this.util.openSnackbar('无权限执行此操作', 'ok');
+          } else {
+            this.util.openSnackbar('创建页面失败，请重试', 'ok');
+          }
+          return of(false);
+        })
+      );
   }
 
   updateLandingPage(page: IPage, loadPage = true): Observable<any> {
@@ -309,32 +526,30 @@ export class BuilderService extends ApiService {
       prefix = `/${lang}`;
     }
     this.builder.loading.set(true);
-    return this.builderConfig$.pipe(
-      take(1),
-      switchMap(({ api: { update } }) =>
-        this.http.patch(
-          `${this.apiUrl}${prefix}${update}/${nid}`,
-          coverExtraData(page),
-          this.optionsWithBearerToken()
-        )
-      ),
-      tap((res: any) => {
-        const { status } = res;
-        if (status) {
-          if (loadPage && langcode && nid) {
-            this.loadPage(
-              {
-                langcode,
-                nid,
-              },
-              true
-            );
+    return this.http
+      .patch(
+        `${this.apiUrl}${prefix}${LANDING_PAGE_API.update}/${nid}`,
+        coverExtraData(page),
+        this.optionsWithBearerToken()
+      )
+      .pipe(
+        tap((res: any) => {
+          const { status } = res;
+          if (status) {
+            if (loadPage && langcode && nid) {
+              this.loadPage(
+                {
+                  langcode,
+                  nid,
+                },
+                true
+              );
+            }
+          } else {
+            this.util.openSnackbar('保存失败，请重试', 'ok');
           }
-        } else {
-          this.util.openSnackbar('保存失败，请重试', 'ok');
-        }
-      })
-    );
+        })
+      );
   }
 
   getDefaultPage(url: string): Observable<IPage> {
@@ -365,9 +580,10 @@ export class BuilderService extends ApiService {
   }
 
   /**
-   * 提交翻译前再校验一次目标语言翻译是否已存在，
-   * 避免加载草稿到提交之间其他人已创建同语言翻译。
-   * 校验请求失败时按不存在处理，交给后端最终裁决。
+   * Re-check whether the target-language translation already exists before submitting,
+   * to avoid someone creating the same-language translation between loading the draft
+   * and submitting. If the check request fails, treat it as not existing and let the
+   * backend make the final call.
    */
   checkTranslationExists(nid: string | number, target: string): Observable<boolean> {
     return this.nodeService.fetch(`/api/v3/landingPage/json/${nid}`, { noCache: 1 }, target).pipe(
@@ -378,37 +594,49 @@ export class BuilderService extends ApiService {
 
   addTranslation(page: IPage): Observable<any> {
     const { nid, target, langcode } = page;
-    return this.builderConfig$.pipe(
-      take(1),
-      switchMap(({ api: { translate } }) =>
-        this.http.post(
-          `${this.apiUrl}${translate}/add/${nid}/${langcode}/${target}`,
-          formatPage(page),
-          this.optionsWithBearerToken()
-        )
-      ),
-      switchMap((res: any) => {
-        if (!res?.status || !nid || !target) {
-          return of(res);
-        }
-        return this.copyAliasToLang(nid, langcode, target).pipe(
-          map(synced => {
-            if (!synced) {
-              this.util.openSnackbar(
-                this.translate.instant('BUILDER.PAGE_SETTING.TRANSLATION_ALIAS_SYNC_FAIL'),
-                'ok'
-              );
-            }
-            return res;
-          })
-        );
-      })
+    return this.http
+      .post(
+        `${this.apiUrl}${LANDING_PAGE_API.translate}/add/${nid}/${langcode}/${target}`,
+        formatPage(page),
+        this.optionsWithBearerToken()
+      )
+      .pipe(
+        switchMap((res: any) => {
+          if (!res?.status || !nid || !target) {
+            return of(res);
+          }
+          return this.copyAliasToLang(nid, langcode, target).pipe(
+            map(synced => {
+              if (!synced) {
+                this.util.openSnackbar(
+                  this.translate.instant('BUILDER.PAGE_SETTING.TRANSLATION_ALIAS_SYNC_FAIL'),
+                  'ok'
+                );
+              }
+              return res;
+            })
+          );
+        })
+      );
+  }
+
+  /**
+   * Only deletes the translation for the specified language; the source language and
+   * other language versions are kept. Deleting the source language (the node itself)
+   * still goes through JSON:API node deletion, which cascades to all language versions.
+   */
+  deleteTranslation(nid: string | number, langcode: string): Observable<any> {
+    return this.http.post(
+      `${this.apiUrl}${LANDING_PAGE_API.translate}/delete/${nid}/${langcode}`,
+      {},
+      this.optionsWithBearerToken()
     );
   }
 
   /**
-   * 新建翻译后，把源语言的 path_alias 复制到目标语言，
-   * 保证翻译页面 URL 与默认页面只差语言前缀。
+   * After creating a translation, copy the source language's path_alias to the target
+   * language so the translated page URL differs from the default page only by the
+   * language prefix.
    */
   private copyAliasToLang(
     nid: string | number,
@@ -438,7 +666,7 @@ export class BuilderService extends ApiService {
       switchMap((srcRes: any) => {
         const source = srcRes?.data?.[0];
         if (!source) {
-          // 源页面没有别名，无需同步
+          // Source page has no alias, nothing to sync
           return of(true);
         }
         const alias = source.attributes?.alias;
@@ -675,8 +903,9 @@ export class BuilderService extends ApiService {
   }
 
   /**
-   * 多语言别名只差语言前缀：默认语言别名更新后，
-   * 将同一节点在其他语言下已存在的 path_alias 记录同步为相同别名。
+   * Multilingual aliases differ only by the language prefix: once the default-language
+   * alias is updated, sync existing path_alias records of the same node in other
+   * languages to the same alias.
    */
   private syncAliasToOtherLangs(
     id: string,

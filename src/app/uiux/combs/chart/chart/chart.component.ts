@@ -43,7 +43,7 @@ import {
   ThemeRiverChart,
 } from 'echarts/charts';
 
-// 注册必须的组件
+// Register required components (tree-shaken builds need manual registration)
 echarts.use([
   TitleComponent,
   TooltipComponent,

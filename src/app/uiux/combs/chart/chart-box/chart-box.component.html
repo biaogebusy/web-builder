@@ -1,9 +1,14 @@
 @if (data(); as data) {
   <div class="chart-box">
     <div class="chart-info">
-      <div class="title mat-h3 one-line" [attr.data-path]="'label'" contentedit="label">
-        {{ data.label }}
-      </div>
+      <!-- Interpolation makes Angular hold a text node, so the binding is lost once inline editing clears the host; use an innerHTML binding instead -->
+      <div
+        class="title mat-h3 one-line"
+        [attr.data-path]="'label'"
+        contentedit="label"
+        contenteditProfile="inline"
+        [innerHTML]="data.label"
+      ></div>
       <div class="count one-line">
         {{ data.total }}
       </div>

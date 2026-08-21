@@ -89,7 +89,7 @@ export class QuestionComponent extends NodeComponent implements AfterViewInit {
   }
 
   checkIsAsked(): void {
-    // TODO: 使用node查询是否有评论即可
+    // TODO: just query the node to check whether there are comments
     if (!environment.production) {
       return;
     }

@@ -29,7 +29,7 @@ describe('BuilderShowcaseComponent', () => {
   const storage = createStorageServiceMock();
   const screenService = createScreenServiceMock();
 
-  // MatDialog 来自组件 standalone imports 内的模块,须 spy 实际实例
+  // MatDialog comes from modules in the component's standalone imports, so spy the real instance
   const confirmWith = (result: boolean) => {
     const dialog = fixture.debugElement.injector.get(MatDialog);
     return vi

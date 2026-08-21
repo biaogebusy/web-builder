@@ -15,10 +15,18 @@
       @if (submitting()) {
         <app-spinner [content]="{ size: 32, color: 'primary' }" />
       } @else if (mainFields().length > 0) {
+        <!-- Save draft: non-moderated types write status=false, moderated types go through moderation_state=draft -->
         <app-btn
-          (click)="onSubmit(form.value, u)"
+          (click)="onSubmit(form.value, u, false)"
           [content]="{
-            label: 'BUILDER.NODE_ADD.SUBMIT' | translate,
+            label: 'BUILDER.NODE_ADD.SAVE_DRAFT' | translate,
+            mode: 'stroked',
+          }"
+        />
+        <app-btn
+          (click)="onSubmit(form.value, u, true)"
+          [content]="{
+            label: 'BUILDER.NODE_ADD.PUBLISH' | translate,
             color: 'primary',
             mode: 'raised',
             icon: {
@@ -31,62 +39,16 @@
   </div>
   <div class="node-layout">
     <div class="node-main">
-      <!-- 独立编辑器工具栏通栏:quill(snow)以此为外部 toolbar 容器,初始化时自动绑定按钮 -->
+      <!-- Full-width bar for the standalone editor toolbar: tiptap fields use this as the external toolbar container and project the toolbar in after editor init -->
       @if (hasRichEditor()) {
         <div
           id="node-editor-toolbar"
           class="editor-toolbar"
           role="toolbar"
           [attr.aria-label]="'BUILDER.NODE_ADD.TOOLBAR' | translate"
-        >
-          <span class="ql-formats">
-            <select class="ql-header" aria-label="Heading">
-              <option value="1"></option>
-              <option value="2"></option>
-              <option value="3"></option>
-              <option value="4"></option>
-              <option value="5"></option>
-              <option value="6"></option>
-              <option selected></option>
-            </select>
-          </span>
-          <span class="ql-formats">
-            <button type="button" class="ql-bold" aria-label="Bold"></button>
-            <button type="button" class="ql-italic" aria-label="Italic"></button>
-            <button type="button" class="ql-underline" aria-label="Underline"></button>
-            <button type="button" class="ql-strike" aria-label="Strikethrough"></button>
-          </span>
-          <span class="ql-formats">
-            <select class="ql-align" aria-label="Align"></select>
-          </span>
-          <span class="ql-formats">
-            <button type="button" class="ql-list" value="ordered" aria-label="Ordered list"></button>
-            <button type="button" class="ql-list" value="bullet" aria-label="Bullet list"></button>
-            <button type="button" class="ql-list" value="check" aria-label="Check list"></button>
-          </span>
-          <span class="ql-formats">
-            <button type="button" class="ql-indent" value="-1" aria-label="Outdent"></button>
-            <button type="button" class="ql-indent" value="+1" aria-label="Indent"></button>
-          </span>
-          <span class="ql-formats">
-            <select class="ql-color" aria-label="Text color"></select>
-            <select class="ql-background" aria-label="Background color"></select>
-          </span>
-          <span class="ql-formats">
-            <button type="button" class="ql-link" aria-label="Link"></button>
-            <button type="button" class="ql-image" aria-label="Image"></button>
-            <button type="button" class="ql-video" aria-label="Video"></button>
-          </span>
-          <span class="ql-formats">
-            <button type="button" class="ql-blockquote" aria-label="Blockquote"></button>
-            <button type="button" class="ql-code-block" aria-label="Code block"></button>
-          </span>
-          <span class="ql-formats">
-            <button type="button" class="ql-clean" aria-label="Clear formatting"></button>
-          </span>
-        </div>
+        ></div>
       }
-      <!-- app-formly 在 ngAfterViewInit 一次性快照 fields/model,以 type+uuid 为 key 强制切换时销毁重建 -->
+      <!-- app-formly snapshots fields/model once in ngAfterViewInit; keying by type+uuid forces destroy-and-rebuild on switch -->
       @if (mainFields().length > 0) {
         @for (t of [type() + '/' + editUuid()]; track t) {
           <app-formly
@@ -97,7 +59,7 @@
           />
         }
       } @else {
-        <!-- 字段经 field config API 内省后异步返回,加载中以骨架屏占位 -->
+        <!-- Fields come back asynchronously after introspection via the field config API; show skeletons while loading -->
         <div class="form-skeleton">
           @for (controlHeight of ['3rem', '20rem']; track $index) {
             <div class="skeleton-field">
@@ -169,6 +131,19 @@
           />
         }
       </section>
+      @if (publishFields().length > 0) {
+        <section class="aside-section">
+          <div class="aside-title">{{ 'BUILDER.NODE_ADD.PANEL_PUBLISH' | translate }}</div>
+          @for (t of [type() + '/' + editUuid()]; track t) {
+            <app-formly
+              [form]="form"
+              [fields]="publishFields()"
+              [model]="model()"
+              [content]="{ uiTheme: 'shadcn' }"
+            />
+          }
+        </section>
+      }
       @if (sideFields().length > 0) {
         <section class="aside-section">
           <div class="aside-title">{{ 'BUILDER.NODE_ADD.PANEL_ATTRS' | translate }}</div>

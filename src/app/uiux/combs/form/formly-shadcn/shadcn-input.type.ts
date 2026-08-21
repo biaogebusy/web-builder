@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FieldType, FieldTypeConfig, FormlyModule } from '@ngx-formly/core';
 
-/** shadcn/ui 风格文本输入,对应内置 input / number / integer / string 类型。 */
+/** shadcn/ui-style text input, mapped from the built-in input / number / integer / string types. */
 @Component({
   selector: 'formly-shadcn-input',
   changeDetection: ChangeDetectionStrategy.OnPush,

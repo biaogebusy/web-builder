@@ -4,13 +4,23 @@
     <app-title [content]="contentValue.editor?.title" />
     <div class="editor">
       @if (screenService.isPlatformBrowser()) {
-        <quill-editor
-          (onEditorCreated)="editorCreated($event)"
-          [modules]="modules"
-          [placeholder]="contentValue.editor?.placeholder || placeholder"
-          [(ngModel)]="commentContent"
-          [styles]="{ height: contentValue.editor?.height || '250px' }"
-        />
+        <div class="comment-editor-shell">
+          <ng-container #editorHost />
+          @if (!editorLoaded()) {
+            @if (editorLoading()) {
+              <div class="editor-loading" role="status"><app-loading /></div>
+            } @else if (editorError()) {
+              <button type="button" class="editor-placeholder" (click)="activateEditor()">
+                {{ 'BUILDER.FORM_EDITOR.LOAD_FAILED' | translate }}
+                {{ 'BUILDER.FORM_EDITOR.RETRY' | translate }}
+              </button>
+            } @else {
+              <button type="button" class="editor-placeholder" (click)="activateEditor()">
+                {{ contentValue.editor?.placeholder || placeholder }}
+              </button>
+            }
+          }
+        </div>
       }
     </div>
     <div class="actions p-y-sm p-x-sm">

@@ -1,0 +1,58 @@
+:host {
+  @apply flex min-h-0 flex-1 flex-col;
+}
+
+.diff-title {
+  @apply flex min-w-0 items-baseline gap-2;
+}
+
+.diff-page {
+  @apply min-w-0 truncate text-sm font-normal;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.diff-content {
+  @apply flex min-h-0 flex-1 flex-col;
+  // Material caps the dialog body height, which would scroll the editor instead of sizing it
+  max-height: none;
+}
+
+.diff-sides {
+  @apply grid shrink-0 grid-cols-2 gap-2 pb-2;
+}
+
+.diff-side {
+  @apply m-0 flex min-w-0 flex-wrap items-baseline gap-1.5 text-xs;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.diff-side-label {
+  @apply font-medium;
+  color: var(--mat-sys-on-surface);
+}
+
+.diff-side-vid {
+  @apply font-mono;
+}
+
+.diff-state {
+  @apply flex flex-1 flex-col items-center justify-center gap-3 p-6;
+}
+
+.diff-state-text {
+  @apply m-0 text-center text-sm;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.diff-identical {
+  @apply m-0 shrink-0 rounded px-3 py-2 text-xs;
+  color: var(--mat-sys-on-surface-variant);
+  background-color: var(--mat-sys-surface-container-low);
+}
+
+.diff-editor {
+  @apply block min-h-0 w-full flex-1;
+  // The library sets a fixed 200px host height
+  height: auto;
+  border: 1px solid var(--mat-sys-outline-variant);
+}

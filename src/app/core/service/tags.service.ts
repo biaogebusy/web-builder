@@ -2,10 +2,12 @@ import { Injectable, inject, DOCUMENT } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 
+import { getLibraryAsset } from '@core/config/library-assets';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { getLangPrefix } from '@core/util/language.util';
 import { environment } from 'src/environments/environment';
+import { HIGHLIGHT_ASSETS } from './tags.assets';
 @Injectable({
   providedIn: 'root',
 })
@@ -85,11 +87,11 @@ export class TagsService {
     const schema: Record<string, unknown> = {
       '@context': 'https://schema.org',
       '@type': pageValue.time || pageValue.changed ? 'Article' : 'WebPage',
-      name: title,
-      headline: title,
+      'name': title,
+      'headline': title,
       description,
       url,
-      inLanguage: pageValue.langcode ?? 'zh-hans',
+      'inLanguage': pageValue.langcode ?? 'zh-hans',
     };
     if (pageValue.time) schema['datePublished'] = pageValue.time;
     if (pageValue.changed) schema['dateModified'] = pageValue.changed;
@@ -162,11 +164,8 @@ export class TagsService {
       const scss = await import('highlight.js/lib/languages/scss');
       const xml = await import('highlight.js/lib/languages/xml');
       const json = await import('highlight.js/lib/languages/json');
-      if (this.coreConfig.librariesUseLocal) {
-        await this.util.loadStyle('/assets/injects/highlight.js/styles/atom-one-dark.css');
-      } else {
-        const highlightStyle = this.util.getLibraries('highlight', 'cdn', 'style');
-      }
+      const source = this.coreConfig.librariesUseLocal ? 'local' : 'cdn';
+      await this.util.loadStyle(getLibraryAsset(HIGHLIGHT_ASSETS, source, 'style'));
       registerLanguage('javascript', javascript.default);
       registerLanguage('php', php.default);
       registerLanguage('scss', scss.default);

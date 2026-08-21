@@ -2,7 +2,12 @@ import { Injectable, inject } from '@angular/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { EMPTY, forkJoin, Observable, of } from 'rxjs';
 import { catchError, expand, map, reduce, switchMap } from 'rxjs/operators';
+import { ICoreConfig } from '@core/interface/IAppConfig';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { NodeService } from './node.service';
+
+/** Default open content types (machine names): blog, news, app center, article, component */
+const DEFAULT_NODE_TYPES = ['blog', 'news', 'json', 'article', 'component'];
 
 export interface INodeFieldMeta {
   key: string;
@@ -10,7 +15,7 @@ export interface INodeFieldMeta {
   targetType?: string;
   targetBundle?: string;
   multiple?: boolean;
-  /** 文本字段绑定了 json 文本格式(filter.format.json),用 JSON 编辑器并按 json 格式提交 */
+  /** Text field bound to the json text format (filter.format.json): use the JSON editor and submit as json */
   jsonFormat?: boolean;
 }
 
@@ -24,36 +29,73 @@ export interface INodePayload {
   relationships: Record<string, any>;
 }
 
+/** Content type options for the publishing entry point */
+export interface INodeTypeOption {
+  /** Display name, e.g. "Blog" */
+  label: string;
+  /** Machine name, e.g. blog */
+  value: string;
+  /** Content type description (Drupal node_type.description); empty string when the site has none */
+  desc: string;
+}
+
 /**
- * 通过 Drupal field config API 内省内容类型字段,动态生成 formly 表单,
- * 并按 JSON:API 规范把表单值拆分为 attributes 与 relationships。
+ * Introspects content type fields via the Drupal field config API to dynamically build
+ * formly forms, and splits form values into attributes and relationships per JSON:API.
  */
 @Injectable({
   providedIn: 'root',
 })
 export class NodeFieldFormService {
   private nodeService = inject(NodeService);
+  private coreConfig = inject<ICoreConfig | null>(CORE_CONFIG, { optional: true });
 
-  /** 站点全部内容类型,用于发布页切换 */
-  getNodeTypes(): Observable<{ label: string; value: string }[]> {
+  /**
+   * All content types of the site, used by the publishing page switcher.
+   * Errors are not swallowed here: an empty array means "the site has no usable types",
+   * which is distinct from "load failed": callers must handle both separately
+   * (otherwise a failure renders as an empty state and the loading flag never resets).
+   */
+  getNodeTypes(): Observable<INodeTypeOption[]> {
     return this.nodeService.fetch('/api/v1/node_type/node_type').pipe(
       map(res =>
         (res?.data || []).map((type: any) => ({
           label: type.attributes.name,
           value: type.attributes.drupal_internal__type,
+          desc: type.attributes.description ?? '',
         }))
-      ),
-      catchError(err => {
-        console.error('加载内容类型列表失败', err);
-        return of([]);
-      })
+      )
     );
   }
 
   /**
-   * 拉取 JSON:API 集合的全部分页数据。Drupal 每页上限 50 条,跟随 links.next
-   * 逐页取完。next 是指向后端源站的绝对地址,需转回相对路径经 apiUrl
-   * (开发环境为本地代理)重发,避免跨域直连后端丢失会话。
+   * Machine names of content types allowed for publishing. Computed from config only,
+   * regardless of whether the type really exists on the site, so it can be used
+   * synchronously (e.g. the publishing skeleton reserves this many placeholders to
+   * avoid height jumps after loading).
+   */
+  getAllowedTypeNames(): string[] {
+    const { disable = [], enable = [] } = this.coreConfig?.builder?.nodeTypes ?? {};
+    return [...new Set([...DEFAULT_NODE_TYPES, ...enable])].filter(
+      type => !disable.includes(type)
+    );
+  }
+
+  /**
+   * Content types open at the publishing entry point. Only DEFAULT_NODE_TYPES are open
+   * by default; core_config's builder.nodeTypes can disable or enable extra types on
+   * top of the default list, with disable taking precedence.
+   */
+  getAllowedNodeTypes(): Observable<INodeTypeOption[]> {
+    const allowed = new Set(this.getAllowedTypeNames());
+    return this.getNodeTypes().pipe(map(types => types.filter(type => allowed.has(type.value))));
+  }
+
+  /**
+   * Fetches all pages of a JSON:API collection. Drupal caps each page at 50 items, so
+   * follow links.next until the end. next points to an absolute backend URL, so it is
+   * converted back to a relative path and re-sent through apiUrl (the local proxy in
+   * dev) to avoid cross-origin requests that lose the session.
    */
   private fetchAllPages(api: string, params = ''): Observable<any[]> {
     return this.nodeService.fetch(api, params).pipe(
@@ -89,11 +131,45 @@ export class NodeFieldFormService {
           return of([]);
         })
       ),
+      enabledKeys: this.getFormDisplayKeys(bundle),
     }).pipe(
-      map(({ configs, storages }) => this.buildForm(configs, storages)),
-      // app-formly 会对 fields 做 cloneDeep,options 不能是 Observable,须先解析为数组
+      map(({ configs, storages, enabledKeys }) => this.buildForm(configs, storages, enabledKeys)),
+      // app-formly cloneDeep's fields, so options cannot be Observables; resolve them to arrays first
       switchMap(form => this.resolveTermOptions(form))
     );
+  }
+
+  /**
+   * Field set enabled in the content type's default form display (entity_form_display,
+   * the "content" keys). Fields dragged into the "disabled" area in the admin form
+   * display only exist in hidden, and Drupal's node form does not render them; content
+   * is used as the whitelist here too. On load failure or missing data (e.g. no
+   * administer node form display permission) returns null meaning unknown, and callers
+   * skip filtering.
+   */
+  private getFormDisplayKeys(bundle: string): Observable<Set<string> | null> {
+    return this.nodeService
+      .fetch(
+        '/api/v1/entity_form_display/entity_form_display',
+        `filter[targetEntityType]=node&filter[bundle]=${bundle}&filter[mode]=default`
+      )
+      .pipe(
+        map(res => {
+          // Double-check against the attributes in case the filter params fail and a display config of another type slips in
+          const display = (res?.data || []).find(
+            (d: any) =>
+              d?.attributes?.targetEntityType === 'node' &&
+              d?.attributes?.bundle === bundle &&
+              d?.attributes?.mode === 'default'
+          );
+          const content = display?.attributes?.content;
+          return content ? new Set(Object.keys(content)) : null;
+        }),
+        catchError(err => {
+          console.error(`加载 ${bundle} 表单显示配置失败`, err);
+          return of(null);
+        })
+      );
   }
 
   private resolveTermOptions(form: INodeForm): Observable<INodeForm> {
@@ -126,7 +202,7 @@ export class NodeFieldFormService {
     );
   }
 
-  buildForm(configs: any[], storages: any[]): INodeForm {
+  buildForm(configs: any[], storages: any[], enabledKeys?: Set<string> | null): INodeForm {
     const storageMap = new Map<string, any>();
     storages.forEach(storage => {
       storageMap.set(storage.attributes.field_name, storage.attributes);
@@ -134,12 +210,22 @@ export class NodeFieldFormService {
 
     const meta: INodeFieldMeta[] = [];
     const fields: FormlyFieldConfig[] = [];
-    // 无法用简单控件表达且原样提交会报错的字段类型
-    const skipTypes = ['metatag'];
+    // Field types that no simple control can express and that would error when submitted
+    // as-is: metatag/link need structured values, image/file are file references with
+    // meta, date types require a strict format. Skip them (not submitting on edit keeps
+    // the original value) so they never render as text boxes whose plain-text submission
+    // would cause 422s or corrupt data
+    const skipTypes = ['metatag', 'image', 'file', 'link', 'datetime', 'daterange'];
 
     configs.forEach(config => {
       const attrs = config.attributes;
       if (skipTypes.includes(attrs.field_type)) {
+        return;
+      }
+      // Fields disabled in the form display are not rendered (matching the Drupal node
+      // form); they also stay out of meta so edits never touch them and the original
+      // values are preserved
+      if (enabledKeys && !enabledKeys.has(attrs.field_name)) {
         return;
       }
       const storage = storageMap.get(attrs.field_name);
@@ -148,11 +234,11 @@ export class NodeFieldFormService {
       const fieldMeta: INodeFieldMeta = {
         key: attrs.field_name,
         fieldType: attrs.field_type,
-        // storage 缺失时(如无权限)从 handler(default:taxonomy_term)推断目标类型
+        // When storage is missing (e.g. no permission), infer the target type from the handler (default: taxonomy_term)
         targetType: storage?.settings?.target_type ?? attrs.settings?.handler?.split(':')[1],
         targetBundle: targetBundles ? Object.keys(targetBundles)[0] : undefined,
         multiple: storage ? storage.cardinality !== 1 : false,
-        // 字段配置依赖 filter.format.json 即该文本字段存储 JSON 内容
+        // A field whose config depends on filter.format.json stores JSON content
         jsonFormat: isText && (attrs.dependencies?.config || []).includes('filter.format.json'),
       };
       meta.push(fieldMeta);
@@ -174,11 +260,11 @@ export class NodeFieldFormService {
     switch (meta.fieldType) {
       case 'text_long':
       case 'text_with_summary':
-        // JSON 格式的文本字段(如 component 的 body)用 JSON 编辑器,而非富文本
+        // Text fields in JSON format (e.g. component body) use the JSON editor, not rich text
         if (meta.jsonFormat) {
           return { ...base, type: 'json' };
         }
-        return { ...base, type: 'rich-editor' };
+        return { ...base, type: 'tiptap' };
       case 'string_long':
         return { ...base, type: 'textarea', props: { ...base.props, rows: 4 } };
       case 'boolean':
@@ -195,7 +281,7 @@ export class NodeFieldFormService {
             props: {
               ...base.props,
               multiple: meta.multiple,
-              // 选项由 resolveTermOptions 异步填充
+              // Options are filled asynchronously by resolveTermOptions
               options: [],
             },
           };
@@ -207,7 +293,7 @@ export class NodeFieldFormService {
             props: {
               ...base.props,
               valueIsUUID: true,
-              // 按钮文案由 formly translate extension 翻译
+              // Button labels are translated by the formly translate extension
               addLabel: 'BUILDER.FACTORY.IMG_ADD',
               updateLabel: 'BUILDER.FACTORY.IMG_UPDATE',
               deleteLabel: 'BUILDER.FACTORY.IMG_DELETE',
@@ -231,7 +317,7 @@ export class NodeFieldFormService {
     );
   }
 
-  /** buildPayload 的逆向:把节点 JSON:API 数据映射为 formly 表单模型(编辑回填) */
+  /** Reverse of buildPayload: map node JSON:API data back to the formly form model (edit prefill) */
   buildModel(meta: INodeFieldMeta[], node: any): Record<string, any> {
     const model: Record<string, any> = {};
     meta.forEach(field => {
@@ -253,7 +339,7 @@ export class NodeFieldFormService {
     return model;
   }
 
-  /** JSON 编辑器的值是对象,回填前把存储的字符串还原;解析失败保留原文 */
+  /** The JSON editor holds an object; restore the stored string before prefilling; keep the raw value if parsing fails */
   private parseJsonValue(raw: any): any {
     if (typeof raw !== 'string' || raw === '') {
       return raw;
@@ -265,21 +351,42 @@ export class NodeFieldFormService {
     }
   }
 
-  buildPayload(meta: INodeFieldMeta[], value: Record<string, any>): INodePayload {
+  /**
+   * @param original the node's original data loaded for editing (JSON:API resource object).
+   * When passed, edit mode applies:
+   * - Cleared fields submit explicit null / empty data (JSON:API semantics: absent = unchanged, null = cleared)
+   * - Text fields keep the original format (avoid silently upgrading basic_html content to full_html) and retain summary
+   * - Reference fields carry back the original meta (e.g. image alt) by target id, so PATCHing relationships loses nothing
+   */
+  buildPayload(meta: INodeFieldMeta[], value: Record<string, any>, original?: any): INodePayload {
     const attributes: Record<string, any> = {};
     const relationships: Record<string, any> = {};
 
     meta.forEach(field => {
       const fieldValue = value[field.key];
+      const isRef = field.fieldType === 'entity_reference' && !!field.targetType;
       if (fieldValue === undefined || fieldValue === null || fieldValue === '') {
+        // On create, skipping empty values is enough; on edit they must be cleared explicitly or the old value persists
+        if (original) {
+          if (isRef) {
+            relationships[field.key] = { data: field.multiple ? [] : null };
+          } else {
+            attributes[field.key] = null;
+          }
+        }
         return;
       }
-      if (field.fieldType === 'entity_reference' && field.targetType) {
+      if (isRef) {
         const type = `${field.targetType}--${field.targetBundle || field.targetType}`;
+        const originalMeta = this.originalRefMeta(original, field.key);
+        const toRef = (id: string) => {
+          const refMeta = originalMeta.get(id);
+          return { type, id, ...(refMeta ? { meta: refMeta } : {}) };
+        };
         relationships[field.key] = {
           data: field.multiple
-            ? (Array.isArray(fieldValue) ? fieldValue : [fieldValue]).map(id => ({ type, id }))
-            : { type, id: fieldValue },
+            ? (Array.isArray(fieldValue) ? fieldValue : [fieldValue]).map(toRef)
+            : toRef(fieldValue),
         };
       } else if (field.fieldType === 'text_long' || field.fieldType === 'text_with_summary') {
         if (field.jsonFormat) {
@@ -288,7 +395,14 @@ export class NodeFieldFormService {
             format: 'json',
           };
         } else {
-          attributes[field.key] = { value: fieldValue, format: 'full_html' };
+          const originalText = original?.attributes?.[field.key];
+          attributes[field.key] = {
+            value: fieldValue,
+            format: originalText?.format ?? 'full_html',
+            ...(field.fieldType === 'text_with_summary' && originalText?.summary != null
+              ? { summary: originalText.summary }
+              : {}),
+          };
         }
       } else {
         attributes[field.key] = fieldValue;
@@ -296,5 +410,18 @@ export class NodeFieldFormService {
     });
 
     return { attributes, relationships };
+  }
+
+  /** Index original relationship meta by target id, carried back when the submission still points at the same target */
+  private originalRefMeta(original: any, key: string): Map<string, any> {
+    const data = original?.relationships?.[key]?.data;
+    const items = Array.isArray(data) ? data : data ? [data] : [];
+    const map = new Map<string, any>();
+    items.forEach((item: any) => {
+      if (item?.id && item.meta) {
+        map.set(item.id, item.meta);
+      }
+    });
+    return map;
   }
 }

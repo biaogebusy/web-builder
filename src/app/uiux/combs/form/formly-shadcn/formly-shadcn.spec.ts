@@ -215,7 +215,7 @@ describe('formly shadcn theme', () => {
     trigger?.click();
     fixture.detectChanges();
     const listbox = el.querySelector<HTMLElement>('[role="listbox"]');
-    // 单选面板没有 aria-multiselectable,选中项带 aria-selected
+    // Single-select panel has no aria-multiselectable; the selected option carries aria-selected
     expect(listbox?.getAttribute('aria-multiselectable')).toBeNull();
     const options = el.querySelectorAll<HTMLElement>('[role="option"]');
     expect(options.length).toBe(2);
@@ -224,7 +224,7 @@ describe('formly shadcn theme', () => {
     options[0].click();
     fixture.detectChanges();
     expect(fixture.componentInstance.model['fullWidth']).toBe(true);
-    // 单选选中后面板关闭,触发按钮展示新值
+    // Single-select panel closes after selecting; the trigger shows the new value
     expect(el.querySelector('[role="listbox"]')).toBeNull();
     expect(trigger?.textContent).toContain('Full');
   });
@@ -271,7 +271,7 @@ describe('formly shadcn theme', () => {
     options[0].click();
     fixture.detectChanges();
     expect(fixture.componentInstance.model['tags']).toEqual(['b']);
-    // 多选面板在切换选中后保持打开
+    // Multiselect panel stays open after toggling a selection
     expect(el.querySelector('[role="listbox"]')).toBeTruthy();
   });
 

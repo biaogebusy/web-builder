@@ -9,7 +9,7 @@ describe('UserService auth channel', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      // provideCoreMocks 提供的 UserService 是 mock,这里重新提供真实实现
+      // provideCoreMocks supplies a mocked UserService; provide the real implementation here
       providers: [provideRouter([]), ...provideCoreMocks(), UserService],
     });
     service = TestBed.inject(UserService);
@@ -44,7 +44,7 @@ describe('UserService auth channel', () => {
     dispatchPageshow(true);
 
     expect(service['authChannel']).not.toBeNull();
-    // 无登录 cookie 时按未登录同步
+    // Without a login cookie, sync as logged out
     expect(emitted).toEqual([false]);
   });
 

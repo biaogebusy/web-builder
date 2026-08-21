@@ -1,5 +1,14 @@
-export function buildPageSettingAttributes(value: any): object {
-  const { title, is_transparent, transparent_style, type } = value;
+import { encodeMetaTags, type MetaTags } from '@core/util/builder-page.util';
+
+/**
+ * Build the JSON:API attributes patch.
+ *
+ * @param value form model
+ * @param storedMetaTags tags currently on the node, merged under the form values so
+ * tags managed in the Drupal metatag form (og:*, …) survive a builder update
+ */
+export function buildPageSettingAttributes(value: any, storedMetaTags: MetaTags = {}): object {
+  const { title, is_transparent, transparent_style, type, meta_tags } = value;
   const common = {
     title,
   };
@@ -8,6 +17,7 @@ export function buildPageSettingAttributes(value: any): object {
       ...common,
       is_transparent,
       transparent_style,
+      meta_tags: encodeMetaTags({ ...storedMetaTags, ...meta_tags }),
     };
   }
 

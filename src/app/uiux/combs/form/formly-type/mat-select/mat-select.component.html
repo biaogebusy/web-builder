@@ -1,6 +1,6 @@
 <mat-form-field [appearance]="props.appearance || 'fill'" class="field-full">
   <mat-label>{{ props.label }}</mat-label>
-  <!-- 单选不开启搜索 -->
+  <!-- Single select without search -->
   @if (!props.multiple && !props.search) {
     <mat-select
       disableOptionCentering="true"
@@ -21,7 +21,7 @@
     </mat-select>
   }
 
-  <!-- 单选开启搜索 -->
+  <!-- Single select with search -->
   @if (!props.multiple && props.search) {
     <mat-select
       disableOptionCentering="true"
@@ -48,7 +48,7 @@
       </cdk-virtual-scroll-viewport>
     </mat-select>
   }
-  <!-- 多选不开启搜索 -->
+  <!-- Multi select without search -->
   @if (props.multiple && !props.search) {
     <mat-select
       disableOptionCentering="true"
@@ -70,7 +70,7 @@
     </mat-select>
   }
 
-  <!-- 多选开启搜索 -->
+  <!-- Multi select with search -->
   @if (props.multiple && props.search) {
     <mat-select
       disableOptionCentering="true"

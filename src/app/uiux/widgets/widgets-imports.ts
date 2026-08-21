@@ -36,7 +36,6 @@ import { MediaMetaComponent } from './media/media-meta/media-meta.component';
 import { TextHeroComponent } from './text-hero/text-hero.component';
 import { ContentBoxComponent } from './content-box/content-box.component';
 import { DynamicTableComponent } from './dynamic-table/dynamic-table.component';
-import { InlineLightboxComponent } from './lightbox/inline-lightbox/inline-lightbox.component';
 import { ContentTextCenterComponent } from './content-text-center/content-text-center.component';
 import { ViewListComponent } from './view-list/view-list.component';
 import { UserCardComponent } from './card/user-card/user-card.component';
@@ -76,7 +75,6 @@ const standaloneComponents = [
   SwitchThemeComponent,
   CustomThemeComponent,
   BtnComponent,
-  InlineLightboxComponent,
   ImgComponent,
   BgImgComponent,
   DynamicComponentComponent,
@@ -163,7 +161,6 @@ export {
   TextHeroComponent,
   ContentBoxComponent,
   DynamicTableComponent,
-  InlineLightboxComponent,
   ContentTextCenterComponent,
   ViewListComponent,
   UserCardComponent,

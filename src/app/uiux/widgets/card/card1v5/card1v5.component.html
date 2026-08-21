@@ -1,8 +1,18 @@
 @if (content(); as contentValue) {
   <div class="card-1v5">
     <div class="card-inner">
-      <div [contentedit]="'title'" class="title mat-h2" [innerHTML]="contentValue.title"></div>
-      <div [contentedit]="'body'" class="content" [innerHTML]="contentValue.body"></div>
+      <div
+        [contentedit]="'title'"
+        contenteditProfile="inline"
+        class="title mat-h2"
+        [innerHTML]="contentValue.title"
+      ></div>
+      <div
+        [contentedit]="'body'"
+        contenteditProfile="rich"
+        class="content"
+        [innerHTML]="contentValue.body"
+      ></div>
       @if (contentValue.more) {
         <div class="more">
           <app-link [attr.data-path]="'more'" [content]="contentValue.more" />
@@ -10,7 +20,12 @@
         </div>
       }
       <div class="footer mat-headline-3 m-bottom-0">
-        <div class="left" [contentedit]="'footer.label'" [innerHTML]="contentValue.footer.label"></div>
+        <div
+          class="left"
+          [contentedit]="'footer.label'"
+          contenteditProfile="inline"
+          [innerHTML]="contentValue.footer.label"
+        ></div>
         <app-icon [content]="contentValue.footer.icon" />
       </div>
     </div>

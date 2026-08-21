@@ -15,7 +15,7 @@ import {
 
 import { BuilderVersionComponent } from './builder-version.component';
 
-// 回归:从 page-list 载入页面(loadNewPage)后,历史记录面板必须立即刷新
+// Regression: after loading a page from page-list (loadNewPage), the history panel must refresh right away
 describe('BuilderVersionComponent with real BuilderState', () => {
   let fixture: ComponentFixture<BuilderVersionComponent>;
   let state: BuilderState;
@@ -60,7 +60,7 @@ describe('BuilderVersionComponent with real BuilderState', () => {
   it('shows the freshly loaded page in the history list right away', () => {
     expect(fixture.nativeElement.textContent).toContain('草稿A');
 
-    // 模拟 page-list 加载服务端页面: builderService.loadPage 成功后的核心副作用
+    // Simulate page-list loading a server page: core side effects after builderService.loadPage succeeds
     state.loadNewPage({ title: '服务端页面', body: [], nid: '42', uuid: 'u-42' });
     fixture.detectChanges();
 

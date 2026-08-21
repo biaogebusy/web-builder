@@ -1,5 +1,4 @@
 import { IImg } from '@core/interface/widgets/IImg';
-import { QuillModule } from 'ngx-quill';
 import { IChipList } from '../widgets/IChipList';
 import { IText } from '../widgets/IText';
 export interface IBaseNode {
@@ -20,7 +19,6 @@ export interface IBaseNode {
     title?: any;
     label?: string;
     height?: string;
-    modules?: QuillModule;
     placeholder?: string;
     action?: {
       label: string;

@@ -3,9 +3,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FieldType, FieldTypeConfig, FormlyModule } from '@ngx-formly/core';
 
 /**
- * shadcn/ui 风格复选框,对应内置 checkbox 类型(如 Drupal boolean 字段)。
- * 视觉隐藏的原生 checkbox 承载状态与键盘/焦点行为,方框与对勾为纯展示;
- * label 内联在方框右侧,故不使用字段 wrapper(与 toggle 一致)。
+ * shadcn/ui-style checkbox, mapped from the built-in checkbox type (e.g. Drupal
+ * boolean fields). A visually hidden native checkbox carries the state and
+ * keyboard/focus behavior; the box and check are purely presentational. The label
+ * sits inline to the right of the box, so no field wrapper is used (same as toggle).
  */
 @Component({
   selector: 'formly-shadcn-checkbox',

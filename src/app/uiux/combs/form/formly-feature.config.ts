@@ -21,10 +21,10 @@ import { ImgPickerComponent } from './formly-type/img-picker/img-picker.componen
 import { JsonFieldType } from './formly-type/json/json.component';
 import { MatSelectComponent } from './formly-type/mat-select/mat-select.component';
 import { RepeatTypeComponent } from './formly-type/repeat.type';
-import { RichEditorComponent } from './formly-type/rich-editor/rich-editor.component';
 import { RichTextComponent } from './formly-type/rich-text/rich-text.component';
 import { SliderComponent } from './formly-type/slider/slider.component';
 import { TabsTypeComponent } from './formly-type/tabs/tabs.component';
+import { TiptapFieldType } from './formly-type/tiptap/tiptap.component';
 
 const TRANSLATABLE_PROPS = [
   'label',
@@ -41,7 +41,7 @@ const TRANSLATION_KEY_RE = /^[A-Z][A-Z0-9_]*(\.[A-Z0-9_]+)+$/;
 export const XINSHI_FORMLY_CONFIG: ConfigOption = {
   types: [
     { name: 'rich-text', component: RichTextComponent },
-    { name: 'rich-editor', component: RichEditorComponent },
+    { name: 'tiptap', component: TiptapFieldType },
     { name: 'mat-select', component: MatSelectComponent },
     { name: 'date-range', component: DateRangeComponent },
     { name: 'repeat', component: RepeatTypeComponent },
@@ -66,11 +66,12 @@ export function provideXinshiFormly(): Provider[] {
       XINSHI_FORMLY_CONFIG,
       XINSHI_FORMLY_SHADCN_CONFIG,
     ]),
-    // 注意：不要在这里提供 FormlyConfig / FormlyFormBuilder。
-    // formly 7.1 起 withDefaultConfig 的 core 扩展持有创建时注入的 FormlyConfig 实例，
-    // 组件级若创建独立实例，会与父级（forChild 等）绑定的 root 单例分裂：
-    // 类型注册在组件实例上、defaultOptions 合并却发生在 root 实例上，
-    // 导致 select 丢失默认 compareWith / form-field wrapper 而报错。
+    // Note: do not provide FormlyConfig / FormlyFormBuilder here. Since formly 7.1,
+    // the withDefaultConfig core extension holds the FormlyConfig instance injected at
+    // creation time; creating an independent instance at component level would split
+    // from the root singleton bound to the parent (e.g. forChild): types register on
+    // the component instance while defaultOptions merge on the root instance, so the
+    // select loses its default compareWith / form-field wrapper and throws.
     provideNativeDateAdapter(),
     { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' },
     {

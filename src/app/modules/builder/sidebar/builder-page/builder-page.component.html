@@ -2,34 +2,43 @@
   <mat-accordion multi>
     <mat-expansion-panel [expanded]="true">
       <mat-expansion-panel-header>
-        <mat-panel-title>{{ name }}</mat-panel-title>
+        <mat-panel-title>
+          <h2 class="panel-title">{{ name() }}</h2>
+        </mat-panel-title>
       </mat-expansion-panel-header>
-      <mat-list>
+      <div class="lists">
         @if (loading()) {
           <div class="loading-wrapper">
-            <app-loading [content]="{ size: 24 }" />
+            <app-loading [content]="{ size: 50 }" />
           </div>
         }
-        @if (pages$ | async; as pages) {
-          <div class="cards">
-            @for (item of pages; track item; let i = $index) {
-              <div
-                class="item"
-                role="button"
-                tabindex="0"
-                [matTooltip]="item.title"
-                (click)="loadPage(item)"
-                (keyup.enter)="loadPage(item)"
-              >
-                <div class="inner">
-                  <div class="index">{{ i + 1 }}</div>
-                  <div class="title">{{ item.title }}</div>
-                </div>
-              </div>
-            }
-          </div>
+        @for (item of pages(); track item.uuid) {
+          <app-page-item [page]="item" (refresh)="onReload()" />
         }
-      </mat-list>
+      </div>
+      @if (links(); as links) {
+        <div class="pager">
+          <app-pagination-links [links]="links" (pageChange)="onPageChange($event)" />
+        </div>
+      }
+      <mat-action-row>
+        <app-btn
+          (click)="onReload()"
+          [content]="{
+            label: 'BUILDER.PAGE_LIST.REFRESH' | translate,
+            color: 'primary',
+            icon: { svg: 'reload', inline: true },
+          }"
+        />
+        <app-btn
+          [content]="{
+            label: 'BUILDER.PAGE_LIST.BACK_TO_LIST' | translate,
+            color: 'primary',
+            href: '/builder/page-list',
+            icon: { svg: 'web', inline: true },
+          }"
+        />
+      </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>
 </div>

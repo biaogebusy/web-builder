@@ -108,9 +108,9 @@ export class NodeService extends ApiService {
   }
 
   /**
-   * 批量删除节点
-   * @param entity type 内容类型 (如: 'node--article')
-   * @param uuids 要删除的节点 UUID 数组
+   * Batch delete nodes
+   * @param entityType the content type (e.g. 'node--article')
+   * @param uuids the UUIDs of the nodes to delete
    */
   batchDeleteNodes(entityType: string, uuids: string[]): Observable<any[]> {
     if (uuids.length === 0) {
@@ -120,10 +120,9 @@ export class NodeService extends ApiService {
       });
     }
     const path = entityType.replace('--', '/');
-    // 为每个 UUID 创建删除请求
     const deleteRequests = uuids.map(uuid => this.deleteEntity(path, uuid));
 
-    // 使用 forkJoin 并行执行所有删除请求
+    // Run all delete requests in parallel
     return forkJoin(deleteRequests);
   }
 
@@ -132,7 +131,9 @@ export class NodeService extends ApiService {
   }
 
   // path: /api/v1/taxonomy_term/page_group
-  addEntity(path: string, attr: any, relationships?: any): Observable<any> {
+  // langCode: pass the non-default language so write requests use the language prefix
+  // (e.g. /en/api/v1/...) and hit the corresponding translation
+  addEntity(path: string, attr: any, relationships?: any, langCode?: string): Observable<any> {
     const post = {
       data: {
         type: this.getEntityType(path),
@@ -143,7 +144,7 @@ export class NodeService extends ApiService {
       },
     };
     return this.http.post<any>(
-      `${this.apiUrl}${path}`,
+      `${this.apiUrl}${this.writeLangPrefix(langCode)}${path}`,
       JSON.stringify(post),
       this.optionsWithBearerToken()
     );
@@ -154,7 +155,13 @@ export class NodeService extends ApiService {
     return `${arr[arr.length - 2]}--${arr[arr.length - 1]}`;
   }
 
-  updateEntity(path: string, uuid: string, attr: any, relationships?: any): Observable<any> {
+  updateEntity(
+    path: string,
+    uuid: string,
+    attr: any,
+    relationships?: any,
+    langCode?: string
+  ): Observable<any> {
     const post = {
       data: {
         type: this.getEntityType(path),
@@ -166,10 +173,14 @@ export class NodeService extends ApiService {
       },
     };
     return this.http.patch<any>(
-      `${this.apiUrl}${path}/${uuid}`,
+      `${this.apiUrl}${this.writeLangPrefix(langCode)}${path}/${uuid}`,
       JSON.stringify(post),
       this.optionsWithBearerToken()
     );
+  }
+
+  private writeLangPrefix(langCode?: string): string {
+    return langCode ? getLangPrefix({ langCode }) : '';
   }
 
   getNodePath(attr: any): string {
@@ -208,7 +219,7 @@ export class NodeService extends ApiService {
     return this.commentService.handleComment(comment, level);
   }
 
-  // api 在有权限的时候会有很大的性能开销，可使用自定义api
+  // The default api is expensive when permissions are involved; a custom api can be used instead
   getCommentsWitchChild(content: any, timeStamp = 1): Observable<any> {
     return this.commentService.getCommentsWitchChild(content, timeStamp);
   }
@@ -244,9 +255,9 @@ export class NodeService extends ApiService {
   checkNodeAccess(params: any, entityId: string, user: IUser): Observable<IArticleAccess> {
     const reqRule = params?.require_rule;
     if (!isEmpty(reqRule)) {
-      // 非公开浏览
+      // Not public browsing: a role is required
       const isReqRoles = this.checkReqRule(reqRule, user);
-      // 是否可授权访问角色
+      // Whether the user holds an authorized role
       if (isReqRoles) {
         return of({
           canAccess: true,
@@ -259,7 +270,7 @@ export class NodeService extends ApiService {
         });
       }
     } else {
-      // 公开浏览
+      // Public browsing
       return of({
         canAccess: true,
         isReqRoles: false,
@@ -277,8 +288,9 @@ export class NodeService extends ApiService {
     return this.mediaUploadService.createMediaImage(data);
   }
 
-  imageHandler(editor: any): void {
-    this.mediaUploadService.imageHandler(editor, (fileName, imageData) =>
+  /** Editor-implementation-agnostic image upload: pick a file, upload it, then hand the URL back via the callback */
+  pickAndUploadImage(insert: (url: string) => void): void {
+    this.mediaUploadService.pickAndUploadImage(insert, (fileName, imageData) =>
       this.uploadImage(fileName, imageData)
     );
   }

@@ -6,14 +6,16 @@ import { FormlySelectOption, FormlySelectOptionsPipe } from '@ngx-formly/core/se
 import { ShadcnDropdownBase } from './shadcn-dropdown.base';
 
 /**
- * shadcn/ui 风格下拉,对应内置 select 类型(单选)。
- * 不再使用原生 <select>:其弹出列表由操作系统绘制,无法跟随主题
- * (圆角/暗色/动效)。改为与 shadcn-multiselect 共用 ShadcnDropdownBase
- * 行为与全局 .shad-popover/.shad-option 面板样式,保证单选与多选的
- * 下拉体验一致;选中项以左侧对勾指示,选中后关闭面板。
- * 选项经 formlySelectOptions 管道归一化(数组 / Observable / labelProp /
- * valueProp 均可);分组选项(group)不在此实现。多选字段(props.multiple)
- * 由主题 extension 改写为 shadcn-multiselect。
+ * shadcn/ui-style dropdown, mapped from the built-in select type (single select).
+ * The native <select> is not used: its popup list is drawn by the OS and cannot
+ * follow the theme (radius/dark mode/animations). Instead it shares the
+ * ShadcnDropdownBase behavior and the global .shad-popover/.shad-option panel
+ * styles with shadcn-multiselect so single and multi selects feel identical;
+ * the selected option is marked with a leading check, and the panel closes on
+ * selection. Options are normalized through the formlySelectOptions pipe (arrays /
+ * Observables / labelProp / valueProp all work); grouped options are not
+ * implemented here. Multiselect fields (props.multiple) are remapped to
+ * shadcn-multiselect by the theme extension.
  */
 @Component({
   selector: 'formly-shadcn-select',
@@ -56,7 +58,7 @@ import { ShadcnDropdownBase } from './shadcn-dropdown.base';
         </svg>
       </button>
       @if (open()) {
-        <!-- mousedown 阻止默认行为:点击选项时焦点保持在触发按钮上 -->
+        <!-- mousedown prevents the default behavior: focus stays on the trigger button when clicking an option -->
         <ul
           class="shad-popover"
           role="listbox"

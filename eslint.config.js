@@ -31,6 +31,7 @@ module.exports = tseslint.config(
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
       '@angular-eslint/no-empty-lifecycle-method': 'off',
+      'spaced-comment': ['error', 'always'],
     },
   },
   {

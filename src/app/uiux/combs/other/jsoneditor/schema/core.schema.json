@@ -36,8 +36,14 @@
         "guard": {
           "$ref": "#/definitions/Guard"
         },
+        "article": {
+          "$ref": "#/definitions/Article"
+        },
         "clarity": {
           "$ref": "#/definitions/Clarity"
+        },
+        "analytics": {
+          "$ref": "#/definitions/Analytics"
         },
         "animate": {
           "type": "boolean"
@@ -50,6 +56,7 @@
         }
       },
       "required": [
+        "amap",
         "animate",
         "builder",
         "defaultAvatar",
@@ -160,6 +167,50 @@
       "required": ["id"],
       "title": "Clarity"
     },
+    "Article": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "comment": {
+          "$ref": "#/definitions/Comment"
+        }
+      },
+      "required": ["comment"],
+      "title": "Article"
+    },
+    "Comment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enable": {
+          "type": "boolean"
+        }
+      },
+      "required": ["enable"],
+      "title": "Comment"
+    },
+    "Analytics": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ga": {
+          "$ref": "#/definitions/Ga"
+        }
+      },
+      "required": ["ga"],
+      "title": "Analytics"
+    },
+    "Ga": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": ["id"],
+      "title": "Ga"
+    },
     "Github": {
       "type": "object",
       "additionalProperties": false,
@@ -209,10 +260,53 @@
         },
         "oauthLogin": {
           "$ref": "#/definitions/OauthLogin"
+        },
+        "socialLogin": {
+          "$ref": "#/definitions/SocialLogin"
         }
       },
-      "required": ["left", "loginRedirect", "phoneLogin", "oauthLogin"],
+      "required": ["left", "loginRedirect", "oauthLogin", "phoneLogin"],
       "title": "Login"
+    },
+    "SocialLogin": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enable": {
+          "type": "boolean"
+        },
+        "label": {
+          "type": "string"
+        },
+        "providers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SocialLoginProvider"
+          }
+        }
+      },
+      "required": ["enable", "label", "providers"],
+      "title": "SocialLogin"
+    },
+    "SocialLoginProvider": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enable": {
+          "type": "boolean"
+        },
+        "label": {
+          "type": "string"
+        },
+        "svgIcon": {
+          "type": "string"
+        },
+        "idp": {
+          "type": "string"
+        }
+      },
+      "required": ["enable", "idp", "label", "svgIcon"],
+      "title": "SocialLoginProvider"
     },
     "Left": {
       "type": "object"
@@ -277,10 +371,30 @@
         },
         "delayMessage": {
           "type": "string"
+        },
+        "placeholder": {
+          "type": "string"
+        },
+        "code": {
+          "$ref": "#/definitions/SmsCode"
         }
       },
       "required": ["enable", "error", "leftTime", "submitLabel", "tabLabel"],
       "title": "PhoneLogin"
+    },
+    "SmsCode": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "sendLabel": {
+          "type": "string"
+        }
+      },
+      "required": ["label", "sendLabel"],
+      "title": "SmsCode"
     },
     "OauthLogin": {
       "type": "object",

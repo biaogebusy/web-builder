@@ -34,7 +34,7 @@ describe('WidgetPickerComponent', () => {
         { provide: BuilderState, useValue: builderState },
         { provide: UtilitiesService, useValue: util },
         { provide: LocalStorageService, useValue: storage },
-        // ngOnInit 解构组件库首项,给一条最小合法数据
+        // ngOnInit destructures the first library entry, so provide one minimal valid dataset
         { provide: UIUX, useValue: of([{ label: '', icon: '', type: 'base', elements: [] }]) },
       ],
     }).compileComponents();

@@ -17,6 +17,6 @@ export function generatePath(contenteditableElement: any): string {
     }
     element = element.parentNode;
   }
-  // 如果尾部为"."则去除，builder layout的场景
+  // Strip a trailing "." if present (builder layout scenario)
   return path.replace(/[.]*$/, '');
 }

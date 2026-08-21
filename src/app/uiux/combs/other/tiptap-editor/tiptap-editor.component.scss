@@ -1,0 +1,83 @@
+// Compact icon-button sizing, shared by the toolbar and the bubble menu
+@mixin compact-icon-buttons {
+  --mat-icon-button-icon-size: 16px;
+  --mat-icon-button-state-layer-size: 32px;
+  ::ng-deep {
+    .mat-icon {
+      height: inherit;
+      width: inherit;
+      .mat-mdc-button-touch-target {
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
+}
+
+.editor-container {
+  box-shadow:
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0.06) 0px 12px 33px 0;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: var(--mat-sys-surface);
+  border: 1px solid var(--mat-sys-surface-container-low);
+
+  // Focus indication: themed outline (replaces the hardcoded blue focus ring in the content area)
+  &:focus-within {
+    border-color: var(--mat-sys-primary);
+  }
+
+  app-tiptap-link-panel {
+    @apply block;
+    border-bottom: 1px solid var(--mat-sys-outline-variant);
+  }
+  ::ng-deep {
+    .ProseMirror {
+      min-height: 200px;
+    }
+    .ProseMirror img {
+      max-width: 100%;
+    }
+    [contenteditable='true'] {
+      background-color: transparent !important;
+    }
+    .ProseMirror a {
+      color: var(--mat-sys-primary);
+      text-decoration: underline;
+    }
+
+    .ProseMirror a:hover {
+      color: var(--mat-sys-primary);
+    }
+    code {
+      background-color: var(--mat-sys-inverse-primary);
+      border-radius: 0.4rem;
+      font-size: 0.85rem;
+      padding: 0.25em 0.3em;
+    }
+    // The Placeholder extension hangs the placeholder text on the empty document's
+    // first line via data-placeholder. The color uses the shadcn foreground tier
+    // (this theme's outline is hairline-level, roughly 1.3:1 in light mode, unreadable)
+    .ProseMirror p.is-editor-empty:first-child::before {
+      content: attr(data-placeholder);
+      color: var(--shadcn-muted-foreground);
+      float: left;
+      height: 0;
+      pointer-events: none;
+    }
+  }
+}
+
+// The toolbar can be projected into a container outside this component (toolbarContainer),
+// so selectors must not depend on the .editor-container hierarchy
+.toolbar {
+  @apply flex flex-wrap gap-1 px-2;
+  @include compact-icon-buttons;
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+  .mat-divider {
+    height: 20px;
+    margin-top: 6px;
+  }
+}

@@ -65,7 +65,7 @@ export class ScreenService {
   }
 
   private revealAndScroll(el: Element): void {
-    // 移除目标元素及其祖先上的 AOS 动画属性，使其立即可见
+    // Strip AOS animation attributes from the target and its ancestors so it is immediately visible
     let node: Element | null = el;
     while (node) {
       if (node.hasAttribute('data-aos')) {
