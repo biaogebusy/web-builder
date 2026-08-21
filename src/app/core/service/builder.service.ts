@@ -186,15 +186,26 @@ export class BuilderService extends ApiService {
   }
 
   /**
+   * Page JSON of a single revision, without touching the local draft.
+   */
+  getPageRevision(page: { langcode?: string; nid: string; vid: string }): Observable<IPage> {
+    const { langcode, nid, vid } = page;
+    return this.nodeService.fetch(
+      `/api/v3/landingPage/revisions/${nid}/${vid}`,
+      { noCache: 1 },
+      getApiLang(langcode)
+    );
+  }
+
+  /**
    * Load one revision into the local draft. The payload reports the *current* revision id and
    * changed time, so the following save still commits on top of the latest revision instead of
    * being rejected as stale.
    */
   loadPageRevision(page: { langcode?: string; nid: string; vid: string }): void {
-    const { langcode, nid, vid } = page;
+    const { vid } = page;
     this.builder.loading.set(true);
-    this.nodeService
-      .fetch(`/api/v3/landingPage/revisions/${nid}/${vid}`, { noCache: 1 }, getApiLang(langcode))
+    this.getPageRevision(page)
       .pipe(take(1))
       .subscribe({
         next: (content: IPage) => {

@@ -206,7 +206,15 @@
       "RESTORE_YES": "Restore and save",
       "RESTORE_CONFIRM": "Revision <strong>#{{vid}}</strong> will be saved as the newest revision. The current one stays in the history, and any unsaved draft is discarded. Continue?",
       "RESTORE_SUCCESS": "Revision #{{vid}} is now the newest revision",
-      "RESTORE_FAIL": "Failed to restore this revision. Please retry."
+      "RESTORE_FAIL": "Failed to restore this revision. Please retry.",
+      "COMPARE": "Compare",
+      "COMPARE_PICK": "Tick 2 revisions",
+      "COMPARE_ARIA": "Select revision #{{vid}} for comparison",
+      "COMPARE_TITLE": "Compare revisions",
+      "COMPARE_LEFT": "Older",
+      "COMPARE_RIGHT": "Newer",
+      "COMPARE_IDENTICAL": "These two revisions have identical content.",
+      "COMPARE_FAIL": "Failed to load the two revisions. Please retry."
     },
     "SHOWCASE": {
       "COPY_JSON": "Copy JSON",

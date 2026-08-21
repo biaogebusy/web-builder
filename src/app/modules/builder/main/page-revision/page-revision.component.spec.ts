@@ -17,6 +17,7 @@ import { provideBuilderMocks } from '@modules/builder/testing/mocks';
 import { of, throwError } from 'rxjs';
 
 import { PageRevisionComponent } from './page-revision.component';
+import { RevisionDiffComponent } from './revision-diff/revision-diff.component';
 
 describe('PageRevisionComponent', () => {
   let component: PageRevisionComponent;
@@ -32,10 +33,10 @@ describe('PageRevisionComponent', () => {
     content: { nid: '12', title: '首页', langcode: 'zh-hans' },
   };
 
-  const revision = (vid: string, current = false) => ({
+  const revision = (vid: string, current = false, changed = 1740226733) => ({
     vid,
     current,
-    changed: 1740226733,
+    changed,
     log: '',
     author: 'admin',
   });
@@ -210,5 +211,84 @@ describe('PageRevisionComponent', () => {
     builderState.updateSuccess$.next(true);
 
     expect(builderService.getPageRevisions).toHaveBeenCalledTimes(1);
+  });
+
+  it('offers a comparison only once exactly two revisions are ticked', () => {
+    init();
+
+    expect(component.canCompare()).toBe(false);
+    component.toggleCompare('29');
+    expect(component.canCompare()).toBe(false);
+    component.toggleCompare('28');
+    expect(component.canCompare()).toBe(true);
+    component.toggleCompare('28');
+    expect(component.canCompare()).toBe(false);
+  });
+
+  it('stops a third revision from being ticked', () => {
+    builderService.getPageRevisions.mockReturnValue(
+      of({
+        status: true,
+        message: '',
+        revisions: [revision('29', true), revision('28'), revision('27')],
+      })
+    );
+    init();
+
+    component.toggleCompare('29');
+    component.toggleCompare('28');
+    fixture.detectChanges();
+
+    const boxes = fixture.nativeElement.querySelectorAll('.revision-select input');
+    expect(boxes[0].disabled).toBe(false);
+    expect(boxes[2].disabled).toBe(true);
+  });
+
+  // The checkbox sits beside the preview button rather than inside it, so ticking must not preview
+  it('does not touch the draft when a checkbox is ticked', () => {
+    init();
+
+    fixture.nativeElement.querySelector('.revision-select input').click();
+    fixture.detectChanges();
+
+    expect(component.selectedVids()).toEqual(['29']);
+    expect(builderService.loadPageRevision).not.toHaveBeenCalled();
+  });
+
+  // The diff has to read as what changed over time, whichever order the pair was ticked in
+  it('compares with the older revision on the left', () => {
+    builderService.getPageRevisions.mockReturnValue(
+      of({
+        status: true,
+        message: '',
+        revisions: [revision('29', true, 1740226733), revision('28', false, 1740140000)],
+      })
+    );
+    init();
+    const open = confirmWith(false);
+    component.toggleCompare('29');
+    component.toggleCompare('28');
+
+    component.onCompare();
+
+    expect(open).toHaveBeenCalledTimes(1);
+    expect(open.mock.calls[0][0]).toBe(RevisionDiffComponent);
+    expect(open.mock.calls[0][1]?.data).toMatchObject({
+      nid: '12',
+      langcode: 'zh-hans',
+      title: '首页',
+      original: { vid: '28', time: 1740140000000 },
+      modified: { vid: '29', time: 1740226733000 },
+    });
+  });
+
+  it('drops the selection when the list is refetched', () => {
+    init();
+    component.toggleCompare('29');
+    component.toggleCompare('28');
+
+    builderState.updateSuccess$.next(true);
+
+    expect(component.selectedVids()).toEqual([]);
   });
 });

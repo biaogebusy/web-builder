@@ -206,7 +206,15 @@
       "RESTORE_YES": "确认恢复",
       "RESTORE_CONFIRM": "将把历史版本 <strong>#{{vid}}</strong> 的内容保存为最新版本，当前版本会保留在历史记录中，未保存的草稿会被覆盖，是否继续？",
       "RESTORE_SUCCESS": "历史版本 #{{vid}} 已恢复为最新版本",
-      "RESTORE_FAIL": "恢复该历史版本失败，请重试"
+      "RESTORE_FAIL": "恢复该历史版本失败，请重试",
+      "COMPARE": "比较",
+      "COMPARE_PICK": "请勾选 2 个版本",
+      "COMPARE_ARIA": "勾选历史版本 #{{vid}} 进行比较",
+      "COMPARE_TITLE": "比较历史版本",
+      "COMPARE_LEFT": "较早",
+      "COMPARE_RIGHT": "较新",
+      "COMPARE_IDENTICAL": "这两个历史版本的内容完全相同。",
+      "COMPARE_FAIL": "载入这两个历史版本失败，请重试"
     },
     "SHOWCASE": {
       "COPY_JSON": "复制 JSON",
