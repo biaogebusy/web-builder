@@ -52,7 +52,6 @@ describe('PageRevisionComponent', () => {
   const init = () => {
     screenService.isPlatformBrowser.mockReturnValue(true);
     fixture.componentRef.setInput('content', panel);
-    component.ngOnInit();
     fixture.detectChanges();
   };
 
@@ -87,6 +86,15 @@ describe('PageRevisionComponent', () => {
     expect(component.revisions().length).toBe(2);
     expect(fixture.nativeElement.querySelectorAll('.revision-row').length).toBe(2);
     expect(fixture.nativeElement.querySelector('.revision-badge')).not.toBeNull();
+  });
+
+  // The drawer header only says "revision history", so the panel has to name the page
+  it('names the page the history belongs to', () => {
+    init();
+
+    expect(fixture.nativeElement.querySelector('.revision-page-title').textContent.trim()).toBe(
+      '首页'
+    );
   });
 
   // Drupal sends seconds, the date pipe reads milliseconds
@@ -193,5 +201,14 @@ describe('PageRevisionComponent', () => {
       langcode: 'zh-hans',
       vid: '28',
     });
+  });
+
+  it('refetches the list after a save, which added a revision', () => {
+    init();
+    builderService.getPageRevisions.mockClear();
+
+    builderState.updateSuccess$.next(true);
+
+    expect(builderService.getPageRevisions).toHaveBeenCalledTimes(1);
   });
 });

@@ -213,6 +213,7 @@ export const createBuilderServiceMock = () => ({
     (): Observable<any> => of({ status: true, message: '', revisions: [] })
   ),
   loadPageRevision: vi.fn(),
+  restoreRevision: vi.fn(),
   updatePageJSON: vi.fn(() => of(true)),
   checkIsLatestPage: vi.fn(),
   loadNodeJson: vi.fn(),

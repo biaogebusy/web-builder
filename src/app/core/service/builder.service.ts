@@ -205,12 +205,110 @@ export class BuilderService extends ApiService {
           }
           // The restored content differs from what the server renders until it is saved, so the
           // draft has to start out dirty
-          this.builder.loadNewPage({ ...formatToExtraData(content), dirty: true });
+          this.builder.loadNewPage({
+            ...formatToExtraData(content),
+            dirty: true,
+            revisionVid: vid,
+          });
           this.util.openSnackbar(this.translate.instant('BUILDER.REVISION.LOADED', { vid }), 'ok');
         },
         error: () => {
           this.builder.loading.set(false);
           this.util.openSnackbar(this.translate.instant('BUILDER.REVISION.LOAD_FAIL'), 'ok');
+        },
+      });
+  }
+
+  /**
+   * Publish an old revision as the newest one, the way Drupal reverts: the content of `vid` is
+   * saved on top of the current revision, so nothing is removed from the history.
+   *
+   * The revision is fetched again instead of reusing the draft on the canvas, so the restore
+   * always commits exactly what the list offered, even after the preview was edited.
+   */
+  restoreRevision(page: { langcode?: string; nid: string; vid: string }): void {
+    const { langcode, nid, vid } = page;
+    const config: IDialog = {
+      title: this.translate.instant('BUILDER.REVISION.RESTORE_TITLE'),
+      noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
+      yesLabel: this.translate.instant('BUILDER.REVISION.RESTORE_YES'),
+      inputData: {
+        content: {
+          type: 'text',
+          fullWidth: true,
+          body: this.translate.instant('BUILDER.REVISION.RESTORE_CONFIRM', { vid }),
+        },
+      },
+    };
+    this.dialog
+      .open(DialogComponent, { width: '340px', data: config })
+      .afterClosed()
+      .pipe(
+        filter(Boolean),
+        switchMap(() => {
+          this.builder.loading.set(true);
+          return this.nodeService.fetch(
+            `/api/v3/landingPage/revisions/${nid}/${vid}`,
+            { noCache: 1 },
+            getApiLang(langcode)
+          );
+        }),
+        switchMap((content: IPage) =>
+          content?.status
+            ? this.updateLandingPage({ ...formatToExtraData(content), langcode, nid }, false)
+            : of({ status: false, message: this.translate.instant('BUILDER.REVISION.LOAD_FAIL') })
+        ),
+        catchError(() => of({ status: false, message: '' })),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe((res: any) => {
+        if (!res?.status) {
+          this.builder.loading.set(false);
+          this.util.openSnackbar(
+            res?.message || this.translate.instant('BUILDER.REVISION.RESTORE_FAIL'),
+            'ok'
+          );
+          return;
+        }
+        this.reloadRestoredPage({ langcode, nid });
+        this.util.openSnackbar(
+          this.translate.instant('BUILDER.REVISION.RESTORE_SUCCESS', { vid }),
+          'ok'
+        );
+      });
+  }
+
+  /**
+   * Replace the draft with the revision the restore just created, so `vid`/`changed` match the
+   * server again and the staleness poll stays quiet. The right drawer keeps its revision list
+   * open, unlike `loadPage`, because the list is what the restore was started from.
+   *
+   * A restore can be started from the page list for a page that is not on the canvas, which must
+   * not steal the canvas from the page being edited: its local copy is dropped instead, so the
+   * next open reads the restored content from the server.
+   */
+  private reloadRestoredPage(page: { langcode?: string; nid: string }): void {
+    const { langcode, nid } = page;
+    if (!this.builder.getLocalPageByPage(page)?.current) {
+      this.builder.deleteLocalPageByPage(page);
+      this.builder.loading.set(false);
+      this.builder.updateSuccess$.next(true);
+      return;
+    }
+    this.nodeService
+      .fetch(`/api/v3/landingPage/json/${nid}`, { noCache: 1 }, getApiLang(langcode))
+      .pipe(take(1))
+      .subscribe({
+        next: (content: IPage) => {
+          this.builder.loading.set(false);
+          if (content?.status) {
+            this.builder.loadNewPage(formatToExtraData(content), false);
+          }
+          this.builder.updateSuccess$.next(true);
+        },
+        error: () => {
+          this.builder.loading.set(false);
+          this.builder.updateSuccess$.next(true);
         },
       });
   }

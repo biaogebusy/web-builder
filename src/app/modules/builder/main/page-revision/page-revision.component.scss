@@ -6,6 +6,11 @@
   @apply flex flex-col;
 }
 
+.revision-page-title {
+  @apply m-0 truncate px-3 pb-2 text-sm font-medium;
+  color: var(--mat-sys-on-surface-variant);
+}
+
 .state {
   @apply flex flex-col items-center justify-center gap-3 p-6;
 }

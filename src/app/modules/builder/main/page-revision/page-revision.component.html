@@ -1,4 +1,5 @@
 <div class="page-revision">
+  <h3 class="revision-page-title">{{ content().content.title }}</h3>
   @if (loading()) {
     <div class="state">
       <app-spinner />
@@ -39,7 +40,7 @@
             type="button"
             class="revision-row"
             [class.current]="revision.current"
-            [attr.aria-label]="'BUILDER.REVISION.RESTORE_ARIA' | translate: { vid: revision.vid }"
+            [attr.aria-label]="'BUILDER.REVISION.PREVIEW_ARIA' | translate: { vid: revision.vid }"
             (click)="onRevision(revision)"
           >
             <span class="revision-header">

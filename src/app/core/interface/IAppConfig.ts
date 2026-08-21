@@ -254,6 +254,8 @@ export interface IPage {
   dirty?: boolean;
   langcode?: string;
   vid?: string;
+  // Server revision the draft content was loaded from; only set while previewing a revision
+  revisionVid?: string;
   translation?: true;
   target?: string;
 }

@@ -52,6 +52,10 @@ export class PageRevisionComponent implements OnInit {
     if (this.screenService.isPlatformBrowser()) {
       this.load();
     }
+    // Any save adds a revision, so the list has to be refetched to stay in sync while it is open
+    this.builder.updateSuccess$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+      this.load();
+    });
   }
 
   load(): void {
@@ -100,7 +104,7 @@ export class PageRevisionComponent implements OnInit {
       });
   }
 
-  /** Restoring replaces the draft content, so an unsaved draft is only overwritten on purpose */
+  /** Previewing replaces the draft content, so an unsaved draft is only overwritten on purpose */
   onRevision(revision: IPageRevisionRow): void {
     const { nid, langcode } = this.content().content;
     if (!this.builder.isPageDirty({ nid, langcode })) {
@@ -108,14 +112,14 @@ export class PageRevisionComponent implements OnInit {
       return;
     }
     const config: IDialog = {
-      title: this.translate.instant('BUILDER.REVISION.RESTORE_TITLE'),
+      title: this.translate.instant('BUILDER.REVISION.PREVIEW_TITLE'),
       noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
-      yesLabel: this.translate.instant('BUILDER.REVISION.RESTORE_YES'),
+      yesLabel: this.translate.instant('BUILDER.REVISION.PREVIEW_YES'),
       inputData: {
         content: {
           type: 'text',
           fullWidth: true,
-          body: this.translate.instant('BUILDER.REVISION.RESTORE_CONFIRM', {
+          body: this.translate.instant('BUILDER.REVISION.PREVIEW_CONFIRM', {
             title: this.content().content.title,
           }),
         },
