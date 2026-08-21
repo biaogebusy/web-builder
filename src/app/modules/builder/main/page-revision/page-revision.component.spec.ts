@@ -282,6 +282,28 @@ describe('PageRevisionComponent', () => {
     });
   });
 
+  // A layout only save leaves `changed` untouched, so the timestamp cannot order the pair
+  it('compares by revision id when both revisions share a timestamp', () => {
+    builderService.getPageRevisions.mockReturnValue(
+      of({
+        status: true,
+        message: '',
+        revisions: [revision('29', true, 1740226733), revision('28', false, 1740226733)],
+      })
+    );
+    init();
+    const open = confirmWith(false);
+    component.toggleCompare('29');
+    component.toggleCompare('28');
+
+    component.onCompare();
+
+    expect(open.mock.calls[0][1]?.data).toMatchObject({
+      original: { vid: '28' },
+      modified: { vid: '29' },
+    });
+  });
+
   it('drops the selection when the list is refetched', () => {
     init();
     component.toggleCompare('29');

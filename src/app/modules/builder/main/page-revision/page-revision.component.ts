@@ -131,11 +131,14 @@ export class PageRevisionComponent implements OnInit {
   /**
    * Open the diff with the older revision on the left, whichever order the two were ticked in, so
    * the comparison always reads as what changed over time.
+   *
+   * Ordering follows the revision id, not the timestamp: `changed` is the node changed field of
+   * that revision, which a layout only save leaves untouched, so it repeats or goes backwards.
    */
   onCompare(): void {
     const [original, modified] = this.revisions()
       .filter(revision => this.isSelected(revision.vid))
-      .sort((a, b) => a.time - b.time);
+      .sort((a, b) => Number(a.vid) - Number(b.vid));
     const { nid, langcode, title } = this.content().content;
     const data: IRevisionDiffData = {
       nid,
