@@ -6,6 +6,7 @@ import {
   signal,
   computed,
   ChangeDetectionStrategy,
+  DOCUMENT,
 } from '@angular/core';
 import {
   ReactiveFormsModule,
@@ -27,9 +28,9 @@ import {
   OAUTH_POPUP_TIMEOUT,
   UserService,
 } from '@core/service/user.service';
-import type { OAuthMode, OtpResult } from '@core/service/user.service';
+import type { OAuthMode, OtpResult, StartAuthorizeOptions } from '@core/service/user.service';
 import { ScreenService } from '@core/service/screen.service';
-import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
+import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig, ISocialLoginProvider } from '@core/interface/IAppConfig';
 import type { IIcon } from '@core/interface/widgets/IIcon';
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
@@ -95,7 +96,12 @@ export class LoginComponent implements OnInit {
     const u = this.user();
     return typeof u === 'object' ? u : undefined;
   });
-  private apiUrl = inject<string>(API_URL);
+  /**
+   * A provider needs an entry point to be worth a button: `idp` federates behind the CMS
+   * authorize endpoint, `url` is a CMS-side social login path. One with neither has nowhere to
+   * send the browser.
+   */
+  public readonly socialProviders: ISocialLoginProvider[] = this.enabledSocialProviders();
 
   public loading = signal<boolean>(false);
   public error = signal<string>('');
@@ -130,6 +136,7 @@ export class LoginComponent implements OnInit {
   private screenService = inject(ScreenService);
   private translate = inject(TranslateService);
   private destroyRef = inject(DestroyRef);
+  private doc = inject(DOCUMENT);
   private dialogRef = inject(MatDialogRef, { optional: true });
 
   private get inDialog(): boolean {
@@ -139,6 +146,7 @@ export class LoginComponent implements OnInit {
   constructor() {
     this.destroyRef.onDestroy(() => this.authAbort.abort());
     if (this.screenService.isPlatformBrowser()) {
+      this.watchBfcacheRestore();
       this.userService.userSub$.pipe(takeUntilDestroyed()).subscribe((currentUser: any) => {
         if (!currentUser) {
           return;
@@ -154,6 +162,25 @@ export class LoginComponent implements OnInit {
         }, 2000);
       });
     }
+  }
+
+  /**
+   * A redirect-mode authorize deliberately leaves `loading` on while the browser navigates away.
+   * Coming back through the bfcache revives this very instance with the flag still set, which
+   * would leave the form spinning behind disabled buttons until a manual reload.
+   */
+  private watchBfcacheRestore(): void {
+    const win = this.doc.defaultView;
+    if (!win) {
+      return;
+    }
+    const onPageShow = (event: PageTransitionEvent): void => {
+      if (event.persisted) {
+        this.loading.set(false);
+      }
+    };
+    win.addEventListener('pageshow', onPageShow);
+    this.destroyRef.onDestroy(() => win.removeEventListener('pageshow', onPageShow));
   }
 
   ngOnInit(): void {
@@ -186,27 +213,18 @@ export class LoginComponent implements OnInit {
   }
 
   socialLogin(provider: ISocialLoginProvider): void {
-    if (provider.idp) {
-      this.startOAuth(provider.idp);
-      return;
-    }
-    if (provider.url) {
-      window.location.href = `${this.apiUrl}${provider.url}`;
-    }
+    this.startOAuth(provider);
   }
 
-  private startOAuth(idp?: string): void {
+  /**
+   * @param provider Social entry point; omitted for the plain OAuth flow.
+   */
+  private startOAuth(provider?: ISocialLoginProvider): void {
     this.resetMessages();
     this.loading.set(true);
     const mode: OAuthMode = this.inDialog ? 'popup' : 'redirect';
     const { returnUrl } = this.route.snapshot.queryParams;
-    this.userService
-      .startAuthorize({
-        mode,
-        returnUrl,
-        signal: this.authAbort.signal,
-        ...(idp ? { idp } : {}),
-      })
+    this.requestAuthorize({ mode, returnUrl, signal: this.authAbort.signal }, provider)
       .catch(error => {
         console.error('Authorize failed:', error);
         this.showMessage(false, this.authorizeErrorMessage(error));
@@ -218,6 +236,34 @@ export class LoginComponent implements OnInit {
           this.loading.set(false);
         }
       });
+  }
+
+  /**
+   * An `idp` provider is federated behind the CMS authorize endpoint, so it stays an ordinary
+   * authorize request and the app never talks to the provider. A `url` provider only opens a CMS
+   * session, so it has to be pointed back at that same authorize request to yield a token.
+   */
+  private requestAuthorize(
+    options: StartAuthorizeOptions,
+    provider?: ISocialLoginProvider
+  ): Promise<void> {
+    if (provider?.idp) {
+      return this.userService.startAuthorize({ ...options, idp: provider.idp });
+    }
+    if (provider?.url) {
+      return this.userService.startSocialAuthorize(provider.url, options);
+    }
+    return this.userService.startAuthorize(options);
+  }
+
+  private enabledSocialProviders(): ISocialLoginProvider[] {
+    const socialLogin = this.coreConfig.login?.socialLogin;
+    if (!socialLogin?.enable) {
+      return [];
+    }
+    return (socialLogin.providers || []).filter(
+      provider => provider.enable && (!!provider.idp || !!provider.url)
+    );
   }
 
   /** Popup mode reports why it never completed, so the form can explain it and become usable again. */

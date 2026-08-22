@@ -1,7 +1,6 @@
 @let loginConfig = coreConfig.login;
 @let phoneLogin = loginConfig.phoneLogin;
 @let oauthLogin = loginConfig.oauthLogin;
-@let socialLoginConfig = loginConfig.socialLogin;
 <div class="login-container">
   <div class="login-wrapper">
     <div class="login-second">
@@ -25,7 +24,7 @@
               {{ noticeValue }}
             </div>
           }
-          @if (oauthLogin?.enable || socialLoginConfig?.enable) {
+          @if (oauthLogin?.enable || socialProviders.length) {
             <section class="auth-login" [attr.aria-label]="'LOGIN.QUICK_AUTH' | translate">
               <div class="auth-login-list">
                 @if (oauthLogin?.enable) {
@@ -45,28 +44,24 @@
                     </span>
                   </button>
                 }
-                @if (socialLoginConfig?.enable) {
-                  @for (provider of socialLoginConfig?.providers || []; track provider.label) {
-                    @if (provider.enable) {
-                      <button
-                        type="button"
-                        mat-stroked-button
-                        class="auth-pill-btn"
-                        [disabled]="loading()"
-                        [attr.aria-label]="provider.label"
-                        (click)="socialLogin(provider)"
-                      >
-                        <app-icon [content]="providerIcon(provider)" />
-                        <span class="auth-pill-label">{{ provider.label }}</span>
-                      </button>
-                    }
-                  }
+                @for (provider of socialProviders; track provider.label) {
+                  <button
+                    type="button"
+                    mat-stroked-button
+                    class="auth-pill-btn"
+                    [disabled]="loading()"
+                    [attr.aria-label]="provider.label"
+                    (click)="socialLogin(provider)"
+                  >
+                    <app-icon [content]="providerIcon(provider)" />
+                    <span class="auth-pill-label">{{ provider.label }}</span>
+                  </button>
                 }
               </div>
             </section>
           }
           @if (phoneLogin?.enable) {
-            @if (oauthLogin?.enable || socialLoginConfig?.enable) {
+            @if (oauthLogin?.enable || socialProviders.length) {
               <div class="auth-login-divider">
                 <mat-divider />
                 <span>{{ 'LOGIN.OR_USE_PHONE' | translate }}</span>

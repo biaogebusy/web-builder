@@ -200,6 +200,35 @@ export class UserService extends ApiService {
       return;
     }
     const mode: OAuthMode = options.mode ?? 'redirect';
+    const authorizePath = await this.prepareAuthorizeRequest(options, mode);
+    return this.handOff(`${this.apiUrl}${authorizePath}`, mode, options.signal);
+  }
+
+  /**
+   * Starts a social provider that only opens a Drupal session, pointing it back at the authorize
+   * request through `destination`. Without that hop the provider drops the user on a CMS page,
+   * signed into Drupal while the app still holds no token.
+   */
+  async startSocialAuthorize(
+    providerPath: string,
+    options: StartAuthorizeOptions = {}
+  ): Promise<void> {
+    if (!this.isBrowser) {
+      return;
+    }
+    const mode: OAuthMode = options.mode ?? 'redirect';
+    const authorizePath = await this.prepareAuthorizeRequest(options, mode);
+    const providerUrl = appendQueryParams(`${this.apiUrl}${providerPath}`, {
+      destination: authorizePath,
+    });
+    return this.handOff(providerUrl, mode, options.signal);
+  }
+
+  /** Stashes a fresh PKCE challenge and returns the site-relative authorize path. */
+  private async prepareAuthorizeRequest(
+    options: StartAuthorizeOptions,
+    mode: OAuthMode
+  ): Promise<string> {
     const verifier = generateCodeVerifier();
     const state = generateState();
     const challenge = await generateCodeChallenge(verifier);
@@ -223,12 +252,15 @@ export class UserService extends ApiService {
     if (options.idp) {
       params.set('idp', options.idp);
     }
-    const authorizeUrl = `${this.apiUrl}${environment.oauth.authorizeUrl}?${params.toString()}`;
+    return `${environment.oauth.authorizeUrl}?${params.toString()}`;
+  }
 
+  private handOff(url: string, mode: OAuthMode, signal?: AbortSignal): Promise<void> {
     if (mode === 'popup') {
-      return this.runLoginPopup(authorizeUrl, options.signal);
+      return this.runLoginPopup(url, signal);
     }
-    window.location.assign(authorizeUrl);
+    window.location.assign(url);
+    return Promise.resolve();
   }
 
   async handleOAuthCallback(): Promise<CallbackResult> {
@@ -252,11 +284,22 @@ export class UserService extends ApiService {
     if (stash.state !== state) {
       throw new Error('OAuth state mismatch');
     }
-    window.sessionStorage.removeItem(this.pkceStorageKey);
 
     const tokenData = await firstValueFrom(this.exchangeCodeForToken(code, stash.verifier));
     await firstValueFrom(this.processTokenAndLogin(tokenData));
+    // Dropped only once the login is complete. A failed exchange has to leave the stash behind,
+    // otherwise the callback screen cannot retry and every recovery ends in "Missing PKCE
+    // session".
+    window.sessionStorage.removeItem(this.pkceStorageKey);
     return { mode: stash.mode, returnUrl: stash.returnUrl };
+  }
+
+  /**
+   * The returnUrl of the authorize request still in flight, so a failed callback can retry the
+   * page the user actually came from instead of dropping them on the login redirect default.
+   */
+  get pendingReturnUrl(): string {
+    return this.readPkceStash()?.returnUrl ?? '';
   }
 
   private exchangeCodeForToken(code: string, verifier: string): Observable<OAuthTokenResponse> {

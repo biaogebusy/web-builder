@@ -7,6 +7,9 @@ import { ScreenService } from '@core/service/screen.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 
+/** Shown when the callback cannot explain itself; the raw reason stays in the console. */
+const AUTH_FAILED_MESSAGE = '登录失败，请重试';
+
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-login-callback',
@@ -21,6 +24,8 @@ export class LoginCallbackComponent implements OnInit {
   private screenService = inject(ScreenService);
 
   error = signal<string>('');
+  /** Where the failed attempt was headed, so a retry lands there instead of the default page. */
+  private returnUrl = '';
 
   async ngOnInit(): Promise<void> {
     if (!this.screenService.isPlatformBrowser()) {
@@ -32,19 +37,31 @@ export class LoginCallbackComponent implements OnInit {
         window.close();
         return;
       }
-      const target = returnUrl || this.coreConfig.login.loginRedirect || '/';
-      this.router.navigateByUrl(target);
+      this.router.navigateByUrl(returnUrl || this.loginRedirect);
     } catch (err: any) {
       console.error('OAuth callback failed:', err);
-      this.error.set(err?.message || '登录失败，请重试');
+      this.returnUrl = this.userService.pendingReturnUrl;
+      this.error.set(err?.message || AUTH_FAILED_MESSAGE);
     }
   }
 
   retry(): void {
-    window.location.reload();
+    // The authorization code in this URL is single-use and already spent, so reloading would fail
+    // the same way every time; only a fresh authorize request can recover.
+    this.error.set('');
+    this.userService
+      .startAuthorize({ mode: 'redirect', returnUrl: this.returnUrl || this.loginRedirect })
+      .catch(err => {
+        console.error('Retry authorize failed:', err);
+        this.error.set(AUTH_FAILED_MESSAGE);
+      });
   }
 
   goLogin(): void {
-    this.router.navigateByUrl('/user/login');
+    this.router.navigate(this.userService.userLink);
+  }
+
+  private get loginRedirect(): string {
+    return this.coreConfig.login?.loginRedirect || '/';
   }
 }
