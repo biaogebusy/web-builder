@@ -34,6 +34,13 @@ const CALLBACK_REASON_KEYS: Record<string, string> = {
   templateUrl: './login-callback.component.html',
   styleUrls: ['./login-callback.component.scss'],
   imports: [MatButtonModule, MatIconModule, TranslateModule],
+  host: {
+    // Pinned dark on purpose, rather than following the active theme: this screen is laid out for a
+    // near-black surface with a faint grid. `mat.theme()` emits nothing but `--mat-sys-*`
+    // declarations, so scoping the class to this host recolors the subtree and leaves the rest of
+    // the app — and ThemeService's class on <html> — untouched. Palette: theme-config/_dark-colors.
+    class: 'dark-theme',
+  },
 })
 export class LoginCallbackComponent implements OnInit {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);

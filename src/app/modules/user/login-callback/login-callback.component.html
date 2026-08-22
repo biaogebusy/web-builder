@@ -1,78 +1,33 @@
 <div class="callback-page">
   <div class="bg-grid" aria-hidden="true"></div>
-  <div class="bg-orbs" aria-hidden="true">
-    <span class="orb orb-1"></span>
-    <span class="orb orb-2"></span>
-    <span class="orb orb-3"></span>
-  </div>
-  <div class="bg-scan" aria-hidden="true"></div>
 
-  <div class="callback-card" role="status" aria-live="polite">
-    <span class="corner corner-tl" aria-hidden="true"></span>
-    <span class="corner corner-tr" aria-hidden="true"></span>
-    <span class="corner corner-bl" aria-hidden="true"></span>
-    <span class="corner corner-br" aria-hidden="true"></span>
-
+  <div class="callback-card">
     @if (error(); as errorValue) {
-      <div class="state state-error">
-        <div class="status-pill status-pill-error">
-          <span class="pill-dot"></span>
-          <span class="pill-label">ERROR</span>
-        </div>
-        <div class="orbit orbit-error" aria-hidden="true">
-          <span class="orbit-ring ring-static"></span>
-          <div class="orbit-core core-error">
-            <mat-icon>error_outline</mat-icon>
-          </div>
+      <div class="state" role="alert">
+        <div class="icon-tile is-error" aria-hidden="true">
+          <mat-icon>error_outline</mat-icon>
         </div>
         <h1 class="title">{{ 'CALLBACK.TITLE_ERROR' | translate }}</h1>
-        <p class="message">{{ errorValue }}</p>
-        <div class="data-stream is-error" aria-hidden="true"></div>
+        <div class="panel">
+          <p class="panel-text">{{ errorValue }}</p>
+        </div>
         <div class="actions">
-          <button mat-flat-button color="primary" (click)="retry()">
-            <mat-icon>refresh</mat-icon>
-            <span>{{ 'CALLBACK.RETRY' | translate }}</span>
+          <button mat-flat-button class="pill-btn" (click)="retry()">
+            {{ 'CALLBACK.RETRY' | translate }}
           </button>
-          <button mat-stroked-button (click)="goLogin()">
+          <button mat-stroked-button class="pill-btn" (click)="goLogin()">
             {{ 'CALLBACK.BACK_TO_LOGIN' | translate }}
           </button>
         </div>
       </div>
     } @else {
-      <div class="state state-loading">
-        <div class="status-pill">
-          <span class="pill-dot"></span>
-          <span class="pill-label">AUTHENTICATING</span>
-        </div>
-        <div class="orbit" aria-hidden="true">
-          <span class="orbit-ring ring-1"></span>
-          <span class="orbit-ring ring-2"></span>
-          <span class="orbit-ring ring-3"></span>
-          <div class="orbit-core">
-            <mat-icon>lock</mat-icon>
-          </div>
+      <div class="state" role="status" aria-live="polite">
+        <div class="icon-tile" aria-hidden="true">
+          <mat-icon>lock</mat-icon>
         </div>
         <h1 class="title">{{ 'CALLBACK.TITLE_LOADING' | translate }}</h1>
-        <p class="message">{{ 'CALLBACK.MESSAGE_LOADING' | translate }}</p>
-        <div class="data-stream" aria-hidden="true"></div>
-        <!-- Decorative, but every value has to be a fact: the flow really is OAuth 2.0 with PKCE,
-             and this block only renders while the exchange is in flight. -->
-        <div class="telemetry" aria-hidden="true">
-          <span class="telemetry-item">
-            <span class="t-label">PROTOCOL</span>
-            <span class="t-value">OAUTH 2.0</span>
-          </span>
-          <span class="telemetry-divider"></span>
-          <span class="telemetry-item">
-            <span class="t-label">SECURITY</span>
-            <span class="t-value">PKCE</span>
-          </span>
-          <span class="telemetry-divider"></span>
-          <span class="telemetry-item">
-            <span class="t-label">STATUS</span>
-            <span class="t-value t-value-active">ACTIVE</span>
-          </span>
-        </div>
+        <p class="subtitle">{{ 'CALLBACK.MESSAGE_LOADING' | translate }}</p>
+        <div class="progress" aria-hidden="true"></div>
       </div>
     }
   </div>

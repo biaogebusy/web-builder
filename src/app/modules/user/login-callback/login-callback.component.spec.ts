@@ -48,6 +48,12 @@ describe('LoginCallbackComponent', () => {
     router = TestBed.inject(Router);
   });
 
+  it('pins the page dark instead of following the active theme', () => {
+    // The layout is built for a near-black surface, so the palette must not follow whatever
+    // ThemeService put on <html>.
+    expect(fixture.nativeElement.classList.contains('dark-theme')).toBe(true);
+  });
+
   it('lands on the returnUrl the authorize request started from', async () => {
     userService.handleOAuthCallback.mockReturnValueOnce(
       Promise.resolve({ mode: 'redirect', returnUrl: '/builder' })
