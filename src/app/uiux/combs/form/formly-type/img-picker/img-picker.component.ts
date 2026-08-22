@@ -1,4 +1,11 @@
-import { Component, DestroyRef, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  EnvironmentInjector,
+  OnInit,
+  inject,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
@@ -24,6 +31,11 @@ export class ImgPickerComponent extends FieldType implements OnInit {
   manageService = inject(ManageService);
   src: string;
   private destroyRef = inject(DestroyRef);
+  // The media library dialog resolves route-level tokens (BUILDER_CONFIG / MEDIA_ASSETS)
+  // through the injector MatDialog was resolved from. This component does not import
+  // MatDialogModule, so in a subtree without it MatDialog is the root instance and the
+  // content would be created under the root injector; pass this injector instead.
+  private environmentInjector = inject(EnvironmentInjector);
   constructor() {
     super();
   }
@@ -72,6 +84,7 @@ export class ImgPickerComponent extends FieldType implements OnInit {
       panelClass: this.manageService.mediaDialogClass,
       id: 'img-picker',
       data: config,
+      injector: this.environmentInjector,
     });
   }
 

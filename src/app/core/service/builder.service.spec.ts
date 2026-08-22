@@ -23,6 +23,11 @@ describe('BuilderService', () => {
   const openSnackbar = vi.fn();
   const getLocalPageByPage = vi.fn((_page: Partial<IPage>): IPage | undefined => undefined);
   const deleteLocalPageByPage = vi.fn();
+  const updateSuccessNext = vi.fn();
+  // Restores are confirmed in a dialog, so the default answer is yes
+  const dialogOpen = vi.fn((_component: unknown, _config: unknown) => ({
+    afterClosed: () => of(true),
+  }));
 
   const createService = (): BuilderService => {
     TestBed.configureTestingModule({
@@ -31,7 +36,7 @@ describe('BuilderService', () => {
         { provide: API_URL, useValue: 'https://example.com' },
         { provide: DOCUMENT, useValue: document },
         { provide: HttpClient, useValue: { patch, post } },
-        { provide: MatDialog, useValue: {} },
+        { provide: MatDialog, useValue: { open: dialogOpen } },
         {
           provide: BuilderState,
           useValue: {
@@ -39,6 +44,7 @@ describe('BuilderService', () => {
             loadNewPage,
             getLocalPageByPage,
             deleteLocalPageByPage,
+            updateSuccess$: { next: updateSuccessNext },
           },
         },
         { provide: UtilitiesService, useValue: { openSnackbar } },
@@ -164,5 +170,69 @@ describe('BuilderService', () => {
     expect(post.mock.calls[0][0]).toBe(
       'https://example.com/api/v3/landingPage/translations/delete/42/en'
     );
+  });
+
+  it('marks a previewed draft with the revision it was loaded from', () => {
+    fetch.mockReturnValueOnce(of({ nid: '42', title: 'Old page', body: [], status: true }));
+    const service = createService();
+
+    service.loadPageRevision({ nid: '42', vid: '28' });
+
+    expect(fetch.mock.calls[0][0]).toBe('/api/v3/landingPage/revisions/42/28');
+    expect(loadNewPage).toHaveBeenCalledWith(
+      expect.objectContaining({ dirty: true, revisionVid: '28' })
+    );
+  });
+
+  it('saves an old revision as the newest one and reloads what the server now serves', () => {
+    getLocalPageByPage.mockReturnValue({ nid: '42', current: true } as IPage);
+    fetch
+      .mockReturnValueOnce(of({ nid: '42', title: 'Old page', body: [], status: true, vid: '30' }))
+      .mockReturnValueOnce(of({ nid: '42', title: 'Old page', body: [], status: true, vid: '31' }));
+    const service = createService();
+
+    service.restoreRevision({ nid: '42', vid: '28' });
+
+    expect(patch).toHaveBeenCalledOnce();
+    expect(patch.mock.calls[0][0]).toBe('https://example.com/api/v3/landingPage/update/42');
+    expect(fetch.mock.calls[1][0]).toBe('/api/v3/landingPage/json/42');
+    // Keeping the drawer open leaves the revision list the restore started from in place
+    expect(loadNewPage).toHaveBeenCalledWith(expect.objectContaining({ vid: '31' }), false);
+    expect(updateSuccessNext).toHaveBeenCalledWith(true);
+  });
+
+  // Restores can be started from the page list, for a page other than the one being edited
+  it('drops the local copy of a restored page instead of opening it on the canvas', () => {
+    getLocalPageByPage.mockReturnValue({ nid: '42' } as IPage);
+    fetch.mockReturnValueOnce(of({ nid: '42', title: 'Old page', body: [], status: true }));
+    const service = createService();
+
+    service.restoreRevision({ nid: '42', vid: '28' });
+
+    expect(patch).toHaveBeenCalledOnce();
+    expect(deleteLocalPageByPage).toHaveBeenCalledWith({ nid: '42', langcode: undefined });
+    expect(loadNewPage).not.toHaveBeenCalled();
+    expect(updateSuccessNext).toHaveBeenCalledWith(true);
+  });
+
+  it('restores nothing when the confirm is dismissed', () => {
+    dialogOpen.mockReturnValueOnce({ afterClosed: () => of(false) });
+    const service = createService();
+
+    service.restoreRevision({ nid: '42', vid: '28' });
+
+    expect(fetch).not.toHaveBeenCalled();
+    expect(patch).not.toHaveBeenCalled();
+  });
+
+  it('keeps the draft when the revision behind a restore cannot be read', () => {
+    fetch.mockReturnValueOnce(of({ status: false, message: 'Invalid revision' }));
+    const service = createService();
+
+    service.restoreRevision({ nid: '42', vid: '28' });
+
+    expect(patch).not.toHaveBeenCalled();
+    expect(loadNewPage).not.toHaveBeenCalled();
+    expect(openSnackbar).toHaveBeenCalledWith('BUILDER.REVISION.LOAD_FAIL', 'ok');
   });
 });

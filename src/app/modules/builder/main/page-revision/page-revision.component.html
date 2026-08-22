@@ -1,7 +1,20 @@
 <div class="page-revision">
+  <h3 class="revision-page-title">{{ content().content.title }}</h3>
   @if (loading()) {
     <div class="state">
       <app-spinner />
+    </div>
+  } @else if (forbidden()) {
+    <div class="state">
+      <p class="state-text">{{ 'BUILDER.REVISION.LOGIN_REQUIRED' | translate }}</p>
+      <app-btn
+        (click)="openLogin()"
+        [content]="{
+          label: 'BUILDER.REVISION.LOGIN' | translate,
+          color: 'primary',
+          icon: { svg: 'login' },
+        }"
+      />
     </div>
   } @else if (error()) {
     <div class="state">
@@ -22,12 +35,18 @@
   } @else {
     <ul class="revision-list">
       @for (revision of revisions(); track revision.vid) {
-        <li>
+        <li class="revision-item" [class.current]="revision.current">
+          <mat-checkbox
+            class="revision-select"
+            [checked]="isSelected(revision.vid)"
+            [disabled]="!isSelected(revision.vid) && canCompare()"
+            [attr.aria-label]="'BUILDER.REVISION.COMPARE_ARIA' | translate: { vid: revision.vid }"
+            (change)="toggleCompare(revision.vid)"
+          />
           <button
             type="button"
             class="revision-row"
-            [class.current]="revision.current"
-            [attr.aria-label]="'BUILDER.REVISION.RESTORE_ARIA' | translate: { vid: revision.vid }"
+            [attr.aria-label]="'BUILDER.REVISION.PREVIEW_ARIA' | translate: { vid: revision.vid }"
             (click)="onRevision(revision)"
           >
             <span class="revision-header">
@@ -57,6 +76,27 @@
         </li>
       }
     </ul>
-    <p class="revision-hint">{{ 'BUILDER.REVISION.HINT' | translate }}</p>
+    <div class="revision-footer">
+      <p class="revision-hint">{{ 'BUILDER.REVISION.HINT' | translate }}</p>
+      @if (revisions().length > 1) {
+        <div class="revision-actions">
+          <app-btn
+            (btnClick)="onCompare()"
+            [content]="{
+              label: 'BUILDER.REVISION.COMPARE' | translate,
+              mode: 'stroked',
+              color: 'primary',
+              icon: { svg: 'file-compare' },
+              disabled: !canCompare(),
+            }"
+          />
+          @if (!canCompare()) {
+            <span class="revision-actions-hint">
+              {{ 'BUILDER.REVISION.COMPARE_PICK' | translate }}
+            </span>
+          }
+        </div>
+      }
+    </div>
   }
 </div>

@@ -202,7 +202,7 @@ export class PageItemComponent {
       },
     };
     this.builder.rightContent$.next({
-      title: this.translate.instant('BUILDER.REVISION.TITLE', { title: page.title }),
+      title: this.translate.instant('BUILDER.REVISION.TITLE'),
       mode: 'over',
       hasBackdrop: true,
       style: {
