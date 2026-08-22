@@ -17,7 +17,7 @@
       <div class="state state-error">
         <div class="status-pill status-pill-error">
           <span class="pill-dot"></span>
-          <span class="pill-label">ERROR · 0x401</span>
+          <span class="pill-label">ERROR</span>
         </div>
         <div class="orbit orbit-error" aria-hidden="true">
           <span class="orbit-ring ring-static"></span>
@@ -25,15 +25,17 @@
             <mat-icon>error_outline</mat-icon>
           </div>
         </div>
-        <h1 class="title">认证失败</h1>
+        <h1 class="title">{{ 'CALLBACK.TITLE_ERROR' | translate }}</h1>
         <p class="message">{{ errorValue }}</p>
         <div class="data-stream is-error" aria-hidden="true"></div>
         <div class="actions">
           <button mat-flat-button color="primary" (click)="retry()">
             <mat-icon>refresh</mat-icon>
-            <span>重新认证</span>
+            <span>{{ 'CALLBACK.RETRY' | translate }}</span>
           </button>
-          <button mat-stroked-button (click)="goLogin()">返回登录</button>
+          <button mat-stroked-button (click)="goLogin()">
+            {{ 'CALLBACK.BACK_TO_LOGIN' | translate }}
+          </button>
         </div>
       </div>
     } @else {
@@ -50,9 +52,11 @@
             <mat-icon>lock</mat-icon>
           </div>
         </div>
-        <h1 class="title">正在登录</h1>
-        <p class="message">正在与认证服务器建立安全连接…</p>
+        <h1 class="title">{{ 'CALLBACK.TITLE_LOADING' | translate }}</h1>
+        <p class="message">{{ 'CALLBACK.MESSAGE_LOADING' | translate }}</p>
         <div class="data-stream" aria-hidden="true"></div>
+        <!-- Decorative, but every value has to be a fact: the flow really is OAuth 2.0 with PKCE,
+             and this block only renders while the exchange is in flight. -->
         <div class="telemetry" aria-hidden="true">
           <span class="telemetry-item">
             <span class="t-label">PROTOCOL</span>
@@ -60,13 +64,13 @@
           </span>
           <span class="telemetry-divider"></span>
           <span class="telemetry-item">
-            <span class="t-label">STATUS</span>
-            <span class="t-value t-value-active">SECURE</span>
+            <span class="t-label">SECURITY</span>
+            <span class="t-value">PKCE</span>
           </span>
           <span class="telemetry-divider"></span>
           <span class="telemetry-item">
-            <span class="t-label">CIPHER</span>
-            <span class="t-value">TLS 1.3</span>
+            <span class="t-label">STATUS</span>
+            <span class="t-value t-value-active">ACTIVE</span>
           </span>
         </div>
       </div>

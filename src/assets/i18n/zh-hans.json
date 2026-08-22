@@ -14,7 +14,8 @@
     "PASSWORD_LABEL": "密码",
     "SHOW_PASSWORD": "显示密码",
     "HIDE_PASSWORD": "隐藏密码",
-    "OAUTH_SUBMIT": "前往登录",
+    "OAUTH_SUBMIT": "使用账号登录",
+    "OAUTH_HINT": "将跳转至认证服务完成登录",
     "SOCIAL_LOGIN": "快速认证",
     "QUICK_AUTH": "快速认证",
     "OR_USE_PHONE": "或使用手机登录",
@@ -36,6 +37,19 @@
     "ERROR_POPUP_BLOCKED": "登录窗口被浏览器拦截，请允许弹出窗口后重试",
     "ERROR_POPUP_CLOSED": "登录未完成，登录窗口已关闭",
     "ERROR_POPUP_TIMEOUT": "登录等待超时，请重新发起登录"
+  },
+  "CALLBACK": {
+    "TITLE_LOADING": "正在登录",
+    "MESSAGE_LOADING": "正在与认证服务交换登录凭据…",
+    "TITLE_ERROR": "登录未完成",
+    "RETRY": "重新登录",
+    "BACK_TO_LOGIN": "返回登录页",
+    "ERROR_GENERIC": "登录未能完成，请重新登录",
+    "ERROR_DENIED": "你取消了本次授权，如需登录请重新发起",
+    "ERROR_PROVIDER": "认证服务拒绝了本次登录，请重新登录",
+    "ERROR_INVALID_URL": "登录链接不完整，请重新登录",
+    "ERROR_NO_SESSION": "本次登录已失效，可能是等待过久或换了浏览器标签，请重新登录",
+    "ERROR_STATE_MISMATCH": "登录校验未通过，为保护账号安全已中止，请重新登录"
   },
   "MANAGE": {
     "MEDIA": {

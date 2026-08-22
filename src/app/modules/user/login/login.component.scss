@@ -163,6 +163,11 @@
   @apply flex flex-col gap-3 my-3;
 }
 
+.auth-login-hint {
+  @apply text-xs text-center m-0;
+  color: var(--mat-sys-on-surface-variant);
+}
+
 .auth-pill-btn {
   @apply w-full h-[44px];
   border-radius: 9999px !important;

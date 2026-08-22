@@ -1,7 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router, provideRouter } from '@angular/router';
 import { ScreenService } from '@core/service/screen.service';
-import { UserService } from '@core/service/user.service';
+import {
+  OAUTH_CALLBACK_DENIED,
+  OAUTH_CALLBACK_NO_SESSION,
+  OAUTH_CALLBACK_STATE_MISMATCH,
+  UserService,
+} from '@core/service/user.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import {
   createScreenServiceMock,
@@ -68,12 +73,12 @@ describe('LoginCallbackComponent', () => {
 
   it('retries with a fresh authorize request, since the code in this URL is already spent', async () => {
     userService.handleOAuthCallback.mockReturnValueOnce(
-      Promise.reject(new Error('OAuth state mismatch'))
+      Promise.reject(new Error(OAUTH_CALLBACK_STATE_MISMATCH))
     );
     userService.pendingReturnUrl = '/builder';
 
     await component.ngOnInit();
-    expect(component.error()).toBe('OAuth state mismatch');
+    expect(component.error()).toBe('CALLBACK.ERROR_STATE_MISMATCH');
 
     component.retry();
 
@@ -85,7 +90,9 @@ describe('LoginCallbackComponent', () => {
   });
 
   it('retries towards the default page when no returnUrl survived the failure', async () => {
-    userService.handleOAuthCallback.mockReturnValueOnce(Promise.reject(new Error('boom')));
+    userService.handleOAuthCallback.mockReturnValueOnce(
+      Promise.reject(new Error(OAUTH_CALLBACK_NO_SESSION))
+    );
 
     await component.ngOnInit();
     component.retry();
@@ -97,12 +104,35 @@ describe('LoginCallbackComponent', () => {
   });
 
   it('sends the user to the app login route, not the CMS one', async () => {
-    userService.handleOAuthCallback.mockReturnValueOnce(Promise.reject(new Error('boom')));
+    userService.handleOAuthCallback.mockReturnValueOnce(
+      Promise.reject(new Error(OAUTH_CALLBACK_NO_SESSION))
+    );
     const navigate = vi.spyOn(router, 'navigate').mockResolvedValue(true);
 
     await component.ngOnInit();
     component.goLogin();
 
     expect(navigate).toHaveBeenCalledWith(['/me/login']);
+  });
+
+  it('tells a user who declined the authorization apart from a broken one', async () => {
+    userService.handleOAuthCallback.mockReturnValueOnce(
+      Promise.reject(new Error(OAUTH_CALLBACK_DENIED))
+    );
+
+    await component.ngOnInit();
+
+    expect(component.error()).toBe('CALLBACK.ERROR_DENIED');
+  });
+
+  it('never surfaces an unmapped internal reason, only localized copy', async () => {
+    // A token-exchange HTTP failure arrives with a message no map covers.
+    userService.handleOAuthCallback.mockReturnValueOnce(
+      Promise.reject(new Error('Http failure response for /oauth/token: 500 Internal Server Error'))
+    );
+
+    await component.ngOnInit();
+
+    expect(component.error()).toBe('CALLBACK.ERROR_GENERIC');
   });
 });

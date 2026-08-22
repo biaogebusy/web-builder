@@ -15,6 +15,7 @@
     "SHOW_PASSWORD": "Show password",
     "HIDE_PASSWORD": "Hide password",
     "OAUTH_SUBMIT": "Sign in with account",
+    "OAUTH_HINT": "You will be taken to the sign-in service to continue",
     "SOCIAL_LOGIN": "Quick Auth",
     "QUICK_AUTH": "Quick Auth",
     "OR_USE_PHONE": "Or sign in with phone",
@@ -36,6 +37,19 @@
     "ERROR_POPUP_BLOCKED": "The sign-in window was blocked. Allow pop-ups and try again.",
     "ERROR_POPUP_CLOSED": "Sign-in was not completed — the window was closed.",
     "ERROR_POPUP_TIMEOUT": "Sign-in timed out. Please start again."
+  },
+  "CALLBACK": {
+    "TITLE_LOADING": "Signing you in",
+    "MESSAGE_LOADING": "Exchanging your credentials with the sign-in service…",
+    "TITLE_ERROR": "Sign-in did not complete",
+    "RETRY": "Sign in again",
+    "BACK_TO_LOGIN": "Back to sign-in",
+    "ERROR_GENERIC": "Sign-in could not be completed. Please sign in again.",
+    "ERROR_DENIED": "You cancelled the authorization. Start again to sign in.",
+    "ERROR_PROVIDER": "The sign-in service rejected this attempt. Please sign in again.",
+    "ERROR_INVALID_URL": "This sign-in link is incomplete. Please sign in again.",
+    "ERROR_NO_SESSION": "This sign-in attempt has expired — it may have waited too long or started in another tab. Please sign in again.",
+    "ERROR_STATE_MISMATCH": "The sign-in security check failed, so it was stopped to protect your account. Please sign in again."
   },
   "MANAGE": {
     "MEDIA": {

@@ -58,6 +58,11 @@
                   </button>
                 }
               </div>
+              @if (oauthLogin?.enable) {
+                <p class="auth-login-hint">
+                  {{ oauthLogin?.hint || ('LOGIN.OAUTH_HINT' | translate) }}
+                </p>
+              }
             </section>
           }
           @if (phoneLogin?.enable) {
@@ -75,7 +80,10 @@
                 }}</mat-label>
                 <input
                   [placeholder]="phoneLogin?.placeholder || ('LOGIN.PHONE_PLACEHOLDER' | translate)"
-                  type="text"
+                  type="tel"
+                  autocomplete="tel"
+                  inputmode="numeric"
+                  maxlength="11"
                   matInput
                   formControlName="phone"
                 />
@@ -93,8 +101,15 @@
                 <mat-label>{{
                   phoneLogin?.code?.label || ('LOGIN.CODE_LABEL' | translate)
                 }}</mat-label>
-                <input matInput type="text" formControlName="code" />
+                <input
+                  matInput
+                  type="text"
+                  autocomplete="one-time-code"
+                  inputmode="numeric"
+                  formControlName="code"
+                />
                 <button
+                  type="button"
                   [disabled]="countdown() > 0 || sendingCode()"
                   (click)="getCode($event)"
                   class="code-btn"

@@ -52,6 +52,17 @@ export const OAUTH_POPUP_BLOCKED = 'oauth_popup_blocked';
 export const OAUTH_POPUP_CLOSED = 'oauth_popup_closed';
 export const OAUTH_POPUP_TIMEOUT = 'oauth_popup_timeout';
 
+/**
+ * Sentinel reasons rejected by {@link UserService.handleOAuthCallback}. Same contract as the popup
+ * ones: the callback screen maps them to localized copy, so no internal English text reaches the
+ * UI. The sentinel is also the diagnostic — it survives into the console log.
+ */
+export const OAUTH_CALLBACK_DENIED = 'oauth_callback_denied';
+export const OAUTH_CALLBACK_PROVIDER_ERROR = 'oauth_callback_provider_error';
+export const OAUTH_CALLBACK_MISSING_PARAMS = 'oauth_callback_missing_params';
+export const OAUTH_CALLBACK_NO_SESSION = 'oauth_callback_no_session';
+export const OAUTH_CALLBACK_STATE_MISMATCH = 'oauth_callback_state_mismatch';
+
 /** Upper bound on the wait, so a popup left open never pins the opener in a pending state. */
 const POPUP_MAX_WAIT_MS = 5 * 60 * 1000;
 const POPUP_POLL_MS = 500;
@@ -270,19 +281,24 @@ export class UserService extends ApiService {
     const search = new URLSearchParams(window.location.search);
     const error = search.get('error');
     if (error) {
-      throw new Error(search.get('error_description') || error);
+      // The provider's own wording is English and unbounded, so it stays in the console; the thrown
+      // sentinel is what the screen renders.
+      console.error('OAuth provider rejected the request:', error, search.get('error_description'));
+      throw new Error(
+        error === 'access_denied' ? OAUTH_CALLBACK_DENIED : OAUTH_CALLBACK_PROVIDER_ERROR
+      );
     }
     const code = search.get('code');
     const state = search.get('state');
     if (!code || !state) {
-      throw new Error('Missing code or state in callback URL');
+      throw new Error(OAUTH_CALLBACK_MISSING_PARAMS);
     }
     const stash = this.readPkceStash();
     if (!stash) {
-      throw new Error('Missing PKCE session, please retry login');
+      throw new Error(OAUTH_CALLBACK_NO_SESSION);
     }
     if (stash.state !== state) {
-      throw new Error('OAuth state mismatch');
+      throw new Error(OAUTH_CALLBACK_STATE_MISMATCH);
     }
 
     const tokenData = await firstValueFrom(this.exchangeCodeForToken(code, stash.verifier));
