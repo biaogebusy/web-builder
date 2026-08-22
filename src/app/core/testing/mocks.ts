@@ -258,7 +258,7 @@ export const createUserServiceMock = () => ({
   loginUser: vi.fn(),
   logoutUser: vi.fn(),
   logout: vi.fn(),
-  getCode: vi.fn(() => of({})),
+  getCode: vi.fn(() => of({ ok: true })),
   loginByPhone: vi.fn(() => of({ ok: true })),
   getUserConfig: vi.fn(() => of({})),
   getUserById: vi.fn(() => of({ data: [] })),

@@ -1,7 +1,7 @@
 import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { DOCUMENT, Injectable, PLATFORM_ID, REQUEST, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { Observable, of, Subject, firstValueFrom } from 'rxjs';
+import { Observable, of, Subject, Subscription, firstValueFrom } from 'rxjs';
 import { ApiService } from './api.service';
 import { map, catchError, switchMap, take } from 'rxjs/operators';
 import {
@@ -44,10 +44,24 @@ interface AuthBroadcastMessage {
 
 export type OAuthMode = 'redirect' | 'popup';
 
+/**
+ * Sentinel reasons rejected by {@link UserService.startAuthorize} in popup mode, so callers can
+ * map them to localized copy instead of surfacing an internal message.
+ */
+export const OAUTH_POPUP_BLOCKED = 'oauth_popup_blocked';
+export const OAUTH_POPUP_CLOSED = 'oauth_popup_closed';
+export const OAUTH_POPUP_TIMEOUT = 'oauth_popup_timeout';
+
+/** Upper bound on the wait, so a popup left open never pins the opener in a pending state. */
+const POPUP_MAX_WAIT_MS = 5 * 60 * 1000;
+const POPUP_POLL_MS = 500;
+
 export interface StartAuthorizeOptions {
   mode?: OAuthMode;
   returnUrl?: string;
   idp?: string;
+  /** Stops watching the popup once the caller is gone, e.g. when its component is destroyed. */
+  signal?: AbortSignal;
 }
 
 export interface CallbackResult {
@@ -64,11 +78,25 @@ interface PkceStash {
 
 interface OtpGenerateResponse {
   status?: boolean;
+  code?: string;
   message?: string;
+}
+
+/**
+ * Outcome of an OTP call. `code` is the backend's stable machine-readable reason (see the
+ * `OtpErrorCode` constants in the xinshi_sms module) and is what callers should map to copy;
+ * `message` is English-only debug text and `status` is the HTTP status when the request failed.
+ */
+export interface OtpResult {
+  ok: boolean;
+  code?: string;
+  message?: string;
+  status?: number;
 }
 
 interface PhoneLoginResponse extends Partial<OAuthTokenResponse>, Partial<TokenUser> {
   status?: boolean;
+  code?: string;
   message?: string;
 }
 
@@ -198,8 +226,7 @@ export class UserService extends ApiService {
     const authorizeUrl = `${this.apiUrl}${environment.oauth.authorizeUrl}?${params.toString()}`;
 
     if (mode === 'popup') {
-      this.openLoginPopup(authorizeUrl);
-      return;
+      return this.runLoginPopup(authorizeUrl, options.signal);
     }
     window.location.assign(authorizeUrl);
   }
@@ -264,7 +291,7 @@ export class UserService extends ApiService {
     }
   }
 
-  private openLoginPopup(authorizeUrl: string): void {
+  private openLoginPopup(authorizeUrl: string): Window | null {
     const width = 480;
     const height = 640;
     const left = window.screenX + Math.max(0, (window.outerWidth - width) / 2);
@@ -272,6 +299,64 @@ export class UserService extends ApiService {
     const features = `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes`;
     const popup = window.open(authorizeUrl, 'xinshi-login', features);
     popup?.focus();
+    return popup;
+  }
+
+  /**
+   * Settles once the login popup finishes, so the caller can leave its pending state instead of
+   * waiting forever when the popup is blocked, dismissed, or simply left open.
+   */
+  private runLoginPopup(authorizeUrl: string, signal?: AbortSignal): Promise<void> {
+    const popup = this.openLoginPopup(authorizeUrl);
+    if (!popup) {
+      return Promise.reject(new Error(OAUTH_POPUP_BLOCKED));
+    }
+    return new Promise<void>((resolve, reject) => {
+      let poll = 0;
+      let timeout = 0;
+      let settled = false;
+      const sub = new Subscription();
+
+      const settle = (finish: () => void): void => {
+        if (settled) {
+          return;
+        }
+        settled = true;
+        window.clearInterval(poll);
+        window.clearTimeout(timeout);
+        sub.unsubscribe();
+        signal?.removeEventListener('abort', onAbort);
+        finish();
+      };
+      // Nothing left to report to, so stop watching without disturbing the popup itself.
+      function onAbort(): void {
+        settle(resolve);
+      }
+
+      // The popup stores the session and broadcasts the login before closing itself, so the
+      // broadcast is the success signal; `closed` alone cannot tell success from a dismissal.
+      sub.add(
+        this.userSub$.subscribe(user => {
+          if (user) {
+            settle(resolve);
+          }
+        })
+      );
+      poll = window.setInterval(() => {
+        if (!popup.closed) {
+          return;
+        }
+        // A browser without BroadcastChannel never broadcasts, so the cookie is the fallback proof.
+        settle(this.getStoredUser() ? resolve : () => reject(new Error(OAUTH_POPUP_CLOSED)));
+      }, POPUP_POLL_MS);
+      // The popup is left open on purpose: the user may still finish there, and the broadcast
+      // listener in this tab keeps working even after the caller stopped waiting.
+      timeout = window.setTimeout(
+        () => settle(() => reject(new Error(OAUTH_POPUP_TIMEOUT))),
+        POPUP_MAX_WAIT_MS
+      );
+      signal?.addEventListener('abort', onAbort);
+    });
   }
 
   processTokenAndLogin(tokenData: OAuthTokenResponse): Observable<boolean> {
@@ -457,16 +542,35 @@ export class UserService extends ApiService {
     setTimeout(finish, 3000);
   }
 
-  getCode(phone: string): Observable<OtpGenerateResponse> {
-    return this.http.post<OtpGenerateResponse>(
-      appendQueryParams(`${this.apiUrl}/api/v3/otp/generate`, { format: 'json' }),
-      {
-        mobile_number: phone,
-      }
-    );
+  getCode(phone: string): Observable<OtpResult> {
+    return this.http
+      .post<OtpGenerateResponse>(
+        appendQueryParams(`${this.apiUrl}/api/v3/otp/generate`, { format: 'json' }),
+        {
+          mobile_number: phone,
+        }
+      )
+      .pipe(
+        // Backend returns HTTP 200 with { status: false, code, message } when no SMS was sent.
+        map(response =>
+          response?.status === false
+            ? { ok: false, code: response.code, message: response.message }
+            : { ok: true }
+        ),
+        catchError(error => {
+          console.error('Send code failed:', error);
+          // Throttling answers 429, so the status is what tells it apart from a plain failure.
+          return of({
+            ok: false,
+            code: error?.error?.code,
+            message: error?.error?.message,
+            status: error?.status,
+          });
+        })
+      );
   }
 
-  loginByPhone(phone: number, code: string): Observable<{ ok: boolean; message?: string }> {
+  loginByPhone(phone: number, code: string): Observable<OtpResult> {
     const authParams = environment.oauth.clientId
       ? { grant_type: 'oauth2', client_id: environment.oauth.clientId }
       : {};
@@ -479,13 +583,14 @@ export class UserService extends ApiService {
       })
       .pipe(
         switchMap(response => {
-          // Backend returns HTTP 200 with { status: false, message } on failure.
+          // Backend returns HTTP 200 with { status: false, code, message } on failure.
           if (response?.status === false) {
-            return of({ ok: false, message: response.message || '登录失败' });
+            return of({ ok: false, code: response.code, message: response.message });
           }
           if (environment.oauth.clientId) {
             if (!response?.access_token) {
-              return of({ ok: false, message: '后端未返回有效的令牌' });
+              console.error('Phone login succeeded but no token was returned');
+              return of({ ok: false });
             }
             return this.processTokenAndLogin(response as OAuthTokenResponse).pipe(
               map(ok => ({ ok }))
@@ -496,8 +601,12 @@ export class UserService extends ApiService {
         }),
         catchError(error => {
           console.error('Phone login failed:', error);
-          const message = error?.error?.message || error?.message || '登录请求失败';
-          return of({ ok: false, message });
+          return of({
+            ok: false,
+            code: error?.error?.code,
+            message: error?.error?.message,
+            status: error?.status,
+          });
         })
       );
   }

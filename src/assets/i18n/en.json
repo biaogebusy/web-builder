@@ -18,7 +18,24 @@
     "SOCIAL_LOGIN": "Quick Auth",
     "QUICK_AUTH": "Quick Auth",
     "OR_USE_PHONE": "Or sign in with phone",
-    "HI": "Hi"
+    "HI": "Hi",
+    "TITLE": "Sign in",
+    "SUBMIT": "Sign in",
+    "PHONE_REQUIRED": "Please enter your phone number",
+    "CODE_REQUIRED": "Please enter the verification code",
+    "CODE_SENDING": "Sending",
+    "CODE_RESEND_IN": "You can request a new code in {{seconds}} seconds",
+    "CODE_SENT": "Code sent to {{phone}}, valid for {{minutes}} minutes",
+    "ERROR_CODE_INVALID": "That code is incorrect or has expired. Please request a new one.",
+    "ERROR_CODE_THROTTLED": "Too many code requests. Please wait a moment and try again.",
+    "ERROR_NOT_REGISTERED": "This phone number is not registered",
+    "ERROR_CODE_SEND_FAILED": "Could not send the code. Please try again later.",
+    "ERROR_LOGIN_FAILED": "Sign-in failed. Please try again later.",
+    "ERROR_SERVICE": "The sign-in service is unavailable. Please try again later.",
+    "ERROR_AUTHORIZE_FAILED": "Could not reach the sign-in page. Please try again later.",
+    "ERROR_POPUP_BLOCKED": "The sign-in window was blocked. Allow pop-ups and try again.",
+    "ERROR_POPUP_CLOSED": "Sign-in was not completed — the window was closed.",
+    "ERROR_POPUP_TIMEOUT": "Sign-in timed out. Please start again."
   },
   "MANAGE": {
     "MEDIA": {

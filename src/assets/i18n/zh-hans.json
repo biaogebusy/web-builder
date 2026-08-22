@@ -18,7 +18,24 @@
     "SOCIAL_LOGIN": "快速认证",
     "QUICK_AUTH": "快速认证",
     "OR_USE_PHONE": "或使用手机登录",
-    "HI": "你好"
+    "HI": "你好",
+    "TITLE": "欢迎登录",
+    "SUBMIT": "登录",
+    "PHONE_REQUIRED": "请输入手机号码",
+    "CODE_REQUIRED": "请输入验证码",
+    "CODE_SENDING": "发送中",
+    "CODE_RESEND_IN": "{{seconds}} 秒后可重新获取验证码",
+    "CODE_SENT": "验证码已发送至 {{phone}}，{{minutes}} 分钟内有效",
+    "ERROR_CODE_INVALID": "验证码不正确或已过期，请重新获取",
+    "ERROR_CODE_THROTTLED": "验证码发送过于频繁，请稍后再试",
+    "ERROR_NOT_REGISTERED": "该手机号尚未注册",
+    "ERROR_CODE_SEND_FAILED": "验证码发送失败，请稍后再试",
+    "ERROR_LOGIN_FAILED": "登录失败，请稍后再试",
+    "ERROR_SERVICE": "登录服务暂时不可用，请稍后再试",
+    "ERROR_AUTHORIZE_FAILED": "登录跳转失败，请稍后再试",
+    "ERROR_POPUP_BLOCKED": "登录窗口被浏览器拦截，请允许弹出窗口后重试",
+    "ERROR_POPUP_CLOSED": "登录未完成，登录窗口已关闭",
+    "ERROR_POPUP_TIMEOUT": "登录等待超时，请重新发起登录"
   },
   "MANAGE": {
     "MEDIA": {

@@ -39,6 +39,11 @@
     background-color: var(--mat-sys-error-container);
     color: var(--mat-sys-on-error-container);
   }
+  .notice {
+    @apply rounded-[4px] p-3 mb-3 text-sm;
+    background-color: var(--mat-sys-surface-container-high);
+    color: var(--mat-sys-on-surface);
+  }
   .login-form {
     @apply flex flex-col justify-center items-center p-6 sm:p-3 z-10 overflow-hidden relative flex-12/12 sm:flex-6/12 box-border;
     .form-scroll {

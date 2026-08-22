@@ -1,12 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogRef } from '@angular/material/dialog';
 import { provideRouter } from '@angular/router';
-import { UserService } from '@core/service/user.service';
+import { OAUTH_POPUP_BLOCKED, OAUTH_POPUP_TIMEOUT, UserService } from '@core/service/user.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { createUserServiceMock, provideCoreMocks } from '@core/testing/mocks';
+import { TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { LoginComponent } from './login.component';
+
+const clickEvent = (): Event => ({ preventDefault: vi.fn() }) as unknown as Event;
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -42,17 +45,18 @@ describe('LoginComponent', () => {
     expect(userService.startAuthorize).toHaveBeenCalledWith({
       mode: 'redirect',
       returnUrl: undefined,
+      signal: expect.any(AbortSignal),
     });
   });
 
-  it('shows the backend message when the phone login fails', () => {
-    userService.loginByPhone.mockReturnValueOnce(of({ ok: false, message: '验证码错误' }));
+  it('falls back to localized copy instead of echoing an unmapped backend message', () => {
+    userService.loginByPhone.mockReturnValueOnce(of({ ok: false, message: 'Unexpected failure' }));
     component.phoneForm.patchValue({ phone: '13800138000', code: '1234' });
 
     component.loginByPhone();
 
     expect(userService.loginByPhone).toHaveBeenCalledWith('13800138000', '1234');
-    expect(component.error()).toBe('验证码错误');
+    expect(component.error()).toBe('LOGIN.ERROR_LOGIN_FAILED');
     expect(component.loading()).toBe(false);
   });
 
@@ -66,31 +70,133 @@ describe('LoginComponent', () => {
     expect(component.loading()).toBe(false);
   });
 
+  it('shows the missing fields instead of submitting an incomplete form', () => {
+    component.phoneForm.patchValue({ phone: '13800138000' });
+
+    component.loginByPhone();
+
+    expect(userService.loginByPhone).not.toHaveBeenCalled();
+    expect(component.phoneForm.controls['code'].touched).toBe(true);
+    expect(component.loading()).toBe(false);
+  });
+
   it('validates the phone number before requesting a code', () => {
     const event = { preventDefault: vi.fn() };
 
-    component.getCode(event);
+    component.getCode(event as unknown as Event);
 
     expect(event.preventDefault).toHaveBeenCalled();
-    expect(component.error()).toBe('请输入手机号码');
+    expect(component.phoneForm.controls['phone'].touched).toBe(true);
+    // Field-level problems belong to the field's mat-error, not the banner.
+    expect(component.error()).toBe('');
     expect(userService.getCode).not.toHaveBeenCalled();
   });
 
   it('rejects a malformed phone number', () => {
     component.phoneForm.patchValue({ phone: '12345' });
 
-    component.getCode({ preventDefault: vi.fn() });
+    component.getCode(clickEvent());
 
-    expect(component.error()).toBe('请输入正确的手机号码');
+    expect(component.error()).toBe('');
     expect(userService.getCode).not.toHaveBeenCalled();
   });
 
   it('requests the code and starts the countdown from the configured left time', () => {
+    const translate = TestBed.inject(TranslateService);
+    translate.setTranslation('zh-hans', { LOGIN: { CODE_SENT: 'sent to {{phone}}' } });
+    translate.use('zh-hans');
+    userService.getCode.mockReturnValueOnce(of({ ok: true }));
     component.phoneForm.patchValue({ phone: '13800138000' });
 
-    component.getCode({ preventDefault: vi.fn() });
+    component.getCode(clickEvent());
 
     expect(userService.getCode).toHaveBeenCalledWith('13800138000');
     expect(component.countdown()).toBe(60);
+    expect(component.notice()).toBe('sent to 138****8000');
+  });
+
+  it('keeps the countdown closed when the backend refused to send a code', () => {
+    userService.getCode.mockReturnValueOnce(
+      of({ ok: false, code: 'phone_not_registered', message: 'The number is not registered' })
+    );
+    component.phoneForm.patchValue({ phone: '13800138000' });
+
+    component.getCode(clickEvent());
+
+    expect(component.countdown()).toBe(0);
+    expect(component.notice()).toBe('');
+    expect(component.error()).toBe('LOGIN.ERROR_NOT_REGISTERED');
+  });
+
+  it('tells throttling apart from a plain send failure', () => {
+    userService.getCode.mockReturnValueOnce(of({ ok: false, status: 429 }));
+    component.phoneForm.patchValue({ phone: '13800138000' });
+
+    component.getCode(clickEvent());
+
+    expect(component.error()).toBe('LOGIN.ERROR_CODE_THROTTLED');
+    expect(component.countdown()).toBe(0);
+  });
+
+  it('maps the backend error code returned by the login endpoint', () => {
+    userService.loginByPhone.mockReturnValueOnce(of({ ok: false, code: 'code_incorrect' }));
+    component.phoneForm.patchValue({ phone: '13800138000', code: '1234' });
+
+    component.loginByPhone();
+
+    expect(component.error()).toBe('LOGIN.ERROR_CODE_INVALID');
+  });
+
+  it('localizes an older backend that still answers with plain English', () => {
+    userService.loginByPhone.mockReturnValueOnce(of({ ok: false, message: 'Incorrect Code' }));
+    component.phoneForm.patchValue({ phone: '13800138000', code: '1234' });
+
+    component.loginByPhone();
+
+    expect(component.error()).toBe('LOGIN.ERROR_CODE_INVALID');
+  });
+
+  it('clears a stale error when a new attempt starts', () => {
+    component.error.set('previous failure');
+    userService.loginByPhone.mockReturnValueOnce(of({ ok: true }));
+    component.phoneForm.patchValue({ phone: '13800138000', code: '1234' });
+
+    component.loginByPhone();
+
+    expect(component.error()).toBe('');
+  });
+
+  it('recovers from a blocked popup instead of staying stuck in loading', async () => {
+    userService.startAuthorize.mockReturnValueOnce(Promise.reject(new Error(OAUTH_POPUP_BLOCKED)));
+
+    component.login();
+    await Promise.resolve();
+    await Promise.resolve();
+
+    expect(component.loading()).toBe(false);
+    expect(component.error()).toBe('LOGIN.ERROR_POPUP_BLOCKED');
+  });
+
+  it('explains a popup that timed out', async () => {
+    userService.startAuthorize.mockReturnValueOnce(Promise.reject(new Error(OAUTH_POPUP_TIMEOUT)));
+
+    component.login();
+    await Promise.resolve();
+    await Promise.resolve();
+
+    expect(component.loading()).toBe(false);
+    expect(component.error()).toBe('LOGIN.ERROR_POPUP_TIMEOUT');
+  });
+
+  it('aborts the popup watcher when the form is destroyed', () => {
+    component.login();
+    const [{ signal }] = userService.startAuthorize.mock.lastCall as unknown as [
+      { signal: AbortSignal },
+    ];
+
+    expect(signal.aborted).toBe(false);
+    fixture.destroy();
+
+    expect(signal.aborted).toBe(true);
   });
 });
