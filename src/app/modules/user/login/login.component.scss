@@ -2,8 +2,10 @@
 
 .login-container {
   @apply flex justify-center items-center;
-  max-height: 500px;
-  min-height: calc(100vh - 76px);
+  // Nothing wraps /me/* — no header, no footer — so the full viewport is the budget. A max-height
+  // here would be dead weight at best: min-height is applied after max-height, so it always wins,
+  // and on a viewport short enough for the cap to bind it would clip the form instead.
+  min-height: 100vh;
 
   ::ng-deep {
     .layout-toolbar,
@@ -15,7 +17,6 @@
 
 :host-context(.mat-mdc-dialog-container) {
   .login-container {
-    max-height: none;
     min-height: auto;
   }
 }
