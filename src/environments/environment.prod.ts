@@ -21,7 +21,7 @@ export const environment: IEnvironment = {
     tokenUrl: '/oauth/token',
     authorizeUrl: '/oauth/authorize',
     redirectPath: '/me/login/callback',
-    logoutPath: '/user/logout',
+    logoutPath: '/api/v3/session/logout',
     scope: 'webmaster',
   },
 };

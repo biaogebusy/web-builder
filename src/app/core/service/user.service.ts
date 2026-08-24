@@ -3,7 +3,7 @@ import { DOCUMENT, Injectable, PLATFORM_ID, REQUEST, inject } from '@angular/cor
 import { isPlatformBrowser } from '@angular/common';
 import { Observable, of, Subject, Subscription, firstValueFrom } from 'rxjs';
 import { ApiService } from './api.service';
-import { map, catchError, switchMap, take } from 'rxjs/operators';
+import { map, catchError, switchMap, take, timeout } from 'rxjs/operators';
 import {
   AccountProfileResponse,
   DrupalUserListResponse,
@@ -66,6 +66,9 @@ export const OAUTH_CALLBACK_STATE_MISMATCH = 'oauth_callback_state_mismatch';
 /** Upper bound on the wait, so a popup left open never pins the opener in a pending state. */
 const POPUP_MAX_WAIT_MS = 5 * 60 * 1000;
 const POPUP_POLL_MS = 500;
+
+/** Caps how long a logout waits on the backend before finishing locally anyway. */
+const LOGOUT_TIMEOUT_MS = 5 * 1000;
 
 export interface StartAuthorizeOptions {
   mode?: OAuthMode;
@@ -575,30 +578,38 @@ export class UserService extends ApiService {
   }
 
   logout(): void {
-    this.logoutUser();
     if (!this.isBrowser) {
+      this.logoutUser();
       return;
     }
-    this.clearDrupalSessionThenGoHome();
+    // Ordering matters: the request is authorized with the stored token, so the local state can
+    // only be dropped once the server has answered.
+    this.destroyDrupalSession().subscribe(() => {
+      this.logoutUser();
+      this.router.navigateByUrl('/home');
+    });
   }
 
-  private clearDrupalSessionThenGoHome(): void {
-    const iframe = this.doc.createElement('iframe');
-    iframe.style.display = 'none';
-    iframe.setAttribute('aria-hidden', 'true');
-    let done = false;
-    const finish = (): void => {
-      if (done) {
-        return;
-      }
-      done = true;
-      iframe.remove();
-      this.router.navigateByUrl('/home');
-    };
-    iframe.addEventListener('load', finish);
-    iframe.src = `${this.apiUrl}${environment.oauth.logoutPath}`;
-    this.doc.body.appendChild(iframe);
-    setTimeout(finish, 3000);
+  /**
+   * Ends the Drupal session that `/oauth/authorize` opened. Without it the session outlives the
+   * app's own logout, and the next authorize request answers with a code for the account that just
+   * left — so a federated `idp` login never reaches its provider and silently returns the previous
+   * user. Core's `/user/logout` cannot be used from here: it needs a CSRF token derived from the
+   * session, and `/session/token` only mints the one for the `X-CSRF-Token` header.
+   *
+   * Best-effort by design — a backend without the endpoint, or an access token too stale to
+   * authorize the call, must not trap the user in a logged-in UI.
+   */
+  private destroyDrupalSession(): Observable<unknown> {
+    return this.http
+      .post(`${this.apiUrl}${environment.oauth.logoutPath}`, null, { withCredentials: true })
+      .pipe(
+        timeout(LOGOUT_TIMEOUT_MS),
+        catchError(error => {
+          console.error('Failed to end the Drupal session:', error);
+          return of(null);
+        })
+      );
   }
 
   getCode(phone: string): Observable<OtpResult> {
