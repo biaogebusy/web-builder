@@ -21,7 +21,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { TagsService } from '@core/service/tags.service';
 import {
   OAUTH_POPUP_BLOCKED,
   OAUTH_POPUP_CLOSED,
@@ -131,7 +130,6 @@ export class LoginComponent implements OnInit {
   private fb = inject(UntypedFormBuilder);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
-  private tagsService = inject(TagsService);
   private userService = inject(UserService);
   private screenService = inject(ScreenService);
   private translate = inject(TranslateService);
@@ -184,12 +182,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Translations are fetched over HTTP, so `instant` would title the page with the raw key on a
-    // cold load; `stream` also keeps the title in sync when the language changes.
-    this.translate
-      .stream('LOGIN.TITLE')
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(title => this.tagsService.setTitle(title));
     this.phoneForm = this.fb.group({
       phone: [
         '',

@@ -2,7 +2,11 @@
   "APP": {
     "LOADING": "加载中..."
   },
+  "USER": {
+    "PAGE_TITLE": "个人中心"
+  },
   "LOGIN": {
+    "CALLBACK_TITLE": "登录中…",
     "WELCOME_TEXT": "欢迎。",
     "PHONE_TAB": "手机登录",
     "PHONE_PLACEHOLDER": "请输入手机号码",
@@ -404,6 +408,8 @@
       "COMMENTS_DESC": "评论列表API"
     },
     "EDIT_BRANDING": {
+      "HEADER_TITLE": "编辑页头",
+      "FOOTER_TITLE": "编辑页脚",
       "UNSAVED": "未保存",
       "SAVING": "保存中...",
       "SAVE_CHANGES": "保存更改",
@@ -599,6 +605,9 @@
       "PREV": "上一页",
       "NEXT": "下一页",
       "PAGE": "第 {{page}} 页"
+    },
+    "NODE_UIUX": {
+      "PAGE_TITLE": "组件管理"
     },
     "FORM_VALIDATION": {
       "REQUIRED": "该字段必填",

@@ -560,7 +560,9 @@ export class BuilderService extends ApiService {
       return this.http.get<IPage>(`${apiUrl}/assets/app${lang}${url}.json`);
     } else {
       this.builder.loading.set(true);
-      return this.contentService.loadPageContent(`${lang}${url}`).pipe(
+      // updateState=false: this content renders inside the builder; letting it
+      // through updateTags() would overwrite the route's document title.
+      return this.contentService.loadPageContent(`${lang}${url}`, false).pipe(
         tap(res => {
           this.builder.loading.set(false);
           if (isArray(res) || !res) {

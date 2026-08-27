@@ -22,11 +22,13 @@ export const routes: Routes = [
     path: 'manage',
     loadComponent: () =>
       import('./node-manage/node-manage.component').then(m => m.NodeManageComponent),
+    data: { titleKey: 'BUILDER.NODE_MANAGE.PAGE_TITLE' },
   },
   {
     path: 'uiux',
     canActivate: [superAdminGuard],
     loadComponent: () =>
       import('./node-uiux/node-uiux.component').then(m => m.NodeUiuxComponent),
+    data: { titleKey: 'BUILDER.NODE_UIUX.PAGE_TITLE' },
   },
 ];

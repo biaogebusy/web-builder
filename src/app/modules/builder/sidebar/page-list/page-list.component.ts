@@ -21,7 +21,6 @@ import { FORM_IMPORTS } from '@uiux/combs/form/form-imports';
 import { IPageMeta, IPageList } from '@core/interface/IBuilder';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
-import { TagsService } from '@core/service/tags.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState, IBuilderPendingPageLoad } from '@core/state/BuilderState';
 import { USER } from '@core/token/token-providers';
@@ -59,7 +58,6 @@ export class PageListComponent extends BaseComponent implements OnInit {
   private router = inject(Router);
   private builderService = inject(BuilderService);
   private destroyRef = inject(DestroyRef);
-  private tagService = inject(TagsService);
   private translate = inject(TranslateService);
   private pendingPageLoad?: IBuilderPendingPageLoad;
 
@@ -177,7 +175,6 @@ export class PageListComponent extends BaseComponent implements OnInit {
 
   constructor() {
     super();
-    this.tagService.setTitle(this.translate.instant('BUILDER.PAGE_LIST.PAGE_TITLE'));
     effect(() => {
       const error: any = this.listRes.error();
       if (error?.status === 404) {

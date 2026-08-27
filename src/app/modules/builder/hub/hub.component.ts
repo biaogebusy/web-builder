@@ -12,10 +12,8 @@ import { RouterLink } from '@angular/router';
 import { SHARE_IMPORTS } from '@share/share-imports';
 import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { NodeFieldFormService, INodeTypeOption } from '@core/service/node-field-form.service';
-import { TagsService } from '@core/service/tags.service';
 import { UserService } from '@core/service/user.service';
 import { USER } from '@core/token/token-providers';
-import { TranslateService } from '@ngx-translate/core';
 import { HUB_GROUPS, BUILDER_PAGE_GROUP } from './hub-entries';
 
 /** Management center: aggregates content publishing and the scattered management entries (content, pages, appearance, system) */
@@ -28,8 +26,6 @@ import { HUB_GROUPS, BUILDER_PAGE_GROUP } from './hub-entries';
 })
 export class HubComponent implements OnInit {
   private fieldFormService = inject(NodeFieldFormService);
-  private tagsService = inject(TagsService);
-  private translate = inject(TranslateService);
   private userService = inject(UserService);
   private user = inject(USER);
   private destroyRef = inject(DestroyRef);
@@ -77,7 +73,6 @@ export class HubComponent implements OnInit {
   public pageGroupSlots = [0, 1, 2];
 
   ngOnInit(): void {
-    this.tagsService.setTitle(this.translate.instant('BUILDER.HUB.PAGE_TITLE'));
     this.loadNodeTypes();
     this.loadPageGroups();
   }

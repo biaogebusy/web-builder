@@ -2,7 +2,11 @@
   "APP": {
     "LOADING": "Loading..."
   },
+  "USER": {
+    "PAGE_TITLE": "My Account"
+  },
   "LOGIN": {
+    "CALLBACK_TITLE": "Signing in…",
     "WELCOME_TEXT": "Welcome.",
     "PHONE_TAB": "Phone",
     "PHONE_PLACEHOLDER": "Please enter phone number",
@@ -404,6 +408,8 @@
       "COMMENTS_DESC": "Comments API"
     },
     "EDIT_BRANDING": {
+      "HEADER_TITLE": "Edit Header",
+      "FOOTER_TITLE": "Edit Footer",
       "UNSAVED": "Unsaved",
       "SAVING": "Saving...",
       "SAVE_CHANGES": "Save changes",
@@ -599,6 +605,9 @@
       "PREV": "Previous",
       "NEXT": "Next",
       "PAGE": "Page {{page}}"
+    },
+    "NODE_UIUX": {
+      "PAGE_TITLE": "Components"
     },
     "FORM_VALIDATION": {
       "REQUIRED": "This field is required",

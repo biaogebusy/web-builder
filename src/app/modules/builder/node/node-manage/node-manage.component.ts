@@ -13,7 +13,6 @@ import { SHARE_IMPORTS } from '@share/share-imports';
 import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { NodeService } from '@core/service/node.service';
 import { NodeFieldFormService } from '@core/service/node-field-form.service';
-import { TagsService } from '@core/service/tags.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
@@ -42,7 +41,6 @@ interface INodeRow {
 export class NodeManageComponent implements OnInit {
   private nodeService = inject(NodeService);
   private fieldFormService = inject(NodeFieldFormService);
-  private tagsService = inject(TagsService);
   private util = inject(UtilitiesService);
   private router = inject(Router);
   private translate = inject(TranslateService);
@@ -71,8 +69,6 @@ export class NodeManageComponent implements OnInit {
   private allOffsets: Record<string, number>[] = [{}];
 
   ngOnInit(): void {
-    this.tagsService.setTitle(this.translate.instant('BUILDER.NODE_MANAGE.PAGE_TITLE'));
-
     this.fieldFormService
       .getNodeTypes()
       .pipe(takeUntilDestroyed(this.destroyRef))
