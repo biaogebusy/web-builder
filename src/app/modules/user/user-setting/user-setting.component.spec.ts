@@ -1,6 +1,9 @@
+import { WritableSignal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpErrorResponse } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { provideRouter } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { IUser } from '@core/interface/IUser';
 import { UserService } from '@core/service/user.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -32,6 +35,26 @@ describe('UserSettingComponent', () => {
       ],
     }).compileComponents();
 
+    // Load only the keys this component uses, so assertions check real copy instead of keys
+    TestBed.inject(TranslateService).setTranslation('zh-hans', {
+      USER: {
+        SETTING: {
+          RESET: '重置',
+          LOGOUT: '退出',
+          UPDATE: '更新账户',
+          AVATAR_UPDATE: '更新头像',
+          UPDATE_SUCCESS: '更新成功！',
+          UPDATE_FAILED: '更新失败：{{reason}}',
+          ERROR_NETWORK: '网络异常，请稍后重试',
+          AVATAR_FORMAT_INVALID: '请检查图片格式',
+          AVATAR_TOO_LARGE: '图片大小不能超过5M',
+          AVATAR_UPLOAD_SUCCESS: '头像上传成功',
+          AVATAR_UPLOAD_FAILED: '头像上传失败',
+        },
+      },
+    });
+    TestBed.inject(TranslateService).use('zh-hans');
+
     fixture = TestBed.createComponent(UserSettingComponent);
     component = fixture.componentInstance;
   });
@@ -51,13 +74,53 @@ describe('UserSettingComponent', () => {
     expect(component.loading()).toBe(false);
   });
 
-  it('reports the failure when the profile update errors out', () => {
-    userService.editingUser.mockReturnValueOnce(throwError(() => new Error('boom')));
+  it('reports the failure with a retry hint when the network errors out', () => {
+    userService.editingUser.mockReturnValueOnce(
+      throwError(() => new HttpErrorResponse({ status: 0 }))
+    );
 
     component.onUpdate({ pass: {} }, user);
 
-    expect(util.openSnackbar).toHaveBeenCalledWith('更新失败！', 'ok');
+    expect(util.openSnackbar).toHaveBeenCalledWith('更新失败：网络异常，请稍后重试', 'ok');
     expect(component.loading()).toBe(false);
+  });
+
+  it('surfaces the backend validation detail when the update is rejected', () => {
+    userService.editingUser.mockReturnValueOnce(
+      throwError(
+        () =>
+          new HttpErrorResponse({
+            status: 422,
+            error: { errors: [{ detail: '此邮箱已被占用。' }] },
+          })
+      )
+    );
+
+    component.onUpdate({ pass: {} }, user);
+
+    expect(util.openSnackbar).toHaveBeenCalledWith('更新失败：此邮箱已被占用。', 'ok');
+    expect(component.loading()).toBe(false);
+  });
+
+  it('restores the saved profile values when resetting the form', async () => {
+    (component.user as WritableSignal<IUser | boolean>).set({
+      ...user,
+      current_user: { name: 'admin' },
+      display_name: 'Admin',
+    } as IUser);
+    fixture.detectChanges();
+    await vi.waitFor(() => expect(component.fields).toBeTruthy());
+
+    const resetModel = vi.fn();
+    component.options = { resetModel };
+    component.onReset();
+
+    expect(resetModel).toHaveBeenCalledWith({
+      name: 'admin',
+      full_name: 'Admin',
+      mail: 'a@b.co',
+      pass: {},
+    });
   });
 
   it('logs out and closes every open dialog', () => {

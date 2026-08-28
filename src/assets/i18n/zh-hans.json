@@ -3,7 +3,37 @@
     "LOADING": "加载中..."
   },
   "USER": {
-    "PAGE_TITLE": "个人中心"
+    "PAGE_TITLE": "个人中心",
+    "SETTING": {
+      "TAB_BASIC": "基础信息",
+      "TAB_PASSWORD": "密码",
+      "USERNAME_LABEL": "用户名",
+      "USERNAME_PLACEHOLDER": "输入用户名",
+      "FULL_NAME_LABEL": "昵称",
+      "FULL_NAME_PLACEHOLDER": "输入昵称",
+      "MAIL_LABEL": "邮箱",
+      "MAIL_PLACEHOLDER": "请输入邮箱",
+      "MAIL_INVALID": "\"{{value}}\"不是有效的邮箱格式",
+      "PASS_CURRENT_LABEL": "当前密码",
+      "PASS_CURRENT_PLACEHOLDER": "请输入当前密码",
+      "PASS_CURRENT_REQUIRED": "修改以上信息要求验证密码",
+      "PASS_NEW_LABEL": "新密码",
+      "PASS_NEW_PLACEHOLDER": "请输入新密码",
+      "PASS_CONFIRM_LABEL": "确认密码",
+      "PASS_CONFIRM_PLACEHOLDER": "请再次输入新密码",
+      "PASS_MISMATCH": "确认密码与新密码不一致。",
+      "RESET": "重置",
+      "LOGOUT": "退出",
+      "UPDATE": "更新账户",
+      "AVATAR_UPDATE": "更新头像",
+      "UPDATE_SUCCESS": "更新成功！",
+      "UPDATE_FAILED": "更新失败：{{reason}}",
+      "ERROR_NETWORK": "网络异常，请稍后重试",
+      "AVATAR_FORMAT_INVALID": "请检查图片格式",
+      "AVATAR_TOO_LARGE": "图片大小不能超过5M",
+      "AVATAR_UPLOAD_SUCCESS": "头像上传成功",
+      "AVATAR_UPLOAD_FAILED": "头像上传失败"
+    }
   },
   "LOGIN": {
     "CALLBACK_TITLE": "登录中…",

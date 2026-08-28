@@ -10,6 +10,7 @@ import {
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { HttpErrorResponse } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -21,23 +22,27 @@ import { USER } from '@core/token/token-providers';
 import { FormlyComponent } from '@uiux/combs/form/formly/formly.component';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
-import { FormlyFieldConfig } from '@ngx-formly/core';
-import { Observable, catchError, of } from 'rxjs';
+import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-user-setting',
   templateUrl: './user-setting.component.html',
   styleUrl: './user-setting.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatTooltipModule, FormlyComponent, BtnComponent, LoadingComponent],
+  imports: [MatTooltipModule, TranslateModule, FormlyComponent, BtnComponent, LoadingComponent],
 })
 export class UserSettingComponent implements OnInit {
   public user = inject(USER);
   public form = new FormGroup({});
   public model: any = {};
   public fields: FormlyFieldConfig[];
+  public options: FormlyFormOptions = {};
+  private initialModel: any = {};
   public loading = signal<boolean>(true);
 
+  private translate = inject(TranslateService);
   private dialog = inject(MatDialog);
   private userService = inject(UserService);
   private util = inject(UtilitiesService);
@@ -58,7 +63,7 @@ export class UserSettingComponent implements OnInit {
             fieldGroup: [
               {
                 props: {
-                  label: '基础信息',
+                  label: this.t('TAB_BASIC'),
                 },
                 fieldGroup: [
                   {
@@ -66,10 +71,11 @@ export class UserSettingComponent implements OnInit {
                     type: 'input',
                     defaultValue: user.current_user.name,
                     props: {
-                      label: '用户名',
-                      placeholder: '输入用户名',
-                      min: 2,
-                      max: 20,
+                      label: this.t('USERNAME_LABEL'),
+                      placeholder: this.t('USERNAME_PLACEHOLDER'),
+                      required: true,
+                      minLength: 2,
+                      maxLength: 20,
                     },
                   },
                   {
@@ -77,8 +83,8 @@ export class UserSettingComponent implements OnInit {
                     type: 'input',
                     defaultValue: user.display_name ?? '',
                     props: {
-                      label: '昵称',
-                      placeholder: '输入昵称',
+                      label: this.t('FULL_NAME_LABEL'),
+                      placeholder: this.t('FULL_NAME_PLACEHOLDER'),
                       min: 2,
                     },
                   },
@@ -87,15 +93,16 @@ export class UserSettingComponent implements OnInit {
                     type: 'input',
                     defaultValue: user.mail ?? '',
                     props: {
-                      label: '邮箱',
-                      placeholder: '请输入邮箱',
+                      label: this.t('MAIL_LABEL'),
+                      placeholder: this.t('MAIL_PLACEHOLDER'),
+                      required: true,
                     },
                     validators: {
                       email: {
                         expression: (control: any) =>
                           /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(control.value),
                         message: (_: any, field: any) =>
-                          `"${field.formControl?.value}"不是有效的邮箱格式`,
+                          this.t('MAIL_INVALID', { value: field.formControl?.value }),
                       },
                     },
                   },
@@ -106,13 +113,13 @@ export class UserSettingComponent implements OnInit {
                         key: 'existing',
                         type: 'input',
                         props: {
-                          label: '当前密码',
-                          placeholder: '请输入当前密码',
+                          label: this.t('PASS_CURRENT_LABEL'),
+                          placeholder: this.t('PASS_CURRENT_PLACEHOLDER'),
                           type: 'password',
                         },
                         validation: {
                           messages: {
-                            required: '修改以上信息要求验证密码',
+                            required: this.t('PASS_CURRENT_REQUIRED'),
                           },
                         },
                         expressions: {
@@ -132,7 +139,7 @@ export class UserSettingComponent implements OnInit {
               },
               {
                 props: {
-                  label: '密码',
+                  label: this.t('TAB_PASSWORD'),
                 },
                 fieldGroup: [
                   {
@@ -142,8 +149,8 @@ export class UserSettingComponent implements OnInit {
                         key: 'value',
                         type: 'input',
                         props: {
-                          label: '新密码',
-                          placeholder: '请输入新密码',
+                          label: this.t('PASS_NEW_LABEL'),
+                          placeholder: this.t('PASS_NEW_PLACEHOLDER'),
                           type: 'password',
                           minLength: 6,
                         },
@@ -155,8 +162,8 @@ export class UserSettingComponent implements OnInit {
                         key: 'confirm',
                         type: 'input',
                         props: {
-                          label: '确认密码',
-                          placeholder: '请再次输入新密码',
+                          label: this.t('PASS_CONFIRM_LABEL'),
+                          placeholder: this.t('PASS_CONFIRM_PLACEHOLDER'),
                           type: 'password',
                         },
                         expressions: {
@@ -167,7 +174,7 @@ export class UserSettingComponent implements OnInit {
                         validators: {
                           fieldMatch: {
                             expression: (control: any) => control.value === this.model.pass?.value,
-                            message: '确认密码与新密码不一致。',
+                            message: this.t('PASS_MISMATCH'),
                           },
                         },
                       },
@@ -175,13 +182,13 @@ export class UserSettingComponent implements OnInit {
                         key: 'existing',
                         type: 'input',
                         props: {
-                          label: '当前密码',
-                          placeholder: '请输入当前密码',
+                          label: this.t('PASS_CURRENT_LABEL'),
+                          placeholder: this.t('PASS_CURRENT_PLACEHOLDER'),
                           type: 'password',
                         },
                         validation: {
                           messages: {
-                            required: '修改以上信息要求验证密码',
+                            required: this.t('PASS_CURRENT_REQUIRED'),
                           },
                         },
                         expressions: {
@@ -197,6 +204,12 @@ export class UserSettingComponent implements OnInit {
             ],
           },
         ];
+        // Snapshot the pristine model so reset restores saved values instead of blanking the form
+        this.initialModel = {
+          name: user.current_user.name,
+          full_name: user.display_name ?? '',
+          mail: user.mail ?? '',
+        };
       }
       this.cd.detectChanges();
     }, { injector: this.injector });
@@ -209,25 +222,39 @@ export class UserSettingComponent implements OnInit {
     delete formData.pass.confirm;
     this.userService
       .editingUser(user, formData)
-      .pipe(
-        catchError(error => {
-          return of(false);
-        }),
-        takeUntilDestroyed(this.destroyRef)
-      )
-      .subscribe((res: any) => {
-        if (res) {
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
           const u = this.user();
           if (typeof u === 'object') {
             this.userService.updateUser(u);
           }
-          this.util.openSnackbar('更新成功！', 'ok');
-        } else {
-          this.util.openSnackbar('更新失败！', 'ok');
-        }
-        this.loading.set(false);
-        this.cd.detectChanges();
+          this.util.openSnackbar(this.t('UPDATE_SUCCESS'), 'ok');
+          this.loading.set(false);
+          this.cd.detectChanges();
+        },
+        error: (error: HttpErrorResponse) => {
+          // Surface the backend reason (e.g. wrong password, mail taken) instead of a generic banner
+          this.util.openSnackbar(this.t('UPDATE_FAILED', { reason: this.getErrorMessage(error) }), 'ok');
+          this.loading.set(false);
+          this.cd.detectChanges();
+        },
       });
+  }
+
+  /** Shorthand for USER.SETTING.* translations used by this component */
+  private t(key: string, params?: Record<string, unknown>): string {
+    return this.translate.instant(`USER.SETTING.${key}`, params);
+  }
+
+  /** Restore the form to the last-saved values rather than blanking it out */
+  onReset(): void {
+    this.options.resetModel?.({ ...this.initialModel, pass: {} });
+  }
+
+  private getErrorMessage(error: HttpErrorResponse): string {
+    const errors = (error as { error?: { errors?: { detail?: string }[] } })?.error?.errors;
+    return errors?.[0]?.detail || this.t('ERROR_NETWORK');
   }
 
   onLogout(): void {
@@ -241,12 +268,12 @@ export class UserSettingComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
     if (!file) {
-      this.util.openSnackbar('请检查图片格式', 'ok');
+      this.util.openSnackbar(this.t('AVATAR_FORMAT_INVALID'), 'ok');
       return;
     }
 
     if (file.size > 5 * 1024 * 1024) {
-      this.util.openSnackbar('图片大小不能超过5M', 'ok');
+      this.util.openSnackbar(this.t('AVATAR_TOO_LARGE'), 'ok');
       return;
     }
 
@@ -266,14 +293,14 @@ export class UserSettingComponent implements OnInit {
             if (typeof u === 'object') {
               this.userService.updateUser(u);
             }
-            this.util.openSnackbar('头像上传成功', 'ok');
+            this.util.openSnackbar(this.t('AVATAR_UPLOAD_SUCCESS'), 'ok');
           } else {
-            this.util.openSnackbar('头像上传失败', 'ok');
+            this.util.openSnackbar(this.t('AVATAR_UPLOAD_FAILED'), 'ok');
           }
           this.loading.set(false);
         });
     } catch (error) {
-      this.util.openSnackbar('头像上传失败', 'ok');
+      this.util.openSnackbar(this.t('AVATAR_UPLOAD_FAILED'), 'ok');
       this.loading.set(false);
     }
   }

@@ -3,7 +3,37 @@
     "LOADING": "Loading..."
   },
   "USER": {
-    "PAGE_TITLE": "My Account"
+    "PAGE_TITLE": "My Account",
+    "SETTING": {
+      "TAB_BASIC": "Basic Info",
+      "TAB_PASSWORD": "Password",
+      "USERNAME_LABEL": "Username",
+      "USERNAME_PLACEHOLDER": "Enter a username",
+      "FULL_NAME_LABEL": "Nickname",
+      "FULL_NAME_PLACEHOLDER": "Enter a nickname",
+      "MAIL_LABEL": "Email",
+      "MAIL_PLACEHOLDER": "Enter your email",
+      "MAIL_INVALID": "\"{{value}}\" is not a valid email address",
+      "PASS_CURRENT_LABEL": "Current Password",
+      "PASS_CURRENT_PLACEHOLDER": "Enter your current password",
+      "PASS_CURRENT_REQUIRED": "Enter your current password to save these changes",
+      "PASS_NEW_LABEL": "New Password",
+      "PASS_NEW_PLACEHOLDER": "Enter a new password",
+      "PASS_CONFIRM_LABEL": "Confirm Password",
+      "PASS_CONFIRM_PLACEHOLDER": "Enter the new password again",
+      "PASS_MISMATCH": "The passwords do not match.",
+      "RESET": "Reset",
+      "LOGOUT": "Log Out",
+      "UPDATE": "Update Account",
+      "AVATAR_UPDATE": "Update Avatar",
+      "UPDATE_SUCCESS": "Updated successfully!",
+      "UPDATE_FAILED": "Update failed: {{reason}}",
+      "ERROR_NETWORK": "Network error, please try again later",
+      "AVATAR_FORMAT_INVALID": "Please check the image format",
+      "AVATAR_TOO_LARGE": "The image must be no larger than 5MB",
+      "AVATAR_UPLOAD_SUCCESS": "Avatar uploaded",
+      "AVATAR_UPLOAD_FAILED": "Avatar upload failed"
+    }
   },
   "LOGIN": {
     "CALLBACK_TITLE": "Signing in…",
