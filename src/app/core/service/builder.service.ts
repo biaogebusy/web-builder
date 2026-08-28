@@ -42,8 +42,30 @@ const LANDING_PAGE_API = {
 interface INodePath {
   pid?: number | string | null;
   alias?: string | null;
-  /** Only present when the pathauto module is installed. */
+  /**
+   * Pathauto state: 0 marks the alias as written by hand. Only writable on a backend
+   * that runs the pathauto module, and never part of a JSON:API response — the property
+   * is computed, and JSON:API treats computed properties as internal.
+   */
   pathauto?: number;
+}
+
+/**
+ * Whether a failed alias write is a backend telling us its `path` field has no pathauto
+ * property, which is how JSON:API answers a write to a property a field type does not
+ * define — a 422 naming the property, the same status a taken alias comes back with.
+ */
+function isMissingPathautoProperty(error: any): boolean {
+  if (error?.status !== 422) {
+    return false;
+  }
+  const body = error.error;
+  const detail = isArray(body?.errors)
+    ? body.errors.map((item: any) => item?.detail ?? '').join(' ')
+    : typeof body === 'string'
+      ? body
+      : '';
+  return detail.includes('pathauto');
 }
 
 @Injectable({
@@ -61,6 +83,9 @@ export class BuilderService extends ApiService {
   private translate = inject(TranslateService);
   private versionCheckSub?: Subscription;
   private versionDialogOpen = false;
+  // Cleared for good once a backend answers that its `path` field has no pathauto
+  // property, so the rest of the session stops asking for it
+  private writePathautoFlag = true;
 
   constructor() {
     super();
@@ -694,7 +719,11 @@ export class BuilderService extends ApiService {
     alias: string
   ): Promise<boolean> {
     const { uuid, langcode, path } = page;
-    const cleanAlias = alias.replace(this.apiLangPrefix(langcode), '');
+    const prefix = this.apiLangPrefix(langcode);
+    // The field is prefilled with the language prefix, so drop it before writing — but
+    // only where it leads, or a plain replace eats the same letters out of an alias
+    // that just happens to start with them, turning /enterprise into /terprise
+    const cleanAlias = prefix && alias.startsWith(`${prefix}/`) ? alias.slice(prefix.length) : alias;
 
     return firstValueFrom(
       this.patchNodeAlias(api, uuid, cleanAlias, path, langcode).pipe(
@@ -742,10 +771,13 @@ export class BuilderService extends ApiService {
    * creates one for this language — which is exactly what a translation that never
    * had an alias needs.
    *
-   * `pathauto` is only sent when the current value carries it, because a site without
-   * the pathauto module rejects the property. Where it does exist, writing 0 marks the
-   * alias as manual — the same thing unchecking "Generate automatic URL alias" does —
-   * otherwise pathauto discards what was typed and regenerates from its pattern.
+   * `pathauto` at 0 marks the alias as manual — the same thing unchecking "Generate
+   * automatic URL alias" does. Every node the builder creates is flagged for an
+   * automatic alias instead, and from then on pathauto owns the save: it drops what was
+   * typed and puts its own pattern in its place, or leaves the page with no alias at all
+   * where the content type has no pattern. The flag cannot be probed for, because
+   * JSON:API keeps the computed property out of its responses, so it is sent by default
+   * and dropped once a backend without the module rejects it.
    */
   private patchNodeAlias(
     api: string,
@@ -757,22 +789,32 @@ export class BuilderService extends ApiService {
     const arr = api.split('/');
     const type = `${arr[arr.length - 2]}--${arr[arr.length - 1]}`;
     const value: INodePath = { alias, pid: path?.pid ?? null };
-    if (path && 'pathauto' in path) {
+    if (this.writePathautoFlag) {
       value.pathauto = 0;
     }
-    return this.http.patch(
-      `${this.apiLangPrefix(langcode)}${api}/${uuid}`,
-      {
-        data: {
-          type,
-          id: uuid,
-          attributes: {
-            path: value,
+    return this.http
+      .patch(
+        `${this.apiLangPrefix(langcode)}${api}/${uuid}`,
+        {
+          data: {
+            type,
+            id: uuid,
+            attributes: {
+              path: value,
+            },
           },
         },
-      },
-      this.optionsWithBearerToken()
-    );
+        this.optionsWithBearerToken()
+      )
+      .pipe(
+        catchError(error => {
+          if (!this.writePathautoFlag || !isMissingPathautoProperty(error)) {
+            return throwError(() => error);
+          }
+          this.writePathautoFlag = false;
+          return this.patchNodeAlias(api, uuid, alias, path, langcode);
+        })
+      );
   }
 
   /**

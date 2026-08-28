@@ -12,6 +12,7 @@ import { RouterLink } from '@angular/router';
 import { SHARE_IMPORTS } from '@share/share-imports';
 import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { NodeFieldFormService, INodeTypeOption } from '@core/service/node-field-form.service';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { UserService } from '@core/service/user.service';
 import { USER } from '@core/token/token-providers';
 import { HUB_GROUPS, BUILDER_PAGE_GROUP } from './hub-entries';
@@ -22,7 +23,7 @@ import { HUB_GROUPS, BUILDER_PAGE_GROUP } from './hub-entries';
   selector: 'app-hub',
   templateUrl: './hub.component.html',
   styleUrl: './hub.component.scss',
-  imports: [SHARE_IMPORTS, WIDGETS_IMPORTS, RouterLink],
+  imports: [SHARE_IMPORTS, WIDGETS_IMPORTS, RouterLink, SafeHtmlPipe],
 })
 export class HubComponent implements OnInit {
   private fieldFormService = inject(NodeFieldFormService);

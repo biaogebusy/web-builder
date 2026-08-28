@@ -194,7 +194,7 @@ describe('BuilderService', () => {
       data: {
         type: 'node--landing_page',
         id: 'uuid-1',
-        attributes: { path: { alias: '/about', pid: 7 } },
+        attributes: { path: { alias: '/about', pid: 7, pathauto: 0 } },
       },
     });
   });
@@ -218,7 +218,30 @@ describe('BuilderService', () => {
     expect((patch.mock.calls[1][1] as any).data.attributes.path).toEqual({
       alias: '/about',
       pid: null,
+      pathauto: 0,
     });
+  });
+
+  // The alias field is prefilled with the language prefix of the page it belongs to
+  it('drops a leading language prefix without touching the rest of the alias', async () => {
+    const service = createService();
+
+    await service.updateUrlalias(
+      { uuid: 'uuid-1', langcode: 'en', path: { pid: 7 } },
+      '/api/v1/node/landing_page',
+      '/en/enterprise'
+    );
+
+    expect((patch.mock.calls[0][1] as any).data.attributes.path.alias).toBe('/enterprise');
+
+    patch.mockClear();
+    await service.updateUrlalias(
+      { uuid: 'uuid-1', langcode: 'en', path: { pid: 7 } },
+      '/api/v1/node/landing_page',
+      '/enterprise'
+    );
+
+    expect((patch.mock.calls[0][1] as any).data.attributes.path.alias).toBe('/enterprise');
   });
 
   it('leaves a language that has no translation alone', async () => {
@@ -238,29 +261,64 @@ describe('BuilderService', () => {
   });
 
   // pathauto replaces the path field type and throws away a written alias unless the
-  // entity is flagged manual; the property is absent on a backend without the module
-  it('marks the alias as manual only when the backend exposes the pathauto flag', async () => {
+  // entity is flagged manual; JSON:API never returns the flag, so it is always written
+  it('marks a written alias as manual so pathauto cannot discard it', async () => {
     const service = createService();
 
-    await service.updateUrlalias(
-      { uuid: 'uuid-1', langcode: 'zh-hans', path: { pid: 7, pathauto: 1 } },
-      '/api/v1/node/landing_page',
-      '/about'
-    );
-    expect((patch.mock.calls[0][1] as any).data.attributes.path).toEqual({
-      alias: '/about',
-      pid: 7,
-      pathauto: 0,
-    });
-
-    patch.mockClear();
     await service.updateUrlalias(
       { uuid: 'uuid-1', langcode: 'zh-hans', path: { pid: 7 } },
       '/api/v1/node/landing_page',
       '/about'
     );
+
     expect((patch.mock.calls[0][1] as any).data.attributes.path).toEqual({
       alias: '/about',
+      pid: 7,
+      pathauto: 0,
+    });
+  });
+
+  it('writes the alias without the flag on a backend that has no pathauto module', async () => {
+    // How JSON:API answers a write to a property the field type does not define
+    patch.mockReturnValueOnce(
+      throwError(() => ({
+        status: 422,
+        error: {
+          errors: [
+            {
+              detail: `The property 'pathauto' does not exist on the 'path' field of type 'path'.`,
+            },
+          ],
+        },
+      }))
+    );
+    const service = createService();
+
+    const written = await service.updateUrlalias(
+      { uuid: 'uuid-1', langcode: 'zh-hans', path: { pid: 7 } },
+      '/api/v1/node/landing_page',
+      '/about'
+    );
+
+    expect(written).toBe(true);
+    expect(patch).toHaveBeenCalledTimes(2);
+    expect((patch.mock.calls[1][1] as any).data.attributes.path).toEqual({
+      alias: '/about',
+      pid: 7,
+    });
+    expect(openSnackbar).not.toHaveBeenCalled();
+
+    // The answer holds for the whole session: no second doomed attempt
+    patch.mockClear();
+    await service.updateUrlalias(
+      { uuid: 'uuid-1', langcode: 'zh-hans', path: { pid: 7 } },
+      '/api/v1/node/landing_page',
+      '/other'
+    );
+
+    expect(patch).toHaveBeenCalledOnce();
+    expect((patch.mock.calls[0][1] as any).data.attributes.path).toEqual({
+      alias: '/other',
       pid: 7,
     });
   });
