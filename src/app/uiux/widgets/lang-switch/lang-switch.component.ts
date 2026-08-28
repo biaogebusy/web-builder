@@ -35,25 +35,31 @@ export class LangSwitchComponent implements OnInit {
   onSwitchLanguage(lang: ILanguage): void {
     this.currentLang = lang;
     this.translateService.use(lang.langCode);
-    const { pathname } = window.location;
-    const url = this.removeLangPrefix(pathname);
-    const langPrefix = getLangPrefix(lang);
-    this.router.navigateByUrl(`${langPrefix}${url}`);
+    const { pathname, search } = window.location;
+    // The path keeps its leading slash so the prefix stays on a segment boundary:
+    // `/zh-hant` + `about` would navigate to `/zh-hantabout`. The front page is the one
+    // path that contributes nothing of its own, otherwise it would come out as `/en/`.
+    const path = this.removeLangPrefix(pathname);
+    const url = `${getLangPrefix(lang)}${path === '/' ? '' : path}`;
+    this.router.navigateByUrl(`${url || '/'}${search}`);
   }
 
+  /**
+   * The path with its language prefix removed, leading slash included; empty when the
+   * path is nothing but the prefix.
+   *
+   * Only a whole segment counts as a prefix, otherwise `/entertainment` would be read as
+   * the English version of a page and truncated.
+   */
   removeLangPrefix(urlPath: string): string {
-    const pathParts = urlPath.split('/');
-    // check if the path is like /en/some/path
-    const isLangPage = this.langs?.find(lang => {
+    const langPage = this.langs?.find(lang => {
       const langPrefix = getLangPrefix(lang);
-      return !!langPrefix && urlPath.startsWith(langPrefix);
+      return !!langPrefix && (urlPath === langPrefix || urlPath.startsWith(`${langPrefix}/`));
     });
 
-    if (isLangPage) {
-      const remainingPath = pathParts.slice(2).join('/');
-      return remainingPath;
-    } else {
+    if (!langPage) {
       return urlPath;
     }
+    return urlPath.slice(getLangPrefix(langPage).length);
   }
 }
