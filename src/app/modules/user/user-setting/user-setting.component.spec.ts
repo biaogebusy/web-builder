@@ -12,7 +12,9 @@ import {
   createUtilitiesServiceMock,
   provideCoreMocks,
 } from '@core/testing/mocks';
-import { throwError } from 'rxjs';
+import { of, Subject, throwError } from 'rxjs';
+
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 
 import { UserSettingComponent } from './user-setting.component';
 
@@ -41,6 +43,10 @@ describe('UserSettingComponent', () => {
         SETTING: {
           RESET: '重置',
           LOGOUT: '退出',
+          LOGOUT_CONFIRM_TITLE: '退出登录',
+          LOGOUT_CONFIRM_BODY: '确定要退出当前账号吗？',
+          LOGOUT_CONFIRM_YES: '退出',
+          LOGOUT_CONFIRM_NO: '取消',
           UPDATE: '更新账户',
           AVATAR_UPDATE: '更新头像',
           UPDATE_SUCCESS: '更新成功！',
@@ -123,14 +129,30 @@ describe('UserSettingComponent', () => {
     });
   });
 
-  it('logs out and closes every open dialog', () => {
+  it('logs out and closes every open dialog once the user confirms', () => {
     const dialog = fixture.debugElement.injector.get(MatDialog);
     const closeAll = vi.spyOn(dialog, 'closeAll');
+    vi.spyOn(dialog, 'open').mockReturnValue({ afterClosed: () => of(true) } as any);
 
     component.onLogout();
 
+    expect(dialog.open).toHaveBeenCalledWith(
+      DialogComponent,
+      expect.objectContaining({
+        data: expect.objectContaining({ title: '退出登录', yesLabel: '退出', noLabel: '取消' }),
+      })
+    );
     expect(userService.logout).toHaveBeenCalled();
     expect(closeAll).toHaveBeenCalled();
+  });
+
+  it('keeps the session when the user cancels the logout dialog', () => {
+    const dialog = fixture.debugElement.injector.get(MatDialog);
+    vi.spyOn(dialog, 'open').mockReturnValue({ afterClosed: () => of(false) } as any);
+
+    component.onLogout();
+
+    expect(userService.logout).not.toHaveBeenCalled();
   });
 
   it('rejects the avatar when no file was picked', async () => {
@@ -157,5 +179,34 @@ describe('UserSettingComponent', () => {
 
     expect(userService.uploadUserPicture).toHaveBeenCalledWith(user, expect.any(ArrayBuffer));
     expect(util.openSnackbar).toHaveBeenCalledWith('头像上传成功', 'ok');
+    expect(component.loading()).toBe(false);
+  });
+
+  it('clears the file input so the same avatar can be picked again', async () => {
+    const target = { files: [new File(['x'], 'avatar.png', { type: 'image/png' })], value: 'set' };
+
+    await component.handleFileChange({ target } as unknown as Event, user);
+
+    expect(target.value).toBe('');
+  });
+
+  it('shows the loading state while the avatar upload is in flight', async () => {
+    const file = new File(['avatar-bytes'], 'avatar.png', { type: 'image/png' });
+    const pending = new Subject<any>();
+    userService.uploadUserPicture.mockReturnValueOnce(pending);
+
+    const uploading = component.handleFileChange(
+      { target: { files: [file] } } as unknown as Event,
+      user
+    );
+
+    expect(component.loading()).toBe(true);
+
+    // the subscription is set up only after the FileReader await resolves
+    await vi.waitFor(() => expect(userService.uploadUserPicture).toHaveBeenCalled());
+
+    pending.next({});
+    await uploading;
+    expect(component.loading()).toBe(false);
   });
 });

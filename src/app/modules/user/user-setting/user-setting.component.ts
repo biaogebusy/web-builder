@@ -14,6 +14,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { IDialog } from '@core/interface/IDialog';
 import { IUser } from '@core/interface/IUser';
 import { UserService } from '@core/service/user.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -21,6 +22,7 @@ import { readFileAsArrayBuffer } from '@core/util/file.util';
 import { USER } from '@core/token/token-providers';
 import { FormlyComponent } from '@uiux/combs/form/formly/formly.component';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -258,15 +260,37 @@ export class UserSettingComponent implements OnInit {
   }
 
   onLogout(): void {
-    this.loading.set(true);
-    this.userService.logout();
-    this.loading.set(false);
-    this.dialog.closeAll();
+    // Destructive action: confirm before ending the session (user control and freedom)
+    const config: IDialog = {
+      title: this.t('LOGOUT_CONFIRM_TITLE'),
+      yesLabel: this.t('LOGOUT_CONFIRM_YES'),
+      noLabel: this.t('LOGOUT_CONFIRM_NO'),
+      inputData: {
+        content: {
+          type: 'text',
+          fullWidth: true,
+          body: this.t('LOGOUT_CONFIRM_BODY'),
+        },
+      },
+    };
+    this.dialog
+      .open(DialogComponent, { width: '360px', data: config })
+      .afterClosed()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(result => {
+        if (!result) {
+          return;
+        }
+        this.userService.logout();
+        this.dialog.closeAll();
+      });
   }
 
   async handleFileChange(event: Event, user: IUser): Promise<void> {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
+    // Clear immediately so picking the same file again after a failure still fires change
+    input.value = '';
     if (!file) {
       this.util.openSnackbar(this.t('AVATAR_FORMAT_INVALID'), 'ok');
       return;
@@ -277,6 +301,7 @@ export class UserSettingComponent implements OnInit {
       return;
     }
 
+    this.loading.set(true);
     try {
       const data = await readFileAsArrayBuffer(file);
       this.userService
