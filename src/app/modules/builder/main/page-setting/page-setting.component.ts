@@ -153,10 +153,11 @@ export class PageSettingComponent implements OnInit {
     try {
       alias = await this.builderService.updateUrlalias(
         {
+          uuid: id,
           langcode,
-          id: drupal_internal__nid ?? '',
           path,
         },
+        api,
         value.alias.trim()
       );
     } catch {

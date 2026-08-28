@@ -17,6 +17,7 @@ import { UtilitiesService } from './utilities.service';
 describe('BuilderService', () => {
   const patch = vi.fn((_url: string, _body: unknown, _options: unknown) => of({ status: true }));
   const post = vi.fn((_url: string, _body: unknown, _options: unknown) => of({ status: true }));
+  const get = vi.fn((_url: string): any => of({ data: {} }));
   const loadingSet = vi.fn();
   const loadNewPage = vi.fn();
   const fetch = vi.fn();
@@ -35,7 +36,7 @@ describe('BuilderService', () => {
         BuilderService,
         { provide: API_URL, useValue: 'https://example.com' },
         { provide: DOCUMENT, useValue: document },
-        { provide: HttpClient, useValue: { patch, post } },
+        { provide: HttpClient, useValue: { patch, post, get } },
         { provide: MatDialog, useValue: { open: dialogOpen } },
         {
           provide: BuilderState,
@@ -61,6 +62,7 @@ describe('BuilderService', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     fetch.mockReset();
+    get.mockReturnValue(of({ data: {} }));
     getLocalPageByPage.mockReturnValue(undefined);
     TestBed.resetTestingModule();
   });
@@ -170,6 +172,134 @@ describe('BuilderService', () => {
     expect(post.mock.calls[0][0]).toBe(
       'https://example.com/api/v3/landingPage/translations/delete/42/en'
     );
+  });
+
+  // Aliases are written through the node's own path field: the language that owns an
+  // alias row is then the translation it hangs off, and core decides create vs. update
+  it('writes a page alias onto the node path field of its own language', async () => {
+    get.mockReturnValue(
+      of({ data: { attributes: { langcode: 'en', path: { alias: '/about', pid: 9 } } } })
+    );
+    const service = createService();
+
+    await service.updateUrlalias(
+      { uuid: 'uuid-1', langcode: 'zh-hans', path: { pid: 7 } },
+      '/api/v1/node/landing_page',
+      '/about'
+    );
+
+    expect(patch).toHaveBeenCalledOnce();
+    expect(patch.mock.calls[0][0]).toBe('/api/v1/node/landing_page/uuid-1');
+    expect(patch.mock.calls[0][1]).toEqual({
+      data: {
+        type: 'node--landing_page',
+        id: 'uuid-1',
+        attributes: { path: { alias: '/about', pid: 7 } },
+      },
+    });
+  });
+
+  it('gives a translation that has no alias row one of its own', async () => {
+    get.mockReturnValue(
+      of({ data: { attributes: { langcode: 'en', path: { alias: null, pid: null } } } })
+    );
+    const service = createService();
+
+    await service.updateUrlalias(
+      { uuid: 'uuid-1', langcode: 'zh-hans', path: { pid: 7 } },
+      '/api/v1/node/landing_page',
+      '/about'
+    );
+
+    expect(get.mock.calls[0][0]).toContain('/en/api/v1/node/landing_page/uuid-1');
+    expect(patch).toHaveBeenCalledTimes(2);
+    expect(patch.mock.calls[1][0]).toBe('/en/api/v1/node/landing_page/uuid-1');
+    // A null pid is what makes core create the row instead of rewriting another language's
+    expect((patch.mock.calls[1][1] as any).data.attributes.path).toEqual({
+      alias: '/about',
+      pid: null,
+    });
+  });
+
+  it('leaves a language that has no translation alone', async () => {
+    // JSON:API served the default language instead, so English has nothing to align
+    get.mockReturnValue(
+      of({ data: { attributes: { langcode: 'zh-hans', path: { alias: '/about', pid: 7 } } } })
+    );
+    const service = createService();
+
+    await service.updateUrlalias(
+      { uuid: 'uuid-1', langcode: 'zh-hans', path: { pid: 7 } },
+      '/api/v1/node/landing_page',
+      '/about'
+    );
+
+    expect(patch).toHaveBeenCalledOnce();
+  });
+
+  // pathauto replaces the path field type and throws away a written alias unless the
+  // entity is flagged manual; the property is absent on a backend without the module
+  it('marks the alias as manual only when the backend exposes the pathauto flag', async () => {
+    const service = createService();
+
+    await service.updateUrlalias(
+      { uuid: 'uuid-1', langcode: 'zh-hans', path: { pid: 7, pathauto: 1 } },
+      '/api/v1/node/landing_page',
+      '/about'
+    );
+    expect((patch.mock.calls[0][1] as any).data.attributes.path).toEqual({
+      alias: '/about',
+      pid: 7,
+      pathauto: 0,
+    });
+
+    patch.mockClear();
+    await service.updateUrlalias(
+      { uuid: 'uuid-1', langcode: 'zh-hans', path: { pid: 7 } },
+      '/api/v1/node/landing_page',
+      '/about'
+    );
+    expect((patch.mock.calls[0][1] as any).data.attributes.path).toEqual({
+      alias: '/about',
+      pid: 7,
+    });
+  });
+
+  it('reports a taken alias and rejects before the rest of the settings are saved', async () => {
+    patch.mockReturnValueOnce(throwError(() => ({ status: 409 })));
+    const service = createService();
+
+    await expect(
+      service.updateUrlalias(
+        { uuid: 'uuid-1', langcode: 'zh-hans', path: { pid: 7 } },
+        '/api/v1/node/landing_page',
+        '/about'
+      )
+    ).rejects.toEqual({ status: 409 });
+    expect(openSnackbar).toHaveBeenCalledWith('URL 已存在，请更换后重试', 'ok');
+    expect(get).not.toHaveBeenCalled();
+  });
+
+  // The backend creates the target language alias inside the same save now
+  it('creates a translation without patching alias records afterwards', () => {
+    const service = createService();
+
+    service
+      .addTranslation({
+        nid: '42',
+        langcode: 'zh-hans',
+        target: 'en',
+        title: 'Home',
+        body: [],
+      } as IPage)
+      .subscribe();
+
+    expect(post).toHaveBeenCalledOnce();
+    expect(post.mock.calls[0][0]).toBe(
+      'https://example.com/api/v3/landingPage/translations/add/42/zh-hans/en'
+    );
+    expect(get).not.toHaveBeenCalled();
+    expect(patch).not.toHaveBeenCalled();
   });
 
   it('marks a previewed draft with the revision it was loaded from', () => {
