@@ -2,7 +2,7 @@ import { DestroyRef, Injectable, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ApiService } from './api.service';
 import type { IPage } from '@core/interface/IAppConfig';
-import { firstValueFrom, forkJoin, Observable, of, Subscription, throwError, timer } from 'rxjs';
+import { firstValueFrom, Observable, of, Subscription, throwError, timer } from 'rxjs';
 import { UtilitiesService } from './utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { NodeService } from './node.service';
@@ -24,7 +24,7 @@ import {
   getApiLang,
   getPageParams,
 } from '@core/util/builder-page.util';
-import { appendQueryParams, type QueryParams } from '@core/util/http-params.util';
+import { type QueryParams } from '@core/util/http-params.util';
 import { TranslateService } from '@ngx-translate/core';
 
 const BUILDERPATH = '/builder';
@@ -36,37 +36,8 @@ const LANDING_PAGE_API = {
   create: '/api/v3/landingPage/builder',
   update: '/api/v3/landingPage/update',
   translate: '/api/v3/landingPage/translations',
+  alias: '/api/v3/landingPage/alias',
 };
-
-/** The `path` field of a node as JSON:API serializes it. */
-interface INodePath {
-  pid?: number | string | null;
-  alias?: string | null;
-  /**
-   * Pathauto state: 0 marks the alias as written by hand. Only writable on a backend
-   * that runs the pathauto module, and never part of a JSON:API response — the property
-   * is computed, and JSON:API treats computed properties as internal.
-   */
-  pathauto?: number;
-}
-
-/**
- * Whether a failed alias write is a backend telling us its `path` field has no pathauto
- * property, which is how JSON:API answers a write to a property a field type does not
- * define — a 422 naming the property, the same status a taken alias comes back with.
- */
-function isMissingPathautoProperty(error: any): boolean {
-  if (error?.status !== 422) {
-    return false;
-  }
-  const body = error.error;
-  const detail = isArray(body?.errors)
-    ? body.errors.map((item: any) => item?.detail ?? '').join(' ')
-    : typeof body === 'string'
-      ? body
-      : '';
-  return detail.includes('pathauto');
-}
 
 @Injectable({
   providedIn: 'root',
@@ -83,9 +54,6 @@ export class BuilderService extends ApiService {
   private translate = inject(TranslateService);
   private versionCheckSub?: Subscription;
   private versionDialogOpen = false;
-  // Cleared for good once a backend answers that its `path` field has no pathauto
-  // property, so the rest of the session stops asking for it
-  private writePathautoFlag = true;
 
   constructor() {
     super();
@@ -703,22 +671,25 @@ export class BuilderService extends ApiService {
   }
 
   /**
-   * Write a page URL alias through the node's own `path` field.
+   * Write a page URL alias through the backend's own endpoint.
    *
-   * Writing `path_alias` entities directly also rewrote their `langcode`, which moved
-   * one language's alias onto another and made Drupal delete the wrong rows when a
-   * translation was removed. Going through the node keeps every alias owned by the
-   * translation it belongs to, and lets core pick create vs. update from `pid`.
+   * Patching the node's `path` field over JSON:API cannot work on a pathauto backend:
+   * core copies the parsed field across with `getValue()`, which drops computed
+   * properties, so the `pathauto: 0` that marks an alias as hand-written never reaches
+   * the save and pathauto keeps ownership of a page it has no pattern for — the alias
+   * is silently discarded. The endpoint sets the field server-side, where nothing is
+   * copied and the flag survives, and writes every translation in one save because
+   * languages differ only by their prefix.
    *
-   * Resolves `true` once the alias is written; rejects after reporting the reason, so
-   * callers can abort before touching the rest of the page settings.
+   * Resolves `true` once the alias is written, `false` when the backend refuses it, and
+   * rejects after reporting the reason, so callers can abort before touching the rest
+   * of the page settings.
    */
   updateUrlalias(
-    page: { uuid: string; langcode?: string; path?: INodePath },
-    api: string,
+    page: { nid: string | number; langcode?: string },
     alias: string
   ): Promise<boolean> {
-    const { uuid, langcode, path } = page;
+    const { nid, langcode } = page;
     const prefix = this.apiLangPrefix(langcode);
     // The field is prefilled with the language prefix, so drop it before writing — but
     // only where it leads, or a plain replace eats the same letters out of an alias
@@ -726,35 +697,32 @@ export class BuilderService extends ApiService {
     const cleanAlias = prefix && alias.startsWith(`${prefix}/`) ? alias.slice(prefix.length) : alias;
 
     return firstValueFrom(
-      this.patchNodeAlias(api, uuid, cleanAlias, path, langcode).pipe(
-        switchMap(() => this.syncAliasToOtherLangs(api, uuid, cleanAlias, langcode)),
-        map(allSynced => {
-          if (!allSynced) {
-            this.util.openSnackbar(
-              this.translate.instant('BUILDER.PAGE_SETTING.ALIAS_SYNC_PARTIAL_FAIL'),
-              'ok'
-            );
-          }
-          return true;
-        }),
-        catchError(error => {
-          const { status } = error || {};
-          let message = '更新页面 URL 失败，请重试';
-          switch (status) {
-            case 403:
-              message = '无权限执行此操作';
-              break;
-            case 409:
-            case 422:
-              message = 'URL 已存在，请更换后重试';
-              break;
-            default:
-              message = '更新页面 URL 失败，请重试';
-          }
-          this.util.openSnackbar(message, 'ok');
-          return throwError(() => error);
-        })
-      )
+      this.http
+        .post(
+          `${this.apiUrl}${LANDING_PAGE_API.alias}/${nid}`,
+          { alias: cleanAlias },
+          this.optionsWithBearerToken()
+        )
+        .pipe(
+          map((res: any) => Boolean(res?.status)),
+          catchError(error => {
+            const { status } = error || {};
+            let message = '更新页面 URL 失败，请重试';
+            switch (status) {
+              case 403:
+                message = '无权限执行此操作';
+                break;
+              case 409:
+              case 422:
+                message = 'URL 已存在，请更换后重试';
+                break;
+              default:
+                message = '更新页面 URL 失败，请重试';
+            }
+            this.util.openSnackbar(message, 'ok');
+            return throwError(() => error);
+          })
+        )
     );
   }
 
@@ -762,111 +730,6 @@ export class BuilderService extends ApiService {
   private apiLangPrefix(langcode?: string): string {
     const lang = getApiLang(langcode);
     return lang ? `/${lang}` : '';
-  }
-
-  /**
-   * Patch the `path` field of one node translation.
-   *
-   * `pid` is what core reads to decide: an existing id updates that alias row, `null`
-   * creates one for this language — which is exactly what a translation that never
-   * had an alias needs.
-   *
-   * `pathauto` at 0 marks the alias as manual — the same thing unchecking "Generate
-   * automatic URL alias" does. Every node the builder creates is flagged for an
-   * automatic alias instead, and from then on pathauto owns the save: it drops what was
-   * typed and puts its own pattern in its place, or leaves the page with no alias at all
-   * where the content type has no pattern. The flag cannot be probed for, because
-   * JSON:API keeps the computed property out of its responses, so it is sent by default
-   * and dropped once a backend without the module rejects it.
-   */
-  private patchNodeAlias(
-    api: string,
-    uuid: string,
-    alias: string,
-    path: INodePath | undefined,
-    langcode?: string
-  ): Observable<any> {
-    const arr = api.split('/');
-    const type = `${arr[arr.length - 2]}--${arr[arr.length - 1]}`;
-    const value: INodePath = { alias, pid: path?.pid ?? null };
-    if (this.writePathautoFlag) {
-      value.pathauto = 0;
-    }
-    return this.http
-      .patch(
-        `${this.apiLangPrefix(langcode)}${api}/${uuid}`,
-        {
-          data: {
-            type,
-            id: uuid,
-            attributes: {
-              path: value,
-            },
-          },
-        },
-        this.optionsWithBearerToken()
-      )
-      .pipe(
-        catchError(error => {
-          if (!this.writePathautoFlag || !isMissingPathautoProperty(error)) {
-            return throwError(() => error);
-          }
-          this.writePathautoFlag = false;
-          return this.patchNodeAlias(api, uuid, alias, path, langcode);
-        })
-      );
-  }
-
-  /**
-   * Multilingual aliases differ only by the language prefix: after one language's alias
-   * changes, align the other translations of the same node.
-   *
-   * A language without a translation is skipped — JSON:API serves a fallback there, and
-   * the returned `langcode` is what gives that away. A language that does have a
-   * translation but no alias row yet gets one, instead of being left on `/<lang>/node/<nid>`.
-   */
-  private syncAliasToOtherLangs(
-    api: string,
-    uuid: string,
-    alias: string,
-    currentLangcode?: string
-  ): Observable<boolean> {
-    const { multiLang, langs } = environment;
-    const otherLangs = (langs ?? []).filter(lang => lang.langCode !== currentLangcode);
-    if (!multiLang || !otherLangs.length) {
-      return of(true);
-    }
-    const arr = api.split('/');
-    const type = `${arr[arr.length - 2]}--${arr[arr.length - 1]}`;
-
-    const tasks = otherLangs.map(lang => {
-      const prefix = this.apiLangPrefix(lang.langCode);
-      return this.http
-        .get(
-          appendQueryParams(
-            `${prefix}${api}/${uuid}`,
-            { [`fields[${type}]`]: 'langcode,path', noCache: 1 },
-            { encodeKeys: false }
-          )
-        )
-        .pipe(
-          switchMap((res: any) => {
-            const attributes = res?.data?.attributes;
-            if (!attributes || attributes.langcode !== lang.langCode) {
-              return of(true);
-            }
-            if (attributes.path?.alias === alias) {
-              return of(true);
-            }
-            return this.patchNodeAlias(api, uuid, alias, attributes.path, lang.langCode).pipe(
-              map(() => true)
-            );
-          }),
-          catchError(() => of(false))
-        );
-    });
-
-    return forkJoin(tasks).pipe(map(results => results.every(Boolean)));
   }
 
   openPageSetting(
