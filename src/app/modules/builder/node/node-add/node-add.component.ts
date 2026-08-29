@@ -21,8 +21,8 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import { TranslateService } from '@ngx-translate/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { forkJoin, Observable, of, throwError } from 'rxjs';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { Subject, forkJoin, Observable, of, throwError } from 'rxjs';
+import { catchError, map, startWith, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -64,6 +64,12 @@ export class NodeAddComponent implements OnInit {
    * in which case the state select falls back to the plain published/unpublished pair.
    */
   public moderationStates = signal<INodeStatusOption[]>([]);
+  /**
+   * Edit-mode node load failed: show an inline error state with a retry button
+   * instead of silently falling back to a blank create form (which risks saving
+   * a duplicate node instead of editing the intended one).
+   */
+  public loadFailed = signal(false);
   /** Display name of the current type (e.g. "Blog"); falls back to the machine name when unmatched */
   public typeLabel = computed(
     () => this.nodeTypes().find(t => t.value === this.type())?.label ?? this.type()
@@ -75,6 +81,8 @@ export class NodeAddComponent implements OnInit {
   private originalNode: any = null;
   /** changed timestamp from the edit-time load; compared before saving to detect concurrent edits */
   private loadedChanged = '';
+  /** Retriggers the load for the current route params (edit-load retry button) */
+  private retryLoad$ = new Subject<void>();
 
   ngOnInit(): void {
     this.fieldFormService
@@ -94,10 +102,26 @@ export class NodeAddComponent implements OnInit {
     this.activateRoute.params
       .pipe(
         tap(params => this.resetForParams(params)),
+        // A retry re-runs the load for the current params without resetting the page state
+        switchMap(params => this.retryLoad$.pipe(startWith(null), map(() => params))),
         switchMap(params => this.loadForm$(params)),
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe(load => this.applyForm(load));
+  }
+
+  /** Retry the failed edit load; keeps the route params, only clears the error state */
+  retry(): void {
+    if (!this.loadFailed()) {
+      return;
+    }
+    this.loadFailed.set(false);
+    this.retryLoad$.next();
+  }
+
+  /** Whether the loaded form has unsaved edits; the leave guard warns before discarding them */
+  hasUnsavedChanges(): boolean {
+    return this.form.dirty && !this.submitting();
   }
 
   /** On every route-param change: reset all page state and destroy the old form (app-formly snapshots fields and model only at creation) */
@@ -117,19 +141,23 @@ export class NodeAddComponent implements OnInit {
     this.publishFields.set([]);
     this.model.set({});
     this.moderationStates.set([]);
+    this.loadFailed.set(false);
     this.form = new UntypedFormGroup({});
     this.fieldMeta = [];
     this.originalNode = null;
     this.loadedChanged = '';
   }
 
-  private loadForm$(params: Params): Observable<{ node: any; form?: INodeForm; states: INodeStatusOption[] }> {
+  private loadForm$(params: Params): Observable<{
+    node: any;
+    form?: INodeForm;
+    states: INodeStatusOption[];
+  }> {
     const type = params['type'];
     const uuid = params['uuid'] || '';
     // Edit mode first fetches the node for backfill (with the language prefix,
     // hitting the current language's translation); noCache bypasses the backend
-    // page cache so re-entering edit always shows the latest revision. On failure
-    // it falls back to the create form
+    // page cache so re-entering edit always shows the latest revision
     const node$ = uuid
       ? this.nodeService
           .fetch(`/api/v1/node/${type}/${uuid}`, { noCache: 1 }, this.nodeService.resolveLangCode())
@@ -137,10 +165,9 @@ export class NodeAddComponent implements OnInit {
             map(res => res?.data ?? null),
             catchError(err => {
               console.error('加载节点数据失败', err);
-              this.util.openSnackbar(
-                this.translate.instant('BUILDER.NODE_ADD.LOAD_NODE_FAILED'),
-                'ok'
-              );
+              // A blank create form would silently turn the failed edit into a
+              // duplicate node on save; stop at an error state with retry instead
+              this.loadFailed.set(true);
               return of(null);
             }),
             tap(node => {
@@ -151,7 +178,9 @@ export class NodeAddComponent implements OnInit {
       : of(null);
     const states$ = this.fieldFormService.getModerationStates(type);
     if (type === 'json') {
-      return forkJoin({ node: node$, states: states$ }).pipe(map(({ node, states }) => ({ node, states })));
+      return forkJoin({ node: node$, states: states$ }).pipe(
+        map(({ node, states }) => ({ node, states }))
+      );
     }
     // Introspect the content type's fields via the field config API to build the form dynamically
     return forkJoin({
@@ -162,7 +191,15 @@ export class NodeAddComponent implements OnInit {
   }
 
   /** Missing form means the json type (no field introspection); otherwise build the dynamic form from the introspection result */
-  private applyForm({ node, form, states }: { node: any; form?: INodeForm; states: INodeStatusOption[] }): void {
+  private applyForm(load: {
+    node: any;
+    form?: INodeForm;
+    states: INodeStatusOption[];
+  }): void {
+    const { node, form, states } = load;
+    if (this.loadFailed()) {
+      return;
+    }
     this.moderationStates.set(states);
     // The state select defaults to "published" on create and backfills the node's current state on edit
     const state = node ? this.currentState(node) : 'published';
@@ -406,7 +443,7 @@ export class NodeAddComponent implements OnInit {
       ? this.updateWithConflictCheck$(path, type, uuid, attributes, relationships, lang)
       : this.nodeService.addEntity(path, attributes, relationships, lang);
     request$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
-      next: () => this.onSubmitSuccess(!!uuid),
+      next: res => this.onSubmitSuccess(!!uuid, res),
       error: err => this.showSubmitError(err),
     });
   }
@@ -516,16 +553,40 @@ export class NodeAddComponent implements OnInit {
     );
   }
 
-  /** On create success, clear the form and stay; on edit success, return to the content manage list */
-  private onSubmitSuccess(isEdit: boolean): void {
+  /**
+   * On success both modes stay on the page (consistent behavior, the user can
+   * keep tweaking or leave via the type switch / manage list); create clears
+   * the form for the next entry, edit refreshes the baseline instead.
+   */
+  private onSubmitSuccess(isEdit: boolean, res?: any): void {
     this.submitting.set(false);
     if (isEdit) {
       this.util.openSnackbar(this.translate.instant('BUILDER.NODE_ADD.UPDATE_SUCCESS'), 'ok');
-      this.router.navigate(['/builder/node/manage']);
+      this.applyUpdatedNode(res?.data);
+      // The saved state becomes the new pristine baseline, so the leave guard no longer blocks
+      this.form.markAsPristine();
     } else {
       this.form.reset();
       this.util.openSnackbar(this.translate.instant('BUILDER.NODE_ADD.SUBMIT_SUCCESS'), 'ok');
     }
+  }
+
+  /**
+   * Sync the edit baseline from the PATCH response: the next save neither
+   * false-flags a conflict on the stale changed timestamp nor resubmits base
+   * fields that just persisted. Relationships merge conservatively in case the
+   * response omits them, keeping reference meta for the next minimal-diff PATCH.
+   */
+  private applyUpdatedNode(data: any): void {
+    if (!data?.attributes) {
+      return;
+    }
+    this.originalNode = {
+      ...this.originalNode,
+      attributes: { ...this.originalNode?.attributes, ...data.attributes },
+      ...(data.relationships ? { relationships: data.relationships } : {}),
+    };
+    this.loadedChanged = data.attributes.changed ?? this.loadedChanged;
   }
 
   private showSubmitError(err: any): void {

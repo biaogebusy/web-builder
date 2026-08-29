@@ -68,8 +68,8 @@ describe('ImgPickerComponent', () => {
     component.ngOnInit();
 
     expect(component.src()).toBe('/sites/default/files/cover.jpg');
-    expect(component.field.props.fileName).toBe('cover.jpg');
-    expect(component.field.props.alt).toBe('封面');
+    expect(component.field.props?.fileName).toBe('cover.jpg');
+    expect(component.field.props?.alt).toBe('封面');
   });
 
   it('uses the plain form value directly when it is not a UUID', () => {

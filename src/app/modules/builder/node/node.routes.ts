@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { superAdminGuard } from '@core/guards/super-admin.guard';
+import { unsavedChangesGuard } from '@core/guards/unsaved-changes.guard';
 
 /**
  * Node content routes with a uniform naming convention:
@@ -12,10 +13,12 @@ import { superAdminGuard } from '@core/guards/super-admin.guard';
 export const routes: Routes = [
   {
     path: 'add/:type',
+    canDeactivate: [unsavedChangesGuard],
     loadComponent: () => import('./node-add/node-add.component').then(m => m.NodeAddComponent),
   },
   {
     path: 'edit/:type/:uuid',
+    canDeactivate: [unsavedChangesGuard],
     loadComponent: () => import('./node-add/node-add.component').then(m => m.NodeAddComponent),
   },
   {

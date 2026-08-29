@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UntypedFormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, provideRouter } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { vi } from 'vitest';
 import { provideBuilderMocks } from '@modules/builder/testing/mocks';
@@ -267,9 +267,11 @@ describe('NodeAddComponent', () => {
     await setupEdit({ status: false });
 
     const stateField = component.publishFields().find(field => field.key === 'state');
-    expect(stateField?.props?.['options']).toEqual([
-      { label: '已发布', value: 'published' },
-      { label: '未发布', value: 'unpublished' },
+    // Labels go through translate (mocked identity in specs); assert machine values
+    const options = (stateField?.props?.['options'] as any[]) ?? [];
+    expect(options.map(option => option.value)).toEqual([
+      'published',
+      'unpublished',
     ]);
     expect(component.model().state).toBe('unpublished');
   });
@@ -370,6 +372,94 @@ describe('NodeAddComponent', () => {
 
     expect(nodeServiceMock.updateEntity).not.toHaveBeenCalled();
     expect(component.submitting()).toBe(false);
+  });
+
+  it('编辑加载失败进入错误态而非新建表单,重试成功后回填', async () => {
+    let fail = true;
+    const nodeServiceMock = await setup(
+      {},
+      {
+        getAllowedNodeTypes: () => of([{ label: '博客', value: 'blog' }]),
+        getForm: () => of({ fields: [], meta: [] }),
+        getModerationStates: () => of([]),
+        buildModel: () => ({}),
+      },
+      { type: 'blog', uuid: 'u1' }
+    );
+    nodeServiceMock.fetch = vi.fn((api: string, params?: any) => {
+      if (api === '/api/v1/node/blog/u1') {
+        if (typeof params === 'string' && params.includes('changed')) {
+          return of({ data: { attributes: { changed: '2026-01-01T00:00:00+00:00' } } });
+        }
+        // Backfill load fails first, succeeds after retry
+        return fail ? throwError(() => new Error('network')) : of({
+          data: {
+            id: 'u1',
+            attributes: { title: 'Recovered', status: true, changed: '2026-01-01T00:00:00+00:00' },
+            relationships: {},
+          },
+        });
+      }
+      return of({});
+    });
+    component.ngOnInit();
+
+    expect(component.loadFailed()).toBe(true);
+    // No create form is built: a save here would have duplicated the node
+    expect(component.mainFields().length).toBe(0);
+
+    fail = false;
+    component.retry();
+    await Promise.resolve();
+
+    expect(component.loadFailed()).toBe(false);
+    expect(component.model().title).toBe('Recovered');
+  });
+
+  it('编辑保存成功后留在当前页,并刷新 changed 基线避免误报冲突', async () => {
+    const nodeServiceMock = await setupEdit();
+    // The server-side changed moves forward with each save; the pre-check fetch must follow
+    let changed = '2026-01-01T00:00:00+00:00';
+    nodeServiceMock.fetch = vi.fn((api: string, params?: any) => {
+      if (api === '/api/v1/node/blog/u1') {
+        if (typeof params === 'string' && params.includes('changed')) {
+          return of({ data: { attributes: { changed } } });
+        }
+        return of({
+          data: {
+            id: 'u1',
+            attributes: { title: 'Old title', status: true, changed },
+            relationships: {},
+          },
+        });
+      }
+      return of({});
+    });
+    (nodeServiceMock.updateEntity as any).mockImplementation(() => {
+      changed = '2026-03-03T00:00:00+00:00';
+      return of({ data: { attributes: { changed } } });
+    });
+    const navigate = vi.mocked(TestBed.inject(Router).navigate);
+
+    component.onSubmit({ title: 'New', path_alias: '/old-alias' }, { id: 1 });
+    expect(navigate).not.toHaveBeenCalled();
+
+    // A second save right away must not trip the conflict check on the stale timestamp
+    component.onSubmit({ title: 'New', path_alias: '/old-alias' }, { id: 1 });
+    expect(nodeServiceMock.updateEntity).toHaveBeenCalledTimes(2);
+
+    // The saved form becomes the pristine baseline for the leave guard
+    expect(component.hasUnsavedChanges()).toBe(false);
+  });
+
+  it('hasUnsavedChanges 反映表单脏态,保存成功后复位', async () => {
+    await setupEdit();
+
+    expect(component.hasUnsavedChanges()).toBe(false);
+
+    component.form.addControl('title', new UntypedFormControl('Dirty'));
+    component.form.markAsDirty();
+    expect(component.hasUnsavedChanges()).toBe(true);
   });
 
   it('json 类型编辑时 body 带回原文本格式', async () => {

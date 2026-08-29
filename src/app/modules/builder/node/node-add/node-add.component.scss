@@ -115,6 +115,16 @@
         @apply flex flex-col gap-2;
       }
     }
+
+    // Edit load failure: inline error with retry; blocks the form so a failed
+    // edit can never silently degrade into creating a duplicate node
+    .load-error {
+      @apply mx-auto flex max-w-3xl flex-col items-start gap-4 px-6 py-16;
+      .load-error-text {
+        @apply m-0 text-sm;
+        color: var(--shadcn-destructive);
+      }
+    }
   }
   // Full-height right column: separated from the main area by a hairline; inner sections use
   // hairlines instead of cards; on lg+ it scrolls independently without overscroll bleeding out

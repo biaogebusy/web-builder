@@ -42,7 +42,18 @@
         ></div>
       }
       <!-- app-formly snapshots fields/model once in ngAfterViewInit; keying by type+uuid forces destroy-and-rebuild on switch -->
-      @if (mainFields().length > 0) {
+      @if (loadFailed()) {
+        <div class="load-error" role="alert">
+          <p class="load-error-text">{{ 'BUILDER.NODE_ADD.LOAD_NODE_ERROR' | translate }}</p>
+          <app-btn
+            (click)="retry()"
+            [content]="{
+              label: 'BUILDER.NODE_ADD.RETRY' | translate,
+              mode: 'stroked',
+            }"
+          />
+        </div>
+      } @else if (mainFields().length > 0) {
         @for (t of [type() + '/' + editUuid()]; track t) {
           <app-formly
             [form]="form"
