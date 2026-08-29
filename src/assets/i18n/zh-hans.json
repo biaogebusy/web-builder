@@ -616,6 +616,8 @@
       "STATE_UNPUBLISHED": "未发布",
       "STATE_DRAFT": "草稿",
       "PANEL_PUBLISH": "发布设置",
+      "PANEL_PROMOTION": "推广选项",
+      "SAVING": "保存中...",
       "FIELD_PROMOTE": "推荐到首页",
       "FIELD_STICKY": "置顶",
       "FIELD_ALIAS": "URL 别名",

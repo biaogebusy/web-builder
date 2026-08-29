@@ -14,6 +14,10 @@
     <div class="actions">
       @if (submitting()) {
         <app-spinner [content]="{ size: 32, color: 'primary' }" />
+        <!-- Announce the in-flight save to screen readers; the spinner is purely visual -->
+        <span class="sr-only" aria-live="polite">
+          {{ 'BUILDER.NODE_ADD.SAVING' | translate }}
+        </span>
       } @else if (mainFields().length > 0) {
         <!-- One save button: the publish state is chosen in the right panel's state select (defaults to published) -->
         <app-btn
@@ -64,7 +68,7 @@
         }
       } @else {
         <!-- Fields come back asynchronously after introspection via the field config API; show skeletons while loading -->
-        <div class="form-skeleton">
+        <div class="form-skeleton" role="status" aria-busy="true">
           @for (controlHeight of ['3rem', '20rem']; track $index) {
             <div class="skeleton-field">
               <ngx-skeleton-loader
@@ -95,37 +99,24 @@
     </div>
     <aside class="node-aside">
       <section class="aside-section">
-        <label class="aside-title" for="node-type-select">
-          {{ 'BUILDER.NODE_ADD.TYPE_TITLE' | translate }}
-        </label>
         @if (nodeTypes().length > 0) {
-          <div class="select-wrap">
-            <select
-              id="node-type-select"
-              class="shad-input shad-select"
-              (change)="onTypeSelect($event)"
-            >
-              @for (nodeType of nodeTypes(); track nodeType.value) {
-                <option [value]="nodeType.value" [selected]="nodeType.value === type()">
-                  {{ nodeType.label }}
-                </option>
-              }
-            </select>
-            <svg class="chevron" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
-              <path
-                d="M7 10l5 5 5-5"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </div>
+          <!-- app-formly snapshots fields/model only at creation; rekeying on type+uuid forces a rebuild on page switch -->
+          @for (t of [type() + '/' + editUuid()]; track t) {
+            <app-formly
+              [form]="typeForm"
+              [fields]="getTypeFields()"
+              [model]="typeModel()"
+              (modelChange)="onTypeChange($event)"
+              [content]="{ uiTheme: 'shadcn' }"
+            />
+          }
         } @else if (typesLoading()) {
           <ngx-skeleton-loader
             count="1"
             appearance="line"
+            role="status"
+            aria-busy="true"
+            [attr.aria-label]="'APP.LOADING' | translate"
             [theme]="{
               height: '2rem',
               'border-radius': 'var(--shadcn-radius-sm)',
@@ -142,6 +133,19 @@
             <app-formly
               [form]="form"
               [fields]="publishFields()"
+              [model]="model()"
+              [content]="{ uiTheme: 'shadcn' }"
+            />
+          }
+        </section>
+      }
+      @if (promotionFields().length > 0) {
+        <section class="aside-section">
+          <div class="aside-title">{{ 'BUILDER.NODE_ADD.PANEL_PROMOTION' | translate }}</div>
+          @for (t of [type() + '/' + editUuid()]; track t) {
+            <app-formly
+              [form]="form"
+              [fields]="promotionFields()"
               [model]="model()"
               [content]="{ uiTheme: 'shadcn' }"
             />

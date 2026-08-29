@@ -616,6 +616,8 @@
       "STATE_UNPUBLISHED": "Unpublished",
       "STATE_DRAFT": "Draft",
       "PANEL_PUBLISH": "Publishing",
+      "PANEL_PROMOTION": "Promotion options",
+      "SAVING": "Saving...",
       "FIELD_PROMOTE": "Promoted to front page",
       "FIELD_STICKY": "Sticky at top of lists",
       "FIELD_ALIAS": "URL alias",

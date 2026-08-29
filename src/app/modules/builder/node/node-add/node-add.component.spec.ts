@@ -350,11 +350,11 @@ describe('NodeAddComponent', () => {
 
     expect(component.publishFields().map(f => f.key)).toEqual([
       'state',
-      'promote',
-      'sticky',
       'path_alias',
       'revision_log',
     ]);
+    // Promote/sticky live in their own promotion panel group
+    expect(component.promotionFields().map(f => f.key)).toEqual(['promote', 'sticky']);
     expect(component.model().path_alias).toBe('/old-alias');
     // The state select backfills the node's current status
     expect(component.model().state).toBe('published');

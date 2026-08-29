@@ -56,12 +56,18 @@ export class NodeAddComponent implements OnInit {
   /** Node uuid in edit mode; empty means create-new */
   public editUuid = signal<string>('');
   public form: UntypedFormGroup = new UntypedFormGroup({});
+  /** Separate form for the type-switch select (not part of the node form; changing it navigates away) */
+  public typeForm = new UntypedFormGroup({});
+  /** Type-select model snapshot; app-formly reads it once at creation, hence the rekey in the template */
+  public typeModel = computed(() => ({ type: this.type() }));
   /** Middle editing area fields: title + body fields (tiptap/json) */
   public mainFields = signal<FormlyFieldConfig[]>([]);
   /** Right property panel fields: metadata such as labels, booleans, numbers */
   public sideFields = signal<FormlyFieldConfig[]>([]);
-  /** Publish settings fields: URL alias, revision note (written to the path.alias / revision_log base fields) */
+  /** Publish settings fields: state select, URL alias, revision note */
   public publishFields = signal<FormlyFieldConfig[]>([]);
+  /** Promotion fields: promote (front page) / sticky (top of lists), rendered as a separate panel group */
+  public promotionFields = signal<FormlyFieldConfig[]>([]);
   /** Form backfill model for edit mode */
   public model = signal<any>({});
   public nodeTypes = signal<{ label: string; value: string }[]>([]);
@@ -165,10 +171,12 @@ export class NodeAddComponent implements OnInit {
     this.mainFields.set([]);
     this.sideFields.set([]);
     this.publishFields.set([]);
+    this.promotionFields.set([]);
     this.model.set({});
     this.moderationStates.set([]);
     this.loadFailed.set(false);
     this.form = new UntypedFormGroup({});
+    this.typeForm = new UntypedFormGroup({});
     this.fieldMeta = [];
     this.originalNode = null;
     this.loadedChanged = '';
@@ -262,6 +270,7 @@ export class NodeAddComponent implements OnInit {
         },
       ]);
       this.publishFields.set(this.getPublishFields());
+      this.promotionFields.set(this.getPromotionFields());
       this.wireLocalDraft(node);
       return;
     }
@@ -308,6 +317,7 @@ export class NodeAddComponent implements OnInit {
     this.mainFields.set([this.getTitleField(), ...bodyFields]);
     this.sideFields.set(fields.filter(f => !bodyKeys.has(f.key as string)));
     this.publishFields.set(this.getPublishFields());
+    this.promotionFields.set(this.getPromotionFields());
     // field_config requires the administer node fields permission; data is empty without it
     if (fields.length === 0) {
       this.util.openSnackbar(this.translate.instant('BUILDER.NODE_ADD.NO_FIELDS'), 'ok');
@@ -409,8 +419,9 @@ export class NodeAddComponent implements OnInit {
     }
   }
 
-  onTypeSelect(event: Event): void {
-    this.switchType((event.target as HTMLSelectElement).value);
+  /** Type-switch select change: navigate to the selected type's create/edit page */
+  onTypeChange(model: any): void {
+    this.switchType(model?.type);
   }
 
   switchType(type: string): void {
@@ -434,7 +445,7 @@ export class NodeAddComponent implements OnInit {
     };
   }
 
-  /** Publish settings: state select (default published, other states per the backend workflow), promote/sticky flags, URL alias + revision note */
+  /** Publish settings: state select (default published, other states per the backend workflow), URL alias + revision note */
   private getPublishFields(): FormlyFieldConfig[] {
     return [
       {
@@ -446,20 +457,6 @@ export class NodeAddComponent implements OnInit {
             label: option.label,
             value: option.value,
           })),
-        },
-      },
-      {
-        key: 'promote',
-        type: 'checkbox',
-        props: {
-          label: this.translate.instant('BUILDER.NODE_ADD.FIELD_PROMOTE'),
-        },
-      },
-      {
-        key: 'sticky',
-        type: 'checkbox',
-        props: {
-          label: this.translate.instant('BUILDER.NODE_ADD.FIELD_STICKY'),
         },
       },
       {
@@ -476,6 +473,43 @@ export class NodeAddComponent implements OnInit {
           label: this.translate.instant('BUILDER.NODE_ADD.FIELD_REVISION_LOG'),
           placeholder: this.translate.instant('BUILDER.NODE_ADD.REVISION_LOG_PLACEHOLDER'),
           rows: 2,
+        },
+      },
+    ];
+  }
+
+  /** Type-switch select config; options require the loaded node types, so the section renders only after the load */
+  getTypeFields(): FormlyFieldConfig[] {
+    return [
+      {
+        key: 'type',
+        type: 'select',
+        props: {
+          label: this.translate.instant('BUILDER.NODE_ADD.TYPE_TITLE'),
+          options: this.nodeTypes().map(option => ({
+            label: option.label,
+            value: option.value,
+          })),
+        },
+      },
+    ];
+  }
+
+  /** Promotion options group: promote to front page / sticky at top of lists */
+  private getPromotionFields(): FormlyFieldConfig[] {
+    return [
+      {
+        key: 'promote',
+        type: 'checkbox',
+        props: {
+          label: this.translate.instant('BUILDER.NODE_ADD.FIELD_PROMOTE'),
+        },
+      },
+      {
+        key: 'sticky',
+        type: 'checkbox',
+        props: {
+          label: this.translate.instant('BUILDER.NODE_ADD.FIELD_STICKY'),
         },
       },
     ];
