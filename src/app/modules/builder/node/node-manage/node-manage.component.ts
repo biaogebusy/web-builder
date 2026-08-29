@@ -266,7 +266,12 @@ export class NodeManageComponent implements OnInit {
   }
 
   onEdit(row: INodeRow): void {
-    this.router.navigate(['/builder/node/edit', row.type, row.uuid]);
+    // Pass the row's language so the edit page opens that translation;
+    // the default language needs no param (it is what the prefix-less URL serves)
+    const lang = this.langs.find(l => l.langCode === row.langcode);
+    this.router.navigate(['/builder/node/edit', row.type, row.uuid], {
+      queryParams: lang && !lang.default ? { lang: row.langcode } : {},
+    });
   }
 
   /** First click enters the confirm state; only a second click actually deletes */

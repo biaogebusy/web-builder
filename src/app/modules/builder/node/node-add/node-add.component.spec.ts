@@ -3,7 +3,7 @@ import { signal } from '@angular/core';
 import { UntypedFormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { LocalStorageService } from 'ngx-webstorage';
-import { ActivatedRoute, Router, provideRouter } from '@angular/router';
+import { ActivatedRoute, Router, convertToParamMap, provideRouter } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
 import { of, throwError } from 'rxjs';
 import { delay } from 'rxjs/operators';
@@ -44,7 +44,8 @@ describe('NodeAddComponent', () => {
     routeParams?: any,
     // Local mocks to append after provideBuilderMocks: asserting their calls
     // requires own instances (the shared factory instances are not reliable)
-    extraProviders: any[] = []
+    extraProviders: any[] = [],
+    routeQuery: Record<string, string> = {}
   ) => {
     const nodeServiceMock = createNodeServiceMock();
     nodeServiceMock.fetch = vi.fn((api: string) =>
@@ -62,7 +63,13 @@ describe('NodeAddComponent', () => {
           ? [{ provide: NodeFieldFormService, useValue: fieldFormService }]
           : []),
         ...(routeParams
-          ? [{ provide: ActivatedRoute, useValue: { params: of(routeParams) } }]
+          ? [{
+              provide: ActivatedRoute,
+              useValue: {
+                params: of(routeParams),
+                queryParamMap: of(convertToParamMap(routeQuery)),
+              },
+            }]
           : []),
       ],
     }).compileComponents();
@@ -85,7 +92,8 @@ describe('NodeAddComponent', () => {
   const setupEdit = async (
     nodeAttributes: any = {},
     preFetchChanged?: string,
-    extraProviders: any[] = []
+    extraProviders: any[] = [],
+    routeQuery: Record<string, string> = {}
   ) => {
     const attributes = {
       title: 'Old title',
@@ -104,7 +112,8 @@ describe('NodeAddComponent', () => {
         buildPayload: () => ({ attributes: {}, relationships: {} }),
       },
       { type: 'blog', uuid: 'u1' },
-      extraProviders
+      extraProviders,
+      routeQuery
     );
     nodeServiceMock.fetch = vi.fn((api: string, params?: any) => {
       if (api === '/api/v1/node/blog/u1') {
@@ -247,7 +256,8 @@ describe('NodeAddComponent', () => {
       undefined
     );
 
-    nodeServiceMock.resolveLangCode = vi.fn(() => 'en');
+    // onSubmit resolves the language from editLang (?lang= / URL prefix), not resolveLangCode
+    component.editLang.set('en');
     component.onSubmit({ title: 'Hi', state: 'unpublished' }, { id: 1 });
     const [, attrs, , lang] = (nodeServiceMock.addEntity as any).mock.calls[1];
     expect(attrs.status).toBe(false);
@@ -394,12 +404,19 @@ describe('NodeAddComponent', () => {
     expect(attrs.status).toBeUndefined();
   });
 
-  it('保存前比对 changed,他人已修改则中止更新并复位提交态', async () => {
-    const nodeServiceMock = await setupEdit({}, '2026-02-02T00:00:00+00:00');
+  it('保存前比对 changed,他人已修改则中止更新并弹出冲突提示', async () => {
+    // The conflict path opens a dialog: without a component-level mock the real
+    // MatDialog crashes and RxJS reports it as an unhandled error
+    const dialog = createMatDialogMock();
+    dialog.open.mockReturnValue({ afterClosed: vi.fn(() => of(false)) } as never);
+    const nodeServiceMock = await setupEdit({}, '2026-02-02T00:00:00+00:00', [
+      { provide: MatDialog, useValue: dialog },
+    ]);
 
     component.onSubmit({ title: 'New', path_alias: '/old-alias' }, { id: 1 });
 
     expect(nodeServiceMock.updateEntity).not.toHaveBeenCalled();
+    expect(dialog.open).toHaveBeenCalledTimes(1);
     expect(component.submitting()).toBe(false);
   });
 
@@ -605,7 +622,7 @@ describe('NodeAddComponent', () => {
 
     expect(dialog.open).toHaveBeenCalledTimes(1);
     expect(component.form.dirty).toBe(true);
-    expect(storage.clear).not.toHaveBeenCalledWith('nodeDraft:blog:u1');
+    expect(storage.clear).not.toHaveBeenCalledWith('nodeDraft:blog:u1:zh-hans');
   });
 
   it('服务器版本更新于草稿之后的旧草稿被静默丢弃', async () => {
@@ -652,7 +669,7 @@ describe('NodeAddComponent', () => {
     component.ngOnInit();
 
     // changed 2026-01-01 is newer than the draft: dropped without asking
-    expect(storage.clear).toHaveBeenCalledWith('nodeDraft:blog:u1');
+    expect(storage.clear).toHaveBeenCalledWith('nodeDraft:blog:u1:zh-hans');
     expect(dialog.open).not.toHaveBeenCalled();
   });
 
@@ -668,7 +685,7 @@ describe('NodeAddComponent', () => {
 
     expect(nodeServiceMock.deleteEntity).toHaveBeenCalledWith('/api/v1/node/blog', 'u1');
     // The local draft of a deleted node must not linger
-    expect((component as any).storage.clear).toHaveBeenCalledWith('nodeDraft:blog:u1');
+    expect((component as any).storage.clear).toHaveBeenCalledWith('nodeDraft:blog:u1:zh-hans');
     expect(navigate).toHaveBeenCalledWith(['/builder/node/manage']);
     expect(component.submitting()).toBe(false);
   });
@@ -684,6 +701,146 @@ describe('NodeAddComponent', () => {
 
     expect(nodeServiceMock.deleteEntity).not.toHaveBeenCalled();
     expect(component.submitting()).toBe(false);
+  });
+
+  it('?lang= 编辑走语言前缀请求对应翻译', async () => {
+    const nodeServiceMock = await setupEdit({ langcode: 'en' }, undefined, [], { lang: 'en' });
+    // The backfill load carries the non-default langcode; the translation probe uses string params
+    expect(
+      (nodeServiceMock.fetch as any).mock.calls.some(
+        (call: any[]) =>
+          call[0] === '/api/v1/node/blog/u1' &&
+          typeof call[1] !== 'string' &&
+          call[2] === 'en'
+      )
+    ).toBe(true);
+    // The fetched translation matches the requested language: regular edit, not create mode
+    expect(component.creatingTranslation()).toBe(false);
+  });
+
+  it('请求的翻译不存在时进入创建模式,保存按创建语义提交基础字段', async () => {
+    const nodeServiceMock = await setupEdit(
+      { langcode: 'zh-hans' },
+      undefined,
+      [],
+      { lang: 'en' }
+    );
+    // The lang-prefixed GET fell back to the default translation (langcode mismatch)
+    expect(component.creatingTranslation()).toBe(true);
+
+    component.onSubmit({ title: 'EN title', path_alias: '' }, { id: 1 });
+
+    const [, , attrs, , lang] = (nodeServiceMock.updateEntity as any).mock.calls[0];
+    expect(lang).toBe('en');
+    // Create semantics for base fields: the state submits without minimal diff against the source translation
+    expect(attrs.status).toBe(true);
+    // The langcode attribute stays create-only; the PATCH targets the translation via the language prefix
+    expect(attrs.langcode).toBeUndefined();
+  });
+
+  it('翻译面板:当前语言标记存在,其他语言按探测结果标记', async () => {
+    await setupEdit({ langcode: 'zh-hans' });
+    const zh = component.translations().find(t => t.langCode === 'zh-hans');
+    expect(zh?.current).toBe(true);
+    expect(zh?.exists).toBe(true);
+    // The en probe falls back to the default translation (langcode mismatch): shown as missing
+    const en = component.translations().find(t => t.langCode === 'en');
+    expect(en?.current).toBe(false);
+    expect(en?.exists).toBe(false);
+    expect(en?.state).toBe('');
+  });
+
+  it('翻译面板:探测到已存在的翻译显示其状态', async () => {
+    const nodeServiceMock = await setup(
+      {},
+      {
+        getAllowedNodeTypes: () => of([{ label: '博客', value: 'blog' }]),
+        getForm: () => of({ fields: [], meta: [] }),
+        getModerationStates: () => of([]),
+        buildModel: () => ({}),
+      },
+      { type: 'blog', uuid: 'u1' }
+    );
+    nodeServiceMock.fetch = vi.fn((api: string, params?: any, langCode?: string) => {
+      if (api === '/api/v1/node/blog/u1') {
+        if (typeof params === 'string' && params.includes('changed')) {
+          return of({ data: { attributes: { changed: '2026-01-01T00:00:00+00:00' } } });
+        }
+        // The en-prefixed probe sees the en translation; the backfill load sees the default one
+        const langcode = langCode === 'en' ? 'en' : 'zh-hans';
+        return of({
+          data: {
+            id: 'u1',
+            attributes: {
+              title: 'Old title',
+              status: false,
+              changed: '2026-01-01T00:00:00+00:00',
+              langcode,
+              path: { alias: '/old-alias' },
+            },
+            relationships: {},
+          },
+        });
+      }
+      return of({});
+    });
+    component.ngOnInit();
+
+    const en = component.translations().find(t => t.langCode === 'en');
+    expect(en?.exists).toBe(true);
+    expect(en?.state).toBe('unpublished');
+    // Machine states render through translate (identity in specs)
+    expect(component.stateLabel('unpublished')).toBe('BUILDER.NODE_ADD.STATE_UNPUBLISHED');
+    const zh = component.translations().find(t => t.langCode === 'zh-hans');
+    expect(zh?.current).toBe(true);
+    expect(zh?.state).toBe('unpublished');
+  });
+
+  it('切换翻译:未保存修改先确认,确认后按语言存草稿并携带 lang 导航', async () => {
+    const dialog = createMatDialogMock();
+    const storage = createStorageServiceMock();
+    dialog.open.mockReturnValue({ afterClosed: vi.fn(() => of(true)) } as never);
+    await setupEdit({ langcode: 'zh-hans' }, undefined, [
+      { provide: MatDialog, useValue: dialog },
+      { provide: LocalStorageService, useValue: storage },
+    ]);
+    const navigate = vi.mocked(TestBed.inject(Router).navigate);
+    component.form.addControl('title', new UntypedFormControl('脏标题'));
+    component.form.markAsDirty();
+
+    component.onSwitchTranslation({
+      langCode: 'en',
+      label: 'EN',
+      current: false,
+      exists: true,
+      state: 'published',
+    });
+
+    // The dirty zh-hans form was snapshotted into its own language's draft slot
+    // before navigating (restorable when switching back), not the target's
+    expect(storage.store).toHaveBeenCalledWith(
+      'nodeDraft:blog:u1:zh-hans',
+      expect.objectContaining({ savedAt: expect.any(Number) })
+    );
+    expect(navigate).toHaveBeenCalledWith(
+      [],
+      expect.objectContaining({ queryParams: { lang: 'en' } })
+    );
+  });
+
+  it('切换回默认语言时清除 lang 查询参数', async () => {
+    await setupEdit({ langcode: 'en' }, undefined, [], { lang: 'en' });
+    const navigate = vi.mocked(TestBed.inject(Router).navigate);
+
+    component.onSwitchTranslation({
+      langCode: 'zh-hans',
+      label: '中文',
+      current: false,
+      exists: true,
+      state: 'published',
+    });
+
+    expect(navigate).toHaveBeenCalledWith([], expect.objectContaining({ queryParams: {} }));
   });
 
   it('json 类型编辑时 body 带回原文本格式', async () => {

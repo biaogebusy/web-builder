@@ -47,6 +47,12 @@
   </div>
   <div class="node-layout">
     <div class="node-main">
+      <!-- The requested translation does not exist yet: saving creates it, prefilled from the source language -->
+      @if (creatingTranslation()) {
+        <div class="translation-banner" role="status">
+          {{ 'BUILDER.NODE_ADD.TRANS_CREATE_BANNER' | translate: { lang: editLangLabel() } }}
+        </div>
+      }
       <!-- Full-width bar for the standalone editor toolbar: tiptap fields use this as the external toolbar container and project the toolbar in after editor init -->
       @if (hasRichEditor()) {
         <div
@@ -137,9 +143,46 @@
           />
         }
       </section>
+      @if (translations().length > 0) {
+        <section class="aside-section">
+          <div class="aside-title">{{ 'BUILDER.NODE_ADD.PANEL_TRANSLATIONS' | translate }}</div>
+          <ul class="translation-list">
+            @for (t of translations(); track t.langCode) {
+              <li>
+                <button
+                  type="button"
+                  class="translation-item"
+                  [disabled]="t.current"
+                  [attr.aria-current]="t.current ? 'true' : null"
+                  (click)="onSwitchTranslation(t)"
+                >
+                  <span class="translation-lang">{{ t.label }}</span>
+                  @if (t.current) {
+                    <span class="translation-state">
+                      {{ 'BUILDER.NODE_ADD.TRANS_CURRENT' | translate }}
+                    </span>
+                  } @else if (t.exists) {
+                    <span class="translation-state">{{ stateLabel(t.state) }}</span>
+                  } @else {
+                    <span class="translation-state is-missing">
+                      {{ 'BUILDER.NODE_ADD.TRANS_MISSING' | translate }}
+                    </span>
+                  }
+                </button>
+              </li>
+            }
+          </ul>
+        </section>
+      }
       @if (publishFields().length > 0) {
         <section class="aside-section">
           <div class="aside-title">{{ 'BUILDER.NODE_ADD.PANEL_PUBLISH' | translate }}</div>
+          <!-- Moderation state and alias are per translation: say which version they apply to -->
+          @if (showLangHint()) {
+            <p class="aside-hint">
+              {{ 'BUILDER.NODE_ADD.STATE_LANG_HINT' | translate: { lang: editLangLabel() } }}
+            </p>
+          }
           @for (t of [type() + '/' + editUuid()]; track t) {
             <app-formly
               [form]="form"

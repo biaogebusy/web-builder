@@ -2,7 +2,7 @@ import { Component, DestroyRef, OnInit, computed, inject, signal, ChangeDetectio
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Params, Router, convertToParamMap } from '@angular/router';
 import { SHARE_IMPORTS } from '@share/share-imports';
 import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { FORM_IMPORTS } from '@uiux/combs/form/form-imports';
@@ -25,8 +25,21 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import { TranslateService } from '@ngx-translate/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { Subject, Subscription, forkJoin, Observable, of, throwError } from 'rxjs';
+import { Subject, Subscription, combineLatest, forkJoin, Observable, of, throwError } from 'rxjs';
 import { catchError, debounceTime, map, startWith, switchMap, tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+
+/** A language row in the translations panel */
+export interface INodeTranslation {
+  langCode: string;
+  label: string;
+  /** Currently edited language */
+  current: boolean;
+  /** The translation exists on the node */
+  exists: boolean;
+  /** moderation_state, or published/unpublished mapped from status */
+  state: string;
+}
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -86,6 +99,27 @@ export class NodeAddComponent implements OnInit {
    * a duplicate node instead of editing the intended one).
    */
   public loadFailed = signal(false);
+  /** Site languages; empty when multi-language is off */
+  private langs = environment.langs || [];
+  private multiLang = !!environment.multiLang;
+  /** Language code of the translation being edited ('' = site default language) */
+  public editLang = signal<string>('');
+  /** Per-language overview of the loaded node's translations (edit mode, multi-language sites) */
+  public translations = signal<INodeTranslation[]>([]);
+  /**
+   * The requested translation does not exist yet: the lang-prefixed load fell
+   * back to the default translation, so saving creates the translation
+   * (prefilled from the source language).
+   */
+  public creatingTranslation = signal(false);
+  /** Display label of the edited language (e.g. "EN"); falls back to the langcode */
+  public editLangLabel = computed(
+    () => this.langs.find(l => l.langCode === this.editLang())?.label ?? this.editLang()
+  );
+  /** Show the language-scope hint on the publishing panel */
+  public showLangHint = computed(
+    () => this.multiLang && (!!this.editUuid() || !!this.apiLang())
+  );
   /** Display name of the current type (e.g. "Blog"); falls back to the machine name when unmatched */
   public typeLabel = computed(
     () => this.nodeTypes().find(t => t.value === this.type())?.label ?? this.type()
@@ -103,6 +137,8 @@ export class NodeAddComponent implements OnInit {
   private draftSub: Subscription | null = null;
   /** Current route params, kept so a conflict reload can re-run the load */
   private currentParams: Params = {};
+  /** Route query params of the current load, kept for the same purpose as currentParams */
+  private currentQuery: ParamMap | null = null;
 
   ngOnInit(): void {
     this.fieldFormService
@@ -117,17 +153,25 @@ export class NodeAddComponent implements OnInit {
         error: () => this.typesLoading.set(false),
       });
 
-    // switchMap: any route-param change cancels the previous in-flight load, preventing stale page data from landing in the new page
-    // (navigating within the same route config reuses the component, e.g. editing another node or switching type on create)
-    this.activateRoute.params
+    // switchMap: any route change cancels the previous in-flight load, preventing stale page data from landing in the new page
+    // (navigating within the same route config reuses the component, e.g. editing another node, switching type on create,
+    // or switching the edited translation via the ?lang= query param)
+    combineLatest([
+      this.activateRoute.params,
+      // Specs stub ActivatedRoute with params only; default to an empty map there
+      this.activateRoute.queryParamMap ?? of(convertToParamMap({})),
+    ])
       .pipe(
-        tap(params => this.resetForParams(params)),
+        tap(([params, query]) => this.resetForParams(params, query)),
         // A retry re-runs the load for the current params without resetting the page state
-        switchMap(params => this.retryLoad$.pipe(startWith(null), map(() => params))),
+        switchMap(([params]) => this.retryLoad$.pipe(startWith(null), map(() => params))),
         switchMap(params => this.loadForm$(params)),
         takeUntilDestroyed(this.destroyRef)
       )
-      .subscribe(load => this.applyForm(load));
+      .subscribe(load => {
+        this.applyForm(load);
+        this.loadTranslations(load.node);
+      });
   }
 
   /** Retry the failed edit load; keeps the route params, only clears the error state */
@@ -156,11 +200,13 @@ export class NodeAddComponent implements OnInit {
     }
   }
 
-  /** On every route-param change: reset all page state and destroy the old form (app-formly snapshots fields and model only at creation) */
-  private resetForParams(params: Params): void {
+  /** On every route change: reset all page state and destroy the old form (app-formly snapshots fields and model only at creation) */
+  private resetForParams(params: Params, query?: ParamMap | null): void {
     const type = params['type'];
     const uuid = params['uuid'] || '';
-    this.currentParams = params;    this.tagsService.setTitle(
+    this.currentParams = params;
+    this.currentQuery = query ?? null;
+    this.tagsService.setTitle(
       this.translate.instant(
         uuid ? 'BUILDER.NODE_ADD.EDIT_TITLE' : 'BUILDER.NODE_ADD.CREATE_TITLE',
         { type }
@@ -175,11 +221,30 @@ export class NodeAddComponent implements OnInit {
     this.model.set({});
     this.moderationStates.set([]);
     this.loadFailed.set(false);
+    this.translations.set([]);
+    this.creatingTranslation.set(false);
     this.form = new UntypedFormGroup({});
     this.typeForm = new UntypedFormGroup({});
     this.fieldMeta = [];
     this.originalNode = null;
     this.loadedChanged = '';
+    // Editing language: the explicit ?lang= wins (the manage list's edit button
+    // passes the row's language); without it, follow the page URL prefix as before
+    const queryLang = this.langs.find(l => l.langCode === query?.get('lang'));
+    this.editLang.set(
+      queryLang ? queryLang.langCode : this.nodeService.resolveLangCode() ?? this.defaultLangCode()
+    );
+  }
+
+  /** Langcode of the site default language ('' when no language is configured) */
+  private defaultLangCode(): string {
+    return this.langs.find(l => l.default)?.langCode ?? '';
+  }
+
+  /** Non-default langcode for language-prefixed API calls; undefined = site default */
+  private apiLang(): string | undefined {
+    const lang = this.langs.find(l => l.langCode === this.editLang());
+    return lang && !lang.default ? lang.langCode : undefined;
   }
 
   private loadForm$(params: Params): Observable<{
@@ -190,11 +255,11 @@ export class NodeAddComponent implements OnInit {
     const type = params['type'];
     const uuid = params['uuid'] || '';
     // Edit mode first fetches the node for backfill (with the language prefix,
-    // hitting the current language's translation); noCache bypasses the backend
+    // hitting the requested translation); noCache bypasses the backend
     // page cache so re-entering edit always shows the latest revision
     const node$ = uuid
       ? this.nodeService
-          .fetch(`/api/v1/node/${type}/${uuid}`, { noCache: 1 }, this.nodeService.resolveLangCode())
+          .fetch(`/api/v1/node/${type}/${uuid}`, { noCache: 1 }, this.apiLang())
           .pipe(
             map(res => res?.data ?? null),
             catchError(err => {
@@ -235,6 +300,16 @@ export class NodeAddComponent implements OnInit {
       return;
     }
     this.moderationStates.set(states);
+    // A lang-prefixed GET falls back to the default translation when the
+    // requested translation does not exist; the langcode mismatch means this
+    // save creates the translation (with content prefilled from the source)
+    const requestedLang = this.apiLang();
+    this.creatingTranslation.set(
+      !!node &&
+        !!requestedLang &&
+        node.attributes?.langcode !== undefined &&
+        node.attributes.langcode !== requestedLang
+    );
     // The state select defaults to "published" on create and backfills the node's current state on edit
     const state = node ? this.currentState(node) : 'published';
     // Base-field backfill shared by every type: promote (front page) / sticky (top of lists)
@@ -332,11 +407,14 @@ export class NodeAddComponent implements OnInit {
    */
   private wireLocalDraft(node: any): void {
     this.draftSub?.unsubscribe();
+    // Capture the key: the subscription must keep writing to the draft slot of
+    // the language it was created for, even if the page switches right after
+    const key = this.draftKey();
     this.draftSub = this.form.valueChanges
       .pipe(debounceTime(800))
       .subscribe(() => {
         if (this.form.dirty) {
-          this.storage.store(this.draftKey(), {
+          this.storage.store(key, {
             value: this.form.getRawValue(),
             savedAt: Date.now(),
           });
@@ -346,7 +424,8 @@ export class NodeAddComponent implements OnInit {
   }
 
   private draftKey(): string {
-    return `nodeDraft:${this.type()}:${this.editUuid() || 'create'}`;
+    // Language-scoped: drafts of different translations must not overwrite each other
+    return `nodeDraft:${this.type()}:${this.editUuid() || 'create'}:${this.editLang() || 'default'}`;
   }
 
   private readDraft(): { value: Record<string, any>; savedAt: number } | null {
@@ -597,6 +676,127 @@ export class NodeAddComponent implements OnInit {
     return node.attributes?.status ? 'published' : 'unpublished';
   }
 
+  /** Human label of a translation row's publish state: workflow state labels, or published/unpublished */
+  stateLabel(state: string): string {
+    if (!state) {
+      return '';
+    }
+    const moderation = this.moderationStates().find(s => s.value === state);
+    if (moderation) {
+      return moderation.label;
+    }
+    return this.translate.instant(
+      state === 'unpublished'
+        ? 'BUILDER.NODE_ADD.STATE_UNPUBLISHED'
+        : 'BUILDER.NODE_ADD.STATE_PUBLISHED'
+    );
+  }
+
+  /**
+   * Per-language overview of the loaded node's translations. The currently
+   * edited language comes from the main load; the others are probed
+   * individually: a lang-prefixed GET falls back to the default translation
+   * when the translation is missing, and the returned langcode exposes that
+   * fallback (missing = returned langcode differs from the requested one).
+   */
+  private loadTranslations(node: any): void {
+    this.translations.set([]);
+    if (!node || !this.multiLang || this.langs.length < 2 || !this.editUuid()) {
+      return;
+    }
+    const type = this.type();
+    const uuid = this.editUuid();
+    const currentLang = this.editLang();
+    this.translations.set(
+      this.langs.map(lang => ({
+        langCode: lang.langCode,
+        label: lang.label,
+        current: lang.langCode === currentLang,
+        exists: lang.langCode === currentLang ? !this.creatingTranslation() : false,
+        state: lang.langCode === currentLang ? this.currentState(node) : '',
+      }))
+    );
+    this.langs
+      .filter(lang => lang.langCode !== currentLang)
+      .forEach(lang => {
+        const langCode = lang.default ? undefined : lang.langCode;
+        this.nodeService
+          // String params keep this probe distinguishable from the object-params backfill load
+          .fetch(`/api/v1/node/${type}/${uuid}`, 'noCache=1', langCode)
+          .pipe(takeUntilDestroyed(this.destroyRef))
+          .subscribe({
+            next: res => {
+              // The probe may land after the page switched nodes or language; ignore stale results
+              const stale =
+                this.type() !== type || this.editUuid() !== uuid || this.editLang() !== currentLang;
+              if (stale) {
+                return;
+              }
+              const attributes = res?.data?.attributes;
+              const exists = attributes?.langcode === lang.langCode;
+              const state = exists ? this.currentState(res.data) : '';
+              this.translations.update(list =>
+                list.map(item =>
+                  item.langCode === lang.langCode ? { ...item, exists, state } : item
+                )
+              );
+            },
+            // A failed probe (e.g. permissions) leaves the language shown as not translated
+            error: () => {},
+          });
+      });
+  }
+
+  /**
+   * Switch the edited translation via the translations panel. Unsaved edits
+   * are confirmed first; on switch they are snapshotted into the per-language
+   * local draft (restorable when switching back).
+   */
+  onSwitchTranslation(translation: INodeTranslation): void {
+    if (translation.current || this.submitting()) {
+      return;
+    }
+    if (this.hasUnsavedChanges()) {
+      const config: IDialog = {
+        title: this.translate.instant('BUILDER.NODE_ADD.TRANS_SWITCH_TITLE'),
+        noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
+        yesLabel: this.translate.instant('BUILDER.NODE_ADD.TRANS_SWITCH_CONFIRM'),
+        inputData: {
+          content: {
+            type: 'text',
+            fullWidth: true,
+            body: this.translate.instant('BUILDER.NODE_ADD.TRANS_SWITCH_BODY'),
+          },
+        },
+      };
+      this.dialog
+        .open(DialogComponent, { width: '360px', data: config })
+        .afterClosed()
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(confirmed => {
+          if (confirmed) {
+            this.switchTranslation(translation);
+          }
+        });
+      return;
+    }
+    this.switchTranslation(translation);
+  }
+
+  private switchTranslation(translation: INodeTranslation): void {
+    // Snapshot synchronously: the debounced autosave may not have caught the latest keystrokes
+    if (this.form.dirty) {
+      this.storage.store(this.draftKey(), {
+        value: this.form.getRawValue(),
+        savedAt: Date.now(),
+      });
+    }
+    // ?lang= drives the reload; switching to the default language clears the param
+    const queryParams =
+      translation.langCode === this.defaultLangCode() ? {} : { lang: translation.langCode };
+    this.router.navigate([], { relativeTo: this.activateRoute, queryParams });
+  }
+
   onSubmit(value: any, user: IUser | any): void {
     if (!user) {
       this.util.openSnackbar(this.translate.instant('BUILDER.NODE_ADD.LOGIN_FIRST'), 'ok');
@@ -614,7 +814,7 @@ export class NodeAddComponent implements OnInit {
     this.submitting.set(true);
     const type = this.type();
     const uuid = this.editUuid();
-    const lang = this.nodeService.resolveLangCode();
+    const lang = this.apiLang();
     // The state select defaults to published when the form has not touched it
     const state = value.state || 'published';
     let attributes: any;
@@ -661,7 +861,9 @@ export class NodeAddComponent implements OnInit {
     lang?: string
   ): Record<string, any> {
     const attrs: Record<string, any> = {};
-    const original = this.originalNode;
+    // Creating a translation has no baseline of its own (originalNode is the
+    // source translation): base fields submit with create semantics
+    const original = this.creatingTranslation() ? null : this.originalNode;
     if (this.isModeratedType()) {
       if (!original || original.attributes?.moderation_state !== state) {
         attrs.moderation_state = state;
@@ -691,7 +893,8 @@ export class NodeAddComponent implements OnInit {
       attrs.path = { alias: alias || null };
     }
     // On create in a non-default language, carry langcode explicitly so the node language matches the site prefix
-    if (!original && lang) {
+    // (a translation-creating PATCH relies on the language prefix alone; a langcode attribute would retarget the node)
+    if (!this.originalNode && !this.editUuid() && lang) {
       attrs.langcode = lang;
     }
     return attrs;
@@ -762,6 +965,14 @@ export class NodeAddComponent implements OnInit {
     if (isEdit) {
       this.util.openSnackbar(this.translate.instant('BUILDER.NODE_ADD.UPDATE_SUCCESS'), 'ok');
       this.applyUpdatedNode(res?.data);
+      if (this.creatingTranslation()) {
+        // The translation exists from now on: leave create mode and reflect it in the panel
+        this.creatingTranslation.set(false);
+        const langCode = this.editLang();
+        this.translations.update(list =>
+          list.map(item => (item.langCode === langCode ? { ...item, exists: true } : item))
+        );
+      }
       // The saved state becomes the new pristine baseline, so the leave guard no longer blocks
       this.form.markAsPristine();
     } else {
@@ -828,7 +1039,7 @@ export class NodeAddComponent implements OnInit {
         }
         // "Load latest" explicitly discards the local edits; drop the draft too
         this.storage.clear(this.draftKey());
-        this.resetForParams(this.currentParams);
+        this.resetForParams(this.currentParams, this.currentQuery);
         this.retryLoad$.next();
       });
   }
