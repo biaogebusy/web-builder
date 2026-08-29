@@ -424,6 +424,60 @@ export class NodeAddComponent implements OnInit {
     this.switchType(model?.type);
   }
 
+  /**
+   * Delete the node being edited (edit mode only). Confirm first: the action is
+   * irreversible. After deletion the form's unsaved state is moot, so it is
+   * marked pristine to keep the leave guard from asking twice.
+   */
+  onDelete(): void {
+    if (!this.editUuid()) {
+      return;
+    }
+    const config: IDialog = {
+      title: this.translate.instant('BUILDER.NODE_ADD.DELETE_TITLE'),
+      noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
+      yesLabel: this.translate.instant('BUILDER.NODE_ADD.DELETE'),
+      inputData: {
+        content: {
+          type: 'text',
+          fullWidth: true,
+          body: this.translate.instant('BUILDER.NODE_ADD.DELETE_BODY'),
+        },
+      },
+    };
+    this.dialog
+      .open(DialogComponent, { width: '340px', data: config })
+      .afterClosed()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(confirmed => {
+        if (!confirmed) {
+          return;
+        }
+        this.submitting.set(true);
+        this.nodeService
+          .deleteEntity(`/api/v1/node/${this.type()}`, this.editUuid())
+          .pipe(takeUntilDestroyed(this.destroyRef))
+          .subscribe({
+            next: () => {
+              this.submitting.set(false);
+              // The node is gone: drop its local draft too
+              this.storage.clear(this.draftKey());
+              this.util.openSnackbar(this.translate.instant('BUILDER.NODE_ADD.DELETED'), 'ok');
+              this.form.markAsPristine();
+              this.router.navigate(['/builder/node/manage']);
+            },
+            error: err => {
+              this.submitting.set(false);
+              const message = err?.error?.errors?.[0]?.detail || err?.message || '';
+              this.util.openSnackbar(
+                this.translate.instant('BUILDER.NODE_ADD.DELETE_FAILED', { message }),
+                'ok'
+              );
+            },
+          });
+      });
+  }
+
   switchType(type: string): void {
     if (type !== this.type() || this.editUuid()) {
       this.router.navigate(['/builder/node/add', type]);

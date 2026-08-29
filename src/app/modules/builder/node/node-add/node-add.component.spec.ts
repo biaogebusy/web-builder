@@ -656,6 +656,36 @@ describe('NodeAddComponent', () => {
     expect(dialog.open).not.toHaveBeenCalled();
   });
 
+  it('编辑页删除:确认后删除节点、清草稿并跳转列表', async () => {
+    const dialog = createMatDialogMock();
+    const nodeServiceMock = await setupEdit({}, undefined, [
+      { provide: MatDialog, useValue: dialog },
+    ]);
+    dialog.open.mockReturnValue({ afterClosed: vi.fn(() => of(true)) } as never);
+    const navigate = vi.mocked(TestBed.inject(Router).navigate);
+
+    component.onDelete();
+
+    expect(nodeServiceMock.deleteEntity).toHaveBeenCalledWith('/api/v1/node/blog', 'u1');
+    // The local draft of a deleted node must not linger
+    expect((component as any).storage.clear).toHaveBeenCalledWith('nodeDraft:blog:u1');
+    expect(navigate).toHaveBeenCalledWith(['/builder/node/manage']);
+    expect(component.submitting()).toBe(false);
+  });
+
+  it('编辑页删除:取消确认则不删除', async () => {
+    const dialog = createMatDialogMock();
+    const nodeServiceMock = await setupEdit({}, undefined, [
+      { provide: MatDialog, useValue: dialog },
+    ]);
+    dialog.open.mockReturnValue({ afterClosed: vi.fn(() => of(false)) } as never);
+
+    component.onDelete();
+
+    expect(nodeServiceMock.deleteEntity).not.toHaveBeenCalled();
+    expect(component.submitting()).toBe(false);
+  });
+
   it('json 类型编辑时 body 带回原文本格式', async () => {
     const nodeServiceMock = await setup(
       {},

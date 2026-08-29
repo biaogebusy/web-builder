@@ -19,6 +19,17 @@
           {{ 'BUILDER.NODE_ADD.SAVING' | translate }}
         </span>
       } @else if (mainFields().length > 0) {
+        @if (editUuid()) {
+          <!-- Edit mode only: destructive action, guarded by a confirm dialog -->
+          <app-btn
+            (click)="onDelete()"
+            [content]="{
+              label: 'BUILDER.NODE_ADD.DELETE' | translate,
+              color: 'warn',
+              mode: 'stroked',
+            }"
+          />
+        }
         <!-- One save button: the publish state is chosen in the right panel's state select (defaults to published) -->
         <app-btn
           (click)="onSubmit(form.value, u)"
