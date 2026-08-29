@@ -1,6 +1,7 @@
 import { Component, DestroyRef, OnInit, computed, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { SHARE_IMPORTS } from '@share/share-imports';
 import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
@@ -17,12 +18,15 @@ import {
   NodeFieldFormService,
 } from '@core/service/node-field-form.service';
 import { TagsService } from '@core/service/tags.service';
+import { IDialog } from '@core/interface/IDialog';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { LocalStorageService } from 'ngx-webstorage';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import { TranslateService } from '@ngx-translate/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { Subject, forkJoin, Observable, of, throwError } from 'rxjs';
-import { catchError, map, startWith, switchMap, tap } from 'rxjs/operators';
+import { Subject, Subscription, forkJoin, Observable, of, throwError } from 'rxjs';
+import { catchError, debounceTime, map, startWith, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,6 +34,10 @@ import { catchError, map, startWith, switchMap, tap } from 'rxjs/operators';
   templateUrl: './node-add.component.html',
   styleUrl: './node-add.component.scss',
   imports: [SHARE_IMPORTS, WIDGETS_IMPORTS, FORM_IMPORTS, FormlyModule, FormlyMaterialModule],
+  host: {
+    // Ctrl/Cmd+S saves; the document-level binding also catches presses inside the rich-text editor
+    '(document:keydown)': 'onKeydown($event)',
+  },
 })
 export class NodeAddComponent implements OnInit {
   private nodeService = inject(NodeService);
@@ -42,6 +50,8 @@ export class NodeAddComponent implements OnInit {
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);
   private translate = inject(TranslateService);
+  private dialog = inject(MatDialog);
+  private storage = inject(LocalStorageService);
   public type = signal<string>('');
   /** Node uuid in edit mode; empty means create-new */
   public editUuid = signal<string>('');
@@ -83,6 +93,10 @@ export class NodeAddComponent implements OnInit {
   private loadedChanged = '';
   /** Retriggers the load for the current route params (edit-load retry button) */
   private retryLoad$ = new Subject<void>();
+  /** Draft autosave subscription; re-created whenever the form object is rebuilt */
+  private draftSub: Subscription | null = null;
+  /** Current route params, kept so a conflict reload can re-run the load */
+  private currentParams: Params = {};
 
   ngOnInit(): void {
     this.fieldFormService
@@ -124,11 +138,23 @@ export class NodeAddComponent implements OnInit {
     return this.form.dirty && !this.submitting();
   }
 
+  /** Ctrl/Cmd+S saves from anywhere on the page, including inside the rich-text editor */
+  onKeydown(event: KeyboardEvent): void {
+    if (!(event.ctrlKey || event.metaKey) || event.key.toLowerCase() !== 's') {
+      return;
+    }
+    // Prevent the browser's save-page dialog; without loaded fields there is nothing to save
+    event.preventDefault();
+    if (this.mainFields().length > 0 && !this.submitting()) {
+      this.onSubmit(this.form.value, this.user());
+    }
+  }
+
   /** On every route-param change: reset all page state and destroy the old form (app-formly snapshots fields and model only at creation) */
   private resetForParams(params: Params): void {
     const type = params['type'];
     const uuid = params['uuid'] || '';
-    this.tagsService.setTitle(
+    this.currentParams = params;    this.tagsService.setTitle(
       this.translate.instant(
         uuid ? 'BUILDER.NODE_ADD.EDIT_TITLE' : 'BUILDER.NODE_ADD.CREATE_TITLE',
         { type }
@@ -236,6 +262,7 @@ export class NodeAddComponent implements OnInit {
         },
       ]);
       this.publishFields.set(this.getPublishFields());
+      this.wireLocalDraft(node);
       return;
     }
     const { fields, meta } = form;
@@ -285,6 +312,88 @@ export class NodeAddComponent implements OnInit {
     if (fields.length === 0) {
       this.util.openSnackbar(this.translate.instant('BUILDER.NODE_ADD.NO_FIELDS'), 'ok');
     }
+    this.wireLocalDraft(node);
+  }
+
+  /**
+   * Local crash-recovery draft: autosave dirty form values to localStorage
+   * (debounced), and on load offer to restore a draft newer than the server
+   * data. The draft key is scoped per type + uuid (create shares one slot).
+   */
+  private wireLocalDraft(node: any): void {
+    this.draftSub?.unsubscribe();
+    this.draftSub = this.form.valueChanges
+      .pipe(debounceTime(800))
+      .subscribe(() => {
+        if (this.form.dirty) {
+          this.storage.store(this.draftKey(), {
+            value: this.form.getRawValue(),
+            savedAt: Date.now(),
+          });
+        }
+      });
+    this.checkLocalDraft(node);
+  }
+
+  private draftKey(): string {
+    return `nodeDraft:${this.type()}:${this.editUuid() || 'create'}`;
+  }
+
+  private readDraft(): { value: Record<string, any>; savedAt: number } | null {
+    const draft = this.storage.retrieve(this.draftKey());
+    return draft?.value && draft?.savedAt ? draft : null;
+  }
+
+  /**
+   * Offer restoring a local draft. Stale drafts (server changed after the draft
+   * was saved) are dropped silently; the form is already built from server
+   * data, so keeping the draft just patches the controls.
+   */
+  private checkLocalDraft(node: any): void {
+    const draft = this.readDraft();
+    if (!draft) {
+      return;
+    }
+    const serverChanged = Date.parse(node?.attributes?.changed ?? '');
+    if (serverChanged && serverChanged >= draft.savedAt) {
+      this.storage.clear(this.draftKey());
+      return;
+    }
+    const key = this.draftKey();
+    const config: IDialog = {
+      title: this.translate.instant('BUILDER.NODE_ADD.DRAFT_TITLE'),
+      noLabel: this.translate.instant('BUILDER.NODE_ADD.DRAFT_DISCARD'),
+      yesLabel: this.translate.instant('BUILDER.NODE_ADD.DRAFT_KEEP'),
+      inputData: {
+        content: {
+          type: 'text',
+          fullWidth: true,
+          body: this.translate.instant('BUILDER.NODE_ADD.DRAFT_CONFIRM'),
+        },
+      },
+    };
+    this.dialog
+      .open(DialogComponent, { width: '360px', data: config })
+      .afterClosed()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(keep => {
+        // The user may have switched nodes while the dialog was open; only
+        // touch the form/storage when the draft still belongs to this page
+        if (this.draftKey() !== key) {
+          return;
+        }
+        if (keep) {
+          this.form.patchValue(draft.value, { emitEvent: false });
+          // Restored edits count as unsaved, so the leave guard protects them again
+          this.form.markAsDirty();
+          this.util.openSnackbar(
+            this.translate.instant('BUILDER.NODE_ADD.DRAFT_RESTORED'),
+            'ok'
+          );
+        } else {
+          this.storage.clear(key);
+        }
+      });
   }
 
   /** The json type stores body as a string; restore it to an object before backfill */
@@ -560,6 +669,8 @@ export class NodeAddComponent implements OnInit {
    */
   private onSubmitSuccess(isEdit: boolean, res?: any): void {
     this.submitting.set(false);
+    // Both modes: the persisted copy is now the source of truth, the local draft goes
+    this.storage.clear(this.draftKey());
     if (isEdit) {
       this.util.openSnackbar(this.translate.instant('BUILDER.NODE_ADD.UPDATE_SUCCESS'), 'ok');
       this.applyUpdatedNode(res?.data);
@@ -592,7 +703,7 @@ export class NodeAddComponent implements OnInit {
   private showSubmitError(err: any): void {
     this.submitting.set(false);
     if (err?.editConflict) {
-      this.util.openSnackbar(this.translate.instant('BUILDER.NODE_ADD.EDIT_CONFLICT'), 'ok');
+      this.promptConflictReload();
       return;
     }
     const message = err?.error?.errors?.[0]?.detail || err?.message || '';
@@ -600,5 +711,37 @@ export class NodeAddComponent implements OnInit {
       this.translate.instant('BUILDER.NODE_ADD.SUBMIT_FAILED', { message }),
       'ok'
     );
+  }
+
+  /**
+   * On an edit conflict the user needs the other editor's version; offer a
+   * reload right in the dialog instead of leaving them to re-enter the page.
+   */
+  private promptConflictReload(): void {
+    const config: IDialog = {
+      title: this.translate.instant('BUILDER.NODE_ADD.EDIT_CONFLICT_TITLE'),
+      noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
+      yesLabel: this.translate.instant('BUILDER.NODE_ADD.CONFLICT_RELOAD'),
+      inputData: {
+        content: {
+          type: 'text',
+          fullWidth: true,
+          body: this.translate.instant('BUILDER.NODE_ADD.EDIT_CONFLICT_BODY'),
+        },
+      },
+    };
+    this.dialog
+      .open(DialogComponent, { width: '360px', data: config })
+      .afterClosed()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(reload => {
+        if (!reload) {
+          return;
+        }
+        // "Load latest" explicitly discards the local edits; drop the draft too
+        this.storage.clear(this.draftKey());
+        this.resetForParams(this.currentParams);
+        this.retryLoad$.next();
+      });
   }
 }

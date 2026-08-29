@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { IDialog } from '@core/interface/IDialog';
 import { ManageService } from '@core/service/manage.service';
 import { BuilderState } from '@core/state/BuilderState';
+import { TranslateService } from '@ngx-translate/core';
 import { FieldType, FormlyModule } from '@ngx-formly/core';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
@@ -30,6 +31,7 @@ export class ImgPickerComponent extends FieldType implements OnInit {
   dialog = inject(MatDialog);
   builder = inject(BuilderState);
   manageService = inject(ManageService);
+  private translate = inject(TranslateService);
   /** Media source URL; resolved from the UUID form value on backfill, or set on library pick */
   public src = signal('');
   private destroyRef = inject(DestroyRef);
@@ -131,7 +133,27 @@ export class ImgPickerComponent extends FieldType implements OnInit {
     });
   }
 
+  /** Clearing the reference is destructive for the saved content, so confirm first */
   remove(): void {
-    this.formControl.patchValue('');
+    const config: IDialog = {
+      title: this.translate.instant('BUILDER.FACTORY.IMG_REMOVE_TITLE'),
+      noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
+      yesLabel: this.translate.instant('BUILDER.COMMON.CONFIRM'),
+      inputData: {
+        content: {
+          type: 'text',
+          fullWidth: true,
+          body: this.translate.instant('BUILDER.FACTORY.IMG_REMOVE_BODY'),
+        },
+      },
+    };
+    this.dialog
+      .open(DialogComponent, { width: '340px', data: config })
+      .afterClosed()
+      .subscribe(confirmed => {
+        if (confirmed) {
+          this.formControl.patchValue('');
+        }
+      });
   }
 }

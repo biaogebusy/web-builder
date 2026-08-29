@@ -1,12 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { signal } from '@angular/core';
 import { UntypedFormControl, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { LocalStorageService } from 'ngx-webstorage';
 import { ActivatedRoute, Router, provideRouter } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
 import { of, throwError } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { vi } from 'vitest';
 import { provideBuilderMocks } from '@modules/builder/testing/mocks';
-import { createNodeServiceMock } from '@core/testing/mocks';
+import {
+  createMatDialogMock,
+  createNodeServiceMock,
+  createStorageServiceMock,
+} from '@core/testing/mocks';
 import { NodeService } from '@core/service/node.service';
 import { NodeFieldFormService } from '@core/service/node-field-form.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
@@ -31,7 +38,14 @@ describe('NodeAddComponent', () => {
   let component: NodeAddComponent;
   let fixture: ComponentFixture<NodeAddComponent>;
 
-  const setup = async (coreConfig: any = {}, fieldFormService?: any, routeParams?: any) => {
+  const setup = async (
+    coreConfig: any = {},
+    fieldFormService?: any,
+    routeParams?: any,
+    // Local mocks to append after provideBuilderMocks: asserting their calls
+    // requires own instances (the shared factory instances are not reliable)
+    extraProviders: any[] = []
+  ) => {
     const nodeServiceMock = createNodeServiceMock();
     nodeServiceMock.fetch = vi.fn((api: string) =>
       api === '/api/v1/node_type/node_type' ? of(NODE_TYPE_RESPONSE) : of({})
@@ -41,6 +55,7 @@ describe('NodeAddComponent', () => {
       providers: [
         provideRouter([]),
         ...provideBuilderMocks(),
+        ...extraProviders.filter(provider => provider.provide !== MatDialog),
         { provide: NodeService, useValue: nodeServiceMock },
         { provide: CORE_CONFIG, useValue: coreConfig },
         ...(fieldFormService
@@ -51,6 +66,15 @@ describe('NodeAddComponent', () => {
           : []),
       ],
     }).compileComponents();
+    // MatDialogModule inside SHARE_IMPORTS attaches a real MatDialog to the
+    // component's standalone injector, shadowing environment-level mocks; a
+    // MatDialog provider must be overridden at the component level instead
+    const dialogProvider = extraProviders.find(provider => provider.provide === MatDialog);
+    if (dialogProvider) {
+      TestBed.overrideComponent(NodeAddComponent, {
+        set: { providers: [dialogProvider] },
+      });
+    }
 
     fixture = TestBed.createComponent(NodeAddComponent);
     component = fixture.componentInstance;
@@ -58,7 +82,11 @@ describe('NodeAddComponent', () => {
   };
 
   /** Edit mode: the route carries uuid and fetch returns the node; preFetchChanged is the changed value seen by the pre-save comparison */
-  const setupEdit = async (nodeAttributes: any = {}, preFetchChanged?: string) => {
+  const setupEdit = async (
+    nodeAttributes: any = {},
+    preFetchChanged?: string,
+    extraProviders: any[] = []
+  ) => {
     const attributes = {
       title: 'Old title',
       status: true,
@@ -75,7 +103,8 @@ describe('NodeAddComponent', () => {
         buildModel: () => ({}),
         buildPayload: () => ({ attributes: {}, relationships: {} }),
       },
-      { type: 'blog', uuid: 'u1' }
+      { type: 'blog', uuid: 'u1' },
+      extraProviders
     );
     nodeServiceMock.fetch = vi.fn((api: string, params?: any) => {
       if (api === '/api/v1/node/blog/u1') {
@@ -460,6 +489,171 @@ describe('NodeAddComponent', () => {
     component.form.addControl('title', new UntypedFormControl('Dirty'));
     component.form.markAsDirty();
     expect(component.hasUnsavedChanges()).toBe(true);
+  });
+
+  it('Ctrl+S 触发保存并阻止浏览器默认行为', async () => {
+    const nodeServiceMock = await setup(
+      {},
+      {
+        getAllowedNodeTypes: () => of([{ label: '博客', value: 'blog' }]),
+        getForm: () => of({
+          fields: [{ key: 'body', type: 'tiptap', props: {} }],
+          meta: [{ key: 'body', fieldType: 'text_long' }],
+        }),
+        getModerationStates: () => of([]),
+        buildModel: () => ({}),
+        buildPayload: () => ({ attributes: {}, relationships: {} }),
+      }
+    );
+    component.ngOnInit();
+    // USER token mock is signal(false); the shortcut reads it for the login check
+    component.user = signal({ id: 1 }) as any;
+
+    const event = { ctrlKey: true, key: 's', preventDefault: vi.fn() } as unknown as KeyboardEvent;
+    component.onKeydown(event);
+    expect(event.preventDefault).toHaveBeenCalled();
+    expect(nodeServiceMock.addEntity).toHaveBeenCalledTimes(1);
+
+    // Unrelated keys do nothing
+    const other = { ctrlKey: true, key: 'p', preventDefault: vi.fn() } as unknown as KeyboardEvent;
+    component.onKeydown(other);
+    expect(other.preventDefault).not.toHaveBeenCalled();
+  });
+
+  it('保存冲突弹窗确认后丢弃本地修改并重新加载', async () => {
+    const dialog = createMatDialogMock();
+    const nodeServiceMock = await setupEdit({}, '2026-02-02T00:00:00+00:00', [
+      { provide: MatDialog, useValue: dialog },
+    ]);
+    dialog.open.mockReturnValue({ afterClosed: vi.fn(() => of(true)) } as never);
+    const backfillCalls = () =>
+      (nodeServiceMock.fetch as any).mock.calls.filter(
+        (call: any[]) => call[0] === '/api/v1/node/blog/u1' && typeof call[1] !== 'string'
+      ).length;
+
+    component.onSubmit({ title: 'New', path_alias: '/old-alias' }, { id: 1 });
+    expect(dialog.open).toHaveBeenCalled();
+    // Confirming (synchronously) reloads the server version: one extra backfill load
+    expect(backfillCalls()).toBe(2);
+    expect(component.model().path_alias).toBe('/old-alias');
+  });
+
+  it('保存冲突取消后保留当前表单不重新加载', async () => {
+    const dialog = createMatDialogMock();
+    const nodeServiceMock = await setupEdit({}, '2026-02-02T00:00:00+00:00', [
+      { provide: MatDialog, useValue: dialog },
+    ]);
+    dialog.open.mockReturnValue({ afterClosed: vi.fn(() => of(false)) } as never);
+
+    component.onSubmit({ title: 'New', path_alias: '/old-alias' }, { id: 1 });
+    await Promise.resolve();
+
+    expect(component.submitting()).toBe(false);
+    // No extra backfill ran after cancelling
+    expect(
+      (nodeServiceMock.fetch as any).mock.calls.filter(
+        (call: any[]) => call[0] === '/api/v1/node/blog/u1' && typeof call[1] !== 'string'
+      ).length
+    ).toBe(1);
+  });
+
+  it('较新的本地草稿提示恢复,确认后回填并标记脏态', async () => {
+    // Local mocks declared first: the setup providers reference them
+    const storage = createStorageServiceMock();
+    storage.retrieve.mockReturnValue({
+      value: { title: 'Draft title', path_alias: '/draft-alias' },
+      savedAt: Date.now() + 1000,
+    } as never);
+    const dialog = createMatDialogMock();
+    dialog.open.mockReturnValue({ afterClosed: vi.fn(() => of(true)) } as never);
+    const nodeServiceMock = await setup(
+      {},
+      {
+        getAllowedNodeTypes: () => of([{ label: '博客', value: 'blog' }]),
+        getForm: () => of({ fields: [], meta: [] }),
+        getModerationStates: () => of([]),
+        buildModel: () => ({}),
+      },
+      { type: 'blog', uuid: 'u1' },
+      [
+        { provide: MatDialog, useValue: dialog },
+        { provide: LocalStorageService, useValue: storage },
+      ]
+    );
+    nodeServiceMock.fetch = vi.fn((api: string, params?: any) => {
+      if (api === '/api/v1/node/blog/u1') {
+        if (typeof params === 'string' && params.includes('changed')) {
+          return of({ data: { attributes: { changed: '2026-01-01T00:00:00+00:00' } } });
+        }
+        return of({
+          data: {
+            id: 'u1',
+            attributes: {
+              title: 'Old title',
+              status: true,
+              changed: '2026-01-01T00:00:00+00:00',
+              path: { alias: '/old-alias' },
+            },
+            relationships: {},
+          },
+        });
+      }
+      return of({});
+    });
+
+    component.ngOnInit();
+
+    expect(dialog.open).toHaveBeenCalledTimes(1);
+    expect(component.form.dirty).toBe(true);
+    expect(storage.clear).not.toHaveBeenCalledWith('nodeDraft:blog:u1');
+  });
+
+  it('服务器版本更新于草稿之后的旧草稿被静默丢弃', async () => {
+    const storage = createStorageServiceMock();
+    storage.retrieve.mockReturnValue({
+      value: { title: 'Stale' },
+      savedAt: Date.parse('2025-01-01T00:00:00+00:00'),
+    } as never);
+    const dialog = createMatDialogMock();
+    const nodeServiceMock = await setup(
+      {},
+      {
+        getAllowedNodeTypes: () => of([{ label: '博客', value: 'blog' }]),
+        getForm: () => of({ fields: [], meta: [] }),
+        getModerationStates: () => of([]),
+        buildModel: () => ({}),
+      },
+      { type: 'blog', uuid: 'u1' },
+      [
+        { provide: MatDialog, useValue: dialog },
+        { provide: LocalStorageService, useValue: storage },
+      ]
+    );
+    nodeServiceMock.fetch = vi.fn((api: string, params?: any) => {
+      if (api === '/api/v1/node/blog/u1') {
+        if (typeof params === 'string' && params.includes('changed')) {
+          return of({ data: { attributes: { changed: '2026-01-01T00:00:00+00:00' } } });
+        }
+        return of({
+          data: {
+            id: 'u1',
+            attributes: {
+              title: 'Old title',
+              status: true,
+              changed: '2026-01-01T00:00:00+00:00',
+            },
+            relationships: {},
+          },
+        });
+      }
+      return of({});
+    });
+
+    component.ngOnInit();
+
+    // changed 2026-01-01 is newer than the draft: dropped without asking
+    expect(storage.clear).toHaveBeenCalledWith('nodeDraft:blog:u1');
+    expect(dialog.open).not.toHaveBeenCalled();
   });
 
   it('json 类型编辑时 body 带回原文本格式', async () => {

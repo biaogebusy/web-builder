@@ -85,4 +85,23 @@ describe('ImgPickerComponent', () => {
 
     expect(component.src()).toBe('/assets/img.png');
   });
+
+  it('remove clears the value only after confirmation', () => {
+    const dialog = TestBed.inject(MatDialog) as any;
+    component.field = {
+      key: 'src',
+      props: {},
+      formControl: new UntypedFormControl('/assets/img.png'),
+      formState: {},
+      options: { showError: () => false },
+    } as any;
+
+    dialog.open.mockReturnValue({ afterClosed: vi.fn(() => of(false)) });
+    component.remove();
+    expect(component.formControl.value).toBe('/assets/img.png');
+
+    dialog.open.mockReturnValue({ afterClosed: vi.fn(() => of(true)) });
+    component.remove();
+    expect(component.formControl.value).toBe('');
+  });
 });
