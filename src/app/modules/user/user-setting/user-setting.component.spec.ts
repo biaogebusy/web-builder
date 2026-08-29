@@ -49,6 +49,8 @@ describe('UserSettingComponent', () => {
           LOGOUT_CONFIRM_NO: '取消',
           UPDATE: '更新账户',
           AVATAR_UPDATE: '更新头像',
+          USERNAME_LENGTH_INVALID: '用户名需为 2-20 个字符',
+          PASS_NEW_LENGTH_INVALID: '新密码至少 6 个字符',
           UPDATE_SUCCESS: '更新成功！',
           UPDATE_FAILED: '更新失败：{{reason}}',
           ERROR_NETWORK: '网络异常，请稍后重试',
@@ -78,6 +80,12 @@ describe('UserSettingComponent', () => {
     });
     expect(util.openSnackbar).toHaveBeenCalledWith('更新成功！', 'ok');
     expect(component.loading()).toBe(false);
+  });
+
+  it('submits without crashing when the password fields were never rendered', () => {
+    expect(() => component.onUpdate({ name: 'admin' }, user)).not.toThrow();
+
+    expect(userService.editingUser).toHaveBeenCalledWith(user, { name: 'admin' });
   });
 
   it('reports the failure with a retry hint when the network errors out', () => {
@@ -129,6 +137,87 @@ describe('UserSettingComponent', () => {
     });
   });
 
+  it('resyncs the form to the refreshed profile after a successful update', async () => {
+    const signalUser = component.user as WritableSignal<IUser | boolean>;
+    signalUser.set({
+      ...user,
+      current_user: { name: 'admin' },
+      display_name: 'Admin',
+    } as IUser);
+    fixture.detectChanges();
+    await vi.waitFor(() => expect(component.fields).toBeTruthy());
+
+    const resetModel = vi.fn();
+    component.options = { resetModel };
+    // An unrelated emission (a token refresh re-emits the pre-update cookie copy) lands before the
+    // refetch answers; the resync has to follow the refetched profile, not that emission
+    userService.updateUser.mockImplementationOnce(() => {
+      signalUser.set({ ...user, current_user: { name: 'admin' }, display_name: 'Admin' } as IUser);
+      return of({ ...user, current_user: { name: 'admin' }, display_name: 'New Nickname' } as IUser);
+    });
+
+    component.onUpdate({ name: 'admin', full_name: 'New Nickname', pass: {} }, user);
+
+    await vi.waitFor(() => expect(resetModel).toHaveBeenCalled());
+    expect(resetModel).toHaveBeenCalledTimes(1);
+    expect(resetModel).toHaveBeenCalledWith({
+      name: 'admin',
+      full_name: 'New Nickname',
+      mail: 'a@b.co',
+      pass: {},
+    });
+  });
+
+  it('keeps the saved nickname in the rendered input after a successful update', async () => {
+    const signalUser = component.user as WritableSignal<IUser | boolean>;
+    const profile = (displayName: string) =>
+      ({ ...user, current_user: { name: 'root' }, display_name: displayName }) as IUser;
+    signalUser.set(profile('root'));
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    (component.form.get('full_name') as any)?.setValue('roottest');
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    userService.updateUser.mockImplementationOnce(() => {
+      signalUser.set(profile('root'));
+      return of(profile('roottest'));
+    });
+
+    component.onUpdate(component.model, profile('root'));
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const input: HTMLInputElement = fixture.nativeElement.querySelector('input[id*="full_name"]');
+    expect(input.value).toBe('roottest');
+    expect(component.model.full_name).toBe('roottest');
+  });
+
+  it('declares length rules as validation messages shown only on error', async () => {
+    (component.user as WritableSignal<IUser | boolean>).set({
+      ...user,
+      current_user: { name: 'admin' },
+    } as IUser);
+    fixture.detectChanges();
+    await vi.waitFor(() => expect(component.fields).toBeTruthy());
+
+    const tabs = (component.fields as any)[0].fieldGroup;
+    const basicFields = tabs[0].fieldGroup;
+    const passwordFields = tabs[1].fieldGroup[0].fieldGroup;
+
+    expect(basicFields[0].props.description).toBeUndefined();
+    expect(basicFields[0].validation.messages).toEqual({
+      minlength: '用户名需为 2-20 个字符',
+      maxlength: '用户名需为 2-20 个字符',
+    });
+    expect(passwordFields[0].validation.messages).toEqual({
+      minlength: '新密码至少 6 个字符',
+    });
+  });
+
   it('logs out and closes every open dialog once the user confirms', () => {
     const dialog = fixture.debugElement.injector.get(MatDialog);
     const closeAll = vi.spyOn(dialog, 'closeAll');
@@ -155,8 +244,17 @@ describe('UserSettingComponent', () => {
     expect(userService.logout).not.toHaveBeenCalled();
   });
 
-  it('rejects the avatar when no file was picked', async () => {
+  it('stays quiet when the file picker was cancelled without a selection', async () => {
     await component.handleFileChange({ target: { files: [] } } as unknown as Event, user);
+
+    expect(util.openSnackbar).not.toHaveBeenCalled();
+    expect(userService.uploadUserPicture).not.toHaveBeenCalled();
+  });
+
+  it('rejects non-image files with a format warning', async () => {
+    const file = new File(['x'], 'doc.pdf', { type: 'application/pdf' });
+
+    await component.handleFileChange({ target: { files: [file] } } as unknown as Event, user);
 
     expect(util.openSnackbar).toHaveBeenCalledWith('请检查图片格式', 'ok');
     expect(userService.uploadUserPicture).not.toHaveBeenCalled();

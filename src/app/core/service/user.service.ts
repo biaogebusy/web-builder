@@ -446,15 +446,22 @@ export class UserService extends ApiService {
     );
   }
 
-  updateUser(data: TokenUser): void {
+  /**
+   * Refetches the profile behind the stored token and re-emits it to `userSub$`.
+   *
+   * Cold on purpose: callers that have to know when the refreshed profile landed (e.g. the
+   * settings form resyncing its inputs) subscribe and read the emitted user, instead of waiting
+   * for the next `userSub$` emission — that one may well be an unrelated refresh carrying the
+   * pre-update cookie copy.
+   */
+  updateUser(data: TokenUser): Observable<IUser> {
     const {
       current_user: { uid },
     } = data;
-    this.getCurrentUserById(uid, data)
-      .pipe(take(1))
-      .subscribe(user => {
-        this.loginUser(data, user);
-      });
+    return this.getCurrentUserById(uid, data).pipe(
+      take(1),
+      map(user => this.loginUser(data, user))
+    );
   }
 
   editingUser(user: IUser, data: JsonObject): Observable<unknown> {
@@ -564,11 +571,14 @@ export class UserService extends ApiService {
     }
   }
 
-  loginUser(data: TokenUser, user: IUserProfile): void {
-    const currentUser: IUser = Object.assign(data, user);
+  loginUser(data: TokenUser, user: IUserProfile): IUser {
+    // Emit a copy, not an in-place merge: data is often the object already held by the USER
+    // signal, and re-emitting the same reference would not notify signal consumers
+    const currentUser: IUser = Object.assign({}, data, user);
     this.userSub$.next(currentUser);
     this.setUserCookie(currentUser);
     this.broadcastAuth({ type: 'login' });
+    return currentUser;
   }
 
   logoutUser(): void {
@@ -666,7 +676,7 @@ export class UserService extends ApiService {
               map(ok => ({ ok }))
             );
           }
-          this.updateUser(response as TokenUser);
+          this.updateUser(response as TokenUser).subscribe();
           return of({ ok: true });
         }),
         catchError(error => {
@@ -760,7 +770,8 @@ export class UserService extends ApiService {
             const detail = res.data[0];
             return {
               id: detail.id,
-              display_name: detail.display_name || '',
+              // The settings form writes the nickname to full_name; core display_name is the fallback
+              display_name: detail.full_name || detail.display_name || '',
               mail: detail.mail || '',
               authenticated: true,
               picture: detail.user_picture?.uri?.url || this.coreConfig?.defaultAvatar || '',

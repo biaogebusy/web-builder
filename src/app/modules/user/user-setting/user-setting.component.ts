@@ -26,7 +26,7 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { catchError, of } from 'rxjs';
+import { catchError, EMPTY, Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-user-setting',
@@ -79,15 +79,27 @@ export class UserSettingComponent implements OnInit {
                       minLength: 2,
                       maxLength: 20,
                     },
+                    validation: {
+                      messages: {
+                        minlength: this.t('USERNAME_LENGTH_INVALID'),
+                        maxlength: this.t('USERNAME_LENGTH_INVALID'),
+                      },
+                    },
                   },
                   {
                     key: 'full_name',
                     type: 'input',
+                    // user.display_name is mapped from the full_name attribute in UserService
                     defaultValue: user.display_name ?? '',
                     props: {
                       label: this.t('FULL_NAME_LABEL'),
                       placeholder: this.t('FULL_NAME_PLACEHOLDER'),
-                      min: 2,
+                      minLength: 2,
+                    },
+                    validation: {
+                      messages: {
+                        minlength: this.t('FULL_NAME_LENGTH_INVALID'),
+                      },
                     },
                   },
                   {
@@ -115,7 +127,7 @@ export class UserSettingComponent implements OnInit {
                         key: 'existing',
                         type: 'input',
                         props: {
-                          label: this.t('PASS_CURRENT_LABEL'),
+                          label: this.t('PASS_CURRENT_BASIC_LABEL'),
                           placeholder: this.t('PASS_CURRENT_PLACEHOLDER'),
                           type: 'password',
                         },
@@ -155,6 +167,11 @@ export class UserSettingComponent implements OnInit {
                           placeholder: this.t('PASS_NEW_PLACEHOLDER'),
                           type: 'password',
                           minLength: 6,
+                        },
+                        validation: {
+                          messages: {
+                            minlength: this.t('PASS_NEW_LENGTH_INVALID'),
+                          },
                         },
                         modelOptions: {
                           updateOn: 'blur',
@@ -207,30 +224,39 @@ export class UserSettingComponent implements OnInit {
           },
         ];
         // Snapshot the pristine model so reset restores saved values instead of blanking the form
-        this.initialModel = {
-          name: user.current_user.name,
-          full_name: user.display_name ?? '',
-          mail: user.mail ?? '',
-        };
+        this.initialModel = this.toFormModel(user);
       }
       this.cd.detectChanges();
     }, { injector: this.injector });
   }
 
+  /** The saved profile values the form edits, in the shape formly expects */
+  private toFormModel(user: IUser): any {
+    return {
+      name: user.current_user.name,
+      full_name: user.display_name ?? '',
+      mail: user.mail ?? '',
+    };
+  }
+
   onUpdate(value: any, user: IUser): void {
     this.loading.set(true);
-    // remove confirm value
+    // remove confirm value; pass is absent when its fields were never rendered
     const formData = Object.assign({}, value);
-    delete formData.pass.confirm;
+    if (formData.pass) {
+      delete formData.pass.confirm;
+    }
     this.userService
       .editingUser(user, formData)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {
-          const u = this.user();
-          if (typeof u === 'object') {
-            this.userService.updateUser(u);
-          }
+          // Resync the form to what the server now holds, which also clears the password fields
+          this.refreshProfile().subscribe(refreshed => {
+            this.initialModel = this.toFormModel(refreshed);
+            this.options.resetModel?.({ ...this.initialModel, pass: {} });
+            this.cd.detectChanges();
+          });
           this.util.openSnackbar(this.t('UPDATE_SUCCESS'), 'ok');
           this.loading.set(false);
           this.cd.detectChanges();
@@ -242,6 +268,19 @@ export class UserSettingComponent implements OnInit {
           this.cd.detectChanges();
         },
       });
+  }
+
+  /**
+   * Refetches the profile behind the stored token and emits it. Callers resync from the emitted
+   * user rather than from the USER signal: an unrelated emission (e.g. a token refresh re-emitting
+   * the pre-update cookie copy) can land first and would restore the pre-update values.
+   */
+  private refreshProfile(): Observable<IUser> {
+    const current = this.user();
+    if (typeof current !== 'object') {
+      return EMPTY;
+    }
+    return this.userService.updateUser(current).pipe(takeUntilDestroyed(this.destroyRef));
   }
 
   /** Shorthand for USER.SETTING.* translations used by this component */
@@ -292,6 +331,11 @@ export class UserSettingComponent implements OnInit {
     // Clear immediately so picking the same file again after a failure still fires change
     input.value = '';
     if (!file) {
+      // An empty selection means the picker was cancelled; no feedback needed
+      return;
+    }
+
+    if (!file.type.startsWith('image/')) {
       this.util.openSnackbar(this.t('AVATAR_FORMAT_INVALID'), 'ok');
       return;
     }
@@ -314,10 +358,8 @@ export class UserSettingComponent implements OnInit {
         )
         .subscribe(res => {
           if (res) {
-            const u = this.user();
-            if (typeof u === 'object') {
-              this.userService.updateUser(u);
-            }
+            // The avatar lives outside the form, so only the USER signal needs refreshing
+            this.refreshProfile().subscribe();
             this.util.openSnackbar(this.t('AVATAR_UPLOAD_SUCCESS'), 'ok');
           } else {
             this.util.openSnackbar(this.t('AVATAR_UPLOAD_FAILED'), 'ok');

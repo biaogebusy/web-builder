@@ -254,7 +254,7 @@ export const createUserServiceMock = () => ({
   pendingReturnUrl: '',
   userLink: ['/me/login'],
   processTokenAndLogin: vi.fn(() => of(false)),
-  updateUser: vi.fn(),
+  updateUser: vi.fn(() => of({})),
   editingUser: vi.fn(() => of({})),
   getStoredUser: vi.fn(() => null),
   applyRefreshedToken: vi.fn(() => null),

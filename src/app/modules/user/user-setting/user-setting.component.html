@@ -9,7 +9,13 @@
       <div class="user-avatar">
         @if ($any(user).picture) {
           <div class="avatar-wrapper">
-            <img width="80" height="80" class="avatar-img" src="{{ $any(user).picture }}" alt="" />
+            <img
+              width="80"
+              height="80"
+              class="avatar-img"
+              src="{{ $any(user).picture }}"
+              [alt]="$any(user).display_name"
+            />
             <input
               type="file"
               #avatarInput
@@ -22,7 +28,11 @@
                 (click)="avatarInput.click()"
                 [matTooltip]="'USER.SETTING.AVATAR_UPDATE' | translate"
                 matTooltipPosition="above"
-                [content]="{ mode: 'icon', icon: { svg: 'camera' } }"
+                [content]="{
+                  mode: 'icon',
+                  icon: { svg: 'camera' },
+                  ariaLabel: 'USER.SETTING.AVATAR_UPDATE' | translate,
+                }"
               />
             </div>
           </div>
