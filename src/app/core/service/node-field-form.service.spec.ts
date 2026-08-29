@@ -373,6 +373,8 @@ describe('NodeFieldFormService', () => {
         { label: '后端', value: 'uuid-2' },
       ]);
       expect(nodeServiceMock.fetch).toHaveBeenCalledTimes(2);
+      // sparse fieldset avoids serializing vocabulary fields JSON:API cannot handle
+      expect(nodeServiceMock.fetch.mock.calls[0][1]).toBe('fields[taxonomy_term--tags]=name');
       // next is an absolute URL, so it must be converted back to a relative path and
       // re-sent through apiUrl (the dev proxy)
       expect(nodeServiceMock.fetch.mock.calls[1][0]).toBe(

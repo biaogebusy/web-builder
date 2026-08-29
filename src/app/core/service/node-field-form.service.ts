@@ -307,7 +307,12 @@ export class NodeFieldFormService {
   }
 
   getTermOptions(vocabulary: string): Observable<{ label: string; value: string }[]> {
-    return this.fetchAllPages(`/api/v1/taxonomy_term/${vocabulary}`).pipe(
+    // Sparse fieldset: only name is read here, and skipping other fields avoids 500s
+    // from vocabularies that carry fields JSON:API cannot serialize (e.g. paragraphs)
+    return this.fetchAllPages(
+      `/api/v1/taxonomy_term/${vocabulary}`,
+      `fields[taxonomy_term--${vocabulary}]=name`
+    ).pipe(
       map(terms =>
         terms.map((term: any) => ({
           label: term.attributes.name,
