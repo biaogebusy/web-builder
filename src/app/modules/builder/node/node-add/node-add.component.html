@@ -15,18 +15,11 @@
       @if (submitting()) {
         <app-spinner [content]="{ size: 32, color: 'primary' }" />
       } @else if (mainFields().length > 0) {
-        <!-- Save draft: non-moderated types write status=false, moderated types go through moderation_state=draft -->
+        <!-- One save button: the publish state is chosen in the right panel's state select (defaults to published) -->
         <app-btn
-          (click)="onSubmit(form.value, u, false)"
+          (click)="onSubmit(form.value, u)"
           [content]="{
-            label: 'BUILDER.NODE_ADD.SAVE_DRAFT' | translate,
-            mode: 'stroked',
-          }"
-        />
-        <app-btn
-          (click)="onSubmit(form.value, u, true)"
-          [content]="{
-            label: 'BUILDER.NODE_ADD.PUBLISH' | translate,
+            label: 'BUILDER.NODE_ADD.SAVE' | translate,
             color: 'primary',
             mode: 'raised',
             icon: {

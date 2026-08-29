@@ -295,6 +295,7 @@ export const createManageServiceMock = () => ({
   mediaDialogClass: [],
   deleteMedia: vi.fn(() => of({})),
   updateMediaName: vi.fn(() => of({})),
+  getMediaImage: vi.fn(() => of({})),
   getUrlIncluded: vi.fn(() => ''),
   handlerJsonApiParams: vi.fn(() => ({ type: '', params: '' })),
 });

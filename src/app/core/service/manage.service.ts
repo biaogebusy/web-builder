@@ -22,6 +22,14 @@ export class ManageService extends ApiService {
     );
   }
 
+  /** Load one image media with its source file included; used to resolve a media UUID back to a preview URL */
+  getMediaImage(uuid: string): Observable<any> {
+    return this.http.get<any>(
+      `${this.apiUrl}/api/v1/media/image/${uuid}?include=field_media_image&fields[file--file]=uri`,
+      this.httpOptionsOfCommon
+    );
+  }
+
   updateMediaName(uuid: string, name: string): Observable<any> {
     return this.http.patch<any>(
       `${this.apiUrl}/api/v1/media/image/${uuid}`,
@@ -37,10 +45,10 @@ export class ManageService extends ApiService {
   }
 
   getUrlIncluded(item: any, included: any[]): string {
-    const id = item.relationships.field_media_image.data.id;
-    const obj = included.find(media => media.id === id);
+    const id = item?.relationships?.field_media_image?.data?.id;
+    const obj = (included || []).find(media => media.id === id);
 
-    return obj.attributes.uri.url;
+    return obj?.attributes?.uri?.url ?? '';
   }
 
   handlerJsonApiParams(value: any): { type: string; params: string } {

@@ -71,6 +71,7 @@ describe('NodeAddComponent', () => {
       {
         getAllowedNodeTypes: () => of([{ label: '博客', value: 'blog' }]),
         getForm: () => of({ fields: [], meta: [] }),
+        getModerationStates: () => of([]),
         buildModel: () => ({}),
         buildPayload: () => ({ attributes: {}, relationships: {} }),
       },
@@ -78,8 +79,9 @@ describe('NodeAddComponent', () => {
     );
     nodeServiceMock.fetch = vi.fn((api: string, params?: any) => {
       if (api === '/api/v1/node/blog/u1') {
-        // A request with fields params is the pre-save changed check; otherwise it is the edit backfill load
-        return params
+        // A request asking for the changed field is the pre-save check; the noCache-only one is the edit backfill load
+        const isChangedCheck = typeof params === 'string' && params.includes('changed');
+        return isChangedCheck
           ? of({ data: { attributes: { changed: preFetchChanged ?? attributes.changed } } })
           : of({ data: { id: 'u1', attributes, relationships: {} } });
       }
@@ -147,6 +149,7 @@ describe('NodeAddComponent', () => {
               { key: 'field_tags', fieldType: 'entity_reference' },
             ],
           }),
+        getModerationStates: () => of([]),
         buildModel: () => ({}),
       }
     );
@@ -178,6 +181,7 @@ describe('NodeAddComponent', () => {
               { key: 'field_extra', fieldType: 'text_long' },
             ],
           }),
+        getModerationStates: () => of([]),
         buildModel: () => ({}),
       }
     );
@@ -195,18 +199,18 @@ describe('NodeAddComponent', () => {
     const nodeServiceMock = await setup();
     component.form.addControl('title', new UntypedFormControl(null, Validators.required));
 
-    component.onSubmit(component.form.value, { id: 1 }, true);
+    component.onSubmit(component.form.value, { id: 1 });
 
     expect(nodeServiceMock.addEntity).not.toHaveBeenCalled();
     expect(component.form.touched).toBe(true);
     expect(component.submitting()).toBe(false);
   });
 
-  it('新建按动作提交 status,非默认语言下携带 langcode 并走语言前缀', async () => {
+  it('新建默认发布状态,选未发布提交 status=false,非默认语言下携带 langcode 并走语言前缀', async () => {
     const nodeServiceMock = await setup();
     component.type.set('blog');
 
-    component.onSubmit({ title: 'Hi' }, { id: 1 }, true);
+    component.onSubmit({ title: 'Hi' }, { id: 1 });
     expect(nodeServiceMock.addEntity).toHaveBeenCalledWith(
       '/api/v1/node/blog',
       expect.objectContaining({ title: 'Hi', status: true }),
@@ -215,7 +219,7 @@ describe('NodeAddComponent', () => {
     );
 
     nodeServiceMock.resolveLangCode = vi.fn(() => 'en');
-    component.onSubmit({ title: 'Hi' }, { id: 1 }, false);
+    component.onSubmit({ title: 'Hi', state: 'unpublished' }, { id: 1 });
     const [, attrs, , lang] = (nodeServiceMock.addEntity as any).mock.calls[1];
     expect(attrs.status).toBe(false);
     expect(attrs.langcode).toBe('en');
@@ -226,24 +230,108 @@ describe('NodeAddComponent', () => {
     const nodeServiceMock = await setup({ builder: { nodeTypes: { moderated: ['blog'] } } });
     component.type.set('blog');
 
-    component.onSubmit({ title: 'Hi' }, { id: 1 }, true);
+    component.onSubmit({ title: 'Hi' }, { id: 1 });
 
     const attrs = (nodeServiceMock.addEntity as any).mock.calls[0][1];
     expect(attrs.moderation_state).toBe('published');
     expect(attrs.status).toBeUndefined();
   });
 
+  it('审核类型的状态选项来自后台工作流,新建默认已发布', async () => {
+    await setup(
+      {},
+      {
+        getAllowedNodeTypes: () => of([{ label: '博客', value: 'blog' }]),
+        getForm: () => of({ fields: [], meta: [] }),
+        getModerationStates: () =>
+          of([
+            { value: 'published', label: '已发布' },
+            { value: 'draft', label: '草稿' },
+            { value: 'archived', label: '已归档' },
+          ]),
+        buildModel: () => ({}),
+      }
+    );
+    component.ngOnInit();
+
+    const stateField = component.publishFields().find(field => field.key === 'state');
+    expect(stateField?.props?.['options']).toEqual([
+      { label: '已发布', value: 'published' },
+      { label: '草稿', value: 'draft' },
+      { label: '已归档', value: 'archived' },
+    ]);
+    expect(component.model().state).toBe('published');
+  });
+
+  it('非审核类型的状态选项为已发布/未发布,编辑回填当前状态', async () => {
+    await setupEdit({ status: false });
+
+    const stateField = component.publishFields().find(field => field.key === 'state');
+    expect(stateField?.props?.['options']).toEqual([
+      { label: '已发布', value: 'published' },
+      { label: '未发布', value: 'unpublished' },
+    ]);
+    expect(component.model().state).toBe('unpublished');
+  });
+
+  it('审核类型编辑回填当前 moderation_state,状态不变时不提交该字段', async () => {
+    const nodeServiceMock = await setupEdit({ moderation_state: 'draft', status: false });
+
+    expect(component.model().state).toBe('draft');
+
+    component.onSubmit({ title: 'New', path_alias: '/old-alias', state: 'draft' }, { id: 1 });
+
+    const attrs = (nodeServiceMock.updateEntity as any).mock.calls[0][2];
+    expect(attrs.moderation_state).toBeUndefined();
+    expect(attrs.status).toBeUndefined();
+  });
+
+  it('推荐到首页/置顶编辑回填,按最小差异提交', async () => {
+    const nodeServiceMock = await setupEdit({ promote: true, sticky: true });
+
+    expect(component.model().promote).toBe(true);
+    expect(component.model().sticky).toBe(true);
+
+    // Unchecking promote submits false; leaving sticky checked submits nothing
+    component.onSubmit(
+      { title: 'New', path_alias: '/old-alias', state: 'published', promote: false, sticky: true },
+      { id: 1 }
+    );
+
+    const attrs = (nodeServiceMock.updateEntity as any).mock.calls[0][2];
+    expect(attrs.promote).toBe(false);
+    expect(attrs.sticky).toBeUndefined();
+  });
+
+  it('新建勾选推荐/置顶才提交,未勾选不覆盖后台默认', async () => {
+    const nodeServiceMock = await setup();
+    component.type.set('blog');
+
+    component.onSubmit({ title: 'Hi', promote: true }, { id: 1 });
+
+    const attrs = (nodeServiceMock.addEntity as any).mock.calls[0][1];
+    expect(attrs.promote).toBe(true);
+    expect(attrs.sticky).toBeUndefined();
+  });
+
   it('编辑回填发布设置,基础字段仅提交有变化的部分(最小差异)', async () => {
     const nodeServiceMock = await setupEdit();
 
-    expect(component.publishFields().map(f => f.key)).toEqual(['path_alias', 'revision_log']);
+    expect(component.publishFields().map(f => f.key)).toEqual([
+      'state',
+      'promote',
+      'sticky',
+      'path_alias',
+      'revision_log',
+    ]);
     expect(component.model().path_alias).toBe('/old-alias');
+    // The state select backfills the node's current status
+    expect(component.model().state).toBe('published');
 
-    // Status (published -> publish) and alias are both unchanged: no status/path submitted; the revision note is submitted as entered
+    // State (published) and alias are both unchanged: no status/path submitted; the revision note is submitted as entered
     component.onSubmit(
       { title: 'New', path_alias: '/old-alias', revision_log: '修正错字' },
-      { id: 1 },
-      true
+      { id: 1 }
     );
     const [path, uuid, attrs, , lang] = (nodeServiceMock.updateEntity as any).mock.calls[0];
     expect(path).toBe('/api/v1/node/blog');
@@ -255,10 +343,10 @@ describe('NodeAddComponent', () => {
     expect(lang).toBeUndefined();
   });
 
-  it('编辑转草稿提交 status=false,清空别名提交 path.alias=null', async () => {
+  it('编辑选未发布提交 status=false,清空别名提交 path.alias=null', async () => {
     const nodeServiceMock = await setupEdit();
 
-    component.onSubmit({ title: 'New', path_alias: '' }, { id: 1 }, false);
+    component.onSubmit({ title: 'New', path_alias: '', state: 'unpublished' }, { id: 1 });
 
     const attrs = (nodeServiceMock.updateEntity as any).mock.calls[0][2];
     expect(attrs.status).toBe(false);
@@ -268,7 +356,7 @@ describe('NodeAddComponent', () => {
   it('节点受内容审核时按 moderation_state 流转,不写 status', async () => {
     const nodeServiceMock = await setupEdit({ moderation_state: 'draft', status: false });
 
-    component.onSubmit({ title: 'New', path_alias: '/old-alias' }, { id: 1 }, true);
+    component.onSubmit({ title: 'New', path_alias: '/old-alias' }, { id: 1 });
 
     const attrs = (nodeServiceMock.updateEntity as any).mock.calls[0][2];
     expect(attrs.moderation_state).toBe('published');
@@ -278,7 +366,7 @@ describe('NodeAddComponent', () => {
   it('保存前比对 changed,他人已修改则中止更新并复位提交态', async () => {
     const nodeServiceMock = await setupEdit({}, '2026-02-02T00:00:00+00:00');
 
-    component.onSubmit({ title: 'New', path_alias: '/old-alias' }, { id: 1 }, true);
+    component.onSubmit({ title: 'New', path_alias: '/old-alias' }, { id: 1 });
 
     expect(nodeServiceMock.updateEntity).not.toHaveBeenCalled();
     expect(component.submitting()).toBe(false);
@@ -287,12 +375,16 @@ describe('NodeAddComponent', () => {
   it('json 类型编辑时 body 带回原文本格式', async () => {
     const nodeServiceMock = await setup(
       {},
-      { getAllowedNodeTypes: () => of([{ label: '应用中心', value: 'json' }]) },
+      {
+        getAllowedNodeTypes: () => of([{ label: '应用中心', value: 'json' }]),
+        getModerationStates: () => of([]),
+      },
       { type: 'json', uuid: 'u1' }
     );
     nodeServiceMock.fetch = vi.fn((api: string, params?: any) => {
       if (api === '/api/v1/node/json/u1') {
-        return params
+        const isChangedCheck = typeof params === 'string' && params.includes('changed');
+        return isChangedCheck
           ? of({ data: { attributes: { changed: '2026-01-01T00:00:00+00:00' } } })
           : of({
               data: {
@@ -311,7 +403,7 @@ describe('NodeAddComponent', () => {
     vi.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
     component.ngOnInit();
 
-    component.onSubmit({ title: 'App', body: { a: 2 } }, { id: 1 }, true);
+    component.onSubmit({ title: 'App', body: { a: 2 } }, { id: 1 });
 
     const attrs = (nodeServiceMock.updateEntity as any).mock.calls[0][2];
     expect(attrs.body).toEqual({ value: '{"a":2}', format: 'json' });
@@ -370,6 +462,7 @@ describe('NodeAddComponent 路由切换', () => {
       getForm: vi.fn((bundle: string) =>
         getFormByBundle ? getFormByBundle(bundle) : of({ fields: [], meta: [] }).pipe(delay(1))
       ),
+      getModerationStates: () => of([]),
       buildModel: () => ({}),
       buildPayload: () => ({ attributes: {}, relationships: {} }),
     };

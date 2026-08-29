@@ -13,6 +13,7 @@ import { NodeService } from '@core/service/node.service';
 import {
   INodeFieldMeta,
   INodeForm,
+  INodeStatusOption,
   NodeFieldFormService,
 } from '@core/service/node-field-form.service';
 import { TagsService } from '@core/service/tags.service';
@@ -57,6 +58,12 @@ export class NodeAddComponent implements OnInit {
   // getNodeTypes emits an empty array on error, which must be distinguished from "loading" to avoid a stuck skeleton
   public typesLoading = signal(true);
   public submitting = signal(false);
+  /**
+   * Moderation states of the current type's workflow, loaded from the backend;
+   * empty means the type is not moderated (or the workflow API is unreadable),
+   * in which case the state select falls back to the plain published/unpublished pair.
+   */
+  public moderationStates = signal<INodeStatusOption[]>([]);
   /** Display name of the current type (e.g. "Blog"); falls back to the machine name when unmatched */
   public typeLabel = computed(
     () => this.nodeTypes().find(t => t.value === this.type())?.label ?? this.type()
@@ -109,20 +116,23 @@ export class NodeAddComponent implements OnInit {
     this.sideFields.set([]);
     this.publishFields.set([]);
     this.model.set({});
+    this.moderationStates.set([]);
     this.form = new UntypedFormGroup({});
     this.fieldMeta = [];
     this.originalNode = null;
     this.loadedChanged = '';
   }
 
-  private loadForm$(params: Params): Observable<{ node: any; form?: INodeForm }> {
+  private loadForm$(params: Params): Observable<{ node: any; form?: INodeForm; states: INodeStatusOption[] }> {
     const type = params['type'];
     const uuid = params['uuid'] || '';
     // Edit mode first fetches the node for backfill (with the language prefix,
-    // hitting the current language's translation); on failure it falls back to the create form
+    // hitting the current language's translation); noCache bypasses the backend
+    // page cache so re-entering edit always shows the latest revision. On failure
+    // it falls back to the create form
     const node$ = uuid
       ? this.nodeService
-          .fetch(`/api/v1/node/${type}/${uuid}`, '', this.nodeService.resolveLangCode())
+          .fetch(`/api/v1/node/${type}/${uuid}`, { noCache: 1 }, this.nodeService.resolveLangCode())
           .pipe(
             map(res => res?.data ?? null),
             catchError(err => {
@@ -139,25 +149,41 @@ export class NodeAddComponent implements OnInit {
             })
           )
       : of(null);
+    const states$ = this.fieldFormService.getModerationStates(type);
     if (type === 'json') {
-      return node$.pipe(map(node => ({ node })));
+      return forkJoin({ node: node$, states: states$ }).pipe(map(({ node, states }) => ({ node, states })));
     }
     // Introspect the content type's fields via the field config API to build the form dynamically
     return forkJoin({
       form: this.fieldFormService.getForm(type),
       node: node$,
-    }).pipe(map(({ form, node }) => ({ node, form })));
+      states: states$,
+    }).pipe(map(({ form, node, states }) => ({ node, form, states })));
   }
 
   /** Missing form means the json type (no field introspection); otherwise build the dynamic form from the introspection result */
-  private applyForm({ node, form }: { node: any; form?: INodeForm }): void {
+  private applyForm({ node, form, states }: { node: any; form?: INodeForm; states: INodeStatusOption[] }): void {
+    this.moderationStates.set(states);
+    // The state select defaults to "published" on create and backfills the node's current state on edit
+    const state = node ? this.currentState(node) : 'published';
+    // Base-field backfill shared by every type: promote (front page) / sticky (top of lists)
+    const baseFields = node
+      ? {
+          state,
+          promote: !!node.attributes?.promote,
+          sticky: !!node.attributes?.sticky,
+        }
+      : { state, promote: false, sticky: false };
     if (!form) {
       if (node) {
         this.model.set({
           title: node.attributes?.title,
           path_alias: node.attributes?.path?.alias ?? '',
+          ...baseFields,
           body: this.parseJsonBody(node),
         });
+      } else {
+        this.model.set({ ...baseFields });
       }
       this.mainFields.set([
         this.getTitleField(),
@@ -181,8 +207,11 @@ export class NodeAddComponent implements OnInit {
       this.model.set({
         title: node.attributes?.title,
         path_alias: node.attributes?.path?.alias ?? '',
+        ...baseFields,
         ...this.fieldFormService.buildModel(meta, node),
       });
+    } else {
+      this.model.set({ ...baseFields });
     }
     // Body fields go to the middle editing area; remaining metadata goes to the right property panel
     const bodyKeys = new Set(
@@ -259,9 +288,34 @@ export class NodeAddComponent implements OnInit {
     };
   }
 
-  /** Publish settings: URL alias + revision note. These are node base fields and must avoid the custom field keys from the field config introspection */
+  /** Publish settings: state select (default published, other states per the backend workflow), promote/sticky flags, URL alias + revision note */
   private getPublishFields(): FormlyFieldConfig[] {
     return [
+      {
+        key: 'state',
+        type: 'select',
+        props: {
+          label: this.translate.instant('BUILDER.NODE_ADD.FIELD_STATE'),
+          options: this.stateOptions().map(option => ({
+            label: option.label,
+            value: option.value,
+          })),
+        },
+      },
+      {
+        key: 'promote',
+        type: 'checkbox',
+        props: {
+          label: this.translate.instant('BUILDER.NODE_ADD.FIELD_PROMOTE'),
+        },
+      },
+      {
+        key: 'sticky',
+        type: 'checkbox',
+        props: {
+          label: this.translate.instant('BUILDER.NODE_ADD.FIELD_STICKY'),
+        },
+      },
       {
         key: 'path_alias',
         type: 'input',
@@ -281,7 +335,35 @@ export class NodeAddComponent implements OnInit {
     ];
   }
 
-  onSubmit(value: any, user: IUser | any, publish: boolean): void {
+  /**
+   * State choices for the select: the backend workflow's moderation states for
+   * moderated types; otherwise the plain published/unpublished pair mapped to status.
+   */
+  private stateOptions(): INodeStatusOption[] {
+    if (this.isModeratedType()) {
+      // Workflow states unreadable (permission/API missing): fall back to the core moderation states
+      return this.moderationStates().length
+        ? this.moderationStates()
+        : [
+            { value: 'draft', label: this.translate.instant('BUILDER.NODE_ADD.STATE_DRAFT') },
+            { value: 'published', label: this.translate.instant('BUILDER.NODE_ADD.STATE_PUBLISHED') },
+          ];
+    }
+    return [
+      { value: 'published', label: this.translate.instant('BUILDER.NODE_ADD.STATE_PUBLISHED') },
+      { value: 'unpublished', label: this.translate.instant('BUILDER.NODE_ADD.STATE_UNPUBLISHED') },
+    ];
+  }
+
+  /** The node's current state as a select value: moderation_state, or status mapped to published/unpublished */
+  private currentState(node: any): string {
+    if (typeof node.attributes?.moderation_state === 'string') {
+      return node.attributes.moderation_state;
+    }
+    return node.attributes?.status ? 'published' : 'unpublished';
+  }
+
+  onSubmit(value: any, user: IUser | any): void {
     if (!user) {
       this.util.openSnackbar(this.translate.instant('BUILDER.NODE_ADD.LOGIN_FIRST'), 'ok');
       return;
@@ -299,6 +381,8 @@ export class NodeAddComponent implements OnInit {
     const type = this.type();
     const uuid = this.editUuid();
     const lang = this.nodeService.resolveLangCode();
+    // The state select defaults to published when the form has not touched it
+    const state = value.state || 'published';
     let attributes: any;
     let relationships: any;
     if (type === 'json') {
@@ -316,7 +400,7 @@ export class NodeAddComponent implements OnInit {
       attributes = { title, ...payload.attributes };
       relationships = payload.relationships;
     }
-    Object.assign(attributes, this.buildBaseFieldAttributes(value, publish, lang));
+    Object.assign(attributes, this.buildBaseFieldAttributes(value, state, lang));
     const path = `/api/v1/node/${type}`;
     const request$ = uuid
       ? this.updateWithConflictCheck$(path, type, uuid, attributes, relationships, lang)
@@ -328,29 +412,41 @@ export class NodeAddComponent implements OnInit {
   }
 
   /**
-   * Node base fields: publish status, revision note, URL alias, language.
-   * - Types with content moderation enabled cannot write status directly
-   *   (403: Cannot edit the published field of moderated entities); write
-   *   moderation_state instead and let the workflow decide the actual publish.
-   *   Other types write status.
-   * - On edit, status/alias are only submitted when actually changed (minimal
+   * Node base fields: publish state, promote/sticky, revision note, URL alias, language.
+   * - Moderated types cannot write status directly
+   *   (403: Cannot edit the published field of moderated entities); the state
+   *   select value is the moderation_state, and the workflow decides the
+   *   actual publish. Other types map published/unpublished to status.
+   * - On edit, state/alias are only submitted when actually changed (minimal
    *   diff), avoiding unnecessary permission-check failures (status needs
    *   administer nodes, path needs the url alias permission).
    */
   private buildBaseFieldAttributes(
     value: any,
-    publish: boolean,
+    state: string,
     lang?: string
   ): Record<string, any> {
     const attrs: Record<string, any> = {};
     const original = this.originalNode;
     if (this.isModeratedType()) {
-      const state = publish ? 'published' : 'draft';
       if (!original || original.attributes?.moderation_state !== state) {
         attrs.moderation_state = state;
       }
-    } else if (!original || !!original.attributes?.status !== publish) {
-      attrs.status = publish;
+    } else {
+      const publish = state === 'published';
+      if (!original || !!original.attributes?.status !== publish) {
+        attrs.status = publish;
+      }
+    }
+    // Promote/sticky: on edit submit only when changed; on create only when checked,
+    // so an unchecked box leaves the type's backend defaults untouched
+    const promote = !!value.promote;
+    const sticky = !!value.sticky;
+    if (original ? !!original.attributes?.promote !== promote : promote) {
+      attrs.promote = promote;
+    }
+    if (original ? !!original.attributes?.sticky !== sticky : sticky) {
+      attrs.sticky = sticky;
     }
     if (value.revision_log) {
       attrs.revision_log = value.revision_log;
@@ -367,12 +463,19 @@ export class NodeAddComponent implements OnInit {
     return attrs;
   }
 
-  /** On edit, judge by the node response first (a moderation_state means moderated); on create, use the config */
+  /**
+   * On edit, judge by the node response first (a moderation_state means moderated);
+   * on create, the loaded workflow states take precedence, with the config as fallback
+   * for when the workflow API is unreadable.
+   */
   private isModeratedType(): boolean {
     if (this.originalNode) {
       return typeof this.originalNode.attributes?.moderation_state === 'string';
     }
-    return (this.coreConfig?.builder?.nodeTypes?.moderated ?? []).includes(this.type());
+    return (
+      this.moderationStates().length > 0 ||
+      (this.coreConfig?.builder?.nodeTypes?.moderated ?? []).includes(this.type())
+    );
   }
 
   /** Normalize the alias to a path starting with /; empty values return '' */
@@ -397,7 +500,11 @@ export class NodeAddComponent implements OnInit {
     relationships: any,
     lang?: string
   ) {
-    return this.nodeService.fetch(`${path}/${uuid}`, `fields[node--${type}]=changed`, lang).pipe(
+    // noCache keeps the changed pre-check honest: a cached response would silently
+    // report the old timestamp and skip the conflict detection
+    return this.nodeService
+      .fetch(`${path}/${uuid}`, `fields[node--${type}]=changed&noCache=1`, lang)
+      .pipe(
       catchError(() => of(null)),
       switchMap(res => {
         const changed = res?.data?.attributes?.changed;

@@ -39,6 +39,12 @@ export interface INodeTypeOption {
   desc: string;
 }
 
+/** A moderation/publish state choice for the node publishing form */
+export interface INodeStatusOption {
+  value: string;
+  label: string;
+}
+
 /**
  * Introspects content type fields via the Drupal field config API to dynamically build
  * formly forms, and splits form values into attributes and relationships per JSON:API.
@@ -304,6 +310,31 @@ export class NodeFieldFormService {
       default:
         return base;
     }
+  }
+
+  /**
+   * Moderation states of the workflow moderating a content type, ordered by
+   * state weight (published / draft / archived / custom). Content moderation
+   * stores moderated bundles as `node.type.*` config dependencies. An empty
+   * result means the type is not moderated (or the workflow API is unreadable),
+   * letting callers fall back to the plain published/unpublished pair.
+   */
+  getModerationStates(bundle: string): Observable<INodeStatusOption[]> {
+    return this.nodeService.fetch('/api/v1/workflow/workflow').pipe(
+      map(res => {
+        const workflow = (res?.data || []).find((item: any) =>
+          (item?.attributes?.dependencies?.config || []).includes(`node.type.${bundle}`)
+        );
+        const states = workflow?.attributes?.type_settings?.states ?? {};
+        return Object.keys(states)
+          .sort((a: string, b: string) => (states[a].weight ?? 0) - (states[b].weight ?? 0))
+          .map((state: string) => ({ value: state, label: states[state]?.label ?? state }));
+      }),
+      catchError(err => {
+        console.error('加载发布工作流失败', err);
+        return of([]);
+      })
+    );
   }
 
   getTermOptions(vocabulary: string): Observable<{ label: string; value: string }[]> {

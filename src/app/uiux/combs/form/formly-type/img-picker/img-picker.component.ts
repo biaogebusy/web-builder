@@ -4,6 +4,7 @@ import {
   EnvironmentInjector,
   OnInit,
   inject,
+  signal,
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -29,7 +30,8 @@ export class ImgPickerComponent extends FieldType implements OnInit {
   dialog = inject(MatDialog);
   builder = inject(BuilderState);
   manageService = inject(ManageService);
-  src: string;
+  /** Media source URL; resolved from the UUID form value on backfill, or set on library pick */
+  public src = signal('');
   private destroyRef = inject(DestroyRef);
   // The media library dialog resolves route-level tokens (BUILDER_CONFIG / MEDIA_ASSETS)
   // through the injector MatDialog was resolved from. This component does not import
@@ -46,13 +48,13 @@ export class ImgPickerComponent extends FieldType implements OnInit {
   }
 
   ngOnInit(): void {
-    this.src = this.formControl.value;
+    this.initPreviewSrc();
     this.builder.selectedMedia$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(({ img, time }) => {
         if (this.time && this.time === time) {
           const { src, uuid } = img;
-          this.src = src;
+          this.src.set(src);
           this.dialog.closeAll();
           this.field.props = {
             ...this.field.props,
@@ -65,6 +67,47 @@ export class ImgPickerComponent extends FieldType implements OnInit {
           }
         }
       });
+  }
+
+  /**
+   * With valueIsUUID the form value is a media UUID, not a URL, so a freshly
+   * backfilled field has nothing renderable in the preview. Resolve the media
+   * by UUID (include=field_media_image) and fall back to the raw value (a URL)
+   * when it does not look like a UUID.
+   */
+  private initPreviewSrc(): void {
+    const value = this.formControl.value;
+    if (!value) {
+      return;
+    }
+    if (!this.field.props?.valueIsUUID || !this.isUuid(value)) {
+      this.src.set(value);
+      return;
+    }
+    this.manageService
+      .getMediaImage(value)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: res => {
+          const url = this.manageService.getUrlIncluded(res?.data ?? {}, res?.included ?? []);
+          if (url) {
+            this.src.set(url);
+            // Mirror what a library pick leaves in props, so the meta block shows file name and alt
+            this.field.props = {
+              ...this.field.props,
+              src: url,
+              fileName: res?.data?.attributes?.name,
+              alt: res?.data?.relationships?.field_media_image?.data?.meta?.alt,
+            };
+          }
+        },
+        // A failed lookup leaves the picker usable: the value stays, only the preview stays empty
+        error: err => console.error('Failed to load media preview', err),
+      });
+  }
+
+  private isUuid(value: string): boolean {
+    return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(value);
   }
 
   openMedias(): void {
