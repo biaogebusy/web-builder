@@ -17,6 +17,11 @@ export interface INodeFieldMeta {
   multiple?: boolean;
   /** Text field bound to the json text format (filter.format.json): use the JSON editor and submit as json */
   jsonFormat?: boolean;
+  /**
+   * Field-level handler auto_create (entity_reference to taxonomy_term): typed
+   * names that match no existing term may create one on the fly.
+   */
+  autoCreate?: boolean;
 }
 
 export interface INodeForm {
@@ -246,6 +251,8 @@ export class NodeFieldFormService {
         multiple: storage ? storage.cardinality !== 1 : false,
         // A field whose config depends on filter.format.json stores JSON content
         jsonFormat: isText && (attrs.dependencies?.config || []).includes('filter.format.json'),
+        autoCreate:
+          attrs.field_type === 'entity_reference' && !!attrs.settings?.handler_settings?.auto_create,
       };
       meta.push(fieldMeta);
       fields.push(this.toFormlyField(fieldMeta, attrs));
@@ -281,6 +288,21 @@ export class NodeFieldFormService {
         return { ...base, props: { ...base.props, type: 'number' } };
       case 'entity_reference':
         if (meta.targetType === 'taxonomy_term' && meta.targetBundle) {
+          // auto_create fields get the combobox that creates missing terms on the fly;
+          // the created term's uuid becomes the form value, so submit stays unchanged
+          if (meta.autoCreate) {
+            return {
+              ...base,
+              type: 'term-select',
+              props: {
+                ...base.props,
+                multiple: meta.multiple,
+                vocabulary: meta.targetBundle,
+                // Options are filled asynchronously by resolveTermOptions
+                options: [],
+              },
+            };
+          }
           return {
             ...base,
             type: 'select',

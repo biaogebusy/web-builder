@@ -1,0 +1,60 @@
+.term-wrap {
+  @apply relative block;
+}
+
+// Trigger button is based on the global .shad-input look; grows and wraps with multiple badges
+.term-trigger {
+  @apply flex cursor-pointer items-center justify-between gap-2 text-left;
+  height: auto;
+  min-height: var(--shadcn-control-height);
+  padding: 0.25rem 0.5rem;
+}
+
+.term-value {
+  @apply min-w-0 truncate;
+}
+
+.term-values {
+  @apply flex min-w-0 flex-wrap items-center gap-1;
+}
+
+.term-placeholder {
+  color: var(--shadcn-muted-foreground);
+}
+
+.chevron {
+  @apply flex-shrink-0;
+  color: var(--shadcn-muted-foreground);
+}
+
+// The global .shad-popover provides the panel look; here only the input + list layout
+.term-panel {
+  @apply flex flex-col gap-1;
+}
+
+.term-filter {
+  @apply h-8 w-full border px-2 text-sm outline-none;
+  background: transparent;
+  border-color: var(--shadcn-input);
+  border-radius: var(--shadcn-radius-sm);
+  color: var(--shadcn-foreground);
+}
+
+.term-filter:focus {
+  border-color: var(--shadcn-ring);
+}
+
+.term-list {
+  @apply m-0 list-none overflow-y-auto p-0;
+}
+
+.term-empty {
+  @apply px-2 py-1.5 text-sm;
+  color: var(--shadcn-muted-foreground);
+}
+
+// The create option reads as an action, not a state: primary-colored plus icon and label
+.create-icon,
+.create-label {
+  color: var(--shadcn-primary);
+}
