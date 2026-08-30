@@ -70,12 +70,6 @@ export interface ICard1v2 {
   link: ILink;
 }
 
-export interface ICard1v3 {
-  type?: 'card-1v3';
-  city?: string;
-  elements: Card1v3Item[];
-}
-
 export interface ICard1v4 {
   type?: 'card-1v4';
   img: IImg;
@@ -83,21 +77,6 @@ export interface ICard1v4 {
   title: string;
   subTitle?: string;
   body: string;
-}
-
-export interface Card1v3Item {
-  title: string;
-  address: string;
-  params: {
-    address: string;
-    title: string;
-  };
-  meta: {
-    icon: IIcon;
-    label: string;
-    value: string;
-  }[];
-  dialog?: any[];
 }
 
 export interface IUserCard {

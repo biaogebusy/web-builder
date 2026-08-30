@@ -1,6 +1,5 @@
 import { IImg } from '@core/interface/widgets/IImg';
 import { IChipList } from '../widgets/IChipList';
-import { IText } from '../widgets/IText';
 export interface IBaseNode {
   type: string;
   title?: string;
@@ -123,12 +122,4 @@ export interface IAdvert extends IBaseNode {
   success: {
     label: string;
   };
-}
-
-export interface IHeaderMeta {
-  text: IText;
-  meta: {
-    label: string;
-    value: any;
-  }[];
 }
