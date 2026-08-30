@@ -185,6 +185,7 @@ export const createNodeServiceMock = () => ({
   batchDeleteNodes: vi.fn(() => of([])),
   deleteEntity: vi.fn(() => of({})),
   addEntity: vi.fn(() => of({})),
+  createNodeTranslation: vi.fn(() => of({ status: true })),
   updateEntity: vi.fn(() => of({})),
   getEntityType: vi.fn(() => ''),
   getNodePath: vi.fn(() => ''),

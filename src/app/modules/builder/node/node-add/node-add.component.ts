@@ -837,7 +837,9 @@ export class NodeAddComponent implements OnInit {
     Object.assign(attributes, this.buildBaseFieldAttributes(value, state, lang));
     const path = `/api/v1/node/${type}`;
     const request$ = uuid
-      ? this.updateWithConflictCheck$(path, type, uuid, attributes, relationships, lang)
+      ? this.creatingTranslation()
+        ? this.createTranslation$(path, uuid, attributes, relationships, lang)
+        : this.updateWithConflictCheck$(path, type, uuid, attributes, relationships, lang)
       : this.nodeService.addEntity(path, attributes, relationships, lang);
     request$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: res => this.onSubmitSuccess(!!uuid, res),
@@ -922,6 +924,39 @@ export class NodeAddComponent implements OnInit {
       return '';
     }
     return alias.startsWith('/') ? alias : `/${alias}`;
+  }
+
+  /**
+   * Core JSON:API cannot create a translation (PATCH on a missing translation
+   * is a 405), so create it first via the v3 endpoint (the server copies the
+   * source translation), then PATCH the submitted values onto the fresh
+   * translation. The conflict pre-check is skipped: the fresh translation's
+   * changed timestamp legitimately differs from the source baseline.
+   */
+  private createTranslation$(
+    path: string,
+    uuid: string,
+    attributes: any,
+    relationships: any,
+    lang?: string
+  ) {
+    const nid = this.originalNode?.attributes?.drupal_internal__nid;
+    const source = this.originalNode?.attributes?.langcode;
+    if (!nid || !source || !lang) {
+      return throwError(() => ({
+        error: { errors: [{ detail: 'Missing node or language for translation.' }] },
+      }));
+    }
+    return this.nodeService.createNodeTranslation(nid, source, lang).pipe(
+      switchMap(res => {
+        if (res?.status === false) {
+          return throwError(() => ({
+            error: { errors: [{ detail: res.message || 'Failed to create the translation.' }] },
+          }));
+        }
+        return this.nodeService.updateEntity(path, uuid, attributes, relationships, lang);
+      })
+    );
   }
 
   /**

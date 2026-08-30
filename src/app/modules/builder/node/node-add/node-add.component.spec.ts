@@ -99,6 +99,7 @@ describe('NodeAddComponent', () => {
       title: 'Old title',
       status: true,
       changed: '2026-01-01T00:00:00+00:00',
+      drupal_internal__nid: 42,
       path: { alias: '/old-alias' },
       ...nodeAttributes,
     };
@@ -730,12 +731,28 @@ describe('NodeAddComponent', () => {
 
     component.onSubmit({ title: 'EN title', path_alias: '' }, { id: 1 });
 
+    // The translation is created server-side first; core JSON:API cannot create it
+    expect(nodeServiceMock.createNodeTranslation).toHaveBeenCalledWith(42, 'zh-hans', 'en');
     const [, , attrs, , lang] = (nodeServiceMock.updateEntity as any).mock.calls[0];
     expect(lang).toBe('en');
     // Create semantics for base fields: the state submits without minimal diff against the source translation
     expect(attrs.status).toBe(true);
     // The langcode attribute stays create-only; the PATCH targets the translation via the language prefix
     expect(attrs.langcode).toBeUndefined();
+  });
+
+  it('创建翻译失败时不提交 PATCH,提示后端信息', async () => {
+    const nodeServiceMock = await setupEdit({ langcode: 'zh-hans' }, undefined, [], {
+      lang: 'en',
+    });
+    nodeServiceMock.createNodeTranslation = vi.fn(() =>
+      of({ status: false, message: 'Translation already exists.' })
+    );
+
+    component.onSubmit({ title: 'EN title', path_alias: '' }, { id: 1 });
+
+    expect(nodeServiceMock.updateEntity).not.toHaveBeenCalled();
+    expect(component.submitting()).toBe(false);
   });
 
   it('翻译面板:当前语言标记存在,其他语言按探测结果标记', async () => {

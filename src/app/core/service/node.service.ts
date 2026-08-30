@@ -150,6 +150,24 @@ export class NodeService extends ApiService {
     );
   }
 
+  /**
+   * Create a node translation via the v3 endpoint. Core JSON:API can only read
+   * and update existing translations (PATCH on a missing one is a 405), so the
+   * server copies the source translation here; the caller then PATCHes the new
+   * translation with the submitted values (language-prefixed).
+   */
+  createNodeTranslation(
+    nid: string | number,
+    source: string,
+    target: string
+  ): Observable<any> {
+    return this.http.post<any>(
+      `${this.apiUrl}/api/v3/node/translations/add/${nid}/${source}/${target}`,
+      {},
+      this.optionsWithBearerToken()
+    );
+  }
+
   getEntityType(path: string): string {
     const arr = path.split('/');
     return `${arr[arr.length - 2]}--${arr[arr.length - 1]}`;

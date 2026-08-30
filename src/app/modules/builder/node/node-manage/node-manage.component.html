@@ -142,7 +142,7 @@
             </tr>
           </thead>
           <tbody>
-            @for (row of rows(); track row.uuid) {
+            @for (row of rows(); track row.uuid + row.langcode) {
               <tr>
                 <td class="td-title">
                   <a [href]="row.path" target="_blank" rel="noopener">{{ row.title }}</a>
