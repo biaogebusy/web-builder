@@ -43,6 +43,7 @@ const CREATE_VALUE = '__create__';
       <button
         type="button"
         class="shad-input term-trigger"
+        [class.multi]="props.multiple"
         role="combobox"
         aria-haspopup="listbox"
         [class.error]="showError"

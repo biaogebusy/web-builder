@@ -2,29 +2,44 @@
   @apply relative block;
 }
 
-// Trigger button is based on the global .shad-input look; grows and wraps with multiple badges
+// Trigger matches shadcn-select's trigger exactly for single select; the multi
+// variant (badges wrap) overrides height/padding like shadcn-multiselect
 .term-trigger {
   @apply flex cursor-pointer items-center justify-between gap-2 text-left;
-  height: auto;
-  min-height: var(--shadcn-control-height);
-  padding: 0.25rem 0.5rem;
+  &.multi {
+    height: auto;
+    min-height: var(--shadcn-control-height);
+    padding: 0.25rem 0.5rem;
+  }
 }
 
 .term-value {
-  @apply min-w-0 truncate;
-}
-
-.term-values {
-  @apply flex min-w-0 flex-wrap items-center gap-1;
+  @apply min-w-0 flex-1 truncate;
 }
 
 .term-placeholder {
+  @apply min-w-0 flex-1 truncate;
   color: var(--shadcn-muted-foreground);
+}
+
+.term-values {
+  @apply flex min-w-0 flex-1 flex-wrap items-center gap-1;
 }
 
 .chevron {
   @apply flex-shrink-0;
   color: var(--shadcn-muted-foreground);
+}
+
+// Single-select indicator: leading check; transparent when unselected to keep option text column-aligned
+// (same mechanism as shadcn-select — without it every option shows the check)
+.option-check {
+  @apply inline-flex h-4 w-4 flex-shrink-0 items-center justify-center;
+  color: transparent;
+}
+
+.shad-option.selected .option-check {
+  color: var(--shadcn-foreground);
 }
 
 // The global .shad-popover provides the panel look; here only the input + list layout
@@ -54,6 +69,7 @@
 }
 
 // The create option reads as an action, not a state: primary-colored plus icon and label
+// (never .selected, so the selected-rule above cannot bleed into it)
 .create-icon,
 .create-label {
   color: var(--shadcn-primary);
