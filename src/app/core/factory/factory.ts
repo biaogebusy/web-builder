@@ -66,6 +66,11 @@ export function pageContentFactory(): WritableSignal<IPage | undefined | false> 
       startWith(null),
       map(event => (event ? contentService.pageUrl : initialPageUrl)),
       distinctUntilChanged(),
+      // Angular caches route-level injectors on the route config, so this
+      // subscription outlives PageComponent and keeps seeing every navigation.
+      // Without the guard, entering /builder or /me fetches CMS content for
+      // that URL and updateTags() overwrites the title the route just set.
+      filter(pageUrl => shouldPreloadPageComponents(pageUrl)),
       switchMap(pageUrl => {
         return forkJoin({
           config: from(contentService.loadConfig(coreConfig, pageUrl)),

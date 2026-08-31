@@ -82,6 +82,47 @@ describe('pageContentFactory', () => {
     expect(currentPage.title).toBe('/calendar');
   });
 
+  it('ignores navigations to routes that PageComponent does not render', async () => {
+    const routerEvents = new Subject<NavigationEnd>();
+    let currentUrl = '/home';
+    const loadPageContent = vi.fn((pageUrl: string) => of({ body: [], title: pageUrl } as IPage));
+
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: ActivatedRoute, useValue: { url: of([]) } },
+        { provide: Router, useValue: { events: routerEvents.asObservable() } },
+        {
+          provide: ContentService,
+          useValue: {
+            get pageUrl(): string {
+              return currentUrl;
+            },
+            getCachedPageContent: () => undefined,
+            loadConfig: () => Promise.resolve(),
+            loadPageContent,
+          },
+        },
+        { provide: ComponentService, useValue: { preloadComponentTypes: () => Promise.resolve() } },
+        { provide: ContentState, useValue: { pageConfig: signal(undefined) } },
+        { provide: CORE_CONFIG, useValue: {} },
+      ],
+    });
+
+    TestBed.runInInjectionContext(pageContentFactory);
+    await vi.waitFor(() => expect(loadPageContent).toHaveBeenCalledWith('/home'));
+
+    currentUrl = '/builder';
+    routerEvents.next(new NavigationEnd(2, '/builder', '/builder'));
+    await Promise.resolve();
+    expect(loadPageContent).not.toHaveBeenCalledWith('/builder');
+
+    // Coming back must refetch, so TagsService restores the page title the
+    // builder route replaced.
+    currentUrl = '/home';
+    routerEvents.next(new NavigationEnd(3, '/home', '/home'));
+    await vi.waitFor(() => expect(loadPageContent).toHaveBeenCalledTimes(2));
+  });
+
   it('uses synchronously preloaded page content for the first hydration render', () => {
     const cachedPage = { body: [], title: '/home' } as IPage;
 
