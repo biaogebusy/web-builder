@@ -30,11 +30,22 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { TranslateService } from '@ngx-translate/core';
 import { createPopper, Instance as PopperInstance } from '@popperjs/core';
+import { WebformPickerService } from './webform/webform-picker.service';
+import type { IWebformSummary, IWebformWarning } from './webform/webform.interface';
 
 interface ISearchHit {
   item: IBuilderComponentElement;
   group: IBuilderComponent;
 }
+
+/** Id of the synthetic group that lists the CMS webforms */
+const WEBFORM_GROUP_ID = 'webform';
+
+/**
+ * `unavailable` is the deployment that never enabled the list endpoint, which is
+ * a supported setup and not an error to report.
+ */
+type WebformState = 'loading' | 'ready' | 'error' | 'unavailable';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -60,9 +71,54 @@ export class WidgetPickerComponent implements OnInit {
   public hoveredWidget = signal<IBuilderComponentElement | null>(null);
   public widgets = signal<IUiux>({ label: '', icon: '', type: 'base', elements: [] });
   public searchQuery = signal('');
+
+  /** Exposed so the template can single out the webform group */
+  public readonly webformGroupId = WEBFORM_GROUP_ID;
+  public webformState = signal<WebformState>('loading');
+  public webforms = signal<IWebformSummary[]>([]);
+  /** Id of the webform whose fields are currently being fetched */
+  public insertingWebform = signal<string | null>(null);
+
+  /**
+   * Webforms live in the CMS, not in the static component library, so the group is
+   * built at runtime and appended after the library categories.
+   */
+  private webformGroup = computed<IBuilderComponent>(() => ({
+    id: WEBFORM_GROUP_ID,
+    label: this.translate.instant('BUILDER.WIDGET_PICKER.WEBFORM_GROUP'),
+    icon: 'form-select',
+    child: this.webforms().map(webform => ({
+      id: `${WEBFORM_GROUP_ID}:${webform.id}`,
+      type: WEBFORM_GROUP_ID,
+      label: webform.title,
+      mark: webform.description || webform.id,
+      icon: 'form-select',
+    })),
+  }));
+
   public widgetGroups = computed<IBuilderComponent[]>(() => {
     const elements = this.widgets().elements;
-    return Array.isArray(elements) ? elements : [];
+    const groups = Array.isArray(elements) ? elements : [];
+    // The webform endpoint is optional, so a deployment that did not enable it
+    // must not get a category whose only possible content is an error
+    if (this.webformState() === 'unavailable') {
+      return groups;
+    }
+    return [...groups, this.webformGroup()];
+  });
+
+  /**
+   * The webform group is rebuilt whenever the list arrives, so the snapshot kept in
+   * `selectedGroup` would go stale; resolve it again while it is the open group.
+   */
+  public currentGroup = computed<IBuilderComponent | null>(() => {
+    const selected = this.selectedGroup();
+    if (selected?.id !== WEBFORM_GROUP_ID) {
+      return selected;
+    }
+    // Opened while still loading, then found to be unavailable: fall back to the
+    // category list, which no longer offers the group
+    return this.webformState() === 'unavailable' ? null : this.webformGroup();
   });
 
   /** Aggregates all matching components across categories while searching */
@@ -90,6 +146,7 @@ export class WidgetPickerComponent implements OnInit {
   private storage = inject(LocalStorageService);
   private translate = inject(TranslateService);
   private injector = inject(Injector);
+  private webformPicker = inject(WebformPickerService);
   public builderConfig$ = inject(BUILDER_CONFIG);
 
   private widgetPopper?: PopperInstance;
@@ -110,6 +167,33 @@ export class WidgetPickerComponent implements OnInit {
         this.widgets.set(first);
       }
     });
+    // Loaded upfront (and cached for the session) so webforms are searchable
+    // without opening their category first
+    this.loadWebforms();
+  }
+
+  /** Loads the CMS webform list; the service serves it from cache after the first call. */
+  loadWebforms(): void {
+    this.webformState.set('loading');
+    this.webformPicker
+      .getWebforms()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: list => {
+          this.webforms.set(list);
+          this.webformState.set('ready');
+        },
+        error: error => {
+          this.webforms.set([]);
+          // A missing route or a role without the REST permission means the
+          // feature is simply not available here; anything else is a real fault
+          const unavailable = error?.status === 404 || error?.status === 403;
+          this.webformState.set(unavailable ? 'unavailable' : 'error');
+          if (!unavailable) {
+            console.error('Failed to load the webform list:', error);
+          }
+        },
+      });
   }
 
   selectGroup(group: IBuilderComponent): void {
@@ -132,6 +216,10 @@ export class WidgetPickerComponent implements OnInit {
   }
 
   onHoverWidget(item: IBuilderComponentElement, anchor: HTMLElement): void {
+    // Webform cards carry no renderable content, so there is nothing to preview
+    if (item.type === WEBFORM_GROUP_ID) {
+      return;
+    }
     this.hoveredWidget.set(item);
     this.destroyPreviewPopper();
     const previewPopup = this.previewPopup();
@@ -251,6 +339,75 @@ export class WidgetPickerComponent implements OnInit {
   onPasteData(): void {
     this.onSelect(this.bcData());
     this.storage.clear(this.builder.COPYCOMPONENTKEY);
+  }
+
+  /**
+   * Single entry point for both the category list and the search results:
+   * library widgets carry their content inline, webforms have to be fetched first.
+   */
+  onPick(item: IBuilderComponentElement): void {
+    if (item.type === WEBFORM_GROUP_ID) {
+      this.onSelectWebform(item);
+      return;
+    }
+    this.onSelect(item.content);
+  }
+
+  /** Fetches the selected webform's fields and inserts it as a `dynamic-form` node. */
+  onSelectWebform(item: IBuilderComponentElement): void {
+    if (this.insertingWebform()) {
+      return;
+    }
+    const webform = this.webforms().find(entry => `${WEBFORM_GROUP_ID}:${entry.id}` === item.id);
+    if (!webform) {
+      return;
+    }
+    if (!this.content()) {
+      this.util.openSnackbar(
+        this.translate.instant('BUILDER.WIDGET_PICKER.SELECT_POSITION_FIRST'),
+        'ok'
+      );
+      return;
+    }
+    this.insertingWebform.set(webform.id);
+    this.webformPicker
+      .buildDynamicForm(webform, this.translate.instant('BUILDER.WIDGET_PICKER.WEBFORM_SUBMIT'))
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: ({ content, warnings }) => {
+          this.insertingWebform.set(null);
+          this.warnAboutLossyFields(warnings);
+          this.onSelect(content);
+        },
+        error: error => {
+          this.insertingWebform.set(null);
+          this.util.openSnackbar(
+            this.translate.instant('BUILDER.WIDGET_PICKER.WEBFORM_INSERT_FAILED'),
+            'ok'
+          );
+          console.error('Failed to load the webform fields:', error);
+        },
+      });
+  }
+
+  /** True while this card's webform fields are being fetched */
+  isInserting(item: IBuilderComponentElement): boolean {
+    const inserting = this.insertingWebform();
+    return !!inserting && item.id === `${WEBFORM_GROUP_ID}:${inserting}`;
+  }
+
+  /** Element types with no formly equivalent are dropped; never do that silently. */
+  private warnAboutLossyFields(warnings: IWebformWarning[]): void {
+    const dropped = warnings.filter(warning => warning.reason === 'unsupported');
+    if (dropped.length === 0) {
+      return;
+    }
+    this.util.openSnackbar(
+      this.translate.instant('BUILDER.WIDGET_PICKER.WEBFORM_PARTIAL', {
+        fields: dropped.map(warning => warning.key).join(', '),
+      }),
+      'ok'
+    );
   }
 
   onSelect(widget: any): void {

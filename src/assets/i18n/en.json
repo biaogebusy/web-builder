@@ -348,7 +348,15 @@
       "NO_MATCHES": "No matching components",
       "PASTE_LABEL": "Paste copied component",
       "HELP_DOCS": "Help docs",
-      "SELECT_POSITION_FIRST": "Please choose where to insert the component first"
+      "SELECT_POSITION_FIRST": "Please choose where to insert the component first",
+      "WEBFORM_GROUP": "CMS forms",
+      "WEBFORM_LOADING": "Loading forms…",
+      "WEBFORM_LOAD_FAILED": "Failed to load the form list",
+      "WEBFORM_RETRY": "Retry",
+      "WEBFORM_EMPTY": "No forms available in the CMS",
+      "WEBFORM_INSERT_FAILED": "Failed to load the form fields, please try again",
+      "WEBFORM_PARTIAL": "Form inserted. These fields are not supported yet and were skipped: {{fields}}",
+      "WEBFORM_SUBMIT": "Submit"
     },
     "PAGE_SETTING": {
       "AUTHOR": "Author",
@@ -688,6 +696,10 @@
       "REQUIRED": "This field is required",
       "MAX": "Exceeds maximum value",
       "MIN": "Below minimum value"
+    },
+    "DYNAMIC_FORM": {
+      "SUBMIT_SUCCESS": "Submitted successfully!",
+      "SUBMIT_FAILED": "Submission failed, please contact the administrator."
     },
     "FORM_EDITOR": {
       "PLACEHOLDER": "Start writing",

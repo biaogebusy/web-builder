@@ -4,6 +4,8 @@ import { UntypedFormGroup } from '@angular/forms';
 import { ApiService } from '@core/service/api.service';
 import { FormService } from '@core/service/form.service';
 import { createApiServiceMock } from '@core/testing/mocks';
+import { of } from 'rxjs';
+import { vi } from 'vitest';
 
 describe('FormService', () => {
   let service: FormService;
@@ -70,5 +72,33 @@ describe('FormService', () => {
     });
 
     expect(value).toEqual({ keys: 'x', start: '2026-07-01', end: '2026-07-26' });
+  });
+
+  it('submits with the session csrf token and picked dates as Y-m-d', () => {
+    const post = vi.fn((_url: string, _body: any, _options: any) => of({ sid: 'abc' }));
+    TestBed.resetTestingModule();
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: HttpClient, useValue: { post } },
+        {
+          provide: ApiService,
+          useValue: {
+            ...createApiServiceMock(),
+            apiUrl: 'https://cms.test',
+            getToken: () => of('csrf-token'),
+          },
+        },
+      ],
+    });
+
+    TestBed.inject(FormService)
+      .submitWebForm({ webform_id: 'contact', when: new Date(2026, 8, 1) })
+      .subscribe();
+
+    const [url, body, options] = post.mock.calls[0];
+    expect(url).toBe('https://cms.test/webform_rest/submit');
+    // A Date would serialize to a UTC timestamp, which drupal date elements reject
+    expect(body).toEqual({ webform_id: 'contact', when: '2026-09-01' });
+    expect(options.headers.get('X-CSRF-Token')).toBe('csrf-token');
   });
 });

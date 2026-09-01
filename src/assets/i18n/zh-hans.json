@@ -348,7 +348,15 @@
       "NO_MATCHES": "未找到匹配组件",
       "PASTE_LABEL": "粘贴复制的组件",
       "HELP_DOCS": "帮助文档",
-      "SELECT_POSITION_FIRST": "请先选择插入组件的位置"
+      "SELECT_POSITION_FIRST": "请先选择插入组件的位置",
+      "WEBFORM_GROUP": "后台表单",
+      "WEBFORM_LOADING": "正在加载表单列表…",
+      "WEBFORM_LOAD_FAILED": "加载表单列表失败",
+      "WEBFORM_RETRY": "重试",
+      "WEBFORM_EMPTY": "后台暂无可用表单",
+      "WEBFORM_INSERT_FAILED": "读取表单字段失败，请稍后重试",
+      "WEBFORM_PARTIAL": "表单已插入，以下字段暂不支持，已跳过：{{fields}}",
+      "WEBFORM_SUBMIT": "提交"
     },
     "PAGE_SETTING": {
       "AUTHOR": "作者",
@@ -688,6 +696,10 @@
       "REQUIRED": "该字段必填",
       "MAX": "不能超过最大值",
       "MIN": "不能小于最小值"
+    },
+    "DYNAMIC_FORM": {
+      "SUBMIT_SUCCESS": "成功提交！",
+      "SUBMIT_FAILED": "提交失败，请联系管理员！"
     },
     "FORM_EDITOR": {
       "PLACEHOLDER": "请输入正文内容",

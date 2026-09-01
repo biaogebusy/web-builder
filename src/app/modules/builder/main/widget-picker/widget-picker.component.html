@@ -1,8 +1,9 @@
 @let config = builderConfig$ | async;
 @let help = config?.widgetPicker?.help;
-@let group = selectedGroup();
+@let group = currentGroup();
 @let query = searchQuery();
 @let hits = searchResults();
+@let inserting = insertingWebform();
 <div class="widget-picker" #picker>
   @if (group) {
     <div class="picker-header">
@@ -18,7 +19,20 @@
       <h3 class="picker-title">{{ group.label }}</h3>
       <span class="picker-count" aria-hidden="true">{{ group.child.length }}</span>
     </div>
-    @if (group.child.length > 0) {
+    @if (group.id === webformGroupId && webformState() === 'loading') {
+      <div class="empty-state" role="status">
+        <app-spinner [content]="{ size: 32 }" />
+        <p>{{ 'BUILDER.WIDGET_PICKER.WEBFORM_LOADING' | translate }}</p>
+      </div>
+    } @else if (group.id === webformGroupId && webformState() === 'error') {
+      <div class="empty-state" role="status">
+        <app-icon class="empty-icon" [content]="{ svg: 'alert-circle-outline' }" />
+        <p>{{ 'BUILDER.WIDGET_PICKER.WEBFORM_LOAD_FAILED' | translate }}</p>
+        <button type="button" class="empty-action" (click)="loadWebforms()">
+          {{ 'BUILDER.WIDGET_PICKER.WEBFORM_RETRY' | translate }}
+        </button>
+      </div>
+    } @else if (group.child.length > 0) {
       <div class="widget-list" role="list">
         @for (item of group.child; track item.id ?? item.uuid ?? item.content?.type ?? item.label) {
           <button
@@ -27,7 +41,9 @@
             class="widget-card"
             role="listitem"
             [attr.aria-label]="item.label"
-            (click)="onSelect(item.content)"
+            [attr.aria-busy]="isInserting(item) ? 'true' : null"
+            [disabled]="inserting !== null"
+            (click)="onPick(item)"
             (mouseenter)="onHoverWidget(item, card)"
             (mouseleave)="onLeaveWidget()"
             (focus)="onHoverWidget(item, card)"
@@ -46,13 +62,25 @@
                 <div class="widget-description" [title]="item.mark">{{ item.mark }}</div>
               }
             </div>
+            @if (isInserting(item)) {
+              <div class="widget-card-busy" aria-hidden="true">
+                <app-spinner [content]="{ size: 24 }" />
+              </div>
+            }
           </button>
         }
       </div>
     } @else {
       <div class="empty-state" role="status">
         <app-icon class="empty-icon" [content]="{ svg: 'package-variant' }" />
-        <p>{{ 'BUILDER.WIDGET_PICKER.EMPTY_CATEGORY' | translate }}</p>
+        <p>
+          {{
+            (group.id === webformGroupId
+              ? 'BUILDER.WIDGET_PICKER.WEBFORM_EMPTY'
+              : 'BUILDER.WIDGET_PICKER.EMPTY_CATEGORY'
+            ) | translate
+          }}
+        </p>
       </div>
     }
   } @else {
@@ -97,7 +125,9 @@
               class="widget-card"
               role="listitem"
               [attr.aria-label]="hit.item.label"
-              (click)="onSelect(hit.item.content)"
+              [attr.aria-busy]="isInserting(hit.item) ? 'true' : null"
+              [disabled]="inserting !== null"
+              (click)="onPick(hit.item)"
               (mouseenter)="onHoverWidget(hit.item, card)"
               (mouseleave)="onLeaveWidget()"
               (focus)="onHoverWidget(hit.item, card)"
@@ -117,6 +147,11 @@
                   <div class="widget-description" [title]="hit.item.mark">{{ hit.item.mark }}</div>
                 }
               </div>
+              @if (isInserting(hit.item)) {
+                <div class="widget-card-busy" aria-hidden="true">
+                  <app-spinner [content]="{ size: 24 }" />
+                </div>
+              }
             </button>
           }
         </div>

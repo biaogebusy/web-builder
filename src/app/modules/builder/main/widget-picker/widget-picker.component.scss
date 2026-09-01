@@ -181,6 +181,26 @@
       outline-offset: 2px;
     }
 
+    &[disabled] {
+      @apply cursor-default;
+
+      &:hover {
+        border-color: var(--mat-sys-outline-variant);
+        box-shadow: none;
+        transform: none;
+      }
+    }
+
+    // Only the card whose webform is being fetched keeps full opacity
+    &[disabled]:not([aria-busy='true']) {
+      @apply opacity-50;
+    }
+
+    .widget-card-busy {
+      @apply absolute inset-0 flex items-center justify-center;
+      background-color: color-mix(in oklch, var(--mat-sys-surface) 70%, transparent);
+    }
+
     .widget-preview {
       @apply relative flex justify-center items-center w-full overflow-hidden aspect-video;
       background-color: var(--mat-sys-surface-container-low);
