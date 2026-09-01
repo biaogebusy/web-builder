@@ -13,6 +13,7 @@ const componentSettingFactories: Record<string, ComponentSettingFactory> = {
   swiper: getSwiperSetting,
   video: getVideoSetting,
   text: getTextSetting,
+  ['dynamic-form']: getDynamicFormSetting,
   ['carousel-1v3']: getCarouselTextSetting,
   ['carousel-2v1']: getCarouselTitleSetting,
   ['carousel-1v1']: getCarouselTitleSetting,
@@ -116,6 +117,120 @@ function getTextSetting(content: any): FormlyFieldConfig[] {
                 value: 'end',
               },
             ],
+          },
+        },
+      ],
+    },
+  ];
+}
+
+/**
+ * Webform-generated forms: the fields themselves are baked into the page JSON by
+ * the picker, so only the submit button and the wrapper classes are editable here.
+ */
+function getDynamicFormSetting(content: any): FormlyFieldConfig[] {
+  return [
+    {
+      props: {
+        label: 'BUILDER.FACTORY.FORM_TAB',
+      },
+      fieldGroupClassName: 'grid grid-cols-12 gap-3',
+      fieldGroup: [
+        {
+          key: 'form',
+          className: 'col-span-12',
+          fieldGroup: [
+            {
+              key: 'id',
+              type: 'input',
+              className: 'w-full',
+              defaultValue: content?.form?.id ?? '',
+              props: {
+                label: 'BUILDER.FACTORY.WEBFORM_ID',
+                description: 'BUILDER.FACTORY.WEBFORM_ID_DESC',
+              },
+            },
+          ],
+        },
+        {
+          key: 'action',
+          className: 'col-span-12',
+          fieldGroup: [
+            {
+              key: 'submit',
+              fieldGroupClassName: 'grid grid-cols-12 gap-3',
+              fieldGroup: [
+                {
+                  key: 'label',
+                  type: 'input',
+                  className: 'col-span-12',
+                  defaultValue: content?.action?.submit?.label ?? '',
+                  props: {
+                    label: 'BUILDER.FACTORY.SUBMIT_LABEL',
+                  },
+                },
+                {
+                  key: 'mode',
+                  type: 'select',
+                  className: 'col-span-6',
+                  defaultValue: content?.action?.submit?.mode ?? 'flat',
+                  props: {
+                    label: 'BUILDER.FACTORY.BTN_TYPE',
+                    options: [
+                      { label: 'BUILDER.FACTORY.MAT_BASIC', value: 'basic' },
+                      { label: 'BUILDER.FACTORY.MAT_RAISED', value: 'raised' },
+                      { label: 'BUILDER.FACTORY.MAT_STROKED', value: 'stroked' },
+                      { label: 'BUILDER.FACTORY.MAT_FLAT', value: 'flat' },
+                      { label: 'BUILDER.FACTORY.MAT_ICON', value: 'icon' },
+                      { label: 'BUILDER.FACTORY.FAB', value: 'fab' },
+                      { label: 'BUILDER.FACTORY.MINI_FAB', value: 'mini-fab' },
+                    ],
+                  },
+                },
+                {
+                  key: 'color',
+                  type: 'select',
+                  className: 'col-span-6',
+                  defaultValue: content?.action?.submit?.color ?? 'primary',
+                  props: {
+                    label: 'BUILDER.FACTORY.COLOR',
+                    options: [
+                      { label: 'BUILDER.FACTORY.MAT_BASIC', value: null },
+                      { label: 'BUILDER.FACTORY.PRIMARY', value: 'primary' },
+                      { label: 'BUILDER.FACTORY.ACCENT', value: 'accent' },
+                      { label: 'BUILDER.FACTORY.WARN', value: 'warn' },
+                    ],
+                  },
+                },
+              ],
+            },
+            {
+              key: 'classes',
+              type: 'input',
+              className: 'w-full',
+              defaultValue: content?.action?.classes ?? '',
+              props: {
+                label: 'BUILDER.FACTORY.ACTION_CLASSES',
+              },
+            },
+          ],
+        },
+        {
+          key: 'formClasses',
+          type: 'input',
+          className: 'col-span-12',
+          defaultValue: content?.formClasses ?? '',
+          props: {
+            label: 'BUILDER.FACTORY.FORM_CLASSES',
+          },
+        },
+        {
+          key: 'classes',
+          type: 'input',
+          className: 'col-span-12',
+          defaultValue: content?.classes ?? '',
+          props: {
+            label: 'BUILDER.FACTORY.WIDGET_CLASS',
           },
         },
       ],

@@ -1327,7 +1327,12 @@
       "ALIGN_CENTER_TEXT": "Center",
       "ALIGN_END": "End",
       "TITLE_TAB": "Title",
-      "WIDGET_TAB": "Widget"
+      "WIDGET_TAB": "Widget",
+      "FORM_TAB": "Form",
+      "WEBFORM_ID": "Webform ID",
+      "WEBFORM_ID_DESC": "Sent as webform_id on submit; fields are not refetched when it changes, re-insert the form to refresh them",
+      "ACTION_CLASSES": "Button wrapper class",
+      "FORM_CLASSES": "Form wrapper class"
     }
   },
   "CUSTOM_THEME": {

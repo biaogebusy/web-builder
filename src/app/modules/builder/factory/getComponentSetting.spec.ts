@@ -114,6 +114,32 @@ describe('getComponentSetting', () => {
     ]);
   });
 
+  it('keeps webform id, submit button, and wrapper class fields for a dynamic form', () => {
+    expect(
+      summarizeTabs({
+        type: 'dynamic-form',
+        form: { type: 'formly', id: 'contact', fields: [] },
+        action: {
+          classes: 'flex justify-center mt-4',
+          submit: { type: 'btn', mode: 'flat', color: 'primary', label: 'Submit' },
+        },
+      })
+    ).toEqual([
+      {
+        label: 'BUILDER.FACTORY.COMMON_TAB',
+        fields: ['<group>', 'containerClasses', 'bg'],
+      },
+      {
+        label: 'BUILDER.FACTORY.FORM_TAB',
+        fields: ['form', 'action', 'formClasses', 'classes'],
+      },
+      {
+        label: 'BUILDER.FACTORY.ANIMATION_TAB_LABEL',
+        fields: ['animate'],
+      },
+    ]);
+  });
+
   it.each(['future-widget', 'constructor'])(
     'keeps unknown component type %s on the existing no-visual-settings fallback',
     type => {

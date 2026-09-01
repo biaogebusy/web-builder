@@ -1327,7 +1327,12 @@
       "ALIGN_CENTER_TEXT": "居中对齐",
       "ALIGN_END": "右对齐",
       "TITLE_TAB": "标题",
-      "WIDGET_TAB": "组件"
+      "WIDGET_TAB": "组件",
+      "FORM_TAB": "表单",
+      "WEBFORM_ID": "Webform ID",
+      "WEBFORM_ID_DESC": "提交时作为 webform_id 发送；修改后表单字段不会自动同步，如需更新请删除后重新插入",
+      "ACTION_CLASSES": "按钮容器 class",
+      "FORM_CLASSES": "表单容器 class"
     }
   },
   "CUSTOM_THEME": {
