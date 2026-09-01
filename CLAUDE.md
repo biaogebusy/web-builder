@@ -17,6 +17,10 @@ The Drupal backends are sibling directories of this repo (not inside it); check 
 
 - `../pro` — the pro deployment checkout of this frontend (branch `pro`). It merges `master` in and carries the deployment-specific delta; the same thin-seam rules as downstream CMS branches apply.
 
+## Sibling Documentation Repository
+
+- `../xinshi-docs` — the project documentation site (Storybook 9 + MDX, deployed to `ui.builder.design`). When a change in this repo affects documented behavior — new components, config changes, API changes, feature work — keep the corresponding MDX pages in `../xinshi-docs/stories/` in sync and commit the doc update promptly rather than deferring it.
+
 ## Branches & Deployments
 
 - **`master` is the open-source base branch and the single source of truth.** Downstream deployment branches build on it: they merge `master` in, never the other way. Anything that is not part of the base product stays out of `master`.
