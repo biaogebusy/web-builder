@@ -6,7 +6,7 @@ import { getTitle } from './getTitle';
 import { getVideo } from './getVideo';
 import { getWidgetSetting } from './getWidgetSetting';
 
-type ComponentSettingFactory = (content: any) => FormlyFieldConfig[];
+type ComponentSettingFactory = (content: any, path: string) => FormlyFieldConfig[];
 
 const componentSettingFactories: Record<string, ComponentSettingFactory> = {
   ['layout-builder']: getLayoutBuilderSetting,
@@ -22,11 +22,11 @@ const componentSettingFactories: Record<string, ComponentSettingFactory> = {
   ['hero-1v1']: getCarouselTitleSetting,
 };
 
-export function getComponentSpecificSetting(content: any): FormlyFieldConfig[] {
+export function getComponentSpecificSetting(content: any, path: string): FormlyFieldConfig[] {
   const factory = Object.prototype.hasOwnProperty.call(componentSettingFactories, content.type)
     ? componentSettingFactories[content.type]
     : getDefaultSetting;
-  return factory(content);
+  return factory(content, path);
 }
 
 function getLayoutBuilderSetting(content: any): FormlyFieldConfig[] {
@@ -127,8 +127,9 @@ function getTextSetting(content: any): FormlyFieldConfig[] {
 /**
  * Webform-generated forms: the fields themselves are baked into the page JSON by
  * the picker, so only the submit button and the wrapper classes are editable here.
+ * The sync button re-fetches the CMS element tree and replaces those fields.
  */
-function getDynamicFormSetting(content: any): FormlyFieldConfig[] {
+function getDynamicFormSetting(content: any, path: string): FormlyFieldConfig[] {
   return [
     {
       props: {
@@ -147,10 +148,14 @@ function getDynamicFormSetting(content: any): FormlyFieldConfig[] {
               defaultValue: content?.form?.id ?? '',
               props: {
                 label: 'BUILDER.FACTORY.WEBFORM_ID',
-                description: 'BUILDER.FACTORY.WEBFORM_ID_DESC',
               },
             },
           ],
+        },
+        {
+          type: 'sync-webform',
+          className: 'col-span-12',
+          props: { path },
         },
         {
           key: 'action',

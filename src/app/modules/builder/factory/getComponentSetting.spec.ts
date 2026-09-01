@@ -131,7 +131,7 @@ describe('getComponentSetting', () => {
       },
       {
         label: 'BUILDER.FACTORY.FORM_TAB',
-        fields: ['form', 'action', 'formClasses', 'classes'],
+        fields: ['form', 'sync-webform', 'action', 'formClasses', 'classes'],
       },
       {
         label: 'BUILDER.FACTORY.ANIMATION_TAB_LABEL',

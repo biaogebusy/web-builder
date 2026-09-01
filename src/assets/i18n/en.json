@@ -1330,9 +1330,12 @@
       "WIDGET_TAB": "Widget",
       "FORM_TAB": "Form",
       "WEBFORM_ID": "Webform ID",
-      "WEBFORM_ID_DESC": "Sent as webform_id on submit; fields are not refetched when it changes, re-insert the form to refresh them",
       "ACTION_CLASSES": "Button wrapper class",
-      "FORM_CLASSES": "Form wrapper class"
+      "FORM_CLASSES": "Form wrapper class",
+      "SYNC_WEBFORM_FIELDS": "Refresh fields from CMS",
+      "SYNC_WEBFORM_LOADING": "Syncing…",
+      "SYNC_WEBFORM_FAILED": "Failed to sync fields, please try again",
+      "SYNC_WEBFORM_NO_ID": "Webform ID is empty, nothing to sync"
     }
   },
   "CUSTOM_THEME": {
