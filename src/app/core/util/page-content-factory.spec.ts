@@ -3,6 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import type { IPage } from '@core/interface/IAppConfig';
 import {
+  isBuilderCustomPageUrl,
   pageContentFactory,
   preloadInitialDynamicComponents,
   shouldPreloadPageComponents,
@@ -123,6 +124,48 @@ describe('pageContentFactory', () => {
     await vi.waitFor(() => expect(loadPageContent).toHaveBeenCalledTimes(2));
   });
 
+  it('follows builder custom pages when the builder workspace owns the factory', async () => {
+    const routerEvents = new Subject<NavigationEnd>();
+    let currentUrl = '/builder/conversations';
+    const loadPageContent = vi.fn((pageUrl: string) => of({ body: [], title: pageUrl } as IPage));
+
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: ActivatedRoute, useValue: { url: of([]) } },
+        { provide: Router, useValue: { events: routerEvents.asObservable() } },
+        {
+          provide: ContentService,
+          useValue: {
+            get pageUrl(): string {
+              return currentUrl;
+            },
+            getCachedPageContent: () => undefined,
+            loadConfig: () => Promise.resolve(),
+            loadPageContent,
+          },
+        },
+        { provide: ComponentService, useValue: { preloadComponentTypes: () => Promise.resolve() } },
+        { provide: ContentState, useValue: { pageConfig: signal(undefined) } },
+        { provide: CORE_CONFIG, useValue: {} },
+      ],
+    });
+
+    const pageContent = TestBed.runInInjectionContext(() =>
+      pageContentFactory({ builderPages: true })
+    );
+    await vi.waitFor(() => {
+      const page = pageContent();
+      expect(page && page.title).toBe('/builder/conversations');
+    });
+
+    currentUrl = '/builder/dashboard';
+    routerEvents.next(new NavigationEnd(2, currentUrl, currentUrl));
+    await vi.waitFor(() => {
+      const page = pageContent();
+      expect(page && page.title).toBe('/builder/dashboard');
+    });
+  });
+
   it('uses synchronously preloaded page content for the first hydration render', () => {
     const cachedPage = { body: [], title: '/home' } as IPage;
 
@@ -162,6 +205,16 @@ describe('shouldPreloadPageComponents', () => {
     expect(shouldPreloadPageComponents('/my/account')).toBe(false);
     expect(shouldPreloadPageComponents('/preview')).toBe(false);
     expect(shouldPreloadPageComponents('/en/me')).toBe(true);
+  });
+});
+
+describe('isBuilderCustomPageUrl', () => {
+  it('matches CMS pages served under the builder catch-all only', () => {
+    expect(isBuilderCustomPageUrl('/builder/conversations')).toBe(true);
+    expect(isBuilderCustomPageUrl('/en/builder/dashboard')).toBe(true);
+    expect(isBuilderCustomPageUrl('/builder')).toBe(false);
+    expect(isBuilderCustomPageUrl('/builder/')).toBe(false);
+    expect(isBuilderCustomPageUrl('/home')).toBe(false);
   });
 });
 

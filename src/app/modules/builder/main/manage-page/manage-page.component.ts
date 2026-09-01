@@ -14,7 +14,9 @@ import { Observable } from 'rxjs';
   providers: [
     {
       provide: PAGE_CONTENT,
-      useFactory: pageContentFactory,
+      // Builder custom pages (/builder/<alias>) come from the CMS, so this
+      // PAGE_CONTENT has to follow the URLs the public one deliberately skips.
+      useFactory: () => pageContentFactory({ builderPages: true }),
     },
   ],
   imports: [SHARE_IMPORTS, WIDGETS_IMPORTS],

@@ -46,7 +46,19 @@ export const THEMKEY = 'themeMode';
 export const DEBUG_ANIMATE_KEY = 'debugAnimate';
 const BUILDERPATH = '/builder';
 
-export function pageContentFactory(): WritableSignal<IPage | undefined | false> {
+/** Options for {@link pageContentFactory}. */
+export interface IPageContentFactoryOptions {
+  /**
+   * Also follow `/builder/<alias>` URLs. The builder workspace renders
+   * CMS-driven custom pages (e.g. `/builder/conversations`) through its own
+   * PAGE_CONTENT, while the public PageComponent must keep skipping them.
+   */
+  builderPages?: boolean;
+}
+
+export function pageContentFactory(
+  options: IPageContentFactoryOptions = {}
+): WritableSignal<IPage | undefined | false> {
   const router = inject(Router);
   const contentService = inject(ContentService);
   const contentState = inject(ContentState);
@@ -70,7 +82,11 @@ export function pageContentFactory(): WritableSignal<IPage | undefined | false> 
       // subscription outlives PageComponent and keeps seeing every navigation.
       // Without the guard, entering /builder or /me fetches CMS content for
       // that URL and updateTags() overwrites the title the route just set.
-      filter(pageUrl => shouldPreloadPageComponents(pageUrl)),
+      filter(
+        pageUrl =>
+          shouldPreloadPageComponents(pageUrl) ||
+          (!!options.builderPages && isBuilderCustomPageUrl(pageUrl))
+      ),
       switchMap(pageUrl => {
         return forkJoin({
           config: from(contentService.loadConfig(coreConfig, pageUrl)),
@@ -237,8 +253,20 @@ export function preloadInitialDynamicComponents(): Promise<void> {
 }
 
 export function shouldPreloadPageComponents(pageUrl: string): boolean {
-  const path = pageUrl.split(/[?&]/, 1)[0];
-  return !/^\/(?:(?:en\/)?builder|me|my|preview)(?:\/|$)/i.test(path);
+  return !/^\/(?:(?:en\/)?builder|me|my|preview)(?:\/|$)/i.test(getPathname(pageUrl));
+}
+
+/**
+ * True for `/builder/<alias>` URLs, which the builder workspace serves from the
+ * CMS through its `**` catch-all route. `/builder` itself is the workspace
+ * landing route and has no CMS page behind it.
+ */
+export function isBuilderCustomPageUrl(pageUrl: string): boolean {
+  return /^\/(?:en\/)?builder\/.+/i.test(getPathname(pageUrl));
+}
+
+function getPathname(pageUrl: string): string {
+  return pageUrl.split(/[?&]/, 1)[0];
 }
 
 function getInitialPageUrl(pageUrl: string): string {
