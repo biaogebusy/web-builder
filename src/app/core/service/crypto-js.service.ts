@@ -24,7 +24,18 @@ export class CryptoJSService {
     return CryptoJS.AES.encrypt(value, this.secretKey.trim()).toString();
   }
 
+  /**
+   * Decrypt an AES ciphertext produced by {@link encrypt}.
+   *
+   * Never throws: crypto-js derives a random salt for inputs without the
+   * "Salted__" prefix, so garbage input decrypts to random bytes whose UTF-8
+   * decoding would otherwise throw.
+   */
   decrypt(textToDecrypt: string): string {
-    return CryptoJS.AES.decrypt(textToDecrypt, this.secretKey.trim()).toString(CryptoJS.enc.Utf8);
+    try {
+      return CryptoJS.AES.decrypt(textToDecrypt, this.secretKey.trim()).toString(CryptoJS.enc.Utf8);
+    } catch {
+      return '';
+    }
   }
 }
