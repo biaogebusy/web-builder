@@ -6,6 +6,7 @@ import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { IUiux } from '@core/interface/IBuilder';
 import { UIUX } from '@core/token/token-providers';
+import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, of, Subject, throwError } from 'rxjs';
 
 import { NodeUiuxComponent } from './node-uiux.component';
@@ -23,6 +24,12 @@ describe('NodeUiuxComponent', () => {
   const builderService = { updateAttributes: vi.fn() };
   const contentService = { reloadUIUX: vi.fn() };
   const util = { copy: vi.fn(), openSnackbar: vi.fn() };
+  // Echo the key back, appending params so count-carrying messages stay assertable
+  const translate = {
+    instant: vi.fn((key: string, params?: object) =>
+      params ? `${key} ${JSON.stringify(params)}` : key
+    ),
+  };
 
   const heroItem = {
     uuid: 'hero-uuid',
@@ -74,6 +81,7 @@ describe('NodeUiuxComponent', () => {
         { provide: BuilderService, useValue: builderService },
         { provide: ContentService, useValue: contentService },
         { provide: UtilitiesService, useValue: util },
+        { provide: TranslateService, useValue: translate },
       ],
     });
 
@@ -146,6 +154,54 @@ describe('NodeUiuxComponent', () => {
     expect(component.visibleItemUuids()).toEqual([]);
   });
 
+  it('nests the flat rows back into categories, subgroups and items', () => {
+    seedGroups();
+    component.expandedGroups.set(new Set(['Sections']));
+
+    const tree = component.groupTree();
+
+    expect(tree.length).toBe(1);
+    expect(tree[0].name).toBe('Sections');
+    // The category's own icon travels with the group, replacing a generic folder glyph
+    expect(tree[0].icon).toBe('view-dashboard');
+    expect(tree[0].count).toBe(2);
+    expect(tree[0].subGroups.map(sub => sub.name)).toEqual(['Hero']);
+    expect(tree[0].subGroups[0].items.map(item => item.label)).toEqual([
+      'Hero Alpha',
+      'Button Beta',
+    ]);
+
+    // Collapsed: the category still renders, its disclosure region is simply empty
+    component.expandedGroups.set(new Set());
+    expect(component.groupTree()[0].subGroups).toEqual([]);
+  });
+
+  it('stays in the loading state until the component feed first emits', () => {
+    // A silent feed, as on a direct navigation before the shared request resolves
+    TestBed.resetTestingModule();
+    const pending$ = new Subject<IUiux[]>();
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: UIUX, useValue: pending$.asObservable() },
+        { provide: MatDialog, useValue: dialog },
+        { provide: NodeService, useValue: nodeService },
+        { provide: BuilderService, useValue: builderService },
+        { provide: ContentService, useValue: contentService },
+        { provide: UtilitiesService, useValue: util },
+        { provide: TranslateService, useValue: translate },
+      ],
+    });
+    const pending = TestBed.runInInjectionContext(() => new NodeUiuxComponent());
+
+    expect(pending.initialLoading()).toBe(true);
+
+    pending$.next([]);
+
+    // Only now is the library known to be empty, so the empty state may take over
+    expect(pending.initialLoading()).toBe(false);
+    expect(pending.totalCount()).toBe(0);
+  });
+
   it('does not start creating when the dialog close button is used', () => {
     component.onAdd();
 
@@ -166,7 +222,10 @@ describe('NodeUiuxComponent', () => {
     closed$.next(true);
 
     expect(component.loading()).toBe(false);
-    expect(util.openSnackbar).toHaveBeenCalledWith('创建失败，请稍后重试', '确定');
+    expect(util.openSnackbar).toHaveBeenCalledWith(
+      'BUILDER.NODE_UIUX.CREATE_FAILED',
+      'BUILDER.COMMON.OK'
+    );
   });
 
   it('reloads the shared UIUX data after a successful create', () => {
@@ -178,7 +237,10 @@ describe('NodeUiuxComponent', () => {
     closed$.next(true);
 
     expect(contentService.reloadUIUX).toHaveBeenCalled();
-    expect(util.openSnackbar).toHaveBeenCalledWith('创建成功', '确定');
+    expect(util.openSnackbar).toHaveBeenCalledWith(
+      'BUILDER.NODE_UIUX.CREATED',
+      'BUILDER.COMMON.OK'
+    );
     expect(component.loading()).toBe(false);
   });
 
@@ -222,7 +284,10 @@ describe('NodeUiuxComponent', () => {
     closed$.next(true);
 
     expect(component.loading()).toBe(false);
-    expect(util.openSnackbar).toHaveBeenCalledWith('更新失败，请稍后重试', '确定');
+    expect(util.openSnackbar).toHaveBeenCalledWith(
+      'BUILDER.NODE_UIUX.UPDATE_FAILED',
+      'BUILDER.COMMON.OK'
+    );
   });
 
   it('shows an error and clears loading when deleting fails', () => {
@@ -234,7 +299,10 @@ describe('NodeUiuxComponent', () => {
     closed$.next(true);
 
     expect(component.loading()).toBe(false);
-    expect(util.openSnackbar).toHaveBeenCalledWith('删除失败，请稍后重试', '确定');
+    expect(util.openSnackbar).toHaveBeenCalledWith(
+      'BUILDER.NODE_UIUX.DELETE_FAILED',
+      'BUILDER.COMMON.OK'
+    );
   });
 
   it('lists component names in the bulk delete confirmation', () => {
@@ -262,8 +330,8 @@ describe('NodeUiuxComponent', () => {
     expect(contentService.reloadUIUX).toHaveBeenCalled();
     expect(component.loading()).toBe(false);
     expect(util.openSnackbar).toHaveBeenCalledWith(
-      '已删除 1 个，1 个删除失败，已保留其选中状态',
-      '确定'
+      'BUILDER.NODE_UIUX.BULK_PARTIAL {"succeeded":1,"failed":1}',
+      'BUILDER.COMMON.OK'
     );
   });
 
@@ -277,6 +345,9 @@ describe('NodeUiuxComponent', () => {
     expect(component.selectedIds().size).toBe(0);
     expect(contentService.reloadUIUX).toHaveBeenCalled();
     expect(component.loading()).toBe(false);
-    expect(util.openSnackbar).toHaveBeenCalledWith('成功删除 2 个组件', '确定');
+    expect(util.openSnackbar).toHaveBeenCalledWith(
+      'BUILDER.NODE_UIUX.BULK_DELETED {"count":2}',
+      'BUILDER.COMMON.OK'
+    );
   });
 });

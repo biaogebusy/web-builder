@@ -1,407 +1,323 @@
+// Ledger view of the component library: the widget picker is the storefront for the same
+// data, so the manage page takes the complementary job — dense, aligned rows for auditing.
+// Structure comes from hairlines and indentation only; no elevation anywhere, matching the
+// other builder admin pages (hub, node-manage, node-add).
 :host {
   @apply block h-full overflow-auto;
-  background: var(--mat-sys-surface-container-low);
+  background: var(--shadcn-background);
 }
 
-.container {
-  @apply mx-auto p-4;
-  max-width: 1280px;
-}
-
-// ── Card ──────────────────────────────────────────────────
-.card {
-  @apply rounded-xl;
-  background: var(--mat-sys-surface-container-low);
-  box-shadow: var(--mat-sys-level1);
-}
-
-// ── Toolbar ───────────────────────────────────────────────
-.toolbar {
-  @apply sticky top-0 z-10 flex items-center gap-4 p-4 flex-wrap rounded-t-xl;
-  background: var(--mat-sys-surface);
-  border-bottom: 1px solid var(--mat-sys-outline-variant);
-
-  .toolbar-left {
-    @apply flex flex-1 items-center gap-4 min-w-0;
+.node-uiux {
+  .container {
+    @apply mx-auto flex max-w-6xl flex-col gap-4 px-4 py-8;
   }
 
-  .toolbar-right {
-    @apply flex items-center justify-end gap-3 ml-auto flex-wrap;
+  .header {
+    @apply flex flex-wrap items-start justify-between gap-4;
+  }
+  .header-text {
+    @apply flex min-w-0 flex-col gap-1;
+  }
+  .page-title {
+    @apply m-0 text-2xl font-semibold;
+  }
+  .page-summary {
+    @apply m-0 text-sm;
+    color: var(--shadcn-muted-foreground);
+    font-variant-numeric: tabular-nums;
   }
 
-  .total-text {
-    @apply text-xs;
-    color: var(--mat-sys-on-surface-variant);
+  // No overflow-hidden here: the toolbar's sticky positioning resolves against the host
+  // scroller, and clipping this box would turn it into the scroll container instead
+  .ledger {
+    background: var(--shadcn-card);
+    border: 1px solid var(--shadcn-border);
+    border-radius: var(--shadcn-radius-lg);
   }
 
-  .expand-toggle {
-    color: var(--mat-sys-on-surface-variant);
+  .toolbar {
+    @apply sticky top-0 z-10 flex flex-wrap items-center gap-3 px-3 py-2;
+    background: var(--shadcn-card);
+    border-bottom: 1px solid var(--shadcn-border);
+    border-radius: var(--shadcn-radius-lg) var(--shadcn-radius-lg) 0 0;
   }
 
-  .divider {
-    @apply w-px h-5;
-    background: var(--mat-sys-outline-variant);
+  .search-box {
+    @apply flex min-w-0 flex-1 items-center gap-2 px-2;
+    max-width: 20rem;
+    height: var(--shadcn-control-height);
+    border: 1px solid var(--shadcn-input);
+    border-radius: var(--shadcn-radius-sm);
+    background: var(--shadcn-input-fill);
+
+    &:focus-within {
+      border-color: var(--shadcn-ring);
+      box-shadow:
+        0 0 0 var(--shadcn-ring-offset-width) var(--shadcn-ring-offset-color),
+        0 0 0 calc(var(--shadcn-ring-offset-width) + var(--shadcn-ring-width))
+          var(--shadcn-ring-subtle);
+    }
   }
-}
-
-.bulk-actions {
-  @apply flex items-center gap-2;
-}
-
-.bulk-count {
-  @apply text-xs font-medium;
-  color: var(--mat-sys-primary);
-}
-
-.search-wrap {
-  @apply flex items-center gap-2 h-10 px-3 rounded-lg;
-  width: min(320px, 100%);
-  border: 1px solid var(--mat-sys-outline-variant);
-  background: var(--mat-sys-surface-container-lowest);
-  transition: border-color 150ms, background 150ms, outline-color 150ms;
-
-  &:focus-within {
-    border-color: var(--mat-sys-primary);
-    background: var(--mat-sys-surface);
-    outline: 2px solid var(--mat-sys-primary);
-    outline-offset: 1px;
+  .search-icon {
+    @apply shrink-0;
+    color: var(--shadcn-muted-foreground);
+    ::ng-deep .mat-icon {
+      @apply h-4 w-4 text-base;
+    }
   }
+  .search-input {
+    @apply min-w-0 flex-1 border-0 bg-transparent text-sm outline-none;
+    color: var(--shadcn-foreground);
 
-  .s-icon {
-    font-size: 16px;
-    width: 16px;
-    height: 16px;
-    color: var(--mat-sys-on-surface-variant);
-    flex-shrink: 0;
-  }
-
-  .s-input {
-    @apply flex-1 min-w-0 text-sm outline-none bg-transparent;
-    color: var(--mat-sys-on-surface);
-
+    // The browser's own clear affordance duplicates the themed clear button
     &::-webkit-search-cancel-button {
       appearance: none;
     }
-
     &::placeholder {
       color: var(--shadcn-muted-foreground);
     }
   }
-}
+  .search-clear {
+    @apply flex h-6 w-6 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 p-0;
+    background: transparent;
+    color: var(--shadcn-muted-foreground);
 
-.search-clear {
-  @apply flex items-center justify-center shrink-0 w-7 h-7 p-0 rounded-full border-0 cursor-pointer;
-  color: var(--mat-sys-on-surface-variant);
-  background: transparent;
-
-  &:hover {
-    background: var(--mat-sys-surface-container-high);
-    color: var(--mat-sys-on-surface);
+    &:hover {
+      background: var(--shadcn-accent);
+      color: var(--shadcn-foreground);
+    }
+    &:focus-visible {
+      outline: 2px solid var(--shadcn-ring);
+      outline-offset: 1px;
+    }
+    ::ng-deep .mat-icon {
+      @apply h-4 w-4 text-base;
+    }
   }
 
-  &:focus-visible {
-    outline: 2px solid var(--mat-sys-primary);
-    outline-offset: 1px;
+  .toolbar-controls {
+    @apply ml-auto flex items-center gap-2;
+  }
+  .select-all {
+    @apply text-sm;
+  }
+  .expand-toggle {
+    color: var(--shadcn-muted-foreground);
   }
 
-  mat-icon {
-    width: 18px;
-    height: 18px;
-    font-size: 18px;
+  // Appears only with a selection; wraps to its own line before it can squeeze the search box
+  .selection {
+    @apply flex basis-full items-center gap-2 sm:basis-auto;
   }
-}
-
-// ── List body ─────────────────────────────────────────────
-.list-body {
-  @apply relative grid gap-4 p-4 rounded-b-xl;
-  grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
-  background: var(--mat-sys-surface-container-low);
-}
-
-.loading-wrap {
-  @apply flex items-center justify-center py-16;
-  grid-column: 1 / -1;
-}
-
-// ── List header (select-all row) ─────────────────────────
-.list-header {
-  @apply flex items-center gap-2 px-1 py-1;
-  grid-column: 1 / -1;
-  background: transparent;
-
-  .list-header-label {
+  .selection-count {
     @apply text-xs font-medium;
-    color: var(--mat-sys-on-surface-variant);
+    color: var(--shadcn-primary);
+    font-variant-numeric: tabular-nums;
   }
 
-  .list-header-count {
-    @apply text-xs;
-    color: var(--mat-sys-outline);
-  }
-}
-
-// ── L1 group ──────────────────────────────────────────────
-.l1-row {
-  @apply flex items-center gap-2 px-4 py-3 rounded-xl cursor-pointer select-none;
-  grid-column: 1 / -1;
-  margin-top: 8px;
-  background: var(--mat-sys-surface-container-high);
-  transition: background 120ms;
-
-  &:not(.static):hover,
-  &:focus-visible {
-    background: var(--mat-sys-surface-container-highest);
+  .result-meta {
+    @apply m-0 px-4 py-2 text-xs;
+    color: var(--shadcn-muted-foreground);
+    border-bottom: 1px solid var(--shadcn-border);
+    font-variant-numeric: tabular-nums;
   }
 
-  &.static {
-    @apply cursor-default;
+  .list {
+    @apply relative;
+  }
+  .skeleton {
+    @apply flex flex-col gap-2 p-3;
   }
 
-  &:focus-visible {
-    outline: 2px solid var(--mat-sys-primary);
-    outline-offset: 2px;
+  // Load failures are swallowed upstream (loadUIUX catches into an empty list), so this
+  // state has to read as "nothing here yet" and invite the first component
+  .state {
+    @apply flex flex-col items-center gap-3 px-4 py-16 text-center;
+  }
+  .state-icon {
+    color: var(--shadcn-muted-foreground);
+    ::ng-deep .mat-icon {
+      @apply h-8 w-8 text-4xl;
+    }
+  }
+  .state-text {
+    @apply m-0 text-sm font-medium;
+  }
+  .state-hint {
+    @apply m-0 max-w-sm text-xs;
+    color: var(--shadcn-muted-foreground);
   }
 
-  .folder-icon {
-    font-size: 20px;
-    width: 20px;
-    height: 20px;
-    color: var(--mat-sys-primary);
-    flex-shrink: 0;
+  .group + .group {
+    border-top: 1px solid var(--shadcn-border);
   }
+  .group-heading {
+    @apply m-0;
+  }
+  .group-toggle {
+    @apply flex w-full cursor-pointer items-center gap-2 border-0 bg-transparent px-3 py-2 text-left;
+    color: inherit;
 
+    &:hover:not(:disabled) {
+      background: var(--shadcn-accent);
+    }
+    &:focus-visible {
+      outline: 2px solid var(--shadcn-ring);
+      outline-offset: -2px;
+    }
+    // While searching every match is shown expanded, so the control is inert — the chevron
+    // slot stays to keep the name column in the same place as in the browsing state
+    &:disabled {
+      @apply cursor-default;
+      .group-chevron {
+        @apply invisible;
+      }
+    }
+  }
+  .group-chevron {
+    @apply shrink-0;
+    color: var(--shadcn-muted-foreground);
+    transition: transform 0.15s ease;
+    ::ng-deep .mat-icon {
+      @apply h-5 w-5 text-xl;
+    }
+    &.is-open {
+      transform: rotate(90deg);
+    }
+  }
+  .group-icon {
+    @apply grid h-6 w-6 shrink-0 place-items-center;
+    border-radius: var(--shadcn-radius-sm);
+    color: var(--shadcn-primary);
+    background: color-mix(in srgb, var(--shadcn-primary) 8%, transparent);
+    ::ng-deep .mat-icon {
+      @apply h-4 w-4 text-base;
+    }
+
+    // A category with no icon keeps the slot so the names stay aligned, but not the chip:
+    // an empty tinted box reads as a glyph that failed to load
+    &.is-blank {
+      background: transparent;
+    }
+  }
   .group-name {
-    @apply text-sm font-semibold;
-    color: var(--mat-sys-on-surface);
+    @apply min-w-0 flex-1 truncate text-sm font-semibold;
+  }
+  .group-count {
+    @apply shrink-0 text-xs;
+    color: var(--shadcn-muted-foreground);
+    font-variant-numeric: tabular-nums;
   }
 
-  .chevron {
-    margin-left: auto;
-    font-size: 20px;
-    width: 20px;
-    height: 20px;
-    color: var(--mat-sys-primary);
-    flex-shrink: 0;
-    transform: rotate(-90deg);
-    transition: transform 200ms ease;
+  // Nesting is carried by the indent and the rule that runs to the count; no arrow glyph
+  .sub-heading {
+    @apply m-0 flex items-center gap-3 py-1.5 pl-9 pr-4;
+  }
+  .sub-name {
+    @apply shrink-0 text-xs font-medium;
+    color: var(--shadcn-muted-foreground);
+  }
+  .sub-rule {
+    @apply h-px flex-1;
+    background: var(--shadcn-border);
+  }
+  .sub-count {
+    @apply shrink-0 text-xs;
+    color: var(--shadcn-muted-foreground);
+    font-variant-numeric: tabular-nums;
+  }
 
-    &.expanded {
-      transform: rotate(0deg);
+  .items {
+    @apply m-0 list-none p-0;
+  }
+  .item {
+    @apply flex items-center gap-3 py-1 pl-8 pr-2;
+
+    &:hover {
+      background: var(--shadcn-muted);
+    }
+    // Inset bar instead of a border, so selecting a row never shifts its content
+    &.is-selected {
+      background: color-mix(in srgb, var(--shadcn-primary) 7%, transparent);
+      box-shadow: inset 2px 0 0 var(--shadcn-primary);
     }
   }
-}
-
-// ── L2 group ──────────────────────────────────────────────
-.l2-row {
-  @apply flex items-center gap-2 px-3 py-1;
-  grid-column: 1 / -1;
-  margin: 0 8px;
-  background: transparent;
-
-  .l2-icon {
-    font-size: 18px;
-    width: 18px;
-    height: 18px;
-    color: var(--mat-sys-primary);
-    flex-shrink: 0;
+  .item + .item {
+    border-top: 1px solid var(--shadcn-border);
   }
 
-  .group-name {
-    @apply text-sm font-semibold;
-    color: var(--mat-sys-on-surface);
-  }
-}
+  .item-select {
+    @apply min-w-0 flex-1;
+    --mat-checkbox-state-layer-size: 2.25rem;
+    --mat-checkbox-touch-target-size: 2.5rem;
 
-// ── Count pills ───────────────────────────────────────────
-.count-pill {
-  @apply inline-flex items-center justify-center text-xs font-semibold leading-none px-2 rounded-full;
-  background: var(--mat-sys-surface-container-high);
-  color: var(--mat-sys-on-surface-variant);
-  min-width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-
-  &.primary {
-    background: var(--mat-sys-primary-container);
-    color: var(--mat-sys-on-primary-container);
-  }
-}
-
-// ── Item row ──────────────────────────────────────────────
-.item-row {
-  @apply grid gap-3 p-4 rounded-2xl;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  grid-template-areas:
-    'checkbox name actions'
-    'icon icon icon';
-  align-content: space-between;
-  min-height: 116px;
-  border: 1px solid var(--mat-sys-outline-variant);
-  background: var(--mat-sys-surface-container);
-  box-shadow: var(--mat-sys-level0);
-  transition: background 120ms, border-color 120ms, box-shadow 120ms;
-
-  &:hover {
-    border-color: var(--mat-sys-outline);
-    background: var(--mat-sys-surface-container-high);
-    box-shadow: var(--mat-sys-level1);
-  }
-
-  &:focus-within {
-    outline: 2px solid var(--mat-sys-primary);
-    outline-offset: 2px;
-  }
-
-  &.selected {
-    background: color-mix(
-      in srgb,
-      var(--mat-sys-primary) 8%,
-      var(--mat-sys-surface-container)
-    );
-    border-color: var(--mat-sys-primary);
-    box-shadow: var(--mat-sys-level0);
-
-    .item-name {
-      color: var(--mat-sys-primary);
+    // The row's name lives in the checkbox label, which Material renders as an inline-flex
+    // field; both have to stretch for the name to truncate instead of overflow
+    ::ng-deep .mat-internal-form-field {
+      @apply w-full min-w-0;
     }
-
-    .icon-tag {
-      background: var(--mat-sys-primary-container);
-      color: var(--mat-sys-on-primary-container);
+    ::ng-deep label {
+      @apply flex min-w-0 flex-1 items-center;
     }
   }
-
+  .item-text {
+    @apply flex min-w-0 flex-1 items-baseline gap-3;
+  }
   .item-name {
-    @apply min-w-0 text-sm font-medium break-words;
-    grid-area: name;
-    align-self: center;
-    color: var(--mat-sys-on-surface);
+    @apply truncate text-sm font-medium;
   }
-
-  .item-icon-col {
-    @apply flex items-end min-w-0;
-    grid-area: icon;
+  .item-mark {
+    @apply min-w-0 truncate text-xs;
+    color: var(--shadcn-muted-foreground);
   }
-}
+  // The icon field shown once, as one cell: the glyph and the literal string an admin types
+  // into the icon input are the same value. Fixed width so glyphs and slugs each line up in
+  // a column; on narrow screens the human-readable mark wins the space instead
+  .item-icon {
+    @apply hidden shrink-0 items-center gap-1.5 sm:flex;
+    width: 11rem;
+    color: var(--shadcn-muted-foreground);
 
-// ── Checkbox ─────────────────────────────────────────────
-.item-checkbox {
-  grid-area: checkbox;
-  flex-shrink: 0;
-
-  ::ng-deep .mat-mdc-checkbox {
-    .mdc-checkbox {
-      padding: 0;
+    code {
+      @apply truncate font-mono text-xs;
     }
-
-    .mdc-checkbox__ripple {
-      width: 32px;
-      height: 32px;
-      left: -8px;
-      top: -8px;
+    ::ng-deep .mat-icon {
+      @apply h-5 w-5 shrink-0 text-xl;
+    }
+    &.is-empty {
+      @apply text-xs;
     }
   }
-}
-
-// ── Icon tag ──────────────────────────────────────────────
-.icon-tag {
-  @apply inline-flex items-center gap-1 text-xs px-2 py-1 rounded;
-  background: var(--mat-sys-surface-container-high);
-  color: var(--mat-sys-on-surface-variant);
-  max-width: 100%;
-  overflow: hidden;
-
-  span {
-    @apply truncate;
+  .item-actions {
+    @apply shrink-0;
+    color: var(--shadcn-muted-foreground);
+    ::ng-deep .mat-icon {
+      @apply h-5 w-5 text-xl;
+    }
   }
 
-  app-icon {
-    font-size: 16px;
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
+  // A write is in flight: the list stays readable but inert until the refresh lands
+  .busy {
+    @apply absolute inset-0 z-10 grid place-items-center;
+    background: color-mix(in srgb, var(--shadcn-background) 72%, transparent);
+  }
+  .list.is-busy > *:not(.busy) {
+    @apply pointer-events-none;
   }
 }
 
-.no-icon {
-  @apply text-sm;
-  color: var(--mat-sys-outline);
+// mat-menu renders in an overlay outside .node-uiux, so its rules stay at the top level
+.menu-icon {
+  @apply mr-2 inline-flex align-middle;
 }
 
-// ── Actions ───────────────────────────────────────────────
-.item-actions {
-  @apply flex items-center justify-end;
-  grid-area: actions;
-  width: 40px;
-  flex-shrink: 0;
-}
-
-.action-menu-trigger {
-  @apply rounded-md;
-  color: var(--mat-sys-on-surface-variant);
-
-  ::ng-deep .mat-icon {
-    font-size: 20px;
-    width: 20px;
-    height: 20px;
-  }
-}
-
-// Dangerous menu item (delete): override text and icon colors with Material menu tokens
 .menu-item-danger {
-  --mat-menu-item-label-text-color: var(--mat-sys-error);
-  --mat-menu-item-icon-color: var(--mat-sys-error);
+  --mat-menu-item-label-text-color: var(--shadcn-destructive);
+  --mat-menu-item-icon-color: var(--shadcn-destructive);
 }
 
-// ── Empty state ───────────────────────────────────────────
-.empty-state {
-  @apply flex flex-col items-center gap-4 py-16;
-  grid-column: 1 / -1;
-
-  mat-icon {
-    font-size: 40px;
-    width: 40px;
-    height: 40px;
-    color: var(--mat-sys-outline);
-  }
-
-  p {
-    @apply m-0 text-sm;
-    color: var(--mat-sys-on-surface-variant);
-  }
-}
-
-@media (max-width: 640px) {
-  .container {
-    @apply p-2;
-  }
-
-  .toolbar {
-    @apply gap-3 p-3;
-
-    .toolbar-left,
-    .toolbar-right {
-      @apply w-full ml-0;
-    }
-
-    .toolbar-right {
-      @apply justify-between gap-2;
-    }
-
-    .divider {
-      @apply hidden;
-    }
-  }
-
-  .bulk-actions {
-    @apply order-last w-full justify-between;
-  }
-
-  .search-wrap {
-    @apply w-full;
-  }
-
-  .list-body {
-    @apply p-3;
+@media (prefers-reduced-motion: reduce) {
+  .node-uiux .group-chevron {
+    transition: none;
   }
 }
