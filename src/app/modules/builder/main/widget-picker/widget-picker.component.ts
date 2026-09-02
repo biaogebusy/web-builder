@@ -4,10 +4,8 @@ import {
   ElementRef,
   OnInit,
   computed,
-  effect,
   inject,
   signal,
-  Injector,
   ChangeDetectionStrategy,
   input,
   viewChild,
@@ -47,6 +45,11 @@ const WEBFORM_GROUP_ID = 'webform';
  */
 type WebformState = 'loading' | 'ready' | 'error' | 'unavailable';
 
+/** Hover preview only shows after the pointer rests on a row for this long */
+const PREVIEW_ENTER_DELAY = 220;
+/** Keep the preview visible briefly after the pointer leaves, to avoid flicker */
+const PREVIEW_LEAVE_DELAY = 80;
+
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-widget-picker',
@@ -61,16 +64,18 @@ export class WidgetPickerComponent implements OnInit {
 
   readonly previewPopup = viewChild<ElementRef>('previewPopup');
   readonly pickerRoot = viewChild<ElementRef>('picker');
+  readonly categoryScroller = viewChild<ElementRef>('categoryScroller');
 
   private readonly VIEWPORT_RATIO = 0.85;
   /** Padding of the preview popup (12px per side), used for size calculation */
   private readonly PREVIEW_PADDING = 24;
 
-  public bcData = signal(false);
-  public selectedGroup = signal<IBuilderComponent | null>(null);
+  public bcData = signal<any>(false);
   public hoveredWidget = signal<IBuilderComponentElement | null>(null);
   public widgets = signal<IUiux>({ label: '', icon: '', type: 'base', elements: [] });
   public searchQuery = signal('');
+  /** Index of the selected category chip; 0 = "All", 1..n map to widgetGroups() */
+  public activeCategoryIndex = signal(0);
 
   /** Exposed so the template can single out the webform group */
   public readonly webformGroupId = WEBFORM_GROUP_ID;
@@ -108,35 +113,54 @@ export class WidgetPickerComponent implements OnInit {
   });
 
   /**
-   * The webform group is rebuilt whenever the list arrives, so the snapshot kept in
-   * `selectedGroup` would go stale; resolve it again while it is the open group.
+   * The list of components shown below the category chips.
+   * - If a search query is active, flat list of matching items with group labels inline.
+   * - Otherwise, the components of the selected category.
+   *   "All" (index 0) shows everything grouped, or — for simplicity — flat by insertion order.
    */
-  public currentGroup = computed<IBuilderComponent | null>(() => {
-    const selected = this.selectedGroup();
-    if (selected?.id !== WEBFORM_GROUP_ID) {
-      return selected;
+  public visibleItems = computed<ISearchHit[]>(() => {
+    const q = this.searchQuery().trim().toLowerCase();
+    const groups = this.widgetGroups();
+    if (q) {
+      const hits: ISearchHit[] = [];
+      for (const group of groups) {
+        for (const item of group.child) {
+          const haystack = [item.label, item.mark, group.label]
+            .filter(Boolean)
+            .join(' ')
+            .toLowerCase();
+          if (haystack.includes(q)) hits.push({ item, group });
+        }
+      }
+      return hits;
     }
-    // Opened while still loading, then found to be unavailable: fall back to the
-    // category list, which no longer offers the group
-    return this.webformState() === 'unavailable' ? null : this.webformGroup();
+    const idx = this.activeCategoryIndex();
+    // Index 0 is the "All" synthetic chip — flatten everything
+    if (idx === 0) {
+      const all: ISearchHit[] = [];
+      for (const group of groups) {
+        for (const item of group.child) {
+          all.push({ item, group });
+        }
+      }
+      return all;
+    }
+    const group = groups[idx - 1];
+    if (!group) return [];
+    return group.child.map(item => ({ item, group }));
   });
 
-  /** Aggregates all matching components across categories while searching */
-  public searchResults = computed<ISearchHit[]>(() => {
-    const q = this.searchQuery().trim().toLowerCase();
-    if (!q) return [];
-    const groups = this.widgetGroups();
-    const hits: ISearchHit[] = [];
-    for (const group of groups) {
-      for (const item of group.child) {
-        const haystack = [item.label, item.mark, group.label]
-          .filter(Boolean)
-          .join(' ')
-          .toLowerCase();
-        if (haystack.includes(q)) hits.push({ item, group });
-      }
-    }
-    return hits;
+  /** Number of results shown; used in the result count line */
+  public resultCount = computed(() => this.visibleItems().length);
+
+  /** True while a search query is active (affects how group labels display) */
+  public isSearching = computed(() => this.searchQuery().trim().length > 0);
+
+  /** The active category name — "All" or the group label */
+  public activeCategoryLabel = computed(() => {
+    const idx = this.activeCategoryIndex();
+    if (idx === 0) return this.translate.instant('BUILDER.WIDGET_PICKER.ALL');
+    return this.widgetGroups()[idx - 1]?.label ?? '';
   });
 
   private uiux$ = inject(UIUX);
@@ -145,13 +169,14 @@ export class WidgetPickerComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   private storage = inject(LocalStorageService);
   private translate = inject(TranslateService);
-  private injector = inject(Injector);
   private webformPicker = inject(WebformPickerService);
   public builderConfig$ = inject(BUILDER_CONFIG);
 
   private widgetPopper?: PopperInstance;
   private previewResizeObserver?: ResizeObserver;
   private previewResizeFrame?: number;
+  private previewEnterTimer?: ReturnType<typeof setTimeout>;
+  private previewLeaveTimer?: ReturnType<typeof setTimeout>;
 
   ngOnInit(): void {
     this.destroyRef.onDestroy(() => this.destroyPreviewPopper());
@@ -196,14 +221,8 @@ export class WidgetPickerComponent implements OnInit {
       });
   }
 
-  selectGroup(group: IBuilderComponent): void {
-    this.searchQuery.set('');
-    this.selectedGroup.set(group);
-  }
-
-  goBack(): void {
-    this.destroyPreviewPopper();
-    this.selectedGroup.set(null);
+  selectCategory(index: number): void {
+    this.activeCategoryIndex.set(index);
   }
 
   onSearchInput(event: Event): void {
@@ -215,21 +234,49 @@ export class WidgetPickerComponent implements OnInit {
     this.searchQuery.set('');
   }
 
-  onHoverWidget(item: IBuilderComponentElement, anchor: HTMLElement): void {
+  onPointerEnterRow(item: IBuilderComponentElement, anchor: HTMLElement): void {
     // Webform cards carry no renderable content, so there is nothing to preview
     if (item.type === WEBFORM_GROUP_ID) {
       return;
     }
+    if (this.previewLeaveTimer) {
+      clearTimeout(this.previewLeaveTimer);
+      this.previewLeaveTimer = undefined;
+    }
+    if (this.previewEnterTimer) {
+      clearTimeout(this.previewEnterTimer);
+    }
+    this.previewEnterTimer = setTimeout(() => {
+      this.previewEnterTimer = undefined;
+      this.showPreview(item, anchor);
+    }, PREVIEW_ENTER_DELAY);
+  }
+
+  onPointerLeaveRow(): void {
+    if (this.previewEnterTimer) {
+      clearTimeout(this.previewEnterTimer);
+      this.previewEnterTimer = undefined;
+    }
+    if (this.previewLeaveTimer) {
+      clearTimeout(this.previewLeaveTimer);
+    }
+    this.previewLeaveTimer = setTimeout(() => {
+      this.previewLeaveTimer = undefined;
+      this.hoveredWidget.set(null);
+      this.destroyPreviewPopper();
+    }, PREVIEW_LEAVE_DELAY);
+  }
+
+  private showPreview(item: IBuilderComponentElement, anchor: HTMLElement): void {
     this.hoveredWidget.set(item);
     this.destroyPreviewPopper();
     const previewPopup = this.previewPopup();
     if (previewPopup?.nativeElement) {
       const popupEl: HTMLElement = previewPopup.nativeElement;
       const pickerEl: HTMLElement | null = this.pickerRoot()?.nativeElement ?? null;
-      // Use the card as the reference (same as the original implementation, so the popup always
-      // shows and Popper's internal reference rect stays correct). A custom modifier pins the
-      // popup's x to the left of the picker, so hovering cards in either column keeps the popup
-      // horizontally aligned while its vertical position still follows the hovered card.
+      // Use the row as the reference. A custom modifier pins the popup's x to the
+      // left of the picker, so hovering any row keeps the preview horizontally
+      // aligned while its vertical position still follows the hovered row.
       this.widgetPopper = createPopper(anchor, popupEl, {
         strategy: 'fixed',
         placement: 'left',
@@ -263,11 +310,6 @@ export class WidgetPickerComponent implements OnInit {
       }
       this.applyPreviewScale();
     }
-  }
-
-  onLeaveWidget(): void {
-    this.hoveredWidget.set(null);
-    this.destroyPreviewPopper();
   }
 
   private destroyPreviewPopper(): void {
@@ -342,7 +384,7 @@ export class WidgetPickerComponent implements OnInit {
   }
 
   /**
-   * Single entry point for both the category list and the search results:
+   * Single entry point for both category browsing and search results:
    * library widgets carry their content inline, webforms have to be fetched first.
    */
   onPick(item: IBuilderComponentElement): void {
@@ -390,7 +432,7 @@ export class WidgetPickerComponent implements OnInit {
       });
   }
 
-  /** True while this card's webform fields are being fetched */
+  /** True while this row's webform fields are being fetched */
   isInserting(item: IBuilderComponentElement): boolean {
     const inserting = this.insertingWebform();
     return !!inserting && item.id === `${WEBFORM_GROUP_ID}:${inserting}`;
@@ -420,7 +462,7 @@ export class WidgetPickerComponent implements OnInit {
       return;
     }
     const { addType, path, content } = contentValue;
-    const data = cloneDeep(content);
+    const data = cloneDeep(content) as any;
     const widgetContent = cloneDeep(widget);
 
     if (addType === 'widget') {
@@ -454,5 +496,16 @@ export class WidgetPickerComponent implements OnInit {
     const last = Object.assign({}, elements[elements.length - 1]);
     last.elements = [cloneDeep(widget)];
     return last;
+  }
+
+  /** Scrolls the category chip row left/right by one chip width */
+  scrollCategories(direction: 'left' | 'right'): void {
+    const scroller = this.categoryScroller()?.nativeElement;
+    if (!scroller) return;
+    const scrollAmount = 120;
+    scroller.scrollBy({
+      left: direction === 'left' ? -scrollAmount : scrollAmount,
+      behavior: 'smooth',
+    });
   }
 }

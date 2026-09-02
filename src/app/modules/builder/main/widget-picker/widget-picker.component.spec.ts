@@ -34,6 +34,31 @@ describe('WidgetPickerComponent', () => {
     ),
   };
 
+  const makeLibrary = () => [
+    {
+      label: '基础组件',
+      icon: 'cube-outline',
+      type: 'base' as const,
+      elements: [
+        {
+          id: 'hero',
+          label: '首屏',
+          icon: 'view-quilt',
+          child: [
+            { id: 'hero-1v1', label: 'Hero 1v1', mark: '大标题 + 按钮', icon: 'view-quilt' },
+            { id: 'hero-2v1', label: 'Hero 2v1', mark: '左右分栏', icon: 'view-quilt' },
+          ],
+        },
+        {
+          id: 'card',
+          label: '卡片',
+          icon: 'card-outline',
+          child: [{ id: 'card-1v1', label: '卡片 1v1', mark: '基础卡片', icon: 'card-outline' }],
+        },
+      ],
+    },
+  ];
+
   beforeEach(async () => {
     vi.clearAllMocks();
     webformPicker.getWebforms.mockReturnValue(
@@ -51,8 +76,7 @@ describe('WidgetPickerComponent', () => {
         { provide: UtilitiesService, useValue: util },
         { provide: LocalStorageService, useValue: storage },
         { provide: WebformPickerService, useValue: webformPicker },
-        // ngOnInit destructures the first library entry, so provide one minimal valid dataset
-        { provide: UIUX, useValue: of([{ label: '', icon: '', type: 'base', elements: [] }]) },
+        { provide: UIUX, useValue: of(makeLibrary()) },
       ],
     }).compileComponents();
 
@@ -63,6 +87,63 @@ describe('WidgetPickerComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('single-level category navigation', () => {
+    it('starts with category index 0 = "All" showing every component', () => {
+      expect(component.activeCategoryIndex()).toBe(0);
+      // 2 hero + 1 card + 1 webform = 4 total visible items
+      expect(component.visibleItems()).toHaveLength(4);
+    });
+
+    it('filters to a single category when a chip is selected', () => {
+      // Index 1 = first group (hero)
+      component.selectCategory(1);
+      expect(component.visibleItems().every(hit => hit.group.id === 'hero')).toBe(true);
+      expect(component.visibleItems()).toHaveLength(2);
+
+      // Index 2 = second group (card)
+      component.selectCategory(2);
+      expect(component.visibleItems().every(hit => hit.group.id === 'card')).toBe(true);
+      expect(component.visibleItems()).toHaveLength(1);
+    });
+
+    it('includes the webform group as the last category when ready', () => {
+      const groups = component.widgetGroups();
+      expect(groups.at(-1)?.id).toBe('webform');
+      expect(component.webformState()).toBe('ready');
+    });
+
+    it('drops the webform category when the deployment did not enable the endpoint', () => {
+      webformPicker.getWebforms.mockReturnValueOnce(throwError(() => ({ status: 404 })));
+
+      component.loadWebforms();
+
+      expect(component.webformState()).toBe('unavailable');
+      expect(component.widgetGroups().some(group => group.id === 'webform')).toBe(false);
+    });
+  });
+
+  describe('search', () => {
+    it('aggregates hits across all categories and includes group info', () => {
+      component.searchQuery.set('hero');
+      const hits = component.visibleItems();
+      expect(hits.length).toBeGreaterThan(0);
+      expect(hits.every(hit => hit.group.id === 'hero')).toBe(true);
+    });
+
+    it('ignores category selection while searching', () => {
+      component.selectCategory(2); // card category
+      component.searchQuery.set('hero');
+      const hits = component.visibleItems();
+      expect(hits.every(hit => hit.group.id === 'hero')).toBe(true);
+    });
+
+    it('returns empty array for no matches', () => {
+      component.searchQuery.set('zzzzz');
+      expect(component.visibleItems()).toEqual([]);
+      expect(component.isSearching()).toBe(true);
+    });
   });
 
   it('warns and does nothing when no target position has been selected', () => {
@@ -125,7 +206,8 @@ describe('WidgetPickerComponent', () => {
   });
 
   describe('webform group', () => {
-    const webformCard = () => component.widgetGroups().at(-1)!.child[0];
+    const webformCard = () =>
+      component.widgetGroups().find(g => g.id === 'webform')!.child[0];
 
     it('appends a webform category built from the CMS list', () => {
       const group = component.widgetGroups().at(-1)!;
@@ -150,33 +232,6 @@ describe('WidgetPickerComponent', () => {
 
       expect(component.webformState()).toBe('error');
       expect(component.webforms()).toEqual([]);
-    });
-
-    it('drops the category when the deployment did not enable the endpoint', () => {
-      webformPicker.getWebforms.mockReturnValueOnce(throwError(() => ({ status: 404 })));
-
-      component.loadWebforms();
-
-      // A category that can only ever report an error is worse than no category
-      expect(component.webformState()).toBe('unavailable');
-      expect(component.widgetGroups().some(group => group.id === 'webform')).toBe(false);
-    });
-
-    it('leaves the open group when it turns out to be unavailable', () => {
-      component.selectGroup(component.widgetGroups().at(-1)!);
-      webformPicker.getWebforms.mockReturnValueOnce(throwError(() => ({ status: 403 })));
-
-      component.loadWebforms();
-
-      expect(component.currentGroup()).toBeNull();
-    });
-
-    it('keeps showing the live webform group after the list arrives', () => {
-      const stale = component.widgetGroups().at(-1)!;
-      component.selectGroup(stale);
-
-      expect(component.currentGroup()?.id).toBe('webform');
-      expect(component.currentGroup()?.child).toHaveLength(1);
     });
 
     it('fetches the fields and inserts the built dynamic-form node', () => {
@@ -252,8 +307,8 @@ describe('WidgetPickerComponent', () => {
       expect(builderState.updatePageContentByPath).not.toHaveBeenCalled();
     });
 
-    it('never opens the hover preview for a webform card', () => {
-      component.onHoverWidget(webformCard(), document.createElement('button'));
+    it('never sets hoveredWidget for a webform card (no preview)', () => {
+      component.onPointerEnterRow(webformCard(), document.createElement('button'));
 
       expect(component.hoveredWidget()).toBeNull();
     });

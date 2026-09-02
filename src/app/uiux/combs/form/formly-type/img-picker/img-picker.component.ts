@@ -46,7 +46,7 @@ export class ImgPickerComponent extends FieldType implements OnInit {
 
   /** Button/card switch to the shadcn style under shadcn-themed forms (formState.uiTheme) */
   get isShadcn(): boolean {
-    return this.options.formState?.uiTheme === 'shadcn';
+    return this.options?.formState?.uiTheme === 'shadcn';
   }
 
   ngOnInit(): void {
