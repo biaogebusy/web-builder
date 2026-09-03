@@ -1,6 +1,11 @@
 import type { FormlyFieldConfig } from '@ngx-formly/core';
 import { getChart } from './getChart';
+import { getChartBox } from './getChartBox';
 import { getGridLayoutConfig } from './getCommon';
+import { getHero2v1 } from './getHero2v1';
+import { getHero2v3 } from './getHero2v3';
+import { getShowcase1v1 } from './getShowcase1v1';
+import { getShowcase3v9 } from './getShowcase3v9';
 import { getSwiper } from './getSwiper';
 import { getText } from './getText';
 import { getTitle } from './getTitle';
@@ -22,6 +27,11 @@ const componentSettingFactories: Record<string, ComponentSettingFactory> = {
   ['carousel-1v2']: getCarouselTitleSetting,
   ['carousel-2v2']: getCarouselTitleSetting,
   ['hero-1v1']: getCarouselTitleSetting,
+  ['showcase-1v1']: getShowcase1v1Setting,
+  ['showcase-3v9']: getShowcase3v9Setting,
+  ['chart-box']: getChartBoxSetting,
+  ['hero-2v1']: getHero2v1Setting,
+  ['hero-2v3']: getHero2v3Setting,
 };
 
 export function getComponentSpecificSetting(content: any, path: string): FormlyFieldConfig[] {
@@ -285,6 +295,26 @@ function getCarouselSwiperSetting(swiper: any): FormlyFieldConfig {
       },
     ],
   };
+}
+
+function getShowcase1v1Setting(content: any): FormlyFieldConfig[] {
+  return getShowcase1v1(content).fieldGroup ?? [];
+}
+
+function getShowcase3v9Setting(content: any): FormlyFieldConfig[] {
+  return getShowcase3v9(content).fieldGroup ?? [];
+}
+
+function getChartBoxSetting(content: any): FormlyFieldConfig[] {
+  return getChartBox(content).fieldGroup ?? [];
+}
+
+function getHero2v1Setting(content: any): FormlyFieldConfig[] {
+  return getHero2v1(content).fieldGroup ?? [];
+}
+
+function getHero2v3Setting(content: any): FormlyFieldConfig[] {
+  return getHero2v3(content).fieldGroup ?? [];
 }
 
 function getDefaultSetting(content: any): FormlyFieldConfig[] {
