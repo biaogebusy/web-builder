@@ -6,6 +6,8 @@ import { getHero2v1 } from './getHero2v1';
 import { getHero2v3 } from './getHero2v3';
 import { getShowcase1v1 } from './getShowcase1v1';
 import { getShowcase3v9 } from './getShowcase3v9';
+import { getShowcase4v1 } from './getShowcase4v1';
+import { getTab1v1 } from './getTab1v1';
 import { getSwiper } from './getSwiper';
 import { getText } from './getText';
 import { getTitle } from './getTitle';
@@ -32,6 +34,8 @@ const componentSettingFactories: Record<string, ComponentSettingFactory> = {
   ['chart-box']: getChartBoxSetting,
   ['hero-2v1']: getHero2v1Setting,
   ['hero-2v3']: getHero2v3Setting,
+  ['showcase-4v1']: getShowcase4v1Setting,
+  ['tab-1v1']: getTab1v1Setting,
 };
 
 export function getComponentSpecificSetting(content: any, path: string): FormlyFieldConfig[] {
@@ -315,6 +319,14 @@ function getHero2v1Setting(content: any): FormlyFieldConfig[] {
 
 function getHero2v3Setting(content: any): FormlyFieldConfig[] {
   return getHero2v3(content).fieldGroup ?? [];
+}
+
+function getShowcase4v1Setting(content: any): FormlyFieldConfig[] {
+  return getShowcase4v1(content).fieldGroup ?? [];
+}
+
+function getTab1v1Setting(content: any): FormlyFieldConfig[] {
+  return getTab1v1(content).fieldGroup ?? [];
 }
 
 function getDefaultSetting(content: any): FormlyFieldConfig[] {
