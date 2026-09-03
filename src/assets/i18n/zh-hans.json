@@ -1281,6 +1281,8 @@
       "PLAY_MUTED": "播放并静音",
       "VIDEO_LOOP": "循环播放",
       "VIDEO_CONTROLS": "控制条",
+      "VIDEO_MUTED": "静音",
+      "VIDEO_PLAYSINLINE": "行内播放（移动端）",
       "VIDEO_FIT": "适配模式",
       "VIDEO_FIT_COVER": "按比例铺满",
       "VIDEO_FIT_CONTAIN": "完整显示",

@@ -1281,6 +1281,8 @@
       "PLAY_MUTED": "Play muted",
       "VIDEO_LOOP": "Loop",
       "VIDEO_CONTROLS": "Controls",
+      "VIDEO_MUTED": "Muted",
+      "VIDEO_PLAYSINLINE": "Play inline (mobile)",
       "VIDEO_FIT": "Fit mode",
       "VIDEO_FIT_COVER": "Cover",
       "VIDEO_FIT_CONTAIN": "Contain",
