@@ -9,6 +9,7 @@ import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { FORM_IMPORTS } from '@uiux/combs/form/form-imports';
 import type { ILayoutSetting } from '@core/interface/IBuilder';
 import { SyncWebformComponent } from '@modules/builder/factory/formly-type/sync-webform/sync-webform.component';
+import { ChartDataComponent } from '@modules/builder/factory/formly-type/chart-data/chart-data.component';
 import type { IDynamicInputs } from '@core/interface/IAppConfig';
 import { IDialog } from '@core/interface/IDialog';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
@@ -30,7 +31,10 @@ import { cloneDeep, defaultsDeep, get } from 'lodash-es';
       provide: FORMLY_CONFIG,
       multi: true,
       useValue: {
-        types: [{ name: 'sync-webform', component: SyncWebformComponent }],
+        types: [
+          { name: 'sync-webform', component: SyncWebformComponent },
+          { name: 'chart-data', component: ChartDataComponent },
+        ],
       },
     },
   ],

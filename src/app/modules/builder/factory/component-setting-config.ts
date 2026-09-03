@@ -1,4 +1,5 @@
 import type { FormlyFieldConfig } from '@ngx-formly/core';
+import { getChart } from './getChart';
 import { getGridLayoutConfig } from './getCommon';
 import { getSwiper } from './getSwiper';
 import { getText } from './getText';
@@ -10,6 +11,7 @@ type ComponentSettingFactory = (content: any, path: string) => FormlyFieldConfig
 
 const componentSettingFactories: Record<string, ComponentSettingFactory> = {
   ['layout-builder']: getLayoutBuilderSetting,
+  chart: getChart,
   swiper: getSwiperSetting,
   video: getVideoSetting,
   text: getTextSetting,
