@@ -10,7 +10,8 @@ import {
   output,
   afterNextRender,
   ChangeDetectionStrategy,
-  viewChild
+  viewChild,
+  Injector,
 } from '@angular/core';
 
 import { getLibraryAsset } from '@core/config/library-assets';
@@ -45,15 +46,19 @@ export class SwiperComponent implements OnInit, AfterViewInit {
   private screenService = inject(ScreenService);
   private util = inject(UtilitiesService);
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  private injector = inject(Injector);
 
+  // Fallback config for params the saved widget omits. Kept in sync with the
+  // builder panel defaults (getSwiper.ts) so a swiper renders the same whether
+  // or not its settings panel was ever opened: navigation/autoplay are opt-in.
   private defaultConfig = {
     slidesPerView: 'auto',
-    speed: 1000,
+    speed: 300,
     scrollbar: false,
     keyboard: true,
     mousewheel: false,
-    navigation: true,
-    autoplay: true,
+    navigation: false,
+    autoplay: false,
     injectStyles: [
       `
       .swiper-button-next,
@@ -65,20 +70,43 @@ export class SwiperComponent implements OnInit, AfterViewInit {
     ],
   };
   private config: any;
+  private initialized = false;
+
+  private buildConfig(content: ISwiper): any {
+    return Object.assign({}, this.defaultConfig, content?.params);
+  }
+
+  private applyConfig(swiperEle: any, config: any): void {
+    // Swiper's render() runs only once — nav/pagination DOM is built at init.
+    // Destroy and re-initialize so structural changes (enabling pagination,
+    // changing effect, etc.) actually take effect.
+    if (this.initialized && swiperEle.swiper) {
+      swiperEle.swiper.destroy(true, true);
+      swiperEle.rendered = false;
+      swiperEle.passedParams = undefined;
+      swiperEle.classList.remove('swiper-ready');
+    }
+    Object.assign(swiperEle, config);
+    swiperEle.classList.add('swiper-ready');
+    swiperEle.initialize();
+    this.initialized = true;
+
+    const content = this.content();
+    if (content?.classes) {
+      // classes may be a space-separated string; classList.add throws on a
+      // token containing whitespace, which would abort the listeners below.
+      swiperEle.classList.add(...content.classes.split(/\s+/).filter(Boolean));
+    }
+  }
 
   constructor() {
     afterNextRender(() => {
-      const swiperEle = this.swiper().nativeElement;
-      Object.assign(swiperEle, this.config);
-      // Reveal the slides hidden by the pre-init CSS before initialize() so
-      // Swiper measures real slide sizes; same task, so the stacked layout is
-      // never painted.
-      swiperEle.classList.add('swiper-ready');
-      swiperEle.initialize();
-      const content = this.content();
-      if (content?.classes) {
-        swiperEle.classList.add(content?.classes);
-      }
+      const swiperEle = this.swiper()!.nativeElement;
+
+      // Initial render.
+      this.config = this.buildConfig(this.content());
+      this.applyConfig(swiperEle, this.config);
+
       swiperEle.addEventListener('swiperslidechange', (event: any) => {
         const [swiper] = event.detail;
         this.slideChange.emit(swiper);
@@ -93,6 +121,19 @@ export class SwiperComponent implements OnInit, AfterViewInit {
           }
         });
       }
+
+      // Re-apply when content() signal changes after the initial render
+      // (e.g. builder panel saves new params). Runs inside afterNextRender
+      // so the DOM is guaranteed ready; the effect itself fires on signal changes.
+      effect(
+        () => {
+          const newConfig = this.buildConfig(this.content());
+          if (this.initialized) {
+            this.applyConfig(swiperEle, newConfig);
+          }
+        },
+        { injector: this.injector }
+      );
     });
 
     effect(() => {
@@ -103,20 +144,11 @@ export class SwiperComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
   ngOnInit(): void {
-    let customPagination = {};
-    const content = this.content();
-    if (content?.custom?.pagination?.bulletsStyle) {
-      customPagination = {
-        pagination: {
-          type: 'bullets',
-          bulletActiveClass: 'bullets-custom-style-active',
-          clickable: true,
-        },
-      };
-    }
-    this.config = Object.assign(this.defaultConfig, content?.params, customPagination);
+    // Config is now built reactively in the constructor effect; nothing to do here.
   }
+
   async ngAfterViewInit(): Promise<void> {
     if (this.screenService.isPlatformBrowser()) {
       const source = this.coreConfig.librariesUseLocal ? 'local' : 'cdn';
@@ -127,6 +159,7 @@ export class SwiperComponent implements OnInit, AfterViewInit {
   onClick(slide: any): void {
     this.slideClick.emit(slide);
   }
+
   onpaginationRender(swiper: any): void {
     const content = this.content();
     if (content?.custom?.pagination?.bulletsStyle) {

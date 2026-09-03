@@ -35,6 +35,7 @@ const TRANSLATABLE_PROPS = [
   'addLabel',
   'deleteLabel',
   'tooltip',
+  'unit',
 ] as const;
 const TRANSLATION_KEY_RE = /^[A-Z][A-Z0-9_]*(\.[A-Z0-9_]+)+$/;
 

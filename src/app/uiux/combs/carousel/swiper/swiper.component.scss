@@ -25,13 +25,16 @@ swiper-container {
 }
 
 .swiper-container {
+  // Custom properties inherit through the shadow boundary, so these reach the
+  // internal nav arrows / pagination. The active bullet already picks up
+  // --swiper-theme-color, so it needs no extra rule.
   --swiper-navigation-color: var(--mat-sys-primary);
   --swiper-theme-color: var(--mat-sys-primary);
-  .swiper-pagination-bullet-active {
-    background-color: var(--mat-sys-primary);
-  }
-  .swiper-button-next,
-  .swiper-button-prev {
+
+  // The arrows live in the element's shadow DOM; only ::part() crosses the
+  // boundary (plain descendant selectors and ::ng-deep do not).
+  &::part(button-next),
+  &::part(button-prev) {
     color: var(--mat-sys-on-primary);
     background-color: var(--mat-sys-inverse-primary);
     border-radius: 50%;
@@ -41,26 +44,22 @@ swiper-container {
     height: 100vh;
     width: 100%;
     overflow: hidden;
-    ::ng-deep {
-      > .swiper-wrapper {
-        > .swiper-slide {
-          > * {
-            @include middle-center();
-            width: 100%;
-          }
-        }
-      }
-      > .swiper-button-prev,
-      > .swiper-button-next {
-        left: 50%;
-        top: auto;
-        right: auto;
-        bottom: 20px;
-        transform: translateX(-50%) rotate(270deg);
-      }
-      > .swiper-button-next {
-        display: none;
-      }
+    // Slides are projected into the shadow wrapper but stay in light DOM, so
+    // normal scoped selectors reach them.
+    .swiper-slide > * {
+      @include middle-center();
+      width: 100%;
+    }
+    &::part(button-prev),
+    &::part(button-next) {
+      left: 50%;
+      top: auto;
+      right: auto;
+      bottom: 20px;
+      transform: translateX(-50%) rotate(270deg);
+    }
+    &::part(button-next) {
+      display: none;
     }
   }
 }
