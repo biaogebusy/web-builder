@@ -13,7 +13,11 @@
       }
       <div class="card-bottom">
         @if (contentValue.subTitle) {
-          <p contentedit="subTitle" [innerHTML]="contentValue.subTitle | safeHtml"></p>
+          <p
+            contentedit="subTitle"
+            contenteditProfile="inline"
+            [innerHTML]="contentValue.subTitle | safeHtml"
+          ></p>
         }
         @if (contentValue.link) {
           <app-link [attr.data-path]="'link'" class="title text-base" [content]="contentValue.link" />

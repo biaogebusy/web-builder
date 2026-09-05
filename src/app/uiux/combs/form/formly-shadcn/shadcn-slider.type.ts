@@ -12,10 +12,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FieldType, FieldTypeConfig, FormlyModule } from '@ngx-formly/core';
 
 /**
- * shadcn/ui 风格滑块,对应自定义 slider 类型(MatSlider + 数值输入)。
- * 原生 <input type="range">(RangeValueAccessor 产出数字)+ 轨道填充,
- * 右侧保留数值输入与单位后缀,功能与原类型对等(min/max/step/unit);
- * 不实现 Material 的 thumbLabel 气泡(shadcn Slider 亦无此交互)。
+ * shadcn/ui-style slider, mapped from the custom slider type (MatSlider + number
+ * input). Native <input type="range"> (RangeValueAccessor yields numbers) plus a
+ * track fill, with the number input and unit suffix kept on the right; feature
+ * parity with the original type (min/max/step/unit). Material's thumbLabel bubble
+ * is not implemented (the shadcn Slider has no such interaction either).
  */
 @Component({
   selector: 'formly-shadcn-slider',
@@ -72,7 +73,7 @@ export class ShadcnSliderType extends FieldType<FieldTypeConfig> implements OnIn
     this.formControl.valueChanges
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(value => {
-        // 与原 slider 类型一致:字符串值统一回写为数字
+        // Matches the original slider type: string values are always written back as numbers
         if (typeof value === 'string' && value !== '') {
           this.formControl.patchValue(Number(value), { emitEvent: false });
         }

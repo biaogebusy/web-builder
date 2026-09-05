@@ -4,8 +4,8 @@ import { isPlatformServer } from '@angular/common';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { environment } from 'src/environments/environment';
-import { Observable, lastValueFrom, of } from 'rxjs';
-import { catchError, retry, shareReplay, take, tap, timeout } from 'rxjs/operators';
+import { BehaviorSubject, Observable, lastValueFrom, of } from 'rxjs';
+import { catchError, retry, shareReplay, switchMap, take, tap, timeout } from 'rxjs/operators';
 import { isArray } from 'lodash-es';
 import { TagsService } from '@core/service/tags.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
@@ -38,6 +38,7 @@ export class ContentService extends ApiService {
   private coreConfigCache = new Map<string, Observable<ICoreConfig>>();
   private activeConfigPath = '';
   private uiuxCache: Observable<IUiux[]>;
+  private uiuxRefresh$ = new BehaviorSubject<void>(undefined);
   private pageCache = new Map<string, Observable<IPage>>();
   private pageValueCache = new Map<string, IPage>();
   private brandingCache = new Map<string, Observable<IBranding>>();
@@ -60,7 +61,8 @@ export class ContentService extends ApiService {
       const key = this.getLandingPageUrl(lang, path);
       if (!this.pageCache.has(key)) {
         const req$ = this.http.get<IPage>(key);
-        // SSR 下由全局 HTTP 超时兜底，不重试，避免慢请求成倍占用渲染预算。
+        // Under SSR the global HTTP timeout covers the fallback; do not retry, so slow
+        // requests do not multiply the render budget
         const withRetry$ = this.isServer ? req$ : req$.pipe(retry({ count: 1, delay: 500 }));
         this.pageCache.set(
           key,
@@ -115,7 +117,7 @@ export class ContentService extends ApiService {
 
   // Rendering continues with empty content (graceful degradation), but a
   // transient upstream failure means this render must not enter the SSR HTML
-  // cache — server.ts reads the flag after the render. Stable 4xx answers
+  // cache: server.ts reads the flag after the render. Stable 4xx answers
   // keep the normal caching behavior.
   private markSsrDegraded(source: string, error: unknown): void {
     if (this.isServer && isTransientContentError(error)) {
@@ -205,12 +207,18 @@ export class ContentService extends ApiService {
     const { lang } = this.getUrlPath(this.pageUrl);
     const api = `${this.apiUrl}${lang}/api/v3/node/component`;
     if (!this.uiuxCache) {
-      this.uiuxCache = this.http.get<IUiux[]>(api).pipe(
-        catchError(() => of([])),
+      this.uiuxCache = this.uiuxRefresh$.pipe(
+        switchMap(() => this.http.get<IUiux[]>(api).pipe(catchError(() => of([])))),
         shareReplay(1)
       );
     }
     return this.uiuxCache;
+  }
+
+  // Call after the component library is added/removed/updated: all UIUX consumers
+  // (component panel, component management) share the same cache and receive the new data together
+  reloadUIUX(): void {
+    this.uiuxRefresh$.next();
   }
 
   loadBuilderConfig(): Observable<IBuilderConfig> {

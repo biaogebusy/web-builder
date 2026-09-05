@@ -1,0 +1,323 @@
+// Ledger view of the component library: the widget picker is the storefront for the same
+// data, so the manage page takes the complementary job — dense, aligned rows for auditing.
+// Structure comes from hairlines and indentation only; no elevation anywhere, matching the
+// other builder admin pages (hub, node-manage, node-add).
+:host {
+  @apply block h-full overflow-auto;
+  background: var(--shadcn-background);
+}
+
+.node-uiux {
+  .container {
+    @apply mx-auto flex max-w-6xl flex-col gap-4 px-4 py-8;
+  }
+
+  .header {
+    @apply flex flex-wrap items-start justify-between gap-4;
+  }
+  .header-text {
+    @apply flex min-w-0 flex-col gap-1;
+  }
+  .page-title {
+    @apply m-0 text-2xl font-semibold;
+  }
+  .page-summary {
+    @apply m-0 text-sm;
+    color: var(--shadcn-muted-foreground);
+    font-variant-numeric: tabular-nums;
+  }
+
+  // No overflow-hidden here: the toolbar's sticky positioning resolves against the host
+  // scroller, and clipping this box would turn it into the scroll container instead
+  .ledger {
+    background: var(--shadcn-card);
+    border: 1px solid var(--shadcn-border);
+    border-radius: var(--shadcn-radius-lg);
+  }
+
+  .toolbar {
+    @apply sticky top-0 z-10 flex flex-wrap items-center gap-3 px-3 py-2;
+    background: var(--shadcn-card);
+    border-bottom: 1px solid var(--shadcn-border);
+    border-radius: var(--shadcn-radius-lg) var(--shadcn-radius-lg) 0 0;
+  }
+
+  .search-box {
+    @apply flex min-w-0 flex-1 items-center gap-2 px-2;
+    max-width: 20rem;
+    height: var(--shadcn-control-height);
+    border: 1px solid var(--shadcn-input);
+    border-radius: var(--shadcn-radius-sm);
+    background: var(--shadcn-input-fill);
+
+    &:focus-within {
+      border-color: var(--shadcn-ring);
+      box-shadow:
+        0 0 0 var(--shadcn-ring-offset-width) var(--shadcn-ring-offset-color),
+        0 0 0 calc(var(--shadcn-ring-offset-width) + var(--shadcn-ring-width))
+          var(--shadcn-ring-subtle);
+    }
+  }
+  .search-icon {
+    @apply shrink-0;
+    color: var(--shadcn-muted-foreground);
+    ::ng-deep .mat-icon {
+      @apply h-4 w-4 text-base;
+    }
+  }
+  .search-input {
+    @apply min-w-0 flex-1 border-0 bg-transparent text-sm outline-none;
+    color: var(--shadcn-foreground);
+
+    // The browser's own clear affordance duplicates the themed clear button
+    &::-webkit-search-cancel-button {
+      appearance: none;
+    }
+    &::placeholder {
+      color: var(--shadcn-muted-foreground);
+    }
+  }
+  .search-clear {
+    @apply flex h-6 w-6 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 p-0;
+    background: transparent;
+    color: var(--shadcn-muted-foreground);
+
+    &:hover {
+      background: var(--shadcn-accent);
+      color: var(--shadcn-foreground);
+    }
+    &:focus-visible {
+      outline: 2px solid var(--shadcn-ring);
+      outline-offset: 1px;
+    }
+    ::ng-deep .mat-icon {
+      @apply h-4 w-4 text-base;
+    }
+  }
+
+  .toolbar-controls {
+    @apply ml-auto flex items-center gap-2;
+  }
+  .select-all {
+    @apply text-sm;
+  }
+  .expand-toggle {
+    color: var(--shadcn-muted-foreground);
+  }
+
+  // Appears only with a selection; wraps to its own line before it can squeeze the search box
+  .selection {
+    @apply flex basis-full items-center gap-2 sm:basis-auto;
+  }
+  .selection-count {
+    @apply text-xs font-medium;
+    color: var(--shadcn-primary);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .result-meta {
+    @apply m-0 px-4 py-2 text-xs;
+    color: var(--shadcn-muted-foreground);
+    border-bottom: 1px solid var(--shadcn-border);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .list {
+    @apply relative;
+  }
+  .skeleton {
+    @apply flex flex-col gap-2 p-3;
+  }
+
+  // Load failures are swallowed upstream (loadUIUX catches into an empty list), so this
+  // state has to read as "nothing here yet" and invite the first component
+  .state {
+    @apply flex flex-col items-center gap-3 px-4 py-16 text-center;
+  }
+  .state-icon {
+    color: var(--shadcn-muted-foreground);
+    ::ng-deep .mat-icon {
+      @apply h-8 w-8 text-4xl;
+    }
+  }
+  .state-text {
+    @apply m-0 text-sm font-medium;
+  }
+  .state-hint {
+    @apply m-0 max-w-sm text-xs;
+    color: var(--shadcn-muted-foreground);
+  }
+
+  .group + .group {
+    border-top: 1px solid var(--shadcn-border);
+  }
+  .group-heading {
+    @apply m-0;
+  }
+  .group-toggle {
+    @apply flex w-full cursor-pointer items-center gap-2 border-0 bg-transparent px-3 py-2 text-left;
+    color: inherit;
+
+    &:hover:not(:disabled) {
+      background: var(--shadcn-accent);
+    }
+    &:focus-visible {
+      outline: 2px solid var(--shadcn-ring);
+      outline-offset: -2px;
+    }
+    // While searching every match is shown expanded, so the control is inert — the chevron
+    // slot stays to keep the name column in the same place as in the browsing state
+    &:disabled {
+      @apply cursor-default;
+      .group-chevron {
+        @apply invisible;
+      }
+    }
+  }
+  .group-chevron {
+    @apply shrink-0;
+    color: var(--shadcn-muted-foreground);
+    transition: transform 0.15s ease;
+    ::ng-deep .mat-icon {
+      @apply h-5 w-5 text-xl;
+    }
+    &.is-open {
+      transform: rotate(90deg);
+    }
+  }
+  .group-icon {
+    @apply grid h-6 w-6 shrink-0 place-items-center;
+    border-radius: var(--shadcn-radius-sm);
+    color: var(--shadcn-primary);
+    background: color-mix(in srgb, var(--shadcn-primary) 8%, transparent);
+    ::ng-deep .mat-icon {
+      @apply h-4 w-4 text-base;
+    }
+
+    // A category with no icon keeps the slot so the names stay aligned, but not the chip:
+    // an empty tinted box reads as a glyph that failed to load
+    &.is-blank {
+      background: transparent;
+    }
+  }
+  .group-name {
+    @apply min-w-0 flex-1 truncate text-sm font-semibold;
+  }
+  .group-count {
+    @apply shrink-0 text-xs;
+    color: var(--shadcn-muted-foreground);
+    font-variant-numeric: tabular-nums;
+  }
+
+  // Nesting is carried by the indent and the rule that runs to the count; no arrow glyph
+  .sub-heading {
+    @apply m-0 flex items-center gap-3 py-1.5 pl-9 pr-4;
+  }
+  .sub-name {
+    @apply shrink-0 text-xs font-medium;
+    color: var(--shadcn-muted-foreground);
+  }
+  .sub-rule {
+    @apply h-px flex-1;
+    background: var(--shadcn-border);
+  }
+  .sub-count {
+    @apply shrink-0 text-xs;
+    color: var(--shadcn-muted-foreground);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .items {
+    @apply m-0 list-none p-0;
+  }
+  .item {
+    @apply flex items-center gap-3 py-1 pl-8 pr-2;
+
+    &:hover {
+      background: var(--shadcn-muted);
+    }
+    // Inset bar instead of a border, so selecting a row never shifts its content
+    &.is-selected {
+      background: color-mix(in srgb, var(--shadcn-primary) 7%, transparent);
+      box-shadow: inset 2px 0 0 var(--shadcn-primary);
+    }
+  }
+  .item + .item {
+    border-top: 1px solid var(--shadcn-border);
+  }
+
+  .item-select {
+    @apply min-w-0 flex-1;
+    --mat-checkbox-state-layer-size: 2.25rem;
+    --mat-checkbox-touch-target-size: 2.5rem;
+
+    // The row's name lives in the checkbox label, which Material renders as an inline-flex
+    // field; both have to stretch for the name to truncate instead of overflow
+    ::ng-deep .mat-internal-form-field {
+      @apply w-full min-w-0;
+    }
+    ::ng-deep label {
+      @apply flex min-w-0 flex-1 items-center;
+    }
+  }
+  .item-text {
+    @apply flex min-w-0 flex-1 items-baseline gap-3;
+  }
+  .item-name {
+    @apply truncate text-sm font-medium;
+  }
+  .item-mark {
+    @apply min-w-0 truncate text-xs;
+    color: var(--shadcn-muted-foreground);
+  }
+  // The icon field shown once, as one cell: the glyph and the literal string an admin types
+  // into the icon input are the same value. Fixed width so glyphs and slugs each line up in
+  // a column; on narrow screens the human-readable mark wins the space instead
+  .item-icon {
+    @apply hidden shrink-0 items-center gap-1.5 sm:flex;
+    width: 11rem;
+    color: var(--shadcn-muted-foreground);
+
+    code {
+      @apply truncate font-mono text-xs;
+    }
+    ::ng-deep .mat-icon {
+      @apply h-5 w-5 shrink-0 text-xl;
+    }
+    &.is-empty {
+      @apply text-xs;
+    }
+  }
+  .item-actions {
+    @apply shrink-0;
+    color: var(--shadcn-muted-foreground);
+    ::ng-deep .mat-icon {
+      @apply h-5 w-5 text-xl;
+    }
+  }
+
+  // A write is in flight: the list stays readable but inert until the refresh lands
+  .busy {
+    @apply absolute inset-0 z-10 grid place-items-center;
+    background: color-mix(in srgb, var(--shadcn-background) 72%, transparent);
+  }
+  .list.is-busy > *:not(.busy) {
+    @apply pointer-events-none;
+  }
+}
+
+// mat-menu renders in an overlay outside .node-uiux, so its rules stay at the top level
+.menu-icon {
+  @apply mr-2 inline-flex align-middle;
+}
+
+.menu-item-danger {
+  --mat-menu-item-label-text-color: var(--shadcn-destructive);
+  --mat-menu-item-icon-color: var(--shadcn-destructive);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .node-uiux .group-chevron {
+    transition: none;
+  }
+}

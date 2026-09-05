@@ -29,14 +29,12 @@ import { BgImgComponent } from './bg-img/bg-img.component';
 import { Card1v1Component } from './card/card1v1/card1v1.component';
 import { BtnComponent } from './btn/btn.component';
 import { Card1v2Component } from './card/card1v2/card1v2.component';
-import { Card1v3Component } from './card/card1v3/card1v3.component';
 import { Card1v4Component } from './card/card1v4/card1v4.component';
 import { CardMetaComponent } from './card/card-meta/card-meta.component';
 import { MediaMetaComponent } from './media/media-meta/media-meta.component';
 import { TextHeroComponent } from './text-hero/text-hero.component';
 import { ContentBoxComponent } from './content-box/content-box.component';
 import { DynamicTableComponent } from './dynamic-table/dynamic-table.component';
-import { InlineLightboxComponent } from './lightbox/inline-lightbox/inline-lightbox.component';
 import { ContentTextCenterComponent } from './content-text-center/content-text-center.component';
 import { ViewListComponent } from './view-list/view-list.component';
 import { UserCardComponent } from './card/user-card/user-card.component';
@@ -76,7 +74,6 @@ const standaloneComponents = [
   SwitchThemeComponent,
   CustomThemeComponent,
   BtnComponent,
-  InlineLightboxComponent,
   ImgComponent,
   BgImgComponent,
   DynamicComponentComponent,
@@ -94,7 +91,6 @@ const standaloneComponents = [
   BtnVideoComponent,
   Card1v1Component,
   Card1v2Component,
-  Card1v3Component,
   Card1v4Component,
   Card1v5Component,
   Card1v6Component,
@@ -156,14 +152,12 @@ export {
   Card1v1Component,
   BtnComponent,
   Card1v2Component,
-  Card1v3Component,
   Card1v4Component,
   CardMetaComponent,
   MediaMetaComponent,
   TextHeroComponent,
   ContentBoxComponent,
   DynamicTableComponent,
-  InlineLightboxComponent,
   ContentTextCenterComponent,
   ViewListComponent,
   UserCardComponent,

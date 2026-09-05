@@ -114,6 +114,140 @@ describe('getComponentSetting', () => {
     ]);
   });
 
+  it('keeps webform id, submit button, and wrapper class fields for a dynamic form', () => {
+    expect(
+      summarizeTabs({
+        type: 'dynamic-form',
+        form: { type: 'formly', id: 'contact', fields: [] },
+        action: {
+          classes: 'flex justify-center mt-4',
+          submit: { type: 'btn', mode: 'flat', color: 'primary', label: 'Submit' },
+        },
+      })
+    ).toEqual([
+      {
+        label: 'BUILDER.FACTORY.COMMON_TAB',
+        fields: ['<group>', 'containerClasses', 'bg'],
+      },
+      {
+        label: 'BUILDER.FACTORY.FORM_TAB',
+        fields: ['form', 'sync-webform', 'action', 'formClasses', 'classes'],
+      },
+      {
+        label: 'BUILDER.FACTORY.ANIMATION_TAB_LABEL',
+        fields: ['animate'],
+      },
+    ]);
+  });
+
+  it('keeps chart fields on real EChartsOption paths so the model merges back cleanly', () => {
+    expect(
+      summarizeTabs({
+        type: 'chart',
+        series: [{ type: 'bar', name: 'Sales', data: [10, 20, 30] }],
+        title: { text: 'My Chart' },
+        xAxis: { type: 'category' },
+        yAxis: { type: 'value' },
+      })
+    ).toEqual([
+      {
+        label: 'BUILDER.FACTORY.COMMON_TAB',
+        fields: ['<group>', 'containerClasses', 'bg'],
+      },
+      {
+        label: 'BUILDER.FACTORY.CHART_TAB',
+        fields: [
+          'series.0.type',
+          'series.0.name',
+          'series.0.label.show',
+          'title.show',
+          'title.text',
+          'title.subtext',
+          'title.left',
+        ],
+      },
+      {
+        label: 'BUILDER.FACTORY.CHART_LEGEND_TAB',
+        fields: ['legend.show', 'legend.left', 'legend.top', 'legend.orient'],
+      },
+      {
+        label: 'BUILDER.FACTORY.CHART_TOOLTIP_TAB',
+        fields: ['tooltip.show', 'tooltip.trigger'],
+      },
+      {
+        label: 'BUILDER.FACTORY.CHART_AXIS_TAB',
+        fields: [
+          'xAxis.show',
+          'xAxis.type',
+          'xAxis.name',
+          'yAxis.show',
+          'yAxis.type',
+          'yAxis.name',
+          'grid.left',
+          'grid.right',
+          'grid.top',
+          'grid.bottom',
+        ],
+      },
+      {
+        label: 'BUILDER.FACTORY.TAB_LABEL_DATA',
+        fields: ['chart-data'],
+      },
+      {
+        label: 'BUILDER.FACTORY.ANIMATION_TAB_LABEL',
+        fields: ['animate'],
+      },
+    ]);
+  });
+
+  it('seeds the chart type select from the existing series so the value is never blank', () => {
+    const tabs = getComponentSetting({ type: 'chart', series: [{ type: 'pie' }] }, '0')[0].fieldGroup;
+    const chartTab = tabs?.find(tab => tab.props?.label === 'BUILDER.FACTORY.CHART_TAB');
+    const typeField = chartTab?.fieldGroup?.find(field => field.key === 'series.0.type');
+
+    expect(typeField?.defaultValue).toBe('pie');
+  });
+
+  it('does not seed a legend, tooltip, or title onto a chart that never declared one', () => {
+    const tabs = getComponentSetting({ type: 'chart', series: [{ type: 'bar' }] }, '0')[0].fieldGroup;
+    const showOf = (label: string, key: string) =>
+      tabs
+        ?.find(tab => tab.props?.label === label)
+        ?.fieldGroup?.find(field => field.key === key)?.defaultValue;
+
+    expect(showOf('BUILDER.FACTORY.CHART_LEGEND_TAB', 'legend.show')).toBe(false);
+    expect(showOf('BUILDER.FACTORY.CHART_TOOLTIP_TAB', 'tooltip.show')).toBe(false);
+    expect(showOf('BUILDER.FACTORY.CHART_TAB', 'title.show')).toBe(false);
+  });
+
+  it('leaves grid padding unseeded so an untouched chart keeps the ECharts default', () => {
+    const tabs = getComponentSetting({ type: 'chart', series: [{ type: 'bar' }] }, '0')[0].fieldGroup;
+    const axisTab = tabs?.find(tab => tab.props?.label === 'BUILDER.FACTORY.CHART_AXIS_TAB');
+
+    expect(
+      axisTab?.fieldGroup?.filter(field => String(field.key).startsWith('grid.'))
+        .every(field => field.defaultValue === undefined)
+    ).toBe(true);
+  });
+
+  it('omits the axis tab for a non-cartesian series instead of showing a blank tab', () => {
+    // the tabs type renders a header per fieldGroup entry regardless of `hide`
+    const labels = (type: string) =>
+      getComponentSetting({ type: 'chart', series: [{ type }] }, '0')[0].fieldGroup?.map(
+        tab => tab.props?.label
+      );
+
+    expect(labels('pie')).not.toContain('BUILDER.FACTORY.CHART_AXIS_TAB');
+    expect(labels('line')).toContain('BUILDER.FACTORY.CHART_AXIS_TAB');
+  });
+
+  it('passes the component path to the chart data editor', () => {
+    const tabs = getComponentSetting({ type: 'chart' }, 'body.2.elements.0')[0].fieldGroup;
+    const dataTab = tabs?.find(tab => tab.props?.label === 'BUILDER.FACTORY.TAB_LABEL_DATA');
+
+    expect(dataTab?.fieldGroup?.[0].props?.['path']).toBe('body.2.elements.0');
+  });
+
   it.each(['future-widget', 'constructor'])(
     'keeps unknown component type %s on the existing no-visual-settings fallback',
     type => {

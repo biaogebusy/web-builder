@@ -1,4 +1,4 @@
-import { getAttrAlias } from '@core/util/builder-page.util';
+import { decodeMetaTags, getAttrAlias, type MetaTags } from '@core/util/builder-page.util';
 import type { FormlyFieldConfig } from '@ngx-formly/core';
 
 interface PageSettingFieldsOptions {
@@ -30,7 +30,7 @@ export function buildPageSettingFields({
     },
   } = data;
   const user = included.find(item => item.type === 'user--user');
-  const fields = [
+  const basicFields = [
     getCommonField('title', title.trim()),
     getCommonField(
       'alias',
@@ -54,13 +54,12 @@ export function buildPageSettingFields({
     getCommonField('type', type),
     getCommonField('langcode', langcode),
     getCommonField('nid', drupal_internal__nid),
-    getCommonField('description', meta_tags?.description),
   ];
 
   if (type === 'node--landing_page') {
     const cover = included.find(item => item.type === 'file--file');
     const pageGroup = included.find(item => item.type === 'taxonomy_term--page_group');
-    fields.splice(
+    basicFields.splice(
       2,
       0,
       {
@@ -128,7 +127,27 @@ export function buildPageSettingFields({
     );
   }
 
-  return fields;
+  const tabs: FormlyFieldConfig[] = [
+    {
+      props: {
+        label: translate('BUILDER.PAGE_SETTING.BASIC'),
+      },
+      fieldGroup: basicFields,
+    },
+  ];
+
+  // Only landing pages carry the Drupal `meta_tags` field; patching it on other
+  // bundles fails, so the SEO tab stays out of their form
+  if (type === 'node--landing_page') {
+    tabs.push(getCommonField('meta_tags', decodeMetaTags(meta_tags)));
+  }
+
+  return [
+    {
+      type: 'tabs',
+      fieldGroup: tabs,
+    },
+  ];
 }
 
 export function buildPageSettingCommonField(
@@ -209,22 +228,8 @@ export function buildPageSettingCommonField(
           'props.disabled': 'formState.disabled',
         },
       };
-    case 'description':
-      return {
-        key: 'meta_tags',
-        fieldGroup: [
-          {
-            key: 'description',
-            type: 'textarea',
-            defaultValue,
-            props: {
-              label: translate('BUILDER.PAGE_SETTING.PAGE_DESC'),
-              rows: 2,
-              disabled: true,
-            },
-          },
-        ],
-      };
+    case 'meta_tags':
+      return buildSeoField(defaultValue, translate);
     default:
       return {
         key,
@@ -236,4 +241,75 @@ export function buildPageSettingCommonField(
         },
       };
   }
+}
+
+/**
+ * SEO tab backed by the Drupal metatag field. Only tags the backend renders as
+ * `<meta name="…">` are offered: `NodeJson::setMate()` outputs every stored tag
+ * with its metatag id as the meta name, so property-based tags (og:*, twitter:*)
+ * would come out invalid without backend work.
+ */
+function buildSeoField(tags: MetaTags, translate: (key: string) => string): FormlyFieldConfig {
+  return {
+    key: 'meta_tags',
+    props: {
+      label: translate('BUILDER.PAGE_SETTING.SEO'),
+    },
+    fieldGroup: [
+      {
+        key: 'title',
+        type: 'input',
+        className: 'w-full',
+        defaultValue: tags.title ?? '',
+        props: {
+          label: translate('BUILDER.PAGE_SETTING.SEO_TITLE'),
+          placeholder: translate('BUILDER.PAGE_SETTING.SEO_TITLE_PLACEHOLDER'),
+        },
+      },
+      {
+        key: 'description',
+        type: 'textarea',
+        className: 'w-full',
+        defaultValue: tags.description ?? '',
+        props: {
+          label: translate('BUILDER.PAGE_SETTING.PAGE_DESC'),
+          placeholder: translate('BUILDER.PAGE_SETTING.SEO_DESC_PLACEHOLDER'),
+          rows: 2,
+        },
+      },
+      {
+        key: 'keywords',
+        type: 'input',
+        className: 'w-full',
+        defaultValue: tags.keywords ?? '',
+        props: {
+          label: translate('BUILDER.PAGE_SETTING.SEO_KEYWORDS'),
+          placeholder: translate('BUILDER.PAGE_SETTING.SEO_KEYWORDS_PLACEHOLDER'),
+        },
+      },
+      {
+        key: 'robots',
+        type: 'select',
+        className: 'w-full',
+        defaultValue: tags.robots ?? '',
+        props: {
+          label: translate('BUILDER.PAGE_SETTING.SEO_ROBOTS'),
+          options: [
+            {
+              label: translate('BUILDER.PAGE_SETTING.SEO_ROBOTS_DEFAULT'),
+              value: '',
+            },
+            {
+              label: translate('BUILDER.PAGE_SETTING.SEO_ROBOTS_INDEX'),
+              value: 'index, follow',
+            },
+            {
+              label: translate('BUILDER.PAGE_SETTING.SEO_ROBOTS_NOINDEX'),
+              value: 'noindex, nofollow',
+            },
+          ],
+        },
+      },
+    ],
+  };
 }

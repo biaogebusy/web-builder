@@ -268,12 +268,12 @@ export class MapComponent implements OnInit {
       }
       const [lng, lat] = lnglat.split(',');
       this.circle = new this.AMap.Circle({
-        center: new this.AMap.LngLat(lng, lat), // 圆心位置
-        radius: radius * 1000, // 圆半径
-        fillColor: bg, // 圆形填充颜色
+        center: new this.AMap.LngLat(lng, lat),
+        radius: radius * 1000,
+        fillColor: bg,
         fillOpacity: opacity,
-        strokeColor: '#fff', // 描边颜色
-        strokeWeight: 2, // 描边宽度
+        strokeColor: '#fff',
+        strokeWeight: 2,
       });
       this.map.add(this.circle);
     }

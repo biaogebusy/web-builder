@@ -281,7 +281,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
   };
 
   const tabsGroup = fields.fieldGroup;
-  const componentConfig = getComponentSpecificSetting(content);
+  const componentConfig = getComponentSpecificSetting(content, path);
   if (path.includes('.')) {
     tabsGroup?.unshift(...componentConfig);
   } else {

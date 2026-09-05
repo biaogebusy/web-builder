@@ -32,6 +32,9 @@
         <label class="shad-label" for="nm-type">{{ 'BUILDER.NODE_MANAGE.TYPE' | translate }}</label>
         <span class="select-wrap">
           <select id="nm-type" class="shad-input shad-select" (change)="onTypeSelect($event)">
+            <option value="" [selected]="type() === ''">
+              {{ 'BUILDER.NODE_MANAGE.ALL' | translate }}
+            </option>
             @for (nodeType of nodeTypes(); track nodeType.value) {
               <option [value]="nodeType.value" [selected]="nodeType.value === type()">
                 {{ nodeType.label }}
@@ -128,6 +131,10 @@
           <thead>
             <tr>
               <th>{{ 'BUILDER.NODE_MANAGE.TITLE_COL' | translate }}</th>
+              @if (!type()) {
+                <th>{{ 'BUILDER.NODE_MANAGE.TYPE' | translate }}</th>
+              }
+              <th>{{ 'BUILDER.NODE_MANAGE.URL_COL' | translate }}</th>
               <th>{{ 'BUILDER.NODE_MANAGE.STATUS' | translate }}</th>
               <th>{{ 'BUILDER.NODE_MANAGE.LANG' | translate }}</th>
               <th>{{ 'BUILDER.NODE_MANAGE.UPDATED' | translate }}</th>
@@ -135,11 +142,15 @@
             </tr>
           </thead>
           <tbody>
-            @for (row of rows(); track row.uuid) {
+            @for (row of rows(); track row.uuid + row.langcode) {
               <tr>
                 <td class="td-title">
                   <a [href]="row.path" target="_blank" rel="noopener">{{ row.title }}</a>
                 </td>
+                @if (!type()) {
+                  <td class="td-type">{{ typeLabel(row.type) }}</td>
+                }
+                <td class="td-path" [title]="row.path">{{ row.path }}</td>
                 <td>
                   <span class="shad-badge" [class.accent]="row.status">
                     {{

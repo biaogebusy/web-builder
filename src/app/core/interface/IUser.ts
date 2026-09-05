@@ -51,7 +51,9 @@ export interface DrupalUserRole {
 export interface DrupalUserDetail {
   id: string;
   name?: string;
+  /** Core display name; the settings form writes the nickname to full_name instead */
   display_name?: string;
+  full_name?: string;
   mail?: string;
   phone_number?: string;
   user_picture?: {

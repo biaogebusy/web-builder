@@ -31,7 +31,8 @@
     @apply font-bold truncate;
   }
   .mail {
-    @apply text-gray-500 truncate;
+    @apply truncate;
+    color: var(--mat-sys-on-surface-variant);
   }
 }
 

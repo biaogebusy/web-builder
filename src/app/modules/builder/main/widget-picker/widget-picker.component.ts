@@ -4,10 +4,8 @@ import {
   ElementRef,
   OnInit,
   computed,
-  effect,
   inject,
   signal,
-  Injector,
   ChangeDetectionStrategy,
   input,
   viewChild,
@@ -30,11 +28,27 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { TranslateService } from '@ngx-translate/core';
 import { createPopper, Instance as PopperInstance } from '@popperjs/core';
+import { WebformPickerService } from './webform/webform-picker.service';
+import type { IWebformSummary, IWebformWarning } from './webform/webform.interface';
 
 interface ISearchHit {
   item: IBuilderComponentElement;
   group: IBuilderComponent;
 }
+
+/** Id of the synthetic group that lists the CMS webforms */
+const WEBFORM_GROUP_ID = 'webform';
+
+/**
+ * `unavailable` is the deployment that never enabled the list endpoint, which is
+ * a supported setup and not an error to report.
+ */
+type WebformState = 'loading' | 'ready' | 'error' | 'unavailable';
+
+/** Hover preview only shows after the pointer rests on a row for this long */
+const PREVIEW_ENTER_DELAY = 220;
+/** Keep the preview visible briefly after the pointer leaves, to avoid flicker */
+const PREVIEW_LEAVE_DELAY = 80;
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -50,37 +64,103 @@ export class WidgetPickerComponent implements OnInit {
 
   readonly previewPopup = viewChild<ElementRef>('previewPopup');
   readonly pickerRoot = viewChild<ElementRef>('picker');
+  readonly categoryScroller = viewChild<ElementRef>('categoryScroller');
 
   private readonly VIEWPORT_RATIO = 0.85;
-  /** popup 内边距（左右/上下各 12px），用于尺寸计算 */
+  /** Padding of the preview popup (12px per side), used for size calculation */
   private readonly PREVIEW_PADDING = 24;
 
-  public bcData = signal(false);
-  public selectedGroup = signal<IBuilderComponent | null>(null);
+  public bcData = signal<any>(false);
   public hoveredWidget = signal<IBuilderComponentElement | null>(null);
   public widgets = signal<IUiux>({ label: '', icon: '', type: 'base', elements: [] });
   public searchQuery = signal('');
+  /** Index of the selected category chip; 0 = "All", 1..n map to widgetGroups() */
+  public activeCategoryIndex = signal(0);
+
+  /** Exposed so the template can single out the webform group */
+  public readonly webformGroupId = WEBFORM_GROUP_ID;
+  public webformState = signal<WebformState>('loading');
+  public webforms = signal<IWebformSummary[]>([]);
+  /** Id of the webform whose fields are currently being fetched */
+  public insertingWebform = signal<string | null>(null);
+
+  /**
+   * Webforms live in the CMS, not in the static component library, so the group is
+   * built at runtime and appended after the library categories.
+   */
+  private webformGroup = computed<IBuilderComponent>(() => ({
+    id: WEBFORM_GROUP_ID,
+    label: this.translate.instant('BUILDER.WIDGET_PICKER.WEBFORM_GROUP'),
+    icon: 'form-select',
+    child: this.webforms().map(webform => ({
+      id: `${WEBFORM_GROUP_ID}:${webform.id}`,
+      type: WEBFORM_GROUP_ID,
+      label: webform.title,
+      mark: webform.description || webform.id,
+      icon: 'form-select',
+    })),
+  }));
+
   public widgetGroups = computed<IBuilderComponent[]>(() => {
     const elements = this.widgets().elements;
-    return Array.isArray(elements) ? elements : [];
+    const groups = Array.isArray(elements) ? elements : [];
+    // The webform endpoint is optional, so a deployment that did not enable it
+    // must not get a category whose only possible content is an error
+    if (this.webformState() === 'unavailable') {
+      return groups;
+    }
+    return [...groups, this.webformGroup()];
   });
 
-  /** 搜索时跨分类聚合所有匹配的组件 */
-  public searchResults = computed<ISearchHit[]>(() => {
+  /**
+   * The list of components shown below the category chips.
+   * - If a search query is active, flat list of matching items with group labels inline.
+   * - Otherwise, the components of the selected category.
+   *   "All" (index 0) shows everything grouped, or — for simplicity — flat by insertion order.
+   */
+  public visibleItems = computed<ISearchHit[]>(() => {
     const q = this.searchQuery().trim().toLowerCase();
-    if (!q) return [];
     const groups = this.widgetGroups();
-    const hits: ISearchHit[] = [];
-    for (const group of groups) {
-      for (const item of group.child) {
-        const haystack = [item.label, item.mark, group.label]
-          .filter(Boolean)
-          .join(' ')
-          .toLowerCase();
-        if (haystack.includes(q)) hits.push({ item, group });
+    if (q) {
+      const hits: ISearchHit[] = [];
+      for (const group of groups) {
+        for (const item of group.child) {
+          const haystack = [item.label, item.mark, group.label]
+            .filter(Boolean)
+            .join(' ')
+            .toLowerCase();
+          if (haystack.includes(q)) hits.push({ item, group });
+        }
       }
+      return hits;
     }
-    return hits;
+    const idx = this.activeCategoryIndex();
+    // Index 0 is the "All" synthetic chip — flatten everything
+    if (idx === 0) {
+      const all: ISearchHit[] = [];
+      for (const group of groups) {
+        for (const item of group.child) {
+          all.push({ item, group });
+        }
+      }
+      return all;
+    }
+    const group = groups[idx - 1];
+    if (!group) return [];
+    return group.child.map(item => ({ item, group }));
+  });
+
+  /** Number of results shown; used in the result count line */
+  public resultCount = computed(() => this.visibleItems().length);
+
+  /** True while a search query is active (affects how group labels display) */
+  public isSearching = computed(() => this.searchQuery().trim().length > 0);
+
+  /** The active category name — "All" or the group label */
+  public activeCategoryLabel = computed(() => {
+    const idx = this.activeCategoryIndex();
+    if (idx === 0) return this.translate.instant('BUILDER.WIDGET_PICKER.ALL');
+    return this.widgetGroups()[idx - 1]?.label ?? '';
   });
 
   private uiux$ = inject(UIUX);
@@ -89,12 +169,14 @@ export class WidgetPickerComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   private storage = inject(LocalStorageService);
   private translate = inject(TranslateService);
-  private injector = inject(Injector);
+  private webformPicker = inject(WebformPickerService);
   public builderConfig$ = inject(BUILDER_CONFIG);
 
   private widgetPopper?: PopperInstance;
   private previewResizeObserver?: ResizeObserver;
   private previewResizeFrame?: number;
+  private previewEnterTimer?: ReturnType<typeof setTimeout>;
+  private previewLeaveTimer?: ReturnType<typeof setTimeout>;
 
   ngOnInit(): void {
     this.destroyRef.onDestroy(() => this.destroyPreviewPopper());
@@ -110,16 +192,37 @@ export class WidgetPickerComponent implements OnInit {
         this.widgets.set(first);
       }
     });
+    // Loaded upfront (and cached for the session) so webforms are searchable
+    // without opening their category first
+    this.loadWebforms();
   }
 
-  selectGroup(group: IBuilderComponent): void {
-    this.searchQuery.set('');
-    this.selectedGroup.set(group);
+  /** Loads the CMS webform list; the service serves it from cache after the first call. */
+  loadWebforms(): void {
+    this.webformState.set('loading');
+    this.webformPicker
+      .getWebforms()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: list => {
+          this.webforms.set(list);
+          this.webformState.set('ready');
+        },
+        error: error => {
+          this.webforms.set([]);
+          // A missing route or a role without the REST permission means the
+          // feature is simply not available here; anything else is a real fault
+          const unavailable = error?.status === 404 || error?.status === 403;
+          this.webformState.set(unavailable ? 'unavailable' : 'error');
+          if (!unavailable) {
+            console.error('Failed to load the webform list:', error);
+          }
+        },
+      });
   }
 
-  goBack(): void {
-    this.destroyPreviewPopper();
-    this.selectedGroup.set(null);
+  selectCategory(index: number): void {
+    this.activeCategoryIndex.set(index);
   }
 
   onSearchInput(event: Event): void {
@@ -131,16 +234,49 @@ export class WidgetPickerComponent implements OnInit {
     this.searchQuery.set('');
   }
 
-  onHoverWidget(item: IBuilderComponentElement, anchor: HTMLElement): void {
+  onPointerEnterRow(item: IBuilderComponentElement, anchor: HTMLElement): void {
+    // Webform cards carry no renderable content, so there is nothing to preview
+    if (item.type === WEBFORM_GROUP_ID) {
+      return;
+    }
+    if (this.previewLeaveTimer) {
+      clearTimeout(this.previewLeaveTimer);
+      this.previewLeaveTimer = undefined;
+    }
+    if (this.previewEnterTimer) {
+      clearTimeout(this.previewEnterTimer);
+    }
+    this.previewEnterTimer = setTimeout(() => {
+      this.previewEnterTimer = undefined;
+      this.showPreview(item, anchor);
+    }, PREVIEW_ENTER_DELAY);
+  }
+
+  onPointerLeaveRow(): void {
+    if (this.previewEnterTimer) {
+      clearTimeout(this.previewEnterTimer);
+      this.previewEnterTimer = undefined;
+    }
+    if (this.previewLeaveTimer) {
+      clearTimeout(this.previewLeaveTimer);
+    }
+    this.previewLeaveTimer = setTimeout(() => {
+      this.previewLeaveTimer = undefined;
+      this.hoveredWidget.set(null);
+      this.destroyPreviewPopper();
+    }, PREVIEW_LEAVE_DELAY);
+  }
+
+  private showPreview(item: IBuilderComponentElement, anchor: HTMLElement): void {
     this.hoveredWidget.set(item);
     this.destroyPreviewPopper();
     const previewPopup = this.previewPopup();
     if (previewPopup?.nativeElement) {
       const popupEl: HTMLElement = previewPopup.nativeElement;
       const pickerEl: HTMLElement | null = this.pickerRoot()?.nativeElement ?? null;
-      // 用 card 作为 reference（与原实现一致，保证 popup 一定显示 + Popper 内部 reference rect 正确）。
-      // 通过自定义 modifier 把 popup 的 x 坐标钉到 picker 左外侧，
-      // 让左右两列卡片悬浮时 popup 横向位置一致，纵向仍跟随当前 hover 卡片。
+      // Use the row as the reference. A custom modifier pins the popup's x to the
+      // left of the picker, so hovering any row keeps the preview horizontally
+      // aligned while its vertical position still follows the hovered row.
       this.widgetPopper = createPopper(anchor, popupEl, {
         strategy: 'fixed',
         placement: 'left',
@@ -174,11 +310,6 @@ export class WidgetPickerComponent implements OnInit {
       }
       this.applyPreviewScale();
     }
-  }
-
-  onLeaveWidget(): void {
-    this.hoveredWidget.set(null);
-    this.destroyPreviewPopper();
   }
 
   private destroyPreviewPopper(): void {
@@ -223,19 +354,19 @@ export class WidgetPickerComponent implements OnInit {
     }
     const popupEl: HTMLElement = previewPopup.nativeElement;
     const canvas = popupEl.querySelector('.preview-canvas') as HTMLElement | null;
-    // popup box-sizing: border-box，padding 占用尺寸，所以先扣除得到内容可用空间
+    // Popup uses box-sizing: border-box, so padding eats into the size; subtract it for usable space
     const maxW = window.innerWidth * this.VIEWPORT_RATIO - this.PREVIEW_PADDING;
     const maxH = window.innerHeight * this.VIEWPORT_RATIO - this.PREVIEW_PADDING;
 
     if (canvas) {
-      // 先按桌面端设计宽度渲染，再根据视口统一缩放，避免预览随组件原生宽度抖动
+      // Render at the desktop design width first, then scale uniformly to the viewport, avoiding jitter
       const naturalWidth = Math.max(canvas.scrollWidth, canvas.offsetWidth, 1);
       const naturalHeight = Math.max(canvas.scrollHeight, canvas.offsetHeight, 1);
       const scale = Math.min(maxW / naturalWidth, maxH / naturalHeight, 1);
       const contentW = scale < 1 ? naturalWidth * scale : naturalWidth;
       const contentH = scale < 1 ? naturalHeight * scale : naturalHeight;
       canvas.style.transform = scale < 1 ? `scale(${scale})` : '';
-      // popup 总尺寸 = 内容尺寸 + padding，min-width / min-height 由 CSS 兜底
+      // Popup total size = content size + padding; min-width / min-height are CSS fallbacks
       popupEl.style.width = `${contentW + this.PREVIEW_PADDING}px`;
       popupEl.style.height = `${contentH + this.PREVIEW_PADDING}px`;
     } else {
@@ -252,6 +383,75 @@ export class WidgetPickerComponent implements OnInit {
     this.storage.clear(this.builder.COPYCOMPONENTKEY);
   }
 
+  /**
+   * Single entry point for both category browsing and search results:
+   * library widgets carry their content inline, webforms have to be fetched first.
+   */
+  onPick(item: IBuilderComponentElement): void {
+    if (item.type === WEBFORM_GROUP_ID) {
+      this.onSelectWebform(item);
+      return;
+    }
+    this.onSelect(item.content);
+  }
+
+  /** Fetches the selected webform's fields and inserts it as a `dynamic-form` node. */
+  onSelectWebform(item: IBuilderComponentElement): void {
+    if (this.insertingWebform()) {
+      return;
+    }
+    const webform = this.webforms().find(entry => `${WEBFORM_GROUP_ID}:${entry.id}` === item.id);
+    if (!webform) {
+      return;
+    }
+    if (!this.content()) {
+      this.util.openSnackbar(
+        this.translate.instant('BUILDER.WIDGET_PICKER.SELECT_POSITION_FIRST'),
+        'ok'
+      );
+      return;
+    }
+    this.insertingWebform.set(webform.id);
+    this.webformPicker
+      .buildDynamicForm(webform, this.translate.instant('BUILDER.WIDGET_PICKER.WEBFORM_SUBMIT'))
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: ({ content, warnings }) => {
+          this.insertingWebform.set(null);
+          this.warnAboutLossyFields(warnings);
+          this.onSelect(content);
+        },
+        error: error => {
+          this.insertingWebform.set(null);
+          this.util.openSnackbar(
+            this.translate.instant('BUILDER.WIDGET_PICKER.WEBFORM_INSERT_FAILED'),
+            'ok'
+          );
+          console.error('Failed to load the webform fields:', error);
+        },
+      });
+  }
+
+  /** True while this row's webform fields are being fetched */
+  isInserting(item: IBuilderComponentElement): boolean {
+    const inserting = this.insertingWebform();
+    return !!inserting && item.id === `${WEBFORM_GROUP_ID}:${inserting}`;
+  }
+
+  /** Element types with no formly equivalent are dropped; never do that silently. */
+  private warnAboutLossyFields(warnings: IWebformWarning[]): void {
+    const dropped = warnings.filter(warning => warning.reason === 'unsupported');
+    if (dropped.length === 0) {
+      return;
+    }
+    this.util.openSnackbar(
+      this.translate.instant('BUILDER.WIDGET_PICKER.WEBFORM_PARTIAL', {
+        fields: dropped.map(warning => warning.key).join(', '),
+      }),
+      'ok'
+    );
+  }
+
   onSelect(widget: any): void {
     const contentValue = this.content();
     if (!contentValue) {
@@ -262,7 +462,7 @@ export class WidgetPickerComponent implements OnInit {
       return;
     }
     const { addType, path, content } = contentValue;
-    const data = cloneDeep(content);
+    const data = cloneDeep(content) as any;
     const widgetContent = cloneDeep(widget);
 
     if (addType === 'widget') {
@@ -296,5 +496,16 @@ export class WidgetPickerComponent implements OnInit {
     const last = Object.assign({}, elements[elements.length - 1]);
     last.elements = [cloneDeep(widget)];
     return last;
+  }
+
+  /** Scrolls the category chip row left/right by one chip width */
+  scrollCategories(direction: 'left' | 'right'): void {
+    const scroller = this.categoryScroller()?.nativeElement;
+    if (!scroller) return;
+    const scrollAmount = 120;
+    scroller.scrollBy({
+      left: direction === 'left' ? -scrollAmount : scrollAmount,
+      behavior: 'smooth',
+    });
   }
 }

@@ -1,0 +1,135 @@
+<div class="hub">
+  <div class="container">
+    <header class="header">
+      <h1 class="page-title">{{ 'BUILDER.HUB.PAGE_TITLE' | translate }}</h1>
+    </header>
+
+    <section class="hub-section" aria-labelledby="hub-publish-title">
+      <h2 class="section-title" id="hub-publish-title">
+        {{ 'BUILDER.HUB.PUBLISH_TITLE' | translate }}
+      </h2>
+      <p class="section-desc">{{ 'BUILDER.HUB.PUBLISH_DESC' | translate }}</p>
+      @if (nodeTypes().length > 0) {
+        <div class="entry-grid">
+          @for (nodeType of nodeTypes(); track nodeType.value) {
+            <!-- Publish card: dashed border + plus icon, distinguished from the solid "go to manage" cards below -->
+            <a
+              class="entry-card is-publish"
+              [routerLink]="['/builder/node/add', nodeType.value]"
+              [attr.aria-label]="'BUILDER.HUB.ADD_ARIA' | translate: { type: nodeType.label }"
+              [attr.aria-describedby]="nodeType.desc ? 'hub-type-' + nodeType.value : null"
+            >
+              <app-icon class="entry-icon" [content]="{ svg: 'plus' }" />
+              <span class="entry-name">{{ nodeType.label }}</span>
+              <!-- Description comes from the content type itself (node_type.description);
+                   when the site has none, no placeholder is rendered instead of repeating
+                   the same hint on every card -->
+              @if (nodeType.desc) {
+                <!-- Drupal content-type descriptions may carry markup (e.g. <em>), so render as sanitized HTML -->
+                <span class="entry-desc" [id]="'hub-type-' + nodeType.value" [innerHTML]="nodeType.desc | safeHtml">
+                </span>
+              }
+            </a>
+          }
+        </div>
+      } @else if (typesLoading()) {
+        <div class="entry-grid">
+          @for (slot of skeletonSlots; track slot) {
+            <ngx-skeleton-loader
+              count="1"
+              appearance="line"
+              [theme]="{
+                height: '6.5rem',
+                'border-radius': 'var(--shadcn-radius-lg)',
+                'background-color': 'var(--shadcn-muted)',
+                margin: '0',
+              }"
+            />
+          }
+        </div>
+      } @else if (typesError()) {
+        <div class="state">
+          <p class="state-text">{{ 'BUILDER.HUB.LOAD_FAILED' | translate }}</p>
+          <app-btn
+            [content]="{ mode: 'stroked', label: 'BUILDER.HUB.RETRY' | translate }"
+            (btnClick)="onRetryTypes()"
+          />
+        </div>
+      } @else {
+        <p class="empty">{{ 'BUILDER.HUB.EMPTY_TYPES' | translate }}</p>
+      }
+    </section>
+
+    <!-- Page groups come from the site's own page_group taxonomy, so the list is
+         loaded at runtime rather than hardcoded like the fixed entries below -->
+    <section class="hub-section page-groups" aria-labelledby="hub-page-groups-title">
+      <h2 class="section-title" id="hub-page-groups-title">
+        {{ 'BUILDER.HUB.PAGE_GROUPS_TITLE' | translate }}
+      </h2>
+      <p class="section-desc">{{ 'BUILDER.HUB.PAGE_GROUPS_DESC' | translate }}</p>
+      @if (pageGroups().length > 0) {
+        <div class="entry-grid">
+          @for (name of pageGroups(); track name) {
+            <!-- Array form so group names with non-ASCII characters are URL-encoded -->
+            <a class="entry-card" [routerLink]="['/builder/pages', name]">
+              <app-icon class="entry-icon" [content]="{ svg: 'folder-multiple-outline' }" />
+              <span class="entry-name">{{ name }}</span>
+            </a>
+          }
+        </div>
+      } @else if (pageGroupsLoading()) {
+        <div class="entry-grid">
+          @for (slot of pageGroupSlots; track slot) {
+            <ngx-skeleton-loader
+              count="1"
+              appearance="line"
+              [theme]="{
+                height: '6.5rem',
+                'border-radius': 'var(--shadcn-radius-lg)',
+                'background-color': 'var(--shadcn-muted)',
+                margin: '0',
+              }"
+            />
+          }
+        </div>
+      } @else if (pageGroupsError()) {
+        <div class="state">
+          <p class="state-text">{{ 'BUILDER.HUB.LOAD_GROUPS_FAILED' | translate }}</p>
+          <app-btn
+            [content]="{ mode: 'stroked', label: 'BUILDER.HUB.RETRY' | translate }"
+            (btnClick)="onRetryPageGroups()"
+          />
+        </div>
+      } @else {
+        <p class="empty">{{ 'BUILDER.HUB.EMPTY_PAGE_GROUPS' | translate }}</p>
+      }
+    </section>
+
+    @for (group of groups(); track group.title; let groupIndex = $index) {
+      <section class="hub-section" [attr.aria-labelledby]="'hub-group-' + groupIndex">
+        <h2 class="section-title" [id]="'hub-group-' + groupIndex">
+          {{ group.title | translate }}
+        </h2>
+        <div class="entry-grid">
+          @for (entry of group.entries; track entry.link) {
+            <!-- Description is attached via aria-describedby to avoid merging it into the link's accessible name -->
+            <a
+              class="entry-card"
+              [routerLink]="entry.link"
+              [attr.aria-describedby]="'hub-entry-' + groupIndex + '-' + $index"
+            >
+              <app-icon class="entry-icon" [content]="{ svg: entry.icon }" />
+              <span class="entry-name">{{ entry.label | translate }}</span>
+              <span
+                class="entry-desc"
+                [id]="'hub-entry-' + groupIndex + '-' + $index"
+                [innerHTML]="entry.desc | translate | safeHtml"
+              >
+              </span>
+            </a>
+          }
+        </div>
+      </section>
+    }
+  </div>
+</div>

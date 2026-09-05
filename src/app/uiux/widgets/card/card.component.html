@@ -23,13 +23,14 @@
         @if (contentValue.header.title) {
           <mat-card-title
             contentedit="header.title"
-            contentedit="title"
+            contenteditProfile="inline"
             [innerHTML]="contentValue.header.title || '' | safeHtml"
           />
         }
         @if (contentValue.header.subTitle) {
           <mat-card-subtitle
             contentedit="header.subTitle"
+            contenteditProfile="inline"
             [innerHTML]="contentValue.header.subTitle || '' | safeHtml"
           />
         }
@@ -68,9 +69,15 @@
         }
         <div class="card-title-wrap">
           @if (contentValue.title) {
-            <mat-card-title contentedit="title" class="basis-full">
-              <div [innerHTML]="contentValue.title | safeHtml"></div>
-            </mat-card-title>
+            <!-- innerHTML binds directly on the directive host (same as header.title): inline editing
+                 clears and rebuilds the host subtree; wrapping it in a template-owned div would move
+                 that div out of the DOM and break subsequent bindings -->
+            <mat-card-title
+              contentedit="title"
+              contenteditProfile="inline"
+              class="basis-full"
+              [innerHTML]="contentValue.title | safeHtml"
+            />
           } @else {
             @if (contentValue.link) {
               <mat-card-title class="basis-full">
@@ -86,19 +93,27 @@
             }
           </ng-template>
           @if (contentValue.subTitle) {
-            <mat-card-subtitle contentedit="subTitle" class="basis-full">
-              <div [innerHTML]="contentValue.subTitle | safeHtml"></div>
-            </mat-card-subtitle>
+            <mat-card-subtitle
+              contentedit="subTitle"
+              contenteditProfile="inline"
+              class="basis-full"
+              [innerHTML]="contentValue.subTitle | safeHtml"
+            />
           }
         </div>
       </div>
       @if (contentValue.body) {
-        <div contentedit="body" class="card-body" [innerHTML]="contentValue.body | safeHtml"></div>
+        <div
+          contentedit="body"
+          contenteditProfile="rich"
+          class="card-body"
+          [innerHTML]="contentValue.body | safeHtml"
+        ></div>
       }
     </mat-card-content>
     @if (contentValue.actions) {
       <mat-card-actions [attr.data-path]="'actions'">
-        @for (action of contentValue.actions; track action) {
+        @for (action of contentValue.actions; track $index) {
           <button mat-button>
             {{ action.label }}
           </button>

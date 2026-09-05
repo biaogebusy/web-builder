@@ -7,6 +7,8 @@ import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { Subject } from 'rxjs';
 import { ClarityService } from './clarity.service';
 import { UtilitiesService } from './utilities.service';
+import { getLibraryAsset } from '@core/config/library-assets';
+import { AOS_ASSETS } from './config.assets';
 
 type WindowWithIdleCallback = Omit<Window, 'requestIdleCallback'> &
   Partial<Pick<Window, 'requestIdleCallback'>>;
@@ -33,12 +35,8 @@ export class ConfigService {
           this.dialogService.openForcedDialog(this.coreConfig.dialog.forceDialog);
         }
         if (this.coreConfig?.animate) {
-          if (this.coreConfig.librariesUseLocal) {
-            this.util.loadStyle('/assets/injects/aos/dist/aos.css');
-          } else {
-            const aosStyle = this.util.getLibraries('aos', 'cdn', 'style');
-            this.util.loadStyle(aosStyle);
-          }
+          const source = this.coreConfig.librariesUseLocal ? 'local' : 'cdn';
+          this.util.loadStyle(getLibraryAsset(AOS_ASSETS, source, 'style'));
         }
       }
     }

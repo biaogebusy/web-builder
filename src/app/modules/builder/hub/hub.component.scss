@@ -1,0 +1,71 @@
+.hub {
+  .container {
+    @apply max-w-6xl mx-auto flex flex-col gap-6 px-4 py-8;
+  }
+  .header {
+    @apply flex items-center gap-4;
+  }
+  .page-title {
+    @apply text-2xl font-semibold m-0;
+  }
+  .hub-section {
+    @apply flex flex-col gap-3;
+  }
+  .section-title {
+    @apply text-lg font-semibold m-0;
+  }
+  .section-desc {
+    @apply text-sm m-0;
+    color: var(--shadcn-muted-foreground);
+  }
+  .entry-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3;
+  }
+  .entry-card {
+    @apply flex flex-col gap-1 p-4 no-underline transition-all;
+    // Keep the same height as the publish section's skeleton (see hub.component.html) to avoid layout shift once loaded
+    min-height: 6.5rem;
+    background: var(--shadcn-card);
+    border: 1px solid var(--shadcn-border);
+    border-radius: var(--shadcn-radius-lg);
+    color: inherit;
+    &:hover {
+      border-color: var(--shadcn-ring);
+      background: var(--shadcn-accent);
+      box-shadow: var(--mat-sys-level1);
+    }
+    &:focus-visible {
+      outline: 2px solid var(--shadcn-ring);
+      outline-offset: 2px;
+    }
+    // Publish card: dashed border + primary-colored plus, so "create" vs "navigate" actions are distinguishable at a glance
+    &.is-publish {
+      border-style: dashed;
+      .entry-icon {
+        color: var(--mat-sys-primary);
+      }
+    }
+  }
+  .entry-icon {
+    @apply mb-1;
+    color: var(--shadcn-muted-foreground);
+  }
+  .entry-name {
+    @apply text-sm font-medium;
+  }
+  .entry-desc {
+    @apply text-xs;
+    color: var(--shadcn-muted-foreground);
+  }
+  .state {
+    @apply flex flex-col items-center gap-3 py-8;
+  }
+  .state-text {
+    @apply text-sm text-center m-0;
+    color: var(--shadcn-muted-foreground);
+  }
+  .empty {
+    @apply py-8 text-center text-sm m-0;
+    color: var(--shadcn-muted-foreground);
+  }
+}

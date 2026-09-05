@@ -50,6 +50,6 @@ import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 })
 export class RepeatTypeComponent extends FieldArrayType {
   get isShadcn(): boolean {
-    return this.options.formState?.uiTheme === 'shadcn';
+    return this.options?.formState?.uiTheme === 'shadcn';
   }
 }

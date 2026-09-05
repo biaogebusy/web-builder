@@ -97,16 +97,96 @@ describe('NodeFieldFormService', () => {
       expect(fields.length).toBe(5);
       expect(fields[0].type).toBe('input');
       expect(fields[0].props?.required).toBe(true);
-      expect(fields[1].type).toBe('rich-editor');
+      expect(fields[1].type).toBe('tiptap');
       expect(fields[2].type).toBe('select');
       expect(fields[2].props?.multiple).toBe(true);
       expect(fields[3].type).toBe('img-picker');
       expect(fields[3].props?.['valueIsUUID']).toBe(true);
-      // 绑定 json 文本格式的字段用 JSON 编辑器而非富文本
+      // Fields bound to the json text format use the JSON editor, not rich text
       expect(fields[4].type).toBe('json');
       expect(meta.find(m => m.key === 'data')?.jsonFormat).toBe(true);
       expect(meta.find(m => m.key === 'body')?.jsonFormat).toBe(false);
       expect(meta.find(m => m.key === 'field_tags')?.targetBundle).toBe('tags');
+    });
+
+    it('无法用简单控件表达的字段类型不进表单(避免以纯文本提交)', () => {
+      const configs = ['metatag', 'image', 'file', 'link', 'datetime', 'daterange'].map(type => ({
+        attributes: { field_name: `field_${type}`, field_type: type, label: type, settings: {} },
+      }));
+      const { fields, meta } = service.buildForm(configs, []);
+      expect(fields.length).toBe(0);
+      expect(meta.length).toBe(0);
+    });
+
+    it('auto_create 的词条字段渲染为 term-select,其余仍为 select', () => {
+      const configs = [
+        {
+          attributes: {
+            field_name: 'category',
+            field_type: 'entity_reference',
+            label: '分类',
+            required: true,
+            settings: {
+              handler: 'default:taxonomy_term',
+              handler_settings: { target_bundles: { news_category: 'news_category' }, auto_create: false },
+            },
+          },
+        },
+        {
+          attributes: {
+            field_name: 'field_tags',
+            field_type: 'entity_reference',
+            label: '标签',
+            required: false,
+            settings: {
+              handler: 'default:taxonomy_term',
+              handler_settings: { target_bundles: { tags: 'tags' }, auto_create: true },
+            },
+          },
+        },
+      ];
+      const storages = [
+        {
+          attributes: {
+            field_name: 'category',
+            cardinality: 1,
+            settings: { target_type: 'taxonomy_term' },
+          },
+        },
+        {
+          attributes: {
+            field_name: 'field_tags',
+            cardinality: -1,
+            settings: { target_type: 'taxonomy_term' },
+          },
+        },
+      ];
+
+      const { fields, meta } = service.buildForm(configs, storages);
+
+      // auto_create=false: a plain select restricted to existing terms
+      expect(fields[0].type).toBe('select');
+      expect(meta.find(m => m.key === 'category')?.autoCreate).toBe(false);
+      // auto_create=true: the combobox that creates missing terms on the fly
+      const tags = fields[1];
+      expect(tags.type).toBe('term-select');
+      expect(tags.props?.multiple).toBe(true);
+      expect(tags.props?.['vocabulary']).toBe('tags');
+      expect(meta.find(m => m.key === 'field_tags')?.autoCreate).toBe(true);
+    });
+
+    it('传入表单显示白名单时,禁用字段不进 fields 也不进 meta', () => {
+      const configs = [
+        {
+          attributes: { field_name: 'field_summary', field_type: 'string', label: 'S', settings: {} },
+        },
+        {
+          attributes: { field_name: 'field_tags', field_type: 'string', label: 'T', settings: {} },
+        },
+      ];
+      const { fields, meta } = service.buildForm(configs, [], new Set(['title', 'field_summary']));
+      expect(fields.map(f => f.key)).toEqual(['field_summary']);
+      expect(meta.map(m => m.key)).toEqual(['field_summary']);
     });
   });
 
@@ -174,6 +254,101 @@ describe('NodeFieldFormService', () => {
       const meta = [{ key: 'data', fieldType: 'text_long', jsonFormat: true }];
       const { attributes } = service.buildPayload(meta, { data: { a: 1 } });
       expect(attributes['data']).toEqual({ value: '{"a":1}', format: 'json' });
+    });
+
+    it('编辑时沿用原文本格式并保留摘要', () => {
+      const meta = [
+        { key: 'body', fieldType: 'text_with_summary' },
+        { key: 'field_desc', fieldType: 'text_long' },
+      ];
+      const original = {
+        attributes: {
+          body: { value: '<p>old</p>', format: 'basic_html', summary: '摘要' },
+          field_desc: { value: 'old', format: 'restricted_html' },
+        },
+      };
+      const { attributes } = service.buildPayload(
+        meta,
+        { body: '<p>new</p>', field_desc: 'new' },
+        original
+      );
+      expect(attributes['body']).toEqual({
+        value: '<p>new</p>',
+        format: 'basic_html',
+        summary: '摘要',
+      });
+      // text_long has no summary concept, only the format is carried over
+      expect(attributes['field_desc']).toEqual({ value: 'new', format: 'restricted_html' });
+    });
+
+    it('编辑时清空的字段提交显式 null / 空 data 以真正清除', () => {
+      const meta = [
+        { key: 'field_summary', fieldType: 'string' },
+        {
+          key: 'field_tags',
+          fieldType: 'entity_reference',
+          targetType: 'taxonomy_term',
+          targetBundle: 'tags',
+          multiple: true,
+        },
+        {
+          key: 'field_cover',
+          fieldType: 'entity_reference',
+          targetType: 'media',
+          targetBundle: 'image',
+          multiple: false,
+        },
+      ];
+      const original = { attributes: { field_summary: 'old' }, relationships: {} };
+      const { attributes, relationships } = service.buildPayload(
+        meta,
+        { field_summary: '', field_tags: null, field_cover: '' },
+        original
+      );
+      expect(attributes['field_summary']).toBeNull();
+      expect(relationships['field_tags']).toEqual({ data: [] });
+      expect(relationships['field_cover']).toEqual({ data: null });
+    });
+
+    it('编辑时引用字段回带原 meta(如图片 alt),目标变化则不带', () => {
+      const meta = [
+        {
+          key: 'field_cover',
+          fieldType: 'entity_reference',
+          targetType: 'media',
+          targetBundle: 'image',
+          multiple: false,
+        },
+        {
+          key: 'field_gallery',
+          fieldType: 'entity_reference',
+          targetType: 'media',
+          targetBundle: 'image',
+          multiple: true,
+        },
+      ];
+      const original = {
+        relationships: {
+          field_cover: { data: { type: 'media--image', id: 'uuid-3', meta: { alt: '封面' } } },
+          field_gallery: {
+            data: [{ type: 'media--image', id: 'uuid-4', meta: { alt: '图一' } }],
+          },
+        },
+      };
+      const { relationships } = service.buildPayload(
+        meta,
+        { field_cover: 'uuid-3', field_gallery: ['uuid-4', 'uuid-5'] },
+        original
+      );
+      expect(relationships['field_cover'].data).toEqual({
+        type: 'media--image',
+        id: 'uuid-3',
+        meta: { alt: '封面' },
+      });
+      expect(relationships['field_gallery'].data).toEqual([
+        { type: 'media--image', id: 'uuid-4', meta: { alt: '图一' } },
+        { type: 'media--image', id: 'uuid-5' },
+      ]);
     });
   });
 
@@ -255,7 +430,10 @@ describe('NodeFieldFormService', () => {
         { label: '后端', value: 'uuid-2' },
       ]);
       expect(nodeServiceMock.fetch).toHaveBeenCalledTimes(2);
-      // next 为绝对地址,须转回相对路径经 apiUrl(开发代理)重发
+      // sparse fieldset avoids serializing vocabulary fields JSON:API cannot handle
+      expect(nodeServiceMock.fetch.mock.calls[0][1]).toBe('fields[taxonomy_term--tags]=name');
+      // next is an absolute URL, so it must be converted back to a relative path and
+      // re-sent through apiUrl (the dev proxy)
       expect(nodeServiceMock.fetch.mock.calls[1][0]).toBe(
         '/api/v1/taxonomy_term/tags?page%5Boffset%5D=50&page%5Blimit%5D=50'
       );
@@ -271,6 +449,77 @@ describe('NodeFieldFormService', () => {
       service.getForm('article').subscribe(r => (result = r));
 
       expect(result).toEqual({ fields: [], meta: [] });
+    });
+
+    const fieldConfigs = [
+      {
+        attributes: {
+          field_name: 'field_summary',
+          field_type: 'string',
+          label: 'Summary',
+          settings: {},
+        },
+      },
+      {
+        attributes: {
+          field_name: 'field_tags',
+          field_type: 'entity_reference',
+          label: 'Tags',
+          settings: {
+            handler: 'default:taxonomy_term',
+            handler_settings: { target_bundles: { tags: 'tags' } },
+          },
+        },
+      },
+    ];
+
+    const mockApis = (formDisplayRes: any) => {
+      nodeServiceMock.fetch.mockReset();
+      nodeServiceMock.fetch.mockImplementation((api: string) => {
+        if (api.startsWith('/api/v1/field_config')) {
+          return of({ data: fieldConfigs });
+        }
+        if (api.startsWith('/api/v1/entity_form_display')) {
+          return of(formDisplayRes);
+        }
+        return of({ data: [] });
+      });
+    };
+
+    it('表单显示(管理表单显示)中禁用的字段不渲染,也不再加载其词汇表', () => {
+      mockApis({
+        data: [
+          {
+            attributes: {
+              targetEntityType: 'node',
+              bundle: 'article',
+              mode: 'default',
+              content: { title: { type: 'string_textfield' }, field_summary: { type: 'string_textfield' } },
+              hidden: { field_tags: true },
+            },
+          },
+        ],
+      });
+
+      let result: any;
+      service.getForm('article').subscribe(r => (result = r));
+
+      expect(result.fields.map((f: any) => f.key)).toEqual(['field_summary']);
+      expect(result.meta.map((m: any) => m.key)).toEqual(['field_summary']);
+      expect(
+        nodeServiceMock.fetch.mock.calls.some(call =>
+          (call[0] as string).includes('/taxonomy_term/')
+        )
+      ).toBe(false);
+    });
+
+    it('表单显示配置不可用时(如无权限)不过滤,保持全部字段', () => {
+      mockApis({ data: [] });
+
+      let result: any;
+      service.getForm('article').subscribe(r => (result = r));
+
+      expect(result.fields.map((f: any) => f.key)).toEqual(['field_summary', 'field_tags']);
     });
   });
 });

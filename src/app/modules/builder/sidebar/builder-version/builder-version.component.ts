@@ -16,8 +16,8 @@ export class BuilderVersionComponent {
   private builder = inject(BuilderState);
   private builderService = inject(BuilderService);
 
-  // 直接读 BuilderState 的 version signal(内存数据源),
-  // 避免 localStorage observe 往返造成的历史记录更新不及时
+  // Read BuilderState's version signal directly (in-memory source) so the history
+  // list updates immediately instead of round-tripping through localStorage observe
   public version = this.builder.version.asReadonly();
 
   onDelete(index: number): void {
@@ -43,7 +43,7 @@ export class BuilderVersionComponent {
 
   onUpdateTitle(event: any, index: number): void {
     const title = (event.target.textContent ?? '').trim();
-    // 仅在标题真正变化时才标脏保存,避免聚焦/失焦误把已同步版本标为未保存
+    // Only mark dirty and save when the title actually changed, so focus/blur never flags a synced version as unsaved
     if (title && title !== this.version()[index]?.title) {
       this.builder.version.update(list => {
         const next = [...list];

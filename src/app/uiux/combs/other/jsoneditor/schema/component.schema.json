@@ -6,64 +6,63 @@
       "type": "object",
       "additionalProperties": true,
       "properties": {
-        "fullWidth": {
-          "type": "boolean"
-        },
-        "spacer": {
-          "type": ["string", "object"]
-        },
-        "overlay": {
-          "type": "string"
-        },
-        "classes": {
+        "type": {
           "type": "string"
         },
         "id": {
           "type": "string"
         },
-        "bg": {
-          "$ref": "#/definitions/Bg"
-        },
-        "type": {
+        "title": {},
+        "path": {
           "type": "string"
-        }
+        },
+        "addType": {
+          "type": "string"
+        },
+        "content": {
+          "type": "object"
+        },
+        "data": {},
+        "form": {},
+        "lists": {},
+        "elements": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "containerClasses": {
+          "type": "string"
+        },
+        "fullWidth": {
+          "type": "boolean"
+        },
+        "spacer": {
+          "type": "string",
+          "enum": ["xs", "sm", "md", "lg", "xl", "xxl", "none"]
+        },
+        "bg": {
+          "type": "object"
+        },
+        "animate": {
+          "type": "object"
+        },
+        "extra": {
+          "type": "object"
+        },
+        "text": {
+          "type": "object"
+        },
+        "classes": {
+          "type": ["object", "string"]
+        },
+        "row": {
+          "type": ["number", "string"]
+        },
+        "params": {}
       },
       "required": ["type"],
       "title": "Component"
-    },
-    "Bg": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "img": {
-          "$ref": "#/definitions/Img"
-        },
-        "classes": {
-          "type": "string"
-        },
-        "overlay": {
-          "type": "string"
-        }
-      },
-      "required": ["img", "overlay"],
-      "title": "Bg"
-    },
-    "Img": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "src": {
-          "type": "string"
-        },
-        "alt": {
-          "type": "string"
-        },
-        "classes": {
-          "type": "string"
-        }
-      },
-      "required": ["classes", "src"],
-      "title": "Img"
     }
   }
 }

@@ -32,90 +32,13 @@
   <div class="lists-wrapper">
     <div class="lists">
       @if (loading()) {
-        <app-loading [content]="{ size: 50 }" />
+        <div class="loading-wrapper">
+          <app-loading [content]="{ size: 50 }" />
+        </div>
       }
       @if (lists(); as content) {
-        @for (page of content; track page; let i = $index) {
-          <div
-            [class]="{
-              active: page.nid === $any(currentPage())?.nid && page.langcode === $any(currentPage())?.langcode,
-            }"
-            class="item"
-          >
-            <div class="item-title group">
-              <span class="title">
-                {{ page.title }}
-              </span>
-            </div>
-            @if (page.nid === $any(currentPage())?.nid && page.langcode === $any(currentPage())?.langcode && $any(currentPage())?.translation && $any(currentPage())?.target) {
-              <div class="translation-draft-tip">
-                {{ 'BUILDER.PAGE_LIST.EDITING_TRANSLATION' | translate: { lang: getLangLabel($any(currentPage()).target) } }}
-              </div>
-            }
-            <div class="meta">
-              <div class="meta-header">
-                {{ page.author | shorten: 6 : '**' }}
-                @if (page.taxonomy) {
-                  <span class="taxonomy-badge">{{ page.taxonomy }}</span>
-                }
-              </div>
-              <div class="meta-footer">
-                <a
-                  class="url-link"
-                  [matTooltip]="page.url"
-                  href="{{ page.url }}?preview=true"
-                  target="_blank"
-                  >{{ page.url }}</a
-                >
-                <span class="date">{{ page.changed | date: 'yyyy/MM/dd HH:mm' }}</span>
-              </div>
-            </div>
-            <div class="actions">
-              <app-btn
-                class="block"
-                [matMenuTriggerFor]="menu"
-                [content]="{
-                  label: 'BUILDER.PAGE_LIST.EDIT' | translate,
-                  mode: 'stroked',
-                  color: 'primary',
-                }"
-              />
-              <mat-menu #menu="matMenu" class="overlay-btn-icon">
-                <button mat-menu-item (click)="loadPage(page)">
-                  <app-icon [content]="{ svg: 'pencil' }" />
-                  <span>{{ 'BUILDER.PAGE_LIST.LOAD_EDIT' | translate }}</span>
-                </button>
-                @if (langs) {
-                  @for (item of langs; track item) {
-                    @if (!item.default && item.langCode !== page.langcode) {
-                      <button mat-menu-item (click)="createLangVersion(page, item.langCode)">
-                        <app-icon [content]="{ svg: 'translate' }" />
-                        <span>{{ 'BUILDER.PAGE_LIST.EDIT_LANG' | translate: { label: item.label } }}</span>
-                      </button>
-                    }
-                  }
-                }
-                <mat-divider />
-                <button mat-menu-item (click)="copyPage(page)">
-                  <app-icon [content]="{ svg: 'content-copy' }" />
-                  <span>{{ 'BUILDER.PAGE_LIST.COPY_PAGE' | translate }}</span>
-                </button>
-                <button mat-menu-item (click)="deletePage(page)">
-                  <app-icon [content]="{ svg: 'trash-can-outline', color: 'warn' }" />
-                  <span>{{ 'BUILDER.PAGE_LIST.DELETE_PAGE' | translate }}</span>
-                </button>
-                <mat-divider />
-                <button mat-menu-item (click)="updateByJSON(page)">
-                  <app-icon [content]="{ svg: 'code-json' }" />
-                  <span>{{ 'BUILDER.PAGE_LIST.PAGE_JSON' | translate }}</span>
-                </button>
-                <button mat-menu-item (click)="updatePageSetting(page)">
-                  <app-icon [content]="{ svg: 'cog' }" />
-                  <span>{{ 'BUILDER.PAGE_LIST.PAGE_PROPS' | translate }}</span>
-                </button>
-              </mat-menu>
-            </div>
-          </div>
+        @for (page of content; track page) {
+          <app-page-item [page]="page" (refresh)="onReload()" (pageLoad)="onPageLoaded()" />
         }
       }
     </div>

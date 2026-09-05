@@ -23,21 +23,38 @@
       icon: { svg: 'pencil' },
       mode: 'mini-fab',
       color: 'primary',
+      disabled: props.readonly || formControl.disabled,
+      ariaLabel: '富文本编辑',
     }"
   />
 </mat-form-field>
-<div
-  class="popup"
-  #popup
->
-  <quill-editor
-    (onEditorCreated)="editorCreated($event)"
-    [modules]="modules"
-    (onContentChanged)="onContentChanged($event)"
-    [styles]="{ height: '100%' }"
-  />
+<div class="popup" #popup>
+  <ng-container #editorHost />
+  @if (editorLoading()) {
+    <app-loading class="editor-loading" [content]="{ size: 40 }" />
+  } @else if (editorError()) {
+    <div class="editor-error" role="alert">
+      <span>{{ 'BUILDER.FORM_EDITOR.LOAD_FAILED' | translate }}</span>
+      <app-btn
+        (click)="retryEditor()"
+        [content]="{
+          label: 'BUILDER.FORM_EDITOR.RETRY' | translate,
+          mode: 'stroked',
+          ariaLabel: 'BUILDER.FORM_EDITOR.RETRY' | translate,
+        }"
+      />
+    </div>
+  }
   <div class="popup-actions">
     <app-btn (click)="onCancel()" [content]="{ label: '取消' }" />
-    <app-btn (click)="onSave()" [content]="{ label: '保存', mode: 'raised', color: 'primary' }" />
+    <app-btn
+      (click)="onSave()"
+      [content]="{
+        label: '保存',
+        mode: 'raised',
+        color: 'primary',
+        disabled: !editorLoaded() || formControl.disabled || props.readonly,
+      }"
+    />
   </div>
 </div>

@@ -2,6 +2,32 @@
 @if (currentPage(); as page) {
   @if (page.body.length > 0) {
     <div class="builder-list" id="gsap-scroller">
+      @if (revisionPreview(); as preview) {
+        <div class="revision-bar" role="status">
+          <app-icon class="revision-bar-icon" [content]="{ svg: 'history' }" />
+          <span class="revision-bar-text">
+            {{ 'BUILDER.REVISION.PREVIEWING' | translate: { vid: preview.vid } }}
+          </span>
+          <app-btn
+            (click)="onRestoreRevision(preview)"
+            [content]="{
+              label: 'BUILDER.REVISION.RESTORE' | translate,
+              mode: 'text',
+              color: 'primary',
+              icon: { svg: 'restore' },
+            }"
+          />
+          <app-btn
+            class="revision-bar-discard"
+            (click)="onDiscardRevision(preview)"
+            [content]="{
+              label: 'BUILDER.REVISION.DISCARD' | translate,
+              mode: 'text',
+              icon: { svg: 'close' },
+            }"
+          />
+        </div>
+      }
       <div class="wrapper" [class]="previewClass$ | async">
         @if (builder.loading()) {
           <div class="load">

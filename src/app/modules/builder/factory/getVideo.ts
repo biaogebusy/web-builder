@@ -37,6 +37,22 @@ export function getVideo(widget: any): FormlyFieldConfig {
           },
           {
             type: 'toggle',
+            key: 'muted',
+            defaultValue: options.muted ?? false,
+            props: {
+              label: 'BUILDER.FACTORY.VIDEO_MUTED',
+            },
+          },
+          {
+            type: 'toggle',
+            key: 'playsinline',
+            defaultValue: options.playsinline ?? false,
+            props: {
+              label: 'BUILDER.FACTORY.VIDEO_PLAYSINLINE',
+            },
+          },
+          {
+            type: 'toggle',
             key: 'loop',
             defaultValue: options.loop ?? false,
             props: {
@@ -116,7 +132,7 @@ export function getVideo(widget: any): FormlyFieldConfig {
                   key: 'src',
                   type: 'input',
                   className: 'w-full',
-                  defaultValue: sources[0]?.src ?? '',
+                  defaultValue: '',
                   props: {
                     label: 'BUILDER.FACTORY.VIDEO_URL',
                   },

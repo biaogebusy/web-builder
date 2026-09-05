@@ -184,15 +184,6 @@ export function getBtn(widget: any): FormlyFieldConfig {
               label: 'BUILDER.FACTORY.PILL_STYLE',
             },
           },
-          {
-            key: 'containerClasses',
-            type: 'input',
-            className: '!hidden',
-            defaultValue: '!overflow-visible',
-            props: {
-              label: 'BUILDER.FACTORY.CONTAINER_CLASS',
-            },
-          },
         ],
       },
     ],

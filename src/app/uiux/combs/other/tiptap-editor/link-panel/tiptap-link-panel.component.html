@@ -1,0 +1,48 @@
+<div class="link-panel" role="group" [attr.aria-label]="'BUILDER.TIPTAP.LINK' | translate">
+  <input
+    #linkInput
+    class="link-input"
+    type="url"
+    [value]="linkUrl()"
+    [placeholder]="'BUILDER.TIPTAP.LINK_URL' | translate"
+    [attr.aria-label]="'BUILDER.TIPTAP.LINK_URL' | translate"
+    (keydown.enter)="apply(linkInput.value)"
+    (keydown.escape)="close()"
+  />
+  <app-btn
+    (click)="apply(linkInput.value)"
+    [content]="{
+      label: 'BUILDER.TIPTAP.LINK_APPLY' | translate,
+      color: 'primary',
+    }"
+  />
+  @if (editor().isActive('link')) {
+    <app-btn
+      [matTooltip]="'BUILDER.TIPTAP.LINK_OPEN' | translate"
+      (click)="open()"
+      [content]="{
+        mode: 'icon',
+        ariaLabel: 'BUILDER.TIPTAP.LINK_OPEN' | translate,
+        icon: { svg: 'open-in-new' },
+      }"
+    />
+    <app-btn
+      [matTooltip]="'BUILDER.TIPTAP.LINK_REMOVE' | translate"
+      (click)="remove()"
+      [content]="{
+        mode: 'icon',
+        ariaLabel: 'BUILDER.TIPTAP.LINK_REMOVE' | translate,
+        icon: { svg: 'link-off' },
+      }"
+    />
+  }
+  <app-btn
+    [matTooltip]="'BUILDER.TIPTAP.CLOSE' | translate"
+    (click)="close()"
+    [content]="{
+      mode: 'icon',
+      ariaLabel: 'BUILDER.TIPTAP.CLOSE' | translate,
+      icon: { svg: 'close' },
+    }"
+  />
+</div>

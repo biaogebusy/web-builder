@@ -1,0 +1,146 @@
+import { Component, EnvironmentInjector } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Subject } from 'rxjs';
+import { vi } from 'vitest';
+
+import { BuilderState } from '@core/state/BuilderState';
+import { InlineEditorService } from '@modules/builder/inline-editor/inline-editor.service';
+import { InlineImageService } from '@modules/builder/inline-editor/inline-image.service';
+import { provideCoreMocks } from '@core/testing/mocks';
+
+import { ContenteditDirective } from './contentedit.directive';
+
+const { activateMock, selectMock } = vi.hoisted(() => ({
+  activateMock: vi.fn(),
+  selectMock: vi.fn(),
+}));
+
+// The rich/inline branches dynamically import this module; mock it to avoid pulling in real tiptap
+vi.mock('@modules/builder/inline-editor/inline-editor.service', () => ({
+  InlineEditorService: class {},
+}));
+// The img branch dynamically imports the image inline editing service
+vi.mock('@modules/builder/inline-editor/inline-image.service', () => ({
+  InlineImageService: class {},
+}));
+
+@Component({
+  template: `
+    <div class="component-item">
+      <div class="rich" contentedit="body" contenteditProfile="rich">
+        <p>rich body</p>
+      </div>
+      <h2 class="inline" contentedit="title" contenteditProfile="inline">title</h2>
+      <span class="plain" contentedit="label">label</span>
+      <img class="cimg" contentedit="src" src="/files/a.png" alt="" />
+    </div>
+  `,
+  imports: [ContenteditDirective],
+})
+class HostComponent {}
+
+/** Wait for the rich branch's dynamic import to finish */
+const flushDynamicImport = (): Promise<void> => new Promise(resolve => setTimeout(resolve));
+
+describe('ContenteditDirective', () => {
+  let fixture: ComponentFixture<HostComponent>;
+  let builderMock: {
+    rightContent$: Subject<unknown>;
+    updatePageContentByPath: ReturnType<typeof vi.fn>;
+  };
+
+  beforeEach(async () => {
+    activateMock.mockClear();
+    selectMock.mockClear();
+    builderMock = {
+      rightContent$: new Subject(),
+      updatePageContentByPath: vi.fn(),
+    };
+    await TestBed.configureTestingModule({
+      imports: [HostComponent],
+      providers: [
+        ...provideCoreMocks(),
+        { provide: BuilderState, useValue: builderMock },
+        { provide: InlineEditorService, useValue: { activate: activateMock } },
+        { provide: InlineImageService, useValue: { select: selectMock } },
+      ],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(HostComponent);
+    fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    fixture.destroy();
+  });
+
+  it('rich:点击不进入裸 contenteditable,交给 InlineEditorService', async () => {
+    const rich = fixture.nativeElement.querySelector('.rich') as HTMLElement;
+
+    rich.dispatchEvent(new MouseEvent('click', { bubbles: true, clientX: 12, clientY: 34 }));
+    await vi.waitFor(() => expect(activateMock).toHaveBeenCalledTimes(1));
+
+    expect(rich.contentEditable).not.toBe('true');
+    const options = activateMock.mock.calls[0][0];
+    expect(options.element).toBe(rich);
+    expect(options.path).toBe('body');
+    expect(options.profile).toBe('rich');
+    expect(options.clickCoords).toEqual({ x: 12, y: 34 });
+  });
+
+  it('inline:透传单行档给 InlineEditorService', async () => {
+    const inline = fixture.nativeElement.querySelector('.inline') as HTMLElement;
+
+    inline.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    await vi.waitFor(() => expect(activateMock).toHaveBeenCalledTimes(1));
+
+    expect(inline.contentEditable).not.toBe('true');
+    const options = activateMock.mock.calls[0][0];
+    expect(options.path).toBe('title');
+    expect(options.profile).toBe('inline');
+  });
+
+  it('rich:不打开右侧文本面板(该面板会改写元素 DOM,与原位编辑器互斥)', async () => {
+    const emissions: unknown[] = [];
+    builderMock.rightContent$.subscribe(content => emissions.push(content));
+    const rich = fixture.nativeElement.querySelector('.rich') as HTMLElement;
+
+    rich.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    await vi.waitFor(() => expect(activateMock).toHaveBeenCalled());
+    await flushDynamicImport();
+
+    expect(emissions.length).toBe(0);
+    const options = activateMock.mock.calls[0][0];
+    expect(options.onActivated).toBeUndefined();
+    expect(options.onCommitted).toBeUndefined();
+  });
+
+  it('img:交给 InlineImageService 选中,不再直推 drawer', async () => {
+    const emissions: unknown[] = [];
+    builderMock.rightContent$.subscribe(content => emissions.push(content));
+    const cimg = fixture.nativeElement.querySelector('.cimg') as HTMLImageElement;
+
+    cimg.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    await vi.waitFor(() => expect(selectMock).toHaveBeenCalledTimes(1));
+
+    expect(selectMock.mock.calls[0][0]).toBe(cimg);
+    expect(selectMock.mock.calls[0][1]).toBe('src');
+    // The third arg is the environment injector at the click site: the media library dialog resolves route-level BUILDER_CONFIG through it
+    expect(selectMock.mock.calls[0][2]).toBeInstanceOf(EnvironmentInjector);
+    expect(emissions.length).toBe(0);
+  });
+
+  it('plain:兜底裸 contenteditable,不再打开旧文本面板', async () => {
+    const emissions: unknown[] = [];
+    builderMock.rightContent$.subscribe(content => emissions.push(content));
+    const plain = fixture.nativeElement.querySelector('.plain') as HTMLElement;
+
+    plain.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    await flushDynamicImport();
+    await flushDynamicImport();
+
+    expect(plain.contentEditable).toBe('true');
+    expect(activateMock).not.toHaveBeenCalled();
+    expect(emissions.length).toBe(0);
+  });
+});

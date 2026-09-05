@@ -6,10 +6,34 @@
       "type": "object",
       "additionalProperties": true,
       "properties": {
+        "type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "spacer": {
+          "type": "string"
+        },
+        "classes": {
+          "type": "string"
+        },
         "fullWidth": {
           "type": "boolean"
         },
-        "spacer": {
+        "style": {
+          "type": "object"
+        },
+        "horizontal": {
+          "$ref": "#/definitions/Horizontal"
+        },
+        "vertical": {
+          "$ref": "#/definitions/Vertical"
+        },
+        "alignItems": {
+          "$ref": "#/definitions/AlignItems"
+        },
+        "wrapperClass": {
           "type": "string"
         },
         "bgClasses": {
@@ -18,83 +42,73 @@
         "overlay": {
           "type": "string"
         },
-        "classes": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
+        "gap": {
+          "$ref": "#/definitions/Gap"
         },
         "bg": {
           "$ref": "#/definitions/Bg"
         },
-        "horizontal": {
-          "type": "string"
-        },
-        "vertical": {
-          "type": "string"
-        },
-        "type": {
-          "type": "string"
+        "animate": {
+          "$ref": "#/definitions/Animate"
         },
         "elements": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/Element"
           }
-        },
-        "animate": {
-          "$ref": "#/definitions/Animate"
         }
       },
-      "required": ["bg", "elements", "fullWidth", "horizontal", "spacer", "type", "vertical"],
+      "required": ["elements", "fullWidth", "type"],
       "title": "LayoutBuilder"
     },
-    "Bg": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "img": {
-          "$ref": "#/definitions/Img"
-        },
-        "classes": {
-          "type": "string"
-        },
-        "overlay": {
-          "type": "string"
-        }
-      },
-      "required": ["classes", "img", "overlay"],
-      "title": "Bg"
+    "Horizontal": {
+      "type": "string",
+      "enum": ["start", "end", "center", "between", "around", "evenly"],
+      "title": "Horizontal"
     },
-    "Img": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "src": {
-          "type": "string"
-        },
-        "classes": {
-          "type": "string"
-        },
-        "alt": {
-          "type": "string"
-        }
-      },
-      "required": ["classes", "src"],
-      "title": "Img"
+    "Vertical": {
+      "type": "string",
+      "enum": ["start", "end", "center", "baseline", "stretch"],
+      "title": "Vertical"
+    },
+    "AlignItems": {
+      "type": "string",
+      "enum": ["start", "end", "center", "baseline", "stretch"],
+      "title": "AlignItems"
     },
     "Element": {
       "type": "object",
       "additionalProperties": true,
       "properties": {
+        "classes": {
+          "type": "string"
+        },
+        "blockClasses": {
+          "type": "string"
+        },
+        "style": {
+          "$ref": "#/definitions/Style"
+        },
         "row": {
           "$ref": "#/definitions/Row"
         },
-        "horizontal": {
+        "direction": {
           "type": "string"
         },
-        "vertical": {
+        "wrap": {
           "type": "string"
+        },
+        "aos": {
+          "type": "object"
+        },
+        "horizontal": {
+          "$ref": "#/definitions/Horizontal"
+        },
+        "vertical": {
+          "$ref": "#/definitions/Vertical"
+        },
+        "alignItems": {
+          "$ref": "#/definitions/AlignItems"
         },
         "gap": {
           "$ref": "#/definitions/Gap"
@@ -102,34 +116,20 @@
         "bg": {
           "$ref": "#/definitions/Bg"
         },
-        "classes": {
-          "type": "string"
-        },
-        "style": {
-          "$ref": "#/definitions/Style"
+        "animate": {
+          "$ref": "#/definitions/Animate"
         },
         "layoutAlign": {
           "type": "string"
         },
         "elements": {
           "type": "array",
-          "items": {}
-        },
-        "animate": {
-          "type": "object",
-          "additionalProperties": true,
-          "properties": {
-            "from": {
-              "type": "object"
-            },
-            "trigger": {
-              "type": "object"
-            }
-          },
-          "required": ["from"]
+          "items": {
+            "type": "object"
+          }
         }
       },
-      "required": ["elements", "gap", "horizontal", "layoutAlign", "row", "vertical"],
+      "required": ["elements", "row"],
       "title": "Element"
     },
     "Animate": {
@@ -143,7 +143,55 @@
           "type": "object"
         }
       },
-      "required": ["from"]
+      "title": "Animate"
+    },
+    "Bg": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "img": {
+          "$ref": "#/definitions/Img"
+        },
+        "classes": {
+          "type": "string"
+        },
+        "overlay": {
+          "type": "string"
+        }
+      },
+      "title": "Bg"
+    },
+    "Img": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "src": {
+          "type": "string"
+        },
+        "alt": {
+          "type": "string"
+        },
+        "classes": {
+          "type": "string"
+        },
+        "hostClasses": {
+          "type": "string"
+        },
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "style": {
+          "$ref": "#/definitions/Style"
+        },
+        "animate": {
+          "$ref": "#/definitions/Animate"
+        }
+      },
+      "required": ["src"],
+      "title": "Img"
     },
     "Gap": {
       "type": "object",
@@ -162,7 +210,7 @@
           "type": ["number", "string"]
         }
       },
-      "required": ["lg", "md", "sm", "xs"],
+      "required": [],
       "title": "Gap"
     },
     "Row": {
@@ -182,18 +230,30 @@
           "type": ["number", "string"]
         }
       },
-      "required": ["lg", "md", "sm", "xs"],
+      "required": [],
       "title": "Row"
     },
     "Style": {
       "type": "object",
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
+        "aspectRatio": {
+          "type": "string"
+        },
+        "objectFit": {
+          "type": "string"
+        },
+        "opacity": {
+          "type": "number"
+        },
         "borderRadius": {
+          "type": "string"
+        },
+        "boxShadow": {
           "type": "string"
         }
       },
-      "required": ["borderRadius"],
+      "required": [],
       "title": "Style"
     }
   }

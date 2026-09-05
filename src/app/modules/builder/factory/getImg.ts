@@ -114,6 +114,7 @@ export function getImg(widget: any): FormlyFieldConfig {
             key: 'isLink',
             type: 'toggle',
             className: 'col-span-12',
+            defaultValue: widget.isLink ?? false,
             props: {
               label: 'BUILDER.FACTORY.IS_LINK',
             },

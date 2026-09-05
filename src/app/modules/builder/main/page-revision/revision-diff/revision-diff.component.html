@@ -1,0 +1,57 @@
+<h2 mat-dialog-title class="diff-title">
+  {{ 'BUILDER.REVISION.COMPARE_TITLE' | translate }}
+  <span class="diff-page">{{ data.title }}</span>
+</h2>
+<mat-dialog-content class="diff-content">
+  <div class="diff-sides">
+    <p class="diff-side">
+      <span class="diff-side-label">{{ 'BUILDER.REVISION.COMPARE_LEFT' | translate }}</span>
+      <span class="diff-side-vid">#{{ data.original.vid }}</span>
+      <time [attr.datetime]="data.original.time | date: 'yyyy-MM-ddTHH:mm:ssZZZZZ'">
+        {{ data.original.time | date: 'yyyy/MM/dd HH:mm:ss' }}
+      </time>
+    </p>
+    <p class="diff-side">
+      <span class="diff-side-label">{{ 'BUILDER.REVISION.COMPARE_RIGHT' | translate }}</span>
+      <span class="diff-side-vid">#{{ data.modified.vid }}</span>
+      <time [attr.datetime]="data.modified.time | date: 'yyyy-MM-ddTHH:mm:ssZZZZZ'">
+        {{ data.modified.time | date: 'yyyy/MM/dd HH:mm:ss' }}
+      </time>
+    </p>
+  </div>
+  @if (loading()) {
+    <div class="diff-state">
+      <app-spinner />
+    </div>
+  } @else if (error()) {
+    <div class="diff-state">
+      <p class="diff-state-text">{{ 'BUILDER.REVISION.COMPARE_FAIL' | translate }}</p>
+      <app-btn
+        (btnClick)="load()"
+        [content]="{
+          label: 'BUILDER.PAGE_LIST.REFRESH' | translate,
+          color: 'primary',
+          icon: { svg: 'refresh' },
+        }"
+      />
+    </div>
+  } @else {
+    @if (models(); as models) {
+      @if (identical()) {
+        <p class="diff-identical">{{ 'BUILDER.REVISION.COMPARE_IDENTICAL' | translate }}</p>
+      }
+      <ngx-monaco-diff-editor
+        class="diff-editor"
+        [options]="diffOptions"
+        [originalModel]="models.original"
+        [modifiedModel]="models.modified"
+      />
+    }
+  }
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <app-btn
+    (btnClick)="dialogRef.close()"
+    [content]="{ label: 'BUILDER.COMMON.CLOSE' | translate, mode: 'stroked' }"
+  />
+</mat-dialog-actions>

@@ -11,10 +11,19 @@
 }
 
 :host ::ng-deep {
-  .ql-container {
-    font-size: 16px;
-  }
-  .ck-content {
+  .comment-editor-shell {
     min-height: 250px;
+  }
+  .comment-editor-shell .editor-loading {
+    @apply flex justify-center items-center min-h-[250px];
+  }
+  .comment-editor-shell app-tiptap-editor {
+    display: block;
+  }
+  .editor-placeholder {
+    @apply w-full min-h-[250px] text-left p-4;
+    border: 1px solid var(--mat-sys-outline-variant);
+    background-color: var(--mat-sys-surface);
+    color: var(--mat-sys-on-surface-variant);
   }
 }

@@ -1,4 +1,4 @@
-// 无字段 wrapper,间距由自身承担(与 wrapper 的 mb-2 一致)
+// No field wrapper, so spacing is handled here (consistent with the wrapper's mb-2)
 :host {
   @apply block mb-2;
 }
@@ -7,7 +7,7 @@
   @apply relative inline-flex items-center gap-2 cursor-pointer select-none;
 }
 
-// 覆盖在方框上方的透明原生 checkbox:保留原生点击/键盘/焦点语义
+// Invisible native checkbox overlaid on the box: keeps native click/keyboard/focus semantics
 .check-input {
   @apply absolute w-4 h-4 m-0 opacity-0 cursor-pointer;
 }

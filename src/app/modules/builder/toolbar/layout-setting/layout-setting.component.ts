@@ -3,16 +3,20 @@ import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-
 import { Component, DestroyRef, inject, DOCUMENT, ChangeDetectionStrategy, input } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
+import { FORMLY_CONFIG } from '@ngx-formly/core';
+import { TranslateService } from '@ngx-translate/core';
 import { SHARE_IMPORTS } from '@share/share-imports';
 import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { FORM_IMPORTS } from '@uiux/combs/form/form-imports';
+import { registerTranslateExtension } from '@uiux/combs/form/formly-feature.config';
 import type { ILayoutSetting } from '@core/interface/IBuilder';
+import { SyncWebformComponent } from '@modules/builder/factory/formly-type/sync-webform/sync-webform.component';
+import { ChartDataComponent } from '@modules/builder/factory/formly-type/chart-data/chart-data.component';
 import type { IDynamicInputs } from '@core/interface/IAppConfig';
 import { IDialog } from '@core/interface/IDialog';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { TranslateService } from '@ngx-translate/core';
 import { cloneDeep, defaultsDeep, get } from 'lodash-es';
 
 @Component({
@@ -21,6 +25,26 @@ import { cloneDeep, defaultsDeep, get } from 'lodash-es';
   templateUrl: './layout-setting.component.html',
   styleUrls: ['./layout-setting.component.scss'],
   imports: [SHARE_IMPORTS, WIDGETS_IMPORTS, FORM_IMPORTS, DragDropModule],
+  providers: [
+    // Builder-only formly type; kept here instead of the shared formly config so
+    // public-page form bundles never pull it in.
+    {
+      provide: FORMLY_CONFIG,
+      multi: true,
+      useValue: {
+        types: [
+          { name: 'sync-webform', component: SyncWebformComponent },
+          { name: 'chart-data', component: ChartDataComponent },
+        ],
+      },
+    },
+    {
+      provide: FORMLY_CONFIG,
+      multi: true,
+      useFactory: registerTranslateExtension,
+      deps: [TranslateService],
+    },
+  ],
 })
 export class LayoutSettingComponent {
   readonly content = input.required<ILayoutSetting>();

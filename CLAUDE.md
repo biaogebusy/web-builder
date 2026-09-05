@@ -6,9 +6,31 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Xinshi (信使) Web Builder** — an AI-powered low-code platform for building modern responsive web applications. Built with Angular 20 (standalone-only, zoneless, SSR) + Angular Material + TailwindCSS, using Drupal as headless CMS backend via JSON:API.
 
+## Backend Repositories
+
+The Drupal backends are sibling directories of this repo (not inside it); check them before assuming server behavior or debugging API responses:
+
+- `../xinshi-cms` — the open-source base CMS (Drupal 10). API extensions live in `docroot/modules/custom/xinshi_jsonapi/` (the `/api/v3/*` routes).
+- `../builder-cms` — the builder.design deployment CMS; mirrors the base endpoints in `docroot/modules/custom/xinshi_api/` plus deployment-specific deltas. The dev proxy target `base.builder.design` serves this codebase.
+
+## Sibling Frontend Repository
+
+- `../pro` — the pro deployment checkout of this frontend (branch `pro`). It merges `master` in and carries the deployment-specific delta; the same thin-seam rules as downstream CMS branches apply.
+
+## Sibling Documentation Repository
+
+- `../xinshi-docs` — the project documentation site (Storybook 9 + MDX, deployed to `ui.builder.design`). When a change in this repo affects documented behavior — new components, config changes, API changes, feature work — keep the corresponding MDX pages in `../xinshi-docs/stories/` in sync and commit the doc update promptly rather than deferring it.
+
+## Branches & Deployments
+
+- **`master` is the open-source base branch and the single source of truth.** Downstream deployment branches build on it: they merge `master` in, never the other way. Anything that is not part of the base product stays out of `master`.
+- **Order matters**: land base work on `master` first, then merge it downstream and add the deployment-specific delta there. Building everything downstream and back-porting later conflicts in the shared files.
+- **Keep the seam thin in shared files.** When base code has to know about an optional feature, use the smallest hook available: one entry in a registry/route/provider pointing at a separate file, or a flag input on a shared component that defaults to off — with the optional UI referenced **inside `@defer`**, the same gate that keeps builder code out of public-page bundles.
+- **Never hardcode values that differ per deployment.** Backend origins live in `config/proxy.config.js` and `src/environments/environment*.ts` and differ per deployment — point at the files, never copy a domain into code, comments or docs.
+
 ## Common Commands
 
-- `npm start` — local dev server (proxies API to base.builder.design via `config/proxy.config.js`)
+- `npm start` — local dev server (proxies API to the backend configured in `config/proxy.config.js`; the target differs per branch)
 - `npm run build` — production build plus static asset precompression (`ng build --configuration production && npm run precompress`)
 - `npm test` — run unit tests once (Vitest via `@angular/build:unit-test` builder); covers all `src/**` specs except `src/server/**`; setup in `src/test-setup.ts`, shared test providers in `src/test-providers.ts`
 - `npm run test:server` — run server-side specs (`src/server/**`, need node built-ins) via root `vitest.config.ts`; the two channels split coverage with no overlap
@@ -71,7 +93,7 @@ Global app state is provided via InjectionToken factories in `core/token/token-p
 
 Both files implement `IEnvironment`: `apiUrl`, `production`, `port`, `multiLang`, `langs`, `oauth` (OAuth2 client/endpoints).
 
-- `environment.ts` — dev config (`apiUrl: http://localhost:4200`); production builds swap in `environment.prod.ts` (`apiUrl: https://base.builder.design`) via `fileReplacements`
+- `environment.ts` — dev config (`apiUrl: http://localhost:4200`); production builds swap in `environment.prod.ts` via `fileReplacements`. The production `apiUrl` and the dev proxy target are **branch-specific** — read the files instead of assuming a domain
 - Both files ship `production: true` — dev fetches live data through the proxy. A legacy `production: false` branch in `ContentService.loadPageContent` reads page JSON from `{apiUrl}/assets/app/**.json`, but the local JSON samples were removed from the repo
 - `multiLang` / `langs` — multi-language support with lang prefix routing (zh-hans default, en); UI strings loaded via @ngx-translate from `{apiUrl}/assets/i18n/*.json`
 
@@ -109,7 +131,7 @@ Angular SSR via `@angular/ssr` (`outputMode: server`). Express entry point: `src
 - **@fullcalendar** — calendar combs
 - **video.js** — video player
 - **monaco-editor** (via ngx-monaco-editor-v2) — code editor
-- **quill** (via ngx-quill) — rich text editor
+- **tiptap** — rich text editor (loaded lazily outside builder-only routes)
 - **lightgallery** — image gallery/lightbox
 - **gsap** + **aos** — animations (GSAP for fine-grained, AOS for scroll-triggered)
 - **@amap/amap-jsapi-loader** — AMap maps
@@ -127,9 +149,24 @@ Angular SSR via `@angular/ssr` (`outputMode: server`). Express entry point: `src
   - `forwardRef(() => Component)` in `@Component.imports` resolves circular dependencies — required for recursive components (`SubMenuComponent`, `AccordionMenuComponent`, `CommentItemComponent`, `DialogComponent ↔ DynamicComponentComponent`)
   - All dependencies must be explicitly imported in `@Component.imports`: Material modules (MatButtonModule, MatIconModule, etc.), Angular pipes (AsyncPipe, DatePipe, etc.), NgPipesModule, custom pipes (SafeHtmlPipe), directives (ReqRolesDirective, CheckChildMenuActiveDirective), Router primitives (RouterOutlet, RouterLink, RouterLinkActive), and child standalone components
 - Use `inject()` function for DI (not constructor injection)
+- **Builder-only code must never ship in public-page bundles**: if a component, service, or library (e.g., tiptap) is only used inside the builder canvas, keep it out of the chunks that public CMS pages load. Chunking follows imports (not directories), so the rules are about import style:
+  - Put builder-only components/services under `modules/builder/` (lazy `/builder` route) and let them import shared pieces from `uiux/`/`core/` — never the reverse: no static `import '@modules/builder/...'` from `core/`, `uiux/`, or anything in `SHARE_IMPORTS`
+  - When shared code (used on public pages) needs builder behavior, gate it: dynamic `import('@modules/builder/...')` triggered only inside the canvas (see `ContenteditDirective`), or wrap builder-only template regions in `@defer` (see `dynamic-component` / `layout-builder` toolbars)
+  - Editor libraries reachable from public registries (e.g., `tiptap-editor` in `DYNAMIC_COMPONENT_LOADERS` / formly types) must stay behind their lazy loaders — never import them eagerly from shared code
+  - Before adding such a dependency, verify: does any public-page chunk now pull it in?
 - Use `npm install` only (not yarn or pnpm) — respects `package-lock.json`
 - ESLint rules: single quotes, semicolons required, max line length 100 (warnings), `any` type is allowed
 - Angular self-closing tags preferred in templates
+
+### Comments
+
+- **Language: all code comments are written in English** (TS/SCSS/HTML alike). Never mix Chinese and English in the same file.
+- Use half-width punctuation and a space after the comment marker (`// text`, `/* text */`, `/** text */`) — enforced by the `spaced-comment` ESLint rule.
+- Use JSDoc (`/** ... */`) for exported APIs: interfaces/fields, public methods of services/state classes, `input()`/`output()` on components, and standalone exported functions. Single-line entries may use the inline form `/** ... */`.
+- Use `//` line comments for internal logic. Multi-line comments put each line under `//` (no `/* */` blocks).
+- Explain **why**, not **what** — the code already says what it does. Delete redundant "what" comments (e.g. `// create the button`) rather than translating them.
+- Keep comment lines under 100 chars where practical.
+- Mark unfinished work as `// TODO: <what and why>`; reference a ticket ID when one exists.
 
 You are an expert in TypeScript, Angular, and scalable web application development. You write functional, maintainable, performant, and accessible code following Angular and TypeScript best practices.
 

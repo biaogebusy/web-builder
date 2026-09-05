@@ -14,6 +14,38 @@
   scroll-behavior: smooth;
   @include scrollbar(var(--mat-sys-primary));
 
+  // Pinned to the top of the canvas: the previewed draft is only committed from here,
+  // so the bar has to stay reachable while scrolling through the page
+  .revision-bar {
+    @apply sticky top-0 flex flex-wrap items-center gap-2 px-4 py-2 text-[13px];
+    z-index: 1000;
+    color: var(--mat-sys-on-surface);
+    background-color: var(--mat-sys-surface-container-high);
+    border-bottom: 1px solid var(--mat-sys-outline-variant);
+    .revision-bar-icon {
+      @apply shrink-0;
+      color: var(--mat-sys-primary);
+      // Material keeps a 24px line box on .mat-icon, which clips a smaller box at the bottom
+      ::ng-deep .mat-icon {
+        @apply flex h-[18px] w-[18px] text-[18px] leading-none;
+      }
+    }
+    .revision-bar-text {
+      @apply mr-auto font-medium;
+    }
+    // Text buttons keep the bar quieter than the publish button in the toolbar above
+    app-btn {
+      @apply flex;
+      --mat-button-text-container-height: 32px;
+      ::ng-deep > div {
+        @apply flex;
+      }
+    }
+    .revision-bar-discard {
+      --mat-button-text-label-text-color: var(--mat-sys-on-surface-variant);
+    }
+  }
+
   .wrapper {
     display: flex;
     overflow-y: auto !important;
@@ -192,8 +224,8 @@
             display: block !important;
           }
         }
-        // 菜单打开后 backdrop 会挡住 :hover，需保持触发按钮可见，
-        // 否则触发元素 rect 为 0，overlay 会定位到屏幕左上角
+        // Once the menu opens, the backdrop blocks :hover, so keep the trigger button visible;
+        // otherwise the trigger's rect is 0 and the overlay anchors to the top-left of the screen
         > .toolbar:has(.mat-mdc-menu-trigger[aria-expanded='true']) {
           display: block !important;
         }

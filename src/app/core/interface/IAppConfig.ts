@@ -21,7 +21,6 @@ export interface ICoreConfig {
   loading: boolean;
   loadingBar: boolean;
   article?: IArticle;
-  editor: IEditor;
   actions: IActions;
   dialog: IForceDialog;
   user: User;
@@ -46,6 +45,13 @@ export interface ICoreConfig {
     guard: boolean;
     params: {
       reqRoles: string[];
+    };
+    /** Content types exposed at content publishing entry points (node/add, content center): disable or add machine names on top of the default list */
+    nodeTypes?: {
+      disable?: string[];
+      enable?: string[];
+      /** Types with content moderation enabled: publish status is written to moderation_state instead of status */
+      moderated?: string[];
     };
   };
   access: {
@@ -107,7 +113,13 @@ export interface ISocialLoginProvider {
   label: string;
   svgIcon?: string;
   icon?: string;
+  /**
+   * Identity provider hint appended to the authorize request. The CMS federates the login behind
+   * `/oauth/authorize`, so the app never talks to the provider itself. Requires backend support;
+   * leave unset on deployments that do not have it.
+   */
   idp?: string;
+  /** Social provider entry point on the CMS, e.g. a `/user/login/{network}` path. */
   url?: string;
 }
 
@@ -148,14 +160,6 @@ export interface IArticle {
   login: {
     label: string;
   };
-}
-
-export interface Modules {
-  toolbar: JsonObject[][];
-}
-
-export interface IEditor {
-  modules: Modules;
 }
 
 export interface Button {
@@ -252,10 +256,12 @@ export interface IPage {
   status?: boolean;
   message?: string;
   current?: boolean;
-  // 本地草稿是否有未提交到服务端的修改；nid && !dirty 视为已同步
+  // Whether the local draft has changes not yet submitted to the server; nid && !dirty means synced
   dirty?: boolean;
   langcode?: string;
   vid?: string;
+  // Server revision the draft content was loaded from; only set while previewing a revision
+  revisionVid?: string;
   translation?: true;
   target?: string;
 }

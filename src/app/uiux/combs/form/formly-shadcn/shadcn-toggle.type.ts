@@ -3,9 +3,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FieldType, FieldTypeConfig, FormlyModule } from '@ngx-formly/core';
 
 /**
- * shadcn/ui 风格开关,对应内置 toggle 类型。
- * 视觉隐藏的原生 checkbox(role="switch")承载状态与键盘/焦点行为,
- * 轨道与滑块为纯展示;label 内联在开关右侧,故不使用字段 wrapper。
+ * shadcn/ui-style switch, mapped from the built-in toggle type.
+ * A visually hidden native checkbox (role="switch") carries the state and
+ * keyboard/focus behavior; the track and thumb are purely presentational.
+ * The label sits inline to the right of the switch, so no field wrapper is used.
  */
 @Component({
   selector: 'formly-shadcn-toggle',

@@ -1,3 +1,4 @@
+import { EnvironmentInjector } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { CORE_CONFIG } from '@core/token/token-providers';
@@ -23,8 +24,13 @@ describe('CustomTemplateComponent', () => {
     isPlatformBrowser: vi.fn(() => false),
   };
   const utilitiesService = {
-    getLibraries: vi.fn(() => ''),
     loadStyle: vi.fn(),
+  };
+  const matDialog = {
+    open: vi.fn(() => ({ afterClosed: () => NEVER })),
+  };
+  const builderState = {
+    selectedMedia$: NEVER,
   };
 
   beforeEach(async () => {
@@ -35,8 +41,8 @@ describe('CustomTemplateComponent', () => {
         { provide: ScreenService, useValue: screenService },
         { provide: UtilitiesService, useValue: utilitiesService },
         { provide: CORE_CONFIG, useValue: {} },
-        { provide: MatDialog, useValue: {} },
-        { provide: BuilderState, useValue: {} },
+        { provide: MatDialog, useValue: matDialog },
+        { provide: BuilderState, useValue: builderState },
         { provide: ManageService, useValue: {} },
         { provide: TranslateService, useValue: {} },
       ],
@@ -56,6 +62,18 @@ describe('CustomTemplateComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('opens the media library with an environment injector', () => {
+    const dialog = TestBed.inject(MatDialog) as unknown as { open: { mock: { calls: any[][] } } };
+    const instance = component as unknown as { openImgPicker: (img: HTMLImageElement) => void };
+
+    instance.openImgPicker(document.createElement('img'));
+
+    // ManageMediaComponent resolves route-level tokens (BUILDER_CONFIG / MEDIA_ASSETS)
+    // through the dialog's injector. Without an explicit one it depends on some ancestor
+    // happening to import MatDialogModule, and breaks with NG0201 wherever none does.
+    expect(dialog.open.mock.calls[0][1].injector).toBeInstanceOf(EnvironmentInjector);
   });
 
   it('rerenders static HTML when the content input changes', async () => {

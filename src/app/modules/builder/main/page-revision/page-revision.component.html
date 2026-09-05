@@ -1,0 +1,102 @@
+<div class="page-revision">
+  <h3 class="revision-page-title">{{ content().content.title }}</h3>
+  @if (loading()) {
+    <div class="state">
+      <app-spinner />
+    </div>
+  } @else if (forbidden()) {
+    <div class="state">
+      <p class="state-text">{{ 'BUILDER.REVISION.LOGIN_REQUIRED' | translate }}</p>
+      <app-btn
+        (click)="openLogin()"
+        [content]="{
+          label: 'BUILDER.REVISION.LOGIN' | translate,
+          color: 'primary',
+          icon: { svg: 'login' },
+        }"
+      />
+    </div>
+  } @else if (error()) {
+    <div class="state">
+      <p class="state-text">{{ 'BUILDER.REVISION.LIST_FAIL' | translate }}</p>
+      <app-btn
+        (click)="load()"
+        [content]="{
+          label: 'BUILDER.PAGE_LIST.REFRESH' | translate,
+          color: 'primary',
+          icon: { svg: 'refresh' },
+        }"
+      />
+    </div>
+  } @else if (revisions().length === 0) {
+    <div class="state">
+      <p class="state-text">{{ 'BUILDER.REVISION.EMPTY' | translate }}</p>
+    </div>
+  } @else {
+    <ul class="revision-list">
+      @for (revision of revisions(); track revision.vid) {
+        <li class="revision-item" [class.current]="revision.current">
+          <mat-checkbox
+            class="revision-select"
+            [checked]="isSelected(revision.vid)"
+            [disabled]="!isSelected(revision.vid) && canCompare()"
+            [attr.aria-label]="'BUILDER.REVISION.COMPARE_ARIA' | translate: { vid: revision.vid }"
+            (change)="toggleCompare(revision.vid)"
+          />
+          <button
+            type="button"
+            class="revision-row"
+            [attr.aria-label]="'BUILDER.REVISION.PREVIEW_ARIA' | translate: { vid: revision.vid }"
+            (click)="onRevision(revision)"
+          >
+            <span class="revision-header">
+              <time
+                class="revision-time"
+                [attr.datetime]="revision.time | date: 'yyyy-MM-ddTHH:mm:ssZZZZZ'"
+              >
+                {{ revision.time | date: 'yyyy/MM/dd HH:mm:ss' }}
+              </time>
+              @if (revision.current) {
+                <span class="revision-badge">{{ 'BUILDER.REVISION.CURRENT' | translate }}</span>
+              }
+            </span>
+            <span class="revision-meta">
+              <span class="revision-vid">#{{ revision.vid }}</span>
+              @if (revision.author) {
+                <span class="revision-author">
+                  <span class="sr-only">{{ 'BUILDER.PAGE_LIST.AUTHOR' | translate }}: </span>
+                  {{ revision.author }}
+                </span>
+              }
+            </span>
+            @if (revision.log) {
+              <span class="revision-log">{{ revision.log }}</span>
+            }
+          </button>
+        </li>
+      }
+    </ul>
+    <div class="revision-footer">
+      <p class="revision-hint">{{ 'BUILDER.REVISION.HINT' | translate }}</p>
+      @if (revisions().length > 1) {
+        <div class="revision-actions">
+          <app-btn
+            (btnClick)="onCompare()"
+            [content]="{
+              label: 'BUILDER.REVISION.COMPARE' | translate,
+              mode: 'stroked',
+              color: 'primary',
+              icon: { svg: 'file-compare' },
+              disabled: !canCompare(),
+            }"
+          />
+          @if (!canCompare()) {
+            <span class="revision-actions-hint">
+              {{ 'BUILDER.REVISION.COMPARE_PICK' | translate }}
+            </span>
+          }
+        </div>
+      }
+    </div>
+  }
+</div>

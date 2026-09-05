@@ -1,0 +1,69 @@
+// The host element's positioning is taken over by the tiptap BubbleMenu extension:
+// on show() it mounts to body and computes top/left via floating-ui; hiding is done
+// by the plugin removing the element from the DOM, so it starts invisible
+:host {
+  @apply z-50 block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: max-content;
+  visibility: hidden;
+  background-color: var(--mat-sys-surface-container);
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+
+  // Compact icon-button sizing, matching the tiptap-editor toolbar
+  --mat-icon-button-icon-size: 16px;
+  --mat-icon-button-state-layer-size: 32px;
+  ::ng-deep {
+    .mat-icon {
+      height: inherit;
+      width: inherit;
+      .mat-mdc-button-touch-target {
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
+}
+
+.bubble-row {
+  @apply flex gap-1 p-1;
+}
+
+.style-panel {
+  @apply flex items-center gap-3 px-2 py-1;
+  border-top: 1px solid var(--mat-sys-outline-variant);
+
+  .style-item {
+    @apply flex cursor-pointer items-center gap-1;
+  }
+
+  .style-label {
+    @apply text-xs whitespace-nowrap;
+    color: var(--mat-sys-on-surface-variant);
+  }
+
+  .color-input {
+    @apply h-6 w-8 cursor-pointer rounded border p-0;
+    border-color: var(--mat-sys-outline-variant);
+    background: transparent;
+  }
+
+  .size-select {
+    @apply h-7 rounded border px-1 text-sm;
+    border-color: var(--mat-sys-outline-variant);
+    background: transparent;
+    color: var(--mat-sys-on-surface);
+
+    &:focus {
+      outline: none;
+      border-color: var(--mat-sys-primary);
+    }
+  }
+}
+
+app-tiptap-link-panel {
+  border-top: 1px solid var(--mat-sys-outline-variant);
+}

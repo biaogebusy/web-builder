@@ -22,6 +22,14 @@ export class ManageService extends ApiService {
     );
   }
 
+  /** Load one image media with its source file included; used to resolve a media UUID back to a preview URL */
+  getMediaImage(uuid: string): Observable<any> {
+    return this.http.get<any>(
+      `${this.apiUrl}/api/v1/media/image/${uuid}?include=field_media_image&fields[file--file]=uri`,
+      this.httpOptionsOfCommon
+    );
+  }
+
   updateMediaName(uuid: string, name: string): Observable<any> {
     return this.http.patch<any>(
       `${this.apiUrl}/api/v1/media/image/${uuid}`,
@@ -37,10 +45,10 @@ export class ManageService extends ApiService {
   }
 
   getUrlIncluded(item: any, included: any[]): string {
-    const id = item.relationships.field_media_image.data.id;
-    const obj = included.find(media => media.id === id);
+    const id = item?.relationships?.field_media_image?.data?.id;
+    const obj = (included || []).find(media => media.id === id);
 
-    return obj.attributes.uri.url;
+    return obj?.attributes?.uri?.url ?? '';
   }
 
   handlerJsonApiParams(value: any): { type: string; params: string } {
@@ -61,14 +69,14 @@ export class ManageService extends ApiService {
       apiParams.addSort('created', direction);
     }
 
-    // 所有文件
+    // All files
     if (type.includes('file')) {
       if (key) {
         apiParams.addFilter('filename', key, 'CONTAINS');
       }
     }
 
-    // 图片库
+    // Image library
     if (type.includes('image')) {
       apiParams.addFields('file--file', ['uri']);
       apiParams.addInclude(['field_media_image']);
@@ -77,7 +85,7 @@ export class ManageService extends ApiService {
       }
     }
 
-    // 文档库 or 视频库
+    // Document library or video library
     if (type.includes('document') || type.includes('video')) {
       this.util.openSnackbar('文档库和视频库功能未完善！', 'Ok');
     }

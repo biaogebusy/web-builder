@@ -9,6 +9,7 @@ import {
   OnDestroy,
   OnInit,
   afterEveryRender,
+  computed,
   inject,
   signal,
   DOCUMENT,
@@ -20,13 +21,14 @@ import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { IframeComponent } from '@uiux/combs/other/iframe/iframe.component';
 import { IDynamicInputs } from '@core/interface/IAppConfig';
 import { BuilderState } from '@core/state/BuilderState';
-import { BUILDER_CONFIG, BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
+import { BUILDER_CONFIG, BUILDER_CURRENT_PAGE, USER } from '@core/token/token-providers';
 import { map as each, throttle } from 'lodash-es';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderService } from '@core/service/builder.service';
+import { UserService } from '@core/service/user.service';
 import { generatePath } from '@core/util/dom-path.util';
 import { LocalStorageService } from 'ngx-webstorage';
 import { TranslateService } from '@ngx-translate/core';
@@ -42,6 +44,19 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   private doc = inject<Document>(DOCUMENT);
   public currentPage = inject(BUILDER_CURRENT_PAGE);
   public builderConfig$ = inject(BUILDER_CONFIG);
+  private user = inject(USER);
+
+  /**
+   * The revision the draft on the canvas was loaded from, null unless a revision is previewed.
+   * Narrowing it here keeps the state bar in the template free of optional checks.
+   */
+  readonly revisionPreview = computed(() => {
+    const page = this.currentPage();
+    if (!page || !page.nid || !page.revisionVid) {
+      return null;
+    }
+    return { nid: page.nid, langcode: page.langcode, vid: page.revisionVid };
+  });
 
   readonly builderList = viewChild<ElementRef>('builderList');
   private markers: NodeListOf<Element>;
@@ -53,6 +68,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   private builderService = inject(BuilderService);
   private storage = inject(LocalStorageService);
   private translate = inject(TranslateService);
+  private userService = inject(UserService);
   private ele = inject(ElementRef);
   private scrollableContainer: Element;
   private disabledLinks = new WeakSet<Element>();
@@ -140,6 +156,20 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onClearHistory(): void {
     this.builder.clearAllHistory();
+  }
+
+  /** Publish the previewed revision; the confirm and the save both live in the builder service */
+  onRestoreRevision(preview: { nid: string; langcode?: string; vid: string }): void {
+    if (!this.user()) {
+      this.userService.openLoginDialog();
+      return;
+    }
+    this.builderService.restoreRevision(preview);
+  }
+
+  /** Drop the preview by reloading the published page, which also clears the revision marker */
+  onDiscardRevision(preview: { nid: string; langcode?: string }): void {
+    this.builderService.loadPage({ langcode: preview.langcode, nid: preview.nid });
   }
 
   onPasteData(target: any): void {

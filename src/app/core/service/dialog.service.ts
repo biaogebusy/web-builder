@@ -21,29 +21,23 @@ export class DialogService {
   }
 
   openForcedDialog(config: any): void {
-    const first = this.doc.referrer;
-    const path = this.doc.location.pathname;
-    const params = config.params;
     if (!config) {
       return;
     }
+    const first = this.doc.referrer;
+    const path = this.doc.location.pathname;
+    const params = config.params;
 
-    if (params.first && !first) {
-      if (params.path) {
-        if (path.includes(params.path)) {
-          this.openDialog(config);
-        }
-      } else {
+    // First-visit-only dialogs: skip entirely for returning visitors (referrer set).
+    if (params.first && first) {
+      return;
+    }
+
+    if (params.path) {
+      if (path.includes(params.path)) {
         this.openDialog(config);
       }
       return;
-    } else {
-      if (params.path) {
-        if (path.includes(params.path)) {
-          this.openDialog(config);
-        }
-        return;
-      }
     }
 
     this.openDialog(config);

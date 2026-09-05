@@ -1,12 +1,7 @@
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import {
-  EnvironmentProviders,
-  importProvidersFrom,
-  Provider,
-  signal,
-} from '@angular/core';
+import { EnvironmentProviders, importProvidersFrom, Provider, signal } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule } from '@ngx-translate/core';
@@ -45,17 +40,19 @@ import {
 } from '@core/token/token-providers';
 
 /**
- * 脚手架(should create)spec 的共享 mock 工厂。
+ * Shared mock factory for scaffolding (should create) specs.
  *
- * 约定(见 docs/testing-recovery-wbs.md 第 3 节):
- * - 方法一律 `vi.fn()`,返回流的用 `vi.fn(() => of(...))`;流属性用 `new Subject()`;
- *   signal 型用 `signal(值)`;令牌给惰性最小值。
- * - 需要"断言 mock 调用"的行为测试请勿依赖本工厂的实例:自建局部 mock,
- *   并在 `providers` 数组中排在 `...provideCoreMocks()` 之后覆盖同名 provider。
+ * Conventions (see docs/testing-recovery-wbs.md, section 3):
+ * - Methods are always `vi.fn()`; stream-returning ones use `vi.fn(() => of(...))`;
+ *   stream properties use `new Subject()`; signal-typed ones use `signal(value)`;
+ *   tokens get a lazy minimal value.
+ * - Behavior tests that need to assert mock calls must not rely on this factory's
+ *   instances: build a local mock and place it after `...provideCoreMocks()` in the
+ *   `providers` array to override the same-named provider.
  */
 
 export const createScreenServiceMock = () => ({
-  // 统一按服务端环境短路,绕开 echarts/swiper/video.js 等 jsdom 跑不动的初始化
+  // Short-circuit to the server environment to skip initializations jsdom cannot run (echarts/swiper/video.js)
   isPlatformServer: vi.fn(() => true),
   isPlatformBrowser: vi.fn(() => false),
   isElementInViewport: vi.fn(() => false),
@@ -106,6 +103,12 @@ export const createBuilderStateMock = () => ({
   showcase: vi.fn(),
   deleteLocalPage: vi.fn(),
   deleteLocalPageByPage: vi.fn(),
+  getLocalPageByPage: vi.fn((_page?: Partial<IPage>): IPage | undefined => undefined),
+  isPageDirty: vi.fn((_page?: Partial<IPage>) => false),
+  // Mirrors the real identity rule: a translation draft is keyed by its target language
+  getPageIdentityLang: vi.fn((page: Partial<IPage>) =>
+    page.translation && page.target ? page.target : (page.langcode ?? '')
+  ),
   markPageSynced: vi.fn(),
   markCurrentPageDirty: vi.fn(),
   clearAllHistory: vi.fn(),
@@ -136,7 +139,6 @@ export const createBuilderStateMock = () => ({
 });
 
 export const createUtilitiesServiceMock = () => ({
-  getLibraries: vi.fn(() => of(true)),
   openSnackbar: vi.fn(),
   loadScript: vi.fn(() => Promise.resolve()),
   loadScriptWithoutAmd: vi.fn(() => Promise.resolve()),
@@ -177,12 +179,14 @@ export const createHttpResourceRefMock = () => ({
 export const createNodeServiceMock = () => ({
   fetch: vi.fn((): Observable<any> => of({ rows: [], pager: {} })),
   fetchResource: vi.fn(() => createHttpResourceRefMock()),
-  resolveLangCode: vi.fn(() => undefined),
+  resolveLangCode: vi.fn((): string | undefined => undefined),
   getNodeByLink: vi.fn((): Observable<any> => of({})),
   getNodes: vi.fn((): Observable<any> => of({ rows: [], pager: {} })),
   batchDeleteNodes: vi.fn(() => of([])),
   deleteEntity: vi.fn(() => of({})),
   addEntity: vi.fn(() => of({})),
+  createNodeTranslation: vi.fn(() => of({ status: true })),
+  updateEntity: vi.fn(() => of({})),
   getEntityType: vi.fn(() => ''),
   getNodePath: vi.fn(() => ''),
   addComment: vi.fn(() => of({})),
@@ -200,18 +204,26 @@ export const createNodeServiceMock = () => ({
   checkNodeAccess: vi.fn(() => of({})),
   uploadImage: vi.fn(() => of({})),
   createMediaImage: vi.fn(() => of(undefined)),
-  imageHandler: vi.fn(),
+  pickAndUploadImage: vi.fn(),
 });
 
 export const createBuilderServiceMock = () => ({
   loadPage: vi.fn(() => of({})),
   loadPageJSON: vi.fn(),
+  getPageRevisions: vi.fn(
+    (): Observable<any> => of({ status: true, message: '', revisions: [] })
+  ),
+  loadPageRevision: vi.fn(),
+  getPageRevision: vi.fn((): Observable<any> => of({ status: true, title: '', body: [] })),
+  restoreRevision: vi.fn(),
+  updatePageJSON: vi.fn(() => of(true)),
   checkIsLatestPage: vi.fn(),
   loadNodeJson: vi.fn(),
   createLandingPage: vi.fn(() => of({})),
   updateLandingPage: vi.fn(() => of({})),
   getDefaultPage: vi.fn(() => of({ title: '', body: [] })),
   addTranslation: vi.fn(() => of({})),
+  deleteTranslation: vi.fn(() => of({})),
   checkTranslationExists: vi.fn(() => of(false)),
   updateAttributes: vi.fn(() => of({})),
   updateUrlalias: vi.fn(() => of({})),
@@ -238,8 +250,12 @@ export const createUserServiceMock = () => ({
   login: vi.fn(),
   openLoginDialog: vi.fn(),
   startAuthorize: vi.fn(() => Promise.resolve()),
+  startSocialAuthorize: vi.fn(() => Promise.resolve()),
+  handleOAuthCallback: vi.fn(() => Promise.resolve({ mode: 'redirect', returnUrl: '' })),
+  pendingReturnUrl: '',
+  userLink: ['/me/login'],
   processTokenAndLogin: vi.fn(() => of(false)),
-  updateUser: vi.fn(),
+  updateUser: vi.fn(() => of({})),
   editingUser: vi.fn(() => of({})),
   getStoredUser: vi.fn(() => null),
   applyRefreshedToken: vi.fn(() => null),
@@ -249,7 +265,7 @@ export const createUserServiceMock = () => ({
   loginUser: vi.fn(),
   logoutUser: vi.fn(),
   logout: vi.fn(),
-  getCode: vi.fn(() => of({})),
+  getCode: vi.fn(() => of({ ok: true })),
   loginByPhone: vi.fn(() => of({ ok: true })),
   getUserConfig: vi.fn(() => of({})),
   getUserById: vi.fn(() => of({ data: [] })),
@@ -280,6 +296,7 @@ export const createManageServiceMock = () => ({
   mediaDialogClass: [],
   deleteMedia: vi.fn(() => of({})),
   updateMediaName: vi.fn(() => of({})),
+  getMediaImage: vi.fn(() => of({})),
   getUrlIncluded: vi.fn(() => ''),
   handlerJsonApiParams: vi.fn(() => ({ type: '', params: '' })),
 });
@@ -323,8 +340,8 @@ export const createBreakpointObserverMock = () => ({
 });
 
 /**
- * 核心令牌 + 常用单例服务的一揽子 mock。
- * 典型用法:
+ * One-stop mocks for core tokens and commonly used singleton services.
+ * Typical usage:
  * ```ts
  * await TestBed.configureTestingModule({
  *   imports: [XxxComponent],
@@ -334,7 +351,7 @@ export const createBreakpointObserverMock = () => ({
  */
 export function provideCoreMocks(): (Provider | EnvironmentProviders)[] {
   return [
-    // 未被 mock 覆盖的真实服务(如 ConfigCheckService)兜底用的 HttpClient 测试后端
+    // HttpClient testing backend as fallback for real services not covered by mocks (e.g. ConfigCheckService)
     provideHttpClient(),
     provideHttpClientTesting(),
     importProvidersFrom(TranslateModule.forRoot()),

@@ -1,0 +1,301 @@
+<div class="node-uiux">
+  <div class="container">
+    <header class="header">
+      <div class="header-text">
+        <h1 class="page-title">{{ 'BUILDER.NODE_UIUX.PAGE_TITLE' | translate }}</h1>
+        <!-- The library's shape is the page's opening fact: how much there is, in how many categories -->
+        @if (!initialLoading()) {
+          <p class="page-summary">
+            {{
+              'BUILDER.NODE_UIUX.SUMMARY'
+                | translate: { components: totalCount(), categories: groupCount() }
+            }}
+          </p>
+        }
+      </div>
+      <app-btn
+        (btnClick)="onAdd()"
+        [content]="{
+          label: 'BUILDER.NODE_UIUX.ADD' | translate,
+          color: 'primary',
+          mode: 'raised',
+          icon: { svg: 'plus' },
+        }"
+      />
+    </header>
+
+    <div class="ledger">
+      <div class="toolbar">
+        <div class="search-box">
+          <app-icon class="search-icon" [content]="{ svg: 'magnify' }" />
+          <input
+            type="search"
+            class="search-input"
+            [placeholder]="'BUILDER.NODE_UIUX.SEARCH' | translate"
+            [attr.aria-label]="'BUILDER.NODE_UIUX.SEARCH' | translate"
+            [(ngModel)]="searchText"
+            (ngModelChange)="onSearch($event)"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          @if (searchText) {
+            <button
+              type="button"
+              class="search-clear"
+              (click)="clearSearch()"
+              [attr.aria-label]="'BUILDER.NODE_UIUX.CLEAR_SEARCH' | translate"
+              [matTooltip]="'BUILDER.NODE_UIUX.CLEAR_SEARCH' | translate"
+            >
+              <app-icon [content]="{ svg: 'close' }" />
+            </button>
+          }
+        </div>
+
+        <div class="toolbar-controls">
+          @if (visibleItemUuids().length > 0) {
+            <mat-checkbox
+              class="select-all"
+              [checked]="isAllSelected()"
+              [indeterminate]="isIndeterminate()"
+              (change)="toggleSelectAll($event.checked)"
+              [attr.aria-label]="'BUILDER.NODE_UIUX.SELECT_ALL_ARIA' | translate"
+            >
+              {{ 'BUILDER.NODE_UIUX.SELECT_ALL' | translate }}
+            </mat-checkbox>
+          }
+          <!-- Search results are always shown expanded, so the disclosure control has nothing to do -->
+          @if (!hasSearchQuery()) {
+            @let expandLabel =
+              (allExpanded() ? 'BUILDER.NODE_UIUX.COLLAPSE_ALL' : 'BUILDER.NODE_UIUX.EXPAND_ALL')
+                | translate;
+            <button
+              type="button"
+              mat-icon-button
+              class="expand-toggle"
+              (click)="toggleExpandAll()"
+              [matTooltip]="expandLabel"
+              [attr.aria-label]="expandLabel"
+            >
+              <app-icon
+                [content]="{
+                  svg: allExpanded() ? 'unfold-less-horizontal' : 'unfold-more-horizontal',
+                }"
+              />
+            </button>
+          }
+        </div>
+
+        @if (selectedCount() > 0) {
+          <div class="selection" role="status">
+            <span class="selection-count">
+              {{ 'BUILDER.NODE_UIUX.SELECTED' | translate: { count: selectedCount() } }}
+            </span>
+            <app-btn
+              (btnClick)="onDeleteSelected()"
+              [content]="{
+                label: 'BUILDER.NODE_UIUX.DELETE_SELECTED' | translate,
+                color: 'warn',
+                mode: 'stroked',
+                icon: { svg: 'delete-sweep-outline' },
+              }"
+            />
+            <button
+              type="button"
+              mat-icon-button
+              (click)="clearSelection()"
+              [attr.aria-label]="'BUILDER.NODE_UIUX.CLEAR_SELECTION' | translate"
+              [matTooltip]="'BUILDER.NODE_UIUX.CLEAR_SELECTION' | translate"
+            >
+              <app-icon [content]="{ svg: 'close' }" />
+            </button>
+          </div>
+        }
+      </div>
+
+      @if (hasSearchQuery() && !initialLoading()) {
+        <p class="result-meta" role="status">
+          {{ 'BUILDER.NODE_UIUX.MATCHES' | translate: { count: visibleItemUuids().length } }}
+        </p>
+      }
+
+      <div class="list" [class.is-busy]="loading()" [attr.aria-busy]="loading() ? 'true' : null">
+        @if (initialLoading()) {
+          <div class="skeleton">
+            @for (row of skeletonRows; track row) {
+              <ngx-skeleton-loader
+                count="1"
+                appearance="line"
+                [theme]="{
+                  height: '2.75rem',
+                  'border-radius': 'var(--shadcn-radius-sm)',
+                  'background-color': 'var(--shadcn-muted)',
+                  margin: '0',
+                }"
+              />
+            }
+          </div>
+        } @else if (groupTree().length === 0) {
+          @if (hasSearchQuery()) {
+            <div class="state" role="status">
+              <app-icon class="state-icon" [content]="{ svg: 'magnify-close' }" />
+              <p class="state-text">{{ 'BUILDER.NODE_UIUX.NO_MATCHES' | translate }}</p>
+              <app-btn
+                (btnClick)="clearSearch()"
+                [content]="{
+                  label: 'BUILDER.NODE_UIUX.CLEAR_SEARCH' | translate,
+                  mode: 'stroked',
+                }"
+              />
+            </div>
+          } @else {
+            <div class="state">
+              <app-icon class="state-icon" [content]="{ svg: 'package-variant' }" />
+              <p class="state-text">{{ 'BUILDER.NODE_UIUX.EMPTY' | translate }}</p>
+              <p class="state-hint">{{ 'BUILDER.NODE_UIUX.EMPTY_HINT' | translate }}</p>
+              <app-btn
+                (btnClick)="onAdd()"
+                [content]="{
+                  label: 'BUILDER.NODE_UIUX.ADD' | translate,
+                  color: 'primary',
+                  mode: 'stroked',
+                  icon: { svg: 'plus' },
+                }"
+              />
+            </div>
+          }
+        } @else {
+          @for (group of groupTree(); track group.name; let gi = $index) {
+            @let groupId = 'uiux-group-' + gi;
+            @let open = hasSearchQuery() || isExpanded(group.name);
+            <section class="group">
+              <h2 class="group-heading">
+                <button
+                  type="button"
+                  class="group-toggle"
+                  [disabled]="hasSearchQuery()"
+                  [attr.aria-expanded]="hasSearchQuery() ? null : isExpanded(group.name)"
+                  [attr.aria-controls]="groupId"
+                  (click)="toggleGroup(group.name)"
+                >
+                  <app-icon
+                    class="group-chevron"
+                    [class.is-open]="open"
+                    [content]="{ svg: 'chevron-right' }"
+                  />
+                  <span class="group-icon" [class.is-blank]="!group.icon">
+                    @if (group.icon) {
+                      <app-icon [content]="{ svg: group.icon }" />
+                    }
+                  </span>
+                  <span class="group-name">{{ group.name }}</span>
+                  <span class="group-count">{{ group.count }}</span>
+                </button>
+              </h2>
+
+              <div class="group-body" [id]="groupId" [hidden]="!open">
+                @for (sub of group.subGroups; track sub.name; let si = $index) {
+                  @let subId = 'uiux-sub-' + gi + '-' + si;
+                  <div class="sub" role="group" [attr.aria-labelledby]="subId">
+                    <h3 class="sub-heading">
+                      <span class="sub-name" [id]="subId">{{ sub.name }}</span>
+                      <span class="sub-rule" aria-hidden="true"></span>
+                      <span class="sub-count">{{ sub.count }}</span>
+                    </h3>
+
+                    <ul class="items">
+                      @for (item of sub.items; track item.uuid) {
+                        <li class="item" [class.is-selected]="isItemSelected(item.uuid)">
+                          <!-- The name sits inside the checkbox label, so the identity of a
+                               row is also its selection target -->
+                          <mat-checkbox
+                            class="item-select"
+                            [checked]="isItemSelected(item.uuid)"
+                            (change)="toggleSelect(item.uuid, $event.checked)"
+                          >
+                            <span class="item-text">
+                              <span class="item-name">{{ item.label }}</span>
+                              @if (item.mark) {
+                                <span class="item-mark" [title]="item.mark">{{ item.mark }}</span>
+                              }
+                            </span>
+                          </mat-checkbox>
+
+                          <!-- Glyph and slug are the same piece of data — the icon field — so
+                               they read as one cell. The slug is code because an admin types
+                               that exact string into the icon input -->
+                          @if (item.icon) {
+                            <span class="item-icon">
+                              <app-icon [content]="{ svg: item.icon }" />
+                              <code>{{ item.icon }}</code>
+                            </span>
+                          } @else {
+                            <span class="item-icon is-empty">
+                              {{ 'BUILDER.NODE_UIUX.NO_ICON' | translate }}
+                            </span>
+                          }
+
+                          <button
+                            type="button"
+                            mat-icon-button
+                            class="item-actions"
+                            [matMenuTriggerFor]="rowMenu"
+                            [matMenuTriggerData]="{ item: item }"
+                            [matTooltip]="
+                              'BUILDER.NODE_UIUX.ROW_ACTIONS' | translate: { label: item.label }
+                            "
+                            [attr.aria-label]="
+                              'BUILDER.NODE_UIUX.ROW_ACTIONS' | translate: { label: item.label }
+                            "
+                          >
+                            <app-icon [content]="{ svg: 'dots-horizontal' }" />
+                          </button>
+                        </li>
+                      }
+                    </ul>
+                  </div>
+                }
+              </div>
+            </section>
+          }
+        }
+
+        @if (loading()) {
+          <div class="busy">
+            <app-loading [content]="{ size: 48 }" />
+            <span class="sr-only" aria-live="polite">
+              {{ 'BUILDER.NODE_UIUX.BUSY' | translate }}
+            </span>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- One menu for the whole list: the trigger passes its row in as context, instead of
+     instantiating a mat-menu per component -->
+<mat-menu #rowMenu="matMenu" xPosition="before">
+  <ng-template matMenuContent let-item="item">
+    <button type="button" mat-menu-item (click)="onPreview(item)">
+      <app-icon class="menu-icon" [content]="{ svg: 'eye-outline' }" />
+      <span>{{ 'BUILDER.NODE_UIUX.PREVIEW' | translate }}</span>
+    </button>
+    <button type="button" mat-menu-item (click)="onEdit(item)">
+      <app-icon class="menu-icon" [content]="{ svg: 'pencil-outline' }" />
+      <span>{{ 'BUILDER.NODE_UIUX.EDIT' | translate }}</span>
+    </button>
+    <button type="button" mat-menu-item (click)="onEditJson(item)">
+      <app-icon class="menu-icon" [content]="{ svg: 'code-json' }" />
+      <span>{{ 'BUILDER.COMMON.EDIT_JSON' | translate }}</span>
+    </button>
+    <button type="button" mat-menu-item (click)="onCopyId(item)">
+      <app-icon class="menu-icon" [content]="{ svg: 'content-copy' }" />
+      <span>{{ 'BUILDER.NODE_UIUX.COPY_ID' | translate }}</span>
+    </button>
+    <mat-divider />
+    <button type="button" mat-menu-item class="menu-item-danger" (click)="onDelete(item)">
+      <app-icon class="menu-icon" [content]="{ svg: 'delete-outline' }" />
+      <span>{{ 'BUILDER.NODE_UIUX.DELETE' | translate }}</span>
+    </button>
+  </ng-template>
+</mat-menu>

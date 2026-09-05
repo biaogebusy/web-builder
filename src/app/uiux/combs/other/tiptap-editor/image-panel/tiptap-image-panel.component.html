@@ -1,0 +1,48 @@
+<div class="image-panel" role="group" [attr.aria-label]="'BUILDER.TIPTAP.IMAGE_SETTINGS' | translate">
+  <label class="image-field image-alt-field">
+    <span>{{ 'BUILDER.TIPTAP.IMAGE_ALT' | translate }}</span>
+    <input
+      #altInput
+      type="text"
+      [value]="attribute('alt')"
+      [placeholder]="'BUILDER.TIPTAP.IMAGE_ALT_PLACEHOLDER' | translate"
+      [attr.aria-label]="'BUILDER.TIPTAP.IMAGE_ALT' | translate"
+      (keydown.enter)="apply(altInput.value, widthInput.value, heightInput.value)"
+    />
+  </label>
+  <label class="image-field image-size-field">
+    <span>{{ 'BUILDER.TIPTAP.IMAGE_WIDTH' | translate }}</span>
+    <input
+      #widthInput
+      type="number"
+      min="1"
+      step="1"
+      inputmode="numeric"
+      [value]="attribute('width')"
+      [placeholder]="'BUILDER.TIPTAP.IMAGE_AUTO' | translate"
+      [attr.aria-label]="'BUILDER.TIPTAP.IMAGE_WIDTH' | translate"
+      (keydown.enter)="apply(altInput.value, widthInput.value, heightInput.value)"
+    />
+  </label>
+  <label class="image-field image-size-field">
+    <span>{{ 'BUILDER.TIPTAP.IMAGE_HEIGHT' | translate }}</span>
+    <input
+      #heightInput
+      type="number"
+      min="1"
+      step="1"
+      inputmode="numeric"
+      [value]="attribute('height')"
+      [placeholder]="'BUILDER.TIPTAP.IMAGE_AUTO' | translate"
+      [attr.aria-label]="'BUILDER.TIPTAP.IMAGE_HEIGHT' | translate"
+      (keydown.enter)="apply(altInput.value, widthInput.value, heightInput.value)"
+    />
+  </label>
+  <app-btn
+    (click)="apply(altInput.value, widthInput.value, heightInput.value)"
+    [content]="{
+      label: 'BUILDER.TIPTAP.IMAGE_APPLY' | translate,
+      color: 'primary',
+    }"
+  />
+</div>

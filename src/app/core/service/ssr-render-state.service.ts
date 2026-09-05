@@ -6,7 +6,7 @@ import { Injectable, REQUEST_CONTEXT, inject } from '@angular/core';
  * `AngularNodeAppEngine.handle(req, context)`; the app receives the same
  * object through the REQUEST_CONTEXT injection token. After the render,
  * `server.ts` reads it back to decide whether the produced HTML is safe to
- * cache — a page rendered while the CMS was failing must not be reused.
+ * cache: a page rendered while the CMS was failing must not be reused.
  */
 export interface SsrRequestContext {
   degraded?: boolean;

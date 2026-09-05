@@ -10,7 +10,6 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_CONFIG, BUILDER_FULL_SCREEN, CORE_CONFIG } from '@core/token/token-providers';
 import { LocalStorageService } from 'ngx-webstorage';
-import { TagsService } from '@core/service/tags.service';
 import { ScreenService } from '@core/service/screen.service';
 import { TourService } from '@core/service/tour.service';
 import { IBuilderConfig } from '@core/interface/IBuilder';
@@ -46,14 +45,9 @@ export class BuilderWorkspaceComponent implements AfterViewInit, OnInit {
   private utli = inject(UtilitiesService);
   private storage = inject(LocalStorageService);
   private destroyRef = inject(DestroyRef);
-  private tagService = inject(TagsService);
   private tourService = inject(TourService);
   private screenSerivce = inject(ScreenService);
   private translate = inject(TranslateService);
-
-  constructor() {
-    this.tagService.setTitle(this.translate.instant('BUILDER.WORKSPACE.PAGE_TITLE'));
-  }
 
   ngOnInit(): void {
     if (this.coreConfig.builder?.enable) {

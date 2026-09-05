@@ -7,6 +7,7 @@
     @if (isAbsolute(content().href || '')) {
       <a
         contentedit="label"
+        contenteditProfile="inline"
         [class]="classes"
         [matTooltip]="content().tooltip?.message || ''"
         [matTooltipPosition]="content().tooltip?.position || 'above'"
@@ -25,6 +26,7 @@
         } @else {
           <a
             contentedit="label"
+            contenteditProfile="inline"
             [matTooltip]="content().tooltip?.message || ''"
             [matTooltipPosition]="content().tooltip?.position || 'above'"
             [routerLink]="[content().href]"
@@ -53,6 +55,7 @@
 <ng-template let-link="link" #action>
   <a
     contentedit="label"
+    contenteditProfile="inline"
     [matTooltip]="content().tooltip?.message || ''"
     [matTooltipPosition]="content().tooltip?.position || 'above'"
     [class]="classes"

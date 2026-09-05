@@ -1,8 +1,16 @@
-import { AfterViewInit, Directive, ElementRef, OnInit, inject, input } from '@angular/core';
-import { IMetaEdit } from '@core/interface/IBuilder';
+import {
+  AfterViewInit,
+  DestroyRef,
+  Directive,
+  ElementRef,
+  EnvironmentInjector,
+  Injector,
+  OnInit,
+  inject,
+  input,
+} from '@angular/core';
 import { BuilderState } from '@core/state/BuilderState';
 import { generatePath } from '@core/util/dom-path.util';
-import { TranslateService } from '@ngx-translate/core';
 @Directive({
    selector: '[contentedit]',
   host: {
@@ -14,15 +22,26 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class ContenteditDirective implements AfterViewInit, OnInit {
   readonly contentedit = input.required<string>();
+  /**
+   * Edit profile: 'plain' keeps a bare contenteditable (labels/short text);
+   * 'rich' mounts tiptap in place (multi-paragraph bodies) with a bubble format toolbar;
+   * 'inline' is single-line tiptap (headings): inline marks only, Enter commits, no paragraph wrapper
+   */
+  readonly contenteditProfile = input<'plain' | 'rich' | 'inline'>('plain');
 
   private componentItem: Element | null = null;
-  // 进入编辑时的原始内容，用于跳过未修改的保存，避免产生多余版本快照
+  // Original content at edit start, used to skip unchanged saves and avoid extra version snapshots
   private originalHtml: string | null = null;
   private el = inject(ElementRef);
   private builder = inject(BuilderState);
-  private translate = inject(TranslateService);
+  private injector = inject(Injector);
+  private destroyRef = inject(DestroyRef);
+  // Race between directive destruction (re-render/route change) and an in-flight dynamic
+  // import: never touch the injector after destruction
+  private destroyed = false;
 
   ngOnInit(): void {
+    this.destroyRef.onDestroy(() => (this.destroyed = true));
     this.componentItem = this.el.nativeElement.closest('.component-item');
   }
 
@@ -39,17 +58,17 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
     }
     const path = generatePath(currentTarget);
     this.builder.updatePageContentByPath(path, currentTarget.innerHTML);
-    this.openMetaPanel(currentTarget, path);
   }
 
   /**
    *
    * @param event
-   * 清除剪切板格式
+   * Strip clipboard formatting
    */
   onPaste(event: ClipboardEvent): void {
     const currentTarget = event.currentTarget as HTMLElement | null;
-    // 非编辑态不拦截，避免劫持前台页面或嵌套表单控件的粘贴
+    // Do not intercept outside edit mode, so pasting on front-page content or nested
+    // form controls is never hijacked
     if (!this.componentItem || currentTarget?.contentEditable !== 'true') {
       return;
     }
@@ -61,17 +80,14 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
     }
     const plainText = clipboardData.getData('text/plain');
 
-    // 保存当前选区（光标位置）
     const range = selection.getRangeAt(0);
 
-    // 清除选区，准备插入纯文本
     range.deleteContents();
 
-    // 创建新的文本节点并插入到Range中
     const textNode = document.createTextNode(plainText);
     range.insertNode(textNode);
 
-    // 恢复选区，确保光标位置正确
+    // Restore the selection so the caret stays at the right position
     range.selectNodeContents(textNode);
     selection.removeAllRanges();
     selection.addRange(range);
@@ -84,73 +100,57 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
     }
     event.preventDefault();
     event.stopPropagation();
-    // 已处于编辑态：仅移动光标，不重复刷新右侧面板
+    // Already in edit state: only move the caret, do not refresh the right panel again
     if (currentTarget.contentEditable === 'true') {
       return;
     }
     const path = generatePath(currentTarget);
     if (currentTarget.tagName === 'IMG') {
-      const src = currentTarget.getAttribute('src') ?? '';
-      // 仅 builder 画布内触发，动态加载编辑表单工厂，避免公共页面静态依赖 builder 模块
-      void import('@modules/builder/factory/getInlinImg').then(({ getInlineImg }) => {
-        const meta: IMetaEdit = {
-          type: 'inline-editor',
-          mode: 'img',
-          path,
-          fullWidth: true,
-          ele: currentTarget as HTMLImageElement,
-          fields: getInlineImg(currentTarget),
-          data: {
-            src,
-            fileName: src.split('/').pop() ?? '',
-            alt: currentTarget.getAttribute('alt'),
-            tag: currentTarget.tagName,
-          },
-        };
-        this.builder.rightContent$.next({
-          title: this.translate.instant('BUILDER.INLINE_EDITOR.EDIT_IMG'),
-          mode: 'over',
-          hasBackdrop: false,
-          style: {
-            'width': '284px',
-            'max-width': 'calc(100vw - 50px)',
-          },
-          elements: [meta],
-        });
-      });
+      // Only triggered inside the builder canvas; dynamically load the image inline editor
+      // (selected state + floating action bar); the full form falls back to the drawer via
+      // the action bar's "more settings"
+      void import('@modules/builder/inline-editor/inline-image.service').then(
+        ({ InlineImageService }) => {
+          if (this.destroyed) {
+            return;
+          }
+          // Pass the environment injector at the click site: the media library dialog
+          // content (ManageMediaComponent) depends on route-level tokens like
+          // BUILDER_CONFIG, which the root singleton service's own injector cannot resolve
+          const envInjector = this.injector.get(EnvironmentInjector);
+          this.injector
+            .get(InlineImageService)
+            .select(currentTarget as HTMLImageElement, path, envInjector);
+        }
+      );
+    } else if (this.contenteditProfile() !== 'plain') {
+      const profile = this.contenteditProfile() as 'rich' | 'inline';
+      const clickCoords = { x: event.clientX, y: event.clientY };
+      // Only triggered inside the builder canvas; dynamically load the tiptap inline editor
+      // so public pages never pull it into the first bundle. Do not open the right text panel:
+      // it injects a <p> wrapper into the element (see InlineEditComponent.initTextView),
+      // which conflicts with the in-place editor; drawer.open() also steals focus and causes
+      // false commits. Formatting is handled by the bubble toolbar
+      void import('@modules/builder/inline-editor/inline-editor.service').then(
+        ({ InlineEditorService }) => {
+          if (this.destroyed) {
+            return;
+          }
+          this.injector.get(InlineEditorService).activate({
+            element: currentTarget,
+            path,
+            profile,
+            clickCoords,
+          });
+        }
+      );
     } else {
+      // Fallback profile: number-animate (JS animation owns the text node) and custom
+      // templates etc. edit the text node in place and save on blur; the legacy text style
+      // panel is retired and no longer opens with editing
       currentTarget.contentEditable = 'true';
       this.originalHtml = currentTarget.innerHTML;
-      this.openMetaPanel(currentTarget, path);
     }
-  }
-
-  openMetaPanel(ele: HTMLElement, path: string): void {
-    // 仅 builder 画布内触发，动态加载编辑表单工厂，避免公共页面静态依赖 builder 模块
-    void import('@modules/builder/factory/getInlineText').then(({ getInlineText }) => {
-      const meta: IMetaEdit = {
-        type: 'inline-editor',
-        mode: 'text',
-        fullWidth: true,
-        path,
-        ele,
-        fields: [getInlineText(ele)],
-        data: {
-          innerHTML: ele.innerHTML,
-          tag: ele.tagName,
-        },
-      };
-      this.builder.rightContent$.next({
-        title: this.translate.instant('BUILDER.INLINE_EDITOR.EDIT_TEXT'),
-        mode: 'push',
-        hasBackdrop: false,
-        style: {
-          'width': '300px',
-          'max-width': 'calc(100vw - 140px)',
-        },
-        elements: [meta],
-      });
-    });
   }
 
   ngAfterViewInit(): void {

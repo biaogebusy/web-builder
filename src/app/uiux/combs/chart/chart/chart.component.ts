@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   OnInit,
+  effect,
   inject,
   signal,
   ChangeDetectionStrategy,
@@ -43,7 +44,7 @@ import {
   ThemeRiverChart,
 } from 'echarts/charts';
 
-// 注册必须的组件
+// Register required components (tree-shaken builds need manual registration)
 echarts.use([
   TitleComponent,
   TooltipComponent,
@@ -109,6 +110,18 @@ export class ChartComponent implements OnInit, AfterViewInit {
   private doc = inject(DOCUMENT);
   private destroyRef = inject(DestroyRef);
 
+  constructor() {
+    // The builder writes a brand-new option object into the page on every settings
+    // change, but ECharts only repaints when setOption runs again, so the one-shot
+    // call in ngAfterViewInit is not enough — re-apply whenever the input changes.
+    effect(() => {
+      const option = this.content();
+      if (this.chart) {
+        this.applyOption(option);
+      }
+    });
+  }
+
   ngOnInit(): void {
     this.theme.set(
       Object.assign(
@@ -144,8 +157,15 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   private applyOption(option: EChartsOption): void {
-    this.normalizeAxes(option);
-    this.chart?.setOption(option);
+    // Copy first: normalizeAxes rewrites the axis keys and `option` is the live page
+    // node while editing, which must not be mutated behind the builder's back.
+    const next: EChartsOption = { ...option };
+    this.normalizeAxes(next);
+    // notMerge, because switching to a non-cartesian series drops xAxis/yAxis and a
+    // merged update would leave the stale axes registered on the instance.
+    this.chart?.setOption(next, { notMerge: true });
+    // notMerge also discards the palette override a theme switch applied, so restore it.
+    this.applyTheme();
   }
 
   // ECharts has two related failure modes for misconfigured axes:

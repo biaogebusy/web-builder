@@ -51,7 +51,7 @@
           }
         }
         .block-toolbar {
-          // 静态流位置正好在 .component 下方(popper 的 bottom 锚点),只需水平居中
+          // Static-flow position lands right below .component (the popper's bottom anchor), so only horizontal centering is needed
           @apply absolute left-1/2 -translate-x-1/2 opacity-0 pointer-events-none whitespace-nowrap;
           button {
             transform: scale(0.9);

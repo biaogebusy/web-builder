@@ -75,11 +75,13 @@ describe('FormlyComponent select rendering', () => {
     expect(fixture.nativeElement.querySelectorAll('mat-select').length).toBeGreaterThan(0);
   });
 
-  // 回归:父级注入器导入 FORM_IMPORTS / formly forChild 模块(builder 抽屉的真实上下文)。
-  // formly 7.1 的 core 扩展持有创建时注入的 FormlyConfig 实例；若 provideXinshiFormly
-  // 在组件级额外提供裸 FormlyConfig/FormlyFormBuilder，会与父级绑定的 root 单例分裂：
-  // 类型注册在组件实例、defaultOptions 合并却发生在 root 实例，
-  // 导致 select 丢失默认 compareWith / form-field wrapper 并抛错。
+  // Regression: the parent injector imports FORM_IMPORTS / the formly forChild modules
+  // (the real context of the builder drawer). Formly 7.1 core extensions hold the
+  // FormlyConfig instance injected at creation time; if provideXinshiFormly additionally
+  // provided a bare FormlyConfig/FormlyFormBuilder at component level, it would split
+  // from the root singleton bound to the parent: types register on the component
+  // instance while defaultOptions merge happens on the root instance, so the select
+  // loses its default compareWith / form-field wrapper and throws.
   it('renders selects when a parent injector imports FORM_IMPORTS', async () => {
     await TestBed.configureTestingModule({
       imports: [FORM_IMPORTS, FormlyComponent],

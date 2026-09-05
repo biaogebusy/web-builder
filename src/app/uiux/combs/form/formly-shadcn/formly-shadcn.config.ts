@@ -14,49 +14,51 @@ import { ShadcnSelectType } from './shadcn-select.type';
 import { ShadcnSliderType } from './shadcn-slider.type';
 import { ShadcnTextareaType } from './shadcn-textarea.type';
 import { ShadcnToggleType } from './shadcn-toggle.type';
+import { TermSelectType } from './term-select.type';
 
 export type FormUiTheme = 'material' | 'shadcn';
 
 /**
- * 表单 UI 主题的全局默认值。整体切换到 shadcn 时在 app 级
- * provide { provide: FORM_UI_THEME, useValue: 'shadcn' } 即可,
- * 无需改动任何字段配置;单个表单仍可用 formState.uiTheme 覆盖。
+ * Global default for the form UI theme. To switch the whole app to shadcn,
+ * provide { provide: FORM_UI_THEME, useValue: 'shadcn' } at app level without
+ * touching any field config; individual forms can still override via
+ * formState.uiTheme.
  */
 export const FORM_UI_THEME = new InjectionToken<FormUiTheme>('FORM_UI_THEME', {
   factory: () => 'material',
 });
 
 /**
- * 单个表单的 shadcn 开关:<formly-form [options]="xxxOptions" />。
- * formly 会向 options 写入内部状态,每个表单实例必须持有独立对象,
- * 因此提供工厂函数而非共享常量。
+ * Per-form shadcn switch: <formly-form [options]="xxxOptions" />.
+ * Formly writes internal state into options, so every form instance must hold
+ * its own object; hence a factory function instead of a shared constant.
  */
 export function shadcnFormOptions(): FormlyFormOptions {
   return { formState: { uiTheme: 'shadcn' } };
 }
 
-// Material 内置类型名 → shadcn 等价类型。wrappers 一并显式覆盖,
-// 确保改名后字段不再落入 Material 的 form-field wrapper。
+// Built-in Material type names mapped to shadcn equivalents. Wrappers are also
+// explicitly overridden so renamed fields never fall into Material's form-field wrapper.
 const SHADCN_TYPE_MAP: Record<string, { type: string; wrappers: string[] }> = {
   'input': { type: 'shadcn-input', wrappers: ['shadcn-form-field'] },
   'string': { type: 'shadcn-input', wrappers: ['shadcn-form-field'] },
   'number': { type: 'shadcn-input', wrappers: ['shadcn-form-field'] },
   'integer': { type: 'shadcn-input', wrappers: ['shadcn-form-field'] },
   'textarea': { type: 'shadcn-textarea', wrappers: ['shadcn-form-field'] },
-  // 单选 select;多选(props.multiple)在 extension 中改写为 shadcn-multiselect
+  // Single select; multiselect (props.multiple) is remapped to shadcn-multiselect in the extension
   'select': { type: 'shadcn-select', wrappers: ['shadcn-form-field'] },
-  // 自定义 slider 类型(MatSlider)→ 原生 range 滑块
+  // Custom slider type (MatSlider) -> native range slider
   'slider': { type: 'shadcn-slider', wrappers: ['shadcn-form-field'] },
-  // 复合控件,类型不变,仅补 shadcn wrapper 以渲染 label/必填标记/错误
+  // Composite controls: type unchanged, only a shadcn wrapper is added to render label/required marker/errors
   'img-picker': { type: 'img-picker', wrappers: ['shadcn-form-field'] },
   'json': { type: 'json', wrappers: ['shadcn-form-field'] },
-  // toggle/checkbox 自带内联 label,不需要字段 wrapper
+  // toggle/checkbox have their own inline label, no field wrapper needed
   'toggle': { type: 'shadcn-toggle', wrappers: [] },
   'checkbox': { type: 'shadcn-checkbox', wrappers: [] },
-  // 不映射的类型:datepicker(业务零使用,且原生 date 输入与 Date 对象
-  // 模型语义不同)、mat-select(搜索/API 选项/虚拟滚动等高级交互,
-  // 仅存在于 Material 模式表单)。repeat 复合类型自身按
-  // formState.uiTheme 切换按钮样式。
+  // Types not mapped: datepicker (zero business usage, and native date input has
+  // different model semantics than Date objects), mat-select (advanced interactions
+  // like search/API options/virtual scrolling, only exists in Material-mode forms).
+  // The repeat composite type switches its button style itself via formState.uiTheme.
 };
 
 export const XINSHI_FORMLY_SHADCN_CONFIG: ConfigOption = {
@@ -69,6 +71,8 @@ export const XINSHI_FORMLY_SHADCN_CONFIG: ConfigOption = {
       component: ShadcnMultiselectType,
       wrappers: ['shadcn-form-field'],
     },
+    // Taxonomy combobox with on-the-fly term creation (fields with handler auto_create)
+    { name: 'term-select', component: TermSelectType, wrappers: ['shadcn-form-field'] },
     { name: 'shadcn-slider', component: ShadcnSliderType, wrappers: ['shadcn-form-field'] },
     { name: 'shadcn-toggle', component: ShadcnToggleType },
     { name: 'shadcn-checkbox', component: ShadcnCheckboxType },
@@ -77,10 +81,11 @@ export const XINSHI_FORMLY_SHADCN_CONFIG: ConfigOption = {
 };
 
 /**
- * 主题切换 extension:构建字段时按 formState.uiTheme(缺省取 FORM_UI_THEME)
- * 把映射表内的内置类型重写为 shadcn 实现。映射表之外的类型原样通过
- * (repeat 自身会按 formState 切换按钮样式)。重写是幂等的:
- * 已改名的字段不再命中映射表。
+ * Theme-switching extension: while building fields it rewrites the built-in types
+ * in the map to shadcn implementations based on formState.uiTheme (falling back to
+ * FORM_UI_THEME). Types outside the map pass through unchanged (repeat switches its
+ * own button style via formState). Rewriting is idempotent: renamed fields no
+ * longer match the map.
  */
 export function registerShadcnThemeExtension(defaultTheme: FormUiTheme): ConfigOption {
   const extension: FormlyExtension = {
@@ -94,13 +99,13 @@ export function registerShadcnThemeExtension(defaultTheme: FormUiTheme): ConfigO
         return;
       }
       if (field.type === 'select' && field.props?.multiple) {
-        // 多选走自实现的 shadcn combobox(原生 select 的多选体验差)
+        // Multiselect uses the custom shadcn combobox (native select has poor multiselect UX)
         field.type = 'shadcn-multiselect';
         field.wrappers = ['shadcn-form-field'];
         return;
       }
       if (field.type === 'number' || field.type === 'integer') {
-        // number/integer 的语义来自注册在原类型上的 defaultOptions,改名前补齐
+        // number/integer semantics come from the defaultOptions registered on the original type; fill in before renaming
         field.props = { type: 'number', ...field.props };
       }
       field.type = target.type;

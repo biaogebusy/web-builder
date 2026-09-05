@@ -23,24 +23,33 @@
         </div>
       }
       <mat-accordion multi [attr.data-path]="'elements'">
-        @for (item of contentValue.elements; track item; let i = $index) {
+        @for (item of contentValue.elements; track $index; let i = $index) {
           <mat-expansion-panel [attr.data-path]="i" [expanded]="item?.params?.expanded">
             <mat-expansion-panel-header>
               @if (item.title) {
                 <mat-panel-title>
-                  <span contentedit="title" [innerHTML]="item.title | safeHtml"></span>
+                  <span
+                    contentedit="title"
+                    contenteditProfile="inline"
+                    [innerHTML]="item.title | safeHtml"
+                  ></span>
                 </mat-panel-title>
               }
               @if (item.description) {
-                <mat-panel-description contentedit="description">
-                  {{ item.description }}
+                <mat-panel-description>
+                  <!-- Narrow the edit host to the span so the icon stays template-owned and is not cleared by inline editing -->
+                  <span
+                    contentedit="description"
+                    contenteditProfile="inline"
+                    [innerHTML]="item.description | safeHtml"
+                  ></span>
                   @if (item.icon) {
                     <mat-icon>{{ item.icon }}</mat-icon>
                   }
                 </mat-panel-description>
               }
             </mat-expansion-panel-header>
-            @for (item of item.elements; track item; let i = $index) {
+            @for (item of item.elements; track $index; let i = $index) {
               <app-dynamic-component [attr.data-path]="'elements.' + i" [inputs]="item" />
             }
           </mat-expansion-panel>

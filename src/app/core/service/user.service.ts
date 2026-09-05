@@ -1,9 +1,9 @@
 import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { DOCUMENT, Injectable, PLATFORM_ID, REQUEST, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { Observable, of, Subject, firstValueFrom } from 'rxjs';
+import { Observable, of, Subject, Subscription, firstValueFrom } from 'rxjs';
 import { ApiService } from './api.service';
-import { map, catchError, switchMap, take } from 'rxjs/operators';
+import { map, catchError, switchMap, take, timeout } from 'rxjs/operators';
 import {
   AccountProfileResponse,
   DrupalUserListResponse,
@@ -44,10 +44,38 @@ interface AuthBroadcastMessage {
 
 export type OAuthMode = 'redirect' | 'popup';
 
+/**
+ * Sentinel reasons rejected by {@link UserService.startAuthorize} in popup mode, so callers can
+ * map them to localized copy instead of surfacing an internal message.
+ */
+export const OAUTH_POPUP_BLOCKED = 'oauth_popup_blocked';
+export const OAUTH_POPUP_CLOSED = 'oauth_popup_closed';
+export const OAUTH_POPUP_TIMEOUT = 'oauth_popup_timeout';
+
+/**
+ * Sentinel reasons rejected by {@link UserService.handleOAuthCallback}. Same contract as the popup
+ * ones: the callback screen maps them to localized copy, so no internal English text reaches the
+ * UI. The sentinel is also the diagnostic — it survives into the console log.
+ */
+export const OAUTH_CALLBACK_DENIED = 'oauth_callback_denied';
+export const OAUTH_CALLBACK_PROVIDER_ERROR = 'oauth_callback_provider_error';
+export const OAUTH_CALLBACK_MISSING_PARAMS = 'oauth_callback_missing_params';
+export const OAUTH_CALLBACK_NO_SESSION = 'oauth_callback_no_session';
+export const OAUTH_CALLBACK_STATE_MISMATCH = 'oauth_callback_state_mismatch';
+
+/** Upper bound on the wait, so a popup left open never pins the opener in a pending state. */
+const POPUP_MAX_WAIT_MS = 5 * 60 * 1000;
+const POPUP_POLL_MS = 500;
+
+/** Caps how long a logout waits on the backend before finishing locally anyway. */
+const LOGOUT_TIMEOUT_MS = 5 * 1000;
+
 export interface StartAuthorizeOptions {
   mode?: OAuthMode;
   returnUrl?: string;
   idp?: string;
+  /** Stops watching the popup once the caller is gone, e.g. when its component is destroyed. */
+  signal?: AbortSignal;
 }
 
 export interface CallbackResult {
@@ -64,11 +92,25 @@ interface PkceStash {
 
 interface OtpGenerateResponse {
   status?: boolean;
+  code?: string;
   message?: string;
+}
+
+/**
+ * Outcome of an OTP call. `code` is the backend's stable machine-readable reason (see the
+ * `OtpErrorCode` constants in the xinshi_sms module) and is what callers should map to copy;
+ * `message` is English-only debug text and `status` is the HTTP status when the request failed.
+ */
+export interface OtpResult {
+  ok: boolean;
+  code?: string;
+  message?: string;
+  status?: number;
 }
 
 interface PhoneLoginResponse extends Partial<OAuthTokenResponse>, Partial<TokenUser> {
   status?: boolean;
+  code?: string;
   message?: string;
 }
 
@@ -110,9 +152,10 @@ export class UserService extends ApiService {
       return;
     }
     this.openAuthChannel();
-    // 打开且带监听器的 BroadcastChannel 会让页面无法进入往返缓存(bfcache),
-    // 所以 pagehide 时关闭通道、bfcache 恢复时重开;页面冻结期间会错过其它
-    // 标签页的登录/登出广播,恢复后按 cookie 里的登录态重新同步一次。
+    // An open BroadcastChannel with listeners prevents the page from entering the
+    // back/forward cache (bfcache), so the channel is closed on pagehide and reopened on
+    // bfcache restore; while the page is frozen it misses login/logout broadcasts from
+    // other tabs, so on restore it re-syncs once from the cookie login state.
     const win = this.doc.defaultView;
     win?.addEventListener('pagehide', () => this.closeAuthChannel());
     win?.addEventListener('pageshow', event => {
@@ -171,6 +214,35 @@ export class UserService extends ApiService {
       return;
     }
     const mode: OAuthMode = options.mode ?? 'redirect';
+    const authorizePath = await this.prepareAuthorizeRequest(options, mode);
+    return this.handOff(`${this.apiUrl}${authorizePath}`, mode, options.signal);
+  }
+
+  /**
+   * Starts a social provider that only opens a Drupal session, pointing it back at the authorize
+   * request through `destination`. Without that hop the provider drops the user on a CMS page,
+   * signed into Drupal while the app still holds no token.
+   */
+  async startSocialAuthorize(
+    providerPath: string,
+    options: StartAuthorizeOptions = {}
+  ): Promise<void> {
+    if (!this.isBrowser) {
+      return;
+    }
+    const mode: OAuthMode = options.mode ?? 'redirect';
+    const authorizePath = await this.prepareAuthorizeRequest(options, mode);
+    const providerUrl = appendQueryParams(`${this.apiUrl}${providerPath}`, {
+      destination: authorizePath,
+    });
+    return this.handOff(providerUrl, mode, options.signal);
+  }
+
+  /** Stashes a fresh PKCE challenge and returns the site-relative authorize path. */
+  private async prepareAuthorizeRequest(
+    options: StartAuthorizeOptions,
+    mode: OAuthMode
+  ): Promise<string> {
     const verifier = generateCodeVerifier();
     const state = generateState();
     const challenge = await generateCodeChallenge(verifier);
@@ -194,13 +266,15 @@ export class UserService extends ApiService {
     if (options.idp) {
       params.set('idp', options.idp);
     }
-    const authorizeUrl = `${this.apiUrl}${environment.oauth.authorizeUrl}?${params.toString()}`;
+    return `${environment.oauth.authorizeUrl}?${params.toString()}`;
+  }
 
+  private handOff(url: string, mode: OAuthMode, signal?: AbortSignal): Promise<void> {
     if (mode === 'popup') {
-      this.openLoginPopup(authorizeUrl);
-      return;
+      return this.runLoginPopup(url, signal);
     }
-    window.location.assign(authorizeUrl);
+    window.location.assign(url);
+    return Promise.resolve();
   }
 
   async handleOAuthCallback(): Promise<CallbackResult> {
@@ -210,25 +284,41 @@ export class UserService extends ApiService {
     const search = new URLSearchParams(window.location.search);
     const error = search.get('error');
     if (error) {
-      throw new Error(search.get('error_description') || error);
+      // The provider's own wording is English and unbounded, so it stays in the console; the thrown
+      // sentinel is what the screen renders.
+      console.error('OAuth provider rejected the request:', error, search.get('error_description'));
+      throw new Error(
+        error === 'access_denied' ? OAUTH_CALLBACK_DENIED : OAUTH_CALLBACK_PROVIDER_ERROR
+      );
     }
     const code = search.get('code');
     const state = search.get('state');
     if (!code || !state) {
-      throw new Error('Missing code or state in callback URL');
+      throw new Error(OAUTH_CALLBACK_MISSING_PARAMS);
     }
     const stash = this.readPkceStash();
     if (!stash) {
-      throw new Error('Missing PKCE session, please retry login');
+      throw new Error(OAUTH_CALLBACK_NO_SESSION);
     }
     if (stash.state !== state) {
-      throw new Error('OAuth state mismatch');
+      throw new Error(OAUTH_CALLBACK_STATE_MISMATCH);
     }
-    window.sessionStorage.removeItem(this.pkceStorageKey);
 
     const tokenData = await firstValueFrom(this.exchangeCodeForToken(code, stash.verifier));
     await firstValueFrom(this.processTokenAndLogin(tokenData));
+    // Dropped only once the login is complete. A failed exchange has to leave the stash behind,
+    // otherwise the callback screen cannot retry and every recovery ends in "Missing PKCE
+    // session".
+    window.sessionStorage.removeItem(this.pkceStorageKey);
     return { mode: stash.mode, returnUrl: stash.returnUrl };
+  }
+
+  /**
+   * The returnUrl of the authorize request still in flight, so a failed callback can retry the
+   * page the user actually came from instead of dropping them on the login redirect default.
+   */
+  get pendingReturnUrl(): string {
+    return this.readPkceStash()?.returnUrl ?? '';
   }
 
   private exchangeCodeForToken(code: string, verifier: string): Observable<OAuthTokenResponse> {
@@ -263,7 +353,7 @@ export class UserService extends ApiService {
     }
   }
 
-  private openLoginPopup(authorizeUrl: string): void {
+  private openLoginPopup(authorizeUrl: string): Window | null {
     const width = 480;
     const height = 640;
     const left = window.screenX + Math.max(0, (window.outerWidth - width) / 2);
@@ -271,6 +361,64 @@ export class UserService extends ApiService {
     const features = `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes`;
     const popup = window.open(authorizeUrl, 'xinshi-login', features);
     popup?.focus();
+    return popup;
+  }
+
+  /**
+   * Settles once the login popup finishes, so the caller can leave its pending state instead of
+   * waiting forever when the popup is blocked, dismissed, or simply left open.
+   */
+  private runLoginPopup(authorizeUrl: string, signal?: AbortSignal): Promise<void> {
+    const popup = this.openLoginPopup(authorizeUrl);
+    if (!popup) {
+      return Promise.reject(new Error(OAUTH_POPUP_BLOCKED));
+    }
+    return new Promise<void>((resolve, reject) => {
+      let poll = 0;
+      let timeout = 0;
+      let settled = false;
+      const sub = new Subscription();
+
+      const settle = (finish: () => void): void => {
+        if (settled) {
+          return;
+        }
+        settled = true;
+        window.clearInterval(poll);
+        window.clearTimeout(timeout);
+        sub.unsubscribe();
+        signal?.removeEventListener('abort', onAbort);
+        finish();
+      };
+      // Nothing left to report to, so stop watching without disturbing the popup itself.
+      function onAbort(): void {
+        settle(resolve);
+      }
+
+      // The popup stores the session and broadcasts the login before closing itself, so the
+      // broadcast is the success signal; `closed` alone cannot tell success from a dismissal.
+      sub.add(
+        this.userSub$.subscribe(user => {
+          if (user) {
+            settle(resolve);
+          }
+        })
+      );
+      poll = window.setInterval(() => {
+        if (!popup.closed) {
+          return;
+        }
+        // A browser without BroadcastChannel never broadcasts, so the cookie is the fallback proof.
+        settle(this.getStoredUser() ? resolve : () => reject(new Error(OAUTH_POPUP_CLOSED)));
+      }, POPUP_POLL_MS);
+      // The popup is left open on purpose: the user may still finish there, and the broadcast
+      // listener in this tab keeps working even after the caller stopped waiting.
+      timeout = window.setTimeout(
+        () => settle(() => reject(new Error(OAUTH_POPUP_TIMEOUT))),
+        POPUP_MAX_WAIT_MS
+      );
+      signal?.addEventListener('abort', onAbort);
+    });
   }
 
   processTokenAndLogin(tokenData: OAuthTokenResponse): Observable<boolean> {
@@ -298,15 +446,22 @@ export class UserService extends ApiService {
     );
   }
 
-  updateUser(data: TokenUser): void {
+  /**
+   * Refetches the profile behind the stored token and re-emits it to `userSub$`.
+   *
+   * Cold on purpose: callers that have to know when the refreshed profile landed (e.g. the
+   * settings form resyncing its inputs) subscribe and read the emitted user, instead of waiting
+   * for the next `userSub$` emission — that one may well be an unrelated refresh carrying the
+   * pre-update cookie copy.
+   */
+  updateUser(data: TokenUser): Observable<IUser> {
     const {
       current_user: { uid },
     } = data;
-    this.getCurrentUserById(uid, data)
-      .pipe(take(1))
-      .subscribe(user => {
-        this.loginUser(data, user);
-      });
+    return this.getCurrentUserById(uid, data).pipe(
+      take(1),
+      map(user => this.loginUser(data, user))
+    );
   }
 
   editingUser(user: IUser, data: JsonObject): Observable<unknown> {
@@ -395,7 +550,7 @@ export class UserService extends ApiService {
   }
 
   checkShow(content: RoleRestrictedContent | null | undefined, user: IUser | undefined): boolean {
-    // 没有内容不显示
+    // Hide when there is no content
     if (!content) {
       return false;
     }
@@ -416,11 +571,14 @@ export class UserService extends ApiService {
     }
   }
 
-  loginUser(data: TokenUser, user: IUserProfile): void {
-    const currentUser: IUser = Object.assign(data, user);
+  loginUser(data: TokenUser, user: IUserProfile): IUser {
+    // Emit a copy, not an in-place merge: data is often the object already held by the USER
+    // signal, and re-emitting the same reference would not notify signal consumers
+    const currentUser: IUser = Object.assign({}, data, user);
     this.userSub$.next(currentUser);
     this.setUserCookie(currentUser);
     this.broadcastAuth({ type: 'login' });
+    return currentUser;
   }
 
   logoutUser(): void {
@@ -430,42 +588,69 @@ export class UserService extends ApiService {
   }
 
   logout(): void {
-    this.logoutUser();
     if (!this.isBrowser) {
+      this.logoutUser();
       return;
     }
-    this.clearDrupalSessionThenGoHome();
-  }
-
-  private clearDrupalSessionThenGoHome(): void {
-    const iframe = this.doc.createElement('iframe');
-    iframe.style.display = 'none';
-    iframe.setAttribute('aria-hidden', 'true');
-    let done = false;
-    const finish = (): void => {
-      if (done) {
-        return;
-      }
-      done = true;
-      iframe.remove();
+    // Ordering matters: the request is authorized with the stored token, so the local state can
+    // only be dropped once the server has answered.
+    this.destroyDrupalSession().subscribe(() => {
+      this.logoutUser();
       this.router.navigateByUrl('/home');
-    };
-    iframe.addEventListener('load', finish);
-    iframe.src = `${this.apiUrl}${environment.oauth.logoutPath}`;
-    this.doc.body.appendChild(iframe);
-    setTimeout(finish, 3000);
+    });
   }
 
-  getCode(phone: string): Observable<OtpGenerateResponse> {
-    return this.http.post<OtpGenerateResponse>(
-      appendQueryParams(`${this.apiUrl}/api/v3/otp/generate`, { format: 'json' }),
-      {
-        mobile_number: phone,
-      }
-    );
+  /**
+   * Ends the Drupal session that `/oauth/authorize` opened. Without it the session outlives the
+   * app's own logout, and the next authorize request answers with a code for the account that just
+   * left — so a federated `idp` login never reaches its provider and silently returns the previous
+   * user. Core's `/user/logout` cannot be used from here: it needs a CSRF token derived from the
+   * session, and `/session/token` only mints the one for the `X-CSRF-Token` header.
+   *
+   * Best-effort by design — a backend without the endpoint, or an access token too stale to
+   * authorize the call, must not trap the user in a logged-in UI.
+   */
+  private destroyDrupalSession(): Observable<unknown> {
+    return this.http
+      .post(`${this.apiUrl}${environment.oauth.logoutPath}`, null, { withCredentials: true })
+      .pipe(
+        timeout(LOGOUT_TIMEOUT_MS),
+        catchError(error => {
+          console.error('Failed to end the Drupal session:', error);
+          return of(null);
+        })
+      );
   }
 
-  loginByPhone(phone: number, code: string): Observable<{ ok: boolean; message?: string }> {
+  getCode(phone: string): Observable<OtpResult> {
+    return this.http
+      .post<OtpGenerateResponse>(
+        appendQueryParams(`${this.apiUrl}/api/v3/otp/generate`, { format: 'json' }),
+        {
+          mobile_number: phone,
+        }
+      )
+      .pipe(
+        // Backend returns HTTP 200 with { status: false, code, message } when no SMS was sent.
+        map(response =>
+          response?.status === false
+            ? { ok: false, code: response.code, message: response.message }
+            : { ok: true }
+        ),
+        catchError(error => {
+          console.error('Send code failed:', error);
+          // Throttling answers 429, so the status is what tells it apart from a plain failure.
+          return of({
+            ok: false,
+            code: error?.error?.code,
+            message: error?.error?.message,
+            status: error?.status,
+          });
+        })
+      );
+  }
+
+  loginByPhone(phone: number, code: string): Observable<OtpResult> {
     const authParams = environment.oauth.clientId
       ? { grant_type: 'oauth2', client_id: environment.oauth.clientId }
       : {};
@@ -478,25 +663,30 @@ export class UserService extends ApiService {
       })
       .pipe(
         switchMap(response => {
-          // Backend returns HTTP 200 with { status: false, message } on failure.
+          // Backend returns HTTP 200 with { status: false, code, message } on failure.
           if (response?.status === false) {
-            return of({ ok: false, message: response.message || '登录失败' });
+            return of({ ok: false, code: response.code, message: response.message });
           }
           if (environment.oauth.clientId) {
             if (!response?.access_token) {
-              return of({ ok: false, message: '后端未返回有效的令牌' });
+              console.error('Phone login succeeded but no token was returned');
+              return of({ ok: false });
             }
             return this.processTokenAndLogin(response as OAuthTokenResponse).pipe(
               map(ok => ({ ok }))
             );
           }
-          this.updateUser(response as TokenUser);
+          this.updateUser(response as TokenUser).subscribe();
           return of({ ok: true });
         }),
         catchError(error => {
           console.error('Phone login failed:', error);
-          const message = error?.error?.message || error?.message || '登录请求失败';
-          return of({ ok: false, message });
+          return of({
+            ok: false,
+            code: error?.error?.code,
+            message: error?.error?.message,
+            status: error?.status,
+          });
         })
       );
   }
@@ -580,7 +770,8 @@ export class UserService extends ApiService {
             const detail = res.data[0];
             return {
               id: detail.id,
-              display_name: detail.display_name || '',
+              // The settings form writes the nickname to full_name; core display_name is the fallback
+              display_name: detail.full_name || detail.display_name || '',
               mail: detail.mail || '',
               authenticated: true,
               picture: detail.user_picture?.uri?.url || this.coreConfig?.defaultAvatar || '',
@@ -612,7 +803,7 @@ export class UserService extends ApiService {
   }
 
   setUserCookie(user: IUser): void {
-    // Druapl default cookie_lifetime 2000000，if change, need to keep same
+    // Drupal default cookie_lifetime is 2000000; if it changes, keep this in sync
     this.cookieService.set(this.localUserKey, this.cryptoJS.encrypt(JSON.stringify(user)), {
       expires: getCookieExpirationDate(this.coreConfig.cookieLifetime ?? 2000000),
       path: '/',

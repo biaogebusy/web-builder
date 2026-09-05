@@ -64,15 +64,32 @@ export class FormService {
   submitWebForm(data: any): Observable<any> {
     return this.apiService.getToken().pipe(
       switchMap((token: string) => {
+        // Drupal rejects cookie-authenticated REST writes without the session CSRF token
         const headers = new HttpHeaders({
           'Accept': 'application/json',
           'Content-Type': 'application/json',
+          'X-CSRF-Token': token,
         });
-        return this.http.post(`${this.apiService.apiUrl}/webform_rest/submit`, data, {
-          headers,
-        });
+        return this.http.post(
+          `${this.apiService.apiUrl}/webform_rest/submit`,
+          this.serializeDates(data),
+          { headers }
+        );
       })
     );
+  }
+
+  /**
+   * The datepicker binds a Date, which JSON serializes to a UTC ISO timestamp.
+   * Drupal date elements only accept Y-m-d, and the UTC shift can move the value
+   * to the previous day, so format in local time before posting.
+   */
+  private serializeDates(data: any): any {
+    const values: any = {};
+    for (const [key, value] of Object.entries(data ?? {})) {
+      values[key] = value instanceof Date ? formatDate(value, 'yyyy-MM-dd', 'en-US') : value;
+    }
+    return values;
   }
 
   handleRangeDate(value: any): any {

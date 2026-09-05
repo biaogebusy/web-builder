@@ -28,7 +28,7 @@ describe('FormlyComponent', () => {
     'datepicker',
     'toggle',
     'rich-text',
-    'rich-editor',
+    'tiptap',
     'mat-select',
     'date-range',
     'repeat',

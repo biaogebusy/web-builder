@@ -46,7 +46,19 @@ export const THEMKEY = 'themeMode';
 export const DEBUG_ANIMATE_KEY = 'debugAnimate';
 const BUILDERPATH = '/builder';
 
-export function pageContentFactory(): WritableSignal<IPage | undefined | false> {
+/** Options for {@link pageContentFactory}. */
+export interface IPageContentFactoryOptions {
+  /**
+   * Also follow `/builder/<alias>` URLs. The builder workspace renders
+   * CMS-driven custom pages (e.g. `/builder/conversations`) through its own
+   * PAGE_CONTENT, while the public PageComponent must keep skipping them.
+   */
+  builderPages?: boolean;
+}
+
+export function pageContentFactory(
+  options: IPageContentFactoryOptions = {}
+): WritableSignal<IPage | undefined | false> {
   const router = inject(Router);
   const contentService = inject(ContentService);
   const contentState = inject(ContentState);
@@ -66,6 +78,15 @@ export function pageContentFactory(): WritableSignal<IPage | undefined | false> 
       startWith(null),
       map(event => (event ? contentService.pageUrl : initialPageUrl)),
       distinctUntilChanged(),
+      // Angular caches route-level injectors on the route config, so this
+      // subscription outlives PageComponent and keeps seeing every navigation.
+      // Without the guard, entering /builder or /me fetches CMS content for
+      // that URL and updateTags() overwrites the title the route just set.
+      filter(
+        pageUrl =>
+          shouldPreloadPageComponents(pageUrl) ||
+          (!!options.builderPages && isBuilderCustomPageUrl(pageUrl))
+      ),
       switchMap(pageUrl => {
         return forkJoin({
           config: from(contentService.loadConfig(coreConfig, pageUrl)),
@@ -111,8 +132,9 @@ export function builderCurrentPageFactory(): Signal<IPage | undefined | false> {
   const injector = inject(Injector);
   const builder = inject(BuilderState);
 
-  // 统一以 BuilderState.version signal 为数据源(与版本面板/工具栏一致);
-  // 跨上下文(/preview 新标签或 iframe)的变更由 BuilderState 的 storage 事件桥接进 signal
+  // Always use the BuilderState.version signal as the data source (consistent with the
+  // version panel/toolbar); changes from other contexts (/preview new tab or iframe) are
+  // bridged into the signal by BuilderState's storage event
   const currentPage = computed<IPage | undefined | false>(() => {
     const version = builder.version();
     if (!version.length) {
@@ -231,8 +253,20 @@ export function preloadInitialDynamicComponents(): Promise<void> {
 }
 
 export function shouldPreloadPageComponents(pageUrl: string): boolean {
-  const path = pageUrl.split(/[?&]/, 1)[0];
-  return !/^\/(?:(?:en\/)?builder|me|my|preview)(?:\/|$)/i.test(path);
+  return !/^\/(?:(?:en\/)?builder|me|my|preview)(?:\/|$)/i.test(getPathname(pageUrl));
+}
+
+/**
+ * True for `/builder/<alias>` URLs, which the builder workspace serves from the
+ * CMS through its `**` catch-all route. `/builder` itself is the workspace
+ * landing route and has no CMS page behind it.
+ */
+export function isBuilderCustomPageUrl(pageUrl: string): boolean {
+  return /^\/(?:en\/)?builder\/.+/i.test(getPathname(pageUrl));
+}
+
+function getPathname(pageUrl: string): string {
+  return pageUrl.split(/[?&]/, 1)[0];
 }
 
 function getInitialPageUrl(pageUrl: string): string {

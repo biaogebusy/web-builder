@@ -1,0 +1,151 @@
+<div class="item" [class.active]="active()" [class.dirty]="dirty()">
+  <div class="item-header">
+    <div class="title-block">
+      <h3 class="title">
+        <button
+          type="button"
+          class="title-btn"
+          [matTooltip]="active() ? ('BUILDER.PAGE_LIST.ALREADY_EDITING' | translate) : page().title"
+          [attr.aria-current]="active() ? 'page' : null"
+          [attr.aria-disabled]="active() ? 'true' : null"
+          (click)="loadPage()"
+        >
+          {{ page().title }}
+        </button>
+      </h3>
+      @if (isTranslation()) {
+        <span class="language-badge">{{ getLangLabel(page().langcode) }}</span>
+      }
+    </div>
+    <button
+      type="button"
+      class="more-trigger"
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      [matTooltip]="'BUILDER.PAGE_LIST.MORE_ACTIONS' | translate"
+      [attr.aria-label]="'BUILDER.PAGE_LIST.MORE_ACTIONS_FOR' | translate: { title: page().title }"
+    >
+      <app-icon [content]="{ svg: 'dots-vertical' }" />
+    </button>
+  </div>
+
+  <!-- Status text only: page loads and saves already announce themselves through the snackbar,
+       which owns the live region, so no aria-live is duplicated here -->
+  @if (active() || dirty() || translationDraft()) {
+    <div class="status-row">
+      @if (active()) {
+        <span class="status-badge current-badge">
+          {{ 'BUILDER.PAGE_LIST.CURRENT_EDITING' | translate }}
+        </span>
+      }
+      @if (dirty()) {
+        <span class="status-badge unsaved-badge">
+          {{ 'BUILDER.PAGE_LIST.UNSAVED' | translate }}
+        </span>
+      }
+      @if (translationDraft(); as lang) {
+        <span class="status-badge translation-badge">
+          {{ 'BUILDER.PAGE_LIST.EDITING_TRANSLATION' | translate: { lang: lang } }}
+        </span>
+      }
+    </div>
+  }
+  <div class="url-row">
+    <span class="url-link">{{ page().url }}</span>
+    @if (page().url) {
+      <a
+        class="preview-link"
+        [href]="previewUrl()"
+        target="_blank"
+        rel="noopener noreferrer"
+        [matTooltip]="page().url"
+        [attr.aria-label]="'BUILDER.PAGE_LIST.PREVIEW_PAGE' | translate: { title: page().title }"
+      >
+        <app-icon [content]="{ svg: 'open-in-new' }" />
+      </a>
+    }
+  </div>
+  <div class="meta">
+    <div class="meta-primary">
+      @if (page().taxonomy) {
+        <span class="meta-item taxonomy">
+          <span class="sr-only">{{ 'BUILDER.PAGE_LIST.CATEGORY' | translate }}: </span>
+          {{ page().taxonomy }}
+        </span>
+      }
+      @if (page().author) {
+        <span class="meta-item author">
+          <span class="sr-only">{{ 'BUILDER.PAGE_LIST.AUTHOR' | translate }}: </span>
+          {{ page().author }}
+        </span>
+      }
+    </div>
+    @if (page().changed) {
+      <span class="meta-item date">
+        <span class="sr-only">{{ 'BUILDER.PAGE_LIST.UPDATED' | translate }}: </span>
+        <time [attr.datetime]="page().changed | date: 'yyyy-MM-ddTHH:mm:ssZZZZZ'">
+          {{ page().changed | date: 'yyyy/MM/dd HH:mm' }}
+        </time>
+      </span>
+    }
+  </div>
+</div>
+
+<mat-menu #menu="matMenu" class="page-item-menu">
+  <button mat-menu-item (click)="openPage()">
+    <span class="page-item-menu__content">
+      <app-icon class="page-item-menu__icon" [content]="{ svg: 'pencil' }" />
+      <span>{{ 'BUILDER.PAGE_LIST.LOAD_EDIT' | translate }}</span>
+    </span>
+  </button>
+  @if (showLanguage && langs) {
+    @for (item of langs; track item.langCode) {
+      @if (!item.default && item.langCode !== page().langcode) {
+        <button mat-menu-item (click)="createLangVersion(item.langCode)">
+          <span class="page-item-menu__content">
+            <app-icon class="page-item-menu__icon" [content]="{ svg: 'translate' }" />
+            <span>{{ 'BUILDER.PAGE_LIST.EDIT_LANG' | translate: { label: item.label } }}</span>
+          </span>
+        </button>
+      }
+    }
+  }
+  <mat-divider />
+  <button mat-menu-item (click)="copyPage()">
+    <span class="page-item-menu__content">
+      <app-icon class="page-item-menu__icon" [content]="{ svg: 'content-copy' }" />
+      <span>{{ 'BUILDER.PAGE_LIST.COPY_PAGE' | translate }}</span>
+    </span>
+  </button>
+  <button mat-menu-item (click)="updateByJSON()">
+    <span class="page-item-menu__content">
+      <app-icon class="page-item-menu__icon" [content]="{ svg: 'code-json' }" />
+      <span>{{ 'BUILDER.PAGE_LIST.PAGE_JSON' | translate }}</span>
+    </span>
+  </button>
+  <button mat-menu-item (click)="openRevisions()">
+    <span class="page-item-menu__content">
+      <app-icon class="page-item-menu__icon" [content]="{ svg: 'history' }" />
+      <span>{{ 'BUILDER.PAGE_LIST.PAGE_REVISIONS' | translate }}</span>
+    </span>
+  </button>
+  <button mat-menu-item (click)="updatePageSetting()">
+    <span class="page-item-menu__content">
+      <app-icon class="page-item-menu__icon" [content]="{ svg: 'cog' }" />
+      <span>{{ 'BUILDER.PAGE_LIST.PAGE_PROPS' | translate }}</span>
+    </span>
+  </button>
+  <mat-divider />
+  <button mat-menu-item class="page-item-menu__delete" (click)="deletePage()">
+    <span class="page-item-menu__content">
+      <app-icon
+        class="page-item-menu__icon"
+        [content]="{ svg: 'trash-can-outline', color: 'warn' }"
+      />
+      <span>{{
+        (isTranslation() ? 'BUILDER.PAGE_LIST.DELETE_TRANSLATION' : 'BUILDER.PAGE_LIST.DELETE_PAGE')
+          | translate
+      }}</span>
+    </span>
+  </button>
+</mat-menu>

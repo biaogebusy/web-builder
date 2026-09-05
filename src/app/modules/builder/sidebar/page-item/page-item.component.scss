@@ -1,0 +1,188 @@
+:host {
+  @apply block;
+}
+
+:host(:last-child) .item {
+  border-bottom: none;
+}
+
+.item {
+  @apply relative flex min-w-0 flex-col p-3;
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+  transition:
+    background-color 120ms ease,
+    box-shadow 120ms ease;
+
+  &:hover {
+    background-color: var(--mat-sys-surface-container-low);
+  }
+
+  .item-header {
+    @apply flex min-w-0 items-start justify-between gap-2;
+  }
+
+  .title-block {
+    @apply flex min-w-0 flex-1 items-start gap-2;
+  }
+
+  .title {
+    @apply m-0 min-w-0 flex-1 text-sm font-medium;
+  }
+
+  .title-btn {
+    @apply line-clamp-2 w-full cursor-pointer p-0 text-left;
+    background: none;
+    border: none;
+    color: var(--mat-sys-on-surface);
+    font: inherit;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--mat-sys-primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--mat-sys-primary);
+      outline-offset: 2px;
+    }
+
+    // The page is already open, so the click is a no-op: stop advertising it as one
+    &[aria-disabled='true'] {
+      @apply cursor-default;
+
+      &:hover,
+      &:focus-visible {
+        color: var(--mat-sys-on-surface);
+      }
+    }
+  }
+
+  .language-badge,
+  .status-badge {
+    @apply rounded px-1.5 py-0.5 text-[10px] font-medium leading-4;
+  }
+
+  .language-badge {
+    color: var(--mat-sys-on-primary-container);
+    background-color: var(--mat-sys-primary-container);
+  }
+
+  // Alignment only: the trigger keeps the stock mat-icon-button look and hover state layer
+  .more-trigger {
+    @apply -mr-2 -mt-2 shrink-0;
+  }
+
+  .status-row {
+    @apply flex min-w-0 flex-wrap items-center gap-1;
+  }
+
+  .current-badge {
+    color: var(--mat-sys-on-primary-container);
+    background-color: var(--mat-sys-primary-container);
+  }
+
+  .translation-badge {
+    color: var(--mat-sys-on-tertiary-container);
+    background-color: var(--mat-sys-tertiary-container);
+  }
+
+  .unsaved-badge {
+    color: var(--mat-sys-on-error-container);
+    background-color: var(--mat-sys-error-container);
+  }
+
+  .url-row {
+    @apply flex min-w-0 items-center justify-between gap-2;
+  }
+
+  .url-link {
+    @apply min-w-0 flex-1 truncate font-mono text-xs;
+    color: var(--mat-sys-on-surface-variant);
+  }
+
+  .preview-link {
+    @apply inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full no-underline;
+    color: var(--mat-sys-primary);
+
+    &:hover {
+      background-color: var(--mat-sys-primary-container);
+      color: var(--mat-sys-on-primary-container);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--mat-sys-primary);
+      outline-offset: 2px;
+    }
+
+    app-icon {
+      @apply inline-flex;
+    }
+  }
+
+  ::ng-deep .preview-link .mat-icon {
+    @apply h-4 w-4 text-base leading-4;
+  }
+
+  .meta {
+    @apply flex min-w-0 items-center justify-between gap-2 overflow-hidden text-xs opacity-70;
+    color: var(--mat-sys-on-surface-variant);
+  }
+
+  .meta-primary {
+    @apply flex min-w-0 items-center overflow-hidden;
+
+    .meta-item + .meta-item::before {
+      content: '·';
+      @apply mx-1.5;
+    }
+  }
+
+  .meta-item {
+    @apply min-w-0 truncate;
+  }
+
+  .taxonomy {
+    @apply max-w-28;
+  }
+
+  .author {
+    @apply max-w-24;
+  }
+
+  .date {
+    @apply shrink-0 overflow-visible;
+  }
+
+  &.active {
+    background-color: var(--mat-sys-surface-container-high);
+    box-shadow: inset 3px 0 0 var(--mat-sys-primary);
+  }
+
+  &.dirty:not(.active) {
+    box-shadow: inset 3px 0 0 var(--mat-sys-error);
+  }
+}
+
+// The menu panel renders in an overlay outside this component, so its styles have to be
+// global; every class is namespaced to keep them from leaking onto other menus
+::ng-deep .page-item-menu {
+  .mat-mdc-menu-item-text {
+    @apply w-full;
+  }
+
+  .page-item-menu__content {
+    @apply flex w-full items-center gap-3;
+  }
+
+  .page-item-menu__icon {
+    @apply flex h-5 w-5 shrink-0 items-center justify-center;
+  }
+
+  .page-item-menu__icon .mat-icon {
+    @apply h-5 w-5 text-xl leading-5;
+  }
+
+  .page-item-menu__delete:not([disabled]) {
+    color: var(--mat-sys-error);
+  }
+}

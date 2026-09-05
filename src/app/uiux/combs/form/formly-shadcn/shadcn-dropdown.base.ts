@@ -3,12 +3,14 @@ import { FieldType, FieldTypeConfig } from '@ngx-formly/core';
 import { FormlySelectOption } from '@ngx-formly/core/select';
 
 /**
- * shadcn 下拉(shadcn-select / shadcn-multiselect)的共享行为基类。
- * APG select-only combobox 模式:焦点始终保持在 role=combobox 的触发按钮上,
- * 面板为 role=listbox,键盘经 aria-activedescendant 导航,支持首字母
- * typeahead(闭合时先展开面板再定位高亮,不直接改值)。
- * 子类实现 isSelected 与 commitOption(单选=写值并关闭;多选=切换选中并
- * 保持打开),并在自身 host 上绑定 document:click → onDocumentClick。
+ * Shared behavior base class for the shadcn dropdowns (shadcn-select /
+ * shadcn-multiselect). APG select-only combobox pattern: focus always stays on
+ * the role=combobox trigger button, the panel is role=listbox, keyboard
+ * navigation goes through aria-activedescendant, and first-letter typeahead is
+ * supported (when closed, it opens the panel first and positions the highlight
+ * without changing the value). Subclasses implement isSelected and commitOption
+ * (single = write value and close; multi = toggle selection and keep open) and
+ * bind document:click -> onDocumentClick on their own host.
  */
 @Directive()
 export abstract class ShadcnDropdownBase extends FieldType<FieldTypeConfig> {
@@ -16,14 +18,14 @@ export abstract class ShadcnDropdownBase extends FieldType<FieldTypeConfig> {
   readonly open = signal(false);
   readonly activeIndex = signal(0);
 
-  /** 兜底与 Material select 的默认实现一致(o1 === o2),可被 props.compareWith 覆盖 */
+  /** Fallback matches Material select's default implementation (o1 === o2); can be overridden via props.compareWith */
   get compareWith(): (o1: unknown, o2: unknown) => boolean {
     return this.props.compareWith ?? ((o1: unknown, o2: unknown) => o1 === o2);
   }
 
   abstract isSelected(value: unknown): boolean;
 
-  /** 确认当前选项:单选写值并关闭,多选切换选中 */
+  /** Commit the current option: single select writes the value and closes, multi select toggles the selection */
   abstract commitOption(option: FormlySelectOption): void;
 
   toggleOpen(options: FormlySelectOption[]): void {
@@ -72,7 +74,7 @@ export abstract class ShadcnDropdownBase extends FieldType<FieldTypeConfig> {
         break;
       }
       case 'Escape':
-        // 打开时按 Esc 只收起面板,不冒泡给外层(如 dialog)
+        // While open, Esc only collapses the panel; do not let it bubble to outer layers (e.g. dialog)
         event.preventDefault();
         event.stopPropagation();
         this.close();
@@ -106,7 +108,7 @@ export abstract class ShadcnDropdownBase extends FieldType<FieldTypeConfig> {
     this.formControl.markAsTouched();
   }
 
-  /** 单字符前缀匹配,从当前高亮项之后循环查找并移动高亮 */
+  /** Single-character prefix match; wraps around from the item after the current highlight and moves the highlight */
   private typeaheadJump(event: KeyboardEvent, options: FormlySelectOption[]): boolean {
     const key = event.key;
     if (

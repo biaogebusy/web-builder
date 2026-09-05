@@ -7,9 +7,9 @@ import { RichTextComponent } from './formly-type/rich-text/rich-text.component';
 import { SliderComponent } from './formly-type/slider/slider.component';
 import { TabsTypeComponent } from './formly-type/tabs/tabs.component';
 import { FormlyComponent } from './formly/formly.component';
-import { RichEditorComponent } from './formly-type/rich-editor/rich-editor.component';
 import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
 import { DialogRepeatComponent } from './formly-type/dialog-repeat/dialog-repeat.component';
+import { TiptapFieldType } from './formly-type/tiptap/tiptap.component';
 
 export const FORM_IMPORTS = [
   SliderComponent,
@@ -19,7 +19,7 @@ export const FORM_IMPORTS = [
   ImgPickerComponent,
   MatSelectComponent,
   DateRangeComponent,
-  RichEditorComponent,
+  TiptapFieldType,
   RepeatTypeComponent,
   DatepickerComponent,
   DynamicFormComponent,
@@ -36,7 +36,7 @@ export {
   SliderComponent,
   TabsTypeComponent,
   FormlyComponent,
-  RichEditorComponent,
+  TiptapFieldType,
   DynamicFormComponent,
   DialogRepeatComponent,
 };

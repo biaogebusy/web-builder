@@ -1,10 +1,13 @@
 import { MatPaginatorIntlCro } from '@core/service/paginator.service';
 import { MatPaginatorIntl } from '@angular/material/paginator';
+import { getLibraryAsset } from '@core/config/library-assets';
 import {
   AfterViewInit,
   Component,
   DestroyRef,
   ElementRef,
+  EnvironmentInjector,
+  Injector,
   inject,
   signal,
   ChangeDetectionStrategy,
@@ -31,6 +34,8 @@ import { generatePath } from '@core/util/dom-path.util';
 import type { QueryParams } from '@core/util/http-params.util';
 import { ManageService } from '@core/service/manage.service';
 import { TranslateService } from '@ngx-translate/core';
+import { SWIPER_ASSETS } from '@uiux/combs/carousel/swiper/swiper.assets';
+import { ECHARTS_CDN_SCRIPT, FONT_AWESOME_CDN_STYLE } from './custom-template.assets';
 declare let Swiper: any;
 declare let echarts: any;
 @Component({
@@ -49,6 +54,12 @@ export class CustomTemplateComponent implements AfterViewInit {
   private nodeService = inject(NodeService);
   private template: Element;
   private destroyRef = inject(DestroyRef);
+  private injector = inject(Injector);
+  // Dialog content is created with whatever injector MatDialog itself was resolved from.
+  // This component only imports MatPaginatorModule, so in a subtree without MatDialogModule
+  // it gets the root MatDialog and the content would miss route-level tokens
+  // (BUILDER_CONFIG / MEDIA_ASSETS / PAGE_CONTENT). Pass this injector to every dialog.
+  private environmentInjector = inject(EnvironmentInjector);
   private util = inject(UtilitiesService);
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   private dialog = inject(MatDialog);
@@ -56,15 +67,17 @@ export class CustomTemplateComponent implements AfterViewInit {
   private manageService = inject(ManageService);
   private translate = inject(TranslateService);
   private dialogClickHandler?: (event: Event) => void;
-  // 内联编辑：仅 builder 画布内的静态模板（非 API、无 Mustache 标签）
+  // Inline editing: only for static templates inside the builder canvas (non-API, no Mustache tags)
   private inCanvas = false;
   private inlineEditable = false;
   private pristine: HTMLElement | null = null;
-  // 源码定位编辑：画布内的 Mustache/API 模板，点选后在源码中唯一匹配
+  // Source-locate editing: for Mustache/API templates in the canvas, uniquely matches the clicked element in the source
   private locateBound = false;
-  private pendingEdit: { el: HTMLElement; snippet: string; mode: 'html' | 'text' } | null = null;
-  // 自定义 JS 返回的清理函数，重渲染/销毁时调用
+  // Cleanup function returned by custom JS, called on re-render or destroy
   private jsCleanup: (() => void) | null = null;
+  // Race between component destroy and the in-flight dynamic import of the inline editor:
+  // after destroy the injector must not be touched
+  private destroyed = false;
 
   constructor() {
     afterRenderEffect(() => {
@@ -91,14 +104,16 @@ export class CustomTemplateComponent implements AfterViewInit {
     const { isAPI, html } = this.content();
     this.inCanvas = !!this.ele.nativeElement.closest('.component-item');
     this.inlineEditable = this.inCanvas && !isAPI && !(html ?? '').includes('{{');
-    const fontawesome = this.util.getLibraries('fontAwesome', 'cdn', 'style');
-    this.util.loadStyle(fontawesome);
-    this.destroyRef.onDestroy(() => this.runJsCleanup());
+    this.util.loadStyle(FONT_AWESOME_CDN_STYLE);
+    this.destroyRef.onDestroy(() => {
+      this.destroyed = true;
+      this.runJsCleanup();
+    });
   }
 
   async render(content: any): Promise<void> {
     if (this.screenService.isPlatformBrowser()) {
-      const { html, json, isAPI, api } = content;
+      const { html = '', json, isAPI, api } = content;
       if (isAPI && api) {
         this.fetchContent('');
       } else {
@@ -125,26 +140,19 @@ export class CustomTemplateComponent implements AfterViewInit {
   }
 
   async loadSwiper(): Promise<void> {
-    if (this.coreConfig.librariesUseLocal) {
-      await this.util.loadStyle('/assets/injects/swiper/swiper-bundle.min.css');
-      await this.util.loadScript('/assets/injects/swiper/swiper-bundle.min.js');
-    } else {
-      const swiperStyle = this.util.getLibraries('swiper', 'cdn', 'style');
-      const swiperScript = this.util.getLibraries('swiper', 'cdn', 'script');
-      await this.util.loadStyle(swiperStyle);
-      await this.util.loadScript(swiperScript);
-      this.ele.nativeElement.querySelectorAll('.swiper').forEach((el: any) => {
-        if (el) {
-          const options = JSON.parse(el.getAttribute('data-swiper'));
-          new Swiper(el, options);
-        }
-      });
-    }
+    const source = this.coreConfig.librariesUseLocal ? 'local' : 'cdn';
+    await this.util.loadStyle(getLibraryAsset(SWIPER_ASSETS, source, 'style'));
+    await this.util.loadScript(getLibraryAsset(SWIPER_ASSETS, source, 'script'));
+    this.ele.nativeElement.querySelectorAll('.swiper').forEach((el: any) => {
+      if (el) {
+        const options = JSON.parse(el.getAttribute('data-swiper'));
+        new Swiper(el, options);
+      }
+    });
   }
 
   async loadEchars(): Promise<void> {
-    const echartsScript = this.util.getLibraries('echarts', 'cdn', 'script');
-    await this.util.loadScript(echartsScript);
+    await this.util.loadScript(ECHARTS_CDN_SCRIPT);
     this.ele.nativeElement.querySelectorAll('.chart').forEach((el: any) => {
       if (el) {
         const options = JSON.parse(el.getAttribute('data-echarts'));
@@ -204,7 +212,7 @@ export class CustomTemplateComponent implements AfterViewInit {
   }
 
   private bindDialogTriggers(): void {
-    // 画布内点击用于内联/定位编辑，不触发弹窗（预览模式/前台不受影响）
+    // Clicks inside the canvas drive inline/locate editing, not dialogs (preview/frontend unaffected)
     if (this.inCanvas) {
       return;
     }
@@ -256,9 +264,11 @@ export class CustomTemplateComponent implements AfterViewInit {
   }
 
   /**
-   * 执行管理员配置的自定义 JS（content.js）。作者侧已按管理员角色门控（代码编辑器），
-   * 运行侧以 new Function 限定入参作用域执行：root 为模板根元素、data 为模板数据。
-   * 脚本可 return 一个函数，在重渲染（如分页）或组件销毁时清理（解绑事件、销毁实例）。
+   * Runs admin-configured custom JS (content.js). Authoring is already gated by the
+   * administrator role (code editor); on the run side it executes via new Function
+   * with a scoped set of arguments: root is the template root element, data the
+   * template data. The script may return a function, called to clean up (unbind
+   * events, destroy instances) on re-render (e.g. paging) or component destroy.
    */
   private runCustomJs(data: any): void {
     this.runJsCleanup();
@@ -266,7 +276,6 @@ export class CustomTemplateComponent implements AfterViewInit {
     if (!js?.trim()) {
       return;
     }
-    this.runJsCleanup();
     try {
       const fn = new Function('root', 'data', `'use strict';\n${js}`);
       const cleanup = fn(this.template, data);
@@ -288,8 +297,9 @@ export class CustomTemplateComponent implements AfterViewInit {
   }
 
   /**
-   * 点哪改哪：给渲染后的元素打索引标记，并保留一份未被运行时库（swiper/echarts）
-   * 污染的净拷贝；编辑落点通过标记映射回净拷贝后整体序列化写回 widget.html。
+   * Click-to-edit: tags the rendered elements with index markers and keeps a clean
+   * copy untouched by runtime libraries (swiper/echarts); edits are mapped back to
+   * the clean copy via the markers and serialized into widget.html as a whole.
    */
   private setupInlineEdit(): void {
     if (!this.inlineEditable) {
@@ -301,16 +311,16 @@ export class CustomTemplateComponent implements AfterViewInit {
     this.pristine = this.template.cloneNode(true) as HTMLElement;
     this.template.classList.add('inline-editable');
     this.template.addEventListener('click', this.onEditClick);
-    this.template.addEventListener('focusout', this.onEditBlur);
-    this.template.addEventListener('paste', this.onEditPaste);
     this.destroyRef.onDestroy(() => {
       this.template.removeEventListener('click', this.onEditClick);
-      this.template.removeEventListener('focusout', this.onEditBlur);
-      this.template.removeEventListener('paste', this.onEditPaste);
     });
   }
 
   private onEditClick = (event: Event): void => {
+    // Click landed inside a mounted editor: leave cursor and selection to tiptap, do not re-enter the edit flow
+    if ((event.target as HTMLElement | null)?.isContentEditable) {
+      return;
+    }
     const target = (event.target as HTMLElement | null)?.closest?.(
       '[data-xs-i]'
     ) as HTMLElement | null;
@@ -331,50 +341,52 @@ export class CustomTemplateComponent implements AfterViewInit {
     if (this.revealInOpenEditor(target)) {
       return;
     }
-    if (!target.isContentEditable) {
-      target.contentEditable = 'true';
-      target.focus();
-    }
+    this.activateEditor(target, event as MouseEvent, html => this.saveIndexed(target, html));
   };
 
-  private onEditBlur = (event: Event): void => {
-    const target = event.target as HTMLElement | null;
-    if (!target?.isContentEditable || !this.pristine) {
-      return;
-    }
-    target.contentEditable = 'false';
+  /** Write the edit result back into the clean copy by index, then serialize and save as a whole */
+  private saveIndexed(target: HTMLElement, html: string): void {
     const index = target.getAttribute('data-xs-i');
-    if (index === null) {
+    const source = index === null ? null : this.pristine?.querySelector(`[data-xs-i="${index}"]`);
+    if (!source) {
       return;
     }
-    const source = this.pristine.querySelector(`[data-xs-i="${index}"]`);
-    if (!source || source.innerHTML === target.innerHTML) {
-      return;
-    }
-    source.innerHTML = target.innerHTML;
+    source.innerHTML = html;
     this.saveTemplate();
-  };
+  }
 
-  // 粘贴时清除剪切板格式，与 ContenteditDirective 行为一致
-  private onEditPaste = (event: Event): void => {
-    const target = event.target as HTMLElement | null;
-    if (!target?.isContentEditable) {
-      return;
-    }
-    event.preventDefault();
-    const clipboardData = (event as ClipboardEvent).clipboardData;
-    const selection = window.getSelection();
-    if (!clipboardData || !selection?.rangeCount) {
-      return;
-    }
-    const range = selection.getRangeAt(0);
-    range.deleteContents();
-    const textNode = document.createTextNode(clipboardData.getData('text/plain'));
-    range.insertNode(textNode);
-    range.selectNodeContents(textNode);
-    selection.removeAllRanges();
-    selection.addRange(range);
-  };
+  /**
+   * In-canvas inline rich-text editing: shares InlineEditorService (tiptap + bubble
+   * toolbar) with the body component. The service is only loaded dynamically inside
+   * the canvas, so public pages never ship editor code; write-back does not go
+   * through a path, the caller persists per its own mechanism in onCommitted.
+   * Containers with block-level children use the 'rich' profile (keeps
+   * paragraphs/headings), single-paragraph text uses 'inline' (no <p> wrapper).
+   */
+  private activateEditor(
+    target: HTMLElement,
+    event: MouseEvent,
+    onCommitted: (html: string) => void
+  ): void {
+    const profile = target.querySelector(
+      'p, div, h1, h2, h3, h4, h5, h6, ul, ol, blockquote, pre'
+    )
+      ? 'rich'
+      : 'inline';
+    void import('@modules/builder/inline-editor/inline-editor.service').then(
+      ({ InlineEditorService }) => {
+        if (this.destroyed) {
+          return;
+        }
+        this.injector.get(InlineEditorService).activate({
+          element: target,
+          profile,
+          clickCoords: { x: event.clientX, y: event.clientY },
+          onCommitted,
+        });
+      }
+    );
+  }
 
   private isEditableElement(el: HTMLElement): boolean {
     if (CustomTemplateComponent.NON_EDITABLE_TAGS.has(el.tagName)) {
@@ -383,7 +395,7 @@ export class CustomTemplateComponent implements AfterViewInit {
     if (el.closest('svg')) {
       return false;
     }
-    // 含运行时托管内容（图表、轮播结构）的容器整体不可编辑，需点击其内部文本
+    // Containers holding runtime-managed content (charts, carousel structures) are not editable as a whole; click the inner text instead
     if (el.querySelector('canvas, svg, video, iframe, .swiper-slide, [data-echarts]')) {
       return false;
     }
@@ -408,9 +420,11 @@ export class CustomTemplateComponent implements AfterViewInit {
   }
 
   /**
-   * 源码定位编辑：渲染结果与源码不一致（Mustache/API）时，点选元素后
-   * 在 widget.html 源码中做唯一文本匹配——命中则就地编辑并精确替换该片段，
-   * 未命中（数据生成的内容/歧义）则打开代码编辑器并定位到最接近的位置。
+   * Source-locate editing: when the rendered result differs from the source
+   * (Mustache/API), clicking an element performs a unique text match in the
+   * widget.html source. On a hit, edit in place and replace exactly that snippet;
+   * on a miss (data-generated content/ambiguity), open the code editor and
+   * position it at the closest location.
    */
   private setupLocateEdit(): void {
     if (!this.inCanvas || this.inlineEditable || this.locateBound) {
@@ -419,18 +433,18 @@ export class CustomTemplateComponent implements AfterViewInit {
     this.locateBound = true;
     this.template.classList.add('locate-editable');
     this.template.addEventListener('click', this.onLocateClick);
-    this.template.addEventListener('focusout', this.onLocateBlur);
-    this.template.addEventListener('paste', this.onEditPaste);
     this.destroyRef.onDestroy(() => {
       this.template.removeEventListener('click', this.onLocateClick);
-      this.template.removeEventListener('focusout', this.onLocateBlur);
-      this.template.removeEventListener('paste', this.onEditPaste);
     });
   }
 
   private onLocateClick = (event: Event): void => {
     const target = event.target as HTMLElement | null;
     if (!target || !this.template.contains(target)) {
+      return;
+    }
+    // Click landed inside a mounted editor: leave cursor and selection to tiptap, do not re-enter the edit flow
+    if (target.isContentEditable) {
       return;
     }
     if (target.tagName === 'IMG') {
@@ -447,55 +461,38 @@ export class CustomTemplateComponent implements AfterViewInit {
     if (this.revealInOpenEditor(target)) {
       return;
     }
-    if (target.isContentEditable) {
-      return;
-    }
     const source = this.content().html ?? '';
-    const match = this.findUniqueSnippet(target, source);
-    if (match) {
-      this.pendingEdit = { el: target, ...match };
-      target.contentEditable = 'true';
-      target.focus();
+    const snippet = this.findUniqueSnippet(target, source);
+    if (snippet) {
+      this.activateEditor(target, event as MouseEvent, html => this.saveLocated(snippet, html));
     } else {
       this.openCodeEditor(target, source);
     }
   };
 
-  private onLocateBlur = (event: Event): void => {
-    const target = event.target as HTMLElement | null;
-    const pending = this.pendingEdit;
-    if (!target?.isContentEditable || !pending || pending.el !== target) {
-      return;
-    }
-    target.contentEditable = 'false';
-    this.pendingEdit = null;
-    const updated = pending.mode === 'html' ? target.innerHTML : (target.textContent?.trim() ?? '');
-    if (updated === pending.snippet) {
-      return;
-    }
+  /** Replace the original snippet in the source exactly with the edit result; abort with a notice if the source changed in the meantime (uniqueness lost) */
+  private saveLocated(snippet: string, updated: string): void {
     const source = this.content().html ?? '';
-    if (this.countOccurrences(source, pending.snippet) !== 1) {
+    if (this.countOccurrences(source, snippet) !== 1) {
       this.util.openSnackbar(
         this.translate.instant('BUILDER.CUSTOM_TEMPLATE.LOCATE_CHANGED'),
         'ok'
       );
       return;
     }
-    const index = source.indexOf(pending.snippet);
-    this.saveHtml(source.slice(0, index) + updated + source.slice(index + pending.snippet.length));
-  };
+    const index = source.indexOf(snippet);
+    this.saveHtml(source.slice(0, index) + updated + source.slice(index + snippet.length));
+  }
 
-  private findUniqueSnippet(
-    el: HTMLElement,
-    source: string
-  ): { snippet: string; mode: 'html' | 'text' } | null {
+  /** Snippet of the element's content uniquely matching in the source (full HTML first, falling back to plain text); null if nothing matches */
+  private findUniqueSnippet(el: HTMLElement, source: string): string | null {
     const html = el.innerHTML;
     if (html && this.countOccurrences(source, html) === 1) {
-      return { snippet: html, mode: 'html' };
+      return html;
     }
     const text = el.childElementCount === 0 ? (el.textContent?.trim() ?? '') : '';
     if (text && this.countOccurrences(source, text) === 1) {
-      return { snippet: text, mode: 'text' };
+      return text;
     }
     return null;
   }
@@ -522,9 +519,11 @@ export class CustomTemplateComponent implements AfterViewInit {
   }
 
   /**
-   * 代码编辑器已打开且属于当前组件时，点击仅在编辑器中定位对应源码，
-   * 不进入内联编辑，避免重复弹窗及画布与编辑器的双向写入冲突；
-   * 属于其他组件时关闭旧编辑器，继续当前组件的正常编辑流程。
+   * When the code editor is open and belongs to the current component, a click
+   * only locates the matching source in the editor instead of entering inline
+   * editing, avoiding duplicate dialogs and two-way write conflicts between
+   * canvas and editor; when it belongs to another component, close the old
+   * editor and continue the current component's normal edit flow.
    */
   private revealInOpenEditor(target: HTMLElement): boolean {
     const existing = this.dialog.getDialogById('code-editor-dialog');
@@ -536,8 +535,7 @@ export class CustomTemplateComponent implements AfterViewInit {
       return false;
     }
     const source = this.content().html ?? '';
-    const reveal =
-      this.findUniqueSnippet(target, source)?.snippet ?? this.fallbackReveal(target, source);
+    const reveal = this.findUniqueSnippet(target, source) ?? this.fallbackReveal(target, source);
     if (reveal) {
       this.builder.revealCode$.next(reveal);
     }
@@ -552,8 +550,9 @@ export class CustomTemplateComponent implements AfterViewInit {
   }
 
   /**
-   * 图片点哪换哪：可定位时打开媒体库选图并精确替换源码中的 src，
-   * 无法定位（src 由数据生成/歧义）则打开代码编辑器定位。
+   * Click-to-swap images: when locatable, opens the media library to pick an image
+   * and replaces the src in the source exactly; when not locatable (src generated
+   * from data/ambiguous), opens the code editor at the location.
    */
   private handleImgClick(img: HTMLImageElement): void {
     if (this.revealInOpenEditor(img)) {
@@ -584,6 +583,7 @@ export class CustomTemplateComponent implements AfterViewInit {
       width: '85vw',
       panelClass: this.manageService.mediaDialogClass,
       data: config,
+      injector: this.environmentInjector,
     });
     this.builder.selectedMedia$
       .pipe(
@@ -644,6 +644,7 @@ export class CustomTemplateComponent implements AfterViewInit {
       ...config.params,
       panelClass,
       data: dialogData,
+      injector: this.environmentInjector,
     });
   }
 }

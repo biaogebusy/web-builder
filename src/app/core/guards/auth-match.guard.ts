@@ -12,7 +12,7 @@ export const authMatchGuard: CanMatchFn = (route, _segments) => {
   const screen = inject(ScreenService);
   const coreConfig = inject<ICoreConfig>(CORE_CONFIG);
 
-  // SSR has no client cookie storage — defer login check to client hydration
+  // SSR has no client cookie storage: defer login check to client hydration
   if (!screen.isPlatformBrowser()) {
     return true;
   }
