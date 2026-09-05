@@ -2,7 +2,6 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 import { getBtn } from './getBtn';
 import { getBtnVideo } from './getBtnVideo';
 import { getBuilder } from './getBuilder';
-import { getChart } from './getChart';
 import { getContact } from './getContact';
 import { getDivider } from './getDivider';
 import { getIcon } from './getIcon';
@@ -42,9 +41,6 @@ export function getWidgetSetting(widget: any): FormlyFieldConfig {
       break;
     case 'spacer':
       fields = getSpacer(widget);
-      break;
-    case 'chart':
-      fields = getChart(widget);
       break;
     case 'contact-us':
       fields = getContact(widget);

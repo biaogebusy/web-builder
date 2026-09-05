@@ -17,12 +17,19 @@ import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
-import { formatToExtraData, getPageParams, isTranslationLang } from '@core/util/builder-page.util';
+import {
+  formatToExtraData,
+  getApiLang,
+  getPageParams,
+  isTranslationLang,
+} from '@core/util/builder-page.util';
 import { appendQueryParams } from '@core/util/http-params.util';
 import { SHARE_IMPORTS } from '@share/share-imports';
 import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TranslateService } from '@ngx-translate/core';
+import { of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -250,23 +257,39 @@ export class PageItemComponent {
     this.builder.loading.set(true);
     this.nodeService
       .fetch(`/api/v3/landingPage/json/${currentPage.nid}`, { noCache: 1 }, targetlang)
-      .pipe(takeUntilDestroyed(this.destroyRef))
+      .pipe(
+        switchMap((page: IPage) => {
+          if (page.langcode === targetlang) {
+            return of({ existing: page });
+          }
+          // The target request fell back to another language, so its body is not what
+          // this row should be translated from: fetch this row's own language.
+          return this.nodeService
+            .fetch(
+              `/api/v3/landingPage/json/${currentPage.nid}`,
+              { noCache: 1 },
+              getApiLang(currentPage.langcode)
+            )
+            .pipe(map((source: IPage) => ({ source })));
+        }),
+        takeUntilDestroyed(this.destroyRef)
+      )
       .subscribe({
-        next: (page: IPage) => {
+        next: ({ existing, source }: { existing?: IPage; source?: IPage }) => {
           this.builder.loading.set(false);
-          if (targetlang === page.langcode) {
+          if (existing) {
             this.util.openSnackbar(
               this.translate.instant('BUILDER.PAGE_LIST.TRANSLATION_EXISTS', {
-                label: page.label || lang?.label || targetlang,
+                label: existing.label || lang?.label || targetlang,
               }),
               'ok'
             );
-            this.builder.loadNewPage(formatToExtraData(page));
+            this.builder.loadNewPage(formatToExtraData(existing));
             this.pageLoad.emit(currentPage);
             return;
           }
           const label = lang?.label || targetlang;
-          this.openCreateTranslationDialog(currentPage, targetlang, page, label);
+          this.openCreateTranslationDialog(currentPage, targetlang, source as IPage, label);
         },
         error: () => {
           this.builder.loading.set(false);

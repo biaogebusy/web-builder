@@ -45,6 +45,11 @@
   }
   .right-drawer {
     position: fixed !important;
+    height: 100vh;
+    ::ng-deep > .mat-drawer-inner-container {
+      @apply flex flex-col h-full;
+      overflow: hidden;
+    }
   }
   .builder {
     @apply flex-1 overflow-auto h-full;
@@ -75,7 +80,7 @@
 }
 
 .right-header {
-  @apply flex justify-between gap-3 items-center px-5 box-border;
+  @apply flex justify-between gap-3 items-center px-5 box-border flex-shrink-0;
   height: 50px;
   border-bottom: 1px solid var(--mat-sys-surface-dim);
   .right-title {
@@ -83,5 +88,6 @@
   }
 }
 .right-content {
-  @apply p-5;
+  @apply p-5 flex-1 overflow-y-auto;
+  min-height: 0;
 }

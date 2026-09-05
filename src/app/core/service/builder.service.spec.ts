@@ -17,6 +17,7 @@ import { UtilitiesService } from './utilities.service';
 describe('BuilderService', () => {
   const patch = vi.fn((_url: string, _body: unknown, _options: unknown) => of({ status: true }));
   const post = vi.fn((_url: string, _body: unknown, _options: unknown) => of({ status: true }));
+  const get = vi.fn((_url: string): any => of({ data: {} }));
   const loadingSet = vi.fn();
   const loadNewPage = vi.fn();
   const fetch = vi.fn();
@@ -35,7 +36,7 @@ describe('BuilderService', () => {
         BuilderService,
         { provide: API_URL, useValue: 'https://example.com' },
         { provide: DOCUMENT, useValue: document },
-        { provide: HttpClient, useValue: { patch, post } },
+        { provide: HttpClient, useValue: { patch, post, get } },
         { provide: MatDialog, useValue: { open: dialogOpen } },
         {
           provide: BuilderState,
@@ -61,6 +62,7 @@ describe('BuilderService', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     fetch.mockReset();
+    get.mockReturnValue(of({ data: {} }));
     getLocalPageByPage.mockReturnValue(undefined);
     TestBed.resetTestingModule();
   });
@@ -170,6 +172,79 @@ describe('BuilderService', () => {
     expect(post.mock.calls[0][0]).toBe(
       'https://example.com/api/v3/landingPage/translations/delete/42/en'
     );
+  });
+
+  // Patching the node's path field over JSON:API drops the pathauto flag that marks an
+  // alias as hand-written — core copies the parsed field across with getValue(), which
+  // skips computed properties — so the write goes through a backend endpoint that sets
+  // the field server-side and covers every translation in one save
+  it('posts a page alias to the backend alias endpoint', async () => {
+    const service = createService();
+
+    const written = await service.updateUrlalias({ nid: '42', langcode: 'zh-hans' }, '/about');
+
+    expect(written).toBe(true);
+    expect(post).toHaveBeenCalledOnce();
+    expect(post.mock.calls[0][0]).toBe('https://example.com/api/v3/landingPage/alias/42');
+    expect(post.mock.calls[0][1]).toEqual({ alias: '/about' });
+    // The backend aligns the other languages inside that save, so nothing else runs here
+    expect(get).not.toHaveBeenCalled();
+    expect(patch).not.toHaveBeenCalled();
+  });
+
+  // The alias field is prefilled with the language prefix of the page it belongs to
+  it('drops a leading language prefix without touching the rest of the alias', async () => {
+    const service = createService();
+
+    await service.updateUrlalias({ nid: '42', langcode: 'en' }, '/en/enterprise');
+
+    expect((post.mock.calls[0][1] as any).alias).toBe('/enterprise');
+
+    post.mockClear();
+    await service.updateUrlalias({ nid: '42', langcode: 'en' }, '/enterprise');
+
+    expect((post.mock.calls[0][1] as any).alias).toBe('/enterprise');
+  });
+
+  it('reports a refusal the backend answers with a false status', async () => {
+    post.mockReturnValueOnce(of({ status: false, message: 'Missing alias' }));
+    const service = createService();
+
+    await expect(
+      service.updateUrlalias({ nid: '42', langcode: 'zh-hans' }, '/about')
+    ).resolves.toBe(false);
+  });
+
+  it('reports a taken alias and rejects before the rest of the settings are saved', async () => {
+    post.mockReturnValueOnce(throwError(() => ({ status: 409 })));
+    const service = createService();
+
+    await expect(
+      service.updateUrlalias({ nid: '42', langcode: 'zh-hans' }, '/about')
+    ).rejects.toEqual({ status: 409 });
+    expect(openSnackbar).toHaveBeenCalledWith('URL 已存在，请更换后重试', 'ok');
+  });
+
+  // The backend creates the target language alias inside the same save now
+  it('creates a translation without patching alias records afterwards', () => {
+    const service = createService();
+
+    service
+      .addTranslation({
+        nid: '42',
+        langcode: 'zh-hans',
+        target: 'en',
+        title: 'Home',
+        body: [],
+      } as IPage)
+      .subscribe();
+
+    expect(post).toHaveBeenCalledOnce();
+    expect(post.mock.calls[0][0]).toBe(
+      'https://example.com/api/v3/landingPage/translations/add/42/zh-hans/en'
+    );
+    expect(get).not.toHaveBeenCalled();
+    expect(patch).not.toHaveBeenCalled();
   });
 
   it('marks a previewed draft with the revision it was loaded from', () => {

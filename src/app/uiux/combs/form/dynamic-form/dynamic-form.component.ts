@@ -1,7 +1,17 @@
-import { Component, DestroyRef, inject, signal, ChangeDetectionStrategy, input } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  inject,
+  signal,
+  computed,
+  ChangeDetectionStrategy,
+  input,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 import { IDynamicForm } from '@core/interface/combs/IDynamicForm';
+import type { IBtn } from '@core/interface/widgets/IBtn';
 import { FormService } from '@core/service/form.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
@@ -23,7 +33,17 @@ export class DynamicFormComponent {
   public loading = signal<boolean>(false);
   private formService = inject(FormService);
   private util = inject(UtilitiesService);
+  private translate = inject(TranslateService);
   private destroyRef = inject(DestroyRef);
+
+  /**
+   * Disabling has to reach the button content: `app-btn` binds it to the native
+   * button, which then blocks the clicks that would submit the form twice.
+   */
+  readonly submitBtn = computed<IBtn>(() => ({
+    ...this.content().action.submit,
+    disabled: this.disabled(),
+  }));
 
 
   onSubmit(): void {
@@ -39,12 +59,14 @@ export class DynamicFormComponent {
       .subscribe({
         next: () => {
           this.disabled.set(false);
-          this.util.openSnackbar('成功提交！');
+          this.util.openSnackbar(this.translate.instant('BUILDER.DYNAMIC_FORM.SUBMIT_SUCCESS'));
           this.form.reset();
         },
         error: error => {
           this.disabled.set(false);
-          this.util.openSnackbar(error?.error?.message || `提交失败，请联系管理员！`);
+          this.util.openSnackbar(
+            error?.error?.message || this.translate.instant('BUILDER.DYNAMIC_FORM.SUBMIT_FAILED')
+          );
           console.error(error.error);
         },
       });

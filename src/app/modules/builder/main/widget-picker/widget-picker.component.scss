@@ -2,43 +2,40 @@
 @use 'mixins/amixin' as *;
 
 .widget-picker {
-  @apply flex flex-col w-full;
+  @apply flex flex-col w-full h-full;
   color: var(--mat-sys-on-surface);
-  animation: picker-fade 0.18s ease-out;
+  background-color: var(--mat-sys-surface);
+  font-size: 14px;
+  line-height: 1.4;
+  animation: picker-slide-in 260ms cubic-bezier(0.2, 0, 0, 1);
 
-  // ---------- Header bar ----------
+  // ---------- Sticky header ----------
   .picker-header {
-    @apply flex items-center gap-2 px-3 py-2 sticky top-0 z-10 border-b min-h-[52px];
-    background-color: var(--mat-sys-surface);
-    border-bottom-color: var(--mat-sys-outline-variant);
-
-    .back-btn {
-      @apply shrink-0;
-    }
-
-    .picker-title {
-      @apply m-0 text-base font-semibold truncate flex-1;
-    }
-
-    .picker-count {
-      @apply text-xs px-2 py-0.5 rounded-full shrink-0 min-w-6 text-center;
-      background-color: var(--mat-sys-surface-container);
-      color: var(--mat-sys-on-surface-variant);
-    }
+    @apply flex flex-col gap-2 px-4 pt-3 pb-2 sticky top-0 z-10;
+    background: linear-gradient(
+      to bottom,
+      var(--mat-sys-surface) 0%,
+      var(--mat-sys-surface) 85%,
+      color-mix(in oklch, var(--mat-sys-surface) 92%, transparent) 100%
+    );
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--mat-sys-outline-variant);
   }
 
   // ---------- Search box ----------
   .search-box {
-    @apply flex items-center gap-2 mx-3 mt-3 mb-2 px-3 rounded-lg border h-10;
+    @apply flex items-center gap-2 px-3 rounded-full h-10 border;
     background-color: var(--mat-sys-surface-container-low);
     border-color: var(--mat-sys-outline-variant);
     transition:
-      border-color 0.15s ease,
-      background-color 0.15s ease;
+      border-color 120ms ease-out,
+      background-color 120ms ease-out,
+      box-shadow 120ms ease-out;
 
     &:focus-within {
       border-color: var(--mat-sys-primary);
       background-color: var(--mat-sys-surface);
+      box-shadow: 0 0 0 3px color-mix(in oklch, var(--mat-sys-primary) 15%, transparent);
     }
 
     .search-icon {
@@ -55,8 +52,9 @@
     }
 
     .search-clear {
-      @apply shrink-0 flex items-center justify-center bg-transparent border-0 cursor-pointer p-1 rounded;
+      @apply shrink-0 flex items-center justify-center bg-transparent border-0 cursor-pointer p-1 rounded-full;
       color: var(--mat-sys-on-surface-variant);
+      transition: color 120ms ease-out;
 
       &:hover {
         color: var(--mat-sys-on-surface);
@@ -64,116 +62,59 @@
     }
   }
 
-  .search-result-meta {
-    @apply text-xs px-4 pt-2 pb-1;
-    color: var(--mat-sys-on-surface-variant);
-  }
+  // ---------- Category chip row ----------
+  .category-row {
+    @apply flex items-center gap-1;
+    position: relative;
 
-  // ---------- Category list ----------
-  .category-list {
-    @apply flex flex-col py-1;
-  }
-
-  .category-item {
-    @apply flex items-center gap-3 w-full px-4 py-3 text-left bg-transparent border-0 cursor-pointer relative border-b border-solid no-underline;
-    color: inherit;
-    transition: background-color 0.15s ease;
-    border-bottom-color: var(--mat-sys-outline-variant);
-
-    &:hover {
+    .scroll-btn {
+      @apply shrink-0 flex items-center justify-center w-6 h-6 rounded-full border-0 cursor-pointer;
       background-color: var(--mat-sys-surface-container-low);
-    }
-
-    &:focus-visible {
-      outline: 2px solid var(--mat-sys-primary);
-      outline-offset: -2px;
-      background-color: var(--mat-sys-surface-container-low);
-    }
-
-    .category-icon {
-      @apply flex items-center justify-center shrink-0 rounded-md w-8 h-8;
-      color: var(--mat-sys-primary);
-      background-color: color-mix(in oklch, var(--mat-sys-primary) 8%, transparent);
-    }
-
-    .category-content {
-      @apply flex-1 flex items-center justify-between gap-2 min-w-0;
-    }
-
-    .category-label {
-      @apply flex-1 text-sm font-medium truncate;
-    }
-
-    .category-count {
-      @apply text-xs shrink-0;
       color: var(--mat-sys-on-surface-variant);
-    }
-
-    .chevron {
-      @apply opacity-50 shrink-0;
+      opacity: 0;
+      pointer-events: none;
       transition:
-        transform 0.15s ease,
-        opacity 0.15s ease;
-    }
+        opacity 150ms ease-out,
+        background-color 120ms ease-out,
+        color 120ms ease-out;
 
-    &:hover .chevron {
-      @apply opacity-100;
-      transform: translateX(2px);
-    }
-
-    &.paste-item .category-icon {
-      color: var(--mat-sys-tertiary, var(--mat-sys-primary));
-      background-color: color-mix(
-        in oklch,
-        var(--mat-sys-tertiary, var(--mat-sys-primary)) 8%,
-        transparent
-      );
-    }
-
-    &.help-item {
-      @apply border-t border-b-0 mt-6;
-      border-top-color: var(--mat-sys-outline-variant);
-      .category-icon {
-        @apply bg-transparent;
-        color: var(--mat-sys-on-surface-variant);
+      &:hover {
+        background-color: var(--mat-sys-surface-container);
+        color: var(--mat-sys-on-surface);
       }
-      .category-label {
-        color: var(--mat-sys-on-surface-variant);
+    }
+
+    .category-chips {
+      @apply flex gap-1.5 overflow-x-auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      flex: 1;
+
+      &::-webkit-scrollbar {
+        display: none;
       }
+    }
+
+    &:hover .scroll-btn {
+      opacity: 1;
+      pointer-events: auto;
     }
   }
 
-  // ---------- Widget list ----------
-  .widget-list {
-    @apply grid grid-cols-2 gap-2 p-3;
-  }
-
-  .widget-card {
-    @apply flex flex-col w-full p-0 text-left cursor-pointer relative border rounded-[10px] overflow-hidden;
-    background-color: var(--mat-sys-surface);
-    border-color: var(--mat-sys-outline-variant);
+  .chip {
+    @apply shrink-0 px-3 h-7 rounded-full text-xs font-medium cursor-pointer border;
+    background-color: transparent;
+    border-color: transparent;
+    color: var(--mat-sys-on-surface-variant);
+    white-space: nowrap;
     transition:
-      border-color 0.15s ease,
-      background-color 0.15s ease,
-      box-shadow 0.15s ease,
-      transform 0.15s ease;
+      background-color 120ms ease-out,
+      color 120ms ease-out,
+      border-color 120ms ease-out;
 
     &:hover {
-      border-color: var(--mat-sys-primary);
-      box-shadow: var(--mat-sys-level1);
-      transform: translateY(-1px);
-
-      .widget-title {
-        color: var(--mat-sys-primary);
-      }
-
-      .widget-preview {
-        background-color: color-mix(in oklch, var(--mat-sys-primary) 8%, var(--mat-sys-surface-container-low));
-      }
-    }
-
-    &:active {
-      transform: scale(0.99);
+      background-color: var(--mat-sys-surface-container-low);
+      color: var(--mat-sys-on-surface);
     }
 
     &:focus-visible {
@@ -181,76 +122,229 @@
       outline-offset: 2px;
     }
 
-    .widget-preview {
-      @apply relative flex justify-center items-center w-full overflow-hidden aspect-video;
+    &--active {
+      background-color: color-mix(in oklch, var(--mat-sys-primary) 10%, transparent);
+      border-color: color-mix(in oklch, var(--mat-sys-primary) 25%, transparent);
+      color: var(--mat-sys-primary);
+      font-weight: 600;
+
+      &:hover {
+        background-color: color-mix(in oklch, var(--mat-sys-primary) 16%, transparent);
+      }
+    }
+  }
+
+  // ---------- Paste bar ----------
+  .paste-bar {
+    @apply flex items-center gap-3 mx-4 mt-3 mb-2 px-3 py-2.5 rounded-lg border cursor-pointer text-left;
+    background-color: color-mix(in oklch, var(--mat-sys-tertiary, var(--mat-sys-primary)) 6%, var(--mat-sys-surface));
+    border-color: color-mix(in oklch, var(--mat-sys-tertiary, var(--mat-sys-primary)) 25%, transparent);
+    border-left: 3px solid var(--mat-sys-tertiary, var(--mat-sys-primary));
+    transition: background-color 120ms ease-out;
+    animation: paste-bar-in 240ms cubic-bezier(0.2, 0, 0, 1);
+
+    &:hover {
+      background-color: color-mix(
+        in oklch,
+        var(--mat-sys-tertiary, var(--mat-sys-primary)) 10%,
+        var(--mat-sys-surface)
+      );
+    }
+
+    &__icon {
+      @apply shrink-0;
+      color: var(--mat-sys-tertiary, var(--mat-sys-primary));
+    }
+
+    &__label {
+      @apply flex-1 text-sm font-medium;
+      color: var(--mat-sys-on-surface);
+    }
+
+    &__shortcut {
+      @apply shrink-0 text-[11px] font-mono px-1.5 py-0.5 rounded;
+      color: var(--mat-sys-on-surface-variant);
+      background-color: color-mix(in oklch, var(--mat-sys-tertiary, var(--mat-sys-primary)) 10%, transparent);
+    }
+  }
+
+  // ---------- Result meta ----------
+  .result-meta {
+    @apply flex items-center justify-between px-4 pt-3 pb-1.5;
+
+    &__count {
+      @apply text-xs font-medium;
+      color: var(--mat-sys-on-surface-variant);
+      letter-spacing: 0.01em;
+    }
+
+    &__help {
+      @apply text-xs font-medium no-underline flex items-center gap-1;
+      color: var(--mat-sys-primary);
+      transition: opacity 120ms ease-out;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    &__help-icon {
+      @apply scale-[0.85];
+    }
+  }
+
+  // ---------- Widget list (compact rows) ----------
+  .widget-list {
+    @apply flex flex-col m-0 p-0;
+    list-style: none;
+    padding-bottom: 16px;
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  .widget-row {
+    @apply relative flex items-center gap-3 w-full px-4 py-2.5 text-left bg-transparent border-0 cursor-pointer;
+    color: var(--mat-sys-on-surface);
+    transition: background-color 120ms ease-out;
+
+    // Left accent bar — appears on hover/focus
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      bottom: 8px;
+      width: 3px;
+      border-radius: 0 2px 2px 0;
+      background-color: var(--mat-sys-primary);
+      transform: scaleY(0);
+      transform-origin: center;
+      transition: transform 150ms cubic-bezier(0.2, 0, 0, 1);
+    }
+
+    &:hover,
+    &:focus-visible {
       background-color: var(--mat-sys-surface-container-low);
-      border-bottom: 1px solid var(--mat-sys-outline-variant);
-      transition: background-color 0.15s ease;
+
+      &::before {
+        transform: scaleY(1);
+      }
+    }
+
+    &:focus-visible {
+      outline: none;
+    }
+
+    &:active {
+      background-color: var(--mat-sys-surface-container);
+    }
+
+    &[disabled] {
+      @apply cursor-default;
+
+      &:hover {
+        background-color: transparent;
+
+        &::before {
+          transform: scaleY(0);
+        }
+      }
+    }
+
+    &[disabled]:not([aria-busy='true']) {
+      @apply opacity-50;
+    }
+
+    &__thumb {
+      @apply shrink-0 flex items-center justify-center w-11 h-11 rounded-md overflow-hidden;
+      background-color: var(--mat-sys-surface-container-low);
+      border: 1px solid var(--mat-sys-outline-variant);
 
       img {
         @apply w-full h-full object-cover;
       }
 
       .mat-icon {
-        @apply scale-[1.6];
-        color: var(--mat-sys-primary);
+        @apply scale-[1.3];
+        color: var(--mat-sys-on-surface-variant);
       }
     }
 
-    .widget-info {
-      @apply flex flex-col gap-0.5 px-2.5 py-2 min-w-0;
+    &__body {
+      @apply flex flex-col gap-0.5 flex-1 min-w-0;
     }
 
-    .widget-title {
+    &__title {
       @apply text-sm font-semibold truncate;
       color: var(--mat-sys-on-surface);
-      transition: color 0.15s ease;
     }
 
-    .widget-description {
+    &__desc {
       @apply text-xs truncate;
       color: var(--mat-sys-on-surface-variant);
     }
 
-    .widget-group-badge {
-      @apply absolute top-1.5 right-1.5 text-[10px] font-medium px-1.5 py-0.5 rounded max-w-[70%] truncate;
-      background-color: color-mix(in oklch, var(--mat-sys-surface) 80%, transparent);
-      color: var(--mat-sys-on-surface);
+    &__meta {
+      @apply shrink-0 flex flex-col items-end gap-0.5;
+      max-width: 45%;
+    }
+
+    &__group {
+      @apply text-[11px] font-medium px-1.5 py-0.5 rounded truncate max-w-full;
+      background-color: var(--mat-sys-surface-container);
+      color: var(--mat-sys-on-surface-variant);
       border: 1px solid var(--mat-sys-outline-variant);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+    }
+
+    &__type {
+      font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--mat-sys-on-surface-variant);
+      opacity: 0.8;
+      letter-spacing: 0.01em;
+    }
+
+    &__busy {
+      @apply absolute inset-0 flex items-center justify-center;
+      background-color: color-mix(in oklch, var(--mat-sys-surface) 70%, transparent);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
     }
   }
 
   // ---------- Empty state ----------
   .empty-state {
-    @apply flex flex-col items-center justify-center text-center px-4 py-10 gap-2;
+    @apply flex flex-col items-center justify-center text-center px-6 py-12 gap-2;
     color: var(--mat-sys-on-surface-variant);
 
-    .empty-icon {
-      @apply opacity-50 scale-[2] mb-2;
-    }
-
-    p {
+    &__text {
       @apply m-0 text-sm;
+      max-width: 240px;
+      line-height: 1.5;
     }
 
-    .empty-action {
-      @apply mt-2 text-sm bg-transparent border-0 cursor-pointer px-3 py-1.5 rounded-md;
+    &__action {
+      @apply mt-2 text-sm font-medium bg-transparent border cursor-pointer px-4 py-1.5 rounded-full;
       color: var(--mat-sys-primary);
-      transition: background-color 0.15s ease;
+      border-color: color-mix(in oklch, var(--mat-sys-primary) 30%, transparent);
+      background-color: color-mix(in oklch, var(--mat-sys-primary) 6%, transparent);
+      transition:
+        background-color 120ms ease-out,
+        border-color 120ms ease-out;
 
       &:hover {
-        background-color: color-mix(in oklch, var(--mat-sys-primary) 10%, transparent);
+        background-color: color-mix(in oklch, var(--mat-sys-primary) 12%, transparent);
+        border-color: color-mix(in oklch, var(--mat-sys-primary) 50%, transparent);
       }
     }
   }
 }
 
-@keyframes picker-fade {
+@keyframes picker-slide-in {
   from {
     opacity: 0;
-    transform: translateX(8px);
+    transform: translateX(24px);
   }
   to {
     opacity: 1;
@@ -258,18 +352,34 @@
   }
 }
 
+@keyframes paste-bar-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 // ---------- Left floating preview ----------
 .widget-preview-popup {
-  @apply fixed z-[10000] pointer-events-none opacity-0 rounded-xl p-3 min-w-[120px] min-h-14 overflow-hidden box-border border;
+  @apply fixed z-[10000] pointer-events-none opacity-0 rounded-xl p-3 min-w-[120px] min-h-14 overflow-hidden box-border;
   background-color: var(--mat-sys-surface);
-  border-color: var(--mat-sys-outline-variant);
+  border: 1px solid var(--mat-sys-outline-variant);
   box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.04),
-    0 4px 12px rgba(0, 0, 0, 0.06);
-  transition: opacity 0.18s ease;
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 8px 24px rgba(0, 0, 0, 0.08),
+    0 2px 8px rgba(0, 0, 0, 0.04);
+  transition:
+    opacity 180ms ease-out,
+    transform 180ms cubic-bezier(0.2, 0, 0, 1);
+  transform: translateX(6px) scale(0.98);
 
   &[data-popper-placement] {
-    @apply opacity-100;
+    opacity: 1;
+    transform: translateX(0) scale(1);
   }
 
   .preview-image {
@@ -278,12 +388,12 @@
     max-height: calc(85vh - 24px);
 
     img {
-      @apply max-w-full max-h-full object-contain;
+      @apply max-w-full max-h-full object-contain rounded-lg;
     }
   }
 
   .preview-canvas {
-    @apply w-max max-w-[1280px] origin-top-left overflow-hidden;
+    @apply w-max max-w-[1280px] origin-top-left overflow-hidden rounded-lg;
 
     > app-dynamic-component {
       @apply block;

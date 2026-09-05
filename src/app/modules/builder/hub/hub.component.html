@@ -25,8 +25,8 @@
                    when the site has none, no placeholder is rendered instead of repeating
                    the same hint on every card -->
               @if (nodeType.desc) {
-                <span class="entry-desc" [id]="'hub-type-' + nodeType.value">
-                  {{ nodeType.desc }}
+                <!-- Drupal content-type descriptions may carry markup (e.g. <em>), so render as sanitized HTML -->
+                <span class="entry-desc" [id]="'hub-type-' + nodeType.value" [innerHTML]="nodeType.desc | safeHtml">
                 </span>
               }
             </a>
@@ -120,8 +120,11 @@
             >
               <app-icon class="entry-icon" [content]="{ svg: entry.icon }" />
               <span class="entry-name">{{ entry.label | translate }}</span>
-              <span class="entry-desc" [id]="'hub-entry-' + groupIndex + '-' + $index">
-                {{ entry.desc | translate }}
+              <span
+                class="entry-desc"
+                [id]="'hub-entry-' + groupIndex + '-' + $index"
+                [innerHTML]="entry.desc | translate | safeHtml"
+              >
               </span>
             </a>
           }

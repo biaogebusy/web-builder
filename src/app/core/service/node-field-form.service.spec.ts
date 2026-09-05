@@ -118,6 +118,63 @@ describe('NodeFieldFormService', () => {
       expect(meta.length).toBe(0);
     });
 
+    it('auto_create 的词条字段渲染为 term-select,其余仍为 select', () => {
+      const configs = [
+        {
+          attributes: {
+            field_name: 'category',
+            field_type: 'entity_reference',
+            label: '分类',
+            required: true,
+            settings: {
+              handler: 'default:taxonomy_term',
+              handler_settings: { target_bundles: { news_category: 'news_category' }, auto_create: false },
+            },
+          },
+        },
+        {
+          attributes: {
+            field_name: 'field_tags',
+            field_type: 'entity_reference',
+            label: '标签',
+            required: false,
+            settings: {
+              handler: 'default:taxonomy_term',
+              handler_settings: { target_bundles: { tags: 'tags' }, auto_create: true },
+            },
+          },
+        },
+      ];
+      const storages = [
+        {
+          attributes: {
+            field_name: 'category',
+            cardinality: 1,
+            settings: { target_type: 'taxonomy_term' },
+          },
+        },
+        {
+          attributes: {
+            field_name: 'field_tags',
+            cardinality: -1,
+            settings: { target_type: 'taxonomy_term' },
+          },
+        },
+      ];
+
+      const { fields, meta } = service.buildForm(configs, storages);
+
+      // auto_create=false: a plain select restricted to existing terms
+      expect(fields[0].type).toBe('select');
+      expect(meta.find(m => m.key === 'category')?.autoCreate).toBe(false);
+      // auto_create=true: the combobox that creates missing terms on the fly
+      const tags = fields[1];
+      expect(tags.type).toBe('term-select');
+      expect(tags.props?.multiple).toBe(true);
+      expect(tags.props?.['vocabulary']).toBe('tags');
+      expect(meta.find(m => m.key === 'field_tags')?.autoCreate).toBe(true);
+    });
+
     it('传入表单显示白名单时,禁用字段不进 fields 也不进 meta', () => {
       const configs = [
         {
@@ -373,6 +430,8 @@ describe('NodeFieldFormService', () => {
         { label: '后端', value: 'uuid-2' },
       ]);
       expect(nodeServiceMock.fetch).toHaveBeenCalledTimes(2);
+      // sparse fieldset avoids serializing vocabulary fields JSON:API cannot handle
+      expect(nodeServiceMock.fetch.mock.calls[0][1]).toBe('fields[taxonomy_term--tags]=name');
       // next is an absolute URL, so it must be converted back to a relative path and
       // re-sent through apiUrl (the dev proxy)
       expect(nodeServiceMock.fetch.mock.calls[1][0]).toBe(

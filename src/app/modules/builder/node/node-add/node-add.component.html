@@ -14,19 +14,27 @@
     <div class="actions">
       @if (submitting()) {
         <app-spinner [content]="{ size: 32, color: 'primary' }" />
+        <!-- Announce the in-flight save to screen readers; the spinner is purely visual -->
+        <span class="sr-only" aria-live="polite">
+          {{ 'BUILDER.NODE_ADD.SAVING' | translate }}
+        </span>
       } @else if (mainFields().length > 0) {
-        <!-- Save draft: non-moderated types write status=false, moderated types go through moderation_state=draft -->
+        @if (editUuid()) {
+          <!-- Edit mode only: destructive action, guarded by a confirm dialog -->
+          <app-btn
+            (click)="onDelete()"
+            [content]="{
+              label: 'BUILDER.NODE_ADD.DELETE' | translate,
+              color: 'warn',
+              mode: 'stroked',
+            }"
+          />
+        }
+        <!-- One save button: the publish state is chosen in the right panel's state select (defaults to published) -->
         <app-btn
-          (click)="onSubmit(form.value, u, false)"
+          (click)="onSubmit(form.value, u)"
           [content]="{
-            label: 'BUILDER.NODE_ADD.SAVE_DRAFT' | translate,
-            mode: 'stroked',
-          }"
-        />
-        <app-btn
-          (click)="onSubmit(form.value, u, true)"
-          [content]="{
-            label: 'BUILDER.NODE_ADD.PUBLISH' | translate,
+            label: 'BUILDER.NODE_ADD.SAVE' | translate,
             color: 'primary',
             mode: 'raised',
             icon: {
@@ -39,6 +47,12 @@
   </div>
   <div class="node-layout">
     <div class="node-main">
+      <!-- The requested translation does not exist yet: saving creates it, prefilled from the source language -->
+      @if (creatingTranslation()) {
+        <div class="translation-banner" role="status">
+          {{ 'BUILDER.NODE_ADD.TRANS_CREATE_BANNER' | translate: { lang: editLangLabel() } }}
+        </div>
+      }
       <!-- Full-width bar for the standalone editor toolbar: tiptap fields use this as the external toolbar container and project the toolbar in after editor init -->
       @if (hasRichEditor()) {
         <div
@@ -49,7 +63,18 @@
         ></div>
       }
       <!-- app-formly snapshots fields/model once in ngAfterViewInit; keying by type+uuid forces destroy-and-rebuild on switch -->
-      @if (mainFields().length > 0) {
+      @if (loadFailed()) {
+        <div class="load-error" role="alert">
+          <p class="load-error-text">{{ 'BUILDER.NODE_ADD.LOAD_NODE_ERROR' | translate }}</p>
+          <app-btn
+            (click)="retry()"
+            [content]="{
+              label: 'BUILDER.NODE_ADD.RETRY' | translate,
+              mode: 'stroked',
+            }"
+          />
+        </div>
+      } @else if (mainFields().length > 0) {
         @for (t of [type() + '/' + editUuid()]; track t) {
           <app-formly
             [form]="form"
@@ -60,7 +85,7 @@
         }
       } @else {
         <!-- Fields come back asynchronously after introspection via the field config API; show skeletons while loading -->
-        <div class="form-skeleton">
+        <div class="form-skeleton" role="status" aria-busy="true">
           @for (controlHeight of ['3rem', '20rem']; track $index) {
             <div class="skeleton-field">
               <ngx-skeleton-loader
@@ -91,37 +116,24 @@
     </div>
     <aside class="node-aside">
       <section class="aside-section">
-        <label class="aside-title" for="node-type-select">
-          {{ 'BUILDER.NODE_ADD.TYPE_TITLE' | translate }}
-        </label>
         @if (nodeTypes().length > 0) {
-          <div class="select-wrap">
-            <select
-              id="node-type-select"
-              class="shad-input shad-select"
-              (change)="onTypeSelect($event)"
-            >
-              @for (nodeType of nodeTypes(); track nodeType.value) {
-                <option [value]="nodeType.value" [selected]="nodeType.value === type()">
-                  {{ nodeType.label }}
-                </option>
-              }
-            </select>
-            <svg class="chevron" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
-              <path
-                d="M7 10l5 5 5-5"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </div>
+          <!-- app-formly snapshots fields/model only at creation; rekeying on type+uuid forces a rebuild on page switch -->
+          @for (t of [type() + '/' + editUuid()]; track t) {
+            <app-formly
+              [form]="typeForm"
+              [fields]="getTypeFields()"
+              [model]="typeModel()"
+              (modelChange)="onTypeChange($event)"
+              [content]="{ uiTheme: 'shadcn' }"
+            />
+          }
         } @else if (typesLoading()) {
           <ngx-skeleton-loader
             count="1"
             appearance="line"
+            role="status"
+            aria-busy="true"
+            [attr.aria-label]="'APP.LOADING' | translate"
             [theme]="{
               height: '2rem',
               'border-radius': 'var(--shadcn-radius-sm)',
@@ -131,13 +143,63 @@
           />
         }
       </section>
+      @if (translations().length > 0) {
+        <section class="aside-section">
+          <div class="aside-title">{{ 'BUILDER.NODE_ADD.PANEL_TRANSLATIONS' | translate }}</div>
+          <ul class="translation-list">
+            @for (t of translations(); track t.langCode) {
+              <li>
+                <button
+                  type="button"
+                  class="translation-item"
+                  [disabled]="t.current"
+                  [attr.aria-current]="t.current ? 'true' : null"
+                  (click)="onSwitchTranslation(t)"
+                >
+                  <span class="translation-lang">{{ t.label }}</span>
+                  @if (t.current) {
+                    <span class="translation-state">
+                      {{ 'BUILDER.NODE_ADD.TRANS_CURRENT' | translate }}
+                    </span>
+                  } @else if (t.exists) {
+                    <span class="translation-state">{{ stateLabel(t.state) }}</span>
+                  } @else {
+                    <span class="translation-state is-missing">
+                      {{ 'BUILDER.NODE_ADD.TRANS_MISSING' | translate }}
+                    </span>
+                  }
+                </button>
+              </li>
+            }
+          </ul>
+        </section>
+      }
       @if (publishFields().length > 0) {
         <section class="aside-section">
           <div class="aside-title">{{ 'BUILDER.NODE_ADD.PANEL_PUBLISH' | translate }}</div>
+          <!-- Moderation state and alias are per translation: say which version they apply to -->
+          @if (showLangHint()) {
+            <p class="aside-hint">
+              {{ 'BUILDER.NODE_ADD.STATE_LANG_HINT' | translate: { lang: editLangLabel() } }}
+            </p>
+          }
           @for (t of [type() + '/' + editUuid()]; track t) {
             <app-formly
               [form]="form"
               [fields]="publishFields()"
+              [model]="model()"
+              [content]="{ uiTheme: 'shadcn' }"
+            />
+          }
+        </section>
+      }
+      @if (promotionFields().length > 0) {
+        <section class="aside-section">
+          <div class="aside-title">{{ 'BUILDER.NODE_ADD.PANEL_PROMOTION' | translate }}</div>
+          @for (t of [type() + '/' + editUuid()]; track t) {
+            <app-formly
+              [form]="form"
+              [fields]="promotionFields()"
               [model]="model()"
               [content]="{ uiTheme: 'shadcn' }"
             />

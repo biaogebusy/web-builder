@@ -14,6 +14,7 @@ import { ShadcnSelectType } from './shadcn-select.type';
 import { ShadcnSliderType } from './shadcn-slider.type';
 import { ShadcnTextareaType } from './shadcn-textarea.type';
 import { ShadcnToggleType } from './shadcn-toggle.type';
+import { TermSelectType } from './term-select.type';
 
 export type FormUiTheme = 'material' | 'shadcn';
 
@@ -70,6 +71,8 @@ export const XINSHI_FORMLY_SHADCN_CONFIG: ConfigOption = {
       component: ShadcnMultiselectType,
       wrappers: ['shadcn-form-field'],
     },
+    // Taxonomy combobox with on-the-fly term creation (fields with handler auto_create)
+    { name: 'term-select', component: TermSelectType, wrappers: ['shadcn-form-field'] },
     { name: 'shadcn-slider', component: ShadcnSliderType, wrappers: ['shadcn-form-field'] },
     { name: 'shadcn-toggle', component: ShadcnToggleType },
     { name: 'shadcn-checkbox', component: ShadcnCheckboxType },

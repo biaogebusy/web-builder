@@ -5,6 +5,7 @@ import {
   ElementRef,
   Injector,
   OnInit,
+  computed,
   effect,
   inject,
   signal,
@@ -55,8 +56,15 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
   private destroyRef = inject(DestroyRef);
   private dialog = inject(MatDialog);
   private injector = inject(Injector);
-  public type = signal('');
-  private component = signal<any>(null);
+  // Derived from the input, never captured once: the builder `@for` blocks track by
+  // `$index`, so inserting a component reuses the toolbar instance already sitting at
+  // that slot and only rebinds `content`. Caching it would keep the toolbar acting on
+  // the component that got pushed down.
+  public type = computed(() => {
+    const content = this.content();
+    return content.type || content.content?.type || '';
+  });
+  private component = computed<any>(() => (this.type() ? this.content() : this.content().content));
   private path = signal('');
 
   ngOnInit(): void {
@@ -69,9 +77,6 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const content = this.content();
-    this.type.set(content.type || content.content?.type || '');
-    this.component.set(this.type() ? content : content.content);
     this.path.set(generatePath(this.ele.nativeElement));
     effect(
       () => {

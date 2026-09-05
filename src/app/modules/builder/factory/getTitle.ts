@@ -124,7 +124,7 @@ export function getTitle(widget: any): FormlyFieldConfig {
                     {
                       key: 'label',
                       type: 'input',
-                      defaultValue: widget?.typed?.strings[0]['label'] ?? 'web builder',
+                      defaultValue: widget?.typed?.strings?.[0]?.['label'] ?? 'web builder',
                       modelOptions: {
                         debounce: {
                           default: 2000,

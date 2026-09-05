@@ -145,7 +145,7 @@ export class PageSettingComponent implements OnInit {
     const { data } = content;
     const {
       id,
-      attributes: { langcode, drupal_internal__nid, path },
+      attributes: { langcode, drupal_internal__nid },
     } = data;
 
     this.loading.set(true);
@@ -153,9 +153,8 @@ export class PageSettingComponent implements OnInit {
     try {
       alias = await this.builderService.updateUrlalias(
         {
+          nid: drupal_internal__nid,
           langcode,
-          id: drupal_internal__nid ?? '',
-          path,
         },
         value.alias.trim()
       );

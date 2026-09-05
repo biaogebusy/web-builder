@@ -338,7 +338,9 @@ describe('PageItemComponent', () => {
   it('queues a new translation draft when the target language is missing', () => {
     confirmWith(true);
     setPage({ nid: '7', langcode: 'zh-hans', title: 'Home' });
-    nodeService.fetch.mockReturnValueOnce(of({ langcode: 'zh-hans', title: 'Home', body: [] }));
+    nodeService.fetch
+      .mockReturnValueOnce(of({ langcode: 'zh-hans', title: 'Home', body: [] }))
+      .mockReturnValueOnce(of({ langcode: 'zh-hans', title: 'Home', body: [] }));
 
     component.createLangVersion('en');
 
@@ -347,10 +349,39 @@ describe('PageItemComponent', () => {
     );
   });
 
+  // The target request falls back to whichever language the node has, so its body is the
+  // wrong source: a draft started from this row has to carry this row's own content
+  it('reads the source language content when the target translation does not exist yet', () => {
+    confirmWith(true);
+    setPage({ nid: '7', langcode: 'en', title: 'Home' });
+    nodeService.fetch
+      .mockReturnValueOnce(of({ langcode: 'en', title: 'Fallback', body: [] }))
+      .mockReturnValueOnce(of({ langcode: 'en', title: 'Home', body: [] }));
+
+    component.createLangVersion('zh-hans');
+
+    expect(nodeService.fetch).toHaveBeenCalledTimes(2);
+    expect(nodeService.fetch.mock.calls[1]).toEqual([
+      '/api/v3/landingPage/json/7',
+      { noCache: 1 },
+      'en',
+    ]);
+    expect(builderState.loadNewPage).toHaveBeenCalledWith(
+      expect.objectContaining({
+        title: 'Home',
+        langcode: 'en',
+        translation: true,
+        target: 'zh-hans',
+      })
+    );
+  });
+
   it('checks for an existing translation before asking to create a new draft', () => {
     confirmWith(false);
     setPage({ nid: '7', langcode: 'zh-hans', title: 'Home' });
-    nodeService.fetch.mockReturnValueOnce(of({ langcode: 'zh-hans', title: 'Home', body: [] }));
+    nodeService.fetch
+      .mockReturnValueOnce(of({ langcode: 'zh-hans', title: 'Home', body: [] }))
+      .mockReturnValueOnce(of({ langcode: 'zh-hans', title: 'Home', body: [] }));
 
     component.createLangVersion('en');
 

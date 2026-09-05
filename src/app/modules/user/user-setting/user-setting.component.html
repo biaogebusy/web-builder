@@ -9,7 +9,13 @@
       <div class="user-avatar">
         @if ($any(user).picture) {
           <div class="avatar-wrapper">
-            <img width="80" height="80" class="avatar-img" src="{{ $any(user).picture }}" alt="" />
+            <img
+              width="80"
+              height="80"
+              class="avatar-img"
+              src="{{ $any(user).picture }}"
+              [alt]="$any(user).display_name"
+            />
             <input
               type="file"
               #avatarInput
@@ -20,9 +26,13 @@
             <div class="upload">
               <app-btn
                 (click)="avatarInput.click()"
-                matTooltip="更新头像"
+                [matTooltip]="'USER.SETTING.AVATAR_UPDATE' | translate"
                 matTooltipPosition="above"
-                [content]="{ mode: 'icon', icon: { svg: 'camera' } }"
+                [content]="{
+                  mode: 'icon',
+                  icon: { svg: 'camera' },
+                  ariaLabel: 'USER.SETTING.AVATAR_UPDATE' | translate,
+                }"
               />
             </div>
           </div>
@@ -38,19 +48,19 @@
       </div>
     </div>
     <div class="form">
-      <app-formly [form]="form" [fields]="fields" [model]="model" />
+      <app-formly [form]="form" [fields]="fields" [model]="model" [options]="options" />
     </div>
     <div class="actions">
       <app-btn
-        (click)="form.reset()"
+        (click)="onReset()"
         [content]="{
-          label: '重置',
+          label: 'USER.SETTING.RESET' | translate,
         }"
       />
       <app-btn
         (click)="onLogout()"
         [content]="{
-          label: '退出',
+          label: 'USER.SETTING.LOGOUT' | translate,
           color: 'warn',
           icon: { svg: 'logout' },
         }"
@@ -58,7 +68,7 @@
       <app-btn
         (click)="onUpdate(model, $any(user))"
         [content]="{
-          label: '更新账户',
+          label: 'USER.SETTING.UPDATE' | translate,
           color: 'primary',
           mode: 'raised',
           disabled: !form.valid,

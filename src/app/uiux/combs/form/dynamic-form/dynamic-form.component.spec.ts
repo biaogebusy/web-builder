@@ -5,7 +5,7 @@ import { FormService } from '@core/service/form.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { createUtilitiesServiceMock } from '@core/testing/mocks';
 import { provideUiuxMocks } from '@uiux/testing/mocks';
-import { of, throwError } from 'rxjs';
+import { of, throwError, Subject } from 'rxjs';
 
 import { DynamicFormComponent } from './dynamic-form.component';
 
@@ -28,7 +28,10 @@ describe('DynamicFormComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(DynamicFormComponent);
-    fixture.componentRef.setInput('content', { form: { id: 'contact_form' } });
+    fixture.componentRef.setInput('content', {
+      form: { id: 'contact_form' },
+      action: { submit: { label: '提交' } },
+    });
     component = fixture.componentInstance;
   });
 
@@ -55,7 +58,7 @@ describe('DynamicFormComponent', () => {
       webform_id: 'contact_form',
       email: 'a@b.co',
     });
-    expect(util.openSnackbar).toHaveBeenCalledWith('成功提交！');
+    expect(util.openSnackbar).toHaveBeenCalledWith('BUILDER.DYNAMIC_FORM.SUBMIT_SUCCESS');
     expect(component.disabled()).toBe(false);
     expect(resetSpy).toHaveBeenCalled();
   });
@@ -76,6 +79,16 @@ describe('DynamicFormComponent', () => {
 
     component.onSubmit();
 
-    expect(util.openSnackbar).toHaveBeenCalledWith('提交失败，请联系管理员！');
+    expect(util.openSnackbar).toHaveBeenCalledWith('BUILDER.DYNAMIC_FORM.SUBMIT_FAILED');
+  });
+
+  it('disables the submit button while the request is in flight', () => {
+    // The button has to be disabled for real, otherwise a double click submits twice
+    formService.submitWebForm.mockReturnValueOnce(new Subject<any>());
+    expect(component.submitBtn().disabled).toBe(false);
+
+    component.onSubmit();
+
+    expect(component.submitBtn()).toEqual({ label: '提交', disabled: true });
   });
 });

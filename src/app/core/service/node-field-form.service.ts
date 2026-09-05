@@ -17,6 +17,11 @@ export interface INodeFieldMeta {
   multiple?: boolean;
   /** Text field bound to the json text format (filter.format.json): use the JSON editor and submit as json */
   jsonFormat?: boolean;
+  /**
+   * Field-level handler auto_create (entity_reference to taxonomy_term): typed
+   * names that match no existing term may create one on the fly.
+   */
+  autoCreate?: boolean;
 }
 
 export interface INodeForm {
@@ -37,6 +42,12 @@ export interface INodeTypeOption {
   value: string;
   /** Content type description (Drupal node_type.description); empty string when the site has none */
   desc: string;
+}
+
+/** A moderation/publish state choice for the node publishing form */
+export interface INodeStatusOption {
+  value: string;
+  label: string;
 }
 
 /**
@@ -240,6 +251,8 @@ export class NodeFieldFormService {
         multiple: storage ? storage.cardinality !== 1 : false,
         // A field whose config depends on filter.format.json stores JSON content
         jsonFormat: isText && (attrs.dependencies?.config || []).includes('filter.format.json'),
+        autoCreate:
+          attrs.field_type === 'entity_reference' && !!attrs.settings?.handler_settings?.auto_create,
       };
       meta.push(fieldMeta);
       fields.push(this.toFormlyField(fieldMeta, attrs));
@@ -275,6 +288,21 @@ export class NodeFieldFormService {
         return { ...base, props: { ...base.props, type: 'number' } };
       case 'entity_reference':
         if (meta.targetType === 'taxonomy_term' && meta.targetBundle) {
+          // auto_create fields get the combobox that creates missing terms on the fly;
+          // the created term's uuid becomes the form value, so submit stays unchanged
+          if (meta.autoCreate) {
+            return {
+              ...base,
+              type: 'term-select',
+              props: {
+                ...base.props,
+                multiple: meta.multiple,
+                vocabulary: meta.targetBundle,
+                // Options are filled asynchronously by resolveTermOptions
+                options: [],
+              },
+            };
+          }
           return {
             ...base,
             type: 'select',
@@ -306,8 +334,38 @@ export class NodeFieldFormService {
     }
   }
 
+  /**
+   * Moderation states of the workflow moderating a content type, ordered by
+   * state weight (published / draft / archived / custom). Content moderation
+   * stores moderated bundles as `node.type.*` config dependencies. An empty
+   * result means the type is not moderated (or the workflow API is unreadable),
+   * letting callers fall back to the plain published/unpublished pair.
+   */
+  getModerationStates(bundle: string): Observable<INodeStatusOption[]> {
+    return this.nodeService.fetch('/api/v1/workflow/workflow').pipe(
+      map(res => {
+        const workflow = (res?.data || []).find((item: any) =>
+          (item?.attributes?.dependencies?.config || []).includes(`node.type.${bundle}`)
+        );
+        const states = workflow?.attributes?.type_settings?.states ?? {};
+        return Object.keys(states)
+          .sort((a: string, b: string) => (states[a].weight ?? 0) - (states[b].weight ?? 0))
+          .map((state: string) => ({ value: state, label: states[state]?.label ?? state }));
+      }),
+      catchError(err => {
+        console.error('加载发布工作流失败', err);
+        return of([]);
+      })
+    );
+  }
+
   getTermOptions(vocabulary: string): Observable<{ label: string; value: string }[]> {
-    return this.fetchAllPages(`/api/v1/taxonomy_term/${vocabulary}`).pipe(
+    // Sparse fieldset: only name is read here, and skipping other fields avoids 500s
+    // from vocabularies that carry fields JSON:API cannot serialize (e.g. paragraphs)
+    return this.fetchAllPages(
+      `/api/v1/taxonomy_term/${vocabulary}`,
+      `fields[taxonomy_term--${vocabulary}]=name`
+    ).pipe(
       map(terms =>
         terms.map((term: any) => ({
           label: term.attributes.name,

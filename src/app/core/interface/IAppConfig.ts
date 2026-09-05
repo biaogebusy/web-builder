@@ -113,7 +113,13 @@ export interface ISocialLoginProvider {
   label: string;
   svgIcon?: string;
   icon?: string;
+  /**
+   * Identity provider hint appended to the authorize request. The CMS federates the login behind
+   * `/oauth/authorize`, so the app never talks to the provider itself. Requires backend support;
+   * leave unset on deployments that do not have it.
+   */
   idp?: string;
+  /** Social provider entry point on the CMS, e.g. a `/user/login/{network}` path. */
   url?: string;
 }
 

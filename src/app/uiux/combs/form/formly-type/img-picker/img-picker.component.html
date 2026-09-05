@@ -1,7 +1,7 @@
 <div class="img-picker" [class.shadcn]="isShadcn">
   @if (formControl.value) {
     <div class="meta">
-      <img src="{{ src }}" alt="" />
+      <img src="{{ src() }}" alt="" />
       <div class="content">
         <div class="title">{{ field.props?.fileName }}</div>
         <div class="desc">{{ field.props?.alt }}</div>

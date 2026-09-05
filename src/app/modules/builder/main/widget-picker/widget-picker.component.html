@@ -1,64 +1,22 @@
 @let config = builderConfig$ | async;
 @let help = config?.widgetPicker?.help;
-@let group = selectedGroup();
 @let query = searchQuery();
-@let hits = searchResults();
+@let items = visibleItems();
+@let searching = isSearching();
+@let inserting = insertingWebform();
+@let total = resultCount();
+@let catLabel = activeCategoryLabel();
+@let groups = widgetGroups();
+@let activeIdx = activeCategoryIndex();
+@let hasClipboard = !!bcData();
+
 <div class="widget-picker" #picker>
-  @if (group) {
-    <div class="picker-header">
-      <button
-        mat-icon-button
-        class="back-btn"
-        [matTooltip]="'BUILDER.WIDGET_PICKER.BACK' | translate"
-        [attr.aria-label]="'BUILDER.WIDGET_PICKER.BACK' | translate"
-        (click)="goBack()"
-      >
-        <app-icon [content]="{ svg: 'chevron-left' }" />
-      </button>
-      <h3 class="picker-title">{{ group.label }}</h3>
-      <span class="picker-count" aria-hidden="true">{{ group.child.length }}</span>
-    </div>
-    @if (group.child.length > 0) {
-      <div class="widget-list" role="list">
-        @for (item of group.child; track item.id ?? item.uuid ?? item.content?.type ?? item.label) {
-          <button
-            #card
-            type="button"
-            class="widget-card"
-            role="listitem"
-            [attr.aria-label]="item.label"
-            (click)="onSelect(item.content)"
-            (mouseenter)="onHoverWidget(item, card)"
-            (mouseleave)="onLeaveWidget()"
-            (focus)="onHoverWidget(item, card)"
-            (blur)="onLeaveWidget()"
-          >
-            <div class="widget-preview" aria-hidden="true">
-              @if (item.preview) {
-                <img [src]="item.preview" alt="" />
-              } @else if (item.icon) {
-                <app-icon [content]="{ svg: item.icon }" />
-              }
-            </div>
-            <div class="widget-info">
-              <div class="widget-title">{{ item.label }}</div>
-              @if (item.mark) {
-                <div class="widget-description" [title]="item.mark">{{ item.mark }}</div>
-              }
-            </div>
-          </button>
-        }
-      </div>
-    } @else {
-      <div class="empty-state" role="status">
-        <app-icon class="empty-icon" [content]="{ svg: 'package-variant' }" />
-        <p>{{ 'BUILDER.WIDGET_PICKER.EMPTY_CATEGORY' | translate }}</p>
-      </div>
-    }
-  } @else {
+  <!-- Sticky header: search + category chips -->
+  <div class="picker-header">
     <div class="search-box">
       <app-icon class="search-icon" [content]="{ svg: 'magnify' }" />
       <input
+        #searchInput
         type="text"
         class="search-input"
         [placeholder]="'BUILDER.WIDGET_PICKER.SEARCH_PLACEHOLDER' | translate"
@@ -72,120 +30,171 @@
           class="search-clear"
           [attr.aria-label]="'BUILDER.WIDGET_PICKER.CLEAR_SEARCH' | translate"
           [matTooltip]="'BUILDER.WIDGET_PICKER.CLEAR' | translate"
-          (click)="clearSearch()"
+          (click)="clearSearch(); searchInput.focus()"
         >
           <app-icon [content]="{ svg: 'close-circle' }" />
         </button>
       }
     </div>
 
-    @if (query) {
-      @if (hits.length > 0) {
-        <div class="search-result-meta">
-          {{ 'BUILDER.WIDGET_PICKER.SEARCH_HITS' | translate: { count: hits.length } }}
-        </div>
-        <div class="widget-list" role="list">
-          @for (
-            hit of hits;
-            track hit.group.id +
-              ':' +
-              (hit.item.id ?? hit.item.uuid ?? hit.item.content?.type ?? hit.item.label)
-          ) {
-            <button
-              #card
-              type="button"
-              class="widget-card"
-              role="listitem"
-              [attr.aria-label]="hit.item.label"
-              (click)="onSelect(hit.item.content)"
-              (mouseenter)="onHoverWidget(hit.item, card)"
-              (mouseleave)="onLeaveWidget()"
-              (focus)="onHoverWidget(hit.item, card)"
-              (blur)="onLeaveWidget()"
-            >
-              <div class="widget-preview" aria-hidden="true">
-                @if (hit.item.preview) {
-                  <img [src]="hit.item.preview" alt="" />
-                } @else if (hit.item.icon) {
-                  <app-icon [content]="{ svg: hit.item.icon }" />
-                }
-                <span class="widget-group-badge">{{ hit.group.label }}</span>
-              </div>
-              <div class="widget-info">
-                <div class="widget-title">{{ hit.item.label }}</div>
-                @if (hit.item.mark) {
-                  <div class="widget-description" [title]="hit.item.mark">{{ hit.item.mark }}</div>
-                }
-              </div>
-            </button>
-          }
-        </div>
-      } @else {
-        <div class="empty-state" role="status">
-          <app-icon class="empty-icon" [content]="{ svg: 'magnify-close' }" />
-          <p>{{ 'BUILDER.WIDGET_PICKER.NO_MATCHES' | translate }}</p>
-          <button type="button" class="empty-action" (click)="clearSearch()">
-            {{ 'BUILDER.WIDGET_PICKER.CLEAR_SEARCH' | translate }}
-          </button>
-        </div>
-      }
-    } @else {
-      <div class="category-list" role="list">
-        @if (bcData()) {
+    <!-- Category chip row -->
+    <div class="category-row">
+      <button
+        type="button"
+        class="scroll-btn scroll-btn--left"
+        [attr.aria-label]="'BUILDER.WIDGET_PICKER.SCROLL_LEFT' | translate"
+        (click)="scrollCategories('left')"
+      >
+        <app-icon [content]="{ svg: 'chevron-left' }" />
+      </button>
+
+      <div class="category-chips" #categoryScroller role="tablist">
+        <!-- "All" chip (index 0) -->
+        <button
+          type="button"
+          role="tab"
+          class="chip"
+          [class.chip--active]="activeIdx === 0 && !searching"
+          [attr.aria-selected]="activeIdx === 0 && !searching"
+          (click)="selectCategory(0)"
+        >
+          {{ 'BUILDER.WIDGET_PICKER.ALL' | translate }}
+        </button>
+        @for (group of groups; track group.id ?? group.label; let idx = $index) {
           <button
             type="button"
-            class="category-item paste-item"
-            role="listitem"
-            (click)="onPasteData()"
+            role="tab"
+            class="chip"
+            [class.chip--active]="activeIdx === idx + 1 && !searching"
+            [attr.aria-selected]="activeIdx === idx + 1 && !searching"
+            (click)="selectCategory(idx + 1)"
           >
-            <span class="category-icon">
-              <app-icon [content]="{ svg: 'content-paste' }" />
-            </span>
-            <span class="category-label">{{
-              'BUILDER.WIDGET_PICKER.PASTE_LABEL' | translate
-            }}</span>
-            <app-icon class="chevron" [content]="{ svg: 'chevron-right' }" />
+            {{ group.label }}
           </button>
-        }
-        @for (cate of widgetGroups(); track cate.id ?? cate.label) {
-          <button
-            type="button"
-            class="category-item"
-            role="listitem"
-            [attr.aria-label]="cate.label"
-            (click)="selectGroup(cate)"
-          >
-            <span class="category-icon">
-              @if (cate.icon) {
-                <app-icon [content]="{ svg: cate.icon }" />
-              }
-            </span>
-            <span class="category-content">
-              <span class="category-label">{{ cate.label }}</span>
-              <span class="category-count">{{ cate.child.length }}</span>
-            </span>
-            <app-icon class="chevron" [content]="{ svg: 'chevron-right' }" />
-          </button>
-        }
-        @if (help) {
-          <a
-            class="category-item help-item"
-            [href]="help.link"
-            target="_blank"
-            rel="noopener"
-            [matTooltip]="help.tooltip"
-          >
-            <span class="category-icon">
-              <app-icon [content]="{ svg: 'help-circle' }" />
-            </span>
-            <span class="category-label">{{ 'BUILDER.WIDGET_PICKER.HELP_DOCS' | translate }}</span>
-            <app-icon class="chevron" [content]="{ svg: 'open-in-new' }" />
-          </a>
         }
       </div>
+
+      <button
+        type="button"
+        class="scroll-btn scroll-btn--right"
+        [attr.aria-label]="'BUILDER.WIDGET_PICKER.SCROLL_RIGHT' | translate"
+        (click)="scrollCategories('right')"
+      >
+        <app-icon [content]="{ svg: 'chevron-right' }" />
+      </button>
+    </div>
+  </div>
+
+  <!-- Paste bar -->
+  @if (hasClipboard) {
+    <button type="button" class="paste-bar" (click)="onPasteData()">
+      <app-icon class="paste-bar__icon" [content]="{ svg: 'content-paste' }" />
+      <span class="paste-bar__label">
+        {{ 'BUILDER.WIDGET_PICKER.PASTE_LABEL' | translate }}
+      </span>
+      <span class="paste-bar__shortcut">Ctrl+V</span>
+    </button>
+  }
+
+  <!-- Result meta row -->
+  <div class="result-meta">
+    <span class="result-meta__count">
+      @if (searching) {
+        {{ 'BUILDER.WIDGET_PICKER.SEARCH_HITS' | translate: { count: total } }}
+      } @else {
+        {{ catLabel }} · {{ total }}
+      }
+    </span>
+    @if (help && !searching && activeIdx === 0) {
+      <a
+        class="result-meta__help"
+        [href]="help.link"
+        target="_blank"
+        rel="noopener"
+        [matTooltip]="help.tooltip"
+      >
+        {{ 'BUILDER.WIDGET_PICKER.HELP_DOCS' | translate }}
+        <app-icon class="result-meta__help-icon" [content]="{ svg: 'open-in-new' }" />
+      </a>
     }
+  </div>
+
+  <!-- Component list -->
+  @if (items.length > 0) {
+    <ul class="widget-list" role="list">
+      @for (hit of items; track hit.group.id + ':' + (hit.item.id ?? hit.item.uuid ?? hit.item.content?.type ?? hit.item.label)) {
+        <li role="listitem">
+          <button
+            #row
+            type="button"
+            class="widget-row"
+            [attr.aria-label]="hit.item.label"
+            [attr.aria-busy]="isInserting(hit.item) ? 'true' : null"
+            [disabled]="inserting !== null"
+            (click)="onPick(hit.item)"
+            (mouseenter)="onPointerEnterRow(hit.item, row)"
+            (mouseleave)="onPointerLeaveRow()"
+            (focus)="onPointerEnterRow(hit.item, row)"
+            (blur)="onPointerLeaveRow()"
+          >
+            <div class="widget-row__thumb" aria-hidden="true">
+              @if (hit.item.preview) {
+                <img [src]="hit.item.preview" alt="" />
+              } @else if (hit.item.icon) {
+                <app-icon [content]="{ svg: hit.item.icon }" />
+              }
+            </div>
+            <div class="widget-row__body">
+              <div class="widget-row__title">{{ hit.item.label }}</div>
+              @if (hit.item.mark) {
+                <div class="widget-row__desc" [title]="hit.item.mark">{{ hit.item.mark }}</div>
+              }
+            </div>
+            <div class="widget-row__meta">
+              @if (searching) {
+                <span class="widget-row__group">{{ hit.group.label }}</span>
+              }
+              @if (hit.item.content?.type; as type) {
+                <span class="widget-row__type">{{ type }}</span>
+              }
+            </div>
+            @if (isInserting(hit.item)) {
+              <div class="widget-row__busy" aria-hidden="true">
+                <app-spinner [content]="{ size: 20 }" />
+              </div>
+            }
+          </button>
+        </li>
+      }
+    </ul>
+  } @else {
+    <div class="empty-state" role="status">
+      <p class="empty-state__text">
+        @if (searching) {
+          {{ 'BUILDER.WIDGET_PICKER.NO_MATCHES' | translate }}
+        } @else if (webformState() === 'loading' && activeIdx === groups.length) {
+          {{ 'BUILDER.WIDGET_PICKER.WEBFORM_LOADING' | translate }}
+        } @else if (webformState() === 'error' && activeIdx === groups.length) {
+          {{ 'BUILDER.WIDGET_PICKER.WEBFORM_LOAD_FAILED' | translate }}
+        } @else {
+          {{ 'BUILDER.WIDGET_PICKER.EMPTY_CATEGORY' | translate }}
+        }
+      </p>
+      @if (searching) {
+        <button type="button" class="empty-state__action" (click)="clearSearch()">
+          {{ 'BUILDER.WIDGET_PICKER.CLEAR_SEARCH' | translate }}
+        </button>
+      }
+      @if (webformState() === 'error' && activeIdx === groups.length) {
+        <button type="button" class="empty-state__action" (click)="loadWebforms()">
+          {{ 'BUILDER.WIDGET_PICKER.WEBFORM_RETRY' | translate }}
+        </button>
+      }
+    </div>
   }
 </div>
+
+<!-- Left floating preview -->
 <div #previewPopup class="widget-preview-popup" aria-hidden="true">
   @if (hoveredWidget(); as widget) {
     @if (widget.preview) {

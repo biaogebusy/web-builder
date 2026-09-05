@@ -12,12 +12,10 @@ import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import {
   FormControl,
   FormsModule,
-  ReactiveFormsModule,
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
@@ -27,10 +25,13 @@ import { ContentService } from '@core/service/content.service';
 import { NodeService } from '@core/service/node.service';
 import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
 import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { IDialog } from '@core/interface/IDialog';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 import { IBuilderComponent, IUiux } from '@core/interface/IBuilder';
@@ -52,6 +53,8 @@ interface IComponentItem {
 interface GroupL1Row {
   isL1Group: true;
   name: string;
+  /** The category's own icon from the UIUX feed, shared with the widget picker's category list */
+  icon: string | null;
   count: number;
 }
 
@@ -59,6 +62,21 @@ interface GroupL2Row {
   isL2Group: true;
   name: string;
   count: number;
+}
+
+/** An L2 subgroup as rendered: its heading plus the items that survived filtering */
+interface ISubGroupView {
+  name: string;
+  count: number;
+  items: IComponentItem[];
+}
+
+/** An L1 category as rendered: one disclosure region holding its visible subgroups */
+interface IGroupView {
+  name: string;
+  icon: string | null;
+  count: number;
+  subGroups: ISubGroupView[];
 }
 
 interface ICategoryOption {
@@ -76,22 +94,25 @@ type TableRow = GroupL1Row | GroupL2Row | IComponentItem;
   styleUrl: './node-uiux.component.scss',
   imports: [
     FormsModule,
-    ReactiveFormsModule,
-    MatIconModule,
     MatButtonModule,
     MatCheckboxModule,
     MatDividerModule,
     MatMenuModule,
     MatTooltipModule,
+    TranslateModule,
+    NgxSkeletonLoaderModule,
+    BtnComponent,
     IconComponent,
     LoadingComponent,
   ],
 })
 export class NodeUiuxComponent {
   private uiux$ = inject<Observable<IUiux[]>>(UIUX);
-  private uiuxData = toSignal(this.uiux$, { initialValue: [] as IUiux[] });
+  // null = the shared observable has not emitted yet, so first paint shows skeleton rows
+  // instead of the "no components" state
+  private uiuxData = toSignal(this.uiux$, { initialValue: null });
   private orderedUiuxData = computed(() => {
-    const groups = this.uiuxData();
+    const groups = this.uiuxData() ?? [];
     const regularGroups = groups.filter(group => !this.isWidgetGroup(group));
     const widgetGroups = groups.filter(group => this.isWidgetGroup(group));
     return [...regularGroups, ...widgetGroups];
@@ -100,6 +121,7 @@ export class NodeUiuxComponent {
   private builderService = inject(BuilderService);
   private contentService = inject(ContentService);
   private util = inject(UtilitiesService);
+  private translate = inject(TranslateService);
   private dialog = inject(MatDialog);
   private destroyRef = inject(DestroyRef);
 
@@ -109,10 +131,17 @@ export class NodeUiuxComponent {
   searchText = '';
   private searchQuery = signal('');
   readonly hasSearchQuery = computed(() => this.searchQuery().trim().length > 0);
+  /** True until the component feed first emits: the list area renders skeleton rows */
+  readonly initialLoading = computed(() => this.uiuxData() === null);
   expandedGroups = signal<Set<string>>(new Set());
   selectedIds = signal<Set<string>>(new Set());
   private injector = inject(Injector);
   private groupsInitialized = false;
+  /** Row count of the initial skeleton, matching a typical expanded first category */
+  readonly skeletonRows = [1, 2, 3, 4, 5, 6];
+
+  /** Number of top-level categories, reported next to the total in the page summary */
+  groupCount = computed(() => this.orderedUiuxData().length);
 
   totalCount = computed(() =>
     this.orderedUiuxData().reduce((sum, l1) => {
@@ -248,7 +277,7 @@ export class NodeUiuxComponent {
     this.orderedUiuxData().forEach(l1 => {
       const elements = Array.isArray(l1.elements) ? (l1.elements as IBuilderComponent[]) : [];
       const l1Count = elements.reduce((s, l2) => s + (l2.child?.length || 0), 0);
-      rows.push({ isL1Group: true, name: l1.label, count: l1Count });
+      rows.push({ isL1Group: true, name: l1.label, icon: l1.icon || null, count: l1Count });
       elements.forEach(l2 => {
         const items: IComponentItem[] = (l2.child || []).map(item => ({
           uuid: item.uuid || '',
@@ -335,6 +364,30 @@ export class NodeUiuxComponent {
     return result;
   });
 
+  // filteredRows() stays the flat source of truth for search and expansion; the view needs
+  // the nesting back so every category can be one disclosure region with its own heading
+  groupTree = computed<IGroupView[]>(() => {
+    const tree: IGroupView[] = [];
+    this.filteredRows().forEach(row => {
+      if ((row as GroupL1Row).isL1Group) {
+        const l1 = row as GroupL1Row;
+        tree.push({ name: l1.name, icon: l1.icon, count: l1.count, subGroups: [] });
+        return;
+      }
+      const group = tree[tree.length - 1];
+      if (!group) {
+        return;
+      }
+      if ((row as GroupL2Row).isL2Group) {
+        const l2 = row as GroupL2Row;
+        group.subGroups.push({ name: l2.name, count: l2.count, items: [] });
+        return;
+      }
+      group.subGroups[group.subGroups.length - 1]?.items.push(row as IComponentItem);
+    });
+    return tree;
+  });
+
   onSearch(value: string): void {
     this.searchQuery.set(value);
   }
@@ -344,11 +397,6 @@ export class NodeUiuxComponent {
     this.searchQuery.set('');
   }
 
-  isL1Group = (_: number, row: TableRow) => !!(row as GroupL1Row).isL1Group;
-  isL2Group = (_: number, row: TableRow) => !!(row as GroupL2Row).isL2Group;
-  isData = (_: number, row: TableRow) =>
-    !(row as GroupL1Row).isL1Group && !(row as GroupL2Row).isL2Group;
-
   asL1 = (row: TableRow) => row as GroupL1Row;
   asL2 = (row: TableRow) => row as GroupL2Row;
   asItem = (row: TableRow) => row as IComponentItem;
@@ -357,19 +405,27 @@ export class NodeUiuxComponent {
     return group.type === 'base' || group.label.trim().toLowerCase() === 'widget';
   }
 
+  /** Snackbar dismiss label, resolved per call so a language switch is picked up */
+  private get okLabel(): string {
+    return this.translate.instant('BUILDER.COMMON.OK');
+  }
+
   onCopyId(item: IComponentItem): void {
     this.util.copy(item.uuid);
-    this.util.openSnackbar('组件 ID 已复制', '确定');
+    this.util.openSnackbar(this.translate.instant('BUILDER.NODE_UIUX.COPIED'), this.okLabel);
   }
 
   onPreview(item: IComponentItem): void {
     if (!item.content || typeof item.content !== 'object') {
-      this.util.openSnackbar('该组件暂无可预览内容', '确定');
+      this.util.openSnackbar(
+        this.translate.instant('BUILDER.NODE_UIUX.NO_PREVIEW'),
+        this.okLabel
+      );
       return;
     }
 
     const config: IDialog = {
-      title: `预览：${item.label}`,
+      title: this.translate.instant('BUILDER.NODE_UIUX.PREVIEW_TITLE', { label: item.label }),
       disableActions: true,
       inputData: {
         content: { ...item.content, animate: false },
@@ -402,7 +458,13 @@ export class NodeUiuxComponent {
             .open(DialogComponent, {
               width: '900px',
               disableClose: true,
-              data: this.buildFormDialog('新增组件', form, model, cats, true),
+              data: this.buildFormDialog(
+                this.translate.instant('BUILDER.NODE_UIUX.ADD'),
+                form,
+                model,
+                cats,
+                true
+              ),
             })
             .afterClosed()
             .pipe(takeUntilDestroyed(this.destroyRef))
@@ -411,7 +473,10 @@ export class NodeUiuxComponent {
               const { title, icon, category, body } = form.value;
               const trimmedTitle = title?.trim();
               if (!trimmedTitle) {
-                this.util.openSnackbar('标题不能为空', '确定');
+                this.util.openSnackbar(
+                  this.translate.instant('BUILDER.NODE_UIUX.TITLE_REQUIRED'),
+                  this.okLabel
+                );
                 return;
               }
               const bodyValue = body && typeof body === 'object' ? body : {};
@@ -438,19 +503,28 @@ export class NodeUiuxComponent {
                 )
                 .subscribe({
                   next: () => {
-                    this.util.openSnackbar('创建成功', '确定');
+                    this.util.openSnackbar(
+                      this.translate.instant('BUILDER.NODE_UIUX.CREATED'),
+                      this.okLabel
+                    );
                     this.refreshList();
                   },
                   error: () => {
                     this.loading.set(false);
-                    this.util.openSnackbar('创建失败，请稍后重试', '确定');
+                    this.util.openSnackbar(
+                      this.translate.instant('BUILDER.NODE_UIUX.CREATE_FAILED'),
+                      this.okLabel
+                    );
                   },
                 });
             });
         },
         error: () => {
           this.loading.set(false);
-          this.util.openSnackbar('加载分类失败，请稍后重试', '确定');
+          this.util.openSnackbar(
+            this.translate.instant('BUILDER.NODE_UIUX.LOAD_CATEGORIES_FAILED'),
+            this.okLabel
+          );
         },
       });
   }
@@ -482,7 +556,12 @@ export class NodeUiuxComponent {
             .open(DialogComponent, {
               width: '500px',
               disableClose: true,
-              data: this.buildFormDialog('编辑组件', form, model, cats),
+              data: this.buildFormDialog(
+                this.translate.instant('BUILDER.NODE_UIUX.EDIT_TITLE'),
+                form,
+                model,
+                cats
+              ),
             })
             .afterClosed()
             .pipe(takeUntilDestroyed(this.destroyRef))
@@ -491,7 +570,10 @@ export class NodeUiuxComponent {
               const { title, icon, category } = form.value;
               const trimmedTitle = title?.trim();
               if (!trimmedTitle) {
-                this.util.openSnackbar('标题不能为空', '确定');
+                this.util.openSnackbar(
+                  this.translate.instant('BUILDER.NODE_UIUX.TITLE_REQUIRED'),
+                  this.okLabel
+                );
                 return;
               }
               this.loading.set(true);
@@ -508,19 +590,28 @@ export class NodeUiuxComponent {
                 .pipe(takeUntilDestroyed(this.destroyRef))
                 .subscribe({
                   next: () => {
-                    this.util.openSnackbar('更新成功', '确定');
+                    this.util.openSnackbar(
+                      this.translate.instant('BUILDER.NODE_UIUX.UPDATED'),
+                      this.okLabel
+                    );
                     this.refreshList();
                   },
                   error: () => {
                     this.loading.set(false);
-                    this.util.openSnackbar('更新失败，请稍后重试', '确定');
+                    this.util.openSnackbar(
+                      this.translate.instant('BUILDER.NODE_UIUX.UPDATE_FAILED'),
+                      this.okLabel
+                    );
                   },
                 });
             });
         },
         error: () => {
           this.loading.set(false);
-          this.util.openSnackbar('加载组件信息失败，请稍后重试', '确定');
+          this.util.openSnackbar(
+            this.translate.instant('BUILDER.NODE_UIUX.LOAD_COMPONENT_FAILED'),
+            this.okLabel
+          );
         },
       });
   }
@@ -532,7 +623,13 @@ export class NodeUiuxComponent {
       isSetting: true,
       fullWidth: true,
       schemaType: 'none',
-      actions: [{ type: 'update', label: '保存', params: { uuid: item.uuid, api: '/api/v1/node/component' } }],
+      actions: [
+        {
+          type: 'update',
+          label: this.translate.instant('BUILDER.NODE_UIUX.SAVE'),
+          params: { uuid: item.uuid, api: '/api/v1/node/component' },
+        },
+      ],
     };
     this.dialog.open(DialogComponent, {
       width: '900px',
@@ -544,11 +641,17 @@ export class NodeUiuxComponent {
 
   onDelete(item: IComponentItem): void {
     const config: IDialog = {
-      title: '删除组件',
+      title: this.translate.instant('BUILDER.NODE_UIUX.DELETE_TITLE'),
       titleClasses: 'text-red-500',
-      noLabel: '取消',
-      yesLabel: '删除',
-      inputData: { content: { type: 'text', fullWidth: true, body: `确定要删除 <strong>${item.label}</strong> 吗？` } },
+      noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
+      yesLabel: this.translate.instant('BUILDER.NODE_UIUX.DELETE'),
+      inputData: {
+        content: {
+          type: 'text',
+          fullWidth: true,
+          body: this.translate.instant('BUILDER.NODE_UIUX.DELETE_BODY', { label: item.label }),
+        },
+      },
     };
     this.dialog
       .open(DialogComponent, { width: '340px', data: config })
@@ -562,12 +665,18 @@ export class NodeUiuxComponent {
           .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe({
             next: () => {
-              this.util.openSnackbar('删除成功', '确定');
+              this.util.openSnackbar(
+                this.translate.instant('BUILDER.NODE_UIUX.DELETED'),
+                this.okLabel
+              );
               this.refreshList();
             },
             error: () => {
               this.loading.set(false);
-              this.util.openSnackbar('删除失败，请稍后重试', '确定');
+              this.util.openSnackbar(
+                this.translate.instant('BUILDER.NODE_UIUX.DELETE_FAILED'),
+                this.okLabel
+              );
             },
           });
       });
@@ -585,20 +694,27 @@ export class NodeUiuxComponent {
         .map(item => [item.uuid, item.label] as [string, string])
     );
     const names = ids.map(id => labelByUuid.get(id) || id);
-    const shownNames = names.slice(0, 8).join('、');
+    const shownNames = names
+      .slice(0, 8)
+      .join(this.translate.instant('BUILDER.NODE_UIUX.NAME_SEPARATOR'));
     const restCount = names.length - Math.min(names.length, 8);
+    const rest =
+      restCount > 0
+        ? this.translate.instant('BUILDER.NODE_UIUX.BULK_DELETE_REST', { count: restCount })
+        : '';
     const config: IDialog = {
-      title: '批量删除组件',
+      title: this.translate.instant('BUILDER.NODE_UIUX.BULK_DELETE_TITLE'),
       titleClasses: 'text-red-500',
-      noLabel: '取消',
-      yesLabel: '删除',
+      noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
+      yesLabel: this.translate.instant('BUILDER.NODE_UIUX.DELETE'),
       inputData: {
         content: {
           type: 'text',
           fullWidth: true,
-          body:
-            `确定要删除以下 <strong>${ids.length}</strong> 个组件吗？<br>` +
-            `${shownNames}${restCount > 0 ? `……（另 ${restCount} 个）` : ''}`,
+          body: this.translate.instant('BUILDER.NODE_UIUX.BULK_DELETE_BODY', {
+            count: ids.length,
+            names: `${shownNames}${rest}`,
+          }),
         },
       },
     };
@@ -623,12 +739,18 @@ export class NodeUiuxComponent {
             const succeeded = results.length - failed.length;
             if (failed.length === 0) {
               this.clearSelection();
-              this.util.openSnackbar(`成功删除 ${succeeded} 个组件`, '确定');
+              this.util.openSnackbar(
+                this.translate.instant('BUILDER.NODE_UIUX.BULK_DELETED', { count: succeeded }),
+                this.okLabel
+              );
             } else {
               this.selectedIds.set(new Set(failed.map(result => result.uuid)));
               this.util.openSnackbar(
-                `已删除 ${succeeded} 个，${failed.length} 个删除失败，已保留其选中状态`,
-                '确定'
+                this.translate.instant('BUILDER.NODE_UIUX.BULK_PARTIAL', {
+                  succeeded,
+                  failed: failed.length,
+                }),
+                this.okLabel
               );
             }
             this.refreshList();
@@ -691,20 +813,50 @@ export class NodeUiuxComponent {
     includeBody = false,
   ): IDialog {
     const fields: FormlyFieldConfig[] = [
-      { type: 'input', key: 'title', props: { label: '标题', appearance: 'fill', required: true } },
-      { type: 'input', key: 'icon', props: { label: '图标', appearance: 'fill', description: 'Material Design Icons 图标名称' } },
-      { type: 'select', key: 'category', props: { label: '分类', appearance: 'fill', multiple: true, options: cats.map(c => ({ value: c.id, label: c.name })) } },
+      {
+        type: 'input',
+        key: 'title',
+        props: {
+          label: this.translate.instant('BUILDER.NODE_UIUX.FIELD_TITLE'),
+          appearance: 'fill',
+          required: true,
+        },
+      },
+      {
+        type: 'input',
+        key: 'icon',
+        props: {
+          label: this.translate.instant('BUILDER.NODE_UIUX.FIELD_ICON'),
+          appearance: 'fill',
+          description: this.translate.instant('BUILDER.NODE_UIUX.FIELD_ICON_HINT'),
+        },
+      },
+      {
+        type: 'select',
+        key: 'category',
+        props: {
+          label: this.translate.instant('BUILDER.NODE_UIUX.FIELD_CATEGORY'),
+          appearance: 'fill',
+          multiple: true,
+          options: cats.map(c => ({ value: c.id, label: c.name })),
+        },
+      },
     ];
     if (includeBody) {
       fields.push({
         type: 'json',
         key: 'body',
         defaultValue: {},
-        props: { label: 'Body (组件数据)', description: 'JSON 格式的组件内容数据,默认为空对象 {}' },
+        props: {
+          label: this.translate.instant('BUILDER.NODE_UIUX.FIELD_BODY'),
+          description: this.translate.instant('BUILDER.NODE_UIUX.FIELD_BODY_HINT'),
+        },
       });
     }
     return {
-      title, noLabel: '取消', yesLabel: '确认',
+      title,
+      noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
+      yesLabel: this.translate.instant('BUILDER.COMMON.CONFIRM'),
       inputData: { content: { content: { type: 'formly' }, form, model, fullWidth: true, fields } },
     };
   }

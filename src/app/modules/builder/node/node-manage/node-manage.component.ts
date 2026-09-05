@@ -13,7 +13,6 @@ import { SHARE_IMPORTS } from '@share/share-imports';
 import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { NodeService } from '@core/service/node.service';
 import { NodeFieldFormService } from '@core/service/node-field-form.service';
-import { TagsService } from '@core/service/tags.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
@@ -42,7 +41,6 @@ interface INodeRow {
 export class NodeManageComponent implements OnInit {
   private nodeService = inject(NodeService);
   private fieldFormService = inject(NodeFieldFormService);
-  private tagsService = inject(TagsService);
   private util = inject(UtilitiesService);
   private router = inject(Router);
   private translate = inject(TranslateService);
@@ -67,12 +65,10 @@ export class NodeManageComponent implements OnInit {
   public pageSize = PAGE_SIZE;
   /** Race protection for filter requests arriving out of order */
   private reqId = 0;
-  /** "All" mode pagination: snapshot of per-type consumed offsets at the start of each page, indexed by page number */
+  /** Pagination: snapshot of per-source consumed offsets (type × language) at the start of each page, indexed by page number */
   private allOffsets: Record<string, number>[] = [{}];
 
   ngOnInit(): void {
-    this.tagsService.setTitle(this.translate.instant('BUILDER.NODE_MANAGE.PAGE_TITLE'));
-
     this.fieldFormService
       .getNodeTypes()
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -128,43 +124,8 @@ export class NodeManageComponent implements OnInit {
     this.loading.set(true);
     this.confirmUuid.set('');
     const id = ++this.reqId;
-    if (!this.type()) {
-      this.fetchAllTypes(id);
-      return;
-    }
-    this.nodeService
-      .fetch(`/api/v1/node/${this.type()}`, this.buildParams(this.page() * PAGE_SIZE))
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: res => {
-          if (id !== this.reqId) {
-            return;
-          }
-          this.rows.set((res?.data || []).map((node: any) => this.toRow(node, this.type())));
-          this.hasNext.set(!!res?.links?.next);
-          this.loading.set(false);
-        },
-        error: err => {
-          if (id !== this.reqId) {
-            return;
-          }
-          this.onLoadError(err);
-        },
-      });
-  }
-
-  /**
-   * "All" mode: JSON:API has no cross-bundle collections, so fetch the current
-   * page per type concurrently and merge. Each type takes a full page sorted
-   * by -changed from its own offset; the globally newest page is guaranteed to
-   * fall within the union of these prefixes, so merging, sorting and slicing
-   * yields exact pagination; the per-type counts actually consumed this page
-   * are recorded in the next page's offset snapshot (allOffsets) and
-   * pagination continues from that snapshot.
-   */
-  private fetchAllTypes(id: number): void {
-    const types = this.nodeTypes();
-    if (types.length === 0) {
+    const sources = this.buildSources();
+    if (sources.length === 0) {
       this.rows.set([]);
       this.hasNext.set(false);
       this.loading.set(false);
@@ -172,10 +133,14 @@ export class NodeManageComponent implements OnInit {
     }
     const offsets = this.allOffsets[this.page()] ?? {};
     forkJoin(
-      types.map(type =>
+      sources.map(source =>
         this.nodeService
-          .fetch(`/api/v1/node/${type.value}`, this.buildParams(offsets[type.value] ?? 0))
-          // A single type failing (e.g. no view permission) must not break the whole page; skip it as null
+          .fetch(
+            `/api/v1/node/${source.type}`,
+            this.buildParams(offsets[this.sourceKey(source)] ?? 0, source.lang),
+            this.requestLang(source.lang)
+          )
+          // A single source failing (e.g. no view permission) must not break the whole page; skip it as null
           .pipe(catchError(() => of(null)))
       )
     )
@@ -190,19 +155,51 @@ export class NodeManageComponent implements OnInit {
         }
         const merged = results
           .flatMap((res, i) =>
-            (res?.data || []).map((node: any) => this.toRow(node, types[i].value))
+            (res?.data || []).map((node: any) => ({
+              row: this.toRow(node, sources[i].type),
+              key: this.sourceKey(sources[i]),
+            }))
           )
-          .sort((a, b) => (a.changed === b.changed ? 0 : a.changed < b.changed ? 1 : -1));
-        const pageRows = merged.slice(0, PAGE_SIZE);
+          .sort((a, b) =>
+            a.row.changed === b.row.changed ? 0 : a.row.changed < b.row.changed ? 1 : -1
+          );
+        const consumed = merged.slice(0, PAGE_SIZE);
         const nextOffsets = { ...offsets };
-        pageRows.forEach(row => {
-          nextOffsets[row.type] = (nextOffsets[row.type] ?? 0) + 1;
+        consumed.forEach(item => {
+          nextOffsets[item.key] = (nextOffsets[item.key] ?? 0) + 1;
         });
         this.allOffsets[this.page() + 1] = nextOffsets;
-        this.rows.set(pageRows);
+        this.rows.set(consumed.map(item => item.row));
         this.hasNext.set(merged.length > PAGE_SIZE || results.some(res => !!res?.links?.next));
         this.loading.set(false);
       });
+  }
+
+  /**
+   * One request per (content type × language): a JSON:API collection renders
+   * each node once — in the request language, falling back to the source
+   * language when the translation is missing. Listing every language version
+   * therefore needs one language-prefixed request per language, with a
+   * matching langcode filter that drops the fallback rows (a node without
+   * the requested translation falls back and reports another langcode).
+   */
+  private buildSources(): { type: string; lang: string }[] {
+    const types = this.type() ? [this.type()] : this.nodeTypes().map(t => t.value);
+    const langCodes = this.langcode()
+      ? [this.langcode()]
+      : this.langs.length > 1
+        ? this.langs.map(l => l.langCode)
+        : [''];
+    return types.flatMap(type => langCodes.map(lang => ({ type, lang })));
+  }
+
+  private sourceKey(source: { type: string; lang: string }): string {
+    return `${source.type}:${source.lang}`;
+  }
+
+  /** Only non-default languages have a language-prefixed API path */
+  private requestLang(lang: string): string | undefined {
+    return this.langs.find(l => l.langCode === lang && !l.default)?.langCode;
   }
 
   private toRow(node: any, type: string): INodeRow {
@@ -229,8 +226,10 @@ export class NodeManageComponent implements OnInit {
     return this.nodeTypes().find(t => t.value === type)?.label ?? type;
   }
 
-  private buildParams(offset: number): string {
-    const parts = ['sort=-changed', `page[limit]=${PAGE_SIZE}`, `page[offset]=${offset}`];
+  private buildParams(offset: number, lang?: string): string {
+    // Management lists must always reflect the latest edits: bypass the backend
+    // page cache, otherwise a freshly saved node can stay stale in the list
+    const parts = ['sort=-changed', `page[limit]=${PAGE_SIZE}`, `page[offset]=${offset}`, 'noCache=1'];
     const keyword = (this.searchCtrl.value || '').trim();
     if (keyword) {
       parts.push('filter[search][condition][path]=title');
@@ -240,8 +239,10 @@ export class NodeManageComponent implements OnInit {
     if (this.status() !== '') {
       parts.push(`filter[status]=${this.status()}`);
     }
-    if (this.langcode()) {
-      parts.push(`filter[langcode]=${this.langcode()}`);
+    // Exact per-language bucket: nodes without this translation fall back to
+    // their source language in the response; the filter removes those rows
+    if (lang) {
+      parts.push(`filter[langcode]=${lang}`);
     }
     return parts.join('&');
   }
@@ -270,7 +271,12 @@ export class NodeManageComponent implements OnInit {
   }
 
   onEdit(row: INodeRow): void {
-    this.router.navigate(['/builder/node/edit', row.type, row.uuid]);
+    // Pass the row's language so the edit page opens that translation;
+    // the default language needs no param (it is what the prefix-less URL serves)
+    const lang = this.langs.find(l => l.langCode === row.langcode);
+    this.router.navigate(['/builder/node/edit', row.type, row.uuid], {
+      queryParams: lang && !lang.default ? { lang: row.langcode } : {},
+    });
   }
 
   /** First click enters the confirm state; only a second click actually deletes */

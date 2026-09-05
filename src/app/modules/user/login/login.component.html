@@ -1,7 +1,6 @@
 @let loginConfig = coreConfig.login;
 @let phoneLogin = loginConfig.phoneLogin;
 @let oauthLogin = loginConfig.oauthLogin;
-@let socialLoginConfig = loginConfig.socialLogin;
 <div class="login-container">
   <div class="login-wrapper">
     <div class="login-second">
@@ -20,8 +19,13 @@
               {{ errorValue }}
             </div>
           }
-          @if (oauthLogin?.enable || socialLoginConfig?.enable) {
-            <section class="auth-login" aria-label="auth login methods">
+          @if (notice(); as noticeValue) {
+            <div class="notice" role="status">
+              {{ noticeValue }}
+            </div>
+          }
+          @if (oauthLogin?.enable || socialProviders.length) {
+            <section class="auth-login" [attr.aria-label]="'LOGIN.QUICK_AUTH' | translate">
               <div class="auth-login-list">
                 @if (oauthLogin?.enable) {
                   <button
@@ -40,28 +44,29 @@
                     </span>
                   </button>
                 }
-                @if (socialLoginConfig?.enable) {
-                  @for (provider of socialLoginConfig?.providers || []; track provider.label) {
-                    @if (provider.enable) {
-                      <button
-                        type="button"
-                        mat-stroked-button
-                        class="auth-pill-btn"
-                        [disabled]="loading()"
-                        [attr.aria-label]="provider.label"
-                        (click)="socialLogin(provider)"
-                      >
-                        <app-icon [content]="providerIcon(provider)" />
-                        <span class="auth-pill-label">{{ provider.label }}</span>
-                      </button>
-                    }
-                  }
+                @for (provider of socialProviders; track provider.label) {
+                  <button
+                    type="button"
+                    mat-stroked-button
+                    class="auth-pill-btn"
+                    [disabled]="loading()"
+                    [attr.aria-label]="provider.label"
+                    (click)="socialLogin(provider)"
+                  >
+                    <app-icon [content]="providerIcon(provider)" />
+                    <span class="auth-pill-label">{{ provider.label }}</span>
+                  </button>
                 }
               </div>
+              @if (oauthLogin?.enable) {
+                <p class="auth-login-hint">
+                  {{ oauthLogin?.hint || ('LOGIN.OAUTH_HINT' | translate) }}
+                </p>
+              }
             </section>
           }
           @if (phoneLogin?.enable) {
-            @if (oauthLogin?.enable || socialLoginConfig?.enable) {
+            @if (oauthLogin?.enable || socialProviders.length) {
               <div class="auth-login-divider">
                 <mat-divider />
                 <span>{{ 'LOGIN.OR_USE_PHONE' | translate }}</span>
@@ -75,11 +80,18 @@
                 }}</mat-label>
                 <input
                   [placeholder]="phoneLogin?.placeholder || ('LOGIN.PHONE_PLACEHOLDER' | translate)"
-                  type="text"
+                  type="tel"
+                  autocomplete="tel"
+                  inputmode="numeric"
+                  maxlength="11"
                   matInput
                   formControlName="phone"
                 />
-                @if (formPhone.phone.errors?.pattern) {
+                @if (formPhone.phone.errors?.required) {
+                  <mat-error>
+                    {{ 'LOGIN.PHONE_REQUIRED' | translate }}
+                  </mat-error>
+                } @else if (formPhone.phone.errors?.pattern) {
                   <mat-error>
                     {{ phoneLogin?.error || ('LOGIN.PHONE_ERROR' | translate) }}
                   </mat-error>
@@ -89,24 +101,40 @@
                 <mat-label>{{
                   phoneLogin?.code?.label || ('LOGIN.CODE_LABEL' | translate)
                 }}</mat-label>
-                <input matInput type="text" formControlName="code" />
+                <input
+                  matInput
+                  type="text"
+                  autocomplete="one-time-code"
+                  inputmode="numeric"
+                  formControlName="code"
+                />
                 <button
-                  [disabled]="countdown() > 0 || formPhone.phone.invalid"
+                  type="button"
+                  [disabled]="countdown() > 0 || sendingCode()"
                   (click)="getCode($event)"
                   class="code-btn"
                   [class]="countdown() ? 'pointer-events-none' : ''"
                   matSuffix
                   color="primary"
                   mat-button
-                  aria-label="code"
+                  [attr.aria-label]="codeButtonLabel()"
                 >
                   <small class="code-label">
-                    {{ phoneLogin?.code?.sendLabel || ('LOGIN.CODE_SEND' | translate) }}
-                    @if (countdown(); as countdownValue) {
-                      ({{ countdownValue }})
+                    @if (sendingCode()) {
+                      {{ 'LOGIN.CODE_SENDING' | translate }}
+                    } @else {
+                      {{ phoneLogin?.code?.sendLabel || ('LOGIN.CODE_SEND' | translate) }}
+                      @if (countdown(); as countdownValue) {
+                        ({{ countdownValue }})
+                      }
                     }
                   </small>
                 </button>
+                @if (formPhone.code.errors?.required) {
+                  <mat-error>
+                    {{ 'LOGIN.CODE_REQUIRED' | translate }}
+                  </mat-error>
+                }
               </mat-form-field>
               <button
                 [disabled]="loading()"
@@ -115,7 +143,7 @@
                 mat-raised-button
                 color="primary"
               >
-                {{ phoneLogin?.submitLabel }}
+                {{ phoneLogin?.submitLabel || ('LOGIN.SUBMIT' | translate) }}
               </button>
             </form>
           }

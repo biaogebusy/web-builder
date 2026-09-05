@@ -115,6 +115,23 @@
         @apply flex flex-col gap-2;
       }
     }
+
+    // Edit load failure: inline error with retry; blocks the form so a failed
+    // edit can never silently degrade into creating a duplicate node
+    .load-error {
+      @apply mx-auto flex max-w-3xl flex-col items-start gap-4 px-6 py-16;
+      .load-error-text {
+        @apply m-0 text-sm;
+        color: var(--shadcn-destructive);
+      }
+    }
+
+    // Missing translation: content prefilled from the source language, saving creates it
+    .translation-banner {
+      @apply m-6 rounded-md border p-4 text-sm;
+      background: var(--shadcn-muted);
+      color: var(--shadcn-foreground);
+    }
   }
   // Full-height right column: separated from the main area by a hairline; inner sections use
   // hairlines instead of cards; on lg+ it scrolls independently without overscroll bleeding out
@@ -136,15 +153,31 @@
     @apply text-sm font-medium;
     color: var(--shadcn-muted-foreground);
   }
-  // Native select shell and chevron for the type-switch dropdown, consistent with the node-manage filter bar
-  .select-wrap {
-    @apply relative block;
-  }
-  .shad-select {
-    @apply appearance-none pr-8 cursor-pointer;
-  }
-  .chevron {
-    @apply absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none;
+  // Language scope note under a panel title (e.g. which version the publish state applies to)
+  .aside-hint {
+    @apply m-0 -mt-2 text-xs;
     color: var(--shadcn-muted-foreground);
+  }
+  // Per-language rows: click switches the edited translation (draft kept per language)
+  .translation-list {
+    @apply m-0 flex list-none flex-col gap-1 p-0;
+  }
+  .translation-item {
+    @apply flex w-full cursor-pointer items-center justify-between gap-2 rounded-sm border-0 bg-transparent p-0 px-2 py-1.5 text-left text-sm;
+    color: var(--shadcn-foreground);
+    &:hover:not(:disabled) {
+      background: var(--shadcn-muted);
+    }
+    &:disabled {
+      cursor: default;
+    }
+  }
+  .translation-state {
+    @apply text-xs;
+    color: var(--shadcn-muted-foreground);
+    // Missing translations invite creating them; the accent distinguishes the action from states
+    &.is-missing {
+      color: var(--shadcn-primary);
+    }
   }
 }

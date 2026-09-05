@@ -2,7 +2,7 @@ import { DestroyRef, Injectable, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ApiService } from './api.service';
 import type { IPage } from '@core/interface/IAppConfig';
-import { forkJoin, Observable, of, Subscription, timer } from 'rxjs';
+import { firstValueFrom, Observable, of, Subscription, throwError, timer } from 'rxjs';
 import { UtilitiesService } from './utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { NodeService } from './node.service';
@@ -24,7 +24,7 @@ import {
   getApiLang,
   getPageParams,
 } from '@core/util/builder-page.util';
-import { appendQueryParams, type QueryParams } from '@core/util/http-params.util';
+import { type QueryParams } from '@core/util/http-params.util';
 import { TranslateService } from '@ngx-translate/core';
 
 const BUILDERPATH = '/builder';
@@ -36,6 +36,7 @@ const LANDING_PAGE_API = {
   create: '/api/v3/landingPage/builder',
   update: '/api/v3/landingPage/update',
   translate: '/api/v3/landingPage/translations',
+  alias: '/api/v3/landingPage/alias',
 };
 
 @Injectable({
@@ -560,7 +561,9 @@ export class BuilderService extends ApiService {
       return this.http.get<IPage>(`${apiUrl}/assets/app${lang}${url}.json`);
     } else {
       this.builder.loading.set(true);
-      return this.contentService.loadPageContent(`${lang}${url}`).pipe(
+      // updateState=false: this content renders inside the builder; letting it
+      // through updateTags() would overwrite the route's document title.
+      return this.contentService.loadPageContent(`${lang}${url}`, false).pipe(
         tap(res => {
           this.builder.loading.set(false);
           if (isArray(res) || !res) {
@@ -592,32 +595,17 @@ export class BuilderService extends ApiService {
     );
   }
 
+  /**
+   * The backend gives the new translation its own path_alias inside the same save,
+   * so there is nothing left to patch up from here.
+   */
   addTranslation(page: IPage): Observable<any> {
     const { nid, target, langcode } = page;
-    return this.http
-      .post(
-        `${this.apiUrl}${LANDING_PAGE_API.translate}/add/${nid}/${langcode}/${target}`,
-        formatPage(page),
-        this.optionsWithBearerToken()
-      )
-      .pipe(
-        switchMap((res: any) => {
-          if (!res?.status || !nid || !target) {
-            return of(res);
-          }
-          return this.copyAliasToLang(nid, langcode, target).pipe(
-            map(synced => {
-              if (!synced) {
-                this.util.openSnackbar(
-                  this.translate.instant('BUILDER.PAGE_SETTING.TRANSLATION_ALIAS_SYNC_FAIL'),
-                  'ok'
-                );
-              }
-              return res;
-            })
-          );
-        })
-      );
+    return this.http.post(
+      `${this.apiUrl}${LANDING_PAGE_API.translate}/add/${nid}/${langcode}/${target}`,
+      formatPage(page),
+      this.optionsWithBearerToken()
+    );
   }
 
   /**
@@ -630,88 +618,6 @@ export class BuilderService extends ApiService {
       `${this.apiUrl}${LANDING_PAGE_API.translate}/delete/${nid}/${langcode}`,
       {},
       this.optionsWithBearerToken()
-    );
-  }
-
-  /**
-   * After creating a translation, copy the source language's path_alias to the target
-   * language so the translated page URL differs from the default page only by the
-   * language prefix.
-   */
-  private copyAliasToLang(
-    nid: string | number,
-    sourceLangcode: string | undefined,
-    targetLangcode: string
-  ): Observable<boolean> {
-    if (!environment.multiLang) {
-      return of(true);
-    }
-    const srcApiLang = getApiLang(sourceLangcode);
-    const srcPrefix = srcApiLang ? `/${srcApiLang}` : '';
-    const tgtApiLang = getApiLang(targetLangcode);
-    const tgtPrefix = tgtApiLang ? `/${tgtApiLang}` : '';
-    const queryAlias = (prefix: string, lang?: string): Observable<any> =>
-      this.http.get(
-        appendQueryParams(
-          `${prefix}/api/v1/path_alias/path_alias`,
-          {
-            'filter[path]': `/node/${nid}`,
-            ...(lang ? { 'filter[langcode]': lang } : {}),
-          },
-          { encodeKeys: false }
-        )
-      );
-
-    return queryAlias(srcPrefix, sourceLangcode).pipe(
-      switchMap((srcRes: any) => {
-        const source = srcRes?.data?.[0];
-        if (!source) {
-          // Source page has no alias, nothing to sync
-          return of(true);
-        }
-        const alias = source.attributes?.alias;
-        return queryAlias(tgtPrefix, targetLangcode).pipe(
-          switchMap((tgtRes: any) => {
-            const record = tgtRes?.data?.[0];
-            if (record?.attributes?.alias === alias) {
-              return of(true);
-            }
-            const attributes = {
-              alias,
-              path: `/node/${nid}`,
-              langcode: targetLangcode,
-            };
-            if (record) {
-              return this.http
-                .patch(
-                  `${tgtPrefix}/api/v1/path_alias/path_alias/${record.id}`,
-                  {
-                    data: {
-                      type: 'path_alias--path_alias',
-                      id: record.id,
-                      attributes,
-                    },
-                  },
-                  this.optionsWithBearerToken()
-                )
-                .pipe(map(() => true));
-            }
-            return this.http
-              .post(
-                `${tgtPrefix}/api/v1/path_alias/path_alias`,
-                {
-                  data: {
-                    type: 'path_alias--path_alias',
-                    attributes,
-                  },
-                },
-                this.optionsWithBearerToken()
-              )
-              .pipe(map(() => true));
-          })
-        );
-      }),
-      catchError(() => of(false))
     );
   }
 
@@ -764,203 +670,66 @@ export class BuilderService extends ApiService {
       );
   }
 
+  /**
+   * Write a page URL alias through the backend's own endpoint.
+   *
+   * Patching the node's `path` field over JSON:API cannot work on a pathauto backend:
+   * core copies the parsed field across with `getValue()`, which drops computed
+   * properties, so the `pathauto: 0` that marks an alias as hand-written never reaches
+   * the save and pathauto keeps ownership of a page it has no pattern for — the alias
+   * is silently discarded. The endpoint sets the field server-side, where nothing is
+   * copied and the flag survives, and writes every translation in one save because
+   * languages differ only by their prefix.
+   *
+   * Resolves `true` once the alias is written, `false` when the backend refuses it, and
+   * rejects after reporting the reason, so callers can abort before touching the rest
+   * of the page settings.
+   */
   updateUrlalias(
-    page: { langcode?: string; id: string; path: any },
+    page: { nid: string | number; langcode?: string },
     alias: string
   ): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      const { multiLang } = environment;
-      const {
-        langcode,
-        id,
-        path: { pid },
-      } = page;
+    const { nid, langcode } = page;
+    const prefix = this.apiLangPrefix(langcode);
+    // The field is prefilled with the language prefix, so drop it before writing — but
+    // only where it leads, or a plain replace eats the same letters out of an alias
+    // that just happens to start with them, turning /enterprise into /terprise
+    const cleanAlias = prefix && alias.startsWith(`${prefix}/`) ? alias.slice(prefix.length) : alias;
 
-      const handleError = (error: any): false => {
-        const { status } = error || {};
-        let message = '更新页面 URL 失败，请重试';
-        switch (status) {
-          case 403:
-            message = '无权限执行此操作';
-            break;
-          case 409:
-            message = 'URL 已存在，请更换后重试';
-            break;
-          default:
-            message = '更新页面 URL 失败，请重试';
-        }
-        this.util.openSnackbar(message, 'ok');
-        return false;
-      };
-
-      let prefix = '';
-      const lang = getApiLang(langcode);
-      if (lang) {
-        prefix = `/${lang}`;
-      }
-      let langObj = {};
-      if (multiLang) {
-        langObj = {
-          langcode: langcode ?? 'und',
-        };
-      }
-      const cleanAlias = alias.replace(prefix, '');
-      const paramsData = {
-        type: 'path_alias--path_alias',
-        attributes: {
-          alias: cleanAlias,
-          path: `/node/${id}`,
-          ...langObj,
-        },
-      };
-
-      const syncAndResolve = (): void => {
-        this.syncAliasToOtherLangs(id, cleanAlias, langcode)
-          .pipe(take(1))
-          .subscribe(allSynced => {
-            if (!allSynced) {
-              this.util.openSnackbar(
-                this.translate.instant('BUILDER.PAGE_SETTING.ALIAS_SYNC_PARTIAL_FAIL'),
-                'ok'
-              );
-            }
-            resolve(true);
-          });
-      };
-
-      if (pid) {
-        this.http
-          .get(
-            appendQueryParams(
-              `${prefix}/api/v1/path_alias/path_alias`,
-              { 'filter[drupal_internal__id]': pid },
-              { encodeKeys: false }
-            )
-          )
-          .pipe(
-            catchError(error => {
-              return of(handleError(error));
-            }),
-            take(1)
-          )
-          .subscribe((res: any) => {
-            if (!res || !res.data || !res.data.length) {
-              this.util.openSnackbar('未找到可更新的 URL 记录', 'ok');
-              reject(false);
-              return;
-            }
-
-            const uuid = res.data[0].id;
-            this.http
-              .patch(
-                `${prefix}/api/v1/path_alias/path_alias/${uuid}`,
-                {
-                  data: {
-                    ...paramsData,
-                    id: uuid,
-                  },
-                },
-                this.optionsWithBearerToken()
-              )
-              .pipe(
-                catchError(error => {
-                  return of(handleError(error));
-                }),
-                take(1)
-              )
-              .subscribe(status => {
-                if (status) {
-                  syncAndResolve();
-                } else {
-                  reject(false);
-                }
-              });
-          });
-      } else {
-        this.http
-          .post(
-            `${prefix}/api/v1/path_alias/path_alias`,
-            {
-              data: paramsData,
-            },
-            this.optionsWithBearerToken()
-          )
-          .pipe(
-            catchError(error => {
-              return of(handleError(error));
-            }),
-            take(1)
-          )
-          .subscribe(res => {
-            if (res) {
-              syncAndResolve();
-            } else {
-              reject(false);
-            }
-          });
-      }
-    });
-  }
-
-  /**
-   * Multilingual aliases differ only by the language prefix: once the default-language
-   * alias is updated, sync existing path_alias records of the same node in other
-   * languages to the same alias.
-   */
-  private syncAliasToOtherLangs(
-    id: string,
-    alias: string,
-    currentLangcode?: string
-  ): Observable<boolean> {
-    const { multiLang, langs } = environment;
-    const otherLangs = (langs ?? []).filter(lang => lang.langCode !== currentLangcode);
-    if (!multiLang || !otherLangs.length) {
-      return of(true);
-    }
-
-    const tasks = otherLangs.map(lang => {
-      const apiLang = getApiLang(lang.langCode);
-      const prefix = apiLang ? `/${apiLang}` : '';
-      return this.http
-        .get(
-          appendQueryParams(
-            `${prefix}/api/v1/path_alias/path_alias`,
-            {
-              'filter[path]': `/node/${id}`,
-              'filter[langcode]': lang.langCode,
-            },
-            { encodeKeys: false }
-          )
+    return firstValueFrom(
+      this.http
+        .post(
+          `${this.apiUrl}${LANDING_PAGE_API.alias}/${nid}`,
+          { alias: cleanAlias },
+          this.optionsWithBearerToken()
         )
         .pipe(
-          switchMap((res: any) => {
-            const record = res?.data?.[0];
-            if (!record || record.attributes?.alias === alias) {
-              return of(true);
+          map((res: any) => Boolean(res?.status)),
+          catchError(error => {
+            const { status } = error || {};
+            let message = '更新页面 URL 失败，请重试';
+            switch (status) {
+              case 403:
+                message = '无权限执行此操作';
+                break;
+              case 409:
+              case 422:
+                message = 'URL 已存在，请更换后重试';
+                break;
+              default:
+                message = '更新页面 URL 失败，请重试';
             }
-            return this.http
-              .patch(
-                `${prefix}/api/v1/path_alias/path_alias/${record.id}`,
-                {
-                  data: {
-                    type: 'path_alias--path_alias',
-                    id: record.id,
-                    attributes: {
-                      alias,
-                      path: `/node/${id}`,
-                      langcode: lang.langCode,
-                    },
-                  },
-                },
-                this.optionsWithBearerToken()
-              )
-              .pipe(map(() => true));
-          }),
-          catchError(() => of(false))
-        );
-    });
+            this.util.openSnackbar(message, 'ok');
+            return throwError(() => error);
+          })
+        )
+    );
+  }
 
-    return forkJoin(tasks).pipe(map(results => results.every(Boolean)));
+  /** Language prefix used by the JSON:API endpoints; empty for the default language. */
+  private apiLangPrefix(langcode?: string): string {
+    const lang = getApiLang(langcode);
+    return lang ? `/${lang}` : '';
   }
 
   openPageSetting(

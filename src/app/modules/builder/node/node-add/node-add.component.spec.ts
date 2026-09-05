@@ -1,12 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { signal } from '@angular/core';
 import { UntypedFormControl, Validators } from '@angular/forms';
-import { ActivatedRoute, Router, provideRouter } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { LocalStorageService } from 'ngx-webstorage';
+import { ActivatedRoute, Router, convertToParamMap, provideRouter } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { vi } from 'vitest';
 import { provideBuilderMocks } from '@modules/builder/testing/mocks';
-import { createNodeServiceMock } from '@core/testing/mocks';
+import {
+  createMatDialogMock,
+  createNodeServiceMock,
+  createStorageServiceMock,
+} from '@core/testing/mocks';
 import { NodeService } from '@core/service/node.service';
 import { NodeFieldFormService } from '@core/service/node-field-form.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
@@ -31,7 +38,15 @@ describe('NodeAddComponent', () => {
   let component: NodeAddComponent;
   let fixture: ComponentFixture<NodeAddComponent>;
 
-  const setup = async (coreConfig: any = {}, fieldFormService?: any, routeParams?: any) => {
+  const setup = async (
+    coreConfig: any = {},
+    fieldFormService?: any,
+    routeParams?: any,
+    // Local mocks to append after provideBuilderMocks: asserting their calls
+    // requires own instances (the shared factory instances are not reliable)
+    extraProviders: any[] = [],
+    routeQuery: Record<string, string> = {}
+  ) => {
     const nodeServiceMock = createNodeServiceMock();
     nodeServiceMock.fetch = vi.fn((api: string) =>
       api === '/api/v1/node_type/node_type' ? of(NODE_TYPE_RESPONSE) : of({})
@@ -41,16 +56,32 @@ describe('NodeAddComponent', () => {
       providers: [
         provideRouter([]),
         ...provideBuilderMocks(),
+        ...extraProviders.filter(provider => provider.provide !== MatDialog),
         { provide: NodeService, useValue: nodeServiceMock },
         { provide: CORE_CONFIG, useValue: coreConfig },
         ...(fieldFormService
           ? [{ provide: NodeFieldFormService, useValue: fieldFormService }]
           : []),
         ...(routeParams
-          ? [{ provide: ActivatedRoute, useValue: { params: of(routeParams) } }]
+          ? [{
+              provide: ActivatedRoute,
+              useValue: {
+                params: of(routeParams),
+                queryParamMap: of(convertToParamMap(routeQuery)),
+              },
+            }]
           : []),
       ],
     }).compileComponents();
+    // MatDialogModule inside SHARE_IMPORTS attaches a real MatDialog to the
+    // component's standalone injector, shadowing environment-level mocks; a
+    // MatDialog provider must be overridden at the component level instead
+    const dialogProvider = extraProviders.find(provider => provider.provide === MatDialog);
+    if (dialogProvider) {
+      TestBed.overrideComponent(NodeAddComponent, {
+        set: { providers: [dialogProvider] },
+      });
+    }
 
     fixture = TestBed.createComponent(NodeAddComponent);
     component = fixture.componentInstance;
@@ -58,11 +89,17 @@ describe('NodeAddComponent', () => {
   };
 
   /** Edit mode: the route carries uuid and fetch returns the node; preFetchChanged is the changed value seen by the pre-save comparison */
-  const setupEdit = async (nodeAttributes: any = {}, preFetchChanged?: string) => {
+  const setupEdit = async (
+    nodeAttributes: any = {},
+    preFetchChanged?: string,
+    extraProviders: any[] = [],
+    routeQuery: Record<string, string> = {}
+  ) => {
     const attributes = {
       title: 'Old title',
       status: true,
       changed: '2026-01-01T00:00:00+00:00',
+      drupal_internal__nid: 42,
       path: { alias: '/old-alias' },
       ...nodeAttributes,
     };
@@ -71,15 +108,19 @@ describe('NodeAddComponent', () => {
       {
         getAllowedNodeTypes: () => of([{ label: '博客', value: 'blog' }]),
         getForm: () => of({ fields: [], meta: [] }),
+        getModerationStates: () => of([]),
         buildModel: () => ({}),
         buildPayload: () => ({ attributes: {}, relationships: {} }),
       },
-      { type: 'blog', uuid: 'u1' }
+      { type: 'blog', uuid: 'u1' },
+      extraProviders,
+      routeQuery
     );
     nodeServiceMock.fetch = vi.fn((api: string, params?: any) => {
       if (api === '/api/v1/node/blog/u1') {
-        // A request with fields params is the pre-save changed check; otherwise it is the edit backfill load
-        return params
+        // A request asking for the changed field is the pre-save check; the noCache-only one is the edit backfill load
+        const isChangedCheck = typeof params === 'string' && params.includes('changed');
+        return isChangedCheck
           ? of({ data: { attributes: { changed: preFetchChanged ?? attributes.changed } } })
           : of({ data: { id: 'u1', attributes, relationships: {} } });
       }
@@ -147,6 +188,7 @@ describe('NodeAddComponent', () => {
               { key: 'field_tags', fieldType: 'entity_reference' },
             ],
           }),
+        getModerationStates: () => of([]),
         buildModel: () => ({}),
       }
     );
@@ -178,6 +220,7 @@ describe('NodeAddComponent', () => {
               { key: 'field_extra', fieldType: 'text_long' },
             ],
           }),
+        getModerationStates: () => of([]),
         buildModel: () => ({}),
       }
     );
@@ -195,18 +238,18 @@ describe('NodeAddComponent', () => {
     const nodeServiceMock = await setup();
     component.form.addControl('title', new UntypedFormControl(null, Validators.required));
 
-    component.onSubmit(component.form.value, { id: 1 }, true);
+    component.onSubmit(component.form.value, { id: 1 });
 
     expect(nodeServiceMock.addEntity).not.toHaveBeenCalled();
     expect(component.form.touched).toBe(true);
     expect(component.submitting()).toBe(false);
   });
 
-  it('新建按动作提交 status,非默认语言下携带 langcode 并走语言前缀', async () => {
+  it('新建默认发布状态,选未发布提交 status=false,非默认语言下携带 langcode 并走语言前缀', async () => {
     const nodeServiceMock = await setup();
     component.type.set('blog');
 
-    component.onSubmit({ title: 'Hi' }, { id: 1 }, true);
+    component.onSubmit({ title: 'Hi' }, { id: 1 });
     expect(nodeServiceMock.addEntity).toHaveBeenCalledWith(
       '/api/v1/node/blog',
       expect.objectContaining({ title: 'Hi', status: true }),
@@ -214,8 +257,9 @@ describe('NodeAddComponent', () => {
       undefined
     );
 
-    nodeServiceMock.resolveLangCode = vi.fn(() => 'en');
-    component.onSubmit({ title: 'Hi' }, { id: 1 }, false);
+    // onSubmit resolves the language from editLang (?lang= / URL prefix), not resolveLangCode
+    component.editLang.set('en');
+    component.onSubmit({ title: 'Hi', state: 'unpublished' }, { id: 1 });
     const [, attrs, , lang] = (nodeServiceMock.addEntity as any).mock.calls[1];
     expect(attrs.status).toBe(false);
     expect(attrs.langcode).toBe('en');
@@ -226,24 +270,110 @@ describe('NodeAddComponent', () => {
     const nodeServiceMock = await setup({ builder: { nodeTypes: { moderated: ['blog'] } } });
     component.type.set('blog');
 
-    component.onSubmit({ title: 'Hi' }, { id: 1 }, true);
+    component.onSubmit({ title: 'Hi' }, { id: 1 });
 
     const attrs = (nodeServiceMock.addEntity as any).mock.calls[0][1];
     expect(attrs.moderation_state).toBe('published');
     expect(attrs.status).toBeUndefined();
   });
 
+  it('审核类型的状态选项来自后台工作流,新建默认已发布', async () => {
+    await setup(
+      {},
+      {
+        getAllowedNodeTypes: () => of([{ label: '博客', value: 'blog' }]),
+        getForm: () => of({ fields: [], meta: [] }),
+        getModerationStates: () =>
+          of([
+            { value: 'published', label: '已发布' },
+            { value: 'draft', label: '草稿' },
+            { value: 'archived', label: '已归档' },
+          ]),
+        buildModel: () => ({}),
+      }
+    );
+    component.ngOnInit();
+
+    const stateField = component.publishFields().find(field => field.key === 'state');
+    expect(stateField?.props?.['options']).toEqual([
+      { label: '已发布', value: 'published' },
+      { label: '草稿', value: 'draft' },
+      { label: '已归档', value: 'archived' },
+    ]);
+    expect(component.model().state).toBe('published');
+  });
+
+  it('非审核类型的状态选项为已发布/未发布,编辑回填当前状态', async () => {
+    await setupEdit({ status: false });
+
+    const stateField = component.publishFields().find(field => field.key === 'state');
+    // Labels go through translate (mocked identity in specs); assert machine values
+    const options = (stateField?.props?.['options'] as any[]) ?? [];
+    expect(options.map(option => option.value)).toEqual([
+      'published',
+      'unpublished',
+    ]);
+    expect(component.model().state).toBe('unpublished');
+  });
+
+  it('审核类型编辑回填当前 moderation_state,状态不变时不提交该字段', async () => {
+    const nodeServiceMock = await setupEdit({ moderation_state: 'draft', status: false });
+
+    expect(component.model().state).toBe('draft');
+
+    component.onSubmit({ title: 'New', path_alias: '/old-alias', state: 'draft' }, { id: 1 });
+
+    const attrs = (nodeServiceMock.updateEntity as any).mock.calls[0][2];
+    expect(attrs.moderation_state).toBeUndefined();
+    expect(attrs.status).toBeUndefined();
+  });
+
+  it('推荐到首页/置顶编辑回填,按最小差异提交', async () => {
+    const nodeServiceMock = await setupEdit({ promote: true, sticky: true });
+
+    expect(component.model().promote).toBe(true);
+    expect(component.model().sticky).toBe(true);
+
+    // Unchecking promote submits false; leaving sticky checked submits nothing
+    component.onSubmit(
+      { title: 'New', path_alias: '/old-alias', state: 'published', promote: false, sticky: true },
+      { id: 1 }
+    );
+
+    const attrs = (nodeServiceMock.updateEntity as any).mock.calls[0][2];
+    expect(attrs.promote).toBe(false);
+    expect(attrs.sticky).toBeUndefined();
+  });
+
+  it('新建勾选推荐/置顶才提交,未勾选不覆盖后台默认', async () => {
+    const nodeServiceMock = await setup();
+    component.type.set('blog');
+
+    component.onSubmit({ title: 'Hi', promote: true }, { id: 1 });
+
+    const attrs = (nodeServiceMock.addEntity as any).mock.calls[0][1];
+    expect(attrs.promote).toBe(true);
+    expect(attrs.sticky).toBeUndefined();
+  });
+
   it('编辑回填发布设置,基础字段仅提交有变化的部分(最小差异)', async () => {
     const nodeServiceMock = await setupEdit();
 
-    expect(component.publishFields().map(f => f.key)).toEqual(['path_alias', 'revision_log']);
+    expect(component.publishFields().map(f => f.key)).toEqual([
+      'state',
+      'path_alias',
+      'revision_log',
+    ]);
+    // Promote/sticky live in their own promotion panel group
+    expect(component.promotionFields().map(f => f.key)).toEqual(['promote', 'sticky']);
     expect(component.model().path_alias).toBe('/old-alias');
+    // The state select backfills the node's current status
+    expect(component.model().state).toBe('published');
 
-    // Status (published -> publish) and alias are both unchanged: no status/path submitted; the revision note is submitted as entered
+    // State (published) and alias are both unchanged: no status/path submitted; the revision note is submitted as entered
     component.onSubmit(
       { title: 'New', path_alias: '/old-alias', revision_log: '修正错字' },
-      { id: 1 },
-      true
+      { id: 1 }
     );
     const [path, uuid, attrs, , lang] = (nodeServiceMock.updateEntity as any).mock.calls[0];
     expect(path).toBe('/api/v1/node/blog');
@@ -255,10 +385,10 @@ describe('NodeAddComponent', () => {
     expect(lang).toBeUndefined();
   });
 
-  it('编辑转草稿提交 status=false,清空别名提交 path.alias=null', async () => {
+  it('编辑选未发布提交 status=false,清空别名提交 path.alias=null', async () => {
     const nodeServiceMock = await setupEdit();
 
-    component.onSubmit({ title: 'New', path_alias: '' }, { id: 1 }, false);
+    component.onSubmit({ title: 'New', path_alias: '', state: 'unpublished' }, { id: 1 });
 
     const attrs = (nodeServiceMock.updateEntity as any).mock.calls[0][2];
     expect(attrs.status).toBe(false);
@@ -268,31 +398,481 @@ describe('NodeAddComponent', () => {
   it('节点受内容审核时按 moderation_state 流转,不写 status', async () => {
     const nodeServiceMock = await setupEdit({ moderation_state: 'draft', status: false });
 
-    component.onSubmit({ title: 'New', path_alias: '/old-alias' }, { id: 1 }, true);
+    component.onSubmit({ title: 'New', path_alias: '/old-alias' }, { id: 1 });
 
     const attrs = (nodeServiceMock.updateEntity as any).mock.calls[0][2];
     expect(attrs.moderation_state).toBe('published');
     expect(attrs.status).toBeUndefined();
   });
 
-  it('保存前比对 changed,他人已修改则中止更新并复位提交态', async () => {
-    const nodeServiceMock = await setupEdit({}, '2026-02-02T00:00:00+00:00');
+  it('保存前比对 changed,他人已修改则中止更新并弹出冲突提示', async () => {
+    // The conflict path opens a dialog: without a component-level mock the real
+    // MatDialog crashes and RxJS reports it as an unhandled error
+    const dialog = createMatDialogMock();
+    dialog.open.mockReturnValue({ afterClosed: vi.fn(() => of(false)) } as never);
+    const nodeServiceMock = await setupEdit({}, '2026-02-02T00:00:00+00:00', [
+      { provide: MatDialog, useValue: dialog },
+    ]);
 
-    component.onSubmit({ title: 'New', path_alias: '/old-alias' }, { id: 1 }, true);
+    component.onSubmit({ title: 'New', path_alias: '/old-alias' }, { id: 1 });
+
+    expect(nodeServiceMock.updateEntity).not.toHaveBeenCalled();
+    expect(dialog.open).toHaveBeenCalledTimes(1);
+    expect(component.submitting()).toBe(false);
+  });
+
+  it('编辑加载失败进入错误态而非新建表单,重试成功后回填', async () => {
+    let fail = true;
+    const nodeServiceMock = await setup(
+      {},
+      {
+        getAllowedNodeTypes: () => of([{ label: '博客', value: 'blog' }]),
+        getForm: () => of({ fields: [], meta: [] }),
+        getModerationStates: () => of([]),
+        buildModel: () => ({}),
+      },
+      { type: 'blog', uuid: 'u1' }
+    );
+    nodeServiceMock.fetch = vi.fn((api: string, params?: any) => {
+      if (api === '/api/v1/node/blog/u1') {
+        if (typeof params === 'string' && params.includes('changed')) {
+          return of({ data: { attributes: { changed: '2026-01-01T00:00:00+00:00' } } });
+        }
+        // Backfill load fails first, succeeds after retry
+        return fail ? throwError(() => new Error('network')) : of({
+          data: {
+            id: 'u1',
+            attributes: { title: 'Recovered', status: true, changed: '2026-01-01T00:00:00+00:00' },
+            relationships: {},
+          },
+        });
+      }
+      return of({});
+    });
+    component.ngOnInit();
+
+    expect(component.loadFailed()).toBe(true);
+    // No create form is built: a save here would have duplicated the node
+    expect(component.mainFields().length).toBe(0);
+
+    fail = false;
+    component.retry();
+    await Promise.resolve();
+
+    expect(component.loadFailed()).toBe(false);
+    expect(component.model().title).toBe('Recovered');
+  });
+
+  it('编辑保存成功后留在当前页,并刷新 changed 基线避免误报冲突', async () => {
+    const nodeServiceMock = await setupEdit();
+    // The server-side changed moves forward with each save; the pre-check fetch must follow
+    let changed = '2026-01-01T00:00:00+00:00';
+    nodeServiceMock.fetch = vi.fn((api: string, params?: any) => {
+      if (api === '/api/v1/node/blog/u1') {
+        if (typeof params === 'string' && params.includes('changed')) {
+          return of({ data: { attributes: { changed } } });
+        }
+        return of({
+          data: {
+            id: 'u1',
+            attributes: { title: 'Old title', status: true, changed },
+            relationships: {},
+          },
+        });
+      }
+      return of({});
+    });
+    (nodeServiceMock.updateEntity as any).mockImplementation(() => {
+      changed = '2026-03-03T00:00:00+00:00';
+      return of({ data: { attributes: { changed } } });
+    });
+    const navigate = vi.mocked(TestBed.inject(Router).navigate);
+
+    component.onSubmit({ title: 'New', path_alias: '/old-alias' }, { id: 1 });
+    expect(navigate).not.toHaveBeenCalled();
+
+    // A second save right away must not trip the conflict check on the stale timestamp
+    component.onSubmit({ title: 'New', path_alias: '/old-alias' }, { id: 1 });
+    expect(nodeServiceMock.updateEntity).toHaveBeenCalledTimes(2);
+
+    // The saved form becomes the pristine baseline for the leave guard
+    expect(component.hasUnsavedChanges()).toBe(false);
+  });
+
+  it('hasUnsavedChanges 反映表单脏态,保存成功后复位', async () => {
+    await setupEdit();
+
+    expect(component.hasUnsavedChanges()).toBe(false);
+
+    component.form.addControl('title', new UntypedFormControl('Dirty'));
+    component.form.markAsDirty();
+    expect(component.hasUnsavedChanges()).toBe(true);
+  });
+
+  it('Ctrl+S 触发保存并阻止浏览器默认行为', async () => {
+    const nodeServiceMock = await setup(
+      {},
+      {
+        getAllowedNodeTypes: () => of([{ label: '博客', value: 'blog' }]),
+        getForm: () => of({
+          fields: [{ key: 'body', type: 'tiptap', props: {} }],
+          meta: [{ key: 'body', fieldType: 'text_long' }],
+        }),
+        getModerationStates: () => of([]),
+        buildModel: () => ({}),
+        buildPayload: () => ({ attributes: {}, relationships: {} }),
+      }
+    );
+    component.ngOnInit();
+    // USER token mock is signal(false); the shortcut reads it for the login check
+    component.user = signal({ id: 1 }) as any;
+
+    const event = { ctrlKey: true, key: 's', preventDefault: vi.fn() } as unknown as KeyboardEvent;
+    component.onKeydown(event);
+    expect(event.preventDefault).toHaveBeenCalled();
+    expect(nodeServiceMock.addEntity).toHaveBeenCalledTimes(1);
+
+    // Unrelated keys do nothing
+    const other = { ctrlKey: true, key: 'p', preventDefault: vi.fn() } as unknown as KeyboardEvent;
+    component.onKeydown(other);
+    expect(other.preventDefault).not.toHaveBeenCalled();
+  });
+
+  it('保存冲突弹窗确认后丢弃本地修改并重新加载', async () => {
+    const dialog = createMatDialogMock();
+    const nodeServiceMock = await setupEdit({}, '2026-02-02T00:00:00+00:00', [
+      { provide: MatDialog, useValue: dialog },
+    ]);
+    dialog.open.mockReturnValue({ afterClosed: vi.fn(() => of(true)) } as never);
+    const backfillCalls = () =>
+      (nodeServiceMock.fetch as any).mock.calls.filter(
+        (call: any[]) => call[0] === '/api/v1/node/blog/u1' && typeof call[1] !== 'string'
+      ).length;
+
+    component.onSubmit({ title: 'New', path_alias: '/old-alias' }, { id: 1 });
+    expect(dialog.open).toHaveBeenCalled();
+    // Confirming (synchronously) reloads the server version: one extra backfill load
+    expect(backfillCalls()).toBe(2);
+    expect(component.model().path_alias).toBe('/old-alias');
+  });
+
+  it('保存冲突取消后保留当前表单不重新加载', async () => {
+    const dialog = createMatDialogMock();
+    const nodeServiceMock = await setupEdit({}, '2026-02-02T00:00:00+00:00', [
+      { provide: MatDialog, useValue: dialog },
+    ]);
+    dialog.open.mockReturnValue({ afterClosed: vi.fn(() => of(false)) } as never);
+
+    component.onSubmit({ title: 'New', path_alias: '/old-alias' }, { id: 1 });
+    await Promise.resolve();
+
+    expect(component.submitting()).toBe(false);
+    // No extra backfill ran after cancelling
+    expect(
+      (nodeServiceMock.fetch as any).mock.calls.filter(
+        (call: any[]) => call[0] === '/api/v1/node/blog/u1' && typeof call[1] !== 'string'
+      ).length
+    ).toBe(1);
+  });
+
+  it('较新的本地草稿提示恢复,确认后回填并标记脏态', async () => {
+    // Local mocks declared first: the setup providers reference them
+    const storage = createStorageServiceMock();
+    storage.retrieve.mockReturnValue({
+      value: { title: 'Draft title', path_alias: '/draft-alias' },
+      savedAt: Date.now() + 1000,
+    } as never);
+    const dialog = createMatDialogMock();
+    dialog.open.mockReturnValue({ afterClosed: vi.fn(() => of(true)) } as never);
+    const nodeServiceMock = await setup(
+      {},
+      {
+        getAllowedNodeTypes: () => of([{ label: '博客', value: 'blog' }]),
+        getForm: () => of({ fields: [], meta: [] }),
+        getModerationStates: () => of([]),
+        buildModel: () => ({}),
+      },
+      { type: 'blog', uuid: 'u1' },
+      [
+        { provide: MatDialog, useValue: dialog },
+        { provide: LocalStorageService, useValue: storage },
+      ]
+    );
+    nodeServiceMock.fetch = vi.fn((api: string, params?: any) => {
+      if (api === '/api/v1/node/blog/u1') {
+        if (typeof params === 'string' && params.includes('changed')) {
+          return of({ data: { attributes: { changed: '2026-01-01T00:00:00+00:00' } } });
+        }
+        return of({
+          data: {
+            id: 'u1',
+            attributes: {
+              title: 'Old title',
+              status: true,
+              changed: '2026-01-01T00:00:00+00:00',
+              path: { alias: '/old-alias' },
+            },
+            relationships: {},
+          },
+        });
+      }
+      return of({});
+    });
+
+    component.ngOnInit();
+
+    expect(dialog.open).toHaveBeenCalledTimes(1);
+    expect(component.form.dirty).toBe(true);
+    expect(storage.clear).not.toHaveBeenCalledWith('nodeDraft:blog:u1:zh-hans');
+  });
+
+  it('服务器版本更新于草稿之后的旧草稿被静默丢弃', async () => {
+    const storage = createStorageServiceMock();
+    storage.retrieve.mockReturnValue({
+      value: { title: 'Stale' },
+      savedAt: Date.parse('2025-01-01T00:00:00+00:00'),
+    } as never);
+    const dialog = createMatDialogMock();
+    const nodeServiceMock = await setup(
+      {},
+      {
+        getAllowedNodeTypes: () => of([{ label: '博客', value: 'blog' }]),
+        getForm: () => of({ fields: [], meta: [] }),
+        getModerationStates: () => of([]),
+        buildModel: () => ({}),
+      },
+      { type: 'blog', uuid: 'u1' },
+      [
+        { provide: MatDialog, useValue: dialog },
+        { provide: LocalStorageService, useValue: storage },
+      ]
+    );
+    nodeServiceMock.fetch = vi.fn((api: string, params?: any) => {
+      if (api === '/api/v1/node/blog/u1') {
+        if (typeof params === 'string' && params.includes('changed')) {
+          return of({ data: { attributes: { changed: '2026-01-01T00:00:00+00:00' } } });
+        }
+        return of({
+          data: {
+            id: 'u1',
+            attributes: {
+              title: 'Old title',
+              status: true,
+              changed: '2026-01-01T00:00:00+00:00',
+            },
+            relationships: {},
+          },
+        });
+      }
+      return of({});
+    });
+
+    component.ngOnInit();
+
+    // changed 2026-01-01 is newer than the draft: dropped without asking
+    expect(storage.clear).toHaveBeenCalledWith('nodeDraft:blog:u1:zh-hans');
+    expect(dialog.open).not.toHaveBeenCalled();
+  });
+
+  it('编辑页删除:确认后删除节点、清草稿并跳转列表', async () => {
+    const dialog = createMatDialogMock();
+    const nodeServiceMock = await setupEdit({}, undefined, [
+      { provide: MatDialog, useValue: dialog },
+    ]);
+    dialog.open.mockReturnValue({ afterClosed: vi.fn(() => of(true)) } as never);
+    const navigate = vi.mocked(TestBed.inject(Router).navigate);
+
+    component.onDelete();
+
+    expect(nodeServiceMock.deleteEntity).toHaveBeenCalledWith('/api/v1/node/blog', 'u1');
+    // The local draft of a deleted node must not linger
+    expect((component as any).storage.clear).toHaveBeenCalledWith('nodeDraft:blog:u1:zh-hans');
+    expect(navigate).toHaveBeenCalledWith(['/builder/node/manage']);
+    expect(component.submitting()).toBe(false);
+  });
+
+  it('编辑页删除:取消确认则不删除', async () => {
+    const dialog = createMatDialogMock();
+    const nodeServiceMock = await setupEdit({}, undefined, [
+      { provide: MatDialog, useValue: dialog },
+    ]);
+    dialog.open.mockReturnValue({ afterClosed: vi.fn(() => of(false)) } as never);
+
+    component.onDelete();
+
+    expect(nodeServiceMock.deleteEntity).not.toHaveBeenCalled();
+    expect(component.submitting()).toBe(false);
+  });
+
+  it('?lang= 编辑走语言前缀请求对应翻译', async () => {
+    const nodeServiceMock = await setupEdit({ langcode: 'en' }, undefined, [], { lang: 'en' });
+    // The backfill load carries the non-default langcode; the translation probe uses string params
+    expect(
+      (nodeServiceMock.fetch as any).mock.calls.some(
+        (call: any[]) =>
+          call[0] === '/api/v1/node/blog/u1' &&
+          typeof call[1] !== 'string' &&
+          call[2] === 'en'
+      )
+    ).toBe(true);
+    // The fetched translation matches the requested language: regular edit, not create mode
+    expect(component.creatingTranslation()).toBe(false);
+  });
+
+  it('请求的翻译不存在时进入创建模式,保存按创建语义提交基础字段', async () => {
+    const nodeServiceMock = await setupEdit(
+      { langcode: 'zh-hans' },
+      undefined,
+      [],
+      { lang: 'en' }
+    );
+    // The lang-prefixed GET fell back to the default translation (langcode mismatch)
+    expect(component.creatingTranslation()).toBe(true);
+
+    component.onSubmit({ title: 'EN title', path_alias: '' }, { id: 1 });
+
+    // The translation is created server-side first; core JSON:API cannot create it
+    expect(nodeServiceMock.createNodeTranslation).toHaveBeenCalledWith(42, 'zh-hans', 'en');
+    const [, , attrs, , lang] = (nodeServiceMock.updateEntity as any).mock.calls[0];
+    expect(lang).toBe('en');
+    // Create semantics for base fields: the state submits without minimal diff against the source translation
+    expect(attrs.status).toBe(true);
+    // The langcode attribute stays create-only; the PATCH targets the translation via the language prefix
+    expect(attrs.langcode).toBeUndefined();
+  });
+
+  it('创建翻译失败时不提交 PATCH,提示后端信息', async () => {
+    const nodeServiceMock = await setupEdit({ langcode: 'zh-hans' }, undefined, [], {
+      lang: 'en',
+    });
+    nodeServiceMock.createNodeTranslation = vi.fn(() =>
+      of({ status: false, message: 'Translation already exists.' })
+    );
+
+    component.onSubmit({ title: 'EN title', path_alias: '' }, { id: 1 });
 
     expect(nodeServiceMock.updateEntity).not.toHaveBeenCalled();
     expect(component.submitting()).toBe(false);
   });
 
+  it('翻译面板:当前语言标记存在,其他语言按探测结果标记', async () => {
+    await setupEdit({ langcode: 'zh-hans' });
+    const zh = component.translations().find(t => t.langCode === 'zh-hans');
+    expect(zh?.current).toBe(true);
+    expect(zh?.exists).toBe(true);
+    // The en probe falls back to the default translation (langcode mismatch): shown as missing
+    const en = component.translations().find(t => t.langCode === 'en');
+    expect(en?.current).toBe(false);
+    expect(en?.exists).toBe(false);
+    expect(en?.state).toBe('');
+  });
+
+  it('翻译面板:探测到已存在的翻译显示其状态', async () => {
+    const nodeServiceMock = await setup(
+      {},
+      {
+        getAllowedNodeTypes: () => of([{ label: '博客', value: 'blog' }]),
+        getForm: () => of({ fields: [], meta: [] }),
+        getModerationStates: () => of([]),
+        buildModel: () => ({}),
+      },
+      { type: 'blog', uuid: 'u1' }
+    );
+    nodeServiceMock.fetch = vi.fn((api: string, params?: any, langCode?: string) => {
+      if (api === '/api/v1/node/blog/u1') {
+        if (typeof params === 'string' && params.includes('changed')) {
+          return of({ data: { attributes: { changed: '2026-01-01T00:00:00+00:00' } } });
+        }
+        // The en-prefixed probe sees the en translation; the backfill load sees the default one
+        const langcode = langCode === 'en' ? 'en' : 'zh-hans';
+        return of({
+          data: {
+            id: 'u1',
+            attributes: {
+              title: 'Old title',
+              status: false,
+              changed: '2026-01-01T00:00:00+00:00',
+              langcode,
+              path: { alias: '/old-alias' },
+            },
+            relationships: {},
+          },
+        });
+      }
+      return of({});
+    });
+    component.ngOnInit();
+
+    const en = component.translations().find(t => t.langCode === 'en');
+    expect(en?.exists).toBe(true);
+    expect(en?.state).toBe('unpublished');
+    // Machine states render through translate (identity in specs)
+    expect(component.stateLabel('unpublished')).toBe('BUILDER.NODE_ADD.STATE_UNPUBLISHED');
+    const zh = component.translations().find(t => t.langCode === 'zh-hans');
+    expect(zh?.current).toBe(true);
+    expect(zh?.state).toBe('unpublished');
+  });
+
+  it('切换翻译:未保存修改先确认,确认后按语言存草稿并携带 lang 导航', async () => {
+    const dialog = createMatDialogMock();
+    const storage = createStorageServiceMock();
+    dialog.open.mockReturnValue({ afterClosed: vi.fn(() => of(true)) } as never);
+    await setupEdit({ langcode: 'zh-hans' }, undefined, [
+      { provide: MatDialog, useValue: dialog },
+      { provide: LocalStorageService, useValue: storage },
+    ]);
+    const navigate = vi.mocked(TestBed.inject(Router).navigate);
+    component.form.addControl('title', new UntypedFormControl('脏标题'));
+    component.form.markAsDirty();
+
+    component.onSwitchTranslation({
+      langCode: 'en',
+      label: 'EN',
+      current: false,
+      exists: true,
+      state: 'published',
+    });
+
+    // The dirty zh-hans form was snapshotted into its own language's draft slot
+    // before navigating (restorable when switching back), not the target's
+    expect(storage.store).toHaveBeenCalledWith(
+      'nodeDraft:blog:u1:zh-hans',
+      expect.objectContaining({ savedAt: expect.any(Number) })
+    );
+    expect(navigate).toHaveBeenCalledWith(
+      [],
+      expect.objectContaining({ queryParams: { lang: 'en' } })
+    );
+  });
+
+  it('切换回默认语言时清除 lang 查询参数', async () => {
+    await setupEdit({ langcode: 'en' }, undefined, [], { lang: 'en' });
+    const navigate = vi.mocked(TestBed.inject(Router).navigate);
+
+    component.onSwitchTranslation({
+      langCode: 'zh-hans',
+      label: '中文',
+      current: false,
+      exists: true,
+      state: 'published',
+    });
+
+    expect(navigate).toHaveBeenCalledWith([], expect.objectContaining({ queryParams: {} }));
+  });
+
   it('json 类型编辑时 body 带回原文本格式', async () => {
     const nodeServiceMock = await setup(
       {},
-      { getAllowedNodeTypes: () => of([{ label: '应用中心', value: 'json' }]) },
+      {
+        getAllowedNodeTypes: () => of([{ label: '应用中心', value: 'json' }]),
+        getModerationStates: () => of([]),
+      },
       { type: 'json', uuid: 'u1' }
     );
     nodeServiceMock.fetch = vi.fn((api: string, params?: any) => {
       if (api === '/api/v1/node/json/u1') {
-        return params
+        const isChangedCheck = typeof params === 'string' && params.includes('changed');
+        return isChangedCheck
           ? of({ data: { attributes: { changed: '2026-01-01T00:00:00+00:00' } } })
           : of({
               data: {
@@ -311,7 +891,7 @@ describe('NodeAddComponent', () => {
     vi.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
     component.ngOnInit();
 
-    component.onSubmit({ title: 'App', body: { a: 2 } }, { id: 1 }, true);
+    component.onSubmit({ title: 'App', body: { a: 2 } }, { id: 1 });
 
     const attrs = (nodeServiceMock.updateEntity as any).mock.calls[0][2];
     expect(attrs.body).toEqual({ value: '{"a":2}', format: 'json' });
@@ -370,6 +950,7 @@ describe('NodeAddComponent 路由切换', () => {
       getForm: vi.fn((bundle: string) =>
         getFormByBundle ? getFormByBundle(bundle) : of({ fields: [], meta: [] }).pipe(delay(1))
       ),
+      getModerationStates: () => of([]),
       buildModel: () => ({}),
       buildPayload: () => ({ attributes: {}, relationships: {} }),
     };

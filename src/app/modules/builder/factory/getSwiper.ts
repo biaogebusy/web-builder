@@ -1,5 +1,4 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { tap } from 'rxjs/operators';
 export function getSwiper(widget: any): FormlyFieldConfig {
   const fields: FormlyFieldConfig = {
     key: 'swiper',
@@ -33,9 +32,14 @@ export function getSwiper(widget: any): FormlyFieldConfig {
           {
             key: 'breakpoints',
             className: 'w-full',
+            // Seed an object default so formly assigns into it. Without this the
+            // numeric child keys ('0', '960') make assignModelValue create a
+            // sparse Array(961) on the first value change.
+            defaultValue: widget?.params?.breakpoints ?? {},
             fieldGroup: [
               {
-                key: '600',
+                // min-width 0 matches phones; a 600 key would skip <600px screens.
+                key: '0',
                 className: 'w-full',
                 fieldGroupClassName: 'section-group',
                 fieldGroup: [
@@ -43,7 +47,7 @@ export function getSwiper(widget: any): FormlyFieldConfig {
                     key: 'slidesPerView',
                     type: 'slider',
                     className: 'w-full',
-                    defaultValue: widget?.params?.breakpoints?.[600]?.slidesPerView,
+                    defaultValue: widget?.params?.breakpoints?.[0]?.slidesPerView ?? 1,
                     props: {
                       min: 1,
                       max: 10,
@@ -56,7 +60,7 @@ export function getSwiper(widget: any): FormlyFieldConfig {
                     key: 'spaceBetween',
                     type: 'slider',
                     className: 'w-full',
-                    defaultValue: widget?.params?.breakpoints?.[600]?.spaceBetween || 0,
+                    defaultValue: widget?.params?.breakpoints?.[0]?.spaceBetween || 0,
                     props: {
                       min: 1,
                       max: 100,
@@ -148,16 +152,6 @@ export function getSwiper(widget: any): FormlyFieldConfig {
             },
           },
         ],
-        hooks: {
-          onInit: (formGroup: any) => {
-            const { form, model } = formGroup;
-            return form.valueChanges.pipe(
-              tap((value: any) => {
-                model.breakpoints = value.params.breakpoints;
-              })
-            );
-          },
-        },
       },
       {
         key: 'params',
@@ -167,14 +161,16 @@ export function getSwiper(widget: any): FormlyFieldConfig {
         fieldGroup: [
           {
             key: 'pagination',
-            defaultValue: widget?.params?.pagination,
             fieldGroupClassName: 'section-group',
             fieldGroup: [
               {
-                key: 'paginationEnable',
+                // 'enabled' is Swiper's own pagination param. A custom key here
+                // leaves the pagination object without 'enabled', which Swiper
+                // coerces to enabled:true, so the toggle could never turn it off.
+                key: 'enabled',
                 type: 'toggle',
                 className: 'w-full',
-                defaultValue: widget?.params?.pagination ?? false,
+                defaultValue: widget?.params?.pagination?.enabled ?? false,
                 props: {
                   label: 'BUILDER.FACTORY.PAGE_INDICATOR',
                 },
@@ -183,6 +179,7 @@ export function getSwiper(widget: any): FormlyFieldConfig {
                 key: 'type',
                 type: 'select',
                 className: 'w-2/5',
+                defaultValue: widget?.params?.pagination?.type ?? 'bullets',
                 props: {
                   label: 'BUILDER.FACTORY.PAGE_TYPE',
                   options: [
@@ -200,18 +197,19 @@ export function getSwiper(widget: any): FormlyFieldConfig {
                     },
                   ],
                 },
-                expressions: { hide: '!model.paginationEnable' },
+                expressions: { hide: '!model.enabled' },
               },
               {
                 key: 'clickable',
                 type: 'toggle',
+                defaultValue: widget?.params?.pagination?.clickable ?? false,
                 props: {
                   className: 'w-2/5',
                   label: 'BUILDER.FACTORY.PAGE_CLICKABLE',
                 },
                 expressions: {
                   'props.disabled': 'model.type !== "bullets"',
-                  'hide': '!model.paginationEnable',
+                  'hide': '!model.enabled',
                 },
               },
             ],

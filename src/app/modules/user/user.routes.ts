@@ -7,13 +7,16 @@ export const routes: Routes = [
   {
     path: '',
     component: UserComponent,
+    data: { titleKey: 'USER.PAGE_TITLE' },
   },
   {
     path: 'login',
     component: LoginComponent,
+    data: { titleKey: 'LOGIN.TITLE' },
   },
   {
     path: 'login/callback',
     component: LoginCallbackComponent,
+    data: { titleKey: 'LOGIN.CALLBACK_TITLE' },
   },
 ];

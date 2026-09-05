@@ -3,9 +3,10 @@ import { provideRouter } from '@angular/router';
 import { Observable, of, throwError, NEVER } from 'rxjs';
 import { vi } from 'vitest';
 import { provideBuilderMocks } from '@modules/builder/testing/mocks';
-import { createNodeServiceMock, createUserServiceMock } from '@core/testing/mocks';
+import { createNodeServiceMock, createUserServiceMock, createScreenServiceMock } from '@core/testing/mocks';
 import { NodeService } from '@core/service/node.service';
 import { UserService } from '@core/service/user.service';
+import { ScreenService } from '@core/service/screen.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 
 import { HubComponent } from './hub.component';
@@ -14,7 +15,11 @@ import { HubComponent } from './hub.component';
 const NODE_TYPE_RESPONSE = {
   data: [
     {
-      attributes: { name: '文章', drupal_internal__type: 'article', description: '常规图文内容' },
+      attributes: {
+        name: '文章',
+        drupal_internal__type: 'article',
+        description: '使用<em>文章</em>发布有关时间的内容,如消息、新闻或日志。',
+      },
     },
     { attributes: { name: '博客', drupal_internal__type: 'blog', description: null } },
     { attributes: { name: '新闻', drupal_internal__type: 'news' } },
@@ -84,6 +89,12 @@ describe('HubComponent', () => {
       providers: [
         provideRouter([]),
         ...provideBuilderMocks(),
+        // The default mock short-circuits to the server platform, but SafeHtmlPipe
+        // only sanitizes markup on the browser platform (entry-desc HTML rendering)
+        {
+          provide: ScreenService,
+          useValue: { ...createScreenServiceMock(), isPlatformBrowser: () => true },
+        },
         { provide: NodeService, useValue: nodeServiceMock },
         { provide: UserService, useValue: userServiceMock },
         { provide: CORE_CONFIG, useValue: coreConfig },
@@ -147,7 +158,10 @@ describe('HubComponent', () => {
     expect(cards.length).toBe(3);
     expect(cards[0].getAttribute('aria-label')).toBe('BUILDER.HUB.ADD_ARIA');
     // Rendered when a description exists, linked via aria-describedby rather than merged into the link's accessible name
-    expect(cards[0].querySelector('.entry-desc')?.textContent?.trim()).toBe('常规图文内容');
+    expect(cards[0].querySelector('.entry-desc em')?.textContent).toBe('文章');
+    expect(cards[0].querySelector('.entry-desc')?.textContent?.trim()).toBe(
+      '使用文章发布有关时间的内容,如消息、新闻或日志。'
+    );
     expect(cards[0].getAttribute('aria-describedby')).toBe('hub-type-article');
     expect(cards[0].querySelector('.entry-desc')?.id).toBe('hub-type-article');
   });

@@ -63,6 +63,7 @@ export const routes: Routes = [
           {
             path: '',
             component: BuilderUiuxComponent,
+            data: { titleKey: 'BUILDER.UIUX.PAGE_TITLE' },
           },
           {
             path: 'pages/:name',
@@ -71,21 +72,25 @@ export const routes: Routes = [
           {
             path: 'page-list',
             component: PageListComponent,
+            data: { titleKey: 'BUILDER.PAGE_LIST.PAGE_TITLE' },
           },
           {
             path: 'settings',
             component: BuilderSettingsComponent,
+            data: { titleKey: 'BUILDER.SETTINGS.PAGE_TITLE' },
           },
         ],
       },
       {
         path: 'hub',
         loadComponent: () => import('./hub/hub.component').then(m => m.HubComponent),
+        data: { titleKey: 'BUILDER.HUB.PAGE_TITLE' },
       },
       {
         path: 'config-check',
         loadComponent: () =>
           import('./main/config-check/config-check.component').then(m => m.ConfigCheckComponent),
+        data: { titleKey: 'BUILDER.CONFIG_CHECK.TITLE' },
       },
       {
         path: 'edit-branding',
@@ -98,6 +103,7 @@ export const routes: Routes = [
       {
         path: '**',
         component: ManagePageComponent,
+        data: { titleKey: 'BUILDER.WORKSPACE.PAGE_TITLE' },
       },
     ],
   },

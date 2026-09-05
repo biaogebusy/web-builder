@@ -6,6 +6,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Xinshi (信使) Web Builder** — an AI-powered low-code platform for building modern responsive web applications. Built with Angular 20 (standalone-only, zoneless, SSR) + Angular Material + TailwindCSS, using Drupal as headless CMS backend via JSON:API.
 
+## Backend Repositories
+
+The Drupal backends are sibling directories of this repo (not inside it); check them before assuming server behavior or debugging API responses:
+
+- `../xinshi-cms` — the open-source base CMS (Drupal 10). API extensions live in `docroot/modules/custom/xinshi_jsonapi/` (the `/api/v3/*` routes).
+- `../builder-cms` — the builder.design deployment CMS; mirrors the base endpoints in `docroot/modules/custom/xinshi_api/` plus deployment-specific deltas. The dev proxy target `base.builder.design` serves this codebase.
+
+## Sibling Frontend Repository
+
+- `../pro` — the pro deployment checkout of this frontend (branch `pro`). It merges `master` in and carries the deployment-specific delta; the same thin-seam rules as downstream CMS branches apply.
+
+## Sibling Documentation Repository
+
+- `../xinshi-docs` — the project documentation site (Storybook 9 + MDX, deployed to `ui.builder.design`). When a change in this repo affects documented behavior — new components, config changes, API changes, feature work — keep the corresponding MDX pages in `../xinshi-docs/stories/` in sync and commit the doc update promptly rather than deferring it.
+
 ## Branches & Deployments
 
 - **`master` is the open-source base branch and the single source of truth.** Downstream deployment branches build on it: they merge `master` in, never the other way. Anything that is not part of the base product stays out of `master`.
