@@ -3,7 +3,6 @@ import {
   Component,
   computed,
   inject,
-  signal,
   DOCUMENT,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -13,11 +12,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
-import { CORE_CONFIG, THEME } from '@core/token/token-providers';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { ConfigService } from '@core/service/config.service';
-import { LocalStorageService } from 'ngx-webstorage';
-import { THEMKEY } from '@core/factory/factory';
 import { ThemeService } from '@core/service/theme.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { ContentState } from '@core/state/ContentState';
@@ -36,6 +34,7 @@ import { ApiService } from '@core/service/api.service';
     MatMenuModule,
     MatTooltipModule,
     MatListModule,
+    TranslateModule,
     IconComponent,
   ],
 })
@@ -43,13 +42,12 @@ export class SwitchThemeComponent {
   coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   themeService = inject(ThemeService);
   configService = inject(ConfigService);
-  storage = inject(LocalStorageService);
   builder = inject(BuilderState);
   contentState = inject(ContentState);
   private apiService = inject(ApiService);
   private doc = inject<Document>(DOCUMENT);
 
-  currentTheme = signal(inject(THEME));
+  currentTheme = this.themeService.currentTheme;
   private configLoaded = toSignal(this.apiService.configLoadDone$, { initialValue: false });
   themes = computed(() => {
     this.configLoaded();
@@ -57,11 +55,13 @@ export class SwitchThemeComponent {
   });
 
   onSwitchTheme(theme: string): void {
-    this.configService.switchChange$.next(theme);
-    this.storage.store(THEMKEY, theme);
-    this.currentTheme.set(theme);
-    this.themeService.clearCustomTheme();
-    this.themeService.setTheme(theme);
+    this.themeService.selectTheme(theme);
+    this.configService.switchChange$.next(this.currentTheme());
+  }
+
+  onRestoreSiteTheme(): void {
+    this.themeService.restoreSiteTheme();
+    this.configService.switchChange$.next(this.currentTheme());
   }
 
   onCustomTheme(): void {

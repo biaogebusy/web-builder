@@ -12,7 +12,11 @@
 // Placeholders must reference --shadcn-muted-foreground (as in shadcn/ui:
 // placeholder:text-muted-foreground) — no custom colors.
 
-:root {
+// Rebind aliases at every theme boundary: inherited aliases otherwise retain
+// the Material colors resolved on their parent, including in nested themes.
+:root,
+.light-theme,
+.dark-theme {
   // ── Surfaces ──
   --shadcn-background: var(--mat-sys-surface);
   --shadcn-foreground: var(--mat-sys-on-surface);
@@ -44,12 +48,9 @@
 
   // ── Lines & focus ──
   // border = structural hairlines (cards/dividers, subtle); input = interactive control strokes.
-  // This theme customizes --mat-sys-outline(-variant) to hairline-light shades, too faint to
-  // reference directly; a 50% foreground mix instead flips with the theme and stays ≈3:1 in
-  // both light and dark, meeting WCAG 1.4.11 non-text contrast.
   --shadcn-border: var(--mat-sys-outline-variant);
-  --shadcn-input: color-mix(in srgb, var(--mat-sys-on-surface) 50%, transparent);
-  // Input fill: transparent in light mode, subtle tint in dark (see .dark-theme, shadcn v4's dark:bg-input/30)
+  --shadcn-input: var(--mat-sys-outline);
+  // Keep the dark input tint independent of the opaque control stroke.
   --shadcn-input-fill: transparent;
   --shadcn-ring: var(--mat-sys-primary);
   --shadcn-ring-subtle: color-mix(in srgb, var(--mat-sys-primary) 30%, transparent);
@@ -76,9 +77,6 @@
 
 // Dark-theme overrides — strengthen border contrast and surface separation
 // so shadcn's "neutral but crisp" aesthetic holds on the dark Material palette.
-// --shadcn-input needs no override: the 50% on-surface mix flips automatically with the theme.
-// --shadcn-ring-offset-color intentionally not overridden: it points at
-// --mat-sys-surface which already flips between themes.
 .dark-theme {
   --shadcn-card: var(--mat-sys-surface-container-low);
   --shadcn-popover: var(--mat-sys-surface-container-highest);
@@ -86,7 +84,7 @@
   --shadcn-muted: var(--mat-sys-surface-container);
   --shadcn-accent: var(--mat-sys-surface-container-high);
   --shadcn-border: var(--mat-sys-outline);
-  --shadcn-input-fill: color-mix(in srgb, var(--shadcn-input) 30%, transparent);
+  --shadcn-input-fill: color-mix(in srgb, var(--mat-sys-on-surface) 15%, transparent);
   // Dark container surfaces and input fills lighten the base, pushing 66% below 4.5:1;
   // at the calibrated 70% the darkest combos (input fill on card ≈4.6, popover ≈5.0) still pass,
   // and surface sits ≈7.4:1

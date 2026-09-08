@@ -41,8 +41,9 @@ import { IBuilderConfig } from '@core/interface/IBuilder';
 import { BuilderService } from '@core/service/builder.service';
 import { getFileType } from '@core/util/file-type.util';
 import { CORE_CONFIG } from '@core/token/token-providers';
+import { resolveTheme, THEMKEY } from '@core/util/theme.util';
 
-export const THEMKEY = 'themeMode';
+export { THEMKEY } from '@core/util/theme.util';
 export const DEBUG_ANIMATE_KEY = 'debugAnimate';
 const BUILDERPATH = '/builder';
 
@@ -286,18 +287,7 @@ export function langFactory(): ILanguage | undefined {
 
 export function themeFactory(coreConfig: ICoreConfig): string {
   const storage = inject(LocalStorageService);
-  const defaultTheme = coreConfig.defaultTheme || 'blue-theme';
-  const localTheme = storage.retrieve(THEMKEY);
-  if (localTheme && coreConfig.theme) {
-    // checkout the theme is removed
-    const isInThemeList = coreConfig.theme.filter(item => item.style === localTheme);
-    if (isInThemeList.length) {
-      return localTheme;
-    } else {
-      return defaultTheme;
-    }
-  }
-  return defaultTheme;
+  return resolveTheme(coreConfig, storage.retrieve(THEMKEY));
 }
 
 export function brandingFactory(): Observable<IBranding> {

@@ -1,6 +1,7 @@
-import { Injectable, inject, DOCUMENT } from '@angular/core';
-import { CORE_CONFIG, THEME } from '@core/token/token-providers';
+import { Injectable, inject, DOCUMENT, signal } from '@angular/core';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
+import { getLocalTheme, isThemeName, resolveTheme, THEMKEY, ThemeName } from '@core/util/theme.util';
 import { LocalStorageService } from 'ngx-webstorage';
 import {
   argbFromHex,
@@ -94,20 +95,19 @@ const SYS_TOKEN_MAP: [keyof typeof MaterialDynamicColors, string][] = [
 })
 export class ThemeService {
   private document = inject<Document>(DOCUMENT);
-  private theme = inject(THEME);
   private storage = inject(LocalStorageService);
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  private baseTheme = resolveTheme(this.coreConfig, this.storage.retrieve(THEMKEY));
+  private activeTheme = signal(this.baseTheme);
+  readonly currentTheme = this.activeTheme.asReadonly();
 
   private get root(): HTMLElement {
     return this.document.getElementsByTagName('html')[0];
   }
 
   initTheme(): void {
-    this.setTheme(this.theme);
-    // localStorage wins (local debugging takes effect immediately); the backend
-    // config (/core/base customTheme) is the fallback when there is no local override.
-    const local = this.storage.retrieve(CUSTOM_THEME_KEY) as ICustomTheme | null;
-    const custom = local?.seed ? local : this.coreConfig?.customTheme;
+    this.setTheme(resolveTheme(this.coreConfig, this.storage.retrieve(THEMKEY)));
+    const custom = this.getCustomTheme();
     if (custom?.seed) {
       if (custom.vars) {
         this.applyThemeVars(custom.vars, custom.isDark);
@@ -117,21 +117,53 @@ export class ThemeService {
     }
   }
 
+  // A local custom palette wins over a local ordinary theme. Site defaults apply
+  // only when neither preference exists; clearing a palette does not opt back in.
+  getCustomTheme(): ICustomTheme | undefined {
+    const local = this.storage.retrieve(CUSTOM_THEME_KEY) as ICustomTheme | null;
+    if (local?.seed) {
+      return local;
+    }
+    if (getLocalTheme(this.coreConfig, this.storage.retrieve(THEMKEY))) {
+      return undefined;
+    }
+    return this.coreConfig.customTheme;
+  }
+
   setTheme(theme: string): void {
+    this.baseTheme = isThemeName(theme) ? theme : 'light-theme';
+    this.removeThemeVars();
+    this.applyMode(this.baseTheme);
+  }
+
+  selectTheme(theme: string): void {
+    this.setTheme(theme);
+    this.storage.clear(CUSTOM_THEME_KEY);
+    this.storage.store(THEMKEY, this.baseTheme);
+  }
+
+  restoreSiteTheme(): void {
+    this.storage.clear(THEMKEY);
+    this.storage.clear(CUSTOM_THEME_KEY);
+    this.initTheme();
+  }
+
+  private applyMode(theme: ThemeName): void {
     const root = this.root;
-    root.removeAttribute('class');
+    root.classList.remove('light-theme', 'dark-theme');
     root.classList.add(theme);
+    root.style.colorScheme = theme === 'dark-theme' ? 'dark' : 'light';
+    this.activeTheme.set(theme);
+  }
+
+  private removeThemeVars(): void {
+    SYS_TOKEN_MAP.forEach(([, cssVar]) => this.root.style.removeProperty(cssVar));
   }
 
   // Generate a full M3 palette from a seed color and write it to the
   // --mat-sys-* CSS variables as inline styles for instant preview.
   applyCustomTheme(seed: string, isDark: boolean, variant: ThemeVariant = 'content'): void {
-    const scheme = this.buildScheme(seed, isDark, variant);
-    const root = this.root;
-    SYS_TOKEN_MAP.forEach(([role, cssVar]) => {
-      root.style.setProperty(cssVar, this.roleHex(role, scheme));
-    });
-    root.style.colorScheme = isDark ? 'dark' : 'light';
+    this.applyThemeVars(this.generateThemeVars(seed, isDark, variant), isDark);
   }
 
   // Resolve role hexes for a seed without mutating the DOM (for previews).
@@ -164,8 +196,13 @@ export class ThemeService {
   // Apply a previously resolved token map directly, without recomputing the palette.
   applyThemeVars(vars: Record<string, string>, isDark: boolean): void {
     const root = this.root;
-    Object.entries(vars).forEach(([cssVar, value]) => root.style.setProperty(cssVar, value));
-    root.style.colorScheme = isDark ? 'dark' : 'light';
+    this.removeThemeVars();
+    SYS_TOKEN_MAP.forEach(([, cssVar]) => {
+      if (vars[cssVar]) {
+        root.style.setProperty(cssVar, vars[cssVar]);
+      }
+    });
+    this.applyMode(isDark ? 'dark-theme' : 'light-theme');
   }
 
   // Serialize the full M3 palette as a :root CSS block of --mat-sys-* tokens,
@@ -188,12 +225,12 @@ export class ThemeService {
     return hexFromArgb(color.getArgb(scheme));
   }
 
+  // Return to the last ordinary theme. Opt into the site palette via restoreSiteTheme().
   clearCustomTheme(persist = true): void {
-    const root = this.root;
-    SYS_TOKEN_MAP.forEach(([, cssVar]) => root.style.removeProperty(cssVar));
-    root.style.removeProperty('color-scheme');
     if (persist) {
-      this.storage.clear(CUSTOM_THEME_KEY);
+      this.selectTheme(this.baseTheme);
+    } else {
+      this.setTheme(this.baseTheme);
     }
   }
 
