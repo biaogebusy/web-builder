@@ -30,8 +30,8 @@ jobs:
       - name: NPM Install
         run: npm ci over npm
 
-      # 单测门禁(docs/testing-recovery-wbs.md T7):
-      # npm test 覆盖 src/**(src/server/** 除外),test:server 覆盖 src/server/**;
+      # 单测门禁：维护说明见 xinshi-docs/stories/develop/testing.mdx
+      # npm test 排除 src/server/** 和 src/chat-server/**，两者由 test:server 覆盖；
       # 任一红灯即中止构建与部署
       - name: Unit tests
         run: npm test

@@ -2,13 +2,17 @@ import { DOCUMENT } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { CUSTOM_THEME_KEY, ICustomTheme, ThemeService } from '@core/service/theme.service';
 import { CORE_CONFIG, THEME } from '@core/token/token-providers';
+import { THEMKEY } from '@core/util/theme.util';
 import { LocalStorageService } from 'ngx-webstorage';
 
-const createStorageMock = () => ({
-  retrieve: vi.fn((): unknown => null),
-  store: vi.fn(),
-  clear: vi.fn(),
-});
+const createStorageMock = () => {
+  const values = new Map<string, unknown>();
+  return {
+    retrieve: vi.fn((key: string): unknown => values.get(key) ?? null),
+    store: vi.fn((key: string, value: unknown) => values.set(key, value)),
+    clear: vi.fn((key: string) => values.delete(key)),
+  };
+};
 
 const SEED = '#0049db';
 
@@ -23,7 +27,7 @@ describe('ThemeService', () => {
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({
       providers: [
-        { provide: THEME, useValue: 'light' },
+        { provide: THEME, useValue: 'light-theme' },
         { provide: CORE_CONFIG, useValue: coreConfig },
         { provide: LocalStorageService, useValue: storage },
       ],
@@ -42,10 +46,27 @@ describe('ThemeService', () => {
   });
 
   it('replaces any previous theme class instead of stacking them', () => {
-    service.setTheme('dark');
-    service.setTheme('light');
+    service.setTheme('dark-theme');
+    service.setTheme('light-theme');
 
-    expect(root.getAttribute('class')).toBe('light');
+    expect(root.getAttribute('class')).toBe('light-theme');
+  });
+
+  it('preserves root classes that do not belong to the theme', () => {
+    root.classList.add('app-ready');
+
+    service.setTheme('dark-theme');
+    service.setTheme('light-theme');
+
+    expect(root.classList.contains('app-ready')).toBe(true);
+    expect(root.classList.contains('dark-theme')).toBe(false);
+  });
+
+  it('falls back to a supported theme for an obsolete theme name', () => {
+    service.setTheme('blue-theme');
+
+    expect(root.classList.contains('light-theme')).toBe(true);
+    expect(root.style.colorScheme).toBe('light');
   });
 
   describe('palette generation', () => {
@@ -101,6 +122,16 @@ describe('ThemeService', () => {
   });
 
   describe('applying', () => {
+    it.each([true, false])('synchronizes the class when applying a custom mode: %s', isDark => {
+      service.setTheme(isDark ? 'light-theme' : 'dark-theme');
+
+      service.applyCustomTheme(SEED, isDark);
+
+      expect(root.className).toBe(isDark ? 'dark-theme' : 'light-theme');
+      expect(root.style.colorScheme).toBe(isDark ? 'dark' : 'light');
+      expect(service.currentTheme()).toBe(root.className);
+    });
+
     it('writes the palette and the color scheme as inline styles', () => {
       service.applyCustomTheme(SEED, true, 'tonalSpot');
 
@@ -114,6 +145,17 @@ describe('ThemeService', () => {
 
       expect(root.style.getPropertyValue('--mat-sys-primary')).toBe('#123456');
       expect(root.style.colorScheme).toBe('light');
+      expect(root.className).toBe('light-theme');
+    });
+
+    it('clears stale palette roles before applying a partial stored map', () => {
+      root.style.setProperty('--unrelated', 'kept');
+      service.applyCustomTheme(SEED, true);
+
+      service.applyThemeVars({ '--mat-sys-primary': '#123456' }, false);
+
+      expect(root.style.getPropertyValue('--mat-sys-on-primary')).toBe('');
+      expect(root.style.getPropertyValue('--unrelated')).toBe('kept');
     });
 
     it('removes every mapped token when cleared', () => {
@@ -122,7 +164,7 @@ describe('ThemeService', () => {
       service.clearCustomTheme();
 
       expect(root.style.getPropertyValue('--mat-sys-primary')).toBe('');
-      expect(root.style.colorScheme).toBe('');
+      expect(root.style.colorScheme).toBe('light');
       expect(storage.clear).toHaveBeenCalledWith(CUSTOM_THEME_KEY);
     });
 
@@ -130,6 +172,18 @@ describe('ThemeService', () => {
       service.clearCustomTheme(false);
 
       expect(storage.clear).not.toHaveBeenCalled();
+    });
+
+    it('returns to the last ordinary theme when clearing a custom preview', () => {
+      service.selectTheme('dark-theme');
+      service.applyCustomTheme(SEED, false);
+
+      service.clearCustomTheme();
+      service.initTheme();
+
+      expect(root.className).toBe('dark-theme');
+      expect(root.style.colorScheme).toBe('dark');
+      expect(root.style.getPropertyValue('--mat-sys-primary')).toBe('');
     });
 
     it('persists the seed, mode and variant', () => {
@@ -147,13 +201,13 @@ describe('ThemeService', () => {
     it('applies the base theme class', () => {
       service.initTheme();
 
-      expect(root.getAttribute('class')).toBe('light');
+      expect(root.getAttribute('class')).toBe('light-theme');
     });
 
     it('prefers the local override over the backend config', () => {
       const local: ICustomTheme = { seed: '#ff0000', isDark: false, variant: 'content' };
       setup({ customTheme: { seed: SEED, isDark: true, variant: 'content' } });
-      storage.retrieve.mockReturnValue(local);
+      storage.store(CUSTOM_THEME_KEY, local);
 
       service.initTheme();
 
@@ -187,6 +241,83 @@ describe('ThemeService', () => {
       service.initTheme();
 
       expect(root.style.getPropertyValue('--mat-sys-primary')).toBe('');
+    });
+
+    it('keeps a saved ordinary theme instead of restoring the backend palette on reload', () => {
+      setup({ customTheme: { seed: SEED, isDark: true, variant: 'content' } });
+      storage.store(THEMKEY, 'light-theme');
+
+      service.initTheme();
+
+      expect(root.className).toBe('light-theme');
+      expect(root.style.colorScheme).toBe('light');
+      expect(root.style.getPropertyValue('--mat-sys-primary')).toBe('');
+      expect(service.getCustomTheme()).toBeUndefined();
+    });
+
+    it('keeps an ordinary selection after a backend custom theme has already been applied', () => {
+      setup({ customTheme: { seed: SEED, isDark: true, variant: 'content' } });
+      service.initTheme();
+
+      service.selectTheme('light-theme');
+      service.initTheme();
+
+      expect(root.className).toBe('light-theme');
+      expect(root.style.getPropertyValue('--mat-sys-primary')).toBe('');
+      expect(storage.retrieve(CUSTOM_THEME_KEY)).toBeNull();
+    });
+
+    it('prefers a saved custom palette over a previous ordinary selection', () => {
+      service.selectTheme('light-theme');
+      service.saveCustomTheme(SEED, true);
+
+      service.initTheme();
+
+      expect(root.className).toBe('dark-theme');
+      expect(service.getCustomTheme()).toMatchObject({ seed: SEED, isDark: true });
+    });
+
+    it('restores the site custom theme immediately and on the next initialization', () => {
+      setup({ customTheme: { seed: SEED, isDark: true, variant: 'vibrant' } });
+      service.selectTheme('light-theme');
+      service.saveCustomTheme('#00696e', false);
+
+      service.restoreSiteTheme();
+
+      const primary = service.generateThemeVars(SEED, true, 'vibrant')['--mat-sys-primary'];
+      expect(root.className).toBe('dark-theme');
+      expect(root.style.getPropertyValue('--mat-sys-primary')).toBe(primary);
+      expect(storage.retrieve(THEMKEY)).toBeNull();
+      expect(storage.retrieve(CUSTOM_THEME_KEY)).toBeNull();
+
+      service.initTheme();
+
+      expect(root.className).toBe('dark-theme');
+      expect(root.style.getPropertyValue('--mat-sys-primary')).toBe(primary);
+    });
+
+    it('restores the configured ordinary site theme when there is no site custom palette', () => {
+      setup({ defaultTheme: 'dark-theme' });
+      service.selectTheme('light-theme');
+
+      service.restoreSiteTheme();
+
+      expect(root.className).toBe('dark-theme');
+      expect(root.style.colorScheme).toBe('dark');
+      expect(root.style.getPropertyValue('--mat-sys-primary')).toBe('');
+    });
+
+    it('uses the site theme when the saved ordinary theme was removed from the menu', () => {
+      setup({
+        theme: [{ style: 'dark-theme' }],
+        customTheme: { seed: SEED, isDark: true, variant: 'content' },
+      });
+      storage.store(THEMKEY, 'light-theme');
+
+      service.initTheme();
+
+      expect(root.className).toBe('dark-theme');
+      expect(service.getCustomTheme()).toMatchObject({ seed: SEED, isDark: true });
     });
   });
 

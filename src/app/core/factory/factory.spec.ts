@@ -1,12 +1,48 @@
 import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import type { IPage } from '@core/interface/IAppConfig';
+import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { BuilderService } from '@core/service/builder.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { vi } from 'vitest';
+import { LocalStorageService } from 'ngx-webstorage';
 
-import { builderCurrentPageFactory } from './factory';
+import { builderCurrentPageFactory, themeFactory } from './factory';
+
+describe('themeFactory', () => {
+  afterEach(() => TestBed.resetTestingModule());
+
+  const resolve = (config: Partial<ICoreConfig>, stored: unknown = null) => {
+    TestBed.configureTestingModule({
+      providers: [{ provide: LocalStorageService, useValue: { retrieve: () => stored } }],
+    });
+    return TestBed.runInInjectionContext(() => themeFactory(config as ICoreConfig));
+  };
+
+  it.each([undefined, '', 'blue-theme'])('uses light-theme for an invalid default: %s', value => {
+    expect(resolve({ defaultTheme: value })).toBe('light-theme');
+  });
+
+  it('uses the configured supported default', () => {
+    expect(resolve({ defaultTheme: 'dark-theme' })).toBe('dark-theme');
+  });
+
+  it('honours a supported local preference when the menu config is absent', () => {
+    expect(resolve({}, 'dark-theme')).toBe('dark-theme');
+  });
+
+  it('rejects obsolete names even if a stale menu still lists them', () => {
+    expect(resolve({ theme: [{ name: 'Blue', style: 'blue-theme' }] }, 'blue-theme'))
+      .toBe('light-theme');
+  });
+
+  it('falls back when the configured menu no longer offers the local preference', () => {
+    expect(resolve({
+      defaultTheme: 'dark-theme',
+      theme: [{ name: 'Dark', style: 'dark-theme' }],
+    }, 'light-theme')).toBe('dark-theme');
+  });
+});
 
 describe('builderCurrentPageFactory', () => {
   afterEach(() => {

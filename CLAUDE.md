@@ -19,7 +19,7 @@ The Drupal backends are sibling directories of this repo (not inside it); check 
 
 ## Sibling Documentation Repository
 
-- `../xinshi-docs` — the project documentation site (Storybook 9 + MDX, deployed to `ui.builder.design`). When a change in this repo affects documented behavior — new components, config changes, API changes, feature work — keep the corresponding MDX pages in `../xinshi-docs/stories/` in sync and commit the doc update promptly rather than deferring it.
+- `../xinshi-docs/stories/` is the single maintenance location for feature, architecture, API, operations, and WBS documentation. See the [documentation index](../xinshi-docs/stories/develop/documentation.mdx). Keep the relevant MDX in sync when behavior changes; this application retains only `docs/README.md` and source entry points, not duplicate specifications.
 
 ## Branches & Deployments
 
@@ -28,12 +28,22 @@ The Drupal backends are sibling directories of this repo (not inside it); check 
 - **Keep the seam thin in shared files.** When base code has to know about an optional feature, use the smallest hook available: one entry in a registry/route/provider pointing at a separate file, or a flag input on a shared component that defaults to off — with the optional UI referenced **inside `@defer`**, the same gate that keeps builder code out of public-page bundles.
 - **Never hardcode values that differ per deployment.** Backend origins live in `config/proxy.config.js` and `src/environments/environment*.ts` and differ per deployment — point at the files, never copy a domain into code, comments or docs.
 
+## AI on This Branch
+
+This section is branch-only; never merge it up into `master`, and keep branch names and
+deployment details out of anything that ships upstream.
+
+- **This branch = base + AI. Decide by dependency, not by directory.** AI code is not confined to `modules/builder/ai/**`: `core/service/chat*.ts`, `core/service/{ai-model-registry,media-chat,model-config,style-preset}.service.ts`, `core/state/AIState.ts`, `core/interface/{IAiModel,IChat,IPlan}.ts`, `core/config/chat-menus.ts`, `core/config/dynamic-components/pro-ai-chat.ts` and AI-specific documentation maintained in `../xinshi-docs/stories/` are branch-only too.
+- A change belongs upstream unless it depends on one of those, or adds AI-only i18n (`BUILDER.AI_*`) / AI docs. Base behavior that AI merely consumes is still base — inline editing itself, for example.
+- Seam examples to copy: `pro-ai-chat.ts` registered as one entry in `dynamic-component-loaders.ts`; `TiptapBubbleMenuComponent.ai` (default off) switched on by `InlineEditorService`, with the AI panel behind `@defer`.
+- **Verify before committing**: `git diff --stat master HEAD -- <shared path>` should show only the hook lines; anything else is base work that belongs upstream.
+
 ## Common Commands
 
 - `npm start` — local dev server (proxies API to the backend configured in `config/proxy.config.js`; the target differs per branch)
 - `npm run build` — production build plus static asset precompression (`ng build --configuration production && npm run precompress`)
-- `npm test` — run unit tests once (Vitest via `@angular/build:unit-test` builder); covers all `src/**` specs except `src/server/**`; setup in `src/test-setup.ts`, shared test providers in `src/test-providers.ts`
-- `npm run test:server` — run server-side specs (`src/server/**`, need node built-ins) via root `vitest.config.ts`; the two channels split coverage with no overlap
+- `npm test` — run unit tests once (Vitest via `@angular/build:unit-test` builder); covers all `src/**` specs except `src/server/**` and `src/chat-server/**`; setup in `src/test-setup.ts`, shared test providers in `src/test-providers.ts`
+- `npm run test:server` — run server-side specs (`src/server/**` and `src/chat-server/**`, including Node and SQLite tests) via root `vitest.config.ts`; the two channels split coverage with no overlap
 - `npm run test:watch` — run unit tests in watch mode
 - `npm run lint` — ESLint (flat config in `eslint.config.js`)
 - `npm run e2e` — end-to-end tests (Playwright, specs in `e2e/`)
