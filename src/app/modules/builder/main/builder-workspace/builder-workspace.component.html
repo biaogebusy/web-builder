@@ -1,7 +1,13 @@
 <div class="builder-workspace">
-  <app-builder-toolbar class="toolbar-host" />
+  <app-builder-toolbar class="toolbar-host" [class]="builder.themeMode() + '-theme'" />
   <mat-drawer-container class="builder-main">
-    <mat-drawer #drawer class="sidebar" mode="side" [opened]="builderFullScreen() === false">
+    <mat-drawer
+      #drawer
+      class="sidebar"
+      [class]="builder.themeMode() + '-theme'"
+      mode="side"
+      [opened]="builderFullScreen() === false"
+    >
       <router-outlet />
       <app-builder-version />
     </mat-drawer>

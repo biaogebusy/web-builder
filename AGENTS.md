@@ -13,11 +13,28 @@ This file provides guidance to Codex and other coding agents when working with c
 - **Keep the seam thin in shared files.** When base code has to know about an optional feature, use the smallest hook available: one entry in a registry/route/provider pointing at a separate file, or a flag input on a shared component that defaults to off — with the optional UI referenced **inside `@defer`**, the same gate that keeps builder code out of public-page bundles.
 - **Never hardcode values that differ per deployment.** Backend origins live in `config/proxy.config.js` and `src/environments/environment*.ts` and differ per deployment — point at the files, never copy a domain into code, comments or docs.
 
+## AI on This Branch
+
+This section is branch-only; never merge it up into `master`, and keep branch names and
+deployment details out of anything that ships upstream.
+
+- **This branch = base + AI. Decide by dependency, not by directory.** AI code is not confined to `modules/builder/ai/**`: `core/service/chat*.ts`, `core/service/{media-chat,model-config,style-preset}.service.ts`, `core/state/AIState.ts`, `core/interface/{IChat,IPlan}.ts`, `core/config/chat-menus.ts`, `core/config/dynamic-components/pro-ai-chat.ts` and AI-specific documentation maintained in `../xinshi-docs/stories/` are branch-only too.
+- A change belongs upstream unless it depends on one of those, or adds AI-only i18n (`BUILDER.AI_*`) / AI docs. Base behavior that AI merely consumes is still base — inline editing itself, for example.
+- Seam examples to copy: `pro-ai-chat.ts` registered as one entry in `dynamic-component-loaders.ts`; `TiptapBubbleMenuComponent.ai` (default off) switched on by `InlineEditorService`, with the AI panel behind `@defer`.
+- **Verify before committing**: `git diff --stat master HEAD -- <shared path>` should show only the hook lines; anything else is base work that belongs upstream.
+
+## Documentation Maintenance
+
+Project feature, architecture, API, operations, and WBS documentation is maintained in the sibling `../xinshi-docs/stories/` repository. Start with the [documentation index](../xinshi-docs/stories/develop/documentation.mdx). Update the corresponding MDX when behavior changes.
+
+Keep this repository's `docs/README.md` as an entry point only. Source READMEs may link to the maintained guides; do not create duplicate specifications or WBS files under `docs/`. AI documentation remains subject to the branch scope below.
+
 ## Common Commands
 
 - `npm start` — local dev server (proxies API to the backend configured in `config/proxy.config.js`; the target differs per branch)
 - `npm run build` — production build plus static asset precompression (`ng build --configuration production && npm run precompress`)
-- `npm test` — run unit tests once (Vitest via Angular unit-test builder)
+- `npm test` — run frontend unit tests once (Angular Vitest builder; excludes `src/server/**` and `src/chat-server/**`)
+- `npm run test:server` — run `src/server/**` and `src/chat-server/**` specs via root Vitest config
 - `npm run test:watch` — run unit tests in watch mode
 - `npm run lint` — ESLint (flat config in `eslint.config.js`)
 - `npm run e2e` — end-to-end tests (Playwright)

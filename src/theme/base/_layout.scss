@@ -277,7 +277,7 @@ a.anchor {
 
         th {
           @apply py-3 px-4 text-left font-bold  border-0 border-b border-solid  text-sm;
-          color: var(--mat-sys-on-surface-container-low);
+          color: var(--mat-sys-on-surface);
           border-color: var(--mat-sys-surface-container-high);
           @media (min-width: 960px) {
             @apply text-base;

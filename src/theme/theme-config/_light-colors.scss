@@ -1,6 +1,7 @@
 @use '@angular/material' as mat;
 
 .light-theme {
+  color-scheme: light;
   @include mat.theme(
     (
       color: (
@@ -34,7 +35,7 @@
       on-surface: rgb(25 27 36),
       surface-variant: rgb(223 225 245),
       on-surface-variant: rgb(67 70 86),
-      outline: rgba(0, 0, 0, 0.12),
+      outline: rgb(115 118 135),
       outline-variant: rgb(195 197 216),
       shadow: rgb(0 0 0),
       scrim: rgb(0 0 0),

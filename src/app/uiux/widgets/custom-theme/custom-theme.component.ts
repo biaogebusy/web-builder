@@ -8,11 +8,9 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { LocalStorageService } from 'ngx-webstorage';
 import { MatMenuModule } from '@angular/material/menu';
 import { take } from 'rxjs';
 import {
-  CUSTOM_THEME_KEY,
   ICustomTheme,
   ThemeService,
   ThemeVariant,
@@ -21,8 +19,6 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { NodeService } from '@core/service/node.service';
 import { BuilderService } from '@core/service/builder.service';
 import { ScreenService } from '@core/service/screen.service';
-import { CORE_CONFIG } from '@core/token/token-providers';
-import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { IconComponent } from '../icon/icon.component';
 import { BtnComponent } from '../btn/btn.component';
@@ -72,13 +68,11 @@ const HEX_RE = /^#([0-9a-f]{6})$/i;
 })
 export class CustomThemeComponent implements OnInit {
   private themeService = inject(ThemeService);
-  private storage = inject(LocalStorageService);
   private util = inject(UtilitiesService);
   private translate = inject(TranslateService);
   private document = inject<Document>(DOCUMENT);
   private nodeService = inject(NodeService);
   private screenService = inject(ScreenService);
-  private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   private injector = inject(Injector);
 
   readonly seed = signal<string>('#0049db');
@@ -150,18 +144,17 @@ export class CustomThemeComponent implements OnInit {
   readonly outline = computed(() => this.palette()['outlineVariant']);
 
   ngOnInit(): void {
-    // localStorage wins; fall back to the backend config so the picker reflects
-    // whatever theme is currently applied.
-    const local = this.storage.retrieve(CUSTOM_THEME_KEY) as ICustomTheme | null;
-    const custom = local?.seed ? local : this.coreConfig?.customTheme;
-    if (custom?.seed) {
-      this.seed.set(custom.seed);
-      this.isDark.set(custom.isDark);
-      this.variant.set(custom.variant ?? 'content');
-    }
+    this.syncSelection();
     if (this.screenService.isPlatformBrowser()) {
       this.resolveCoreBaseNode();
     }
+  }
+
+  private syncSelection(): void {
+    const custom = this.themeService.getCustomTheme();
+    this.seed.set(custom?.seed ?? '#0049db');
+    this.isDark.set(this.themeService.currentTheme() === 'dark-theme');
+    this.variant.set(custom?.variant ?? 'content');
   }
 
   // Look up the /core/base node so the backend-save button has a target uuid.
@@ -287,10 +280,8 @@ export class CustomThemeComponent implements OnInit {
   }
 
   onReset(): void {
-    this.themeService.clearCustomTheme();
-    this.seed.set('#0049db');
-    this.isDark.set(false);
-    this.variant.set('content');
+    this.themeService.restoreSiteTheme();
+    this.syncSelection();
     this.dirty.set(false);
     this.util.openSnackbar(this.translate.instant('CUSTOM_THEME.RESET_TOAST'), 'ok');
   }

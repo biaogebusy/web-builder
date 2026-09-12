@@ -100,6 +100,7 @@
     "@angular-devkit/build-angular": "20.3.0",
     "@angular/cli": "20.3.0",
     "@angular/compiler-cli": "20.3.0",
+    "@axe-core/playwright": "^4.13.0",
     "@babel/core": "^7.24.4",
     "@playwright/test": "^1.61.0",
     "@tailwindcss/forms": "^0.5.7",

@@ -16,6 +16,10 @@
         </button>
       }
       <mat-divider />
+      <button mat-menu-item (click)="onRestoreSiteTheme()">
+        <mat-icon matListItemIcon>settings_backup_restore</mat-icon>
+        <span matListItemTitle>{{ 'CUSTOM_THEME.RESTORE_SITE' | translate }}</span>
+      </button>
       <button aria-label="custom theme" mat-menu-item (click)="onCustomTheme()">
         <mat-icon matListItemIcon>tune</mat-icon>
         <span matListItemTitle>自定义主题</span>

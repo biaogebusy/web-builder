@@ -1,7 +1,7 @@
-# 单元测试门禁(docs/testing-recovery-wbs.md T7)
+# 单元测试门禁：维护说明见 xinshi-docs/stories/develop/testing.mdx
 # 覆盖范围:
-#   npm test            → src/**(@angular/build:unit-test + Vitest,src/server/** 除外)
-#   npm run test:server → src/server/**(根 vitest.config.ts,node 内建模块依赖)
+#   npm test            → 前端 spec（排除 src/server/** 和 src/chat-server/**）
+#   npm run test:server → src/server/** 和 src/chat-server/**（根 vitest.config.ts）
 # 在 GitHub 分支保护规则中将本 workflow 设为 Required status check,
 # 即可在红灯时阻断合并。
 name: Unit tests

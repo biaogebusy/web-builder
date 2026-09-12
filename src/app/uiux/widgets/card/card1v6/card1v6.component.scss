@@ -2,7 +2,7 @@
   @apply rounded-md transition-all p-6 duration-300 ease-in-out hover:scale-105 hover:z-10;
   box-shadow: var(--mat-sys-level1);
   background-color: var(--mat-sys-primary-fixed);
-  border-bottom: 3px solid var(--mat-sys-outline);
+  border-bottom: 3px solid var(--mat-sys-outline-variant);
   .card-inner {
     @apply flex flex-col gap-5;
   }
