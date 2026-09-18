@@ -10,8 +10,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 The Drupal backends are sibling directories of this repo (not inside it); check them before assuming server behavior or debugging API responses:
 
-- `../xinshi-cms` — the open-source base CMS (Drupal 10). API extensions live in `docroot/modules/custom/xinshi_jsonapi/` (the `/api/v3/*` routes).
-- `../builder-cms` — the builder.design deployment CMS; mirrors the base endpoints in `docroot/modules/custom/xinshi_api/` plus deployment-specific deltas. The dev proxy target `base.builder.design` serves this codebase.
+- `../xinshi-cms` — the open-source base CMS (Drupal 11.x), kept in delivery/maintenance state. No new features are added here. Custom modules live in `docroot/modules/custom/`.
+- `../builder-cms` — the builder.design deployment CMS (Drupal 11.x); the active development target for new features. Custom modules live in `docroot/modules/custom/`. The dev proxy target `base.builder.design` serves this codebase.
 
 ## Sibling Frontend Repository
 
