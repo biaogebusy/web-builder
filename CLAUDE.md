@@ -19,7 +19,7 @@ The Drupal backends are sibling directories of this repo (not inside it); check 
 
 ## Sibling Documentation Repository
 
-- `../xinshi-docs/stories/` is the single maintenance location for feature, architecture, API, operations, and WBS documentation. See the [documentation index](../xinshi-docs/stories/develop/documentation.mdx). Keep the relevant MDX in sync when behavior changes; this application retains only `docs/README.md` and source entry points, not duplicate specifications.
+- `../xinshi-docs/stories/` is the single maintenance location for feature, architecture, API, operations, and WBS documentation. See the [documentation index](../xinshi-docs/stories/develop/documentation.mdx). Keep the relevant MDX in sync when behavior changes; this application retains only `docs/README.md` and source entry points, not duplicate specifications. Doc-only changes to xinshi-docs require only MDX edits — no build or test run is needed.
 
 ## Branches & Deployments
 
@@ -42,8 +42,8 @@ deployment details out of anything that ships upstream.
 
 - `npm start` — local dev server (proxies API to the backend configured in `config/proxy.config.js`; the target differs per branch)
 - `npm run build` — production build plus static asset precompression (`ng build --configuration production && npm run precompress`)
-- `npm test` — run unit tests once (Vitest via `@angular/build:unit-test` builder); covers all `src/**` specs except `src/server/**` and `src/chat-server/**`; setup in `src/test-setup.ts`, shared test providers in `src/test-providers.ts`
-- `npm run test:server` — run server-side specs (`src/server/**` and `src/chat-server/**`, including Node and SQLite tests) via root `vitest.config.ts`; the two channels split coverage with no overlap
+- `npm test` — run unit tests once (Vitest via `@angular/build:unit-test` builder); covers all `src/**` specs except `src/server/**`; setup in `src/test-setup.ts`, shared test providers in `src/test-providers.ts`
+- `npm run test:server` — run server-side specs (`src/server/**`, including Node and SQLite tests) via root `vitest.config.ts`; the two channels split coverage with no overlap
 - `npm run test:watch` — run unit tests in watch mode
 - `npm run lint` — ESLint (flat config in `eslint.config.js`)
 - `npm run e2e` — end-to-end tests (Playwright, specs in `e2e/`)
@@ -131,6 +131,7 @@ Angular SSR via `@angular/ssr` (`outputMode: server`). Express entry point: `src
 - `@share/*` → `src/app/share/*`
 - `@modules/*` → `src/app/modules/*`
 - `@assets/*` → `src/assets/*`
+- `@stories/*` → `src/stories/*`
 
 ## Key Libraries
 
