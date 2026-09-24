@@ -11,7 +11,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 The Drupal backends are sibling directories of this repo (not inside it); check them before assuming server behavior or debugging API responses:
 
 - `../xinshi-cms` — the open-source base CMS (Drupal 11.x), kept in delivery/maintenance state. No new features are added here. Custom modules live in `docroot/modules/custom/`.
-- `../builder-cms` — the builder.design deployment CMS (Drupal 11.x); the active development target for new features. Custom modules live in `docroot/modules/custom/`. The dev proxy target is configured in `config/proxy.config.js`.
+- `../builder-cms` — the builder.design deployment CMS (Drupal 11.x); the active development target for new features. Custom modules live in `docroot/modules/custom/`. The dev proxy target is configured in `config/proxy.config.js`. Local environments: base at `http://builder-cms-base.docker.localhost`, Pro at `http://builder-cms-pro.docker.localhost`.
 
 ## Sibling Frontend Repository
 
