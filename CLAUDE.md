@@ -109,7 +109,7 @@ Both files implement `IEnvironment`: `apiUrl`, `production`, `port`, `multiLang`
 
 ### SSR
 
-Angular SSR via `@angular/ssr` (`outputMode: server`). Express entry point: `src/server.ts`; server-only helpers with their own specs live in `src/server/` (SSR HTML cache, cache policy, request timing). The app uses zoneless change detection (`provideZonelessChangeDetection()`), incremental hydration, and an HTTP transfer cache that excludes authorized/user-state requests.
+Angular SSR via `@angular/ssr` (`outputMode: server`). Express entry point: `src/server.ts`, kept a thin assembly close to the Angular CLI template (easier upgrades); server-only helpers with their own specs live in `src/server/` (SSR render handler, HTML cache, cache policy, request timing, graceful shutdown with `onShutdown()` hooks). The app uses zoneless change detection (`provideZonelessChangeDetection()`), incremental hydration, and an HTTP transfer cache that excludes authorized/user-state requests.
 
 ### Styling
 
