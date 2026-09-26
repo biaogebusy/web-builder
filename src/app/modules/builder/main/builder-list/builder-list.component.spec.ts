@@ -4,6 +4,7 @@ import { provideRouter } from '@angular/router';
 import type { IPage } from '@core/interface/IAppConfig';
 import { BuilderService } from '@core/service/builder.service';
 import { UserService } from '@core/service/user.service';
+import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_CURRENT_PAGE, USER } from '@core/token/token-providers';
 import { provideBuilderMocks } from '@modules/builder/testing/mocks';
 
@@ -13,7 +14,7 @@ describe('BuilderListComponent', () => {
   let component: BuilderListComponent;
   let fixture: ComponentFixture<BuilderListComponent>;
   const builderService = { restoreRevision: vi.fn(), loadPage: vi.fn() };
-  const userService = { openLoginDialog: vi.fn() };
+  const userService = { openLoginDialog: vi.fn(), checkShow: vi.fn(() => true) };
   const user = signal<unknown>(true);
   const currentPage = signal<IPage | undefined>(undefined);
 
@@ -72,5 +73,18 @@ describe('BuilderListComponent', () => {
     component.onDiscardRevision({ nid: '42', langcode: 'en' });
 
     expect(builderService.loadPage).toHaveBeenCalledWith({ langcode: 'en', nid: '42' });
+  });
+
+  it('renders the device preview iframe on the first breakpoint switch', () => {
+    currentPage.set({ title: 'Page', body: [{ type: 'text' }] });
+    fixture.detectChanges();
+    const el: HTMLElement = fixture.nativeElement;
+    expect(el.querySelector('app-iframe')).toBeNull();
+
+    TestBed.inject(BuilderState).switchPreview$.next('sm');
+    fixture.detectChanges();
+
+    expect(el.querySelector('.wrapper')?.classList).toContain('preview-sm');
+    expect(el.querySelector('app-iframe')).not.toBeNull();
   });
 });

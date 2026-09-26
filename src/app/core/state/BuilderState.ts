@@ -10,7 +10,7 @@ import {
 import { ICard1v1 } from '@core/interface/widgets/ICard';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { LocalStorageService } from 'ngx-webstorage';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { cloneDeep, get, map } from 'lodash-es';
 
 import { ScreenService } from '@core/service/screen.service';
@@ -55,7 +55,9 @@ export class BuilderState {
   public fullScreen$ = new Subject<boolean>();
   public debugAnimate$ = new Subject<boolean>();
   public selectedMedia$ = new Subject<ISelectedMedia>();
-  public switchPreview$ = new Subject<'xs' | 'sm' | 'md' | 'xs-md' | 'none'>();
+  // Replays the current breakpoint so views created mid-preview (e.g. the fixed full-screen
+  // toolbar) start in sync instead of assuming 'none'
+  public switchPreview$ = new BehaviorSubject<'xs' | 'sm' | 'md' | 'xs-md' | 'none'>('none');
   public revealCode$ = new Subject<string>();
   public pendingPageLoad = signal<IBuilderPendingPageLoad | null>(null);
 

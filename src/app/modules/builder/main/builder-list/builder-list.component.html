@@ -28,7 +28,7 @@
           />
         </div>
       }
-      <div class="wrapper" [class]="previewClass$ | async">
+      <div class="wrapper" [class]="previewClass()">
         @if (builder.loading()) {
           <div class="load">
             <app-loading />
@@ -99,7 +99,7 @@
             </div>
           }
         </div>
-        @if (builder.switchPreview$ | async) {
+        @if (previewClass().preview) {
           <div class="iframe-wrapper">
             <app-iframe class="preview-iframe" [content]="{ url: '/preview' }" />
           </div>

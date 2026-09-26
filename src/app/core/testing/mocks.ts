@@ -87,7 +87,7 @@ export const createBuilderStateMock = () => ({
   fullScreen$: new Subject<boolean>(),
   debugAnimate$: new Subject<boolean>(),
   selectedMedia$: new Subject<unknown>(),
-  switchPreview$: new Subject<'xs' | 'sm' | 'md' | 'xs-md' | 'none'>(),
+  switchPreview$: new BehaviorSubject<'xs' | 'sm' | 'md' | 'xs-md' | 'none'>('none'),
   revealCode$: new Subject<string>(),
   pendingPageLoad: signal(null),
   loading: signal(false),
