@@ -5,7 +5,6 @@ import { CORE_CONFIG } from '@core/token/token-providers';
 import type { IDynamicInputs } from '@core/interface/IAppConfig';
 import type { JsonObject } from '@core/interface/common';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { isNil, omitBy } from 'lodash-es';
 
 @Injectable({
   providedIn: 'root',
@@ -184,9 +183,9 @@ export class UtilitiesService {
               },
             });
             if (from) {
-              const vars = omitBy(from, value => {
-                return isNil(value) || isNaN(value);
-              });
+              const vars = Object.fromEntries(
+                Object.entries(from).filter(([, value]) => value != null && !isNaN(value as number))
+              );
               tl.from(animateEle, {
                 ...vars,
               });

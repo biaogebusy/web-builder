@@ -3,7 +3,7 @@ import { HttpResourceRef, httpResource } from '@angular/common/http';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ApiService } from './api.service';
 import { forkJoin, Observable, of } from 'rxjs';
-import { isEmpty } from 'lodash-es';
+import isEmpty from 'lodash-es/isEmpty';
 import type { IArticleAccess } from '@core/interface/node/IArticle';
 import type { IComment } from '@core/interface/node/INode';
 import type { IUser } from '@core/interface/IUser';
