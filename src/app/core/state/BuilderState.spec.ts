@@ -7,6 +7,7 @@ import { vi } from 'vitest';
 
 import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { BuilderPageState } from './BuilderPageState';
 import { BuilderState } from './BuilderState';
 
 const makePage = (body: any[], extra: Partial<IPage> = {}): IPage => ({
@@ -46,6 +47,16 @@ describe('BuilderState tree and draft behavior', () => {
       storage,
     };
   };
+
+  it('shares restored and updated drafts with public language readers', () => {
+    const { state } = createState([makePage([], { langcode: 'en' })]);
+    const pageState = TestBed.inject(BuilderPageState);
+    expect(pageState.currentPage()?.langcode).toBe('en');
+    state.setCurrentPage(makePage([], { langcode: 'zh-hans' }));
+    expect(pageState.currentPage()?.langcode).toBe('zh-hans');
+    state.version.set([makePage([], { langcode: 'en', current: false })]);
+    expect(pageState.currentPage()?.langcode).toBe('en');
+  });
 
   it('resolves root and nested component paths', () => {
     const body = [

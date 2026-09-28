@@ -1,3 +1,5 @@
+import { BuilderState } from '@core/state/BuilderState';
+import { CONTENT_EDITOR } from '@core/token/content-editor.token';
 import { Routes } from '@angular/router';
 import { BuilderComponent } from './builder.component';
 import { BuilderUiuxComponent } from './sidebar/builder-uiux/builder-uiux.component';
@@ -28,6 +30,7 @@ export const routes: Routes = [
     component: BuilderComponent,
     providers: [
       MONACO_EDITOR_CONFIG_PROVIDER,
+      { provide: CONTENT_EDITOR, useExisting: BuilderState },
       {
         provide: BUILDER_CONFIG,
         useFactory: getBuilderConfig,

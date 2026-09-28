@@ -7,7 +7,7 @@ import { isEmpty } from 'lodash-es';
 import type { IArticleAccess } from '@core/interface/node/IArticle';
 import type { IComment } from '@core/interface/node/INode';
 import type { IUser } from '@core/interface/IUser';
-import { BuilderState } from '@core/state/BuilderState';
+import { BuilderPageState } from '@core/state/BuilderPageState';
 import { IMediaAttr } from '@core/interface/manage/IManage';
 import { appendQueryParams, QueryParams } from '@core/util/http-params.util';
 import { resolveNodeLangCode } from '@core/util/node-lang.util';
@@ -31,7 +31,7 @@ export class NodeService extends ApiService {
   private destroyRef = inject(DestroyRef);
   private injector = inject(Injector);
 
-  private builder = inject(BuilderState);
+  private builderPage = inject(BuilderPageState);
   private commentService = inject(CommentService);
   private mediaUploadService = inject(MediaUploadService);
 
@@ -84,7 +84,7 @@ export class NodeService extends ApiService {
   resolveLangCode(elementRef?: ElementRef): string | undefined {
     return resolveNodeLangCode({
       pageUrl: this.pageUrl,
-      builderLangcode: this.builder.currentPage?.langcode,
+      builderLangcode: this.builderPage.currentPage()?.langcode,
       inCanvas: !!elementRef?.nativeElement.closest('.component-item'),
       multiLang: environment.multiLang,
       languages: environment.langs,

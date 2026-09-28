@@ -1,3 +1,4 @@
+import { BuilderPageState } from './BuilderPageState';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Injectable, inject, signal, DOCUMENT, DestroyRef } from '@angular/core';
 import { IDynamicInputs, IPage } from '@core/interface/IAppConfig';
@@ -72,7 +73,7 @@ export class BuilderState {
     body: [],
   };
 
-  public version = signal<IPage[]>([]);
+  public version = inject(BuilderPageState).version;
 
   versionKey = 'version';
 
