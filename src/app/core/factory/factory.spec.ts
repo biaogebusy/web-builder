@@ -7,7 +7,8 @@ import { BuilderState } from '@core/state/BuilderState';
 import { vi } from 'vitest';
 import { LocalStorageService } from 'ngx-webstorage';
 
-import { builderCurrentPageFactory, themeFactory } from './factory';
+import { themeFactory } from './factory';
+import { builderCurrentPageFactory } from './builder-factory';
 
 describe('themeFactory', () => {
   afterEach(() => TestBed.resetTestingModule());

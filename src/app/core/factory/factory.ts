@@ -19,33 +19,20 @@ import {
   take,
 } from 'rxjs/operators';
 import { NotifyService } from '@core/service/notify.service';
-import { BuilderState } from '@core/state/BuilderState';
 import { ScreenService } from '@core/service/screen.service';
 import { NodeService } from '@core/service/node.service';
 import { IManageAssets } from '@core/interface/manage/IManage';
 import { ILanguage } from '@core/interface/IEnvironment';
 import { CookieService } from 'ngx-cookie-service';
 import { ComponentService } from '@core/service/component.service';
-import {
-  computed,
-  DestroyRef,
-  DOCUMENT,
-  inject,
-  Injector,
-  signal,
-  Signal,
-  WritableSignal,
-} from '@angular/core';
+import { DestroyRef, DOCUMENT, inject, signal, WritableSignal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IBuilderConfig } from '@core/interface/IBuilder';
-import { BuilderService } from '@core/service/builder.service';
 import { getFileType } from '@core/util/file-type.util';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { resolveTheme, THEMKEY } from '@core/util/theme.util';
 
 export { THEMKEY } from '@core/util/theme.util';
-export const DEBUG_ANIMATE_KEY = 'debugAnimate';
-const BUILDERPATH = '/builder';
 
 /** Options for {@link pageContentFactory}. */
 export interface IPageContentFactoryOptions {
@@ -107,70 +94,6 @@ export function pageContentFactory(
       }
     });
   return pageContent;
-}
-
-export function builderFullScreenFactory(): WritableSignal<boolean> {
-  const router = inject(Router);
-  const builder = inject(BuilderState);
-  const destroyRef = inject(DestroyRef);
-  const isFull = signal(false);
-
-  router.events.pipe(takeUntilDestroyed(destroyRef)).subscribe(event => {
-    if (event instanceof NavigationEnd) {
-      if (event.url.includes(BUILDERPATH)) {
-        isFull.set(false);
-      }
-    }
-  });
-  builder.fullScreen$.pipe(takeUntilDestroyed(destroyRef)).subscribe(state => {
-    isFull.set(state);
-  });
-  return isFull;
-}
-
-export function builderCurrentPageFactory(): Signal<IPage | undefined | false> {
-  const router = inject(Router);
-  const injector = inject(Injector);
-  const builder = inject(BuilderState);
-
-  // Always use the BuilderState.version signal as the data source (consistent with the
-  // version panel/toolbar); changes from other contexts (/preview new tab or iframe) are
-  // bridged into the signal by BuilderState's storage event
-  const currentPage = computed<IPage | undefined | false>(() => {
-    const version = builder.version();
-    if (!version.length) {
-      return false;
-    }
-    return version.find((page: IPage) => page.current === true) || version[0];
-  });
-
-  if (router.url.includes(BUILDERPATH)) {
-    const found = currentPage();
-    if (found) {
-      injector.get(BuilderService).checkIsLatestPage(found);
-    }
-  }
-
-  return currentPage;
-}
-
-export function debugAnimateFactory(): WritableSignal<boolean> {
-  const builder = inject(BuilderState);
-  const storage = inject(LocalStorageService);
-  const destroyRef = inject(DestroyRef);
-  const isDebugAnimate = storage.retrieve(DEBUG_ANIMATE_KEY);
-  const debugAnimate = signal<boolean>(!!isDebugAnimate);
-
-  setTimeout(() => {
-    builder.renderMarkers(isDebugAnimate);
-  }, 2000);
-
-  builder.debugAnimate$.pipe(takeUntilDestroyed(destroyRef)).subscribe(state => {
-    storage.store(DEBUG_ANIMATE_KEY, state);
-    debugAnimate.set(state);
-  });
-
-  return debugAnimate;
 }
 
 export function notifyFactory(coreConfig: ICoreConfig): WritableSignal<INotify[] | boolean> {

@@ -18,10 +18,8 @@ import {
   builderCurrentPageFactory,
   builderFullScreenFactory,
   debugAnimateFactory,
-  getBuilderConfig,
-  mediaAssetsFactory,
-  uiuxFactory,
-} from '@core/factory/factory';
+} from '@core/factory/builder-factory';
+import { getBuilderConfig, mediaAssetsFactory, uiuxFactory } from '@core/factory/factory';
 import { MONACO_EDITOR_CONFIG_PROVIDER } from '@core/config/monaco-editor.config';
 
 export const routes: Routes = [
