@@ -8,8 +8,10 @@
   },
   "scripts": {
     "ng": "ng",
+    "prestart": "node scripts/split-svg-icons.mjs",
     "start": "ng serve",
-    "build": "ng build --configuration production && npm run precompress",
+    "prebuild": "node scripts/split-svg-icons.mjs",
+    "build":"ng build --configuration production && npm run precompress",
     "precompress": "node scripts/precompress.mjs",
     "test": "ng test --no-watch",
     "test:server": "vitest run",
