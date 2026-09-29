@@ -89,3 +89,19 @@
 .user-menu-drawer {
   @apply mx-2;
 }
+
+// SSR cannot detect the viewport. Reserve the mobile toolbar before its client-only branch mounts.
+@media #{$lt-md} {
+  .header {
+    @apply hidden;
+  }
+  .drawer {
+    min-height: var(--mat-toolbar-standard-height, 64px);
+  }
+}
+
+@media #{$xs} {
+  .drawer {
+    min-height: var(--mat-toolbar-mobile-height, 56px);
+  }
+}

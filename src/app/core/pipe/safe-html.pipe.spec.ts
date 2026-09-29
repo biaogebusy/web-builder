@@ -29,7 +29,7 @@ describe('SafeHtmlPipe', () => {
     const sanitizer = TestBed.inject(DomSanitizer);
 
     // The result must be a SafeHtml wrapper; serialize back to confirm safety
-    const html = sanitizer.sanitize(SecurityContext.HTML, result);
+    const html = sanitizer.sanitize(SecurityContext.HTML, result ?? null);
     expect(html).toBe('<p>hi</p>');
     expect(html).not.toContain('<script>');
     expect(html).not.toContain('alert');
@@ -40,7 +40,7 @@ describe('SafeHtmlPipe', () => {
     const result = pipe.transform('<p class="intro">hello <strong>world</strong></p>');
     const sanitizer = TestBed.inject(DomSanitizer);
 
-    const html = sanitizer.sanitize(SecurityContext.HTML, result);
+    const html = sanitizer.sanitize(SecurityContext.HTML, result ?? null);
     expect(html).toContain('<p class="intro">');
     expect(html).toContain('<strong>world</strong>');
   });
@@ -50,14 +50,30 @@ describe('SafeHtmlPipe', () => {
     const result = pipe.transform('<a href="javascript:alert(1)">click</a>');
     const sanitizer = TestBed.inject(DomSanitizer);
 
-    const html = sanitizer.sanitize(SecurityContext.HTML, result);
+    const html = sanitizer.sanitize(SecurityContext.HTML, result ?? null);
     expect(html).not.toContain('javascript:');
   });
 
-  it('returns undefined on the server (SSR safety)', () => {
+  it('renders safe content on the server instead of an empty hydration placeholder', () => {
     const pipe = setup(false);
+    const sanitizer = TestBed.inject(DomSanitizer);
 
-    expect(pipe.transform('<p>hi</p>')).toBeUndefined();
+    const html = sanitizer.sanitize(SecurityContext.HTML,
+      pipe.transform('<p class="intro">hello <strong>world</strong></p>') ?? null);
+    expect(html).toBe('<p class="intro">hello <strong>world</strong></p>');
+  });
+
+  it('strips executable markup from server-rendered HTML', () => {
+    const pipe = setup(false);
+    const sanitizer = TestBed.inject(DomSanitizer);
+    const html = sanitizer.sanitize(SecurityContext.HTML, pipe.transform(
+      '<p onclick="alert(1)">safe</p><script>alert(2)</script>' +
+      '<img src="/safe.png" onerror="alert(3)">'
+    ) ?? null);
+
+    expect(html).toContain('<p>safe</p>');
+    expect(html).toContain('<img src="/safe.png">');
+    expect(html).not.toMatch(/onclick|onerror|<script|alert/);
   });
 
   it('returns undefined for non-string input', () => {
@@ -75,6 +91,6 @@ describe('SafeHtmlPipe', () => {
     const sanitizer = TestBed.inject(DomSanitizer);
 
     // A SafeHtml value must serialize without throwing in the HTML context
-    expect(() => sanitizer.sanitize(SecurityContext.HTML, safe)).not.toThrow();
+    expect(() => sanitizer.sanitize(SecurityContext.HTML, safe ?? null)).not.toThrow();
   });
 });

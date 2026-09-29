@@ -83,6 +83,13 @@ test('deployed page renders SSR content and records real browser loading', async
     };
   });
   const headers = await response!.allHeaders();
+  const ssrTextBodies = await page.evaluate(source => {
+    const doc = new DOMParser().parseFromString(source, 'text/html');
+    return [...doc.querySelectorAll('app-page app-text .text-body')]
+      .map(node => (node.textContent || '').replace(/\s+/g, ' ').trim());
+  }, html);
+  const hydratedTextBodies = (await page.locator('app-page app-text .text-body').allTextContents())
+    .map(text => text.replace(/\s+/g, ' ').trim());
   const report = {
     url: page.url(), measuredAt: new Date().toISOString(),
     browser: page.context().browser()?.version(),
@@ -91,6 +98,7 @@ test('deployed page renders SSR content and records real browser loading', async
     responseHeaders: Object.fromEntries(['content-encoding', 'cache-control', 'x-cache',
       'x-proxy-cache', 'x-ssr-duration', 'server-timing'].map(key => [key, headers[key] ?? null])),
     metrics, pageErrors, failedRequests, httpErrors, landingRequests,
+    ssrTextBodies, hydratedTextBodies,
   };
   const reportPath = info.outputPath('loading.json');
   await writeFile(reportPath, JSON.stringify(report, null, 2));
@@ -101,5 +109,6 @@ test('deployed page renders SSR content and records real browser loading', async
   expect(response!.ok()).toBe(true);
   expect(report.ssrHydrationMarkers).toBeGreaterThan(0);
   await expect(page.locator('app-page')).toBeVisible();
+  expect(ssrTextBodies).toEqual(hydratedTextBodies);
   expect(pageErrors).toEqual([]);
 });
