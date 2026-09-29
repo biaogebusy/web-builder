@@ -1,4 +1,5 @@
-import { expect, test, type Page } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { expect, test } from './fixtures/test';
 
 // The chain these specs guard is the one unit tests structurally cannot reach: it spans a real
 // browser navigation, sessionStorage that has to survive it, and a single-use authorization code.

@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './fixtures/test';
 import { mdiAccountFile, mdiAlphaABox } from '@mdi/js';
 
 test('renders new and legacy icon values without loading the full sprite', async ({ page }) => {
