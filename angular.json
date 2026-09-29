@@ -46,7 +46,7 @@
                 "output": "/"
               },
               {
-                "glob": "*.svg",
+                "glob": "*.{svg,json}",
                 "input": "node_modules/.cache/svg-icons",
                 "output": "/assets/svg-icons"
               },

@@ -25,12 +25,13 @@ import { IManageAssets } from '@core/interface/manage/IManage';
 import { ILanguage } from '@core/interface/IEnvironment';
 import { CookieService } from 'ngx-cookie-service';
 import { ComponentService } from '@core/service/component.service';
-import { DestroyRef, DOCUMENT, inject, signal, WritableSignal } from '@angular/core';
+import { DestroyRef, DOCUMENT, inject, Injector, signal, WritableSignal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 import { getFileType } from '@core/util/file-type.util';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { resolveTheme, THEMKEY } from '@core/util/theme.util';
+import { ThemeService } from '@core/service/theme.service';
 
 export { THEMKEY } from '@core/util/theme.util';
 
@@ -151,8 +152,13 @@ export const apiUrlFactory = () => {
 export function initApp(coreConfig: object): any {
   const contentService = inject(ContentService);
   const componentService = inject(ComponentService);
+  const injector = inject(Injector);
   componentService.registerDynamicComponent();
-  return () => contentService.loadConfig(coreConfig);
+  return async () => {
+    await contentService.loadConfig(coreConfig);
+    // Resolve legacy seed-only palettes before rendering; stored vars need no generator.
+    await injector.get(ThemeService).initTheme();
+  };
 }
 
 export function preloadInitialDynamicComponents(): Promise<void> {

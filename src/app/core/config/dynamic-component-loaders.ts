@@ -61,7 +61,8 @@ export const DYNAMIC_COMPONENT_LOADERS: Readonly<Record<string, ComponentLoader>
   'content-text-center': () => loadContentWidgets().then(m => m.ContentTextCenterComponent),
 
   'github-star': () => loadUtilityWidgets().then(m => m.GithubStarComponent),
-  'custom-theme': () => loadUtilityWidgets().then(m => m.CustomThemeComponent),
+  'custom-theme': () =>
+    import('@uiux/widgets/custom-theme/custom-theme.component').then(m => m.CustomThemeComponent),
   'progress-bar': () => loadUtilityWidgets().then(m => m.ProgressBarComponent),
   'dynamic-table': () => loadUtilityWidgets().then(m => m.DynamicTableComponent),
   'dropdown-menu': () => loadUtilityWidgets().then(m => m.DropdownMenuComponent),
