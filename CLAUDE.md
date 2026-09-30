@@ -21,6 +21,8 @@ The Drupal backends are sibling directories of this repo (not inside it); check 
 
 - `../xinshi-docs/stories/` is the single maintenance location for feature, architecture, API, operations, and WBS documentation. See the [documentation index](../xinshi-docs/stories/develop/documentation.mdx). Keep the relevant MDX in sync when behavior changes; this application retains only `docs/README.md` and source entry points, not duplicate specifications. Doc-only changes to xinshi-docs require only MDX edits — no build or test run is needed.
 
+- When work involves architecture or complex process logic, you may add architecture diagrams or flowcharts to the corresponding documentation in `../xinshi-docs/stories/` when they help clarify component relationships or process steps.
+
 ## Branches & Deployments
 
 - **`master` is the open-source base branch and the single source of truth.** Downstream deployment branches build on it: they merge `master` in, never the other way. Anything that is not part of the base product stays out of `master`.
