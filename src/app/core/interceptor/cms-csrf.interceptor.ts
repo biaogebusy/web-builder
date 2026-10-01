@@ -15,7 +15,7 @@ const PAGE_WRITE_PATHS = [
   /^\/api\/v3\/node\/translations\/add\//,
 ];
 
-/** Pair a browser write with a token from the same CMS session. */
+/** Use Bearer without implicit cookies, or pair session writes with a CSRF token. */
 export const cmsCsrfInterceptor: HttpInterceptorFn = (req, next) => {
   if (
     !isPlatformBrowser(inject(PLATFORM_ID)) ||
@@ -46,6 +46,16 @@ export const cmsCsrfInterceptor: HttpInterceptorFn = (req, next) => {
     .replace(/^\/[a-z][a-z0-9-]*\/(?=api\/v3\/)/i, '/');
   if (![...PAGE_WRITE_PATHS, ...additionalPaths].some(pattern => pattern.test(path))) {
     return next(req);
+  }
+
+  // Bearer writes do not need a Drupal session. Omit implicit cookies at the
+  // browser so this also works without a proxy stripping them. Explicit cookie
+  // credentials and caller-supplied CSRF tokens retain their session behavior.
+  if (
+    /^Bearer\s+\S+$/i.test(req.headers.get('Authorization') ?? '') &&
+    !req.withCredentials && req.credentials === undefined
+  ) {
+    return next(req.clone({ credentials: 'omit' }));
   }
 
   // Match FetchBackend's credentials precedence. Pure cross-origin Bearer
