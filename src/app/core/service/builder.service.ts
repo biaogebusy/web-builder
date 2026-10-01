@@ -1,4 +1,5 @@
 import { DestroyRef, Injectable, inject } from '@angular/core';
+import { HttpErrorResponse, type HttpHeaders } from '@angular/common/http';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ApiService } from './api.service';
 import type { IPage } from '@core/interface/IAppConfig';
@@ -30,6 +31,12 @@ import { TranslateService } from '@ngx-translate/core';
 const BUILDERPATH = '/builder';
 const VERSION_KEY = 'version';
 const VERSION_CHECK_INTERVAL = 30000;
+interface PageCreateResponse {
+  status: boolean;
+  message?: string;
+  code?: string;
+  data?: { nid: string | number; url?: string };
+}
 // Landing page read/write APIs: paths are identical across deployments; the domain is
 // decided by apiUrl (see environments / config/proxy.config.js)
 const LANDING_PAGE_API = {
@@ -274,6 +281,9 @@ export class BuilderService extends ApiService {
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe((res: any) => {
+        if (res === false) {
+          return;
+        }
         if (!res?.status) {
           this.builder.loading.set(false);
           this.util.openSnackbar(
@@ -334,7 +344,7 @@ export class BuilderService extends ApiService {
     const { langcode, nid } = page;
     return this.updateLandingPage({ ...editedPage, langcode, nid }, false).pipe(
       catchError(() => {
-        // A rejected save is reported by updateLandingPage; a failed request never gets there
+        // Keep a fallback for unexpected errors outside the HTTP save handler.
         this.util.openSnackbar('更新失败，请重试', 'ok');
         return of({ status: false });
       }),
@@ -489,33 +499,58 @@ export class BuilderService extends ApiService {
       });
   }
 
-  createLandingPage(page: IPage, loadPage = true): Observable<any> {
+  /** Creates a page, preserving the local draft and showing one toast on failure. */
+  createLandingPage(page: IPage, loadPage = true): Observable<PageCreateResponse | false> {
     this.builder.loading.set(true);
+    const options: { headers: HttpHeaders } = this.optionsWithBearerToken();
     return this.http
-      .post(
+      .post<PageCreateResponse>(
         `${this.apiUrl}${LANDING_PAGE_API.create}`,
         formatPage(page),
-        this.optionsWithBearerToken()
+        options
       )
       .pipe(
-        tap((res: any) => {
-          const {
-            data: { nid },
-          } = res;
+        map(res => {
+          if (res?.status !== true || !res.data?.nid) {
+            this.builder.loading.set(false);
+            this.util.openSnackbar(this.pageWriteErrorMessage(res), 'ok', { duration: 6000 });
+            return false as const;
+          }
+          const { nid } = res.data;
           if (loadPage) {
-            this.loadPage({ nid }, true);
+            this.loadPage({ nid: String(nid) }, true);
           }
+          return res;
         }),
-        catchError((error: any) => {
+        catchError((error: HttpErrorResponse) => {
           this.builder.loading.set(false);
-          if (error?.status === 403) {
-            this.util.openSnackbar('无权限执行此操作', 'ok');
-          } else {
-            this.util.openSnackbar('创建页面失败，请重试', 'ok');
-          }
-          return of(false);
+          this.util.openSnackbar(this.pageWriteErrorMessage(error.error, error.status), 'ok', {
+            duration: 6000,
+          });
+          return of(false as const);
         })
       );
+  }
+
+  private pageWriteErrorMessage(payload: unknown, status?: number, action: 'create' | 'update' = 'create'): string {
+    if (
+      payload && typeof payload === 'object' && 'message' in payload &&
+      typeof payload.message === 'string' && payload.message.trim()
+    ) {
+      return payload.message;
+    }
+    switch (status) {
+      case 0:
+        return '网络连接失败，请检查网络并确认页面是否已保存';
+      case 401:
+        return '登录已失效，请重新登录后保存页面';
+      case 403:
+        return action === 'create'
+          ? '没有创建页面或组件的权限，请联系管理员检查权限'
+          : '没有更新页面或组件的权限，请联系管理员检查权限';
+      default:
+        return action === 'create' ? '创建页面失败，请重试' : '更新失败，请重试';
+    }
   }
 
   updateLandingPage(page: IPage, loadPage = true): Observable<any> {
@@ -534,7 +569,7 @@ export class BuilderService extends ApiService {
         this.optionsWithBearerToken()
       )
       .pipe(
-        tap((res: any) => {
+        map((res: any) => {
           const { status } = res;
           if (status) {
             if (loadPage && langcode && nid) {
@@ -547,8 +582,16 @@ export class BuilderService extends ApiService {
               );
             }
           } else {
-            this.util.openSnackbar('保存失败，请重试', 'ok');
+            this.builder.loading.set(false);
+            this.util.openSnackbar(this.pageWriteErrorMessage(res, undefined, 'update'), 'ok', { duration: 6000 });
+            return false;
           }
+          return res;
+        }),
+        catchError((error: HttpErrorResponse) => {
+          this.builder.loading.set(false);
+          this.util.openSnackbar(this.pageWriteErrorMessage(error.error, error.status, 'update'), 'ok', { duration: 6000 });
+          return of(false);
         })
       );
   }

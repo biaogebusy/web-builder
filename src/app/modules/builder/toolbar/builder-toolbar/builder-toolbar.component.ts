@@ -213,8 +213,11 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
           .updateLandingPage(submittedPage, false)
           .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe(res => {
-            const { status, message } = res;
             this.builder.loading.set(false);
+            if (res === false) {
+              return;
+            }
+            const { status, message } = res;
             if (status) {
               // Keep the local record on success: mark it as synced and load the latest server version in place
               this.builder.markPageSynced(submittedPage);
@@ -243,12 +246,16 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
               takeUntilDestroyed(this.destroyRef),
               catchError(() => {
                 this.builder.loading.set(false);
-                return of({ status: false });
+                return of({ status: false, message: '', data: undefined });
               })
             )
             .subscribe(res => {
-              const { status, message } = res;
               this.builder.loading.set(false);
+              // The service already showed the failure reason; do not replace it.
+              if (res === false) {
+                return;
+              }
+              const { status, message } = res;
               if (status) {
                 // Keep the local record on success: attach the server nid and reload, promoting the draft in place
                 const nid = res?.data?.nid;
@@ -256,7 +263,9 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
                   this.builder.markPageSynced(submittedPage, { nid: String(nid) });
                   this.builderService.loadPage({ nid: String(nid) }, true);
                 }
-                this.util.openSnackbar(message, 'ok');
+                if (message) {
+                  this.util.openSnackbar(message, 'ok');
+                }
                 this.builder.updateSuccess$.next(true);
               } else {
                 this.util.openSnackbar(this.translate.instant('BUILDER.TOOLBAR.CREATE_FAILED'), 'ok');
