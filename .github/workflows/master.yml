@@ -7,6 +7,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      NODE_OPTIONS: --max-old-space-size=6144
+      NG_BUILD_MAX_WORKERS: "2"
     defaults:
       run:
         working-directory: ./
