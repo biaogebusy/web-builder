@@ -1,6 +1,6 @@
 {
   "APP": {
-    "LOADING": "加载中..."
+    "LOADING": "加载中……"
   },
   "USER": {
     "PAGE_TITLE": "个人中心",
@@ -38,13 +38,13 @@
       "UPDATE_FAILED": "更新失败：{{reason}}",
       "ERROR_NETWORK": "网络异常，请稍后重试",
       "AVATAR_FORMAT_INVALID": "请检查图片格式",
-      "AVATAR_TOO_LARGE": "图片大小不能超过5M",
+      "AVATAR_TOO_LARGE": "图片大小不能超过 5M",
       "AVATAR_UPLOAD_SUCCESS": "头像上传成功",
       "AVATAR_UPLOAD_FAILED": "头像上传失败"
     }
   },
   "LOGIN": {
-    "CALLBACK_TITLE": "登录中…",
+    "CALLBACK_TITLE": "登录中……",
     "WELCOME_TEXT": "欢迎。",
     "PHONE_TAB": "手机登录",
     "PHONE_PLACEHOLDER": "请输入手机号码",
@@ -82,7 +82,7 @@
   },
   "CALLBACK": {
     "TITLE_LOADING": "正在登录",
-    "MESSAGE_LOADING": "正在与认证服务交换登录凭据…",
+    "MESSAGE_LOADING": "正在与认证服务交换登录凭据……",
     "TITLE_ERROR": "登录未完成",
     "RETRY": "重新登录",
     "BACK_TO_LOGIN": "返回登录页",
@@ -102,9 +102,9 @@
       "SELECT": "选择",
       "BULK_DELETE": "批量删除（{{count}}）",
       "EMPTY_TITLE": "未找到相关媒体",
-      "EMPTY_DESC_KEYWORD": "没有与「{{name}}」匹配的内容，换个关键词试试",
+      "EMPTY_DESC_KEYWORD": "没有与“{{name}}”匹配的内容，换个关键词试试",
       "EMPTY_DESC": "当前没有任何媒体资源",
-      "MISSING_UUID": "是否忘记了配置UUID？",
+      "MISSING_UUID": "是否忘记了配置 UUID？",
       "ALL_DELETED": "已全部删除",
       "PATH_COPIED": "图片路径已复制",
       "RENAME": "重命名",
@@ -148,7 +148,7 @@
       "SUBMIT_TRANSLATION": "提交翻译",
       "SUBMIT_UPDATE": "提交更新",
       "SUBMIT_DRAFT": "提交草稿",
-      "DRAFT_BADGE_TIP": "当前页面尚未发布,处于草稿状态,点击右侧按钮可发布",
+      "DRAFT_BADGE_TIP": "当前页面尚未发布，处于草稿状态，点击右侧按钮可发布",
       "SELECT_TEMPLATE": "选择模板创建页面",
       "TRANSLATE_SUCCESS": "翻译{{target}}成功",
       "TRANSLATE_FAIL": "提交{{target}}翻译失败，请重试",
@@ -171,11 +171,11 @@
       "EMPTY_PAGE": "当前页面没有内容，请先拖动组件到编辑区创作"
     },
     "LAYOUT_SETTING": {
-      "APPLY_AOS_ALL": "一键应用该AOS动画",
+      "APPLY_AOS_ALL": "一键应用该 AOS 动画",
       "CHILDREN": "子项",
       "EDIT_TEMPLATE": "编辑自定义模板",
       "APPLY_ALL_TITLE": "一键应用动画",
-      "APPLY_ALL_BODY": "将会把当前AOS的动画配置应用到页面最外层的所有一级组件，已有动画会被覆盖。"
+      "APPLY_ALL_BODY": "将会把当前 AOS 的动画配置应用到页面最外层的所有一级组件，已有动画会被覆盖。"
     },
     "SIDEBAR": {
       "MEDIA_LIBRARY": "媒体库",
@@ -189,13 +189,13 @@
       "PAGE_TITLE": "应用全局配置管理",
       "REFRESH": "刷新",
       "NEW_CONFIG": "新建配置",
-      "CHECK_API": "请检查API是否已配置！"
+      "CHECK_API": "请检查 API 是否已配置！"
     },
     "UIUX": {
       "PAGE_TITLE": "页面编辑工作区"
     },
     "PANEL": {
-      "LOCKED_TIP": "已锁定预览，可查看复制组件JSON",
+      "LOCKED_TIP": "已锁定预览，可查看复制组件 JSON",
       "ADD_TO_EDITOR": "添加到编辑区"
     },
     "PAGE_LIST": {
@@ -232,7 +232,7 @@
       "OPEN_DRAFT_SERVER": "放弃修改并载入",
       "COPY_PAGE": "复制页面",
       "EDIT_LANG": "编辑{{label}}",
-      "PAGE_JSON": "页面JSON",
+      "PAGE_JSON": "页面 JSON",
       "PAGE_REVISIONS": "历史版本",
       "PAGE_PROPS": "页面属性",
       "OPEN_PAGE_PROPS_CONFIRM": "是否需要打开页面属性面板？",
@@ -293,7 +293,7 @@
       "COPY_JSON": "复制 JSON",
       "VIEW_JSON": "查看 JSON",
       "INSERT": "插入组件到编辑区",
-      "COPIED": "已复制{{type}}的JSON！",
+      "COPIED": "已复制{{type}}的 JSON！",
       "UPDATE_WIDGET": "更新组件",
       "DELETE_TITLE": "删除组件",
       "DELETE_BODY": "确定要删除 <strong>{{type}}</strong> 组件吗？此操作不可恢复。",
@@ -324,7 +324,7 @@
       "CUSTOM_WIDGET": "Tailwind 自定义组件",
       "VIEW_SYNTAX": "查看语法",
       "SYNTAX_GUIDE": "语法指南",
-      "API_REQUIRED": "数据来源API，请填写API地址",
+      "API_REQUIRED": "数据来源 API，请填写 API 地址",
       "JS_TAB": "JS 逻辑",
       "JS_TIP": "仅管理员可编辑。脚本在页面渲染后执行，可使用 root（组件根元素）与 data（模板数据），return 一个函数可在重渲染或销毁时清理。"
     },
@@ -352,7 +352,7 @@
       "HELP_DOCS": "文档",
       "SELECT_POSITION_FIRST": "请先在画布上选择插入位置",
       "WEBFORM_GROUP": "后台表单",
-      "WEBFORM_LOADING": "正在加载表单列表…",
+      "WEBFORM_LOADING": "正在加载表单列表……",
       "WEBFORM_LOAD_FAILED": "加载表单列表失败",
       "WEBFORM_RETRY": "重试",
       "WEBFORM_EMPTY": "后台暂无可用表单",
@@ -376,12 +376,12 @@
       "UPDATE_TIME": "更新时间",
       "LANGUAGE": "语言",
       "CONTENT_TYPE": "内容类型",
-      "URL_ALIAS": "url别名",
+      "URL_ALIAS": "url 别名",
       "PAGE_DESC": "页面描述",
       "BASIC": "基础配置",
       "SEO": "SEO 设置",
       "SEO_TITLE": "SEO 标题",
-      "SEO_TITLE_PLACEHOLDER": "留空时使用「页面标题 | 站点名称」",
+      "SEO_TITLE_PLACEHOLDER": "留空时使用“页面标题 | 站点名称”",
       "SEO_DESC_PLACEHOLDER": "建议 80-160 个字符，会显示在搜索结果摘要里",
       "SEO_KEYWORDS": "关键词",
       "SEO_KEYWORDS_PLACEHOLDER": "多个关键词用英文逗号分隔",
@@ -390,7 +390,7 @@
       "SEO_ROBOTS_INDEX": "允许收录（index, follow）",
       "SEO_ROBOTS_NOINDEX": "禁止收录（noindex, nofollow）",
       "UPDATE": "更新",
-      "EDIT_JSON": "编辑JSON",
+      "EDIT_JSON": "编辑 JSON",
       "PREVIEW": "预览",
       "ALIAS_FAIL": "更新别名失败，请联系管理员！",
       "ALIAS_SYNC_PARTIAL_FAIL": "部分语言的 URL 别名同步失败，请手动检查",
@@ -415,19 +415,19 @@
       "TITLE": "配置检测清单",
       "CHECKLIST": "检查清单",
       "START_CHECK": "开始检测",
-      "RESPONSE_TIME": "响应时间:",
-      "ERROR_PREFIX": "错误:",
+      "RESPONSE_TIME": "响应时间：",
+      "ERROR_PREFIX": "错误：",
       "UNKNOWN_ERROR": "未知错误"
     },
     "API_CHECK_LIST": {
-      "SEARCH": "通用搜索API",
+      "SEARCH": "通用搜索 API",
       "SEARCH_DESC": "用于搜索等组件",
       "PAGE_LIST": "Page 管理列表",
       "PAGE_LIST_DESC": "页面管理列表",
       "GLOBAL_CONFIG": "全局配置",
       "GLOBAL_CONFIG_DESC": "应用全局配置",
       "HEADER_FOOTER": "页头页脚",
-      "HEADER_FOOTER_DESC": "站点Header、Footer 配置",
+      "HEADER_FOOTER_DESC": "站点 Header、Footer 配置",
       "BUILDER_CONFIG": "Builder 配置",
       "BUILDER_CONFIG_DESC": "Builder 主菜单，引导等配置",
       "MINI_CONFIG": "小程序全局配置",
@@ -449,17 +449,17 @@
       "MEDIA": "媒体库",
       "MEDIA_DESC": "媒体库列表",
       "URL_ALIAS": "url 别名",
-      "URL_ALIAS_DESC": "页面 url 别名API",
+      "URL_ALIAS_DESC": "页面 url 别名 API",
       "UPLOAD": "上传图片",
       "UPLOAD_DESC": "媒体库和图片组件上传图片",
       "COMMENTS": "评论列表",
-      "COMMENTS_DESC": "评论列表API"
+      "COMMENTS_DESC": "评论列表 API"
     },
     "EDIT_BRANDING": {
       "HEADER_TITLE": "编辑页头",
       "FOOTER_TITLE": "编辑页脚",
       "UNSAVED": "未保存",
-      "SAVING": "保存中...",
+      "SAVING": "保存中……",
       "SAVE_CHANGES": "保存更改",
       "PARAMS_SECTION": "参数设置",
       "BRAND_SECTION": "品牌信息",
@@ -489,7 +489,7 @@
       "NAME": "名称",
       "LINK": "链接",
       "LINK_HREF": "链接地址",
-      "DELETED_TOAST": "已删除「{{label}}」",
+      "DELETED_TOAST": "已删除“{{label}}”",
       "UNDO": "撤销",
       "NEW_GROUP": "新分组",
       "NEW_LINK": "新链接",
@@ -639,7 +639,7 @@
       "TERM_EMPTY": "暂无选项，输入名称即可新建",
       "TERM_CREATE": "新建“{{name}}”",
       "TERM_CREATE_FAILED": "新建“{{name}}”失败：{{message}}",
-      "SAVING": "保存中...",
+      "SAVING": "保存中……",
       "DELETE": "删除",
       "DELETE_TITLE": "删除内容",
       "DELETE_BODY": "确定要删除该内容吗？删除后不可恢复。",
@@ -714,7 +714,7 @@
       "NO_MATCHES": "未找到匹配的组件",
       "EMPTY": "还没有组件",
       "EMPTY_HINT": "新增的组件会出现在编辑器的组件面板里。",
-      "BUSY": "正在处理…",
+      "BUSY": "正在处理……",
       "EDIT_TITLE": "编辑组件",
       "DELETE_TITLE": "删除组件",
       "DELETE_BODY": "确定要删除 <strong>{{label}}</strong> 吗？",
@@ -757,7 +757,7 @@
       "PLACEHOLDER": "请输入正文内容",
       "ACTIVATE": "打开富文本编辑器",
       "IMAGE_LOGIN_REQUIRED": "请登录后上传图片！",
-      "IMAGE_UPLOADING": "图片上传中…",
+      "IMAGE_UPLOADING": "图片上传中……",
       "IMAGE_UPLOAD_FAILED": "图片上传失败，请重试。",
       "LOAD_FAILED": "富文本编辑器加载失败，请重试。",
       "RETRY": "重试"
@@ -1145,7 +1145,7 @@
       "RIGHT_SIDE": "右侧",
       "COLS_PER_ROW": "每行列数",
       "PILL_STYLE": "胶囊样式",
-      "CONTAINER_CLASS": "容器Class",
+      "CONTAINER_CLASS": "容器 Class",
       "TEXT_LABEL": "文本",
       "THEME_CLASS": "主题 class",
       "MINI_FAB": "mini-fab",
@@ -1377,7 +1377,7 @@
       "SCALE_Y": "垂直缩放",
       "OPACITY_LABEL": "不透明度",
       "DELAY_LABEL": "延迟",
-      "DURATION_SEC": "时长(秒)",
+      "DURATION_SEC": "时长（秒）",
       "EASING_CURVE": "缓动曲线",
       "GSAP_ON_ENTER": "元素从底部进入",
       "GSAP_ON_LEAVE": "元素从顶部离开",
@@ -1411,7 +1411,7 @@
       "ACTION_CLASSES": "按钮容器 class",
       "FORM_CLASSES": "表单容器 class",
       "SYNC_WEBFORM_FIELDS": "从 CMS 刷新字段",
-      "SYNC_WEBFORM_LOADING": "同步中…",
+      "SYNC_WEBFORM_LOADING": "同步中……",
       "SYNC_WEBFORM_FAILED": "同步字段失败，请稍后重试",
       "SYNC_WEBFORM_NO_ID": "Webform ID 为空，无法同步"
     }
