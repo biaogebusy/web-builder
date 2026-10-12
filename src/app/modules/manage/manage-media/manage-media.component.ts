@@ -2,6 +2,8 @@ import { MatPaginatorIntlCro } from '@core/service/paginator.service';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import {
   Component,
+  computed,
+  ElementRef,
   OnInit,
   effect,
   inject,
@@ -11,15 +13,16 @@ import {
   ChangeDetectionStrategy,
   input,
   viewChild,
+  untracked,
 } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatSliderModule } from '@angular/material/slider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ScreenService } from '@core/service/screen.service';
 import { Observable, from, of } from 'rxjs';
+import { isEqual } from 'lodash-es';
 import { BUILDER_CONFIG, MEDIA_ASSETS } from '@core/token/token-providers';
 import type { IManageAssets, IManageImg, IManageMedia } from '@core/interface/manage/IManage';
 import { ContentState } from '@core/state/ContentState';
@@ -40,7 +43,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { IBuilderConfig } from '@core/interface/IBuilder';
+import type { IBuilderManageMedia } from '@core/interface/IBuilder';
 import { IDialog } from '@core/interface/IDialog';
 import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 import { FormlyComponent } from '@uiux/combs/form/formly/formly.component';
@@ -59,7 +62,6 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     NgOptimizedImage,
     FormsModule,
     ReactiveFormsModule,
-    MatSliderModule,
     MatCheckboxModule,
     MatProgressBarModule,
     MatPaginatorModule,
@@ -81,9 +83,26 @@ export class ManageMediaComponent implements OnInit {
     page: new FormControl(0),
   });
   public fields = signal<FormlyFieldConfig[]>([]);
-  public manageMediaConfig = signal<any>({});
+  public manageMediaConfig = signal<Partial<IBuilderManageMedia>>({ row: 2 });
   public model: any = {};
   public loading = signal<boolean>(false);
+  /** Keep loaded pages visible while the next page is being fetched. */
+  readonly visibleAssets = signal<IManageAssets | undefined>(undefined);
+  /** Retain numbered pagination as an explicit site configuration. */
+  readonly infiniteScroll = computed(() => this.manageMediaConfig().pagination !== 'paged');
+  /** Failed requests wait for an explicit retry rather than a scrolling loop. */
+  readonly loadError = signal(false);
+  private lastPageEmpty = signal(false);
+  readonly hasMore = computed(() => {
+    const assets = this.visibleAssets();
+    return !!assets && !this.lastPageEmpty() &&
+      assets.pager.currentPage + 1 < assets.pager.totalPages;
+  });
+  private searchFilters: Record<string, unknown> = {};
+  private requestedPage = 0;
+  private requestPending = false;
+  private readonly scrollViewport = viewChild<ElementRef<HTMLElement>>('scrollViewport');
+  private readonly loadMoreTrigger = viewChild<ElementRef<HTMLElement>>('loadMoreTrigger');
   private selectedId: string;
   public deletedLists: string[] = [];
   public progress = 0;
@@ -103,11 +122,11 @@ export class ManageMediaComponent implements OnInit {
     {
       type: 'input',
       key: 'name',
-      className: 'm-bottom-sm',
+      className: 'media-search-field',
       props: {
-        type: 'string',
-        appearance: 'fill',
-        label: this.translate.instant('MANAGE.MEDIA.SEARCH_PLACEHOLDER'),
+        type: 'search',
+        label: this.translate.instant('MANAGE.MEDIA.SEARCH_LABEL'),
+        placeholder: this.translate.instant('MANAGE.MEDIA.SEARCH_PLACEHOLDER'),
       },
       modelOptions: {
         updateOn: 'blur',
@@ -117,43 +136,143 @@ export class ManageMediaComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.loading.set(true);
-      effect(() => {
-        const config = this.builderConfig();
-        if (config) {
-          this.manageMediaConfig.set(config.manageMedia);
-          this.fields.set([...this.defaultField, ...config.manageMedia.sidebar.form]);
-        }
-      }, { injector: this.injector });
+      effect(
+        () => {
+          const config = this.builderConfig();
+          if (config) {
+            this.manageMediaConfig.set(config.manageMedia);
+            this.fields.set([
+              ...this.defaultField,
+              ...config.manageMedia.sidebar.form.map(field => ({
+                ...field,
+                props: {
+                  ...field.props,
+                  placeholder: field.props?.placeholder || field.props?.label,
+                },
+              })),
+            ]);
+          }
+        },
+        { injector: this.injector }
+      );
       this.onSearch({});
       this.form.valueChanges
-        .pipe(takeUntilDestroyed(this.destroyRef), debounceTime(1000), distinctUntilChanged())
+        .pipe(
+          takeUntilDestroyed(this.destroyRef),
+          debounceTime(1000),
+          distinctUntilChanged(isEqual)
+        )
         .subscribe(value => {
-          this.onSearch(value);
+          if (!isEqual({ ...value, page: 0 }, this.searchFilters)) {
+            this.onSearch(value);
+          }
         });
 
-      effect(() => {
-        this.mediaAssets();
-        this.loading.set(false);
+      effect(
+        () => {
+          const assets = this.mediaAssets();
+          untracked(() => this.receiveAssets(assets));
+        },
+        { injector: this.injector }
+      );
+
+      effect(onCleanup => {
+        const viewport = this.scrollViewport()?.nativeElement;
+        const trigger = this.loadMoreTrigger()?.nativeElement;
+        if (!viewport || !trigger || !this.infiniteScroll() || !this.hasMore() ||
+          this.loading() || this.loadError() || typeof IntersectionObserver === 'undefined') {
+          return;
+        }
+        const observer = new IntersectionObserver(entries => {
+          if (entries.some(entry => entry.isIntersecting)) {
+            this.loadMore();
+          }
+        }, { root: viewport, rootMargin: '160px 0px' });
+        observer.observe(trigger);
+        onCleanup(() => observer.disconnect());
       }, { injector: this.injector });
     }
   }
 
+  /** Navigate within the media panel when numbered pagination is enabled. */
   onPageChange(page: PageEvent): void {
-    this.screenService.gotoTop();
-    this.loading.set(true);
-    this.form.get('page')?.patchValue(page.pageIndex);
+    this.resetScroll();
+    this.requestPage(page.pageIndex);
   }
 
-  onSearch(value: any): void {
-    this.loading.set(true);
-    this.contentState.mediaAssetsFormChange$.next(value);
+  /** Restart the media collection after a filter change or a media mutation. */
+  onSearch(value: Record<string, unknown> = {}): void {
+    this.searchFilters = { ...value, page: 0 };
+    this.visibleAssets.set(undefined);
+    this.lastPageEmpty.set(false);
+    this.deletedLists = [];
+    this.resetScroll();
+    this.requestPage(0);
   }
 
+  /** Commit blur-based form controls before immediately submitting the search. */
   onEnter(event: Event): void {
     event.preventDefault();
     (event.target as HTMLElement)?.blur();
     this.onSearch(this.form.value);
+  }
+
+  /** Fetch at most one additional page without replacing the visible collection. */
+  loadMore(): void {
+    const assets = this.visibleAssets();
+    if (
+      !assets || !this.infiniteScroll() || !this.hasMore() || this.loading() || this.loadError()
+    ) {
+      return;
+    }
+    this.requestPage(assets.pager.currentPage + 1);
+  }
+
+  /** Retry the failed page with the same submitted filters. */
+  retryLoad(): void {
+    if (!this.loading()) {
+      this.requestPage(this.requestedPage);
+    }
+  }
+
+  private requestPage(page: number): void {
+    this.requestedPage = page;
+    this.requestPending = true;
+    this.loadError.set(false);
+    this.loading.set(true);
+    this.form.get('page')?.setValue(page, { emitEvent: false });
+    this.contentState.mediaAssetsFormChange$.next({ ...this.searchFilters, page });
+  }
+
+  private receiveAssets(assets: IManageAssets | boolean): void {
+    if (!this.requestPending || assets === true) {
+      return;
+    }
+    this.requestPending = false;
+    this.loading.set(false);
+    if (!assets || assets.pager.currentPage !== this.requestedPage) {
+      this.loadError.set(true);
+      return;
+    }
+
+    const previous = this.visibleAssets();
+    let rows = assets.rows;
+    if (this.infiniteScroll() && this.requestedPage > 0 && previous) {
+      const merged = new Map(previous.rows.map(item => [item.uuid || item.id, item]));
+      for (const item of rows) {
+        merged.set(item.uuid || item.id, item);
+      }
+      rows = [...merged.values()];
+    }
+    this.lastPageEmpty.set(assets.rows.length === 0);
+    this.visibleAssets.set({ ...assets, rows });
+  }
+
+  private resetScroll(): void {
+    const viewport = this.scrollViewport()?.nativeElement;
+    if (viewport) {
+      viewport.scrollTop = 0;
+    }
   }
 
   onDelete(uuid: string): void {

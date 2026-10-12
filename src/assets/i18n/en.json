@@ -95,7 +95,16 @@
   },
   "MANAGE": {
     "MEDIA": {
-      "SEARCH_PLACEHOLDER": "Enter a keyword",
+      "FILTERS": "Filter media",
+      "SEARCH_LABEL": "Search media",
+      "SEARCH_PLACEHOLDER": "Search media by name…",
+      "THUMBNAIL_SIZE": "Thumbnail size",
+      "RESULTS": "Media results",
+      "LOADING": "Loading…",
+      "LOAD_MORE": "Load more",
+      "LOADED_COUNT": "Showing {{count}} of {{total}} items",
+      "LOAD_FAILED": "Could not load media. Please try again.",
+      "RETRY": "Retry",
       "UPLOAD": "Upload media",
       "DELETE": "Delete",
       "COPY_PATH": "Copy path",

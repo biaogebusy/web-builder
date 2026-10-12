@@ -1,7 +1,7 @@
 import { NavigationEnd, Router } from '@angular/router';
 import { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { ContentService } from '@core/service/content.service';
-import { Observable, firstValueFrom, forkJoin, from, interval } from 'rxjs';
+import { Observable, firstValueFrom, forkJoin, from, interval, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ContentState } from '@core/state/ContentState';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -10,6 +10,7 @@ import { UserService } from '@core/service/user.service';
 import { IUser } from '@core/interface/IUser';
 import { INotify } from '@core/interface/widgets/IWidgets';
 import {
+  catchError,
   distinctUntilChanged,
   filter,
   map,
@@ -258,6 +259,7 @@ export function userFactory(): WritableSignal<IUser | boolean> {
   return user;
 }
 
+/** Load the latest media page; true indicates loading and false an absent or failed result. */
 export function mediaAssetsFactory(): WritableSignal<IManageAssets | boolean> {
   const api = '/api/v2/media';
   const nodeService = inject(NodeService);
@@ -271,16 +273,14 @@ export function mediaAssetsFactory(): WritableSignal<IManageAssets | boolean> {
   if (cookieService.check(key)) {
     noCache = true;
   }
-  // on form search change
   contentState.mediaAssetsFormChange$
-    .pipe(takeUntilDestroyed(destroyRef))
-    .subscribe((value: any) => {
-      const params = nodeService.getApiParams({ ...value, noCache });
-      nodeService
-        .fetch(api, params)
-        .pipe(take(1))
-        .subscribe(res => {
-          assets.set({
+    .pipe(
+      switchMap(value => {
+        assets.set(true);
+        const params = nodeService.getApiParams({ ...value, noCache });
+        return nodeService.fetch(api, params).pipe(
+          take(1),
+          map(res => ({
             rows: res.rows.map((item: any) => {
               const type = getFileType(item.source);
               return {
@@ -290,9 +290,13 @@ export function mediaAssetsFactory(): WritableSignal<IManageAssets | boolean> {
               };
             }),
             pager: nodeService.handlePager(res.pager, res.rows.length),
-          });
-        });
-    });
+          })),
+          catchError(() => of(false))
+        );
+      }),
+      takeUntilDestroyed(destroyRef)
+    )
+    .subscribe(result => assets.set(result));
 
   return assets;
 }

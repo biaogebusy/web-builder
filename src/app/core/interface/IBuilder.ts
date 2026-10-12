@@ -32,6 +32,8 @@ export interface IBuilderConfig {
 
 export interface IBuilderManageMedia {
   row: number;
+  /** Media navigation defaults to infinite scrolling when omitted. */
+  pagination?: 'infinite' | 'paged';
   sidebar: {
     title: ITitle;
     form: FormlyFieldConfig[];

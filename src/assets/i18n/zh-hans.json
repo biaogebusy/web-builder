@@ -95,7 +95,16 @@
   },
   "MANAGE": {
     "MEDIA": {
-      "SEARCH_PLACEHOLDER": "请输入关键词",
+      "FILTERS": "筛选媒体",
+      "SEARCH_LABEL": "搜索媒体",
+      "SEARCH_PLACEHOLDER": "搜索媒体名称…",
+      "THUMBNAIL_SIZE": "缩略图大小",
+      "RESULTS": "媒体列表",
+      "LOADING": "加载中…",
+      "LOAD_MORE": "加载更多",
+      "LOADED_COUNT": "已显示 {{count}} / {{total}} 项",
+      "LOAD_FAILED": "媒体加载失败，请重试",
+      "RETRY": "重试",
       "UPLOAD": "上传媒体",
       "DELETE": "删除",
       "COPY_PATH": "复制路径",
