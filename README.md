@@ -286,4 +286,4 @@ node scripts/scan-content-classes.mjs --fix prod-content.txt.gz prod-blocks.txt.
 - 感谢 [LINUX DO](https://linux.do/) 的支持
 - 如果觉得这个项目对您有所助益，请帮忙点个 star
 
-[![Star History Chart](https://api.star-history.com/svg?repos=biaogebusy/web-builder&type=Date)](https://star-history.com/#biaogebusy/web-builder&Date)
+[![Star History Chart](https://star-history.dera.page/svg?repos=biaogebusy/web-builder&type=Date)](https://star-history.dera.page/#biaogebusy/web-builder&Date)
