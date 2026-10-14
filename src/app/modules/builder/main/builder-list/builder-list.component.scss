@@ -97,6 +97,11 @@
         z-index: 999;
       }
     }
+    &:focus-within {
+      ::ng-deep > app-dynamic-component > .component-toolbar {
+        display: block !important;
+      }
+    }
     ::ng-deep {
       [contenteditable='true'] {
         cursor: text;
@@ -107,7 +112,8 @@
         display: block;
         box-sizing: content-box;
         padding: 2px;
-        &:hover {
+        &:hover,
+        &:focus-within {
           z-index: 10;
           outline-offset: -2px;
           outline: 1px dashed var(--mat-sys-primary);

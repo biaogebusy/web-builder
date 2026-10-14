@@ -143,6 +143,8 @@
       "OK": "确定"
     },
     "LIST": {
+      "CANVAS_COMPONENT": "画布组件 {{index}}",
+      "NESTED_COMPONENT": "组件 {{type}}",
       "ADD_SECTION": "新增布局",
       "SELECT_WIDGET": "选择组件",
       "PASTE_WIDGET": "粘贴组件",
@@ -704,6 +706,9 @@
       "PAGE_TITLE": "组件管理",
       "SUMMARY": "共 {{components}} 个组件 · {{categories}} 个分类",
       "ADD": "新增组件",
+      "UPLOAD": "上传到组件库",
+      "UPLOADED": "已上传到组件库",
+      "NO_CATEGORIES": "暂无可用的组件分类，请先在后台添加分类",
       "SEARCH": "搜索组件名称或图标",
       "CLEAR_SEARCH": "清除搜索",
       "SELECT_ALL": "全选",

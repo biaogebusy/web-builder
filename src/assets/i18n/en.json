@@ -143,6 +143,8 @@
       "OK": "OK"
     },
     "LIST": {
+      "CANVAS_COMPONENT": "Canvas component {{index}}",
+      "NESTED_COMPONENT": "Component {{type}}",
       "ADD_SECTION": "Add layout",
       "SELECT_WIDGET": "Select component",
       "PASTE_WIDGET": "Paste component",
@@ -704,6 +706,9 @@
       "PAGE_TITLE": "Components",
       "SUMMARY": "{{components}} components · {{categories}} categories",
       "ADD": "Add component",
+      "UPLOAD": "Upload to component library",
+      "UPLOADED": "Uploaded to component library",
+      "NO_CATEGORIES": "No component categories available. Add categories in the CMS first.",
       "SEARCH": "Search by name or icon",
       "CLEAR_SEARCH": "Clear search",
       "SELECT_ALL": "Select all",

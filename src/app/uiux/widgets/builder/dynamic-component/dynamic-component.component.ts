@@ -11,6 +11,7 @@ import {
   Type,
   afterNextRender,
   afterRenderEffect,
+  computed,
   effect,
   forwardRef,
   inject,
@@ -18,6 +19,7 @@ import {
   reflectComponentType,
   signal,
 } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import type { IDynamicInputs } from '@core/interface/IAppConfig';
 import { ComponentService } from '@core/service/component.service';
 import { ScreenService } from '@core/service/screen.service';
@@ -67,7 +69,10 @@ export class DynamicOutletPropertiesDirective implements DoCheck {
     forwardRef(() => BgImgComponent),
   ],
   host: {
-    class: 'relative block',
+    'class': 'relative block',
+    '[attr.tabindex]': 'nestedInCanvas() ? 0 : null',
+    '[attr.role]': 'nestedInCanvas() ? "group" : null',
+    '[attr.aria-label]': 'nestedInCanvas() ? nestedLabel() : null',
   },
 })
 export class DynamicComponentComponent implements OnInit, OnDestroy {
@@ -75,12 +80,26 @@ export class DynamicComponentComponent implements OnInit, OnDestroy {
   readonly renderState = signal<DynamicRenderState | null>(null);
   readonly compContent = signal<IDynamicInputs>({});
   readonly showToolbar = signal(false);
+  /**
+   * The canvas group focus only reveals the toolbar of the top-level component,
+   * so deeper editable widgets become their own focus stop; focusing them fires
+   * the canvas `:focus-within` rules that reveal the toolbar (see builder-list SCSS).
+   */
+  readonly nestedInCanvas = signal(false);
+  readonly nestedLabel = computed(() => {
+    if (!this.nestedInCanvas()) {
+      return null;
+    }
+    const type = this.compContent().type;
+    return type ? this.translate.instant('BUILDER.LIST.NESTED_COMPONENT', { type }) : null;
+  });
 
   private readonly ele = inject(ElementRef<HTMLElement>);
   private readonly util = inject(UtilitiesService);
   private readonly screenService = inject(ScreenService);
   private readonly componentService = inject(ComponentService);
   private readonly pendingTasks = inject(PendingTasks);
+  private readonly translate = inject(TranslateService);
 
   private initialized = false;
   private requestVersion = 0;
@@ -90,9 +109,14 @@ export class DynamicComponentComponent implements OnInit, OnDestroy {
 
   constructor() {
     afterNextRender(() => {
-      if (this.ele.nativeElement.closest('.component-item')) {
-        this.showToolbar.set(true);
+      const item = this.ele.nativeElement.closest('.component-item');
+      if (!item) {
+        return;
       }
+      this.showToolbar.set(true);
+      // The top-level component is a direct child of the canvas group, which
+      // already carries its focus target; anything deeper needs its own.
+      this.nestedInCanvas.set(this.ele.nativeElement.parentElement !== item);
     });
 
     afterRenderEffect(() => {
