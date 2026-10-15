@@ -8,6 +8,7 @@
   },
   "scripts": {
     "ng": "ng",
+    "theme:generate": "node scripts/generate-theme.mjs",
     "prestart": "node scripts/split-svg-icons.mjs",
     "start": "ng serve",
     "prebuild": "node scripts/split-svg-icons.mjs",
