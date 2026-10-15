@@ -10,21 +10,23 @@
       density: 0,
     )
   );
+  // Retain the Content palette from #2962ff, with Material 3 tone 90/30 accent containers
+  // so hover and focus state layers do not push container text below WCAG AA contrast.
   @include mat.theme-overrides(
     (
       primary: #0049db,
       surface-tint: rgb(0 78 232),
       on-primary: rgb(255 255 255),
-      primary-container: rgb(41 98 255),
-      on-primary-container: rgb(247 245 255),
+      primary-container: rgb(220 225 255),
+      on-primary-container: rgb(0 58 179),
       secondary: rgb(71 90 160),
       on-secondary: rgb(255 255 255),
-      secondary-container: rgb(159 179 255),
-      on-secondary-container: rgb(47 67 135),
+      secondary-container: rgb(220 225 255),
+      on-secondary-container: rgb(46 66 135),
       tertiary: rgb(145 26 175),
       on-tertiary: rgb(255 255 255),
-      tertiary-container: rgb(173 60 202),
-      on-tertiary-container: rgb(255 243 251),
+      tertiary-container: rgb(253 214 255),
+      on-tertiary-container: rgb(121 0 149),
       error: rgb(186 26 26),
       on-error: rgb(255 255 255),
       error-container: rgb(255 218 214),
