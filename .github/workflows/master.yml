@@ -45,10 +45,14 @@ jobs:
         run: npm run build
 
       - name: Deploy to Server
+        # P_ 过滤规则 (protect) 让旧哈希 chunk 不被 --delete 删除：浏览器缓存的
+        # 旧 SSR HTML 和已打开的标签页在部署后仍会请求旧文件，立即删除会导致
+        # 404 (Failed to fetch dynamically imported module)。孤儿文件由下方
+        # restart 后的 find 延迟清理。P_ 用下划线代替空格，避免 ARGS 拆分。
         uses: AEnterprise/rsync-deploy@v1.0.2
         env:
           DEPLOY_KEY: ${{ secrets.KEY }}
-          ARGS: -avz --delete --exclude=node_modules
+          ARGS: -avz --delete --exclude=node_modules --filter=P_/browser/chunk-* --filter=P_/browser/main-* --filter=P_/browser/styles-*
           SERVER_PORT: "22"
           FOLDER: "dist"
           SERVER_IP: ${{ secrets.HOST }}
@@ -63,4 +67,10 @@ jobs:
           key: ${{ secrets.KEY }}
           port: 22
           script_stop: true
-          script: docker restart base
+          # 清理超过 24h 的旧哈希文件 (chunk-* / main-* / styles-*，含 .gz/.br
+          # 预压缩变体)。24h 覆盖 nginx SSR 缓存 (5m) 与在线会话；更久的旧
+          # 标签页由应用层的 reload 兜底 (src/reload-on-chunk-failure.ts)。
+          script: |
+            docker restart base
+            find /mnt/wwwroot/app/base/browser -maxdepth 1 -type f \
+              \( -name 'chunk-*' -o -name 'main-*' -o -name 'styles-*' \) -mmin +1440 -delete
