@@ -89,6 +89,7 @@ async function colors(locator: Locator, pseudo?: string) {
       outside: background(element.parentElement),
       scheme: style.colorScheme,
       fill: rgba(style.backgroundColor),
+      opacity: Number(style.opacity),
       surface: rgba(style.getPropertyValue('--mat-sys-surface').trim()),
       onSurface: rgba(style.getPropertyValue('--mat-sys-on-surface').trim()),
       color: rgba(style.color),
@@ -131,6 +132,46 @@ async function expectAccessible(page: Page): Promise<void> {
   const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
     .analyze();
   expect(results.violations).toEqual([]);
+}
+
+for (const [name, selector, layerSelector, pseudo] of [
+  ['FAB', '.mat-mdc-fab', '.mat-mdc-fab .mat-mdc-button-persistent-ripple', '::before'],
+  [
+    'selected toggle',
+    '.mat-button-toggle-checked button',
+    '.mat-button-toggle-checked .mat-button-toggle-focus-overlay',
+    undefined,
+  ],
+] as const) {
+  test(`light container text remains readable during interaction: ${name}`, async ({ page }) => {
+    await openFixture(page);
+    const scope = page.locator('#root-scope');
+    const control = scope.locator(selector);
+    const layer = scope.locator(layerSelector);
+    const normal = await colors(control);
+    expect(contrast(normal.foreground, normal.background)).toBeGreaterThanOrEqual(4.5);
+
+    for (const state of ['hover', 'focus'] as const) {
+      if (state === 'hover') {
+        await control.hover();
+      } else {
+        await page.mouse.move(0, 0);
+        await control.focus();
+        await page.keyboard.press('Tab');
+        await page.keyboard.press('Shift+Tab');
+        await expect(control).toBeFocused();
+      }
+      await expect.poll(async () => (await colors(layer, pseudo)).opacity).toBeGreaterThan(0);
+      const color = await colors(control);
+      const overlay = await colors(layer, pseudo);
+      const alpha = overlay.fill[3] / 255 * overlay.opacity;
+      const background = color.background.map((channel, i) =>
+        overlay.fill[i] * alpha + channel * (1 - alpha));
+      expect(contrast(color.foreground, background), `${name} ${state}`)
+        .toBeGreaterThanOrEqual(4.5);
+    }
+    await expectAccessible(page);
+  });
 }
 
 for (const rootTheme of ['light-theme', 'dark-theme'] as const) {

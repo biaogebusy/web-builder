@@ -13,29 +13,41 @@ import {
   input,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { IPage } from '@core/interface/IAppConfig';
 import { IDialog } from '@core/interface/IDialog';
 import type { IComponentToolbar } from '@core/interface/combs/IBuilder';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { ContentService } from '@core/service/content.service';
+import { NodeService } from '@core/service/node.service';
+import { UserService } from '@core/service/user.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
+import { BUILDER_CURRENT_PAGE, USER } from '@core/token/token-providers';
 import { generatePath } from '@core/util/dom-path.util';
 import { getComponentSetting } from '@modules/builder/factory/getComponentSetting';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { get } from 'lodash-es';
+import { cloneDeep, get } from 'lodash-es';
+import { EMPTY, catchError, filter, finalize, switchMap, take, tap } from 'rxjs';
 import { LocalStorageService } from 'ngx-webstorage';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 import { DividerComponent } from '@uiux/widgets/divider/divider.component';
+
+interface LibraryCategory {
+  uuid: string;
+  label: string;
+  elements?: LibraryCategory[];
+}
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-component-toolbar',
   templateUrl: './component-toolbar.component.html',
   styleUrls: ['./component-toolbar.component.scss'],
-  imports: [BtnComponent, DividerComponent, MatTooltipModule],
+  imports: [BtnComponent, DividerComponent, MatTooltipModule, TranslateModule],
   host: {
     class: 'component-toolbar',
   },
@@ -56,6 +68,17 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
   private destroyRef = inject(DestroyRef);
   private dialog = inject(MatDialog);
   private injector = inject(Injector);
+  private user = inject(USER);
+  private userService = inject(UserService);
+  private nodeService = inject(NodeService);
+  private contentService = inject(ContentService);
+  private translate = inject(TranslateService);
+  readonly uploading = signal(false);
+  readonly canUpload = computed(() => {
+    const user = this.user();
+    return !!user && typeof user === 'object' &&
+      this.userService.checkShow({ params: { reqRoles: ['administrator'] } }, user);
+  });
   // Derived from the input, never captured once: the builder `@for` blocks track by
   // `$index`, so inserting a component reuses the toolbar instance already sitting at
   // that slot and only rebinds `content`. Caching it would keep the toolbar acting on
@@ -121,6 +144,138 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
       });
       this.storage.store(this.builder.COPYCOMPONENTKEY, this.component());
     }
+  }
+
+  /** Saves a snapshot of the current canvas component as a reusable library entry. */
+  onUpload(): void {
+    if (!this.canUpload() || this.uploading() || !this.type()) {
+      return;
+    }
+    // Keep the dynamic-input shape and nested settings without retaining the page's block identity.
+    const snapshot = cloneDeep(this.content()) as Record<string, unknown>;
+    delete snapshot['extra'];
+    delete snapshot['relationships'];
+    const body = JSON.stringify(snapshot);
+    const form = new FormGroup({
+      title: new FormControl(this.type(), {
+        nonNullable: true,
+        validators: [Validators.required, Validators.pattern(/\S/)],
+      }),
+      icon: new FormControl('widgets-outline', { nonNullable: true }),
+      category: new FormControl<string[]>([], {
+        nonNullable: true,
+        validators: Validators.required,
+      }),
+    });
+    this.uploading.set(true);
+    this.nodeService.fetch('/api/v3/node/component').pipe(
+      take(1),
+      catchError(() => {
+        this.uploadNotice('LOAD_CATEGORIES_FAILED');
+        this.restoreCanvasFocus();
+        return EMPTY;
+      }),
+      switchMap((groups: LibraryCategory[]) => {
+        // The library renders entries inside each top-level group's subcategories.
+        const options = groups.flatMap(group => (group.elements || []).map(category => ({
+          value: category.uuid,
+          label: `${group.label} > ${category.label}`,
+        })));
+        if (!options.length) {
+          this.uploadNotice('NO_CATEGORIES');
+          this.restoreCanvasFocus();
+          return EMPTY;
+        }
+        const fields: FormlyFieldConfig[] = [
+          {
+            key: 'title',
+            type: 'input',
+            props: {
+              label: this.translate.instant('BUILDER.NODE_UIUX.FIELD_TITLE'),
+              required: true,
+              // Formly rebuilds control validators from the field config, so the
+              // whitespace guard must live here to reject space-only titles.
+              pattern: /\S/,
+              maxLength: 255,
+            },
+            validation: {
+              messages: { pattern: this.translate.instant('BUILDER.NODE_UIUX.TITLE_REQUIRED') },
+            },
+          },
+          {
+            key: 'category',
+            type: 'select',
+            props: {
+              label: this.translate.instant('BUILDER.NODE_UIUX.FIELD_CATEGORY'),
+              required: true,
+              multiple: true,
+              options,
+            },
+          },
+          {
+            key: 'icon',
+            type: 'mat-select',
+            props: {
+              label: this.translate.instant('BUILDER.NODE_UIUX.FIELD_ICON'),
+              type: 'icon',
+              search: true,
+            },
+          },
+        ];
+        const data: IDialog = {
+          title: this.translate.instant('BUILDER.NODE_UIUX.UPLOAD'),
+          noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
+          yesLabel: this.translate.instant('BUILDER.NODE_UIUX.SAVE'),
+          inputData: {
+            content: {
+              content: { type: 'formly' },
+              form,
+              model: form.getRawValue(),
+              fields,
+              fullWidth: true,
+            },
+          },
+        };
+        return this.dialog.open(DialogComponent, {
+          width: '500px', data, restoreFocus: false,
+        }).afterClosed().pipe(tap(() => this.restoreCanvasFocus()));
+      }),
+      take(1),
+      filter(confirmed => confirmed === true && this.canUpload() && form.valid),
+      switchMap(() => {
+        const { title, icon, category } = form.getRawValue();
+        return this.nodeService.addEntity('/api/v1/node/component', {
+          title: title.trim(), icon, body, status: true,
+        }, {
+          category: {
+            data: category.map(id => ({ type: 'taxonomy_term--component_type', id })),
+          },
+        });
+      }),
+      takeUntilDestroyed(this.destroyRef),
+      finalize(() => this.uploading.set(false)),
+    ).subscribe({
+      next: () => {
+        this.contentService.reloadUIUX();
+        this.uploadNotice('UPLOADED');
+      },
+      error: () => this.uploadNotice('CREATE_FAILED'),
+    });
+  }
+
+  private uploadNotice(key: string): void {
+    this.util.openSnackbar(
+      this.translate.instant(`BUILDER.NODE_UIUX.${key}`),
+      this.translate.instant('BUILDER.COMMON.OK')
+    );
+  }
+
+  /**
+   * The busy state recreates the toolbar button, so focus returns to the stable
+   * canvas group; without it, focus falls to BODY and the toolbar hides.
+   */
+  private restoreCanvasFocus(): void {
+    this.ele.nativeElement.closest('.component-item')?.focus();
   }
 
   onPaste(content: any): void {

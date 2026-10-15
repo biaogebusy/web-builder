@@ -47,6 +47,9 @@
             <div
               id="item-{{ i }}"
               class="component-item"
+              role="group"
+              tabindex="0"
+              [attr.aria-label]="'BUILDER.LIST.CANVAS_COMPONENT' | translate: { index: i + 1 }"
               cdkDrag
               [cdkDragDisabled]="true"
               [cdkDragData]="item"

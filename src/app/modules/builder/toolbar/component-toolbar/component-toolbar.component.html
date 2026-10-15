@@ -1,13 +1,13 @@
 <div class="wrapper">
-  <div class="actions" aria-hidden="true">
+  <div class="actions">
     <div
       class="item item-up"
       [class.!block]="index() > 0"
-      (click)="onUpdown('up')"
       [matTooltip]="'上移'"
       matTooltipPosition="above"
     >
       <app-btn
+        (btnClick)="onUpdown('up')"
         [content]="{
           label: '',
           color: 'primary',
@@ -19,11 +19,11 @@
     <div
       class="item item-down"
       [class.!block]="index() < length() && index() !== length() - 1"
-      (click)="onUpdown('down')"
       [matTooltip]="'下移'"
       matTooltipPosition="above"
     >
       <app-btn
+        (btnClick)="onUpdown('down')"
         [content]="{
           label: '',
           color: 'primary',
@@ -32,8 +32,9 @@
         }"
       />
     </div>
-    <div class="item" matTooltip="复制JSON" matTooltipPosition="above" (click)="onCopy()">
+    <div class="item" matTooltip="复制JSON" matTooltipPosition="above">
       <app-btn
+        (btnClick)="onCopy()"
         [content]="{
           label: '',
           color: 'primary',
@@ -47,9 +48,9 @@
         class="item"
         matTooltip="粘贴复制的组件到下面"
         matTooltipPosition="above"
-        (click)="onPaste(bcDataValue)"
       >
         <app-btn
+          (btnClick)="onPaste(bcDataValue)"
           [content]="{
             label: '',
             color: 'primary',
@@ -59,14 +60,32 @@
         />
       </div>
     }
+    @if (canUpload()) {
+      <div
+        class="item"
+        [matTooltip]="'BUILDER.NODE_UIUX.UPLOAD' | translate"
+        matTooltipPosition="above"
+      >
+        <app-btn
+          (btnClick)="onUpload()"
+          [content]="{
+            color: 'primary',
+            mode: 'icon',
+            icon: { svg: 'cloud-upload-outline', inline: true },
+            ariaLabel: 'BUILDER.NODE_UIUX.UPLOAD' | translate,
+            disabled: uploading(),
+          }"
+        />
+      </div>
+    }
     @if (type() === 'custom-template') {
       <div
         class="item"
-        (click)="onEditorCode()"
         [matTooltip]="'编辑自定义模板'"
         matTooltipPosition="above"
       >
         <app-btn
+          (btnClick)="onEditorCode()"
           [content]="{
             label: '',
             color: 'primary',
@@ -78,11 +97,11 @@
     }
     <div
       class="item"
-      (click)="onSetting()"
       [matTooltip]="'编辑组件通用配置'"
       matTooltipPosition="above"
     >
       <app-btn
+        (btnClick)="onSetting()"
         [content]="{
           label: '',
           color: 'primary',
@@ -93,8 +112,9 @@
     </div>
 
     <app-divider [content]="{ vertical: true }" />
-    <div class="item" (click)="onDelete()" [matTooltip]="'移除'" matTooltipPosition="above">
+    <div class="item" [matTooltip]="'移除'" matTooltipPosition="above">
       <app-btn
+        (btnClick)="onDelete()"
         [content]="{
           label: '',
           color: 'primary',
