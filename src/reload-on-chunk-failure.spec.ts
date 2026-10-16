@@ -1,7 +1,4 @@
-import {
-  isChunkLoadFailure,
-  shouldReloadForChunkFailure,
-} from './reload-on-chunk-failure';
+import { isChunkLoadFailure, shouldReloadForChunkFailure } from './reload-on-chunk-failure';
 
 describe('reload-on-chunk-failure', () => {
   beforeEach(() => {
@@ -12,7 +9,7 @@ describe('reload-on-chunk-failure', () => {
     it('matches the Chrome dynamic import error', () => {
       expect(
         isChunkLoadFailure(
-          new TypeError('Failed to fetch dynamically imported module: https://builder.design/chunk-DB5CTCYI.js')
+          new TypeError('Failed to fetch dynamically imported module: /chunk-DB5CTCYI.js')
         )
       ).toBe(true);
     });
@@ -31,6 +28,15 @@ describe('reload-on-chunk-failure', () => {
   });
 
   describe('shouldReloadForChunkFailure', () => {
+    afterEach(() => vi.restoreAllMocks());
+
+    it.each(['getItem', 'setItem'] as const)('does not reload when storage %s fails', method => {
+      vi.spyOn(Storage.prototype, method).mockImplementation(() => {
+        throw new DOMException('Storage unavailable', 'SecurityError');
+      });
+      expect(shouldReloadForChunkFailure('Importing a module script failed.')).toBe(false);
+    });
+
     it('returns true the first time a chunk failure occurs', () => {
       expect(shouldReloadForChunkFailure('Importing a module script failed.', 1_000)).toBe(true);
     });

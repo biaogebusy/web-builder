@@ -4,8 +4,7 @@ import { AppComponent } from './app/app.component';
 import { appConfig } from './app/app.config';
 import { installChunkReloadHandler, watchRouterChunkFailures } from './reload-on-chunk-failure';
 
-// Deploys replace hashed chunk files; open tabs then fail lazy imports.
-// Install before bootstrap so early failures are also caught.
+// Resource retention is the primary protection; install recovery before bootstrap as a fallback.
 installChunkReloadHandler();
 
 bootstrapApplication(AppComponent, appConfig)

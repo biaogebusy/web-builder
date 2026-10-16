@@ -1,11 +1,5 @@
 import { NavigationError, Router } from '@angular/router';
 
-/**
- * Deployed builds replace every hashed chunk file. Tabs and cached SSR HTML
- * that still reference the old names get 404s on lazy imports; reloading the
- * page fetches fresh HTML and recovers without user action.
- */
-
 const RELOADED_AT_KEY = 'chunk-failure-reloaded-at';
 // One reload per minute: breaks a reload loop if the fresh page is broken too,
 // while still retrying once the stale-cache window has passed.
@@ -36,7 +30,8 @@ export function shouldReloadForChunkFailure(reason: unknown, now = Date.now()): 
     }
     sessionStorage.setItem(RELOADED_AT_KEY, String(now));
   } catch {
-    // Storage unavailable (rare privacy modes): reload and accept the risk.
+    // Without persistent throttling a broken module could cause an endless reload loop.
+    return false;
   }
   return true;
 }

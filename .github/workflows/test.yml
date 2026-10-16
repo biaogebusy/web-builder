@@ -34,3 +34,6 @@ jobs:
 
       - name: Server unit tests
         run: npm run test:server
+
+      - name: Deployment regression
+        run: node --test scripts/deploy-assets.test.mjs

@@ -4,12 +4,19 @@ on:
   push:
     branches: [master]
 
+# Never interrupt or overlap uploads to the same deployment directory.
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
     env:
       NODE_OPTIONS: --max-old-space-size=6144
       NG_BUILD_MAX_WORKERS: "2"
+      DEPLOY_ROOT: /mnt/wwwroot/app/base
+      DEPLOY_CONTAINER: base
     defaults:
       run:
         working-directory: ./
@@ -30,7 +37,7 @@ jobs:
         run: npm cache verify
 
       - name: NPM Install
-        run: npm ci over npm
+        run: npm ci
 
       # 单测门禁：维护说明见 xinshi-docs/stories/develop/testing.mdx
       # npm test 排除 src/server/** 和 src/chat-server/**，两者由 test:server 覆盖；
@@ -41,36 +48,49 @@ jobs:
       - name: Server unit tests
         run: npm run test:server
 
+      - name: Deployment regression
+        run: node --test scripts/deploy-assets.test.mjs
+
       - name: NPM build all App Production
         run: npm run build
 
-      - name: Deploy to Server
-        # P_ 过滤规则 (protect) 让旧哈希 chunk 不被 --delete 删除：浏览器缓存的
-        # 旧 SSR HTML 和已打开的标签页在部署后仍会请求旧文件，立即删除会导致
-        # 404 (Failed to fetch dynamically imported module)。孤儿文件由下方
-        # restart 后的 find 延迟清理。P_ 用下划线代替空格，避免 ARGS 拆分。
+      # Publish assets first so new SSR output never references files still uploading.
+      - name: Publish browser assets
         uses: AEnterprise/rsync-deploy@v1.0.2
         env:
           DEPLOY_KEY: ${{ secrets.KEY }}
-          ARGS: -avz --delete --exclude=node_modules --filter=P_/browser/chunk-* --filter=P_/browser/main-* --filter=P_/browser/styles-*
+          ARGS: -avz
+          SERVER_PORT: "22"
+          FOLDER: "dist/browser"
+          SERVER_IP: ${{ secrets.HOST }}
+          USERNAME: ${{ secrets.SSH_USER }}
+          SERVER_DESTINATION: "${{ env.DEPLOY_ROOT }}/dist/"
+
+      # FOLDER has no trailing slash: filter paths start with /dist/.
+      # Retain hashed browser outputs, media and SSR imports for existing clients/processes.
+      # Do not prune by mtime: even the active build can contain old files.
+      - name: Deploy to Server
+        uses: AEnterprise/rsync-deploy@v1.0.2
+        env:
+          DEPLOY_KEY: ${{ secrets.KEY }}
+          ARGS: -avz --delete --exclude=node_modules --exclude=logs --filter=P_/dist/browser/*-????????.* --filter=P_/dist/browser/media/*-????????.* --filter=P_/dist/server/chunk-*.mjs
           SERVER_PORT: "22"
           FOLDER: "dist"
           SERVER_IP: ${{ secrets.HOST }}
           USERNAME: ${{ secrets.SSH_USER }}
-          SERVER_DESTINATION: "/mnt/wwwroot/app/base"
+          SERVER_DESTINATION: "${{ env.DEPLOY_ROOT }}"
 
       - name: Restart builder container
         uses: appleboy/ssh-action@v1.0.3
         with:
+          envs: DEPLOY_ROOT,DEPLOY_CONTAINER
           host: ${{ secrets.HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.KEY }}
           port: 22
           script_stop: true
-          # 清理超过 24h 的旧哈希文件 (chunk-* / main-* / styles-*，含 .gz/.br
-          # 预压缩变体)。24h 覆盖 nginx SSR 缓存 (5m) 与在线会话；更久的旧
-          # 标签页由应用层的 reload 兜底 (src/reload-on-chunk-failure.ts)。
           script: |
-            docker restart base
-            find /mnt/wwwroot/app/base/browser -maxdepth 1 -type f \
-              \( -name 'chunk-*' -o -name 'main-*' -o -name 'styles-*' \) -mmin +1440 -delete
+            set -eu
+            test -d "$DEPLOY_ROOT/dist/browser"
+            test -s "$DEPLOY_ROOT/dist/server/server.mjs"
+            docker restart "$DEPLOY_CONTAINER"
