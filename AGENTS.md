@@ -19,9 +19,34 @@ The Drupal backends are sibling directories of this repo (not inside it); check 
 
 ## Sibling Documentation Repository
 
-- `../xinshi-docs/stories/` is the single maintenance location for feature, architecture, API, operations, and WBS documentation. See the [documentation index](../xinshi-docs/stories/develop/documentation.mdx). Keep the relevant MDX in sync when behavior changes; this application retains only `docs/README.md` and source entry points, not duplicate specifications. Doc-only changes to xinshi-docs require only MDX edits — no build or test run is needed.
+- `../xinshi-docs/stories/` is the single maintenance location for feature, architecture, API, operations, and WBS documentation. See the [documentation index](../xinshi-docs/stories/develop/engineering/documentation.mdx). Keep the relevant MDX in sync when behavior changes; this application retains only `docs/README.md` and source entry points, not duplicate specifications. Documentation-only changes do not require application tests; follow the documentation repository's instructions for index generation, builds, and link checks.
 
 - When work involves architecture or complex process logic, you may add architecture diagrams or flowcharts to the corresponding documentation in `../xinshi-docs/stories/` when they help clarify component relationships or process steps.
+
+### Documentation writing (ASD-STE100)
+
+These rules are mandatory whenever a task creates or updates documentation, including
+MDX, Markdown, source README files, and repository guidance.
+
+- Read the [terminology and writing rules](../xinshi-docs/stories/develop/engineering/terminology.mdx)
+  before writing. Use one term for one concept.
+- For English, follow ASD-STE100 writing rules and approved vocabulary, including its rules
+  for technical names and verbs. For Chinese, apply the clear-expression principles below.
+  Do not claim full ASD-STE100 compliance for Chinese text or from a keyword scan alone.
+- Write short sentences in active voice. Name the actor. Keep one idea per sentence and
+  one topic per paragraph. Replace ambiguous pronouns and remove filler or promotional claims.
+- Put conditions before actions. Write procedures in execution order, with one main action
+  per step. State prerequisites, expected results, and what to do when a step fails.
+- Use lists for parallel requirements and tables for comparisons. Distinguish mandatory,
+  optional, and default behavior. State the scope of claims; avoid unsupported absolutes.
+- Verify behavior, defaults, permissions, paths, and versions against the responsible source.
+  Keep planned, implemented, tested, and deployed states separate.
+- Preserve dates, finding IDs, quantities, units, code identifiers, commands, headings,
+  anchors, links, and diagram names. Do not relabel historical evidence as current acceptance.
+  Record source-verified factual corrections separately from expression-only edits.
+- After a full rewrite, compare code blocks, identifiers, numbers, links, and diagram names
+  programmatically, then review meaning and procedure order. Follow the documentation
+  repository's instructions for index generation, builds, and link checks.
 
 ## Branches & Deployments
 
