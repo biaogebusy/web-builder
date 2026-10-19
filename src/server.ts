@@ -26,12 +26,13 @@ app.set('trust proxy', 1);
 app.use(requestTimingMiddleware);
 app.use(express.json());
 app.use(compression());
-app.use(blockScanners);
 
 /**
  * Serve static files from /browser
  */
 app.use(createBrowserAssetHandler(browserDistFolder));
+// Build hashes can contain scanner keywords, so handle assets before filtering route probes.
+app.use(blockScanners);
 app.use(rateLimiter);
 
 /**
