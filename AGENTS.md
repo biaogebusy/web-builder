@@ -21,6 +21,8 @@ The Drupal backends are sibling directories of this repo (not inside it); check 
 
 - `../xinshi-docs/stories/` is the single maintenance location for feature, architecture, API, operations, and WBS documentation. See the [documentation index](../xinshi-docs/stories/develop/engineering/documentation.mdx). Keep the relevant MDX in sync when behavior changes; this application retains only `docs/README.md` and source entry points, not duplicate specifications. Documentation-only changes do not require application tests; follow the documentation repository's instructions for index generation, builds, and link checks.
 
+- Maintain the [frontend API catalog](../xinshi-docs/stories/develop/api/frontend-api-catalog.mdx) when adding, changing or removing frontend API calls. Record the frontend scope, method, path, authentication, CSRF policy, purpose, caller and backend authority. Follow the documentation repository checks. Shared CMS authentication policy belongs in the shared interceptor; custom CMS writes declare `cmsWriteContext()` in their owning service.
+
 - When work involves architecture or complex process logic, you may add architecture diagrams or flowcharts to the corresponding documentation in `../xinshi-docs/stories/` when they help clarify component relationships or process steps.
 
 ### Documentation writing (ASD-STE100)

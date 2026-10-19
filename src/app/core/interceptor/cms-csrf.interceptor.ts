@@ -1,33 +1,19 @@
 import { isPlatformBrowser } from '@angular/common';
-import { DOCUMENT, inject, InjectionToken, PLATFORM_ID } from '@angular/core';
+import { DOCUMENT, inject, PLATFORM_ID } from '@angular/core';
 import { HttpHeaders, HttpInterceptorFn, HttpRequest, HttpResponse } from '@angular/common/http';
+import { CMS_CSRF_PROTECTION } from '@core/config/cms-http-context';
 import { API_URL } from '@core/token/token-providers';
 import { filter, switchMap, take } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
-/** Optional modules register only their cookie-authenticated write paths. */
-export const CMS_CSRF_ADDITIONAL_PATHS = new InjectionToken<readonly RegExp[]>(
-  'CMS CSRF additional paths',
-  { providedIn: 'root', factory: () => [] }
-);
-
-const PAGE_WRITE_PATHS = [
-  /^\/api\/v3\/landingPage\/(builder|update|alias|translations|drafts)(?:\/|$)/,
-  /^\/api\/v3\/node\/translations\/add\//,
-];
-
-/** Use Bearer without implicit cookies, or pair session writes with a CSRF token. */
+/** Isolates CMS Bearer credentials and protects JSON:API or declared custom session writes. */
 export const cmsCsrfInterceptor: HttpInterceptorFn = (req, next) => {
-  if (
-    !isPlatformBrowser(inject(PLATFORM_ID)) ||
-    ['GET', 'HEAD', 'OPTIONS', 'TRACE'].includes(req.method) ||
-    req.headers.has('X-CSRF-Token')
-  ) {
+  if (!isPlatformBrowser(inject(PLATFORM_ID))) {
     return next(req);
   }
 
   const document = inject(DOCUMENT);
   const apiUrl = inject(API_URL);
-  const additionalPaths = inject(CMS_CSRF_ADDITIONAL_PATHS);
   const pageOrigin = document.location.origin;
   const target = new URL(req.url, document.baseURI);
   const backend = new URL(apiUrl, document.baseURI);
@@ -42,13 +28,17 @@ export const cmsCsrfInterceptor: HttpInterceptorFn = (req, next) => {
     return next(req);
   }
 
-  const path = target.pathname.slice(basePath.length)
-    .replace(/^\/[a-z][a-z0-9-]*\/(?=api\/v3\/)/i, '/');
-  if (![...PAGE_WRITE_PATHS, ...additionalPaths].some(pattern => pattern.test(path))) {
+  let path = target.pathname.slice(basePath.length);
+  const prefix = path.split('/')[1];
+  if (environment.multiLang && environment.langs?.some(lang => lang.langCode === prefix)) {
+    path = path.slice(prefix.length + 1);
+  }
+  const version = path.match(/^\/api\/v([123])(?:\/|$)/)?.[1];
+  if (!version || req.headers.has('X-CSRF-Token')) {
     return next(req);
   }
 
-  // Bearer writes do not need a Drupal session. Omit implicit cookies at the
+  // Bearer requests do not need a Drupal session. Omit implicit cookies at the
   // browser so this also works without a proxy stripping them. Explicit cookie
   // credentials and caller-supplied CSRF tokens retain their session behavior.
   if (
@@ -56,6 +46,13 @@ export const cmsCsrfInterceptor: HttpInterceptorFn = (req, next) => {
     !req.withCredentials && req.credentials === undefined
   ) {
     return next(req.clone({ credentials: 'omit' }));
+  }
+
+  if (
+    ['GET', 'HEAD', 'OPTIONS', 'TRACE'].includes(req.method) ||
+    (version !== '1' && !(version === '3' && req.context.get(CMS_CSRF_PROTECTION)))
+  ) {
+    return next(req);
   }
 
   // Match FetchBackend's credentials precedence. Pure cross-origin Bearer
