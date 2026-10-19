@@ -1,3 +1,4 @@
+import { cmsWriteContext } from '@core/config/cms-http-context';
 import { DestroyRef, ElementRef, Injectable, Injector, inject } from '@angular/core';
 import { HttpResourceRef, httpResource } from '@angular/common/http';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -164,7 +165,7 @@ export class NodeService extends ApiService {
     return this.http.post<any>(
       `${this.apiUrl}/api/v3/node/translations/add/${nid}/${source}/${target}`,
       {},
-      this.optionsWithBearerToken()
+      { ...this.optionsWithBearerToken(), context: cmsWriteContext() }
     );
   }
 

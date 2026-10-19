@@ -6,7 +6,8 @@ import { API_URL } from '@core/token/token-providers';
 import { UserService } from '@core/service/user.service';
 import { firstValueFrom } from 'rxjs';
 import { authInterceptor } from './auth.interceptor';
-import { cmsCsrfInterceptor, CMS_CSRF_ADDITIONAL_PATHS } from './cms-csrf.interceptor';
+import { cmsCsrfInterceptor } from './cms-csrf.interceptor';
+import { cmsWriteContext } from '@core/config/cms-http-context';
 
 const APP = 'https://app.example.test';
 const CMS = 'https://cms.example.test';
@@ -25,7 +26,6 @@ describe('cmsCsrfInterceptor with OAuth authentication', () => {
         { provide: DOCUMENT, useValue: { location: { origin: APP }, baseURI: `${APP}/`, cookie: '' } },
         { provide: PLATFORM_ID, useValue: options.platform ?? 'browser' },
         { provide: API_URL, useValue: options.apiUrl ?? APP },
-        { provide: CMS_CSRF_ADDITIONAL_PATHS, useValue: [/^\/api\/v3\/extension\/action$/] },
         {
           provide: UserService,
           useValue: {
@@ -61,7 +61,9 @@ describe('cmsCsrfInterceptor with OAuth authentication', () => {
   ])('pairs %s %s with its session token when Cookie use is explicit', (method, url) => {
     setup();
     const body = { uuid: 'shared-component', body: [] };
-    http.request(method, url, { body, withCredentials: true }).subscribe();
+    http.request(method, url, {
+      body, withCredentials: true, context: cmsWriteContext(),
+    }).subscribe();
     controller.expectNone(url);
     const token = controller.expectOne(`${APP}/session/token`);
     expect(token.request.method).toBe('GET');
@@ -111,7 +113,9 @@ describe('cmsCsrfInterceptor with OAuth authentication', () => {
 
   it('retains CSRF protection for other authentication schemes', () => {
     setup({ bearer: false });
-    http.patch(WRITE, {}, { headers: { Authorization: 'Basic fixture' } }).subscribe();
+    http.patch(WRITE, {}, {
+      headers: { Authorization: 'Basic fixture' }, context: cmsWriteContext(),
+    }).subscribe();
     controller.expectOne(`${APP}/session/token`).flush(TOKEN);
     const write = controller.expectOne(WRITE);
     expect(write.request.headers.get('Authorization')).toBe('Basic fixture');
@@ -122,7 +126,7 @@ describe('cmsCsrfInterceptor with OAuth authentication', () => {
 
   it('respects explicitly requested same-origin cookies even with Bearer', () => {
     setup();
-    http.patch(WRITE, {}, { credentials: 'same-origin' }).subscribe();
+    http.patch(WRITE, {}, { credentials: 'same-origin', context: cmsWriteContext() }).subscribe();
     const token = controller.expectOne(`${APP}/session/token`);
     expect(token.request.credentials).toBe('same-origin');
     token.flush(TOKEN);
@@ -135,7 +139,7 @@ describe('cmsCsrfInterceptor with OAuth authentication', () => {
   it('supports cookie-only callers and language-prefixed absolute URLs', () => {
     setup({ bearer: false });
     const url = `${APP}/en${WRITE}?preview=1`;
-    http.patch(url, {}).subscribe();
+    http.patch(url, {}, { context: cmsWriteContext() }).subscribe();
     controller.expectOne(`${APP}/session/token`).flush(TOKEN);
     const write = controller.expectOne(url);
     expect(write.request.headers.has('Authorization')).toBe(false);
@@ -147,7 +151,7 @@ describe('cmsCsrfInterceptor with OAuth authentication', () => {
     setup();
     http.request(method, WRITE).subscribe();
     const read = controller.expectOne(WRITE);
-    expect(read.request.credentials).toBeUndefined();
+    expect(read.request.credentials).toBe('omit');
     read.flush(null);
   });
 
@@ -171,13 +175,13 @@ describe('cmsCsrfInterceptor with OAuth authentication', () => {
 
   it('does not fetch browser session tokens during SSR', () => {
     setup({ platform: 'server' });
-    http.patch(WRITE, {}).subscribe();
+    http.patch(WRITE, {}, { context: cmsWriteContext() }).subscribe();
     controller.expectOne(WRITE).flush({});
   });
 
   it.each([`${CMS}.evil.test${WRITE}`, `https://other.test${WRITE}`, `//other.test${WRITE}`])('never requests or attaches a CSRF token for another origin: %s', url => {
       setup({ apiUrl: CMS });
-      http.patch(url, {}, { withCredentials: true }).subscribe();
+      http.patch(url, {}, { withCredentials: true, context: cmsWriteContext() }).subscribe();
       const write = controller.expectOne(url);
       expect(write.request.headers.has('X-CSRF-Token')).toBe(false);
       write.flush({});
@@ -186,7 +190,7 @@ describe('cmsCsrfInterceptor with OAuth authentication', () => {
   it('uses the configured CMS subdirectory and matches cross-origin cookie credentials', () => {
     setup({ apiUrl: `${CMS}/cms/` });
     const url = `${CMS}/cms/zh-hans${WRITE}`;
-    http.patch(url, {}, { withCredentials: true }).subscribe();
+    http.patch(url, {}, { withCredentials: true, context: cmsWriteContext() }).subscribe();
     const token = controller.expectOne(`${CMS}/cms/session/token`);
     expect(token.request.withCredentials).toBe(true);
     expect(token.request.credentials).toBeUndefined();
@@ -199,7 +203,9 @@ describe('cmsCsrfInterceptor with OAuth authentication', () => {
 
   it('supports Fetch credentials include without withCredentials', () => {
     setup({ apiUrl: CMS });
-    http.patch(`${CMS}${WRITE}`, {}, { credentials: 'include' }).subscribe();
+    http.patch(`${CMS}${WRITE}`, {}, {
+      credentials: 'include', context: cmsWriteContext(),
+    }).subscribe();
     const token = controller.expectOne(`${CMS}/session/token`);
     expect(token.request.credentials).toBe('include');
     token.flush(TOKEN);
@@ -208,7 +214,7 @@ describe('cmsCsrfInterceptor with OAuth authentication', () => {
 
   it('supports the relative frontend proxy when API_URL points to a different origin', () => {
     setup({ apiUrl: CMS, bearer: false });
-    http.patch(WRITE, {}).subscribe();
+    http.patch(WRITE, {}, { context: cmsWriteContext() }).subscribe();
     controller.expectOne(`${APP}/session/token`).flush(TOKEN);
     controller.expectOne(WRITE).flush({});
   });
@@ -228,10 +234,107 @@ describe('cmsCsrfInterceptor with OAuth authentication', () => {
     controller.expectOne(WRITE).flush({});
   });
 
+  for (const version of [1, 2, 3]) {
+    it.each(['GET', 'POST', 'PATCH', 'DELETE'])(
+      `isolates Bearer credentials for an unregistered v${version} %s`, method => {
+        setup();
+        const url = `${APP}/zh-hans/api/v${version}/future-resource`;
+        http.request(method, url).subscribe();
+        const request = controller.expectOne(url);
+        expect(request.request.credentials).toBe('omit');
+        expect(request.request.headers.get('Authorization')).toBe('Bearer fixture-bearer');
+        expect(request.request.headers.has('X-CSRF-Token')).toBe(false);
+        request.flush({});
+      }
+    );
+  }
+
+  it.each([
+    ['POST', '/api/v1/node/future_bundle'],
+    ['PATCH', '/en/api/v1/node/future_bundle/fixture-id'],
+    ['DELETE', '/api/v1/node/future_bundle/fixture-id'],
+    ['POST', '/api/v1/node/future_bundle/fixture-id/relationships/related'],
+    ['POST', '/api/v1/media/future_media/file_field'],
+    ['POST', '/api/v1/file/file'],
+  ])('protects JSON:API without registering resource names: %s %s', (method, url) => {
+    setup({ bearer: false });
+    const body = { data: { title: 'Fixture' } };
+    http.request(method, url, { body }).subscribe();
+    const token = controller.expectOne(`${APP}/session/token`);
+    expect(token.request.credentials).toBe('same-origin');
+    token.flush(TOKEN);
+    const write = controller.expectOne(url);
+    expect(write.request.headers.get('X-CSRF-Token')).toBe(TOKEN);
+    expect(write.request.body).toBe(body);
+    write.flush({});
+  });
+
+  it.each(['/api/v2/view-fixture', '/api/v3/readonly-query'])(
+    'does not fetch tokens for an undeclared Cookie POST %s', url => {
+      setup({ bearer: false });
+      http.post(url, {}, { withCredentials: true }).subscribe();
+      const read = controller.expectOne(url);
+      expect(read.request.headers.has('X-CSRF-Token')).toBe(false);
+      read.flush({});
+    }
+  );
+
+  it.each([
+    '/chat/run', '/api/v10/fixture', '/api/v1-suffix/fixture',
+    '/assets/api/v1/fixture', '/file?path=/api/v1/node/fixture',
+  ])('does not apply CMS policy outside API boundaries: %s', url => {
+    setup();
+    http.post(url, {}, { context: cmsWriteContext() }).subscribe();
+    const request = controller.expectOne(url);
+    expect(request.request.credentials).toBeUndefined();
+    expect(request.request.headers.has('X-CSRF-Token')).toBe(false);
+    request.flush({});
+  });
+
+  it('keeps withCredentials precedence over Fetch credentials', () => {
+    setup();
+    const url = '/api/v1/node/fixture';
+    http.post(url, {}, { withCredentials: true, credentials: 'omit' }).subscribe();
+    const token = controller.expectOne(`${APP}/session/token`);
+    expect(token.request.withCredentials).toBe(true);
+    expect(token.request.credentials).toBeUndefined();
+    token.flush(TOKEN);
+    const write = controller.expectOne(url);
+    expect(write.request.withCredentials).toBe(true);
+    write.flush({});
+  });
+
+  it('keeps concurrent token responses bound to their original writes', () => {
+    setup({ bearer: false });
+    http.post(WRITE, { id: 1 }, { context: cmsWriteContext() }).subscribe();
+    http.post(WRITE, { id: 2 }, { context: cmsWriteContext() }).subscribe();
+    const tokens = controller.match(`${APP}/session/token`);
+    expect(tokens).toHaveLength(2);
+    tokens[1].flush('u'.repeat(43));
+    const second = controller.expectOne(WRITE);
+    expect(second.request.body).toEqual({ id: 2 });
+    expect(second.request.headers.get('X-CSRF-Token')).toBe('u'.repeat(43));
+    second.flush({});
+    tokens[0].flush(TOKEN);
+    const first = controller.expectOne(WRITE);
+    expect(first.request.body).toEqual({ id: 1 });
+    expect(first.request.headers.get('X-CSRF-Token')).toBe(TOKEN);
+    first.flush({});
+  });
+
+  it('cancels token acquisition without submitting the write', () => {
+    setup({ bearer: false });
+    const subscription = http.patch(WRITE, {}, { context: cmsWriteContext() }).subscribe();
+    const token = controller.expectOne(`${APP}/session/token`);
+    subscription.unsubscribe();
+    expect(token.cancelled).toBe(true);
+    controller.expectNone(WRITE);
+  });
+
   it('does not reuse a token after the session changes', () => {
     setup({ bearer: false });
     for (const token of [TOKEN, 'u'.repeat(43)]) {
-      http.patch(WRITE, {}).subscribe();
+      http.patch(WRITE, {}, { context: cmsWriteContext() }).subscribe();
       controller.expectOne(`${APP}/session/token`).flush(token);
       const write = controller.expectOne(WRITE);
       expect(write.request.headers.get('X-CSRF-Token')).toBe(token);
@@ -242,7 +345,7 @@ describe('cmsCsrfInterceptor with OAuth authentication', () => {
   it.each(['', '<html>Login page</html>'])('blocks the write if the token response is invalid', body => {
     setup({ bearer: false });
     const error = vi.fn();
-    http.patch(WRITE, {}).subscribe({ error });
+    http.patch(WRITE, {}, { context: cmsWriteContext() }).subscribe({ error });
     controller.expectOne(`${APP}/session/token`).flush(body);
     expect(error).toHaveBeenCalledOnce();
     controller.expectNone(WRITE);
@@ -251,7 +354,7 @@ describe('cmsCsrfInterceptor with OAuth authentication', () => {
   it('blocks the write when fetching its token fails', () => {
     setup({ bearer: false });
     const error = vi.fn();
-    http.patch(WRITE, {}).subscribe({ error });
+    http.patch(WRITE, {}, { context: cmsWriteContext() }).subscribe({ error });
     controller.expectOne(`${APP}/session/token`).flush('Unavailable', { status: 503, statusText: 'Unavailable' });
     expect(error).toHaveBeenCalledOnce();
     controller.expectNone(WRITE);
@@ -260,7 +363,7 @@ describe('cmsCsrfInterceptor with OAuth authentication', () => {
   it.each([403, 500])('does not replay a submitted write after HTTP %s', status => {
     setup({ bearer: false });
     const error = vi.fn();
-    http.patch(WRITE, {}).subscribe({ error });
+    http.patch(WRITE, {}, { context: cmsWriteContext() }).subscribe({ error });
     controller.expectOne(`${APP}/session/token`).flush(TOKEN);
     controller.expectOne(WRITE).flush({}, { status, statusText: 'Failed' });
     expect(error).toHaveBeenCalledOnce();
@@ -271,6 +374,39 @@ describe('cmsCsrfInterceptor with FetchBackend', () => {
   afterEach(() => {
     TestBed.resetTestingModule();
     vi.restoreAllMocks();
+  });
+
+  it('pairs the session token and write with explicit Cookie credentials in fetch', async () => {
+    const fetch = vi.spyOn(globalThis, 'fetch')
+      .mockResolvedValueOnce(new Response(TOKEN))
+      .mockResolvedValueOnce(new Response('{}'));
+    TestBed.configureTestingModule({
+      providers: [
+        provideHttpClient(withFetch(), withInterceptors([cmsCsrfInterceptor])),
+        { provide: DOCUMENT, useValue: { location: { origin: APP }, baseURI: `${APP}/` } },
+        { provide: PLATFORM_ID, useValue: 'browser' },
+        { provide: API_URL, useValue: APP },
+      ],
+    });
+
+    await firstValueFrom(TestBed.inject(HttpClient).post('/api/v1/node/new_resource', {}, {
+      headers: { Authorization: 'Bearer fixture-bearer' },
+      withCredentials: true,
+      credentials: 'omit',
+    }));
+
+    expect(fetch).toHaveBeenCalledTimes(2);
+    expect(fetch).toHaveBeenNthCalledWith(1, `${APP}/session/token`, expect.objectContaining({
+      method: 'GET', credentials: 'include', body: null,
+      cache: 'no-store', redirect: 'error',
+      headers: { Accept: 'text/plain' },
+    }));
+    expect(fetch).toHaveBeenNthCalledWith(2, '/api/v1/node/new_resource', expect.objectContaining({
+      method: 'POST', credentials: 'include',
+      headers: expect.objectContaining({
+        'Authorization': 'Bearer fixture-bearer', 'X-CSRF-Token': TOKEN,
+      }),
+    }));
   });
 
   it('passes cookie omission and the explicit Bearer header to fetch', async () => {

@@ -1,5 +1,6 @@
 import { DestroyRef, Injectable, inject } from '@angular/core';
 import { HttpErrorResponse, type HttpHeaders } from '@angular/common/http';
+import { cmsWriteContext } from '@core/config/cms-http-context';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ApiService } from './api.service';
 import type { IPage } from '@core/interface/IAppConfig';
@@ -507,7 +508,7 @@ export class BuilderService extends ApiService {
       .post<PageCreateResponse>(
         `${this.apiUrl}${LANDING_PAGE_API.create}`,
         formatPage(page),
-        options
+        { ...options, context: cmsWriteContext() }
       )
       .pipe(
         map(res => {
@@ -566,7 +567,7 @@ export class BuilderService extends ApiService {
       .patch(
         `${this.apiUrl}${prefix}${LANDING_PAGE_API.update}/${nid}`,
         coverExtraData(page),
-        this.optionsWithBearerToken()
+        { ...this.optionsWithBearerToken(), context: cmsWriteContext() }
       )
       .pipe(
         map((res: any) => {
@@ -647,7 +648,7 @@ export class BuilderService extends ApiService {
     return this.http.post(
       `${this.apiUrl}${LANDING_PAGE_API.translate}/add/${nid}/${langcode}/${target}`,
       formatPage(page),
-      this.optionsWithBearerToken()
+      { ...this.optionsWithBearerToken(), context: cmsWriteContext() }
     );
   }
 
@@ -660,7 +661,7 @@ export class BuilderService extends ApiService {
     return this.http.post(
       `${this.apiUrl}${LANDING_PAGE_API.translate}/delete/${nid}/${langcode}`,
       {},
-      this.optionsWithBearerToken()
+      { ...this.optionsWithBearerToken(), context: cmsWriteContext() }
     );
   }
 
@@ -744,7 +745,7 @@ export class BuilderService extends ApiService {
         .post(
           `${this.apiUrl}${LANDING_PAGE_API.alias}/${nid}`,
           { alias: cleanAlias },
-          this.optionsWithBearerToken()
+          { ...this.optionsWithBearerToken(), context: cmsWriteContext() }
         )
         .pipe(
           map((res: any) => Boolean(res?.status)),
