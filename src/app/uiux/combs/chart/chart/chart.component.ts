@@ -24,6 +24,7 @@ import {
   DatasetComponent,
   TransformComponent,
   GraphicComponent,
+  AriaComponent,
 } from 'echarts/components';
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
@@ -46,6 +47,7 @@ import {
 
 // Register required components (tree-shaken builds need manual registration)
 echarts.use([
+  AriaComponent,
   TitleComponent,
   TooltipComponent,
   GridComponent,
@@ -102,7 +104,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   readonly data = input<any>();
   readonly style = input<any>();
   readonly echarts = viewChild('echarts', { read: ElementRef });
-  private chart: any;
+  private chart?: echarts.EChartsType;
 
   private theme = signal<object>({});
   private screenService = inject(ScreenService);
@@ -137,12 +139,24 @@ export class ChartComponent implements OnInit, AfterViewInit {
     if (this.screenService.isPlatformBrowser()) {
       this.chart = echarts.init(this.echarts()!.nativeElement, this.theme());
       this.applyOption(this.content());
+      const resize = new ResizeObserver(() => this.chart?.resize());
+      resize.observe(this.echarts()!.nativeElement);
+      let themeTimer: ReturnType<typeof setTimeout> | undefined;
+      this.destroyRef.onDestroy(() => {
+        resize.disconnect();
+        clearTimeout(themeTimer);
+        this.chart?.dispose();
+        this.chart = undefined;
+      });
       // Re-apply the palette when the user switches theme: switchChange$ emits
       // before the new theme class lands on <html>, so defer one tick before
       // reading the refreshed --mat-sys-* values.
       this.configService.switchChange$
         .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(() => setTimeout(() => this.applyTheme()));
+        .subscribe(() => {
+          clearTimeout(themeTimer);
+          themeTimer = setTimeout(() => this.applyTheme());
+        });
     }
   }
 

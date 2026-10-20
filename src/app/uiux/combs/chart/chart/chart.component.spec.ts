@@ -2,6 +2,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { provideUiuxMocks } from '@uiux/testing/mocks';
 import { vi } from 'vitest';
+import * as echarts from 'echarts/core';
+import { Subject } from 'rxjs';
+import { ScreenService } from '@core/service/screen.service';
+import { ConfigService } from '@core/service/config.service';
 
 import { ChartComponent } from './chart.component';
 
@@ -59,5 +63,51 @@ describe('ChartComponent', () => {
     const [option] = setOption.mock.calls[0];
     expect(option.xAxis).toBeUndefined();
     expect(option.yAxis).toBeUndefined();
+  });
+});
+
+describe('ChartComponent lifecycle', () => {
+  it('resizes its container and releases the chart and pending theme update', async () => {
+    let resized!: ResizeObserverCallback;
+    const disconnect = vi.fn();
+    const observe = vi.fn();
+    vi.stubGlobal('ResizeObserver', class {
+      constructor(callback: ResizeObserverCallback) { resized = callback; }
+      observe = observe;
+      disconnect = disconnect;
+    });
+    const themes = new Subject<void>();
+    TestBed.configureTestingModule({
+      imports: [ChartComponent],
+      providers: [
+        provideRouter([]), ...provideUiuxMocks(),
+        { provide: ScreenService, useValue: { isPlatformBrowser: () => true } },
+        { provide: ConfigService, useValue: { switchChange$: themes } },
+      ],
+    });
+    const fixture = TestBed.createComponent(ChartComponent);
+    fixture.componentRef.setInput('content', {});
+    fixture.componentRef.setInput('style', { width: '400px', height: '400px' });
+    try {
+      fixture.detectChanges();
+      const element = fixture.nativeElement.querySelector('.chart');
+      const chart = echarts.getInstanceByDom(element)!;
+      const setOption = vi.spyOn(chart, 'setOption');
+      const resize = vi.spyOn(chart, 'resize');
+      const dispose = vi.spyOn(chart, 'dispose');
+      expect(observe).toHaveBeenCalledWith(element);
+      resized([], {} as ResizeObserver);
+      expect(resize).toHaveBeenCalledOnce();
+      themes.next();
+      fixture.destroy();
+      const calls = setOption.mock.calls.length;
+      await new Promise(resolve => setTimeout(resolve, 10));
+      expect(setOption).toHaveBeenCalledTimes(calls);
+      expect(disconnect).toHaveBeenCalledOnce();
+      expect(dispose).toHaveBeenCalledOnce();
+    } finally {
+      fixture.destroy();
+      vi.unstubAllGlobals();
+    }
   });
 });

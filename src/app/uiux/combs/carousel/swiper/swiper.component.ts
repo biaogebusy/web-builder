@@ -1,7 +1,6 @@
 import {
   CUSTOM_ELEMENTS_SCHEMA,
   Component,
-  OnInit,
   AfterViewInit,
   effect,
   inject,
@@ -35,7 +34,7 @@ register();
   imports: [DynamicComponentComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class SwiperComponent implements OnInit, AfterViewInit {
+export class SwiperComponent implements AfterViewInit {
   readonly content = input.required<ISwiper>();
   readonly index = input<number>();
   readonly navigationSub = input<Subject<number>>();
@@ -69,7 +68,8 @@ export class SwiperComponent implements OnInit, AfterViewInit {
       `,
     ],
   };
-  private config: any;
+  private activeIndex = 0;
+  private requestedIndex: number | undefined;
   private initialized = false;
 
   private buildConfig(content: ISwiper): any {
@@ -86,10 +86,16 @@ export class SwiperComponent implements OnInit, AfterViewInit {
       swiperEle.passedParams = undefined;
       swiperEle.classList.remove('swiper-ready');
     }
-    Object.assign(swiperEle, config);
+    Object.assign(swiperEle, config, {
+      initialSlide: this.requestedIndex ?? config.initialSlide ?? this.activeIndex,
+    });
     swiperEle.classList.add('swiper-ready');
     swiperEle.initialize();
     this.initialized = true;
+    // A custom element disconnect destroys Swiper. Permit its connectedCallback
+    // to initialize again when a portal or a layout moves the existing view.
+    swiperEle.removeAttribute('init');
+    swiperEle.init = true;
 
     const content = this.content();
     if (content?.classes) {
@@ -103,13 +109,23 @@ export class SwiperComponent implements OnInit, AfterViewInit {
     afterNextRender(() => {
       const swiperEle = this.swiper()!.nativeElement;
 
-      // Initial render.
-      this.config = this.buildConfig(this.content());
-      this.applyConfig(swiperEle, this.config);
-
-      swiperEle.addEventListener('swiperslidechange', (event: any) => {
+      const onSlideChange = (event: CustomEvent<[Swiper & { initialized: boolean }]>) => {
         const [swiper] = event.detail;
+        // Swiper emits slideChange before init while restoring initialSlide.
+        if (!swiper.initialized) return;
+        this.activeIndex = swiper.activeIndex;
         this.slideChange.emit(swiper);
+      };
+      const onInit = (event: CustomEvent<[Swiper & { initialized: boolean }]>) => {
+        const [swiper] = event.detail;
+        swiper.slideTo(this.activeIndex, 0);
+      };
+      swiperEle.addEventListener('swiperslidechange', onSlideChange);
+      swiperEle.addEventListener('swiperinit', onInit);
+      this.destroyRef.onDestroy(() => {
+        swiperEle.removeEventListener('swiperslidechange', onSlideChange);
+        swiperEle.removeEventListener('swiperinit', onInit);
+        swiperEle.swiper?.destroy(true, true);
       });
       const navigationSub = this.navigationSub();
       if (navigationSub) {
@@ -128,9 +144,8 @@ export class SwiperComponent implements OnInit, AfterViewInit {
       effect(
         () => {
           const newConfig = this.buildConfig(this.content());
-          if (this.initialized) {
-            this.applyConfig(swiperEle, newConfig);
-          }
+          this.activeIndex = this.requestedIndex ?? newConfig.initialSlide ?? this.activeIndex;
+          this.applyConfig(swiperEle, newConfig);
         },
         { injector: this.injector }
       );
@@ -138,15 +153,13 @@ export class SwiperComponent implements OnInit, AfterViewInit {
 
     effect(() => {
       const idx = this.index();
+      this.requestedIndex = idx;
+      if (idx !== undefined) this.activeIndex = idx;
       const swiper = this.swiper();
       if (idx !== undefined && swiper?.nativeElement?.swiper) {
         swiper.nativeElement.swiper.slideTo(idx);
       }
     });
-  }
-
-  ngOnInit(): void {
-    // Config is now built reactively in the constructor effect; nothing to do here.
   }
 
   async ngAfterViewInit(): Promise<void> {
