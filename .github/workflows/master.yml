@@ -3,20 +3,25 @@ name: Build app and deploy to ECS
 on:
   push:
     branches: [master]
+    # Keep this allowlist aligned with scripts/ci-changes.mjs.
+    paths-ignore:
+      - README.md
+      - AGENTS.md
+      - CLAUDE.md
+      - docs/README.md
 
-# Never interrupt or overlap uploads to the same deployment directory.
-concurrency:
-  group: deploy-${{ github.ref }}
-  cancel-in-progress: false
+permissions:
+  contents: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    concurrency:
+      group: build-${{ github.ref }}
+      cancel-in-progress: true
     env:
       NODE_OPTIONS: --max-old-space-size=6144
       NG_BUILD_MAX_WORKERS: "2"
-      DEPLOY_ROOT: /mnt/wwwroot/app/base
-      DEPLOY_CONTAINER: base
     defaults:
       run:
         working-directory: ./
@@ -25,37 +30,92 @@ jobs:
         run: git config --global --add safe.directory *
 
       - name: Checkout
-        uses: actions/checkout@v3.0.1
+        uses: actions/checkout@v4
 
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: "22"
           cache: "npm"
 
-      - name: Cache verify
-        run: npm cache verify
+      - name: Cache Angular compilation
+        uses: actions/cache@v4
+        with:
+          path: .angular/cache
+          key: ${{ runner.os }}-node22-angular-${{ hashFiles('package-lock.json', 'angular.json', 'tsconfig*.json') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-node22-angular-${{ hashFiles('package-lock.json', 'angular.json', 'tsconfig*.json') }}-
 
       - name: NPM Install
         run: npm ci
 
-      # 单测门禁：维护说明见 xinshi-docs/stories/develop/testing.mdx
-      # npm test 排除 src/server/** 和 src/chat-server/**，两者由 test:server 覆盖；
-      # 任一红灯即中止构建与部署
+      # Test setup and scope: xinshi-docs/stories/develop/engineering/testing.mdx.
       - name: Unit tests
         run: npm test
 
       - name: Server unit tests
         run: npm run test:server
 
-      - name: Deployment regression
-        run: node --test scripts/deploy-assets.test.mjs
+      - name: CI and deployment regressions
+        run: node --test scripts/ci-changes.test.mjs scripts/deploy-assets.test.mjs
 
       - name: NPM build all App Production
         run: npm run build
 
+      # Tar preserves runtime symlinks and file modes across the artifact handoff.
+      - name: Archive deployment files
+        run: tar -czf dist.tar.gz dist
+
+      - name: Upload deployment files
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-${{ github.sha }}
+          path: dist.tar.gz
+          compression-level: 0
+          retention-days: 1
+          if-no-files-found: error
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    # Never interrupt or overlap uploads to the same deployment directory.
+    concurrency:
+      group: deploy-${{ github.ref }}
+      cancel-in-progress: false
+    env:
+      DEPLOY_ROOT: /mnt/wwwroot/app/base
+      DEPLOY_CONTAINER: base
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Queued deployments may start out of order; documentation commits keep the app eligible.
+      - name: Check deployment revision
+        id: revision
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { hasApplicationChanges } = await import(
+              `${process.env.GITHUB_WORKSPACE}/scripts/ci-changes.mjs`
+            );
+            await exec.exec('git', ['fetch', '--no-tags', '--depth=1', 'origin', context.ref]);
+            const current = !hasApplicationChanges(context.sha, 'FETCH_HEAD');
+            core.setOutput('current', current);
+            if (!current) core.notice('Skipping deployment: a newer application revision exists.');
+
+      - name: Download deployment files
+        if: steps.revision.outputs.current == 'true'
+        uses: actions/download-artifact@v4
+        with:
+          name: app-${{ github.sha }}
+
+      - name: Extract deployment files
+        if: steps.revision.outputs.current == 'true'
+        run: tar -xzf dist.tar.gz
+
       # Publish assets first so new SSR output never references files still uploading.
       - name: Publish browser assets
+        if: steps.revision.outputs.current == 'true'
         uses: AEnterprise/rsync-deploy@v1.0.2
         env:
           DEPLOY_KEY: ${{ secrets.KEY }}
@@ -70,6 +130,7 @@ jobs:
       # Retain hashed browser outputs, media and SSR imports for existing clients/processes.
       # Do not prune by mtime: even the active build can contain old files.
       - name: Deploy to Server
+        if: steps.revision.outputs.current == 'true'
         uses: AEnterprise/rsync-deploy@v1.0.2
         env:
           DEPLOY_KEY: ${{ secrets.KEY }}
@@ -81,6 +142,7 @@ jobs:
           SERVER_DESTINATION: "${{ env.DEPLOY_ROOT }}"
 
       - name: Restart builder container
+        if: steps.revision.outputs.current == 'true'
         uses: appleboy/ssh-action@v1.0.3
         with:
           envs: DEPLOY_ROOT,DEPLOY_CONTAINER
