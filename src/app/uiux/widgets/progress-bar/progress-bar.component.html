@@ -4,6 +4,7 @@
       <div class="label">{{ contentValue.label }}</div>
     }
     <mat-progress-bar
+      [attr.aria-label]="contentValue.label || null"
       [color]="contentValue.color"
       [mode]="contentValue.mode || 'determinate'"
       [value]="contentValue.value"
