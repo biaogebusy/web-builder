@@ -154,7 +154,10 @@
 
   @container (width < 640px) {
     ::ng-deep .fc {
-      .fc-list-event { @apply flex flex-col; }
+      .fc-list-table, .fc-list-table tbody, .fc-list-day, .fc-list-day > th {
+        @apply block w-full;
+      }
+      .fc-list-event { @apply flex flex-col w-full; }
       .fc-list-event-time { @apply block w-full pb-0; }
       .fc-list-event-title { @apply block w-full pt-1; }
       .fc-list-day-text, .fc-list-day-side-text { @apply float-none block; }
