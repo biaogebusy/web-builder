@@ -39,6 +39,7 @@ export class CalendarComponent implements OnInit {
       ...options, plugins: [dayGridPlugin, listPlugin, luxonPlugin],
       locale: lang.startsWith('zh') ? 'zh-cn' : 'en', locales: [zhLocale],
       initialView: 'listMonth', headerToolbar: { start: 'title', end: 'prev,next' },
+      buttonIcons: false,
       height: 'auto', handleWindowResize: false, editable: false, selectable: false,
       navLinks: false, eventInteractive: false, dayMaxEvents: false, fixedWeekCount: false,
       eventTimeFormat: { hour: '2-digit', minute: '2-digit', hour12: false },

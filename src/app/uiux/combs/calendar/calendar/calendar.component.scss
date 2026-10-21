@@ -127,6 +127,8 @@
     .fc-list-day-text, .fc-list-day-side-text { @apply whitespace-normal; }
     .fc-list-event-title, .fc-event-title { overflow-wrap: anywhere; }
     .fc-event-title { @apply line-clamp-none; }
+    .fc-day-other .fc-daygrid-day-top { @apply opacity-100; }
+    .fc-day-other .fc-daygrid-day-number { color: var(--mat-sys-on-surface-variant); }
     .fc-daygrid-event { @apply block; }
     .fc-day-today { background: var(--mat-sys-surface-container-high); }
     .fc-daygrid-day.fc-day-today { background: var(--mat-sys-surface-container-high); }
