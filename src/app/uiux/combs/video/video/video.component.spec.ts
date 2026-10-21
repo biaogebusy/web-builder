@@ -10,7 +10,9 @@ describe('VideoComponent lifecycle', () => {
   const loadScript = vi.fn<() => Promise<void>>();
   const players: { dispose: ReturnType<typeof vi.fn>; on: ReturnType<typeof vi.fn> }[] = [];
   const createPlayer = vi.fn((element: HTMLVideoElement) => {
-    const player = { dispose: vi.fn(() => element.remove()), on: vi.fn(), el: () => element };
+    const owner = element.parentElement!.hasAttribute('data-vjs-player')
+      ? element.parentElement! : element;
+    const player = { dispose: vi.fn(() => owner.remove()), on: vi.fn(), el: () => element };
     players.push(player);
     return player;
   });
@@ -60,6 +62,7 @@ describe('VideoComponent lifecycle', () => {
     first.componentRef.setInput('content', { type: 'video', options: { poster: '/poster.png' } });
     await first.whenStable();
     await vi.waitFor(() => expect(createPlayer).toHaveBeenCalledTimes(3));
+    expect(first.nativeElement.querySelector('video')).not.toBeNull();
     expect(players[0].dispose).toHaveBeenCalledOnce();
     expect(players[1].dispose).not.toHaveBeenCalled();
     first.destroy();

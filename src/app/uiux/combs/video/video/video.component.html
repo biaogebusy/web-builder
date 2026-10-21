@@ -1,6 +1,6 @@
 <div class="video" [class]="content().options?.mode || ''">
   <div [class.container]="!content().fullWidth" [class]="content().classes">
-    <div #target data-vjs-player></div>
+    <div #target></div>
     @if (failed()) {
       <p role="status">{{ 'VIDEO.LOAD_FAILED' | translate }}</p>
       <app-btn [content]="{ label: 'VIDEO.RETRY' | translate }" (btnClick)="retry()" />
