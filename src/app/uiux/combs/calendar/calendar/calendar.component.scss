@@ -123,6 +123,16 @@
     }
 
     .fc-toolbar-title { @apply text-base break-words; }
+    .fc-header-toolbar .fc-button {
+      background: var(--mat-sys-primary);
+      color: var(--mat-sys-on-primary);
+
+      &:hover, &:focus, &:active {
+        @apply opacity-100;
+        background: var(--mat-sys-primary);
+        color: var(--mat-sys-on-primary);
+      }
+    }
     .fc-list-table { @apply table-fixed w-full; }
     .fc-list-day-text, .fc-list-day-side-text { @apply whitespace-normal; }
     .fc-list-event-title, .fc-event-title { overflow-wrap: anywhere; }
