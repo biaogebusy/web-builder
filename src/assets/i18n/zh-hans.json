@@ -1,4 +1,5 @@
 {
+  "VIDEO": { "LOAD_FAILED": "视频加载失败。", "RETRY": "重试" },
   "APP": {
     "LOADING": "加载中……"
   },
