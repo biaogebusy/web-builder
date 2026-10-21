@@ -1,4 +1,5 @@
 {
+  "MAP": {"VIEW": "下方地点的地图", "PLACES": "地点列表", "FIT": "显示全部地点", "COORDINATES": "经度、纬度", "LOAD_FAILED": "地图加载失败。可刷新页面重试。"},
   "VIDEO": { "LOAD_FAILED": "视频加载失败。", "RETRY": "重试" },
   "APP": {
     "LOADING": "加载中……"

@@ -1,4 +1,5 @@
 {
+  "MAP": {"VIEW": "Map of the listed places", "PLACES": "Places", "FIT": "Show all places", "COORDINATES": "Longitude, latitude", "LOAD_FAILED": "The map could not be loaded. Reload the page to try again."},
   "VIDEO": { "LOAD_FAILED": "The video could not be loaded.", "RETRY": "Retry" },
   "APP": {
     "LOADING": "Loading..."
