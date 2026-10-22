@@ -16,6 +16,7 @@
     "precompress": "node scripts/precompress.mjs",
     "test": "ng test --no-watch",
     "test:server": "vitest run",
+    "test:unit": "npm test && npm run test:server",
     "test:watch": "ng test",
     "e2e": "playwright test",
     "e2e:ui": "playwright test --ui",

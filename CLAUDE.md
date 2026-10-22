@@ -73,6 +73,7 @@ deployment details out of anything that ships upstream.
 - `npm run build` — production build plus static asset precompression (`ng build --configuration production && npm run precompress`)
 - `npm test` — run unit tests once (Vitest via `@angular/build:unit-test` builder); covers all `src/**` specs except `src/server/**`; setup in `src/test-setup.ts`, shared test providers in `src/test-providers.ts`
 - `npm run test:server` — run server-side specs (`src/server/**`, including Node and SQLite tests) via root `vitest.config.ts`; the two channels split coverage with no overlap
+- `npm run test:unit` — run both unit test channels in sequence; the local pre-push hook runs this command and blocks the push on failure
 - `npm run test:watch` — run unit tests in watch mode
 - `npm run lint` — ESLint (flat config in `eslint.config.js`)
 - `npm run e2e` — end-to-end tests (Playwright, specs in `e2e/`)
@@ -80,6 +81,11 @@ deployment details out of anything that ships upstream.
 - `npm run serve:ssr:xinshi` — serve SSR build (`node dist/server/server.mjs`)
 
 Pre-commit hook runs `lint-staged` which auto-fixes `*.ts` and `*.html` with ESLint and formats `*.md` with Prettier.
+
+Unit tests run locally before each push. Install dependencies with `npm install` to enable Husky,
+and use a Node version supported by `package.json`. GitHub unit tests use manual `workflow_dispatch`;
+the deployment workflow retains build and deployment checks. See the
+[testing guide](../xinshi-docs/stories/develop/engineering/testing.mdx) for setup and limitations.
 
 ## Architecture
 

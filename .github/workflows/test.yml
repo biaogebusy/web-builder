@@ -1,18 +1,16 @@
 # Test setup and scope: xinshi-docs/stories/develop/engineering/testing.mdx.
 # npm test covers Angular specs; npm run test:server covers src/server/**.
-# Require this workflow in branch protection to block PRs when tests fail.
+# Local pushes run both suites through .husky/pre-push.
 name: Unit tests
 
 on:
-  pull_request:
-    branches: [master]
+  workflow_dispatch:
 
 permissions:
   contents: read
-  pull-requests: read
 
 concurrency:
-  group: unit-tests-${{ github.event.pull_request.number }}
+  group: unit-tests-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -25,32 +23,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Keep the required check visible even when only documentation changed.
-      - name: Check changed files
-        id: changes
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const { requiresPullRequestChecks } = await import(
-              `${process.env.GITHUB_WORKSPACE}/scripts/ci-changes.mjs`
-            );
-            const pr = context.payload.pull_request;
-            const files = await github.paginate(github.rest.pulls.listFiles, {
-              ...context.repo, pull_number: pr.number, per_page: 100,
-            });
-            const application = requiresPullRequestChecks(files, pr.changed_files);
-            core.setOutput('application', application);
-            core.info(application ? 'Application checks required.' : 'Documentation-only change.');
-
       - name: Use Node.js
-        if: steps.changes.outputs.application == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: "22"
           cache: "npm"
 
       - name: Cache Angular compilation
-        if: steps.changes.outputs.application == 'true'
         uses: actions/cache@v4
         with:
           path: .angular/cache
@@ -59,17 +38,10 @@ jobs:
             ${{ runner.os }}-node22-angular-${{ hashFiles('package-lock.json', 'angular.json', 'tsconfig*.json') }}-
 
       - name: NPM Install
-        if: steps.changes.outputs.application == 'true'
         run: npm ci
 
       - name: Unit tests
-        if: steps.changes.outputs.application == 'true'
-        run: npm test
-
-      - name: Server unit tests
-        if: steps.changes.outputs.application == 'true'
-        run: npm run test:server
+        run: npm run test:unit
 
       - name: CI and deployment regressions
-        if: steps.changes.outputs.application == 'true'
         run: node --test scripts/ci-changes.test.mjs scripts/deploy-assets.test.mjs

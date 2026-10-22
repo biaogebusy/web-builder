@@ -7,7 +7,6 @@ import test from 'node:test';
 import {
   hasApplicationChanges,
   requiresApplicationChecks,
-  requiresPullRequestChecks,
 } from './ci-changes.mjs';
 
 test('only known repository documentation can skip application checks', () => {
@@ -25,22 +24,6 @@ test('only known repository documentation can skip application checks', () => {
   ]) {
     assert.equal(requiresApplicationChecks(['README.md', path]), true, path);
   }
-});
-
-test('PR checks include rename sources and fail closed on incomplete file lists', () => {
-  const documentation = [{ filename: 'README.md', status: 'modified' }];
-  assert.equal(requiresPullRequestChecks(documentation, 1), false);
-  assert.equal(requiresPullRequestChecks([{ filename: 'README.md', status: 'removed' }], 1), false);
-  assert.equal(requiresPullRequestChecks([
-    { filename: 'docs/README.md', previous_filename: 'src/assets/prompt.md', status: 'renamed' },
-  ], 1), true);
-  assert.equal(requiresPullRequestChecks([
-    { filename: 'src/assets/prompt.md', previous_filename: 'README.md', status: 'renamed' },
-  ], 1), true);
-  assert.equal(requiresPullRequestChecks([...documentation, { filename: 'src/app/example.ts' }], 2),
-    true);
-  assert.equal(requiresPullRequestChecks(documentation, 3001), true);
-  assert.equal(requiresPullRequestChecks(documentation, undefined), true);
 });
 
 test('deployment compares complete trees across documentation commits, changes and renames', () => {
