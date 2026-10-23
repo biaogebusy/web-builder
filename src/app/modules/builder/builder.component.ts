@@ -1,4 +1,4 @@
-import { Component, DestroyRef, OnInit, inject, AfterViewInit, ChangeDetectionStrategy, viewChild, computed } from '@angular/core';
+import { Component, DestroyRef, ElementRef, OnInit, inject, AfterViewInit, ChangeDetectionStrategy, viewChild, computed } from '@angular/core';
 import { SHARE_IMPORTS } from '@share/share-imports';
 import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
@@ -8,12 +8,17 @@ import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { filter } from 'rxjs';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { BuilderSidebarComponent } from './sidebar/builder-sidebar/builder-sidebar.component';
+import { COLLAPSE_BUILDER_SIDEBAR } from './sidebar/collapse-builder-sidebar';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-builder',
   templateUrl: './builder.component.html',
   styleUrls: ['./builder.component.scss'],
+  providers: [{ provide: COLLAPSE_BUILDER_SIDEBAR, useFactory: () => {
+    const shell = inject(BuilderComponent);
+    return () => shell.collapseSidebar();
+  } }],
   imports: [
     SHARE_IMPORTS,
     WIDGETS_IMPORTS,
@@ -23,6 +28,8 @@ import { BuilderSidebarComponent } from './sidebar/builder-sidebar/builder-sideb
   ],
 })
 export class BuilderComponent implements OnInit, AfterViewInit {
+  private readonly sidebarDrawer = viewChild<MatDrawer>('drawer');
+  private readonly drawerContent = viewChild('drawerContent', { read: ElementRef<HTMLElement> });
   private readonly builderRightDrawer = viewChild<MatDrawer>('builderRightDrawer');
   public sidebarDrawerOpened = false;
 
@@ -60,6 +67,12 @@ export class BuilderComponent implements OnInit, AfterViewInit {
         this.onClose();
       }
     });
+  }
+
+  /** Match the sidebar's manual collapse, including its content spacing. */
+  collapseSidebar(): void {
+    this.drawerContent()?.nativeElement.classList.remove('opened');
+    void this.sidebarDrawer()?.close();
   }
 
   onClose(): void {
