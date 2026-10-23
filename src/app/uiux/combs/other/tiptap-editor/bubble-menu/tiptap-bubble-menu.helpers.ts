@@ -26,4 +26,3 @@ export const shouldShowBubbleMenu: NonNullable<BubbleMenuPluginProps['shouldShow
 
   return hasEditorFocus && !selection.empty && !isEmptyTextBlock && editor.isEditable;
 };
-
