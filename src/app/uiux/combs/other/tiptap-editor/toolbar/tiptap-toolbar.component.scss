@@ -1,0 +1,21 @@
+:host {
+  display: contents;
+}
+.toolbar-group {
+  @apply flex shrink-0 items-center gap-0.5;
+}
+.heading-control {
+  @apply min-w-0;
+  select {
+    @apply min-h-8 w-32 max-w-full rounded border px-2 py-1 text-sm;
+    border-color: var(--mat-sys-outline);
+    background: var(--mat-sys-surface);
+    color: var(--mat-sys-on-surface);
+    &:disabled { opacity: 0.5; }
+    &:focus-visible { outline: 2px solid var(--mat-sys-primary); outline-offset: 2px; }
+  }
+}
+button[aria-pressed='true'] {
+  background: var(--mat-sys-primary-container);
+  color: var(--mat-sys-on-primary-container);
+}

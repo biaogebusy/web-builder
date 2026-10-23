@@ -225,4 +225,56 @@ describe('TiptapEditorComponent', () => {
     buttons[1].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft', bubbles: true }));
     expect(document.activeElement).toBe(buttons[0]);
   });
+  it('formats the retained selection through the shared toolbar and updates undo state', async () => {
+    fixture.componentRef.setInput('content', { html: '<p>Shared formatting</p>' });
+    await fixture.whenStable();
+    const editor = component.editor()!;
+    // JSDOM has no text-range layout; browser regressions cover scrolling and focus.
+    editor.setOptions({ editorProps: { handleScrollToSelection: () => true } });
+    editor.commands.setTextSelection({ from: 1, to: 7 });
+    await fixture.whenStable();
+    const toolbar = fixture.nativeElement.querySelector('app-tiptap-toolbar') as HTMLElement;
+    const button = (name: string) => toolbar.querySelector<HTMLButtonElement>(
+      '[aria-label="BUILDER.TIPTAP.' + name + '"]'
+    )!;
+    const pointer = new MouseEvent('mousedown', { bubbles: true, cancelable: true });
+    button('BOLD').dispatchEvent(pointer);
+    expect(pointer.defaultPrevented).toBe(true);
+    button('BOLD').click();
+    await fixture.whenStable();
+    expect(editor.getHTML()).toBe('<p><strong>Shared</strong> formatting</p>');
+    expect(button('BOLD').getAttribute('aria-pressed')).toBe('true');
+    expect(button('UNDO').disabled).toBe(false);
+    button('UNDO').click();
+    await fixture.whenStable();
+    expect(editor.getHTML()).toBe('<p>Shared formatting</p>');
+    button('REDO').click();
+    await fixture.whenStable();
+    expect(editor.getHTML()).toContain('<strong>Shared</strong>');
+  });
+
+  it('shares heading and list controls and reflects external content changes', async () => {
+    fixture.componentRef.setInput('content', { html: '<p>Heading</p>' });
+    await fixture.whenStable();
+    const editor = component.editor()!;
+    // JSDOM has no text-range layout; browser regressions cover scrolling and focus.
+    editor.setOptions({ editorProps: { handleScrollToSelection: () => true } });
+    editor.commands.setTextSelection(1);
+    const select = fixture.nativeElement.querySelector('app-tiptap-toolbar select') as HTMLSelectElement;
+    select.selectedIndex = 2;
+    select.dispatchEvent(new Event('change'));
+    await fixture.whenStable();
+    expect(editor.getHTML()).toContain('<h2>Heading</h2>');
+    component.setContent('<p>List item</p>');
+    await fixture.whenStable();
+    expect(select.selectedIndex).toBe(0);
+    const toolbar = fixture.nativeElement.querySelector('app-tiptap-toolbar') as HTMLElement;
+    toolbar.querySelector<HTMLButtonElement>('[aria-label="BUILDER.TIPTAP.BULLET_LIST"]')!.click();
+    await fixture.whenStable();
+    expect(editor.getHTML()).toContain('<ul><li><p>List item</p></li></ul>');
+    toolbar.querySelector<HTMLButtonElement>('[aria-label="BUILDER.TIPTAP.ORDERED_LIST"]')!.click();
+    await fixture.whenStable();
+    expect(editor.getHTML()).toContain('<ol><li><p>List item</p></li></ol>');
+  });
+
 });
