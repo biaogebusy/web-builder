@@ -1,8 +1,6 @@
 {
   "recommendations": [
     "angular.ng-template",
-    "steoates.autoimport",
-    "nucllear.vscode-extension-auto-import",
     "editorconfig.editorconfig",
     "eamodio.gitlens",
     "azemoh.one-monokai",
@@ -16,5 +14,6 @@
     "formulahendry.auto-rename-tag",
     "lukasz-wronski.ftp-sync",
     "dbaeumer.vscode-eslint"
-  ]
+  ],
+  "unwantedRecommendations": ["steoates.autoimport", "nucllear.vscode-extension-auto-import"]
 }
