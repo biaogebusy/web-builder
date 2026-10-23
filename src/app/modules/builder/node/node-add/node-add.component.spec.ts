@@ -160,15 +160,32 @@ describe('NodeAddComponent', () => {
     }, { type: 'blog' });
     component.ngOnInit();
     expect(component.loadErrorKey()).toBe('BUILDER.NODE_ADD.FORM_ACCESS_DENIED');
+    expect(component.accessDenied()).toBe(true);
     expect(component.formReady()).toBe(false);
     component.onSubmit({ title: 'Partial' }, { id: 1 });
     expect(nodeServiceMock.addEntity).not.toHaveBeenCalled();
     fail = false;
     component.retry();
     expect(component.formReady()).toBe(true);
+    expect(component.accessDenied()).toBe(false);
     expect(component.mainFields().map(field => field.key)).toEqual(['title']);
     expect(component.publishFields()).toEqual([]);
     expect(component.promotionFields()).toEqual([]);
+  });
+
+  it.each([
+    [401, 'BUILDER.NODE_ADD.FORM_SIGN_IN_REQUIRED'],
+    [422, 'BUILDER.NODE_ADD.FORM_UNSUPPORTED'],
+    [503, 'BUILDER.NODE_ADD.LOAD_FORM_ERROR'],
+  ])('does not present HTTP %s as missing content permissions', async (status, key) => {
+    await setup({}, {
+      getAllowedNodeTypes: () => of([]),
+      getForm: () => throwError(() => ({ status })),
+    }, { type: 'blog' });
+    component.ngOnInit();
+    expect(component.loadErrorKey()).toBe(key);
+    expect(component.accessDenied()).toBe(false);
+    expect(component.formReady()).toBe(false);
   });
 
   it('should create', async () => {

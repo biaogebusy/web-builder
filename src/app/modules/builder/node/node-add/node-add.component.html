@@ -2,7 +2,12 @@
 <div class="node-add">
   <div class="editor-topbar">
     <h1 class="topbar-title">
-      @if (editUuid() && model().title) {
+      @if (accessDenied()) {
+        {{
+          (editUuid() ? 'BUILDER.NODE_ADD.ACCESS_EDIT_CONTEXT' : 'BUILDER.NODE_ADD.ACCESS_CREATE_CONTEXT')
+            | translate
+        }}
+      } @else if (editUuid() && model().title) {
         {{ model().title }}
       } @else {
         {{
@@ -45,6 +50,58 @@
       }
     </div>
   </div>
+  @if (accessDenied()) {
+    <section class="access-denied" aria-labelledby="access-title">
+      <div class="access-content">
+        <div class="access-icon" aria-hidden="true">
+          <app-icon [content]="{ svg: 'lock-outline', style: { width: '32px', height: '32px' } }" />
+        </div>
+        <div role="alert">
+          <p class="access-eyebrow">{{ 'BUILDER.NODE_ADD.ACCESS_LABEL' | translate }}</p>
+          <h2 #accessHeading id="access-title" class="access-title" tabindex="-1">
+            {{
+              (editUuid() ? 'BUILDER.NODE_ADD.ACCESS_EDIT_TITLE' : 'BUILDER.NODE_ADD.ACCESS_CREATE_TITLE')
+                | translate
+            }}
+          </h2>
+          <p class="access-description">{{ 'BUILDER.NODE_ADD.FORM_ACCESS_DENIED' | translate }}</p>
+        </div>
+        @if (accountName()) {
+          <p class="access-account">
+            <app-icon
+              aria-hidden="true"
+              [content]="{ svg: 'account-circle-outline', style: { width: '18px', height: '18px' } }"
+            />
+            <span>{{ 'BUILDER.NODE_ADD.ACCESS_ACCOUNT' | translate }}</span>
+            <strong>{{ accountName() }}</strong>
+          </p>
+        }
+        <div class="access-actions">
+          <app-btn
+            [content]="{
+              label: 'BUILDER.NODE_ADD.ACCESS_BACK' | translate,
+              href: managementUrl,
+              mode: 'flat',
+              color: 'primary',
+              icon: { svg: 'arrow-left' },
+            }"
+          />
+          <app-btn
+            (btnClick)="retry()"
+            [content]="{
+              label: 'BUILDER.NODE_ADD.ACCESS_RECHECK' | translate,
+              mode: 'stroked',
+              icon: { svg: 'refresh' },
+            }"
+          />
+        </div>
+        <div class="access-help">
+          <h3>{{ 'BUILDER.NODE_ADD.ACCESS_HELP_TITLE' | translate }}</h3>
+          <p>{{ 'BUILDER.NODE_ADD.ACCESS_HELP' | translate }}</p>
+        </div>
+      </div>
+    </section>
+  } @else {
   <div class="node-layout">
     <div class="node-main">
       <!-- The requested translation does not exist yet: saving creates it, prefilled from the source language -->
@@ -221,4 +278,5 @@
       }
     </aside>
   </div>
+  }
 </div>

@@ -81,15 +81,40 @@ test('permission failure blocks save and a successful retry restores a title-onl
   }));
   await open(page);
   const form = page.locator('app-node-add');
-  await expect(form.getByRole('alert')).toContainText('当前账户无权');
+  await expect(form.getByRole('heading', { name: '暂时无法创建此内容' })).toBeFocused();
+  await expect(form.getByRole('alert')).toContainText('当前账户暂未获得');
   await expect(form.getByRole('button', { name: '保存', exact: true })).toHaveCount(0);
+  await expect(form.locator('.node-aside')).toHaveCount(0);
+  await expect(form.getByRole('link', { name: '返回管理中心' })).toHaveAttribute('href', '/builder/hub');
   const accessibility = await new AxeBuilder({ page }).include('app-node-add')
     .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
   expect(accessibility.violations).toEqual([]);
+  await form.getByRole('button', { name: '重新检查权限', exact: true }).click();
+  await expect(form.getByRole('heading', { name: '暂时无法创建此内容' })).toBeFocused();
   denied = false;
-  await form.getByRole('button', { name: '重试', exact: true }).click();
+  await form.getByRole('button', { name: '重新检查权限', exact: true }).click();
   await expect(form.getByRole('textbox', { name: '标题', exact: true })).toBeVisible();
   await expect(form.getByRole('alert')).toHaveCount(0);
+});
+
+test('denied edit returns to the management center in the current language', async ({ context, page }) => {
+  const uuid = '11111111-1111-4111-8111-111111111111';
+  await session(context, page, `/en/builder/node/edit/blog/${uuid}`);
+  // Content access can fail even when the form description loads successfully.
+  await context.route(`**/api/v1/node/blog/${uuid}*`, route => route.fulfill({
+    status: 403, json: { errors: [{ status: '403' }] },
+  }));
+  await open(page);
+  // The app chooses its interface language on bootstrap; the OAuth callback starts in Chinese.
+  await page.reload();
+  const form = page.locator('app-node-add');
+  await expect(form.getByRole('heading', { name: 'You cannot edit this content yet' })).toBeFocused();
+  const back = form.getByRole('link', { name: 'Management center', exact: true });
+  await expect(back).toHaveAttribute('href', '/en/builder/hub');
+  await page.keyboard.press('Tab');
+  await expect(back).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(/\/en\/builder\/hub$/);
 });
 
 test('edit-only account uses an entity-specific form without create options', async ({ context, page }) => {

@@ -1,4 +1,4 @@
-import { Component, DestroyRef, OnInit, computed, inject, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DestroyRef, ElementRef, OnInit, computed, effect, inject, signal, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -88,14 +88,30 @@ export class NodeAddComponent implements OnInit {
   public submitting = signal(false);
   /** States the current account can select, as authorized by Drupal. */
   public moderationStates = signal<INodeStatusOption[]>([]);
-  /**
-   * Edit-mode node load failed: show an inline error state with a retry button
-   * instead of silently falling back to a blank create form (which risks saving
-   * a duplicate node instead of editing the intended one).
-   */
+  /** Failed loads block submission so an unavailable edit cannot create a duplicate. */
   public loadFailed = signal(false);
   /** Translation key for the failed content or form load. */
   public loadErrorKey = signal('BUILDER.NODE_ADD.LOAD_NODE_ERROR');
+  /** Access failures replace the editor and its unavailable property panel. */
+  public accessDenied = computed(
+    () => this.loadFailed() && this.loadErrorKey() === 'BUILDER.NODE_ADD.FORM_ACCESS_DENIED'
+  );
+  /** Identify the active account without exposing roles or authentication details. */
+  public accountName = computed(() => {
+    const user = this.user();
+    return typeof user === 'object'
+      ? user.display_name || user.name || user.current_user?.name || ''
+      : '';
+  });
+  /** Return to the management center in the current interface language. */
+  public get managementUrl(): string {
+    return this.router.createUrlTree(['hub'], {
+      relativeTo: this.activateRoute.parent?.parent,
+    }).toString();
+  }
+  private accessHeading = viewChild<ElementRef<HTMLElement>>('accessHeading');
+  // Retry replaces the panel, so return keyboard focus to its outcome when access is still denied.
+  private focusAccessHeading = effect(() => this.accessHeading()?.nativeElement.focus());
   /** Current Drupal permissions; null until the complete form is available. */
   public formSchema = signal<INodeFormSchema | null>(null);
   /** A legitimate title-only form is ready even when no configurable fields exist. */
@@ -271,6 +287,11 @@ export class NodeAddComponent implements OnInit {
               // A blank create form would silently turn the failed edit into a
               // duplicate node on save; stop at an error state with retry instead
               this.loadFailed.set(true);
+              this.loadErrorKey.set(err.status === 403
+                ? 'BUILDER.NODE_ADD.FORM_ACCESS_DENIED'
+                : err.status === 401
+                  ? 'BUILDER.NODE_ADD.FORM_SIGN_IN_REQUIRED'
+                  : 'BUILDER.NODE_ADD.LOAD_NODE_ERROR');
               return of(null);
             }),
             tap(node => {
@@ -300,11 +321,13 @@ export class NodeAddComponent implements OnInit {
       catchError(error => {
         this.loadFailed.set(true);
         this.loadErrorKey.set(
-          error.status === 401 || error.status === 403
+          error.status === 403
             ? 'BUILDER.NODE_ADD.FORM_ACCESS_DENIED'
-            : error.status === 422
-              ? 'BUILDER.NODE_ADD.FORM_UNSUPPORTED'
-              : 'BUILDER.NODE_ADD.LOAD_FORM_ERROR'
+            : error.status === 401
+              ? 'BUILDER.NODE_ADD.FORM_SIGN_IN_REQUIRED'
+              : error.status === 422
+                ? 'BUILDER.NODE_ADD.FORM_UNSUPPORTED'
+                : 'BUILDER.NODE_ADD.LOAD_FORM_ERROR'
         );
         return of({ node: null, states: [] });
       })
