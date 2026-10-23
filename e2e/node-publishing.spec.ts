@@ -162,6 +162,12 @@ test('comment author uses a plain-text editor and the comment bundle without an 
   });
   await page.goto('/me/login/callback?code=test-code&state=test-state');
   await expect(page).toHaveURL(/\/preview$/);
+  // Hosts can initialize BuilderState before browser storage is ready. Sync the fixture draft
+  // through the same event that a separate editor tab sends after the preview has opened.
+  await expect(page.locator('app-preview')).toBeVisible();
+  await page.evaluate(() => window.dispatchEvent(new StorageEvent('storage', {
+    key: 'ngx-webstorage:version', newValue: localStorage.getItem('ngx-webstorage:version'),
+  })));
   await page.getByRole('button', { name: '回答', exact: true }).click();
   const form = page.locator('app-comment-form');
   await form.getByRole('button', { name: '填写评论', exact: true }).click();
