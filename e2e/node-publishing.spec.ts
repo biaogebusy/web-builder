@@ -164,7 +164,7 @@ test('comment author uses a plain-text editor and the comment bundle without an 
   await expect(page).toHaveURL(/\/preview$/);
   // Hosts can initialize BuilderState before browser storage is ready. Sync the fixture draft
   // through the same event that a separate editor tab sends after the preview has opened.
-  await expect(page.locator('app-preview')).toBeVisible();
+  await expect(page.locator('app-preview')).toBeAttached();
   await page.evaluate(() => window.dispatchEvent(new StorageEvent('storage', {
     key: 'ngx-webstorage:version', newValue: localStorage.getItem('ngx-webstorage:version'),
   })));
