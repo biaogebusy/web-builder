@@ -676,7 +676,9 @@
       "FORM_INVALID": "请完善必填字段后再提交！",
       "SUBMIT_FAILED": "提交失败：{{message}}",
       "SUBMIT_SUCCESS": "创建成功！可继续创建新内容。",
-      "NO_FIELDS": "无法获取字段配置，请确认当前角色在 Drupal 中拥有 \"administer node fields\" 权限。"
+      "FORM_ACCESS_DENIED": "当前账户无权使用此内容表单。请联系管理员检查内容、字段和文本格式权限。",
+      "FORM_UNSUPPORTED": "此内容类型的表单配置尚不受支持。请联系管理员检查表单显示和必填字段。",
+      "LOAD_FORM_ERROR": "内容表单加载失败。请检查网络后重试。"
     },
     "NODE_MANAGE": {
       "PAGE_TITLE": "内容管理",

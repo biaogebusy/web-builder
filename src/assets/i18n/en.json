@@ -676,7 +676,9 @@
       "FORM_INVALID": "Please complete the required fields before submitting.",
       "SUBMIT_FAILED": "Submit failed: {{message}}",
       "SUBMIT_SUCCESS": "Created successfully! You can continue creating.",
-      "NO_FIELDS": "No fields available. Check that your role has the \"administer node fields\" permission in Drupal."
+      "FORM_ACCESS_DENIED": "Your account cannot use this content form. Ask an administrator to check content, field and text format permissions.",
+      "FORM_UNSUPPORTED": "This content form is not supported. Ask an administrator to check its form display and required fields.",
+      "LOAD_FORM_ERROR": "Could not load the content form. Check your connection and retry."
     },
     "NODE_MANAGE": {
       "PAGE_TITLE": "Content management",

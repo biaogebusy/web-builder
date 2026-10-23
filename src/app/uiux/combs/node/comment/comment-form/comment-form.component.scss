@@ -27,3 +27,10 @@
     color: var(--mat-sys-on-surface-variant);
   }
 }
+
+.plain-text-editor {
+  @apply w-full min-h-40 p-3 border rounded;
+  border-color: var(--mat-sys-outline-variant);
+  background: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+}

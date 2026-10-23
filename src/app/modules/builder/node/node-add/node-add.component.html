@@ -18,8 +18,8 @@
         <span class="sr-only" aria-live="polite">
           {{ 'BUILDER.NODE_ADD.SAVING' | translate }}
         </span>
-      } @else if (mainFields().length > 0) {
-        @if (editUuid()) {
+      } @else if (formReady()) {
+        @if (editUuid() && formSchema()?.canDelete) {
           <!-- Edit mode only: destructive action, guarded by a confirm dialog -->
           <app-btn
             (click)="onDelete()"
@@ -65,7 +65,7 @@
       <!-- app-formly snapshots fields/model once in ngAfterViewInit; keying by type+uuid forces destroy-and-rebuild on switch -->
       @if (loadFailed()) {
         <div class="load-error" role="alert">
-          <p class="load-error-text">{{ 'BUILDER.NODE_ADD.LOAD_NODE_ERROR' | translate }}</p>
+          <p class="load-error-text">{{ loadErrorKey() | translate }}</p>
           <app-btn
             (click)="retry()"
             [content]="{
@@ -74,7 +74,7 @@
             }"
           />
         </div>
-      } @else if (mainFields().length > 0) {
+      } @else if (formReady()) {
         @for (t of [type() + '/' + editUuid()]; track t) {
           <app-formly
             [form]="form"

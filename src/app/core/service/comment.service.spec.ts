@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { DOCUMENT, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
-import { firstValueFrom, of } from 'rxjs';
+import { firstValueFrom, of, throwError, Observable } from 'rxjs';
 import { CommentService } from './comment.service';
 
 describe('CommentService', () => {
@@ -10,11 +10,11 @@ describe('CommentService', () => {
     TestBed.resetTestingModule();
   });
 
-  function createService(get = vi.fn(() => of({ data: [] }))) {
+  function createService(get: (url: string) => Observable<unknown> = vi.fn(() => of({ key: 'comment_body', textFormat: 'basic_html', editor: 'rich_text' }))) {
     const http = {
       get,
-      post: vi.fn(() => of({})),
-      patch: vi.fn(() => of({})),
+      post: vi.fn<(url: string, body: string, options: unknown) => Observable<unknown>>(() => of({})),
+      patch: vi.fn<(url: string, body: string, options: unknown) => Observable<unknown>>(() => of({})),
     };
 
     TestBed.configureTestingModule({
@@ -42,7 +42,7 @@ describe('CommentService', () => {
     service.updateComment('comment_body', entityData, 'uuid-1', 'token').subscribe();
     service.replyComment('comment_body', entityData, 'token').subscribe();
 
-    const body = JSON.stringify({ data: entityData });
+    const body = JSON.stringify({ data: { ...entityData, relationships: {} } });
     expect(http.post).toHaveBeenNthCalledWith(
       1,
       'https://example.com/api/v1/comment/comment_body',
@@ -60,6 +60,38 @@ describe('CommentService', () => {
       body,
       expect.any(Object)
     );
+  });
+
+  it('resolves the allowed format and omits author reassignment for comment edits', async () => {
+    const get = vi.fn(() => of({ key: 'body', textFormat: 'basic_html', editor: 'rich_text' }));
+    const { service, http } = createService(get);
+    await firstValueFrom(service.updateComment('blog_comment', {
+      type: 'comment--blog_comment', attributes: { comment_body: { value: '<p>Hi</p>', format: 'full_html' } },
+      relationships: { uid: { data: { type: 'user--user', id: 'other' } } },
+    }, 'comment-id', 'token'));
+    expect(get).toHaveBeenCalledWith('https://example.com/api/v3/comment-form/blog_comment/comment-id', expect.any(Object));
+    expect(JSON.parse(http.patch.mock.calls[0][1]).data).toEqual({
+      type: 'comment--blog_comment', attributes: { body: { value: '<p>Hi</p>', format: 'basic_html' } },
+      relationships: {},
+    });
+  });
+
+  it('converts rich editor markup when only a plain-text format is available', async () => {
+    const { service, http } = createService(vi.fn(() => of({ key: 'comment_body', textFormat: 'plain_text', editor: 'plain_text' })));
+    await firstValueFrom(service.addComment('blog_comment', {
+      attributes: { comment_body: { value: '<p>Hello &amp; welcome</p><p>Again</p>' } },
+    }, 'token'));
+    expect(JSON.parse(http.post.mock.calls[0][1]).data.attributes.comment_body).toEqual({
+      value: 'Hello & welcome\nAgain', format: 'plain_text',
+    });
+  });
+
+  it('stops comment writes if the format description is denied or unavailable', async () => {
+    const { service, http } = createService(vi.fn(() => throwError(() => ({ status: 403 }))));
+    await expect(firstValueFrom(service.addComment('blog_comment', {
+      attributes: { comment_body: { value: '<p>Hi</p>' } },
+    }, 'token'))).rejects.toMatchObject({ status: 403 });
+    expect(http.post).not.toHaveBeenCalled();
   });
 
   it('loads root comments followed by their children and preserves the mapped tree', async () => {
@@ -90,6 +122,7 @@ describe('CommentService', () => {
     const content = {
       params: {
         comment: {
+          type: 'comment--discussion',
           attributes: { field_name: 'comment_body' },
           relationships: { entity_id: { data: { id: 'node-1' } } },
         },
@@ -113,6 +146,7 @@ describe('CommentService', () => {
       ],
     });
     expect(get).toHaveBeenCalledTimes(2);
+    expect(get.mock.calls[0][0]).toContain('/comment/discussion?');
     expect(get.mock.calls[0][0]).toContain('timeStamp=5');
     expect(get.mock.calls[1][0]).toContain('filter[pid.id]=root-1');
   });

@@ -9,7 +9,8 @@ import {
   createUtilitiesServiceMock,
 } from '@core/testing/mocks';
 import { provideUiuxMocks } from '@uiux/testing/mocks';
-import { throwError } from 'rxjs';
+import { of, Subject, throwError } from 'rxjs';
+import { CommentService } from '@core/service/comment.service';
 
 import { CommentFormComponent } from './comment-form.component';
 
@@ -18,6 +19,9 @@ describe('CommentFormComponent', () => {
   let fixture: ComponentFixture<CommentFormComponent>;
   const nodeService = createNodeServiceMock();
   const util = createUtilitiesServiceMock();
+  const commentService = { getForm: vi.fn(() => of({
+    key: 'comment_body', textFormat: 'plain_text', editor: 'plain_text',
+  })) };
 
   beforeEach(async () => {
     vi.clearAllMocks();
@@ -27,6 +31,7 @@ describe('CommentFormComponent', () => {
         provideRouter([]),
         ...provideUiuxMocks(),
         { provide: NodeService, useValue: nodeService },
+        { provide: CommentService, useValue: commentService },
         { provide: UtilitiesService, useValue: util },
         { provide: USER, useValue: signal({ id: 'u-1', access_token: 'tok-1' }) },
       ],
@@ -58,7 +63,7 @@ describe('CommentFormComponent', () => {
       expect.objectContaining({
         type: 'comment--comment',
         attributes: expect.objectContaining({
-          comment_body: { value: '<p>你好</p>', format: 'full_html' },
+          comment_body: { value: '<p>你好</p>', format: undefined },
         }),
       }),
       'tok-1'
@@ -86,7 +91,7 @@ describe('CommentFormComponent', () => {
     expect(util.openSnackbar).toHaveBeenCalledWith('回复成功！');
   });
 
-  it('updates the comment with the author relationship', () => {
+  it('updates the comment without requiring author administration', () => {
     fixture.componentRef.setInput('type', 'update');
     fixture.componentRef.setInput('commentId', 'comment-9');
 
@@ -96,9 +101,7 @@ describe('CommentFormComponent', () => {
       'comment',
       expect.objectContaining({
         id: 'comment-9',
-        relationships: expect.objectContaining({
-          uid: { data: { type: 'user--user', id: 'u-1' } },
-        }),
+        relationships: {},
       }),
       'comment-9',
       'tok-1'
@@ -112,5 +115,33 @@ describe('CommentFormComponent', () => {
 
     expect(component.loading).toBe(false);
     expect(util.openSnackbar).toHaveBeenCalledWith('提交失败！');
+  });
+
+  it('mounts a plain-text editor once and converts quotes without reparsing typed text', async () => {
+    vi.spyOn(component.screenService, 'isPlatformBrowser').mockReturnValue(true);
+    const quotes = new Subject<any>();
+    component.contentState.commentQuote$ = quotes;
+    fixture.detectChanges();
+    component.commentContent.set('<p>Original &lt;tag&gt;</p>');
+    component.activateEditor();
+    await fixture.whenStable();
+    fixture.detectChanges();
+    const textarea = fixture.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
+    expect(textarea.value).toBe('Original <tag>');
+    expect(document.activeElement).toBe(textarea);
+    component.commentContent.set('Typed <tag>');
+    component.activateEditor();
+    expect(commentService.getForm).toHaveBeenCalledTimes(1);
+    expect(component.commentContent()).toBe('Typed <tag>');
+    quotes.next({ author: { title: 'Author', subTitle: 'Today' }, content: '<p>Quoted &lt;tag&gt;</p>' });
+    fixture.detectChanges();
+    expect(textarea.value).toContain('Quoted <tag>');
+    expect(textarea.value).not.toContain('<em');
+    component.onSubmit(textarea.value);
+    expect(nodeService.addComment).toHaveBeenCalledWith('comment', expect.objectContaining({
+      attributes: expect.objectContaining({ comment_body: {
+        value: expect.stringContaining('Quoted <tag>'), format: 'plain_text',
+      } }),
+    }), 'tok-1');
   });
 });

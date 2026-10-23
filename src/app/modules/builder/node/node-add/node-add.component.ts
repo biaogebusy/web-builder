@@ -9,11 +9,11 @@ import { FORM_IMPORTS } from '@uiux/combs/form/form-imports';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import { IUser } from '@core/interface/IUser';
-import { ICoreConfig } from '@core/interface/IAppConfig';
 import { NodeService } from '@core/service/node.service';
 import {
   INodeFieldMeta,
   INodeForm,
+  INodeFormSchema,
   INodeStatusOption,
   NodeFieldFormService,
 } from '@core/service/node-field-form.service';
@@ -22,7 +22,7 @@ import { IDialog } from '@core/interface/IDialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { LocalStorageService } from 'ngx-webstorage';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { CORE_CONFIG, USER } from '@core/token/token-providers';
+import { USER } from '@core/token/token-providers';
 import { TranslateService } from '@ngx-translate/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { Subject, Subscription, combineLatest, forkJoin, Observable, of, throwError } from 'rxjs';
@@ -58,7 +58,6 @@ export class NodeAddComponent implements OnInit {
   private tagsService = inject(TagsService);
   private activateRoute = inject(ActivatedRoute);
   public user = inject(USER);
-  private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   private util = inject(UtilitiesService);
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);
@@ -84,14 +83,10 @@ export class NodeAddComponent implements OnInit {
   /** Form backfill model for edit mode */
   public model = signal<any>({});
   public nodeTypes = signal<{ label: string; value: string }[]>([]);
-  // getNodeTypes emits an empty array on error, which must be distinguished from "loading" to avoid a stuck skeleton
+  // An empty allowed-type list is distinct from a request that is still loading.
   public typesLoading = signal(true);
   public submitting = signal(false);
-  /**
-   * Moderation states of the current type's workflow, loaded from the backend;
-   * empty means the type is not moderated (or the workflow API is unreadable),
-   * in which case the state select falls back to the plain published/unpublished pair.
-   */
+  /** States the current account can select, as authorized by Drupal. */
   public moderationStates = signal<INodeStatusOption[]>([]);
   /**
    * Edit-mode node load failed: show an inline error state with a retry button
@@ -99,6 +94,12 @@ export class NodeAddComponent implements OnInit {
    * a duplicate node instead of editing the intended one).
    */
   public loadFailed = signal(false);
+  /** Translation key for the failed content or form load. */
+  public loadErrorKey = signal('BUILDER.NODE_ADD.LOAD_NODE_ERROR');
+  /** Current Drupal permissions; null until the complete form is available. */
+  public formSchema = signal<INodeFormSchema | null>(null);
+  /** A legitimate title-only form is ready even when no configurable fields exist. */
+  public formReady = computed(() => this.formSchema() !== null && !this.loadFailed());
   /** Site languages; empty when multi-language is off */
   private langs = environment.langs || [];
   private multiLang = !!environment.multiLang;
@@ -195,7 +196,7 @@ export class NodeAddComponent implements OnInit {
     }
     // Prevent the browser's save-page dialog; without loaded fields there is nothing to save
     event.preventDefault();
-    if (this.mainFields().length > 0 && !this.submitting()) {
+    if (this.formReady() && !this.submitting()) {
       this.onSubmit(this.form.value, this.user());
     }
   }
@@ -226,6 +227,9 @@ export class NodeAddComponent implements OnInit {
     this.form = new UntypedFormGroup({});
     this.typeForm = new UntypedFormGroup({});
     this.fieldMeta = [];
+    this.formSchema.set(null);
+    this.loadErrorKey.set('BUILDER.NODE_ADD.LOAD_NODE_ERROR');
+    this.draftSub?.unsubscribe();
     this.originalNode = null;
     this.loadedChanged = '';
     // Editing language: the explicit ?lang= wins (the manage list's edit button
@@ -275,30 +279,49 @@ export class NodeAddComponent implements OnInit {
             })
           )
       : of(null);
-    const states$ = this.fieldFormService.getModerationStates(type);
-    if (type === 'json') {
-      return forkJoin({ node: node$, states: states$ }).pipe(
-        map(({ node, states }) => ({ node, states }))
-      );
-    }
-    // Introspect the content type's fields via the field config API to build the form dynamically
     return forkJoin({
-      form: this.fieldFormService.getForm(type),
+      form: this.fieldFormService.getForm(type, uuid || undefined, this.editLang() || undefined),
       node: node$,
-      states: states$,
-    }).pipe(map(({ form, node, states }) => ({ node, form, states })));
+    }).pipe(
+      map(({ form, node }) => {
+        if (node) {
+          // Base fields may have public aliases configured in JSON:API Extras.
+          const attributes = { ...node.attributes };
+          Object.entries(form.schema.baseFieldNames).forEach(([internal, publicName]) => {
+            if (publicName in attributes) {
+              attributes[internal] = attributes[publicName];
+            }
+          });
+          node = { ...node, attributes };
+          this.originalNode = node;
+        }
+        return { node, form, states: form.schema.states };
+      }),
+      catchError(error => {
+        this.loadFailed.set(true);
+        this.loadErrorKey.set(
+          error.status === 401 || error.status === 403
+            ? 'BUILDER.NODE_ADD.FORM_ACCESS_DENIED'
+            : error.status === 422
+              ? 'BUILDER.NODE_ADD.FORM_UNSUPPORTED'
+              : 'BUILDER.NODE_ADD.LOAD_FORM_ERROR'
+        );
+        return of({ node: null, states: [] });
+      })
+    );
   }
 
-  /** Missing form means the json type (no field introspection); otherwise build the dynamic form from the introspection result */
+  /** Builds controls only after Drupal has authorized the complete form description. */
   private applyForm(load: {
     node: any;
     form?: INodeForm;
     states: INodeStatusOption[];
   }): void {
     const { node, form, states } = load;
-    if (this.loadFailed()) {
+    if (this.loadFailed() || !form) {
       return;
     }
+    this.formSchema.set(form.schema);
     this.moderationStates.set(states);
     // A lang-prefixed GET falls back to the default translation when the
     // requested translation does not exist; the langcode mismatch means this
@@ -310,8 +333,8 @@ export class NodeAddComponent implements OnInit {
         node.attributes?.langcode !== undefined &&
         node.attributes.langcode !== requestedLang
     );
-    // The state select defaults to "published" on create and backfills the node's current state on edit
-    const state = node ? this.currentState(node) : 'published';
+    // Defaults come from the backend, including types that publish immediately on creation.
+    const state = form.schema.defaults.state;
     // Base-field backfill shared by every type: promote (front page) / sticky (top of lists)
     const baseFields = node
       ? {
@@ -319,36 +342,7 @@ export class NodeAddComponent implements OnInit {
           promote: !!node.attributes?.promote,
           sticky: !!node.attributes?.sticky,
         }
-      : { state, promote: false, sticky: false };
-    if (!form) {
-      if (node) {
-        this.model.set({
-          title: node.attributes?.title,
-          path_alias: node.attributes?.path?.alias ?? '',
-          ...baseFields,
-          body: this.parseJsonBody(node),
-        });
-      } else {
-        this.model.set({ ...baseFields });
-      }
-      this.mainFields.set([
-        this.getTitleField(),
-        {
-          key: 'body',
-          type: 'json',
-          className: 'node-body-field',
-          props: {
-            label: 'JSON',
-            required: true,
-            rows: 10,
-          },
-        },
-      ]);
-      this.publishFields.set(this.getPublishFields());
-      this.promotionFields.set(this.getPromotionFields());
-      this.wireLocalDraft(node);
-      return;
-    }
+      : { ...form.schema.defaults };
     const { fields, meta } = form;
     this.fieldMeta = meta;
     if (node) {
@@ -364,7 +358,7 @@ export class NodeAddComponent implements OnInit {
     // Body fields go to the middle editing area; remaining metadata goes to the right property panel
     const bodyKeys = new Set(
       meta
-        .filter(m => m.fieldType === 'text_long' || m.fieldType === 'text_with_summary')
+        .filter(m => ['text', 'text_long', 'text_with_summary'].includes(m.fieldType))
         .map(m => m.key)
     );
     // The first rich-text body projects its toolbar into the standalone bar under
@@ -389,14 +383,13 @@ export class NodeAddComponent implements OnInit {
               : props,
         };
       });
-    this.mainFields.set([this.getTitleField(), ...bodyFields]);
+    this.mainFields.set([
+      ...(form.schema.baseFields['title'] ? [this.getTitleField()] : []),
+      ...bodyFields,
+    ]);
     this.sideFields.set(fields.filter(f => !bodyKeys.has(f.key as string)));
     this.publishFields.set(this.getPublishFields());
     this.promotionFields.set(this.getPromotionFields());
-    // field_config requires the administer node fields permission; data is empty without it
-    if (fields.length === 0) {
-      this.util.openSnackbar(this.translate.instant('BUILDER.NODE_ADD.NO_FIELDS'), 'ok');
-    }
     this.wireLocalDraft(node);
   }
 
@@ -485,19 +478,6 @@ export class NodeAddComponent implements OnInit {
       });
   }
 
-  /** The json type stores body as a string; restore it to an object before backfill */
-  private parseJsonBody(node: any): any {
-    const raw = node?.attributes?.body?.value ?? node?.attributes?.body ?? '';
-    if (typeof raw !== 'string' || !raw) {
-      return raw || {};
-    }
-    try {
-      return JSON.parse(raw);
-    } catch {
-      return raw;
-    }
-  }
-
   /** Type-switch select change: navigate to the selected type's create/edit page */
   onTypeChange(model: any): void {
     this.switchType(model?.type);
@@ -509,6 +489,9 @@ export class NodeAddComponent implements OnInit {
    * marked pristine to keep the leave guard from asking twice.
    */
   onDelete(): void {
+    if (!this.formReady() || !this.formSchema()?.canDelete) {
+      return;
+    }
     if (!this.editUuid()) {
       return;
     }
@@ -578,9 +561,9 @@ export class NodeAddComponent implements OnInit {
     };
   }
 
-  /** Publish settings: state select (default published, other states per the backend workflow), URL alias + revision note */
+  /** Publish controls filtered by the current field and transition permissions. */
   private getPublishFields(): FormlyFieldConfig[] {
-    return [
+    const fields: FormlyFieldConfig[] = [
       {
         key: 'state',
         type: 'select',
@@ -609,6 +592,13 @@ export class NodeAddComponent implements OnInit {
         },
       },
     ];
+    const writable = this.formSchema()?.baseFields ?? {};
+    return fields.filter(field => {
+      if (field.key === 'state') {
+        return this.stateOptions().length > 0;
+      }
+      return !!writable[field.key === 'path_alias' ? 'path' : field.key as string];
+    });
   }
 
   /** Type-switch select config; options require the loaded node types, so the section renders only after the load */
@@ -630,7 +620,7 @@ export class NodeAddComponent implements OnInit {
 
   /** Promotion options group: promote to front page / sticky at top of lists */
   private getPromotionFields(): FormlyFieldConfig[] {
-    return [
+    const fields: FormlyFieldConfig[] = [
       {
         key: 'promote',
         type: 'checkbox',
@@ -646,6 +636,7 @@ export class NodeAddComponent implements OnInit {
         },
       },
     ];
+    return fields.filter(field => !!this.formSchema()?.baseFields[field.key as string]);
   }
 
   /**
@@ -653,19 +644,7 @@ export class NodeAddComponent implements OnInit {
    * moderated types; otherwise the plain published/unpublished pair mapped to status.
    */
   private stateOptions(): INodeStatusOption[] {
-    if (this.isModeratedType()) {
-      // Workflow states unreadable (permission/API missing): fall back to the core moderation states
-      return this.moderationStates().length
-        ? this.moderationStates()
-        : [
-            { value: 'draft', label: this.translate.instant('BUILDER.NODE_ADD.STATE_DRAFT') },
-            { value: 'published', label: this.translate.instant('BUILDER.NODE_ADD.STATE_PUBLISHED') },
-          ];
-    }
-    return [
-      { value: 'published', label: this.translate.instant('BUILDER.NODE_ADD.STATE_PUBLISHED') },
-      { value: 'unpublished', label: this.translate.instant('BUILDER.NODE_ADD.STATE_UNPUBLISHED') },
-    ];
+    return this.formSchema()?.states ?? [];
   }
 
   /** The node's current state as a select value: moderation_state, or status mapped to published/unpublished */
@@ -802,7 +781,7 @@ export class NodeAddComponent implements OnInit {
       this.util.openSnackbar(this.translate.instant('BUILDER.NODE_ADD.LOGIN_FIRST'), 'ok');
       return;
     }
-    if (this.submitting()) {
+    if (this.submitting() || !this.formReady()) {
       return;
     }
     // Validate required fields client-side and mark them touched to show errors, rather than relying on a backend 422 for feedback
@@ -815,25 +794,16 @@ export class NodeAddComponent implements OnInit {
     const type = this.type();
     const uuid = this.editUuid();
     const lang = this.apiLang();
-    // The state select defaults to published when the form has not touched it
-    const state = value.state || 'published';
-    let attributes: any;
-    let relationships: any;
-    if (type === 'json') {
-      const { title, body } = value;
-      // Carry the original text format on edit so a plain-string submit does not reset the json format to the site default
-      const format = this.originalNode?.attributes?.body?.format;
-      attributes = {
-        title,
-        body: format ? { value: JSON.stringify(body), format } : JSON.stringify(body),
-      };
-    } else {
-      const { title, ...rest } = value;
-      // Pass the original node on edit: cleared fields send explicit null, text keeps the original format/summary, references carry meta back
-      const payload = this.fieldFormService.buildPayload(this.fieldMeta, rest, this.originalNode);
-      attributes = { title, ...payload.attributes };
-      relationships = payload.relationships;
+    // An untouched state retains the default authorized by Drupal.
+    const state = value.state ?? this.formSchema()!.defaults.state;
+    const { title, ...rest } = value;
+    const payload = this.fieldFormService.buildPayload(this.fieldMeta, rest, this.originalNode);
+    const attributes = { ...payload.attributes };
+    const titleKey = this.formSchema()!.baseFields['title'];
+    if (titleKey && title !== undefined) {
+      attributes[titleKey] = title;
     }
+    const relationships = payload.relationships;
     Object.assign(attributes, this.buildBaseFieldAttributes(value, state, lang));
     const path = `/api/v1/node/${type}`;
     const request$ = uuid
@@ -899,22 +869,17 @@ export class NodeAddComponent implements OnInit {
     if (!this.originalNode && !this.editUuid() && lang) {
       attrs.langcode = lang;
     }
-    return attrs;
+    const writable = this.formSchema()?.baseFields ?? {};
+    return Object.fromEntries(
+      Object.entries(attrs)
+        .filter(([key]) => !!writable[key])
+        .map(([key, fieldValue]) => [writable[key], fieldValue])
+    );
   }
 
-  /**
-   * On edit, judge by the node response first (a moderation_state means moderated);
-   * on create, the loaded workflow states take precedence, with the config as fallback
-   * for when the workflow API is unreadable.
-   */
+  /** Drupal determines whether this entity uses a moderation workflow. */
   private isModeratedType(): boolean {
-    if (this.originalNode) {
-      return typeof this.originalNode.attributes?.moderation_state === 'string';
-    }
-    return (
-      this.moderationStates().length > 0 ||
-      (this.coreConfig?.builder?.nodeTypes?.moderated ?? []).includes(this.type())
-    );
+    return this.formSchema()?.moderated ?? false;
   }
 
   /** Normalize the alias to a path starting with /; empty values return '' */
