@@ -19,11 +19,6 @@
               {{ errorValue }}
             </div>
           }
-          @if (notice(); as noticeValue) {
-            <div class="notice" role="status">
-              {{ noticeValue }}
-            </div>
-          }
           @if (oauthLogin?.enable || socialProviders.length) {
             <section class="auth-login" [attr.aria-label]="'LOGIN.QUICK_AUTH' | translate">
               <div class="auth-login-list">
