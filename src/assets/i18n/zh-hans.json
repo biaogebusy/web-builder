@@ -676,7 +676,20 @@
       "FORM_INVALID": "请完善必填字段后再提交！",
       "SUBMIT_FAILED": "提交失败：{{message}}",
       "SUBMIT_SUCCESS": "创建成功！可继续创建新内容。",
-      "NO_FIELDS": "无法获取字段配置，请确认当前角色在 Drupal 中拥有 \"administer node fields\" 权限。"
+      "FORM_ACCESS_DENIED": "当前账户暂未获得此内容的操作权限。你可以返回管理中心，继续处理有权限的内容。",
+      "FORM_SIGN_IN_REQUIRED": "登录状态已失效，请重新登录后再试。",
+      "ACCESS_LABEL": "访问受限",
+      "ACCESS_CREATE_CONTEXT": "发布内容",
+      "ACCESS_EDIT_CONTEXT": "编辑内容",
+      "ACCESS_CREATE_TITLE": "暂时无法创建此内容",
+      "ACCESS_EDIT_TITLE": "暂时无法编辑此内容",
+      "ACCESS_ACCOUNT": "当前账户",
+      "ACCESS_BACK": "返回管理中心",
+      "ACCESS_RECHECK": "重新检查权限",
+      "ACCESS_HELP_TITLE": "需要使用此功能？",
+      "ACCESS_HELP": "请联系站点管理员确认内容权限。权限更新后，请重新登录并再次检查。",
+      "FORM_UNSUPPORTED": "此内容类型的表单配置尚不受支持。请联系管理员检查表单显示和必填字段。",
+      "LOAD_FORM_ERROR": "内容表单加载失败。请检查网络后重试。"
     },
     "NODE_MANAGE": {
       "PAGE_TITLE": "内容管理",

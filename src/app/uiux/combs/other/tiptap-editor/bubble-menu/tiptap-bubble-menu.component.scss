@@ -1,5 +1,5 @@
 // The host element's positioning is taken over by the tiptap BubbleMenu extension:
-// on show() it mounts to body and computes top/left via floating-ui; hiding is done
+// on show() it mounts to the configured container and computes top/left via floating-ui; hiding is done
 // by the plugin removing the element from the DOM, so it starts invisible
 :host {
   @apply z-50 block;
@@ -66,4 +66,9 @@
 
 app-tiptap-link-panel {
   border-top: 1px solid var(--mat-sys-outline-variant);
+}
+
+.bubble-row button[aria-pressed='true'] {
+  background: var(--mat-sys-primary-container);
+  color: var(--mat-sys-on-primary-container);
 }

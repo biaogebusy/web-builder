@@ -29,6 +29,7 @@ import {
 } from '@core/service/user.service';
 import type { OAuthMode, OtpResult, StartAuthorizeOptions } from '@core/service/user.service';
 import { ScreenService } from '@core/service/screen.service';
+import { UtilitiesService } from '@core/service/utilities.service';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig, ISocialLoginProvider } from '@core/interface/IAppConfig';
 import type { IIcon } from '@core/interface/widgets/IIcon';
@@ -104,8 +105,6 @@ export class LoginComponent implements OnInit {
 
   public loading = signal<boolean>(false);
   public error = signal<string>('');
-  /** Neutral confirmation copy, kept apart from `error` so "code sent" never renders as a failure. */
-  public notice = signal<string>('');
   public phoneForm: UntypedFormGroup;
   public countdown = signal<number>(0);
   /** Guards the resend button while a request is in flight, since the countdown starts only after. */
@@ -132,6 +131,7 @@ export class LoginComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private userService = inject(UserService);
   private screenService = inject(ScreenService);
+  private util = inject(UtilitiesService);
   private translate = inject(TranslateService);
   private destroyRef = inject(DestroyRef);
   private doc = inject(DOCUMENT);
@@ -320,10 +320,10 @@ export class LoginComponent implements OnInit {
       .subscribe(result => {
         this.sendingCode.set(false);
         if (!result.ok) {
-          this.error.set(this.localizeError(result, 'LOGIN.ERROR_CODE_SEND_FAILED'));
+          this.util.openSnackbar(this.localizeError(result, 'LOGIN.ERROR_CODE_SEND_FAILED'));
           return;
         }
-        this.notice.set(
+        this.util.openSnackbar(
           this.translate.instant('LOGIN.CODE_SENT', {
             phone: this.maskPhone(String(phone)),
             minutes: CODE_VALID_MINUTES,
@@ -347,14 +347,13 @@ export class LoginComponent implements OnInit {
         this.countdownSub?.unsubscribe();
         const delayMessage = this.coreConfig.login.phoneLogin?.delayMessage;
         if (delayMessage) {
-          this.notice.set(delayMessage);
+          this.util.openSnackbar(delayMessage);
         }
       });
   }
 
   private resetMessages(): void {
     this.error.set('');
-    this.notice.set('');
   }
 
   private localizeError(result: OtpResult, fallbackKey: string): string {

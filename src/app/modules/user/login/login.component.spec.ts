@@ -3,10 +3,12 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { provideRouter } from '@angular/router';
 import { OAUTH_POPUP_BLOCKED, OAUTH_POPUP_TIMEOUT, UserService } from '@core/service/user.service';
 import { ScreenService } from '@core/service/screen.service';
+import { UtilitiesService } from '@core/service/utilities.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import {
   createScreenServiceMock,
   createUserServiceMock,
+  createUtilitiesServiceMock,
   provideCoreMocks,
 } from '@core/testing/mocks';
 import { TranslateService } from '@ngx-translate/core';
@@ -20,6 +22,7 @@ describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   const userService = createUserServiceMock();
+  const util = createUtilitiesServiceMock();
 
   beforeEach(async () => {
     vi.clearAllMocks();
@@ -29,6 +32,7 @@ describe('LoginComponent', () => {
         provideRouter([]),
         ...provideCoreMocks(),
         { provide: UserService, useValue: userService },
+        { provide: UtilitiesService, useValue: util },
         { provide: CORE_CONFIG, useValue: { login: { phoneLogin: { leftTime: 60 } } } },
         { provide: MatDialogRef, useValue: null },
       ],
@@ -106,7 +110,7 @@ describe('LoginComponent', () => {
     expect(userService.getCode).not.toHaveBeenCalled();
   });
 
-  it('requests the code and starts the countdown from the configured left time', () => {
+  it('shows a code sent toast and starts the countdown from the configured left time', () => {
     const translate = TestBed.inject(TranslateService);
     translate.setTranslation('zh-hans', { LOGIN: { CODE_SENT: 'sent to {{phone}}' } });
     translate.use('zh-hans');
@@ -117,7 +121,8 @@ describe('LoginComponent', () => {
 
     expect(userService.getCode).toHaveBeenCalledWith('13800138000');
     expect(component.countdown()).toBe(60);
-    expect(component.notice()).toBe('sent to 138****8000');
+    expect(util.openSnackbar).toHaveBeenCalledWith('sent to 138****8000');
+    expect(component.error()).toBe('');
   });
 
   it('keeps the countdown closed when the backend refused to send a code', () => {
@@ -129,8 +134,8 @@ describe('LoginComponent', () => {
     component.getCode(clickEvent());
 
     expect(component.countdown()).toBe(0);
-    expect(component.notice()).toBe('');
-    expect(component.error()).toBe('LOGIN.ERROR_NOT_REGISTERED');
+    expect(util.openSnackbar).toHaveBeenCalledWith('LOGIN.ERROR_NOT_REGISTERED');
+    expect(component.error()).toBe('');
   });
 
   it('tells throttling apart from a plain send failure', () => {
@@ -139,7 +144,8 @@ describe('LoginComponent', () => {
 
     component.getCode(clickEvent());
 
-    expect(component.error()).toBe('LOGIN.ERROR_CODE_THROTTLED');
+    expect(util.openSnackbar).toHaveBeenCalledWith('LOGIN.ERROR_CODE_THROTTLED');
+    expect(component.error()).toBe('');
     expect(component.countdown()).toBe(0);
   });
 

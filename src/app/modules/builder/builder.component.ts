@@ -9,12 +9,17 @@ import { distinctUntilChanged, filter, map } from 'rxjs';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { BuilderSidebarComponent } from './sidebar/builder-sidebar/builder-sidebar.component';
 import { ScreenState } from '@core/state/screen/ScreenState';
+import { COLLAPSE_BUILDER_SIDEBAR } from './sidebar/collapse-builder-sidebar';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-builder',
   templateUrl: './builder.component.html',
   styleUrls: ['./builder.component.scss'],
+  providers: [{ provide: COLLAPSE_BUILDER_SIDEBAR, useFactory: () => {
+    const shell = inject(BuilderComponent);
+    return () => shell.sidebarDrawerOpened.set(false);
+  } }],
   imports: [
     SHARE_IMPORTS,
     WIDGETS_IMPORTS,

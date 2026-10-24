@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { EMPTY, forkJoin, Observable, of } from 'rxjs';
-import { catchError, expand, map, reduce, switchMap } from 'rxjs/operators';
+import { expand, map, reduce, switchMap } from 'rxjs/operators';
 import { ICoreConfig } from '@core/interface/IAppConfig';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { NodeService } from './node.service';
@@ -14,6 +14,12 @@ export interface INodeFieldMeta {
   fieldType: string;
   targetType?: string;
   targetBundle?: string;
+  /** JSON:API resource type of the reference target. */
+  targetResourceType?: string;
+  /** Format selected by Drupal for this field and account. */
+  textFormat?: string;
+  /** Editor appropriate for the selected format. */
+  editor?: 'rich_text' | 'plain_text' | 'json';
   multiple?: boolean;
   /** Text field bound to the json text format (filter.format.json): use the JSON editor and submit as json */
   jsonFormat?: boolean;
@@ -27,6 +33,8 @@ export interface INodeFieldMeta {
 export interface INodeForm {
   fields: FormlyFieldConfig[];
   meta: INodeFieldMeta[];
+  /** Current content and field permissions supplied by Drupal. */
+  schema: INodeFormSchema;
 }
 
 export interface INodePayload {
@@ -50,10 +58,37 @@ export interface INodeStatusOption {
   label: string;
 }
 
-/**
- * Introspects content type fields via the Drupal field config API to dynamically build
- * formly forms, and splits form values into attributes and relationships per JSON:API.
- */
+/** A field description, independent of the frontend form library. */
+export interface INodeFieldDescription extends INodeFieldMeta {
+  /** Field label. */
+  label: string;
+  /** Whether a value is required. */
+  required: boolean;
+  /** Maximum string length, when specified by Drupal. */
+  maxLength?: number;
+  /** Allowed values of list fields. */
+  options?: { label: string; value: string | number }[];
+}
+
+/** Caller-specific description for creating or editing one content resource. */
+export interface INodeFormSchema {
+  /** Supported, accessible fields in display order. */
+  fields: INodeFieldDescription[];
+  /** Writable base fields, mapped from internal names to JSON:API names. */
+  baseFields: Record<string, string>;
+  /** Enabled base field names used when reading JSON:API data. */
+  baseFieldNames: Record<string, string>;
+  /** Whether Drupal applies a moderation workflow to this content. */
+  moderated: boolean;
+  /** Publication states the caller can select for this entity. */
+  states: INodeStatusOption[];
+  /** Backend defaults, or the current values when editing. */
+  defaults: { state: string; promote: boolean; sticky: boolean };
+  /** Whether the caller can delete the edited entity. */
+  canDelete: boolean;
+}
+
+/** Converts authorized Drupal form descriptions to Formly and JSON:API payloads. */
 @Injectable({
   providedIn: 'root',
 })
@@ -62,7 +97,7 @@ export class NodeFieldFormService {
   private coreConfig = inject<ICoreConfig | null>(CORE_CONFIG, { optional: true });
 
   /**
-   * All content types of the site, used by the publishing page switcher.
+   * All viewable content types, used by content management, including edit-only accounts.
    * Errors are not swallowed here: an empty array means "the site has no usable types",
    * which is distinct from "load failed": callers must handle both separately
    * (otherwise a failure renders as an empty state and the loading flag never resets).
@@ -99,7 +134,9 @@ export class NodeFieldFormService {
    */
   getAllowedNodeTypes(): Observable<INodeTypeOption[]> {
     const allowed = new Set(this.getAllowedTypeNames());
-    return this.getNodeTypes().pipe(map(types => types.filter(type => allowed.has(type.value))));
+    return this.nodeService.fetch('/api/v3/node-form/types').pipe(
+      map(res => (res.data as INodeTypeOption[]).filter(type => allowed.has(type.value)))
+    );
   }
 
   /**
@@ -122,65 +159,14 @@ export class NodeFieldFormService {
     );
   }
 
-  getForm(bundle: string): Observable<INodeForm> {
-    return forkJoin({
-      configs: this.fetchAllPages(
-        '/api/v1/field_config/field_config',
-        `filter[entity_type]=node&filter[bundle]=${bundle}`
-      ).pipe(
-        catchError(err => {
-          console.error(`加载 ${bundle} 字段配置失败`, err);
-          return of([]);
-        })
-      ),
-      storages: this.fetchAllPages(
-        '/api/v1/field_storage_config/field_storage_config',
-        'filter[entity_type]=node'
-      ).pipe(
-        catchError(err => {
-          console.error('加载字段存储配置失败', err);
-          return of([]);
-        })
-      ),
-      enabledKeys: this.getFormDisplayKeys(bundle),
-    }).pipe(
-      map(({ configs, storages, enabledKeys }) => this.buildForm(configs, storages, enabledKeys)),
-      // app-formly cloneDeep's fields, so options cannot be Observables; resolve them to arrays first
+  /** Loads a form using create access or the specific entity's update access. */
+  getForm(bundle: string, uuid?: string, lang?: string): Observable<INodeForm> {
+    const path = `/api/v3/node-form/${encodeURIComponent(bundle)}` +
+      (uuid ? `/${encodeURIComponent(uuid)}` : '');
+    return this.nodeService.fetch(path, lang ? { lang } : {}).pipe(
+      map((schema: INodeFormSchema) => this.buildForm(schema)),
       switchMap(form => this.resolveTermOptions(form))
     );
-  }
-
-  /**
-   * Field set enabled in the content type's default form display (entity_form_display,
-   * the "content" keys). Fields dragged into the "disabled" area in the admin form
-   * display only exist in hidden, and Drupal's node form does not render them; content
-   * is used as the whitelist here too. On load failure or missing data (e.g. no
-   * administer node form display permission) returns null meaning unknown, and callers
-   * skip filtering.
-   */
-  private getFormDisplayKeys(bundle: string): Observable<Set<string> | null> {
-    return this.nodeService
-      .fetch(
-        '/api/v1/entity_form_display/entity_form_display',
-        `filter[targetEntityType]=node&filter[bundle]=${bundle}&filter[mode]=default`
-      )
-      .pipe(
-        map(res => {
-          // Double-check against the attributes in case the filter params fail and a display config of another type slips in
-          const display = (res?.data || []).find(
-            (d: any) =>
-              d?.attributes?.targetEntityType === 'node' &&
-              d?.attributes?.bundle === bundle &&
-              d?.attributes?.mode === 'default'
-          );
-          const content = display?.attributes?.content;
-          return content ? new Set(Object.keys(content)) : null;
-        }),
-        catchError(err => {
-          console.error(`加载 ${bundle} 表单显示配置失败`, err);
-          return of(null);
-        })
-      );
   }
 
   private resolveTermOptions(form: INodeForm): Observable<INodeForm> {
@@ -192,14 +178,7 @@ export class NodeFieldFormService {
       return of(form);
     }
     return forkJoin(
-      termFields.map(m =>
-        this.getTermOptions(m.targetBundle as string).pipe(
-          catchError(err => {
-            console.error(`加载词汇表 ${m.targetBundle} 词条失败`, err);
-            return of([]);
-          })
-        )
-      )
+      termFields.map(m => this.getTermOptions(m.targetBundle as string))
     ).pipe(
       map(optionLists => {
         termFields.forEach((m, index) => {
@@ -213,73 +192,40 @@ export class NodeFieldFormService {
     );
   }
 
-  buildForm(configs: any[], storages: any[], enabledKeys?: Set<string> | null): INodeForm {
-    const storageMap = new Map<string, any>();
-    storages.forEach(storage => {
-      storageMap.set(storage.attributes.field_name, storage.attributes);
-    });
-
-    const meta: INodeFieldMeta[] = [];
-    const fields: FormlyFieldConfig[] = [];
-    // Field types that no simple control can express and that would error when submitted
-    // as-is: metatag/link need structured values, image/file are file references with
-    // meta, date types require a strict format. Skip them (not submitting on edit keeps
-    // the original value) so they never render as text boxes whose plain-text submission
-    // would cause 422s or corrupt data
-    const skipTypes = ['metatag', 'image', 'file', 'link', 'datetime', 'daterange'];
-
-    configs.forEach(config => {
-      const attrs = config.attributes;
-      if (skipTypes.includes(attrs.field_type)) {
-        return;
-      }
-      // Fields disabled in the form display are not rendered (matching the Drupal node
-      // form); they also stay out of meta so edits never touch them and the original
-      // values are preserved
-      if (enabledKeys && !enabledKeys.has(attrs.field_name)) {
-        return;
-      }
-      const storage = storageMap.get(attrs.field_name);
-      const targetBundles = attrs.settings?.handler_settings?.target_bundles;
-      const isText = attrs.field_type === 'text_long' || attrs.field_type === 'text_with_summary';
-      const fieldMeta: INodeFieldMeta = {
-        key: attrs.field_name,
-        fieldType: attrs.field_type,
-        // When storage is missing (e.g. no permission), infer the target type from the handler (default: taxonomy_term)
-        targetType: storage?.settings?.target_type ?? attrs.settings?.handler?.split(':')[1],
-        targetBundle: targetBundles ? Object.keys(targetBundles)[0] : undefined,
-        multiple: storage ? storage.cardinality !== 1 : false,
-        // A field whose config depends on filter.format.json stores JSON content
-        jsonFormat: isText && (attrs.dependencies?.config || []).includes('filter.format.json'),
-        autoCreate:
-          attrs.field_type === 'entity_reference' && !!attrs.settings?.handler_settings?.auto_create,
-      };
-      meta.push(fieldMeta);
-      fields.push(this.toFormlyField(fieldMeta, attrs));
-    });
-
-    return { fields, meta };
+  /** Maps the server's authorized field list without inferring unavailable configuration. */
+  buildForm(schema: INodeFormSchema): INodeForm {
+    return {
+      fields: schema.fields.map(field => this.toFormlyField(field, field)),
+      meta: schema.fields,
+      schema,
+    };
   }
 
-  toFormlyField(meta: INodeFieldMeta, attrs: any): FormlyFieldConfig {
+  toFormlyField(meta: INodeFieldMeta, attrs: INodeFieldDescription): FormlyFieldConfig {
     const base: FormlyFieldConfig = {
       key: meta.key,
       type: 'input',
       props: {
         label: attrs.label,
         required: attrs.required,
+        ...(attrs.maxLength ? { maxLength: attrs.maxLength } : {}),
       },
     };
     switch (meta.fieldType) {
+      case 'text':
       case 'text_long':
       case 'text_with_summary':
         // Text fields in JSON format (e.g. component body) use the JSON editor, not rich text
         if (meta.jsonFormat) {
           return { ...base, type: 'json' };
         }
-        return { ...base, type: 'tiptap' };
+        return { ...base, type: meta.editor === 'plain_text' ? 'textarea' : 'tiptap' };
       case 'string_long':
         return { ...base, type: 'textarea', props: { ...base.props, rows: 4 } };
+      case 'list_string':
+      case 'list_integer':
+      case 'list_float':
+        return { ...base, type: 'select', props: { ...base.props, options: attrs.options } };
       case 'boolean':
         return { ...base, type: 'checkbox' };
       case 'integer':
@@ -334,31 +280,6 @@ export class NodeFieldFormService {
     }
   }
 
-  /**
-   * Moderation states of the workflow moderating a content type, ordered by
-   * state weight (published / draft / archived / custom). Content moderation
-   * stores moderated bundles as `node.type.*` config dependencies. An empty
-   * result means the type is not moderated (or the workflow API is unreadable),
-   * letting callers fall back to the plain published/unpublished pair.
-   */
-  getModerationStates(bundle: string): Observable<INodeStatusOption[]> {
-    return this.nodeService.fetch('/api/v1/workflow/workflow').pipe(
-      map(res => {
-        const workflow = (res?.data || []).find((item: any) =>
-          (item?.attributes?.dependencies?.config || []).includes(`node.type.${bundle}`)
-        );
-        const states = workflow?.attributes?.type_settings?.states ?? {};
-        return Object.keys(states)
-          .sort((a: string, b: string) => (states[a].weight ?? 0) - (states[b].weight ?? 0))
-          .map((state: string) => ({ value: state, label: states[state]?.label ?? state }));
-      }),
-      catchError(err => {
-        console.error('加载发布工作流失败', err);
-        return of([]);
-      })
-    );
-  }
-
   getTermOptions(vocabulary: string): Observable<{ label: string; value: string }[]> {
     // Sparse fieldset: only name is read here, and skipping other fields avoids 500s
     // from vocabularies that carry fields JSON:API cannot serialize (e.g. paragraphs)
@@ -386,7 +307,7 @@ export class NodeFieldFormService {
         } else {
           model[field.key] = Array.isArray(rel) ? rel[0]?.id : rel?.id;
         }
-      } else if (field.fieldType === 'text_long' || field.fieldType === 'text_with_summary') {
+      } else if (['text', 'text_long', 'text_with_summary'].includes(field.fieldType)) {
         const value = node?.attributes?.[field.key];
         const raw = value?.value ?? '';
         model[field.key] = field.jsonFormat ? this.parseJsonValue(raw) : raw;
@@ -435,7 +356,7 @@ export class NodeFieldFormService {
         return;
       }
       if (isRef) {
-        const type = `${field.targetType}--${field.targetBundle || field.targetType}`;
+        const type = field.targetResourceType ?? `${field.targetType}--${field.targetBundle}`;
         const originalMeta = this.originalRefMeta(original, field.key);
         const toRef = (id: string) => {
           const refMeta = originalMeta.get(id);
@@ -446,17 +367,17 @@ export class NodeFieldFormService {
             ? (Array.isArray(fieldValue) ? fieldValue : [fieldValue]).map(toRef)
             : toRef(fieldValue),
         };
-      } else if (field.fieldType === 'text_long' || field.fieldType === 'text_with_summary') {
+      } else if (['text', 'text_long', 'text_with_summary'].includes(field.fieldType)) {
         if (field.jsonFormat) {
           attributes[field.key] = {
             value: typeof fieldValue === 'string' ? fieldValue : JSON.stringify(fieldValue),
-            format: 'json',
+            format: field.textFormat,
           };
         } else {
           const originalText = original?.attributes?.[field.key];
           attributes[field.key] = {
             value: fieldValue,
-            format: originalText?.format ?? 'full_html',
+            format: field.textFormat,
             ...(field.fieldType === 'text_with_summary' && originalText?.summary != null
               ? { summary: originalText.summary }
               : {}),

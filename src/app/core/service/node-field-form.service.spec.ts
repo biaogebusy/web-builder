@@ -1,7 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { describe, expect, it, beforeEach, vi } from 'vitest';
 import { NodeFieldFormService } from './node-field-form.service';
+import { contentFormFixture } from '@core/testing/content-form.fixture';
 import { NodeService } from './node.service';
 
 describe('NodeFieldFormService', () => {
@@ -18,175 +19,27 @@ describe('NodeFieldFormService', () => {
   });
 
   describe('buildForm', () => {
-    it('should map drupal field configs to formly fields', () => {
-      const configs = [
-        {
-          attributes: {
-            field_name: 'field_summary',
-            field_type: 'string',
-            label: 'Summary',
-            required: true,
-            settings: {},
-          },
-        },
-        {
-          attributes: {
-            field_name: 'body',
-            field_type: 'text_with_summary',
-            label: 'Body',
-            required: false,
-            settings: {},
-          },
-        },
-        {
-          attributes: {
-            field_name: 'field_tags',
-            field_type: 'entity_reference',
-            label: 'Tags',
-            required: false,
-            settings: {
-              handler: 'default:taxonomy_term',
-              handler_settings: { target_bundles: { tags: 'tags' } },
-            },
-          },
-        },
-        {
-          attributes: {
-            field_name: 'field_cover',
-            field_type: 'entity_reference',
-            label: 'Cover',
-            required: false,
-            settings: {
-              handler: 'default:media',
-              handler_settings: { target_bundles: { image: 'image' } },
-            },
-          },
-        },
-        {
-          attributes: {
-            field_name: 'data',
-            field_type: 'text_long',
-            label: 'Data',
-            required: false,
-            settings: {},
-            dependencies: {
-              config: ['field.storage.node.data', 'filter.format.json', 'node.type.component'],
-            },
-          },
-        },
-      ];
-      const storages = [
-        {
-          attributes: {
-            field_name: 'field_tags',
-            cardinality: -1,
-            settings: { target_type: 'taxonomy_term' },
-          },
-        },
-        {
-          attributes: {
-            field_name: 'field_cover',
-            cardinality: 1,
-            settings: { target_type: 'media' },
-          },
-        },
-      ];
-
-      const { fields, meta } = service.buildForm(configs, storages);
-
-      expect(fields.length).toBe(5);
-      expect(fields[0].type).toBe('input');
-      expect(fields[0].props?.required).toBe(true);
-      expect(fields[1].type).toBe('tiptap');
-      expect(fields[2].type).toBe('select');
-      expect(fields[2].props?.multiple).toBe(true);
-      expect(fields[3].type).toBe('img-picker');
-      expect(fields[3].props?.['valueIsUUID']).toBe(true);
-      // Fields bound to the json text format use the JSON editor, not rich text
-      expect(fields[4].type).toBe('json');
-      expect(meta.find(m => m.key === 'data')?.jsonFormat).toBe(true);
-      expect(meta.find(m => m.key === 'body')?.jsonFormat).toBe(false);
-      expect(meta.find(m => m.key === 'field_tags')?.targetBundle).toBe('tags');
-    });
-
-    it('无法用简单控件表达的字段类型不进表单(避免以纯文本提交)', () => {
-      const configs = ['metatag', 'image', 'file', 'link', 'datetime', 'daterange'].map(type => ({
-        attributes: { field_name: `field_${type}`, field_type: type, label: type, settings: {} },
-      }));
-      const { fields, meta } = service.buildForm(configs, []);
-      expect(fields.length).toBe(0);
-      expect(meta.length).toBe(0);
-    });
-
-    it('auto_create 的词条字段渲染为 term-select,其余仍为 select', () => {
-      const configs = [
-        {
-          attributes: {
-            field_name: 'category',
-            field_type: 'entity_reference',
-            label: '分类',
-            required: true,
-            settings: {
-              handler: 'default:taxonomy_term',
-              handler_settings: { target_bundles: { news_category: 'news_category' }, auto_create: false },
-            },
-          },
-        },
-        {
-          attributes: {
-            field_name: 'field_tags',
-            field_type: 'entity_reference',
-            label: '标签',
-            required: false,
-            settings: {
-              handler: 'default:taxonomy_term',
-              handler_settings: { target_bundles: { tags: 'tags' }, auto_create: true },
-            },
-          },
-        },
-      ];
-      const storages = [
-        {
-          attributes: {
-            field_name: 'category',
-            cardinality: 1,
-            settings: { target_type: 'taxonomy_term' },
-          },
-        },
-        {
-          attributes: {
-            field_name: 'field_tags',
-            cardinality: -1,
-            settings: { target_type: 'taxonomy_term' },
-          },
-        },
-      ];
-
-      const { fields, meta } = service.buildForm(configs, storages);
-
-      // auto_create=false: a plain select restricted to existing terms
-      expect(fields[0].type).toBe('select');
-      expect(meta.find(m => m.key === 'category')?.autoCreate).toBe(false);
-      // auto_create=true: the combobox that creates missing terms on the fly
-      const tags = fields[1];
-      expect(tags.type).toBe('term-select');
-      expect(tags.props?.multiple).toBe(true);
-      expect(tags.props?.['vocabulary']).toBe('tags');
-      expect(meta.find(m => m.key === 'field_tags')?.autoCreate).toBe(true);
-    });
-
-    it('传入表单显示白名单时,禁用字段不进 fields 也不进 meta', () => {
-      const configs = [
-        {
-          attributes: { field_name: 'field_summary', field_type: 'string', label: 'S', settings: {} },
-        },
-        {
-          attributes: { field_name: 'field_tags', field_type: 'string', label: 'T', settings: {} },
-        },
-      ];
-      const { fields, meta } = service.buildForm(configs, [], new Set(['title', 'field_summary']));
-      expect(fields.map(f => f.key)).toEqual(['field_summary']);
-      expect(meta.map(m => m.key)).toEqual(['field_summary']);
+    it('maps only the authorized descriptors and selects the permitted editor', () => {
+      const schema = contentFormFixture({ fields: [
+        { key: 'summary', fieldType: 'string', label: 'Summary', required: true, maxLength: 40 },
+        { key: 'body', fieldType: 'text_with_summary', label: 'Body', required: true,
+          textFormat: 'basic_html', editor: 'rich_text' },
+        { key: 'notes', fieldType: 'text_long', label: 'Notes', required: false,
+          textFormat: 'plain_text', editor: 'plain_text' },
+        { key: 'data', fieldType: 'text_long', label: 'Data', required: false,
+          textFormat: 'json', editor: 'json', jsonFormat: true },
+        { key: 'category', fieldType: 'entity_reference', label: 'Category', required: false,
+          targetType: 'taxonomy_term', targetBundle: 'tags', autoCreate: false },
+        { key: 'tags', fieldType: 'entity_reference', label: 'Tags', required: false,
+          targetType: 'taxonomy_term', targetBundle: 'tags', multiple: true, autoCreate: true },
+      ] });
+      const form = service.buildForm(schema);
+      expect(form.fields.map(field => field.type)).toEqual([
+        'input', 'tiptap', 'textarea', 'json', 'select', 'term-select',
+      ]);
+      expect(form.fields[0].props).toMatchObject({ required: true, maxLength: 40 });
+      expect(form.fields[5].props?.multiple).toBe(true);
+      expect(form.schema).toBe(schema);
     });
   });
 
@@ -194,7 +47,7 @@ describe('NodeFieldFormService', () => {
     it('should split values into attributes and relationships', () => {
       const meta = [
         { key: 'field_summary', fieldType: 'string' },
-        { key: 'body', fieldType: 'text_with_summary' },
+        { key: 'body', fieldType: 'text_with_summary', textFormat: 'full_html' },
         {
           key: 'field_tags',
           fieldType: 'entity_reference',
@@ -251,15 +104,15 @@ describe('NodeFieldFormService', () => {
     });
 
     it('should submit json-format text fields as json string', () => {
-      const meta = [{ key: 'data', fieldType: 'text_long', jsonFormat: true }];
+      const meta = [{ key: 'data', fieldType: 'text_long', jsonFormat: true, textFormat: 'json' }];
       const { attributes } = service.buildPayload(meta, { data: { a: 1 } });
       expect(attributes['data']).toEqual({ value: '{"a":1}', format: 'json' });
     });
 
     it('编辑时沿用原文本格式并保留摘要', () => {
       const meta = [
-        { key: 'body', fieldType: 'text_with_summary' },
-        { key: 'field_desc', fieldType: 'text_long' },
+        { key: 'body', fieldType: 'text_with_summary', textFormat: 'basic_html' },
+        { key: 'field_desc', fieldType: 'text_long', textFormat: 'restricted_html' },
       ];
       const original = {
         attributes: {
@@ -356,7 +209,7 @@ describe('NodeFieldFormService', () => {
     it('should map node data back to form model', () => {
       const meta = [
         { key: 'field_summary', fieldType: 'string' },
-        { key: 'body', fieldType: 'text_with_summary' },
+        { key: 'body', fieldType: 'text_with_summary', textFormat: 'full_html' },
         {
           key: 'field_tags',
           fieldType: 'entity_reference',
@@ -392,7 +245,7 @@ describe('NodeFieldFormService', () => {
     });
 
     it('should parse json-format text fields back to objects', () => {
-      const meta = [{ key: 'data', fieldType: 'text_long', jsonFormat: true }];
+      const meta = [{ key: 'data', fieldType: 'text_long', jsonFormat: true, textFormat: 'json' }];
       const node = {
         attributes: { data: { value: '{"a":1}', format: 'json' } },
       };
@@ -441,85 +294,39 @@ describe('NodeFieldFormService', () => {
   });
 
   describe('getForm', () => {
-    it('should emit empty form when apis return no data', () => {
+    it('loads one authorized descriptor for the requested entity and language', () => {
       nodeServiceMock.fetch.mockReset();
-      nodeServiceMock.fetch.mockReturnValue(of({ data: [] }));
-
+      const schema = contentFormFixture();
+      nodeServiceMock.fetch.mockReturnValue(of(schema));
       let result: any;
-      service.getForm('article').subscribe(r => (result = r));
-
-      expect(result).toEqual({ fields: [], meta: [] });
+      service.getForm('blog', 'node-uuid', 'en').subscribe(form => result = form);
+      expect(nodeServiceMock.fetch).toHaveBeenCalledExactlyOnceWith(
+        '/api/v3/node-form/blog/node-uuid', { lang: 'en' }
+      );
+      expect(result.fields).toEqual([]);
+      expect(result.schema).toEqual(schema);
     });
 
-    const fieldConfigs = [
-      {
-        attributes: {
-          field_name: 'field_summary',
-          field_type: 'string',
-          label: 'Summary',
-          settings: {},
-        },
-      },
-      {
-        attributes: {
-          field_name: 'field_tags',
-          field_type: 'entity_reference',
-          label: 'Tags',
-          settings: {
-            handler: 'default:taxonomy_term',
-            handler_settings: { target_bundles: { tags: 'tags' } },
-          },
-        },
-      },
-    ];
-
-    const mockApis = (formDisplayRes: any) => {
-      nodeServiceMock.fetch.mockReset();
-      nodeServiceMock.fetch.mockImplementation((api: string) => {
-        if (api.startsWith('/api/v1/field_config')) {
-          return of({ data: fieldConfigs });
-        }
-        if (api.startsWith('/api/v1/entity_form_display')) {
-          return of(formDisplayRes);
-        }
-        return of({ data: [] });
-      });
-    };
-
-    it('表单显示(管理表单显示)中禁用的字段不渲染,也不再加载其词汇表', () => {
-      mockApis({
-        data: [
-          {
-            attributes: {
-              targetEntityType: 'node',
-              bundle: 'article',
-              mode: 'default',
-              content: { title: { type: 'string_textfield' }, field_summary: { type: 'string_textfield' } },
-              hidden: { field_tags: true },
-            },
-          },
-        ],
-      });
-
-      let result: any;
-      service.getForm('article').subscribe(r => (result = r));
-
-      expect(result.fields.map((f: any) => f.key)).toEqual(['field_summary']);
-      expect(result.meta.map((m: any) => m.key)).toEqual(['field_summary']);
-      expect(
-        nodeServiceMock.fetch.mock.calls.some(call =>
-          (call[0] as string).includes('/taxonomy_term/')
-        )
-      ).toBe(false);
+    it('preserves permission and network failures instead of creating a partial form', () => {
+      for (const status of [403, 503]) {
+        nodeServiceMock.fetch.mockReturnValue(throwError(() => ({ status })));
+        const error = vi.fn();
+        const next = vi.fn();
+        service.getForm('blog').subscribe({ next, error });
+        expect(next).not.toHaveBeenCalled();
+        expect(error).toHaveBeenCalledWith({ status });
+      }
     });
 
-    it('表单显示配置不可用时(如无权限)不过滤,保持全部字段', () => {
-      mockApis({ data: [] });
-
+    it('filters the authorized create types through the product configuration', () => {
+      nodeServiceMock.fetch.mockReturnValue(of({ data: [
+        { value: 'blog', label: 'Blog', desc: '' },
+        { value: 'private_type', label: 'Private', desc: '' },
+      ] }));
       let result: any;
-      service.getForm('article').subscribe(r => (result = r));
-
-      expect(result.fields.map((f: any) => f.key)).toEqual(['field_summary', 'field_tags']);
+      service.getAllowedNodeTypes().subscribe(types => result = types);
+      expect(result.map((type: any) => type.value)).toEqual(['blog']);
+      expect(nodeServiceMock.fetch).toHaveBeenCalledWith('/api/v3/node-form/types');
     });
   });
 });

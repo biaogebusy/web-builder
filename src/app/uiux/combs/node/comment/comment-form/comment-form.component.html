@@ -6,6 +6,15 @@
       @if (screenService.isPlatformBrowser()) {
         <div class="comment-editor-shell">
           <ng-container #editorHost />
+          @if (plainText()) {
+            <textarea
+              #plainEditor
+              class="plain-text-editor"
+              [attr.aria-label]="contentValue.editor?.placeholder || placeholder"
+              [value]="commentContent()"
+              (input)="commentContent.set($any($event.target).value)"
+            ></textarea>
+          }
           @if (!editorLoaded()) {
             @if (editorLoading()) {
               <div class="editor-loading" role="status"><app-loading /></div>
@@ -28,7 +37,7 @@
         (click)="onSubmit(commentContent())"
         mat-raised-button
         color="primary"
-        [disabled]="!commentContent()"
+        [disabled]="loading || !commentContent()"
       >
         <div class="submit-inner">
           @if (loading) {

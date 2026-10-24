@@ -6,6 +6,7 @@ import { ScreenState } from '@core/state/screen/ScreenState';
 import { BehaviorSubject } from 'rxjs';
 
 import { BuilderComponent } from './builder.component';
+import { COLLAPSE_BUILDER_SIDEBAR } from './sidebar/collapse-builder-sidebar';
 
 @Component({ selector: 'app-builder-route-target', template: '' })
 class RouteTargetComponent {}
@@ -46,6 +47,18 @@ describe('BuilderComponent', () => {
     viewport.next(['xs']);
     await fixture.whenStable();
     expect(component.sidebarDrawerOpened()).toBe(true);
+  });
+
+  it('lets routed editors collapse expanded desktop navigation through the shell provider', async () => {
+    viewport.next(['lg']);
+    await fixture.whenStable();
+    component.sidebarDrawerOpened.set(true);
+    await fixture.whenStable();
+
+    fixture.debugElement.injector.get(COLLAPSE_BUILDER_SIDEBAR)();
+    await fixture.whenStable();
+
+    expect(component.sidebarDrawerOpened()).toBe(false);
   });
 
   it('closes mobile navigation after a route change', async () => {
