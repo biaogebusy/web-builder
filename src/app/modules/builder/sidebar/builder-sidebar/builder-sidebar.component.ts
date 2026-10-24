@@ -1,4 +1,4 @@
-import { Component, inject, ChangeDetectionStrategy, input } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy, input, output } from '@angular/core';
 import { SHARE_IMPORTS } from '@share/share-imports';
 import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { AccordionMenuComponent } from '@core/branding/accordion-menu/accordion-menu.component';
@@ -37,7 +37,8 @@ export class BuilderSidebarComponent {
   );
 
   readonly sidebarDrawer = input.required<MatDrawer>();
-  readonly drawerContentRef = input<any>();
+  /** Ask the shell to toggle navigation and update the content spacing together. */
+  readonly toggleSidebar = output<void>();
   public builder = inject(BuilderState);
   private dialog = inject(MatDialog);
   private manageService = inject(ManageService);
@@ -72,16 +73,7 @@ export class BuilderSidebarComponent {
   }
 
   onToggle(): void {
-    const {
-      elementRef: { nativeElement },
-    } = this.drawerContentRef();
-    const sidebarDrawer = this.sidebarDrawer();
-    if (sidebarDrawer.opened) {
-      nativeElement.classList.remove('opened');
-    } else {
-      nativeElement.classList.add('opened');
-    }
-    sidebarDrawer.toggle();
+    this.toggleSidebar.emit();
   }
 
   onHiddeRightDrawer(): void {

@@ -1,13 +1,14 @@
-import { Component, DestroyRef, OnInit, inject, AfterViewInit, ChangeDetectionStrategy, viewChild, computed } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject, AfterViewInit, ChangeDetectionStrategy, viewChild, effect, signal } from '@angular/core';
 import { SHARE_IMPORTS } from '@share/share-imports';
 import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_FULL_SCREEN } from '@core/token/token-providers';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
-import { filter } from 'rxjs';
+import { distinctUntilChanged, filter, map } from 'rxjs';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { BuilderSidebarComponent } from './sidebar/builder-sidebar/builder-sidebar.component';
+import { ScreenState } from '@core/state/screen/ScreenState';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,27 +25,35 @@ import { BuilderSidebarComponent } from './sidebar/builder-sidebar/builder-sideb
 })
 export class BuilderComponent implements OnInit, AfterViewInit {
   private readonly builderRightDrawer = viewChild<MatDrawer>('builderRightDrawer');
-  public sidebarDrawerOpened = false;
+  /** Whether the full navigation drawer is expanded. */
+  readonly sidebarDrawerOpened = signal(false);
 
   public builder = inject(BuilderState);
   private destroyRef = inject(DestroyRef);
   public builderFullScreen = inject(BUILDER_FULL_SCREEN);
   private readonly router = inject(Router);
-  private readonly navigationEnd = toSignal(
-    this.router.events.pipe(filter(event => event instanceof NavigationEnd))
+  /** Use the shared mobile breakpoint for drawer mode and navigation controls. */
+  readonly isMobile = toSignal(
+    inject(ScreenState).mqAlias$().pipe(
+      map(aliases => aliases.includes('xs')),
+      distinctUntilChanged()
+    ),
+    { initialValue: false }
   );
-  /** Routes with their own navigation can opt out of the sidebar on small screens. */
-  readonly hideSidebarOnMobile = computed(() => {
-    this.navigationEnd();
-    let route = this.router.routerState.snapshot.root;
-    while (route.firstChild) {
-      route = route.firstChild;
-      if (route.data['hideSidebarOnMobile'] === true) return true;
-    }
-    return false;
-  });
+
+  constructor() {
+    effect(() => {
+      if (this.isMobile()) this.sidebarDrawerOpened.set(false);
+    });
+  }
 
   ngOnInit(): void {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(() => {
+      if (this.isMobile()) this.sidebarDrawerOpened.set(false);
+    });
     this.builder.rightContent$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(content => {
       if (content) {
         setTimeout(() => {
