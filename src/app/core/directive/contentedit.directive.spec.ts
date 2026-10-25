@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Subject } from 'rxjs';
 import { vi } from 'vitest';
 
-import { BuilderState } from '@core/state/BuilderState';
+import { CONTENT_EDITOR } from '@core/token/content-editor.token';
 import { InlineEditorService } from '@modules/builder/inline-editor/inline-editor.service';
 import { InlineImageService } from '@modules/builder/inline-editor/inline-image.service';
 import { provideCoreMocks } from '@core/testing/mocks';
@@ -60,7 +60,7 @@ describe('ContenteditDirective', () => {
       imports: [HostComponent],
       providers: [
         ...provideCoreMocks(),
-        { provide: BuilderState, useValue: builderMock },
+        { provide: CONTENT_EDITOR, useValue: builderMock },
         { provide: InlineEditorService, useValue: { activate: activateMock } },
         { provide: InlineImageService, useValue: { select: selectMock } },
       ],
@@ -142,5 +142,34 @@ describe('ContenteditDirective', () => {
     expect(plain.contentEditable).toBe('true');
     expect(activateMock).not.toHaveBeenCalled();
     expect(emissions.length).toBe(0);
+  });
+  it('saves changed plain text synchronously on blur and skips unchanged edits', () => {
+    const plain = fixture.nativeElement.querySelector('.plain') as HTMLElement;
+    plain.click();
+    plain.dispatchEvent(new FocusEvent('blur'));
+    expect(builderMock.updatePageContentByPath).not.toHaveBeenCalled();
+    plain.click();
+    plain.innerHTML = 'updated label';
+    plain.dispatchEvent(new FocusEvent('blur'));
+    expect(builderMock.updatePageContentByPath).toHaveBeenCalledWith('label', 'updated label');
+    expect(plain.contentEditable).toBe('false');
+  });
+
+});
+
+describe('ContenteditDirective outside the builder route', () => {
+  it('renders without an editor provider and leaves clicks and pastes untouched', async () => {
+    await TestBed.configureTestingModule({ imports: [HostComponent] }).compileComponents();
+    const fixture = TestBed.createComponent(HostComponent);
+    fixture.detectChanges();
+    const plain = fixture.nativeElement.querySelector('.plain') as HTMLElement;
+    const click = new MouseEvent('click', { bubbles: true, cancelable: true });
+    plain.dispatchEvent(click);
+    expect(click.defaultPrevented).toBe(false);
+    expect(plain.contentEditable).not.toBe('true');
+    const paste = new Event('paste', { bubbles: true, cancelable: true });
+    plain.dispatchEvent(paste);
+    expect(paste.defaultPrevented).toBe(false);
+    fixture.destroy();
   });
 });

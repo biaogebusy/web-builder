@@ -59,8 +59,8 @@ export class SwitchThemeComponent {
     this.configService.switchChange$.next(this.currentTheme());
   }
 
-  onRestoreSiteTheme(): void {
-    this.themeService.restoreSiteTheme();
+  async onRestoreSiteTheme(): Promise<void> {
+    await this.themeService.restoreSiteTheme();
     this.configService.switchChange$.next(this.currentTheme());
   }
 

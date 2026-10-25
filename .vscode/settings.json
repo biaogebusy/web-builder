@@ -11,6 +11,45 @@
   "editor.minimap.enabled": false,
   "editor.wordWrap": "on",
   "editor.wrappingIndent": "indent",
+  "editor.largeFileOptimizations": true,
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/.angular/**": true,
+    "**/dist/**": true,
+    "**/tmp/**": true,
+    "**/logs/**": true,
+    "**/.runtime/**": true,
+    "**/test-results/**": true,
+    "**/playwright-report/**": true,
+    "**/coverage/**": true
+  },
+  "search.exclude": {
+    "**/node_modules/**": true,
+    "**/.angular/**": true,
+    "**/dist/**": true,
+    "**/tmp/**": true,
+    "**/logs/**": true,
+    "**/.runtime/**": true,
+    "**/test-results/**": true,
+    "**/playwright-report/**": true,
+    "**/coverage/**": true
+  },
+  "search.followSymlinks": false,
+  "tailwindCSS.experimental.configFile": "tailwind.config.js",
+  "tailwindCSS.files.exclude": [
+    "**/.git/**",
+    "**/node_modules/**",
+    "**/.hg/**",
+    "**/.svn/**",
+    "**/.angular/**",
+    "**/dist/**",
+    "**/tmp/**",
+    "**/logs/**",
+    "**/.runtime/**",
+    "**/test-results/**",
+    "**/playwright-report/**",
+    "**/coverage/**"
+  ],
   "html.format.enable": true,
   "workbench.colorTheme": "One Monokai",
   "workbench.iconTheme": "vscode-icons",
@@ -30,13 +69,13 @@
   "[html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": true
+      "source.fixAll.eslint": "explicit"
     }
   },
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": true
+      "source.fixAll.eslint": "explicit"
     }
   }
 }

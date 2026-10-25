@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import * as CryptoJS from 'crypto-js';
+// Submodule imports, not `import * as CryptoJS from 'crypto-js'`: crypto-js is
+// CommonJS and cannot be tree-shaken, so the barrel pulls every algorithm
+// (blowfish, tripledes, sha*, rabbit…) into the eager bundle. Only AES + Utf8
+// are used here. See the performance doc in ../xinshi-docs.
+import AES from 'crypto-js/aes';
+import Utf8 from 'crypto-js/enc-utf8';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +26,7 @@ export class CryptoJSService {
   }
 
   encrypt(value: string): string {
-    return CryptoJS.AES.encrypt(value, this.secretKey.trim()).toString();
+    return AES.encrypt(value, this.secretKey.trim()).toString();
   }
 
   /**
@@ -33,7 +38,7 @@ export class CryptoJSService {
    */
   decrypt(textToDecrypt: string): string {
     try {
-      return CryptoJS.AES.decrypt(textToDecrypt, this.secretKey.trim()).toString(CryptoJS.enc.Utf8);
+      return AES.decrypt(textToDecrypt, this.secretKey.trim()).toString(Utf8);
     } catch {
       return '';
     }

@@ -2,6 +2,37 @@
 @use 'variable/variable' as *;
 @use 'variable/breakpoint' as *;
 
+:host { @apply block relative min-w-0; }
+
+.map-display { @apply relative w-full h-full; }
+.map-error { @apply p-4 m-0; color: var(--mat-sys-on-surface); }
+.map-failed .map-canvas { @apply hidden; }
+.map-fit { @apply absolute right-3 bottom-8; }
+
+:host.read-only {
+  container-type: inline-size;
+  .map-display { @apply h-64 overflow-hidden rounded-lg; }
+  .map-failed { @apply h-auto; background: var(--mat-sys-surface-container); }
+  .loading-inner { @apply absolute inset-0; }
+  .map-places { @apply list-none p-0 m-0 mt-3; }
+  li { @apply flex gap-3 py-3; border-bottom: 1px solid var(--mat-sys-outline-variant); }
+  .map-place-text { @apply min-w-0 flex-1; overflow-wrap: anywhere; }
+  strong { @apply block; }
+  p { @apply mt-1 mb-0 whitespace-pre-wrap; }
+  .map-coordinates { @apply text-xs; color: var(--mat-sys-on-surface-variant); }
+}
+
+@container (min-width: 640px) {
+  :host.read-only .map-display:not(.map-failed) { height: clamp(320px, 50vh, 560px); }
+}
+
+:host ::ng-deep .map-number, .map-place-number {
+  @apply flex items-center justify-center shrink-0 w-8 h-8 rounded-full text-sm font-semibold;
+  background: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
+  border: 2px solid var(--mat-sys-surface);
+}
+
 .loading-inner {
   @apply flex justify-center items-center w-full h-full;
 }

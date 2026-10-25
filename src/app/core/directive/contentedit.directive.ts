@@ -9,7 +9,7 @@ import {
   inject,
   input,
 } from '@angular/core';
-import { BuilderState } from '@core/state/BuilderState';
+import { CONTENT_EDITOR } from '@core/token/content-editor.token';
 import { generatePath } from '@core/util/dom-path.util';
 @Directive({
    selector: '[contentedit]',
@@ -33,7 +33,7 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
   // Original content at edit start, used to skip unchanged saves and avoid extra version snapshots
   private originalHtml: string | null = null;
   private el = inject(ElementRef);
-  private builder = inject(BuilderState);
+  private editor = inject(CONTENT_EDITOR, { optional: true });
   private injector = inject(Injector);
   private destroyRef = inject(DestroyRef);
   // Race between directive destruction (re-render/route change) and an in-flight dynamic
@@ -42,7 +42,7 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
     this.destroyRef.onDestroy(() => (this.destroyed = true));
-    this.componentItem = this.el.nativeElement.closest('.component-item');
+    this.componentItem = this.editor ? this.el.nativeElement.closest('.component-item') : null;
   }
 
   onBlur(event: FocusEvent): void {
@@ -57,7 +57,7 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
       return;
     }
     const path = generatePath(currentTarget);
-    this.builder.updatePageContentByPath(path, currentTarget.innerHTML);
+    this.editor?.updatePageContentByPath(path, currentTarget.innerHTML);
   }
 
   /**

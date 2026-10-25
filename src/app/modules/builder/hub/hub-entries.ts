@@ -7,7 +7,7 @@ export interface IHubEntry {
   /** i18n key */
   desc: string;
   link: string;
-  /** MDI icon name (served by the backend /assets/mdi.svg), shared by cards and sidebar submenus */
+  /** MDI icon name (served per icon from /assets/svg-icons/), shared by cards and sidebar submenus */
   icon: string;
   /** Required roles; entry hiding and route guards are a double safeguard (guards live on each route) */
   reqRoles?: string[];

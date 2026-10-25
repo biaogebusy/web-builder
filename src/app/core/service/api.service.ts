@@ -5,7 +5,8 @@ import { IPager } from '@core/interface/widgets/IWidgets';
 import { API_URL } from '@core/token/token-providers';
 import { buildQueryString, QueryParams } from '@core/util/http-params.util';
 import { getLangPrefix } from '@core/util/language.util';
-import { camelCase, result } from 'lodash-es';
+import camelCase from 'lodash-es/camelCase';
+import result from 'lodash-es/result';
 import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 

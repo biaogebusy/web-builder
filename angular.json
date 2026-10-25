@@ -46,9 +46,9 @@
                 "output": "/"
               },
               {
-                "glob": "mdi.svg",
-                "input": "node_modules/@mdi/angular-material",
-                "output": "/assets"
+                "glob": "*.{svg,json}",
+                "input": "node_modules/.cache/svg-icons",
+                "output": "/assets/svg-icons"
               },
               {
                 "glob": "**/*",
@@ -159,6 +159,9 @@
     }
   },
   "cli": {
+    "cache": {
+      "environment": "all"
+    },
     "analytics": "8ba1dbea-2b5b-4c34-a1c7-e926be2d5a75"
   },
   "schematics": {

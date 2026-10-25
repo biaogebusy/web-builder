@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { DOCUMENT } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
@@ -85,6 +85,67 @@ describe('BuilderService', () => {
     expect(openSnackbar).toHaveBeenCalledWith('BUILDER.PAGE_LIST.LOADED_PAGE', 'ok');
   });
 
+  it('shows the server refusal once and preserves the unsaved page', () => {
+    const page: IPage = { title: 'About us', body: [{ type: 'text' }] };
+    post.mockReturnValueOnce(throwError(() => new HttpErrorResponse({
+      status: 403,
+      error: { status: false, code: 'permission_denied', message: 'No permission to publish this page.' },
+    })));
+    const service = createService();
+    const next = vi.fn();
+
+    service.createLandingPage(page, false).subscribe(next);
+
+    expect(next).toHaveBeenCalledWith(false);
+    expect(openSnackbar).toHaveBeenCalledExactlyOnceWith('No permission to publish this page.', 'ok', { duration: 6000 });
+    expect(loadingSet).toHaveBeenLastCalledWith(false);
+    expect(deleteLocalPageByPage).not.toHaveBeenCalled();
+    expect(loadNewPage).not.toHaveBeenCalled();
+    expect(post).toHaveBeenCalledTimes(1);
+    expect(page).toEqual({ title: 'About us', body: [{ type: 'text' }] });
+  });
+
+  it.each([
+    [0, '网络连接失败，请检查网络并确认页面是否已保存'],
+    [401, '登录已失效，请重新登录后保存页面'],
+    [403, '没有创建页面或组件的权限，请联系管理员检查权限'],
+    [500, '创建页面失败，请重试'],
+  ])('shows a safe fallback for HTTP %s without a JSON message', (status, message) => {
+    post.mockReturnValueOnce(throwError(() => new HttpErrorResponse({ status, error: '<html>error</html>' })));
+    const service = createService();
+
+    service.createLandingPage({ title: 'Page', body: [{ type: 'text' }] }, false).subscribe();
+
+    expect(openSnackbar).toHaveBeenCalledExactlyOnceWith(message, 'ok', { duration: 6000 });
+    expect(loadingSet).toHaveBeenLastCalledWith(false);
+    expect(post).toHaveBeenCalledTimes(1);
+  });
+
+  it('shows a business refusal without trying to read a missing page ID', () => {
+    post.mockReturnValueOnce(of({ status: false, message: 'Please choose a page title.' }));
+    const next = vi.fn();
+
+    createService().createLandingPage({ title: 'Page', body: [{ type: 'text' }] }).subscribe(next);
+
+    expect(next).toHaveBeenCalledWith(false);
+    expect(openSnackbar).toHaveBeenCalledExactlyOnceWith('Please choose a page title.', 'ok', { duration: 6000 });
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
+  it('keeps the successful creation response and loads its page', () => {
+    const response = { status: true, message: 'Saved', data: { nid: 42 } };
+    post.mockReturnValueOnce(of(response));
+    const service = createService();
+    const loadPage = vi.spyOn(service, 'loadPage').mockImplementation(() => undefined);
+    const next = vi.fn();
+
+    service.createLandingPage({ title: 'Page', body: [{ type: 'text' }] }).subscribe(next);
+
+    expect(next).toHaveBeenCalledWith(response);
+    expect(loadPage).toHaveBeenCalledExactlyOnceWith({ nid: '42' }, true);
+    expect(openSnackbar).not.toHaveBeenCalled();
+  });
+
   it('clears the loading state and reports a failed page load', () => {
     fetch.mockReturnValueOnce(throwError(() => new Error('request failed')));
     const service = createService();
@@ -107,6 +168,24 @@ describe('BuilderService', () => {
     expect(patch).toHaveBeenCalledOnce();
     expect(patch.mock.calls[0][0]).toBe('https://example.com/api/v3/landingPage/update/42');
     expect(loadPage).not.toHaveBeenCalled();
+  });
+
+  it('shows an update refusal once without retrying or reloading the page', () => {
+    patch.mockReturnValueOnce(throwError(() => new HttpErrorResponse({
+      status: 409, error: { code: 'version_conflict', message: 'Reload the latest page before saving.' },
+    })));
+    const service = createService();
+    const loadPage = vi.spyOn(service, 'loadPage');
+    const next = vi.fn();
+
+    service.updateLandingPage({ nid: '42', title: 'Page', body: [] }, false).subscribe(next);
+
+    expect(next).toHaveBeenCalledWith(false);
+    expect(openSnackbar).toHaveBeenCalledExactlyOnceWith('Reload the latest page before saving.', 'ok', { duration: 6000 });
+    expect(loadingSet).toHaveBeenLastCalledWith(false);
+    expect(patch).toHaveBeenCalledTimes(1);
+    expect(loadPage).not.toHaveBeenCalled();
+    expect(deleteLocalPageByPage).not.toHaveBeenCalled();
   });
 
   it('reloads a clean canvas page in place after a page json update', () => {
@@ -159,7 +238,7 @@ describe('BuilderService', () => {
       .updatePageJSON({ nid: '42' }, { title: '页面', body: [] })
       .subscribe(res => (updated = res));
 
-    expect(openSnackbar).toHaveBeenCalledWith('更新失败，请重试', 'ok');
+    expect(openSnackbar).toHaveBeenCalledExactlyOnceWith('更新失败，请重试', 'ok', { duration: 6000 });
     expect(loadPage).not.toHaveBeenCalled();
     expect(updated).toBe(false);
   });

@@ -1,5 +1,5 @@
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 
 import {
   AfterViewInit,
@@ -23,8 +23,6 @@ import { IDynamicInputs } from '@core/interface/IAppConfig';
 import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_CONFIG, BUILDER_CURRENT_PAGE, USER } from '@core/token/token-providers';
 import { map as each, throttle } from 'lodash-es';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderService } from '@core/service/builder.service';
@@ -60,9 +58,21 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   readonly builderList = viewChild<ElementRef>('builderList');
   private markers: NodeListOf<Element>;
-  public previewClass$: Observable<any>;
   private router = inject(Router);
   public builder = inject(BuilderState);
+  // Signal-backed so the class is live from the first render; subscribing after view init
+  // missed the first breakpoint switch
+  private previewMode = toSignal(this.builder.switchPreview$, { initialValue: 'none' });
+  public previewClass = computed(() => {
+    const media = this.previewMode();
+    return {
+      'preview': media !== 'none' && media !== undefined,
+      'preview-xs': media === 'xs',
+      'preview-sm': media === 'sm',
+      'preview-md': media === 'md',
+      'preview-xs-md': media === 'xs-md',
+    };
+  });
   private util = inject(UtilitiesService);
   private destroyRef = inject(DestroyRef);
   private builderService = inject(BuilderService);
@@ -117,19 +127,6 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
         this.builderList()!.nativeElement.append(marker);
       });
     }, 0);
-
-    this.previewClass$ = this.builder.switchPreview$.pipe(
-      takeUntilDestroyed(this.destroyRef),
-      map(media => {
-        return {
-          'preview': media !== 'none' && media !== undefined,
-          'preview-xs': media === 'xs',
-          'preview-sm': media === 'sm',
-          'preview-md': media === 'md',
-          'preview-xs-md': media === 'xs-md',
-        };
-      })
-    );
   }
 
   addNewSection(target: any, type: 'widget' | 'section', newSection: any): void {

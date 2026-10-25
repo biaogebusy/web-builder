@@ -3,10 +3,10 @@ import {
   Component,
   DestroyRef,
   OnInit,
+  computed,
   inject,
-  signal,
 } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { SHARE_IMPORTS } from '@share/share-imports';
 import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { IPage } from '@core/interface/IAppConfig';
@@ -29,8 +29,6 @@ export class SwitchPreviewComponent implements OnInit {
   private util = inject(UtilitiesService);
   private translate = inject(TranslateService);
   private destroyRef = inject(DestroyRef);
-  public currentPreview = signal<string>('none');
-  public currentIcon = signal<string>('cellphone-link');
   public previews = [
     {
       icon: {
@@ -61,6 +59,14 @@ export class SwitchPreviewComponent implements OnInit {
       label: 'BUILDER.SWITCH_PREVIEW.LAPTOP',
     },
   ];
+  // Derived from the shared stream: the full-screen toolbar renders two instances, and the
+  // builder panel also switches or resets the breakpoint
+  public currentPreview = toSignal(this.builder.switchPreview$, { initialValue: 'none' });
+  public currentIcon = computed(() => {
+    const value = this.currentPreview();
+    const preview = value === 'none' ? undefined : this.previews.find(p => p.value === value);
+    return preview?.icon.svg ?? 'cellphone-link';
+  });
 
   ngOnInit(): void {  }
 
@@ -70,12 +76,6 @@ export class SwitchPreviewComponent implements OnInit {
     if (!(page && typeof page === 'object' && page.body?.length) && !pathname.includes('/builder/chat/render')) {
       this.util.openSnackbar(this.translate.instant('BUILDER.SWITCH_PREVIEW.EMPTY_PAGE'));
       return;
-    }
-    this.currentPreview.set(preview.value);
-    if (preview.value === 'none') {
-      this.currentIcon.set('cellphone-link');
-    } else {
-      this.currentIcon.set(preview.icon.svg);
     }
     this.builder.closeRightDrawer$.next(true);
     this.builder.switchPreview$.next(preview.value);

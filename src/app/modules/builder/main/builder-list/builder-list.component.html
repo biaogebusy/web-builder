@@ -28,7 +28,7 @@
           />
         </div>
       }
-      <div class="wrapper" [class]="previewClass$ | async">
+      <div class="wrapper" [class]="previewClass()">
         @if (builder.loading()) {
           <div class="load">
             <app-loading />
@@ -47,6 +47,9 @@
             <div
               id="item-{{ i }}"
               class="component-item"
+              role="group"
+              tabindex="0"
+              [attr.aria-label]="'BUILDER.LIST.CANVAS_COMPONENT' | translate: { index: i + 1 }"
               cdkDrag
               [cdkDragDisabled]="true"
               [cdkDragData]="item"
@@ -99,7 +102,7 @@
             </div>
           }
         </div>
-        @if (builder.switchPreview$ | async) {
+        @if (previewClass().preview) {
           <div class="iframe-wrapper">
             <app-iframe class="preview-iframe" [content]="{ url: '/preview' }" />
           </div>

@@ -11,23 +11,21 @@ import { CORE_CONFIG } from '@core/token/token-providers';
 
 import { HubComponent } from './hub.component';
 
-// description comes in three variants: present, explicit null, and missing field
+// The authorized discovery endpoint normalizes missing descriptions to empty strings.
 const NODE_TYPE_RESPONSE = {
   data: [
     {
-      attributes: {
-        name: '文章',
-        drupal_internal__type: 'article',
-        description: '使用<em>文章</em>发布有关时间的内容,如消息、新闻或日志。',
-      },
+      label: '文章',
+      value: 'article',
+      desc: '使用<em>文章</em>发布有关时间的内容,如消息、新闻或日志。',
     },
-    { attributes: { name: '博客', drupal_internal__type: 'blog', description: null } },
-    { attributes: { name: '新闻', drupal_internal__type: 'news' } },
-    { attributes: { name: 'Drupal 案例', drupal_internal__type: 'case', description: '客户案例' } },
+    { label: '博客', value: 'blog', desc: '' },
+    { label: '新闻', value: 'news', desc: '' },
+    { label: 'Drupal 案例', value: 'case', desc: '客户案例' },
   ],
 };
 
-const TYPES_API = '/api/v1/node_type/node_type';
+const TYPES_API = '/api/v3/node-form/types';
 const PAGE_GROUP_API = '/api/v1/taxonomy_term/page_group';
 
 // Mirrors the base backend: an extra group (AI), the fixed Builder group, and
@@ -144,6 +142,13 @@ describe('HubComponent', () => {
     ]);
   });
 
+  it('没有内容创建权限时不显示发布入口,保留管理入口', async () => {
+    await setup({}, { types: of({ data: [] }) });
+    expect(links()).toEqual(GROUP_LINKS);
+    expect(el().querySelector('a.entry-card.is-publish')).toBeNull();
+    expect(el().querySelector('.hub-section:not(.page-groups) .state')).toBeNull();
+  });
+
   it('页面标题为 h1,分组标题为 h2,不塌陷成同级', async () => {
     await setup();
     expect(el().querySelectorAll('h1').length).toBe(1);
@@ -169,7 +174,7 @@ describe('HubComponent', () => {
   it('内容类型没有说明时不渲染副标题,不再逐张重复同一句提示', async () => {
     await setup();
     const cards = el().querySelectorAll('a.entry-card.is-publish');
-    // Blog description is null, news lacks the field entirely
+    // Types without descriptions have no subtitle or aria-describedby target.
     expect(cards[1].querySelector('.entry-desc')).toBeNull();
     expect(cards[1].getAttribute('aria-describedby')).toBeNull();
     expect(cards[2].querySelector('.entry-desc')).toBeNull();

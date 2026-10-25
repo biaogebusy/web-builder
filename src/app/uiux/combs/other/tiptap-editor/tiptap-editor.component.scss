@@ -73,7 +73,7 @@
 // The toolbar can be projected into a container outside this component (toolbarContainer),
 // so selectors must not depend on the .editor-container hierarchy
 .toolbar {
-  @apply flex flex-wrap gap-1 px-2;
+  @apply flex flex-wrap items-center gap-1 px-2;
   @include compact-icon-buttons;
   border-bottom: 1px solid var(--mat-sys-outline-variant);
   .mat-divider {

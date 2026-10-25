@@ -4,21 +4,26 @@
     class="dynamic-table"
     [class]="c.classes || 'nowrap'"
     [style]="c.params?.style || null"
+    [attr.tabindex]="c.caption ? 0 : null"
+    [attr.role]="c.caption ? 'region' : null"
+    [attr.aria-label]="c.caption || null"
     >
     <table
       matSort
       mat-table
       [dataSource]="dataSource"
       multiTemplateDataRows
-      aria-describedby="dynamic table"
       >
+      @if (c.caption) { <caption>{{ c.caption }}</caption> }
       @for (item of c.header; track item) {
         <ng-container
           [matColumnDef]="item.key"
           [sticky]="item.sticky"
           >
-          <th mat-header-cell *cdkHeaderCellDef mat-sort-header [class]="item.classes || ''">
-            <span class="header-label" [innerHTML]="item.label | safeHtml"></span>
+          <th mat-header-cell *cdkHeaderCellDef mat-sort-header scope="col"
+            [class]="item.classes || ''">
+            @if (plainText()) { <span class="header-label">{{ item.label }}</span> }
+            @else { <span class="header-label" [innerHTML]="item.label | safeHtml"></span> }
           </th>
           <td
             mat-cell
@@ -26,7 +31,9 @@
             [class]="item.classes || ''"
             [style]="item.style || {}"
             >
-            @if (element[item.key] | isArray) {
+            @if (plainText()) {
+              <span class="cell text-cell">{{ element[item.key] }}</span>
+            } @else if (element[item.key] | isArray) {
               @for (item of element[item.key]; track item) {
                 <app-dynamic-component
                   class="cell"
@@ -64,7 +71,7 @@
                     (click)="openDialog(item.label, element[item.key])"
                   ></a>
                 } @else {
-                  @if (element[item.key]) {
+                  @if (element[item.key] | isString) {
                     <span
                       role="button"
                       tabindex="0"
@@ -73,6 +80,8 @@
                       class="cell text-cell"
                       [innerHTML]="element[item.key] | safeHtml"
                     ></span>
+                  } @else {
+                    <span class="cell text-cell">{{ element[item.key] }}</span>
                   }
                 }
               }

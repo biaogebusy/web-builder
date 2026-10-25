@@ -1,34 +1,63 @@
 <div class="manage-media">
   <div class="media-grid">
-    <div class="sidebar">
-      <div class="col-control hidden md:block">
-        <mat-slider max="12" min="1" step="1">
-          <input matSliderThumb [(ngModel)]="manageMediaConfig().row" />
-        </mat-slider>
-      </div>
-      <form [formGroup]="form" (keydown.enter)="onEnter($event)">
+    <div class="toolbar">
+      <form
+        class="toolbar-filters"
+        [attr.aria-label]="'MANAGE.MEDIA.FILTERS' | translate"
+        [formGroup]="form"
+        (keydown.enter)="onEnter($event)"
+      >
+        <app-icon
+          class="search-icon"
+          [content]="{ svg: 'magnify', inline: true }"
+          aria-hidden="true"
+        />
         <app-formly
-          [classes]="'form-field-width-auto'"
+          class="filter-fields"
+          [content]="{ uiTheme: 'shadcn' }"
+          [classes]="'media-filter-fields'"
           [form]="form"
           [fields]="fields()"
           [model]="model"
         />
       </form>
-      <div class="action">
+      <div class="toolbar-actions">
+        <div class="col-control" [matTooltip]="'MANAGE.MEDIA.THUMBNAIL_SIZE' | translate">
+          <app-icon
+            class="size-icon"
+            [content]="{ svg: 'view-grid-outline', inline: true }"
+            aria-hidden="true"
+          />
+          <input
+            class="thumbnail-range"
+            type="range"
+            min="1"
+            max="12"
+            step="1"
+            [(ngModel)]="manageMediaConfig().row"
+            [attr.aria-label]="'MANAGE.MEDIA.THUMBNAIL_SIZE' | translate"
+          />
+          <app-icon
+            class="size-icon"
+            [content]="{ svg: 'image-outline', inline: true }"
+            aria-hidden="true"
+          />
+        </div>
         <app-btn
-          (click)="onUpload()"
+          class="upload-action"
+          (btnClick)="onUpload()"
           [content]="{
             label: 'MANAGE.MEDIA.UPLOAD' | translate,
             color: 'primary',
-            mode: 'raised',
+            mode: 'flat',
             icon: { svg: 'upload-outline' },
           }"
         />
       </div>
     </div>
     <div class="inner">
-      @if (loading()) {
-        <div class="load">
+      @if (loading() && !visibleAssets()) {
+        <div class="load" role="status" [attr.aria-label]="'MANAGE.MEDIA.LOADING' | translate">
           <app-loading />
         </div>
       }
@@ -37,10 +66,18 @@
           <mat-progress-bar mode="determinate" color="primary" [value]="progress" />
         </div>
       }
-      @if (mediaAssets(); as assets) {
-        @if ($any(assets).rows.length) {
+      <div
+        #scrollViewport
+        class="media-scroll"
+        role="region"
+        tabindex="0"
+        [attr.aria-label]="'MANAGE.MEDIA.RESULTS' | translate"
+        [attr.aria-busy]="loading()"
+      >
+      @if (visibleAssets(); as assets) {
+        @if (assets.rows.length) {
           <div class="viewport" [style.--cols]="manageMediaConfig().row">
-            @for (item of $any(assets).rows; track item.id ?? item.uuid) {
+            @for (item of assets.rows; track item.uuid || item.id) {
               <div class="masonry-item">
                 <div class="actions" [matTooltip]="item.title">
                   @if (content().mode === 'manage') {
@@ -110,7 +147,6 @@
                     <img
                       class="media-img"
                       ngSrc="{{ item.src }}"
-                      priority
                       width="480"
                       height="360"
                       alt="{{ item.title || '媒体' }}"
@@ -133,6 +169,38 @@
             }
           </div>
         }
+        @if (infiniteScroll() && assets.rows.length) {
+          <div #loadMoreTrigger class="scroll-status">
+            <span role="status" aria-live="polite">
+              {{ 'MANAGE.MEDIA.LOADED_COUNT' | translate: {
+                count: assets.rows.length,
+                total: assets.pager.totalItems,
+              } }}
+            </span>
+            @if (hasMore() && !loadError()) {
+              <app-btn
+                (btnClick)="loadMore()"
+                [content]="{
+                  label: (loading() ? 'MANAGE.MEDIA.LOADING' : 'MANAGE.MEDIA.LOAD_MORE') | translate,
+                  disabled: loading(),
+                }"
+              />
+            }
+          </div>
+        }
+      }
+      </div>
+      @if (loadError()) {
+        <div class="load-error" role="alert">
+          <span>{{ 'MANAGE.MEDIA.LOAD_FAILED' | translate }}</span>
+          <app-btn
+            (btnClick)="retryLoad()"
+            [content]="{
+              label: 'MANAGE.MEDIA.RETRY' | translate,
+              mode: 'stroked',
+            }"
+          />
+        </div>
       }
       <div class="bottom">
         @if (deletedLists.length) {
@@ -148,16 +216,16 @@
             />
           </div>
         }
-        @if (mediaAssets(); as assets) {
+        @if (!infiniteScroll() && visibleAssets(); as assets) {
           <div class="page">
-            @if ($any(assets).pager && $any(assets).rows.length) {
+            @if (assets.rows.length) {
               <mat-paginator
                 (page)="onPageChange($event)"
-                [length]="$any(assets).pager.totalItems"
-                [pageSize]="$any(assets).pager.itemsPerPage"
+                [length]="assets.pager.totalItems"
+                [pageSize]="assets.pager.itemsPerPage"
                 [showFirstLastButtons]="true"
                 [hidePageSize]="true"
-                [pageIndex]="$any(assets).pager.currentPage"
+                [pageIndex]="assets.pager.currentPage"
                 aria-label="Select page"
               />
             }

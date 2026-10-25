@@ -27,6 +27,65 @@
   .actions {
     @apply flex items-center gap-2;
   }
+  .access-denied {
+    @apply box-border flex flex-1 items-center justify-center overflow-y-auto px-6 py-12;
+    min-height: calc(100svh - 3.5rem);
+    @screen lg {
+      @apply min-h-0;
+    }
+  }
+  .access-content {
+    @apply my-auto w-full max-w-lg text-center;
+  }
+  .access-icon {
+    @apply mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl text-[32px];
+    background: var(--mat-sys-primary-container);
+    color: var(--mat-sys-on-primary-container);
+    app-icon {
+      @apply flex;
+    }
+  }
+  .access-eyebrow {
+    @apply mb-3 mt-0 text-xs font-medium tracking-wider;
+    color: var(--shadcn-muted-foreground);
+  }
+  .access-title {
+    @apply m-0 text-2xl font-semibold leading-snug sm:text-[28px];
+    text-wrap: balance;
+    outline: none;
+  }
+  .access-description {
+    @apply mb-0 mt-4 text-sm leading-6;
+    color: var(--shadcn-muted-foreground);
+    text-wrap: balance;
+  }
+  .access-account {
+    @apply mb-0 mt-5 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs;
+    color: var(--shadcn-muted-foreground);
+    app-icon {
+      @apply flex text-lg;
+    }
+    strong {
+      @apply max-w-full break-words font-medium;
+      color: var(--shadcn-foreground);
+      overflow-wrap: anywhere;
+    }
+  }
+  .access-actions {
+    @apply mt-8 flex flex-wrap items-center justify-center gap-3;
+  }
+  .access-help {
+    @apply mt-8 border-0 border-t border-solid pt-6;
+    border-color: var(--shadcn-border);
+    h3 {
+      @apply m-0 text-sm font-medium;
+    }
+    p {
+      @apply mb-0 mt-2 text-xs leading-6;
+      color: var(--shadcn-muted-foreground);
+      text-wrap: pretty;
+    }
+  }
   // Avoid the .container name: Tailwind's container utility class carries max-width/margins
   // that would pollute the layout. Fill the full height (minus the h-14 top bar) so the right
   // column's left hairline always reaches the bottom. On lg+ the height comes from flex

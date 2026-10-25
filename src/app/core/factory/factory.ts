@@ -1,7 +1,7 @@
 import { NavigationEnd, Router } from '@angular/router';
 import { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { ContentService } from '@core/service/content.service';
-import { Observable, firstValueFrom, forkJoin, from, interval } from 'rxjs';
+import { Observable, firstValueFrom, forkJoin, from, interval, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ContentState } from '@core/state/ContentState';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -10,6 +10,7 @@ import { UserService } from '@core/service/user.service';
 import { IUser } from '@core/interface/IUser';
 import { INotify } from '@core/interface/widgets/IWidgets';
 import {
+  catchError,
   distinctUntilChanged,
   filter,
   map,
@@ -19,33 +20,21 @@ import {
   take,
 } from 'rxjs/operators';
 import { NotifyService } from '@core/service/notify.service';
-import { BuilderState } from '@core/state/BuilderState';
 import { ScreenService } from '@core/service/screen.service';
 import { NodeService } from '@core/service/node.service';
 import { IManageAssets } from '@core/interface/manage/IManage';
 import { ILanguage } from '@core/interface/IEnvironment';
 import { CookieService } from 'ngx-cookie-service';
 import { ComponentService } from '@core/service/component.service';
-import {
-  computed,
-  DestroyRef,
-  DOCUMENT,
-  inject,
-  Injector,
-  signal,
-  Signal,
-  WritableSignal,
-} from '@angular/core';
+import { DestroyRef, DOCUMENT, inject, Injector, signal, WritableSignal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IBuilderConfig } from '@core/interface/IBuilder';
-import { BuilderService } from '@core/service/builder.service';
 import { getFileType } from '@core/util/file-type.util';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { resolveTheme, THEMKEY } from '@core/util/theme.util';
+import { ThemeService } from '@core/service/theme.service';
 
 export { THEMKEY } from '@core/util/theme.util';
-export const DEBUG_ANIMATE_KEY = 'debugAnimate';
-const BUILDERPATH = '/builder';
 
 /** Options for {@link pageContentFactory}. */
 export interface IPageContentFactoryOptions {
@@ -109,70 +98,6 @@ export function pageContentFactory(
   return pageContent;
 }
 
-export function builderFullScreenFactory(): WritableSignal<boolean> {
-  const router = inject(Router);
-  const builder = inject(BuilderState);
-  const destroyRef = inject(DestroyRef);
-  const isFull = signal(false);
-
-  router.events.pipe(takeUntilDestroyed(destroyRef)).subscribe(event => {
-    if (event instanceof NavigationEnd) {
-      if (event.url.includes(BUILDERPATH)) {
-        isFull.set(false);
-      }
-    }
-  });
-  builder.fullScreen$.pipe(takeUntilDestroyed(destroyRef)).subscribe(state => {
-    isFull.set(state);
-  });
-  return isFull;
-}
-
-export function builderCurrentPageFactory(): Signal<IPage | undefined | false> {
-  const router = inject(Router);
-  const injector = inject(Injector);
-  const builder = inject(BuilderState);
-
-  // Always use the BuilderState.version signal as the data source (consistent with the
-  // version panel/toolbar); changes from other contexts (/preview new tab or iframe) are
-  // bridged into the signal by BuilderState's storage event
-  const currentPage = computed<IPage | undefined | false>(() => {
-    const version = builder.version();
-    if (!version.length) {
-      return false;
-    }
-    return version.find((page: IPage) => page.current === true) || version[0];
-  });
-
-  if (router.url.includes(BUILDERPATH)) {
-    const found = currentPage();
-    if (found) {
-      injector.get(BuilderService).checkIsLatestPage(found);
-    }
-  }
-
-  return currentPage;
-}
-
-export function debugAnimateFactory(): WritableSignal<boolean> {
-  const builder = inject(BuilderState);
-  const storage = inject(LocalStorageService);
-  const destroyRef = inject(DestroyRef);
-  const isDebugAnimate = storage.retrieve(DEBUG_ANIMATE_KEY);
-  const debugAnimate = signal<boolean>(!!isDebugAnimate);
-
-  setTimeout(() => {
-    builder.renderMarkers(isDebugAnimate);
-  }, 2000);
-
-  builder.debugAnimate$.pipe(takeUntilDestroyed(destroyRef)).subscribe(state => {
-    storage.store(DEBUG_ANIMATE_KEY, state);
-    debugAnimate.set(state);
-  });
-
-  return debugAnimate;
-}
-
 export function notifyFactory(coreConfig: ICoreConfig): WritableSignal<INotify[] | boolean> {
   const notifyService = inject(NotifyService);
   const destroyRef = inject(DestroyRef);
@@ -228,8 +153,13 @@ export const apiUrlFactory = () => {
 export function initApp(coreConfig: object): any {
   const contentService = inject(ContentService);
   const componentService = inject(ComponentService);
+  const injector = inject(Injector);
   componentService.registerDynamicComponent();
-  return () => contentService.loadConfig(coreConfig);
+  return async () => {
+    await contentService.loadConfig(coreConfig);
+    // Resolve legacy seed-only palettes before rendering; stored vars need no generator.
+    await injector.get(ThemeService).initTheme();
+  };
 }
 
 export function preloadInitialDynamicComponents(): Promise<void> {
@@ -329,6 +259,7 @@ export function userFactory(): WritableSignal<IUser | boolean> {
   return user;
 }
 
+/** Load the latest media page; true indicates loading and false an absent or failed result. */
 export function mediaAssetsFactory(): WritableSignal<IManageAssets | boolean> {
   const api = '/api/v2/media';
   const nodeService = inject(NodeService);
@@ -342,16 +273,14 @@ export function mediaAssetsFactory(): WritableSignal<IManageAssets | boolean> {
   if (cookieService.check(key)) {
     noCache = true;
   }
-  // on form search change
   contentState.mediaAssetsFormChange$
-    .pipe(takeUntilDestroyed(destroyRef))
-    .subscribe((value: any) => {
-      const params = nodeService.getApiParams({ ...value, noCache });
-      nodeService
-        .fetch(api, params)
-        .pipe(take(1))
-        .subscribe(res => {
-          assets.set({
+    .pipe(
+      switchMap(value => {
+        assets.set(true);
+        const params = nodeService.getApiParams({ ...value, noCache });
+        return nodeService.fetch(api, params).pipe(
+          take(1),
+          map(res => ({
             rows: res.rows.map((item: any) => {
               const type = getFileType(item.source);
               return {
@@ -361,9 +290,13 @@ export function mediaAssetsFactory(): WritableSignal<IManageAssets | boolean> {
               };
             }),
             pager: nodeService.handlePager(res.pager, res.rows.length),
-          });
-        });
-    });
+          })),
+          catchError(() => of(false))
+        );
+      }),
+      takeUntilDestroyed(destroyRef)
+    )
+    .subscribe(result => assets.set(result));
 
   return assets;
 }

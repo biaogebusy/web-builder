@@ -89,6 +89,37 @@ describe('BuilderToolbarComponent', () => {
     expect(builderService.loadPage).toHaveBeenCalledWith({ nid: '42' }, true);
   });
 
+  it('preserves the draft and does not replace a failure toast already shown by the service', () => {
+    const page: IPage = { title: 'Unsaved page', body: [{ type: 'text' }] };
+    builder.currentPage = page;
+    builderService.createLandingPage.mockReturnValue(of(false));
+
+    component.onSubmit(page);
+
+    expect(util.openSnackbar).not.toHaveBeenCalled();
+    expect(builder.loading.set).toHaveBeenLastCalledWith(false);
+    expect(builder.markPageSynced).not.toHaveBeenCalled();
+    expect(builder.deleteLocalPageByPage).not.toHaveBeenCalled();
+    expect(builder.updateSuccess$.next).not.toHaveBeenCalled();
+    expect(builderService.loadPage).not.toHaveBeenCalled();
+    expect(builder.currentPage).toBe(page);
+  });
+
+  it('keeps an existing page dirty when the update service has reported a failure', () => {
+    const page: IPage = { nid: '42', uuid: 'page-42', title: 'Edited page', body: [{ type: 'text' }] };
+    builder.currentPage = page;
+    builderService.updateLandingPage.mockReturnValue(of(false));
+
+    component.onSubmit(page);
+
+    expect(util.openSnackbar).toHaveBeenCalledExactlyOnceWith('BUILDER.TOOLBAR.UPDATING', 'ok');
+    expect(builder.loading.set).toHaveBeenLastCalledWith(false);
+    expect(builder.markPageSynced).not.toHaveBeenCalled();
+    expect(builderService.loadPage).not.toHaveBeenCalled();
+    expect(builder.updateSuccess$.next).not.toHaveBeenCalled();
+    expect(builder.currentPage).toBe(page);
+  });
+
   it('deletes the translation draft history after submitting a translation', () => {
     const page: IPage = {
       title: 'Translation draft',

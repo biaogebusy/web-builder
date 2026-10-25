@@ -54,6 +54,18 @@
   .builder {
     @apply flex-1 overflow-auto h-full;
   }
+
+  @media (max-width: 599px) {
+    &.mobile-navigation-hidden {
+      .sidebar-drawer {
+        @apply hidden;
+      }
+      .drawer-content {
+        @apply pl-0;
+        margin-left: 0 !important;
+      }
+    }
+  }
 }
 
 .mat-drawer {

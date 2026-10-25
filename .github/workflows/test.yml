@@ -1,33 +1,48 @@
-# 单元测试门禁：维护说明见 xinshi-docs/stories/develop/testing.mdx
-# 覆盖范围:
-#   npm test            → 前端 spec（排除 src/server/** 和 src/chat-server/**）
-#   npm run test:server → src/server/** 和 src/chat-server/**（根 vitest.config.ts）
-# 在 GitHub 分支保护规则中将本 workflow 设为 Required status check,
-# 即可在红灯时阻断合并。
+# Test setup and scope: xinshi-docs/stories/develop/engineering/testing.mdx.
+# npm test covers Angular specs; npm run test:server covers src/server/**.
+# Run both suites on demand through workflow_dispatch or npm run test:unit.
+# Pushes and pull requests do not start this workflow.
 name: Unit tests
 
 on:
-  pull_request:
-    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: unit-tests-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      NODE_OPTIONS: --max-old-space-size=6144
+      NG_BUILD_MAX_WORKERS: "2"
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.0.1
+        uses: actions/checkout@v4
 
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: "22"
           cache: "npm"
+
+      - name: Cache Angular compilation
+        uses: actions/cache@v4
+        with:
+          path: .angular/cache
+          key: ${{ runner.os }}-node22-angular-${{ hashFiles('package-lock.json', 'angular.json', 'tsconfig*.json') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-node22-angular-${{ hashFiles('package-lock.json', 'angular.json', 'tsconfig*.json') }}-
 
       - name: NPM Install
         run: npm ci
 
       - name: Unit tests
-        run: npm test
+        run: npm run test:unit
 
-      - name: Server unit tests
-        run: npm run test:server
+      - name: CI and deployment regressions
+        run: node --test scripts/ci-changes.test.mjs scripts/deploy-assets.test.mjs

@@ -14,12 +14,13 @@ describe('SwitchPreviewComponent', () => {
   let component: SwitchPreviewComponent;
   let fixture: ComponentFixture<SwitchPreviewComponent>;
   const currentPage = signal<IPage | undefined | false>(undefined);
-  const builderState = createBuilderStateMock();
+  let builderState: ReturnType<typeof createBuilderStateMock>;
   const util = createUtilitiesServiceMock();
 
   beforeEach(async () => {
     vi.clearAllMocks();
     currentPage.set(undefined);
+    builderState = createBuilderStateMock();
     await TestBed.configureTestingModule({
       imports: [SwitchPreviewComponent],
       providers: [
@@ -46,8 +47,15 @@ describe('SwitchPreviewComponent', () => {
     component.onSwitch({ value: 'sm', icon: { svg: 'tablet' } });
 
     expect(util.openSnackbar).toHaveBeenCalledWith('BUILDER.SWITCH_PREVIEW.EMPTY_PAGE');
-    expect(switched).not.toHaveBeenCalled();
+    expect(switched).not.toHaveBeenCalledWith('sm');
     expect(component.currentPreview()).toBe('none');
+  });
+
+  it('follows breakpoint switches made elsewhere', () => {
+    builderState.switchPreview$.next('xs-md');
+
+    expect(component.currentPreview()).toBe('xs-md');
+    expect(component.currentIcon()).toBe('tablet-cellphone');
   });
 
   it('switches the breakpoint, closes the drawer and broadcasts it', () => {

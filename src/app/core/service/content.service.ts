@@ -6,7 +6,6 @@ import { CORE_CONFIG } from '@core/token/token-providers';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject, Observable, lastValueFrom, of } from 'rxjs';
 import { catchError, retry, shareReplay, switchMap, take, tap, timeout } from 'rxjs/operators';
-import { isArray } from 'lodash-es';
 import { TagsService } from '@core/service/tags.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { ApiService } from '@core/service/api.service';
@@ -48,7 +47,7 @@ export class ContentService extends ApiService {
   }
 
   updatePage(pageValue: IPage): void {
-    if (isArray(pageValue)) {
+    if (Array.isArray(pageValue)) {
       return;
     }
     this.tagsService.updateTags(pageValue);

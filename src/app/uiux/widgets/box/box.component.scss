@@ -575,11 +575,12 @@
       margin-right: 10px;
       margin-bottom: 10px;
       background-color: var(--mat-sys-primary-container);
+      color: var(--mat-sys-on-primary-container);
 
       ::ng-deep {
         ::ng-deep .mat-icon {
           font-size: 24px;
-          color: var(--mat-sys-on-primary);
+          color: var(--mat-sys-on-primary-container);
         }
       }
     }
@@ -618,10 +619,10 @@
       justify-content: center;
       align-items: center;
       background: var(--mat-sys-primary-container);
-      color: var(--mat-sys-primary);
+      color: var(--mat-sys-on-primary-container);
       ::ng-deep .mat-icon {
         font-size: 24px;
-        color: var(--mat-sys-on-primary);
+        color: var(--mat-sys-on-primary-container);
       }
     }
     .box-content-wrapper {

@@ -10,8 +10,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 The Drupal backends are sibling directories of this repo (not inside it); check them before assuming server behavior or debugging API responses:
 
-- `../xinshi-cms` — the open-source base CMS (Drupal 10). API extensions live in `docroot/modules/custom/xinshi_jsonapi/` (the `/api/v3/*` routes).
-- `../builder-cms` — the builder.design deployment CMS; mirrors the base endpoints in `docroot/modules/custom/xinshi_api/` plus deployment-specific deltas. The dev proxy target `base.builder.design` serves this codebase.
+- `../xinshi-cms` — the open-source base CMS (Drupal 11.x), kept in delivery/maintenance state. No new features are added here. Custom modules live in `docroot/modules/custom/`.
+- `../builder-cms` — the builder.design deployment CMS (Drupal 11.x); the active development target for new features. Custom modules live in `docroot/modules/custom/`. The dev proxy target is configured in `config/proxy.config.js`. Local environments: base at `http://builder-cms-base.docker.localhost`, Pro at `http://builder-cms-pro.docker.localhost`.
 
 ## Sibling Frontend Repository
 
@@ -19,7 +19,36 @@ The Drupal backends are sibling directories of this repo (not inside it); check 
 
 ## Sibling Documentation Repository
 
-- `../xinshi-docs/stories/` is the single maintenance location for feature, architecture, API, operations, and WBS documentation. See the [documentation index](../xinshi-docs/stories/develop/documentation.mdx). Keep the relevant MDX in sync when behavior changes; this application retains only `docs/README.md` and source entry points, not duplicate specifications.
+- `../xinshi-docs/stories/` is the single maintenance location for feature, architecture, API, operations, and WBS documentation. See the [documentation index](../xinshi-docs/stories/develop/engineering/documentation.mdx). Keep the relevant MDX in sync when behavior changes; this application retains only `docs/README.md` and source entry points, not duplicate specifications. Documentation-only changes do not require application tests; follow the documentation repository's instructions for index generation, builds, and link checks.
+
+- Maintain the [frontend API catalog](../xinshi-docs/stories/develop/api/frontend-api-catalog.mdx) when adding, changing or removing frontend API calls. Record the frontend scope, method, path, authentication, CSRF policy, purpose, caller and backend authority. Follow the documentation repository checks. Shared CMS authentication policy belongs in the shared interceptor; custom CMS writes declare `cmsWriteContext()` in their owning service.
+
+- When work involves architecture or complex process logic, you may add architecture diagrams or flowcharts to the corresponding documentation in `../xinshi-docs/stories/` when they help clarify component relationships or process steps.
+
+### Documentation writing (ASD-STE100)
+
+These rules are mandatory whenever a task creates or updates documentation, including
+MDX, Markdown, source README files, and repository guidance.
+
+- Read the [terminology and writing rules](../xinshi-docs/stories/develop/engineering/terminology.mdx)
+  before writing. Use one term for one concept.
+- For English, follow ASD-STE100 writing rules and approved vocabulary, including its rules
+  for technical names and verbs. For Chinese, apply the clear-expression principles below.
+  Do not claim full ASD-STE100 compliance for Chinese text or from a keyword scan alone.
+- Write short sentences in active voice. Name the actor. Keep one idea per sentence and
+  one topic per paragraph. Replace ambiguous pronouns and remove filler or promotional claims.
+- Put conditions before actions. Write procedures in execution order, with one main action
+  per step. State prerequisites, expected results, and what to do when a step fails.
+- Use lists for parallel requirements and tables for comparisons. Distinguish mandatory,
+  optional, and default behavior. State the scope of claims; avoid unsupported absolutes.
+- Verify behavior, defaults, permissions, paths, and versions against the responsible source.
+  Keep planned, implemented, tested, and deployed states separate.
+- Preserve dates, finding IDs, quantities, units, code identifiers, commands, headings,
+  anchors, links, and diagram names. Do not relabel historical evidence as current acceptance.
+  Record source-verified factual corrections separately from expression-only edits.
+- After a full rewrite, compare code blocks, identifiers, numbers, links, and diagram names
+  programmatically, then review meaning and procedure order. Follow the documentation
+  repository's instructions for index generation, builds, and link checks.
 
 ## Branches & Deployments
 
@@ -42,8 +71,9 @@ deployment details out of anything that ships upstream.
 
 - `npm start` — local dev server (proxies API to the backend configured in `config/proxy.config.js`; the target differs per branch)
 - `npm run build` — production build plus static asset precompression (`ng build --configuration production && npm run precompress`)
-- `npm test` — run unit tests once (Vitest via `@angular/build:unit-test` builder); covers all `src/**` specs except `src/server/**` and `src/chat-server/**`; setup in `src/test-setup.ts`, shared test providers in `src/test-providers.ts`
-- `npm run test:server` — run server-side specs (`src/server/**` and `src/chat-server/**`, including Node and SQLite tests) via root `vitest.config.ts`; the two channels split coverage with no overlap
+- `npm test` — run unit tests once (Vitest via `@angular/build:unit-test` builder); covers all `src/**` specs except `src/server/**`; setup in `src/test-setup.ts`, shared test providers in `src/test-providers.ts`
+- `npm run test:server` — run server-side specs (`src/server/**`, including Node and SQLite tests) via root `vitest.config.ts`; the two channels split coverage with no overlap
+- `npm run test:unit` — run both unit test channels in sequence on demand
 - `npm run test:watch` — run unit tests in watch mode
 - `npm run lint` — ESLint (flat config in `eslint.config.js`)
 - `npm run e2e` — end-to-end tests (Playwright, specs in `e2e/`)
@@ -51,6 +81,15 @@ deployment details out of anything that ships upstream.
 - `npm run serve:ssr:xinshi` — serve SSR build (`node dist/server/server.mjs`)
 
 Pre-commit hook runs `lint-staged` which auto-fixes `*.ts` and `*.html` with ESLint and formats `*.md` with Prettier.
+
+Run unit tests on demand based on the affected behavior. Git pushes do not run unit tests.
+Prefer targeted tests for ordinary code changes; run both full suites when broader regression
+coverage is needed. Documentation-only changes do not require application tests. Area-specific
+required checks remain mandatory for applicable changes.
+Use a Node version supported by `package.json`. GitHub unit tests run only through manual
+`workflow_dispatch`; pushes and pull requests do not start them. The deployment workflow retains
+build and deployment checks. See the
+[testing guide](../xinshi-docs/stories/develop/engineering/testing.mdx) for setup and limitations.
 
 ## Architecture
 
@@ -109,7 +148,7 @@ Both files implement `IEnvironment`: `apiUrl`, `production`, `port`, `multiLang`
 
 ### SSR
 
-Angular SSR via `@angular/ssr` (`outputMode: server`). Express entry point: `src/server.ts`; server-only helpers with their own specs live in `src/server/` (SSR HTML cache, cache policy, request timing). The app uses zoneless change detection (`provideZonelessChangeDetection()`), incremental hydration, and an HTTP transfer cache that excludes authorized/user-state requests.
+Angular SSR via `@angular/ssr` (`outputMode: server`). Express entry point: `src/server.ts`, kept a thin assembly close to the Angular CLI template (easier upgrades); server-only helpers with their own specs live in `src/server/` (SSR render handler, HTML cache, cache policy, request timing, graceful shutdown with `onShutdown()` hooks). The app uses zoneless change detection (`provideZonelessChangeDetection()`), incremental hydration, and an HTTP transfer cache that excludes authorized/user-state requests.
 
 ### Styling
 
@@ -131,6 +170,7 @@ Angular SSR via `@angular/ssr` (`outputMode: server`). Express entry point: `src
 - `@share/*` → `src/app/share/*`
 - `@modules/*` → `src/app/modules/*`
 - `@assets/*` → `src/assets/*`
+- `@stories/*` → `src/stories/*`
 
 ## Key Libraries
 

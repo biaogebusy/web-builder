@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, inject, DestroyRef } from '@angular/core';
+import { Component, OnInit, inject, DestroyRef } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import type { ILanguage } from '@core/interface/IEnvironment';
@@ -7,17 +7,15 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter } from 'rxjs';
 import { ScreenService } from '@core/service/screen.service';
 import { ConfigService } from '@core/service/config.service';
-import { ThemeService } from '@core/service/theme.service';
 import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   imports: [RouterOutlet],
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit {
   private configService = inject(ConfigService);
   private screenService = inject(ScreenService);
-  private themeService = inject(ThemeService);
   private router = inject(Router);
   private translateService = inject(TranslateService);
   private lang = inject<ILanguage | undefined>(LANG, { optional: true });
@@ -41,11 +39,5 @@ export class AppComponent implements OnInit, AfterViewInit {
           this.screenService.scrollToAnchor(fragment);
         }
       });
-  }
-
-  ngAfterViewInit(): void {
-    if (this.screenService.isPlatformBrowser()) {
-      this.themeService.initTheme();
-    }
   }
 }

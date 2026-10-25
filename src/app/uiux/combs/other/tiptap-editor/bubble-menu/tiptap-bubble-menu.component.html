@@ -1,7 +1,7 @@
-@if (editor(); as editor) {
-  @if (editor.isActive('image')) {
-    <app-tiptap-image-panel [editor]="editor" />
-  } @else {
+@let currentEditor = editor();
+@if (currentEditor && currentEditor.isActive('image')) {
+  <app-tiptap-image-panel [editor]="currentEditor" />
+} @else if (currentEditor || selectionState()) {
     <div
       class="bubble-row"
       role="toolbar"
@@ -9,36 +9,20 @@
       toolbarKeynav
       [attr.aria-label]="'BUILDER.TIPTAP.TOOLBAR' | translate"
     >
-    <app-btn
-      [matTooltip]="'BUILDER.TIPTAP.BOLD' | translate"
-      (click)="editor.chain().focus().toggleBold().run()"
-      [content]="{
-        mode: 'icon',
-        ariaLabel: 'BUILDER.TIPTAP.BOLD' | translate,
-        color: editor.isActive('bold') ? 'primary' : undefined,
-        icon: { svg: 'format-bold' },
-      }"
-    />
-    <app-btn
-      [matTooltip]="'BUILDER.TIPTAP.ITALIC' | translate"
-      (click)="editor.chain().focus().toggleItalic().run()"
-      [content]="{
-        mode: 'icon',
-        ariaLabel: 'BUILDER.TIPTAP.ITALIC' | translate,
-        color: editor.isActive('italic') ? 'primary' : undefined,
-        icon: { svg: 'format-italic' },
-      }"
-    />
-    <app-btn
-      [matTooltip]="'BUILDER.TIPTAP.UNDERLINE' | translate"
-      (click)="editor.chain().focus().toggleUnderline().run()"
-      [content]="{
-        mode: 'icon',
-        ariaLabel: 'BUILDER.TIPTAP.UNDERLINE' | translate,
-        color: editor.isActive('underline') ? 'primary' : undefined,
-        icon: { svg: 'format-underline' },
-      }"
-    />
+    <!-- Native toggle buttons expose the current format to assistive technology. -->
+    @for (item of inlineFormats; track item.action) {
+      <button
+        type="button"
+        mat-icon-button
+        [matTooltip]="'BUILDER.TIPTAP.' + item.label | translate"
+        [attr.aria-label]="'BUILDER.TIPTAP.' + item.label | translate"
+        [attr.aria-pressed]="isFormatActive(item.action)"
+        (click)="format(item.action)"
+      >
+        <app-icon [content]="{ svg: item.icon }" />
+      </button>
+    }
+    @if (currentEditor; as editor) {
     <app-btn
       [matTooltip]="'BUILDER.TIPTAP.STRIKE' | translate"
       (click)="editor.chain().focus().toggleStrike().run()"
@@ -90,19 +74,20 @@
         }"
       />
     }
+    }
     <app-btn
       [matTooltip]="'BUILDER.TIPTAP.LINK' | translate"
       (click)="openLinkPanel()"
       [content]="{
         mode: 'icon',
         ariaLabel: 'BUILDER.TIPTAP.LINK' | translate,
-        color: editor.isActive('link') ? 'primary' : undefined,
+        color: isFormatActive('link') ? 'primary' : undefined,
         icon: { svg: 'link-variant' },
       }"
     />
     <app-btn
       [matTooltip]="'BUILDER.TIPTAP.CLEAR_FORMAT' | translate"
-      (click)="editor.chain().focus().unsetAllMarks().run()"
+      (click)="format('clearFormat')"
       [content]="{
         mode: 'icon',
         ariaLabel: 'BUILDER.TIPTAP.CLEAR_FORMAT' | translate,
@@ -110,6 +95,7 @@
       }"
     />
     </div>
+    @if (currentEditor; as editor) {
     @if (stylePanelOpen()) {
       <div class="style-panel" role="group" [attr.aria-label]="'BUILDER.TIPTAP.TEXT_STYLE' | translate">
       <label class="style-item">

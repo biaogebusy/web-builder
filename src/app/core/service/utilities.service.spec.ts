@@ -299,6 +299,31 @@ describe('UtilitiesService', () => {
       expect(animateEle.getAttribute('data-aos')).toBe('fade-up');
     });
 
+    it('filters numeric GSAP JSON options without discarding zero, false or numeric strings', async () => {
+      setup(true, { animate: true });
+      const from = vi.fn();
+      vi.spyOn(service as unknown as { loadGsap(): Promise<unknown> }, 'loadGsap')
+        .mockResolvedValue({ timeline: () => ({ from }) });
+      vi.useFakeTimers();
+      try {
+        const options = {
+          x: 0, opacity: '0.5', enabled: false, empty: '',
+          missing: undefined, absent: null, invalid: NaN, text: 'auto',
+        };
+        await service.initAnimate({
+          animate: { gsap: { enable: true, trigger: {}, from: options } },
+        } as never, animateEle, triggerEle);
+        await vi.advanceTimersByTimeAsync(600);
+        expect(from).toHaveBeenCalledWith(animateEle, {
+          x: 0, opacity: '0.5', enabled: false, empty: '',
+        });
+        expect(options.absent).toBeNull();
+        expect(options.text).toBe('auto');
+      } finally {
+        vi.useRealTimers();
+      }
+    });
+
     it('warns when both gsap and aos are enabled', async () => {
       setup(true, { animate: true });
       // gsap's ScrollTrigger registration needs matchMedia, which jsdom does not provide

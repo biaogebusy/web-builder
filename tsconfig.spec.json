@@ -6,6 +6,6 @@
     "typeRoots": ["node_modules/@types", "node_modules"],
     "types": ["vitest/globals", "node"]
   },
-  "files": ["src/test.ts", "src/test-setup.ts", "src/test-providers.ts"],
+  "files": ["src/test-setup.ts", "src/test-providers.ts"],
   "include": ["src/**/*.spec.ts", "src/**/*.test.ts", "src/**/*.d.ts", "vitest.config.ts"]
 }

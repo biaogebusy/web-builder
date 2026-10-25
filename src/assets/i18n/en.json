@@ -1,4 +1,6 @@
 {
+  "MAP": {"VIEW": "Map of the listed places", "PLACES": "Places", "FIT": "Show all places", "COORDINATES": "Longitude, latitude", "LOAD_FAILED": "The map could not be loaded. Reload the page to try again."},
+  "VIDEO": { "LOAD_FAILED": "The video could not be loaded.", "RETRY": "Retry" },
   "APP": {
     "LOADING": "Loading..."
   },
@@ -95,7 +97,16 @@
   },
   "MANAGE": {
     "MEDIA": {
-      "SEARCH_PLACEHOLDER": "Enter a keyword",
+      "FILTERS": "Filter media",
+      "SEARCH_LABEL": "Search media",
+      "SEARCH_PLACEHOLDER": "Search media by name…",
+      "THUMBNAIL_SIZE": "Thumbnail size",
+      "RESULTS": "Media results",
+      "LOADING": "Loading…",
+      "LOAD_MORE": "Load more",
+      "LOADED_COUNT": "Showing {{count}} of {{total}} items",
+      "LOAD_FAILED": "Could not load media. Please try again.",
+      "RETRY": "Retry",
       "UPLOAD": "Upload media",
       "DELETE": "Delete",
       "COPY_PATH": "Copy path",
@@ -134,6 +145,8 @@
       "OK": "OK"
     },
     "LIST": {
+      "CANVAS_COMPONENT": "Canvas component {{index}}",
+      "NESTED_COMPONENT": "Component {{type}}",
       "ADD_SECTION": "Add layout",
       "SELECT_WIDGET": "Select component",
       "PASTE_WIDGET": "Paste component",
@@ -663,7 +676,20 @@
       "FORM_INVALID": "Please complete the required fields before submitting.",
       "SUBMIT_FAILED": "Submit failed: {{message}}",
       "SUBMIT_SUCCESS": "Created successfully! You can continue creating.",
-      "NO_FIELDS": "No fields available. Check that your role has the \"administer node fields\" permission in Drupal."
+      "FORM_ACCESS_DENIED": "Your account does not have access to this content. Return to the management center to continue with content you can access.",
+      "FORM_SIGN_IN_REQUIRED": "Your session has expired. Sign in again to continue.",
+      "ACCESS_LABEL": "Access restricted",
+      "ACCESS_CREATE_CONTEXT": "Publish content",
+      "ACCESS_EDIT_CONTEXT": "Edit content",
+      "ACCESS_CREATE_TITLE": "You cannot create this content yet",
+      "ACCESS_EDIT_TITLE": "You cannot edit this content yet",
+      "ACCESS_ACCOUNT": "Signed in as",
+      "ACCESS_BACK": "Management center",
+      "ACCESS_RECHECK": "Check access again",
+      "ACCESS_HELP_TITLE": "Need access to this feature?",
+      "ACCESS_HELP": "Ask your site administrator to review your content permissions. After access is updated, sign in again and check access.",
+      "FORM_UNSUPPORTED": "This content form is not supported. Ask an administrator to check its form display and required fields.",
+      "LOAD_FORM_ERROR": "Could not load the content form. Check your connection and retry."
     },
     "NODE_MANAGE": {
       "PAGE_TITLE": "Content management",
@@ -695,6 +721,9 @@
       "PAGE_TITLE": "Components",
       "SUMMARY": "{{components}} components · {{categories}} categories",
       "ADD": "Add component",
+      "UPLOAD": "Upload to component library",
+      "UPLOADED": "Uploaded to component library",
+      "NO_CATEGORIES": "No component categories available. Add categories in the CMS first.",
       "SEARCH": "Search by name or icon",
       "CLEAR_SEARCH": "Clear search",
       "SELECT_ALL": "Select all",

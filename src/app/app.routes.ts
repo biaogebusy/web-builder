@@ -3,11 +3,7 @@ import { Routes } from '@angular/router';
 import { authGuard } from '@core/guards/auth.guard';
 import { authMatchGuard } from '@core/guards/auth-match.guard';
 import { AUTHENTICATED_IDLE_PRELOAD } from '@core/strategy/selective-preloading.strategy';
-import {
-  builderCurrentPageFactory,
-  getBuilderConfig,
-  pageContentFactory,
-} from '@core/factory/factory';
+import { getBuilderConfig, pageContentFactory } from '@core/factory/factory';
 import {
   BUILDER_CONFIG,
   BUILDER_CURRENT_PAGE,
@@ -29,14 +25,7 @@ export const routes: Routes = [
   },
   {
     path: 'preview',
-    providers: [
-      {
-        provide: BUILDER_CURRENT_PAGE,
-        useFactory: builderCurrentPageFactory,
-      },
-    ],
-    loadComponent: () =>
-      import('./modules/builder/preview/preview.component').then(m => m.PreviewComponent),
+    loadChildren: () => import('./modules/builder/preview/preview.routes').then(m => m.routes),
   },
   {
     path: 'builder',

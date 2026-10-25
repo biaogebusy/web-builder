@@ -21,6 +21,7 @@ import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppComponent } from './app.component';
 import { routes } from './app.routes';
 import { authInterceptor } from '@core/interceptor/auth.interceptor';
+import { cmsCsrfInterceptor } from '@core/interceptor/cms-csrf.interceptor';
 import { ssrTimeoutInterceptor } from '@core/interceptor/ssr-timeout.interceptor';
 import {
   API_URL,
@@ -61,7 +62,10 @@ export const appConfig: ApplicationConfig = {
     provideAppInitializer(() => preloadInitialDynamicComponents()),
     provideAppInitializer(() => inject(IconService).loadSvgResources()),
     provideZonelessChangeDetection(),
-    provideHttpClient(withFetch(), withInterceptors([authInterceptor, ssrTimeoutInterceptor])),
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([authInterceptor, cmsCsrfInterceptor, ssrTimeoutInterceptor])
+    ),
     provideRouter(
       routes,
       withPreloading(SelectivePreloadingStrategy),
