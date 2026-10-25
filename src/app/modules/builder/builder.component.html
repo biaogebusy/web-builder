@@ -1,35 +1,16 @@
 @let rightContent = builder.rightContent$ | async;
-<div class="builder-wrapper">
-  <button
-    type="button"
-    mat-icon-button
-    class="mobile-sidebar-toggle"
-    [class.opened]="sidebarDrawerOpened()"
-    [attr.aria-label]="
-      (sidebarDrawerOpened() ? 'BUILDER.SIDEBAR.COLLAPSE' : 'BUILDER.SIDEBAR.EXPAND') | translate
-    "
-    [attr.aria-expanded]="sidebarDrawerOpened()"
-    aria-controls="builder-sidebar-drawer"
-    (click)="sidebarDrawerOpened.set(!sidebarDrawerOpened())"
-  >
-    <app-icon [content]="{ svg: sidebarDrawerOpened() ? 'chevron-left' : 'menu' }" />
-  </button>
-  <mat-drawer-container class="builder-drawer-container" [hasBackdrop]="isMobile()">
+<div class="builder-wrapper" [class.mobile-navigation-hidden]="hideSidebarOnMobile()">
+  <mat-drawer-container class="builder-drawer-container">
     <mat-drawer
       #drawer
-      id="builder-sidebar-drawer"
       class="sidebar-drawer"
       [(opened)]="sidebarDrawerOpened"
-      [mode]="isMobile() ? 'over' : 'side'"
-      [autoFocus]="isMobile()"
-      [class]="sidebarDrawerOpened() ? 'opened' : 'closed'"
+      mode="side"
+      [class]="sidebarDrawerOpened ? 'opened' : 'closed'"
     >
-      <app-builder-sidebar
-        [sidebarDrawer]="drawer"
-        (toggleSidebar)="sidebarDrawerOpened.set(!sidebarDrawerOpened())"
-      />
+      <app-builder-sidebar [sidebarDrawer]="drawer" [drawerContentRef]="drawerContent" />
     </mat-drawer>
-    <mat-drawer-content class="drawer-content" [class.opened]="sidebarDrawerOpened()">
+    <mat-drawer-content #drawerContent class="drawer-content">
       <div
         class="builder"
         [class]="{ 'has-sidebar': builderFullScreen() === false }"

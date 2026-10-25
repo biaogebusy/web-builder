@@ -1,14 +1,13 @@
-import { Component, DestroyRef, OnInit, inject, AfterViewInit, ChangeDetectionStrategy, viewChild, effect, signal } from '@angular/core';
+import { Component, DestroyRef, ElementRef, OnInit, inject, AfterViewInit, ChangeDetectionStrategy, viewChild, computed } from '@angular/core';
 import { SHARE_IMPORTS } from '@share/share-imports';
 import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_FULL_SCREEN } from '@core/token/token-providers';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
-import { distinctUntilChanged, filter, map } from 'rxjs';
+import { filter } from 'rxjs';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { BuilderSidebarComponent } from './sidebar/builder-sidebar/builder-sidebar.component';
-import { ScreenState } from '@core/state/screen/ScreenState';
 import { COLLAPSE_BUILDER_SIDEBAR } from './sidebar/collapse-builder-sidebar';
 
 @Component({
@@ -18,7 +17,7 @@ import { COLLAPSE_BUILDER_SIDEBAR } from './sidebar/collapse-builder-sidebar';
   styleUrls: ['./builder.component.scss'],
   providers: [{ provide: COLLAPSE_BUILDER_SIDEBAR, useFactory: () => {
     const shell = inject(BuilderComponent);
-    return () => shell.sidebarDrawerOpened.set(false);
+    return () => shell.collapseSidebar();
   } }],
   imports: [
     SHARE_IMPORTS,
@@ -29,36 +28,30 @@ import { COLLAPSE_BUILDER_SIDEBAR } from './sidebar/collapse-builder-sidebar';
   ],
 })
 export class BuilderComponent implements OnInit, AfterViewInit {
+  private readonly sidebarDrawer = viewChild<MatDrawer>('drawer');
+  private readonly drawerContent = viewChild('drawerContent', { read: ElementRef<HTMLElement> });
   private readonly builderRightDrawer = viewChild<MatDrawer>('builderRightDrawer');
-  /** Whether the full navigation drawer is expanded. */
-  readonly sidebarDrawerOpened = signal(false);
+  public sidebarDrawerOpened = false;
 
   public builder = inject(BuilderState);
   private destroyRef = inject(DestroyRef);
   public builderFullScreen = inject(BUILDER_FULL_SCREEN);
   private readonly router = inject(Router);
-  /** Use the shared mobile breakpoint for drawer mode and navigation controls. */
-  readonly isMobile = toSignal(
-    inject(ScreenState).mqAlias$().pipe(
-      map(aliases => aliases.includes('xs')),
-      distinctUntilChanged()
-    ),
-    { initialValue: false }
+  private readonly navigationEnd = toSignal(
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd))
   );
-
-  constructor() {
-    effect(() => {
-      if (this.isMobile()) this.sidebarDrawerOpened.set(false);
-    });
-  }
+  /** Routes with their own navigation can opt out of the sidebar on small screens. */
+  readonly hideSidebarOnMobile = computed(() => {
+    this.navigationEnd();
+    let route = this.router.routerState.snapshot.root;
+    while (route.firstChild) {
+      route = route.firstChild;
+      if (route.data['hideSidebarOnMobile'] === true) return true;
+    }
+    return false;
+  });
 
   ngOnInit(): void {
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd),
-      takeUntilDestroyed(this.destroyRef)
-    ).subscribe(() => {
-      if (this.isMobile()) this.sidebarDrawerOpened.set(false);
-    });
     this.builder.rightContent$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(content => {
       if (content) {
         setTimeout(() => {
@@ -74,6 +67,12 @@ export class BuilderComponent implements OnInit, AfterViewInit {
         this.onClose();
       }
     });
+  }
+
+  /** Match the sidebar's manual collapse, including its content spacing. */
+  collapseSidebar(): void {
+    this.drawerContent()?.nativeElement.classList.remove('opened');
+    void this.sidebarDrawer()?.close();
   }
 
   onClose(): void {
