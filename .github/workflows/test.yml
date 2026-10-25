@@ -1,6 +1,7 @@
 # Test setup and scope: xinshi-docs/stories/develop/engineering/testing.mdx.
 # npm test covers Angular specs; npm run test:server covers src/server/**.
-# Local pushes run both suites through .husky/pre-push.
+# Run both suites on demand through workflow_dispatch or npm run test:unit.
+# Pushes and pull requests do not start this workflow.
 name: Unit tests
 
 on:
