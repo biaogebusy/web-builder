@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
-import type { IAmap, IMark, IMarkInfo } from '../interface/IAmap';
+import { defer, EMPTY, Observable, timeout } from 'rxjs';
+import type { IAmap, IMarkInfo } from '../interface/IAmap';
 import { ScreenService } from './screen.service';
 
 // https://lbs.amap.com/demo-center/js-api
@@ -12,34 +12,19 @@ import { ScreenService } from './screen.service';
   providedIn: 'root',
 })
 export class AmapService {
-  public markers$ = new Subject<IMark>();
   private screenSerivce = inject(ScreenService);
   constructor() {}
 
+  /** Load the configured SDK in the browser and propagate failures to each subscriber. */
   load(config: IAmap): Observable<any> {
-    const $map = new BehaviorSubject<object | boolean>(false);
-    if (this.screenSerivce.isPlatformBrowser()) {
-      import('@amap/amap-jsapi-loader').then(AMapLoader => {
-        const {
-          default: { load },
-        } = AMapLoader;
-        load({
-          key: config.key,
-          version: config.version,
-          plugins: config.plugins,
-          AMapUI: {
-            version: '1.1',
-            plugins: [],
-          },
-          Loca: {},
-        }).then(amap => {
-          $map.next(amap);
-        });
-      });
-    }
-    return $map;
+    if (!this.screenSerivce.isPlatformBrowser()) return EMPTY;
+    return defer(async () => {
+      const { default: loader } = await import('@amap/amap-jsapi-loader');
+      return loader.load({ key: config.key, version: config.version, plugins: config.plugins });
+    }).pipe(timeout(15_000));
   }
 
+  /** Build the trusted CMS marker popup. */
   getMarker(item: IMarkInfo): any {
     const isLink = item.url ? 'drawer' : '';
     const img = item.img ? `<div class="media"><img src="${item.img}" /></div>` : '';

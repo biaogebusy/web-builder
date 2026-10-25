@@ -80,6 +80,9 @@ export const DYNAMIC_COMPONENT_LOADERS: Readonly<Record<string, ComponentLoader>
 
   chart: () => loadChart().then(m => m.ChartComponent),
   'chart-box': () => loadChart().then(m => m.ChartBoxComponent),
+  calendar: () => import('@uiux/combs/calendar/calendar/calendar.component').then(
+    m => m.CalendarComponent
+  ),
   'full-calendar': () =>
     import('@uiux/combs/calendar/full-calendar/full-calendar.component').then(
       m => m.FullCalendarComponent

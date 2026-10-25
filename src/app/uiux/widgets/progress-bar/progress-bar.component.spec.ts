@@ -21,4 +21,12 @@ describe('ProgressBarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('names the progress indicator and retains zero progress', async () => {
+    fixture.componentRef.setInput('content', { label: 'Completed: 0 of 10', value: 0 });
+    await fixture.whenStable();
+    const progress = fixture.nativeElement.querySelector('[role="progressbar"]');
+    expect(progress.getAttribute('aria-label')).toBe('Completed: 0 of 10');
+    expect(progress.getAttribute('aria-valuenow')).toBe('0');
+  });
 });

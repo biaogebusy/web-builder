@@ -19,11 +19,36 @@ The Drupal backends are sibling directories of this repo (not inside it); check 
 
 ## Sibling Documentation Repository
 
-- `../xinshi-docs/stories/` is the single maintenance location for feature, architecture, API, operations, and WBS documentation. See the [documentation index](../xinshi-docs/stories/develop/engineering/documentation.mdx). Keep the relevant MDX in sync when behavior changes; this application retains only `docs/README.md` and source entry points, not duplicate specifications. Documentation-only changes do not require application tests; follow the documentation repository instructions for index generation, builds and link checks.
+- `../xinshi-docs/stories/` is the single maintenance location for feature, architecture, API, operations, and WBS documentation. See the [documentation index](../xinshi-docs/stories/develop/engineering/documentation.mdx). Keep the relevant MDX in sync when behavior changes; this application retains only `docs/README.md` and source entry points, not duplicate specifications. Documentation-only changes do not require application tests; follow the documentation repository's instructions for index generation, builds, and link checks.
 
 - Maintain the [frontend API catalog](../xinshi-docs/stories/develop/api/frontend-api-catalog.mdx) when adding, changing or removing frontend API calls. Record the frontend scope, method, path, authentication, CSRF policy, purpose, caller and backend authority. Follow the documentation repository checks. Shared CMS authentication policy belongs in the shared interceptor; custom CMS writes declare `cmsWriteContext()` in their owning service.
 
 - When work involves architecture or complex process logic, you may add architecture diagrams or flowcharts to the corresponding documentation in `../xinshi-docs/stories/` when they help clarify component relationships or process steps.
+
+### Documentation writing (ASD-STE100)
+
+These rules are mandatory whenever a task creates or updates documentation, including
+MDX, Markdown, source README files, and repository guidance.
+
+- Read the [terminology and writing rules](../xinshi-docs/stories/develop/engineering/terminology.mdx)
+  before writing. Use one term for one concept.
+- For English, follow ASD-STE100 writing rules and approved vocabulary, including its rules
+  for technical names and verbs. For Chinese, apply the clear-expression principles below.
+  Do not claim full ASD-STE100 compliance for Chinese text or from a keyword scan alone.
+- Write short sentences in active voice. Name the actor. Keep one idea per sentence and
+  one topic per paragraph. Replace ambiguous pronouns and remove filler or promotional claims.
+- Put conditions before actions. Write procedures in execution order, with one main action
+  per step. State prerequisites, expected results, and what to do when a step fails.
+- Use lists for parallel requirements and tables for comparisons. Distinguish mandatory,
+  optional, and default behavior. State the scope of claims; avoid unsupported absolutes.
+- Verify behavior, defaults, permissions, paths, and versions against the responsible source.
+  Keep planned, implemented, tested, and deployed states separate.
+- Preserve dates, finding IDs, quantities, units, code identifiers, commands, headings,
+  anchors, links, and diagram names. Do not relabel historical evidence as current acceptance.
+  Record source-verified factual corrections separately from expression-only edits.
+- After a full rewrite, compare code blocks, identifiers, numbers, links, and diagram names
+  programmatically, then review meaning and procedure order. Follow the documentation
+  repository's instructions for index generation, builds, and link checks.
 
 ## Branches & Deployments
 
@@ -48,6 +73,7 @@ deployment details out of anything that ships upstream.
 - `npm run build` — production build plus static asset precompression (`ng build --configuration production && npm run precompress`)
 - `npm test` — run unit tests once (Vitest via `@angular/build:unit-test` builder); covers all `src/**` specs except `src/server/**`; setup in `src/test-setup.ts`, shared test providers in `src/test-providers.ts`
 - `npm run test:server` — run server-side specs (`src/server/**`, including Node and SQLite tests) via root `vitest.config.ts`; the two channels split coverage with no overlap
+- `npm run test:unit` — run both unit test channels in sequence; the local pre-push hook runs this command and blocks the push on failure
 - `npm run test:watch` — run unit tests in watch mode
 - `npm run lint` — ESLint (flat config in `eslint.config.js`)
 - `npm run e2e` — end-to-end tests (Playwright, specs in `e2e/`)
@@ -55,6 +81,11 @@ deployment details out of anything that ships upstream.
 - `npm run serve:ssr:xinshi` — serve SSR build (`node dist/server/server.mjs`)
 
 Pre-commit hook runs `lint-staged` which auto-fixes `*.ts` and `*.html` with ESLint and formats `*.md` with Prettier.
+
+Unit tests run locally before each push. Install dependencies with `npm install` to enable Husky,
+and use a Node version supported by `package.json`. GitHub unit tests use manual `workflow_dispatch`;
+the deployment workflow retains build and deployment checks. See the
+[testing guide](../xinshi-docs/stories/develop/engineering/testing.mdx) for setup and limitations.
 
 ## Architecture
 

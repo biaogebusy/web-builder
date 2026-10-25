@@ -18,6 +18,8 @@ export interface ILightboxElement {
 
 export interface IDynamicTable {
   type?: 'dynamic-table';
+  /** Visible, accessible description of the table. */
+  caption?: string;
   params?: {
     sticky: boolean;
     style: object;

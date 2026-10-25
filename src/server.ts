@@ -1,6 +1,5 @@
 import { createNodeRequestHandler, isMainModule } from '@angular/ssr/node';
 import express from 'express';
-import expressStaticGzip from 'express-static-gzip';
 import type { Server } from 'node:http';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -8,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import compression from 'compression';
 import { blockScanners, rateLimiter } from './middlewares/security';
 import { installGracefulShutdown } from './server/graceful-shutdown';
+import { createBrowserAssetHandler } from './server/browser-assets';
 import { requestTimingMiddleware } from './server/request-timing';
 import { createSsrRenderHandler } from './server/ssr-render';
 
@@ -26,23 +26,13 @@ app.set('trust proxy', 1);
 app.use(requestTimingMiddleware);
 app.use(express.json());
 app.use(compression());
-app.use(blockScanners);
 
 /**
  * Serve static files from /browser
  */
-app.use(
-  expressStaticGzip(browserDistFolder, {
-    enableBrotli: true,
-    orderPreference: ['br', 'gz'],
-    index: false,
-    serveStatic: {
-      maxAge: '1y',
-      index: false,
-      redirect: false,
-    },
-  })
-);
+app.use(createBrowserAssetHandler(browserDistFolder));
+// Build hashes can contain scanner keywords, so handle assets before filtering route probes.
+app.use(blockScanners);
 app.use(rateLimiter);
 
 /**

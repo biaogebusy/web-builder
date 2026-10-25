@@ -1,11 +1,37 @@
-@if (content()) {
+<div class="map-display" [class.map-failed]="failed()">
   @if (mapLoading) {
-    <div class="loading-inner">
-      <app-loading />
-    </div>
+    <div class="loading-inner"><app-loading /></div>
   }
-  <div id="map" class="map-canvas" tabindex="-1" (click)="onMarkLink($event)" (keyup.enter)="onMarkLink($event)"></div>
-  <button (click)="setFitView()" class="set-fit-view" mat-fab color="primary">
-    <mat-icon>filter_center_focus</mat-icon>
-  </button>
+  <div #canvas class="map-canvas" tabindex="-1"
+    [attr.role]="readOnly() ? 'img' : null"
+    [attr.aria-label]="readOnly() ? ('MAP.VIEW' | translate) : null"
+    (click)="onMarkLink($event)" (keyup.enter)="onMarkLink($event)"></div>
+  @if (failed()) {
+    <p class="map-error" role="status">{{ 'MAP.LOAD_FAILED' | translate }}</p>
+  } @else if (!mapLoading) {
+    @if (readOnly()) {
+      <app-btn class="map-fit" (btnClick)="setFitView()"
+        [content]="{ label: 'MAP.FIT' | translate, mode: 'raised' }" />
+    } @else {
+      <button (click)="setFitView()" class="set-fit-view" mat-fab color="primary"
+        [attr.aria-label]="'MAP.FIT' | translate">
+        <mat-icon>filter_center_focus</mat-icon>
+      </button>
+    }
+  }
+</div>
+@if (readOnly()) {
+  <ol class="map-places" [attr.aria-label]="'MAP.PLACES' | translate">
+    @for (item of content().elements; track $index) {
+      <li>
+        <span class="map-place-number" aria-hidden="true">{{ $index + 1 }}</span>
+        <div class="map-place-text">
+          <strong>{{ item.title }}</strong>
+          @if (item.description) { <p>{{ item.description }}</p> }
+          <p class="map-coordinates">{{ 'MAP.COORDINATES' | translate }}:
+            {{ item.position[0] }}, {{ item.position[1] }} (GCJ-02)</p>
+        </div>
+      </li>
+    }
+  </ol>
 }

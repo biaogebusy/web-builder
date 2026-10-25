@@ -42,7 +42,7 @@ export interface ICommentParams {
     field_name?: string;
     comment_body?: {
       value?: any;
-      format: string;
+      format?: string;
     };
   };
   relationships: {

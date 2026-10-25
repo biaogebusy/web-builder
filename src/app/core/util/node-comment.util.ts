@@ -5,6 +5,7 @@ import { buildQueryString } from '@core/util/http-params.util';
 export interface CommentContentShape {
   params?: {
     comment?: {
+      type?: string;
       attributes?: {
         field_name?: string;
       };
@@ -47,7 +48,7 @@ interface RawComment {
 }
 
 export function getCommentType(content: CommentContentShape | null | undefined): string {
-  return content?.params?.comment?.attributes?.field_name || '';
+  return content?.params?.comment?.type?.replace(/^comment--/, '') || '';
 }
 
 export function getCommentRelEntityId(content: CommentContentShape | null | undefined): string {

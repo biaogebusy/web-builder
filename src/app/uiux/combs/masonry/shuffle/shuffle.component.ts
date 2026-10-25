@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, afterNextRender, ChangeDetectionStrategy, input } from '@angular/core';
+import { Component, DestroyRef, ElementRef, inject, afterNextRender, ChangeDetectionStrategy, input } from '@angular/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import type { IShuffle } from '@core/interface/combs/IMasonry';
 import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
@@ -13,13 +13,24 @@ import Shuffle from 'shufflejs';
 })
 export class ShuffleComponent {
   readonly content = input<IShuffle>();
-  shuffle: any;
+  /** Active layout instance for the rendered grid. */
+  shuffle?: Shuffle;
   private el = inject(ElementRef);
+  private destroyRef = inject(DestroyRef);
+  private initTimer?: ReturnType<typeof setTimeout>;
   constructor() {
+    this.destroyRef.onDestroy(() => {
+      clearTimeout(this.initTimer);
+      this.shuffle?.destroy();
+    });
     afterNextRender(() => {
       const sizer = this.el.nativeElement.querySelectorAll('.sizer')[0];
       const shuffleEl = this.el.nativeElement.querySelectorAll('.shuffle-inner')[0];
-      setTimeout(() => {
+      // Optional content can leave the grid absent during the first render.
+      if (!shuffleEl) {
+        return;
+      }
+      this.initTimer = setTimeout(() => {
         this.shuffle = new Shuffle(shuffleEl, {
           itemSelector: '.item',
           sizer,
@@ -32,6 +43,6 @@ export class ShuffleComponent {
   }
 
   onChange(category: any): void {
-    this.shuffle.filter(category.value);
+    this.shuffle?.filter(category.value);
   }
 }

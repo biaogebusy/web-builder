@@ -28,36 +28,55 @@ export class CommentService extends ApiService {
     super();
   }
 
+  /** Reads the allowed body format for a new or existing comment. */
+  getForm(type: string, uuid?: string): Observable<{
+    key: string; textFormat: string; editor: 'rich_text' | 'plain_text' | 'json';
+  }> {
+    const path = `/api/v3/comment-form/${encodeURIComponent(type)}` +
+      (uuid ? `/${encodeURIComponent(uuid)}` : '');
+    return this.http.get<any>(`${this.apiUrl}${path}`, { headers: this.httpOptionsOfCommon.headers });
+  }
+
+  /** Creates a comment using the caller's permitted text format. */
   addComment(type: string, entityData: any, token: string): Observable<any> {
-    const entity = {
-      data: entityData,
-    };
-    return this.http.post<any>(
-      `${this.apiUrl}${this.commentGetPath}/${type}`,
-      JSON.stringify(entity),
-      this.optionsWithBearerToken()
-    );
+    return this.writeComment(type, entityData);
   }
 
+  /** Updates body fields without changing the comment author. */
   updateComment(type: string, entityData: any, uuid: string, token: string): Observable<any> {
-    const entity = {
-      data: entityData,
-    };
-    return this.http.patch<any>(
-      `${this.apiUrl}${this.commentGetPath}/${type}/${uuid}`,
-      JSON.stringify(entity),
-      this.optionsWithBearerToken()
-    );
+    return this.writeComment(type, entityData, uuid);
   }
 
+  /** Replies using the same format policy as a new comment. */
   replyComment(type: string, entityData: any, token: string): Observable<any> {
-    const entity = {
-      data: entityData,
-    };
-    return this.http.post<any>(
-      `${this.apiUrl}${this.commentGetPath}/${type}`,
-      JSON.stringify(entity),
-      this.optionsWithBearerToken()
+    return this.writeComment(type, entityData);
+  }
+
+  private writeComment(type: string, entityData: any, uuid?: string): Observable<any> {
+    return this.getForm(type, uuid).pipe(
+      switchMap(schema => {
+        const attributes = { ...entityData.attributes };
+        const body = attributes.comment_body;
+        if (body) {
+          let value = body.value;
+          if (schema.editor === 'plain_text' && body.format !== schema.textFormat) {
+            // Rich editor HTML must become text before using a plain-text format.
+            const template = this.document.createElement('template');
+            template.innerHTML = String(value).replace(/<br\s*\/?>(?:\n)?|<\/p>/gi, '\n');
+            value = template.content.textContent?.trim() ?? '';
+          }
+          delete attributes.comment_body;
+          attributes[schema.key] = { value, format: schema.textFormat };
+        }
+        const relationships = { ...entityData.relationships };
+        // Drupal assigns the authenticated author. Sending uid needs comment administration.
+        delete relationships.uid;
+        const data = { ...entityData, attributes, relationships };
+        const path = `${this.apiUrl}${this.commentGetPath}/${type}` + (uuid ? `/${uuid}` : '');
+        return uuid
+          ? this.http.patch<any>(path, JSON.stringify({ data }), this.optionsWithBearerToken())
+          : this.http.post<any>(path, JSON.stringify({ data }), this.optionsWithBearerToken());
+      })
     );
   }
 
