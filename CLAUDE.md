@@ -25,6 +25,24 @@ The Drupal backends are sibling directories of this repo (not inside it); check 
 
 - When work involves architecture or complex process logic, you may add architecture diagrams or flowcharts to the corresponding documentation in `../xinshi-docs/stories/` when they help clarify component relationships or process steps.
 
+### Continuous refactoring
+
+- Treat refactoring that preserves existing behavior and UI as routine project maintenance.
+  This rule applies to all project areas.
+- Before development, fixes or reviews, read the
+  [project refactoring tracker](../xinshi-docs/stories/develop/engineering/continuous-refactoring.mdx).
+  Identify open items that affect the task and keep each change within the active task scope.
+- Record candidates, repository and branch scope, refactoring type, source evidence, risks and
+  acceptance criteria in the tracker. For completed work, record the actual type and supporting
+  evidence. Keep defect fixes and feature changes separate from equivalent refactoring.
+- When refactoring affects base functionality, implement and validate it in `xinshi-base/master`
+  first. After the required checks pass, merge the base changes into the downstream branch,
+  including `xinshi-pro/pro`, then validate affected downstream behavior. Classify by dependency;
+  base functionality remains base even when an optional feature uses it. Keep deployment-specific
+  changes downstream. Record base and downstream validation separately.
+- At handoff, update affected items with evidence, status and the next action. Briefly remind the
+  user of relevant unfinished items. Keep item lists and progress in the tracker, not here.
+
 ### Documentation writing (ASD-STE100)
 
 These rules are mandatory whenever a task creates or updates documentation, including
