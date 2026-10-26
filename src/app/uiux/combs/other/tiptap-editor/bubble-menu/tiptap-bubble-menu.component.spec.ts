@@ -90,4 +90,44 @@ describe('TiptapBubbleMenuComponent', () => {
 
     expect(fixture.componentInstance.colorValue(editor, 'color', '#000000')).toBe('#ff0000');
   });
+  it('renders only supported inline commands for a host-owned selection', async () => {
+    fixture.componentRef.setInput('selectionState', {
+      bold: true, italic: false, underline: false, link: false,
+    });
+    const commands: string[] = [];
+    fixture.componentInstance.action.subscribe(command => commands.push(command));
+    await fixture.whenStable();
+    const buttons = Array.from(fixture.nativeElement.querySelectorAll('button')) as HTMLButtonElement[];
+    expect(buttons.map(button => button.getAttribute('aria-label'))).toEqual([
+      'BUILDER.TIPTAP.BOLD', 'BUILDER.TIPTAP.ITALIC', 'BUILDER.TIPTAP.UNDERLINE',
+      'BUILDER.TIPTAP.LINK', 'BUILDER.TIPTAP.CLEAR_FORMAT',
+    ]);
+    expect(buttons[0].getAttribute('aria-pressed')).toBe('true');
+    const pointer = new MouseEvent('mousedown', { bubbles: true, cancelable: true });
+    buttons[0].dispatchEvent(pointer);
+    expect(pointer.defaultPrevented).toBe(true);
+    buttons[0].click();
+    buttons[3].click();
+    buttons[4].click();
+    await fixture.whenStable();
+    expect(commands).toEqual(['bold', 'link', 'clearFormat']);
+    expect(fixture.nativeElement.querySelector('app-tiptap-link-panel')).toBeNull();
+  });
+
+  it('keeps native rich-text formatting when no host-owned state is supplied', async () => {
+    editor = createEditor(false);
+    editor.setOptions({ editorProps: { handleScrollToSelection: () => true } });
+    fixture.componentRef.setInput('editor', editor);
+    editor.commands.setTextSelection({ from: 1, to: 6 });
+    await fixture.whenStable();
+    const bold = fixture.nativeElement.querySelector('[aria-label="BUILDER.TIPTAP.BOLD"]');
+    bold.click();
+    await fixture.whenStable();
+    expect(editor.getHTML()).toContain('<strong>hello</strong>');
+    expect(bold.getAttribute('aria-pressed')).toBe('true');
+    fixture.nativeElement.querySelector('[aria-label="BUILDER.TIPTAP.CLEAR_FORMAT"]').click();
+    await fixture.whenStable();
+    expect(editor.getHTML()).toBe('<p>hello</p>');
+  });
+
 });
