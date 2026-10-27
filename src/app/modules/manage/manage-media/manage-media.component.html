@@ -1,4 +1,4 @@
-<div class="manage-media">
+<div class="manage-media" [class.managing]="content().mode === 'manage'">
   <div class="media-grid">
     <div class="toolbar">
       <form
@@ -79,7 +79,7 @@
           <div class="viewport" [style.--cols]="manageMediaConfig().row">
             @for (item of assets.rows; track item.uuid || item.id) {
               <div class="masonry-item">
-                <div class="actions" [matTooltip]="item.title">
+                <div class="actions">
                   @if (content().mode === 'manage') {
                     <app-btn
                       *reqRolesIf="{
@@ -90,7 +90,7 @@
                       matTooltipPosition="above"
                       (click)="onDelete(item.uuid)"
                       [content]="{
-                        label: '',
+                        label: 'MANAGE.MEDIA.DELETE' | translate,
                         mode: 'icon',
                         icon: { svg: 'delete' },
                       }"
@@ -101,7 +101,7 @@
                       matTooltipPosition="above"
                       (click)="onRename(item)"
                       [content]="{
-                        label: '',
+                        label: 'MANAGE.MEDIA.RENAME' | translate,
                         mode: 'icon',
                         icon: { svg: 'pencil-outline' },
                       }"
@@ -112,36 +112,55 @@
                       matTooltipPosition="above"
                       (click)="onCopy(item)"
                       [content]="{
-                        label: '',
+                        label: 'MANAGE.MEDIA.COPY_PATH' | translate,
                         mode: 'icon',
                         icon: { svg: 'content-copy' },
                       }"
                     />
+                    <app-btn
+                      class="btn"
+                      [matTooltip]="'MANAGE.MEDIA.SELECT' | translate"
+                      matTooltipPosition="above"
+                      (click)="onSelect(item)"
+                      [content]="{
+                        label: 'MANAGE.MEDIA.SELECT' | translate,
+                        mode: 'icon',
+                        icon: { svg: 'checkbox-marked-outline' },
+                      }"
+                    />
+                  } @else {
+                    <app-btn
+                      class="btn preview-action"
+                      [matTooltip]="'MANAGE.MEDIA.PREVIEW' | translate"
+                      (btnClick)="onPreview(item)"
+                      [content]="{
+                        label: 'MANAGE.MEDIA.PREVIEW' | translate,
+                        ariaLabel: ('MANAGE.MEDIA.PREVIEW' | translate) + ': ' + item.title,
+                        mode: 'icon',
+                        icon: { svg: 'magnify-plus-outline' },
+                      }"
+                    />
                   }
-                  <app-btn
-                    class="btn"
-                    [matTooltip]="'MANAGE.MEDIA.SELECT' | translate"
-                    matTooltipPosition="above"
-                    (click)="onSelect(item)"
-                    [content]="{
-                      label: '',
-                      mode: 'icon',
-                      icon: { svg: 'checkbox-marked-outline' },
-                    }"
-                  />
                 </div>
                 @if (content().mode === 'manage') {
                   <div class="delete">
-                    <mat-checkbox (change)="onChange($event.checked, item.uuid)" />
+                    <mat-checkbox
+                      [aria-label]="('MANAGE.MEDIA.SELECT' | translate) + ': ' + item.title"
+                      (change)="onChange($event.checked, item.uuid)"
+                    />
                   </div>
                 }
-                <div
-                  role="button"
-                  tabindex="0"
-                  (click)="onPreview(item)"
-                  (keyup.enter)="onPreview(item)"
+                <!-- The image needs a native button because it is the complete selection target. -->
+                <button
+                  type="button"
+                  (click)="content().mode === 'manage' ? onPreview(item) : onSelect(item)"
                   class="box"
-                  [class]="{ selected: isSelected(item) }"
+                  [class.selected]="isSelected(item)"
+                  [attr.aria-label]="
+                    ((content().mode === 'manage' ? 'MANAGE.MEDIA.PREVIEW' : 'MANAGE.MEDIA.SELECT')
+                      | translate) + ': ' + item.title
+                  "
+                  [attr.aria-pressed]="content().mode === 'manage' ? null : isSelected(item)"
                 >
                   @if (item.src) {
                     <img
@@ -149,10 +168,19 @@
                       ngSrc="{{ item.src }}"
                       width="480"
                       height="360"
-                      alt="{{ item.title || '媒体' }}"
+                      alt=""
                     />
                   }
-                </div>
+                  @if (content().mode !== 'manage') {
+                    <span class="selection-label">
+                      <app-icon
+                        [content]="{ svg: isSelected(item) ? 'checkbox-marked' : 'checkbox-blank-outline' }"
+                        aria-hidden="true"
+                      />
+                      {{ 'MANAGE.MEDIA.SELECT' | translate }}
+                    </span>
+                  }
+                </button>
               </div>
             }
           </div>

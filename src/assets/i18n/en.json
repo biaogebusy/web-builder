@@ -110,6 +110,7 @@
       "UPLOAD": "Upload media",
       "DELETE": "Delete",
       "COPY_PATH": "Copy path",
+      "PREVIEW": "Preview",
       "SELECT": "Select",
       "BULK_DELETE": "Delete selected ({{count}})",
       "EMPTY_TITLE": "No media found",

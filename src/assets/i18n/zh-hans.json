@@ -110,6 +110,7 @@
       "UPLOAD": "上传媒体",
       "DELETE": "删除",
       "COPY_PATH": "复制路径",
+      "PREVIEW": "预览",
       "SELECT": "选择",
       "BULK_DELETE": "批量删除（{{count}}）",
       "EMPTY_TITLE": "未找到相关媒体",

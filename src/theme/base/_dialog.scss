@@ -18,6 +18,17 @@
     .mat-mdc-dialog-content {
       max-height: none;
     }
+    @media (max-width: 600px), (max-height: 600px) {
+      width: calc(100vw - 24px) !important;
+      max-width: calc(100vw - 24px) !important;
+      --media-panel-height: calc(100dvh - 92px);
+      .mat-mdc-dialog-container .mat-mdc-dialog-content {
+        @apply pt-14 px-3 pb-3;
+      }
+      .dialog-colse-outside-btn {
+        @apply top-2 right-2 z-10;
+      }
+    }
   }
 
   .media-preview-dialog {
