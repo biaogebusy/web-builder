@@ -5,8 +5,8 @@ import { expect, test } from './fixtures/test';
 async function openMedia(page: Page, mode?: 'manage', theme = 'light-theme') {
   await page.route('**/__media-touch__/*.svg', route => route.fulfill({
     contentType: 'image/svg+xml',
-    body: '<svg xmlns="http://www.w3.org/2000/svg" width="480" height="360">' +
-      '<rect width="480" height="360" fill="#789"/></svg>',
+    body: '<svg xmlns="http://www.w3.org/2000/svg" width="270" height="480">' +
+      '<rect width="270" height="480" fill="#789"/></svg>',
   }));
   await page.route('**/api/**', route => {
     const url = new URL(route.request().url());
@@ -36,17 +36,20 @@ async function openMedia(page: Page, mode?: 'manage', theme = 'light-theme') {
   await expect(page.locator('app-manage-media .masonry-item')).toHaveCount(24);
 }
 
-for (const viewport of [{ width: 390, height: 844 }, { width: 820, height: 1180 }]) {
+for (const viewport of [
+  { width: 390, height: 844 }, { width: 744, height: 1133 }, { width: 1133, height: 744 },
+]) {
   test.describe(`media touch ${viewport.width}`, () => {
     test.use({ viewport, hasTouch: true });
 
-    test('selects the image in one tap and keeps preview separate', async ({ page }) => {
+    test('selects the image in one tap and keeps preview separate', async ({ page }, info) => {
       await openMedia(page);
       const library = page.locator('app-manage-media');
       const tile = library.getByRole('button', { name: '选择: Image 0', exact: true });
       await tile.tap();
       await expect(tile).toHaveAttribute('aria-pressed', 'true');
       await expect(page.getByRole('dialog')).toHaveCount(0);
+      await expect(library.locator('.media-name').first()).toHaveText('Image 0');
 
       const next = library.getByRole('button', { name: '选择: Image 1', exact: true });
       const preview = library.getByRole('button', { name: '预览: Image 1', exact: true });
@@ -65,35 +68,79 @@ for (const viewport of [{ width: 390, height: 844 }, { width: 820, height: 1180 
       await tile.focus();
       await page.keyboard.press('Enter');
       await expect(tile).toHaveAttribute('aria-pressed', 'true');
-      await library.locator('.media-scroll').evaluate(element => { element.scrollTop = 300; });
-      await expect(tile).toHaveAttribute('aria-pressed', 'true');
-      await library.screenshot({ path: `/tmp/media-touch-picker-${viewport.width}.png` });
+      await library.screenshot({ path: info.outputPath('01-picker.png') });
       const audit = await new AxeBuilder({ page }).include('app-manage-media')
         .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
       expect(audit.violations).toEqual([]);
     });
 
-    test('keeps management actions inside each tile with separate touch targets', async ({ page }) => {
-      await openMedia(page, 'manage', 'dark-theme');
+    test('keeps media menus and batch selection independent on touch and keyboard', async ({
+      page,
+    }, info) => {
+      await openMedia(page, 'manage', viewport.width === 1133 ? 'dark-theme' : 'light-theme');
       const library = page.locator('app-manage-media');
       const item = library.locator('.masonry-item').first();
-      const tileBounds = (await item.boundingBox())!;
-      const imageBounds = (await item.locator('.box').boundingBox())!;
-      for (const button of await item.locator('.actions button').all()) {
-        const bounds = (await button.boundingBox())!;
-        expect(bounds.width).toBeGreaterThanOrEqual(44);
-        expect(bounds.height).toBeGreaterThanOrEqual(44);
-        expect(bounds.x).toBeGreaterThanOrEqual(tileBounds.x);
-        expect(bounds.x + bounds.width).toBeLessThanOrEqual(tileBounds.x + tileBounds.width);
-        expect(bounds.y).toBeGreaterThanOrEqual(imageBounds.y + imageBounds.height);
-      }
-      await item.getByRole('checkbox').tap();
-      await expect(library.getByRole('button', { name: '批量删除（1）' })).toBeVisible();
-      await expect(page.getByRole('dialog')).toHaveCount(0);
-      await library.screenshot({ path: `/tmp/media-touch-manage-${viewport.width}.png` });
+      const picture = item.getByRole('button', { name: '预览: Image 0', exact: true });
+      const checkbox = item.getByRole('checkbox', { name: '批量选择: Image 0', exact: true });
+      const more = item.getByRole('button', { name: '更多操作: Image 0', exact: true });
+      const imageBounds = (await picture.boundingBox())!;
+      expect(imageBounds.width / imageBounds.height).toBeCloseTo(4 / 3, 1);
+      expect((await more.boundingBox())!.width).toBeGreaterThanOrEqual(44);
+      expect((await more.boundingBox())!.height).toBeGreaterThanOrEqual(44);
+      await expect(item.getByRole('button')).toHaveCount(2);
+      await expect(library.locator('.media-name').first()).toHaveText('Image 0');
+      await picture.focus();
+      await page.keyboard.press('Tab');
+      await expect(checkbox).toBeFocused();
+      await page.keyboard.press('Tab');
+      await expect(more).toBeFocused();
+      await library.screenshot({ path: info.outputPath('02-manage.png') });
+
+      await more.tap();
+      await expect(more).toHaveAttribute('aria-expanded', 'true');
+      const menu = page.getByRole('menu');
+      await expect(menu.getByRole('menuitem', { name: '重命名', exact: true })).toBeVisible();
+      await expect(menu.getByRole('menuitem', { name: '复制路径', exact: true })).toBeVisible();
+      await expect(menu.getByRole('menuitem', { name: '选择', exact: true })).toHaveCount(0);
+      await expect(menu).toHaveCSS('opacity', '1');
+      await page.screenshot({ path: info.outputPath('03-menu.png') });
+      const menuAudit = await new AxeBuilder({ page }).include('app-manage-media')
+        .include('.cdk-overlay-container')
+        .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
+      expect(menuAudit.violations).toEqual([]);
+      await page.keyboard.press('Escape');
+      await expect(more).toBeFocused();
+
+      await checkbox.tap();
+      await expect(checkbox).toBeChecked();
+      await expect(item).toHaveClass(/is-selected/);
+      const batch = library.getByRole('group', { name: '批量操作', exact: true });
+      await expect(batch.getByRole('status')).toHaveText('已选 1 项');
+      await more.tap();
+      await menu.getByRole('menuitem', { name: '预览', exact: true }).tap();
+      await expect(page.getByRole('dialog')).toBeVisible();
+      await page.getByRole('dialog').getByRole('button', { name: '关闭', exact: true }).tap();
+      await expect(checkbox).toBeChecked();
+      await expect(more).toBeFocused();
+      await more.tap();
+      await menu.getByRole('menuitem', { name: '重命名', exact: true }).tap();
+      await expect(page.getByRole('dialog')).toBeVisible();
+      await page.getByRole('dialog').getByRole('button', { name: '取消', exact: true }).tap();
+      await expect(more).toBeFocused();
+      await expect(checkbox).toBeChecked();
+      await batch.getByRole('button', { name: '选择已加载', exact: true }).tap();
+      await expect(batch.getByRole('status')).toHaveText('已选 24 项');
+      await expect(library.getByRole('checkbox', { checked: true })).toHaveCount(24);
+      await library.screenshot({ path: info.outputPath('04-batch.png') });
       const audit = await new AxeBuilder({ page }).include('app-manage-media')
         .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
       expect(audit.violations).toEqual([]);
+      expect(await library.locator('.media-scroll').evaluate(el => el.scrollWidth <= el.clientWidth))
+        .toBe(true);
+      await batch.getByRole('button', { name: '取消选择', exact: true }).tap();
+      await expect(batch).toHaveCount(0);
+      await expect(library.getByRole('checkbox', { checked: true })).toHaveCount(0);
+      await expect(library.locator('.media-scroll')).toBeFocused();
     });
   });
 }

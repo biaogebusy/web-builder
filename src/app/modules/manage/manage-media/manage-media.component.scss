@@ -98,14 +98,14 @@
       }
     }
     .viewport {
-      @apply grid gap-1 w-full shrink-0 content-start;
+      @apply grid gap-3 w-full shrink-0 content-start;
       // Columns follow the container width (this panel often lives in a narrow
       // drawer, where viewport breakpoints would misreport). --cols is the
       // per-tile column span over a 12-col grid (slider value): a larger span
-      // means wider tiles / fewer columns. Tiles never shrink below 120px.
+      // means wider tiles / fewer columns. Tiles never shrink below 144px.
       grid-template-columns: repeat(
         auto-fill,
-        minmax(max(min(100%, 120px), calc(var(--cols, 2) / 12 * 100%)), 1fr)
+        minmax(max(min(100%, 144px), calc(var(--cols, 2) / 12 * 100%)), 1fr)
       );
     }
     .scroll-status {
@@ -133,9 +133,6 @@
     }
     .bottom {
       @apply flex flex-wrap justify-between items-center gap-2;
-      .action {
-        @apply flex left-5 bottom-10;
-      }
       .page {
         @apply flex-auto;
         .mat-mdc-paginator {
@@ -150,7 +147,7 @@
     }
   }
   .media-img {
-    @apply w-full h-full object-contain;
+    @apply absolute inset-0 w-full h-full object-contain;
   }
   .empty-icon {
     @apply w-16 h-16;
@@ -184,111 +181,80 @@
 }
 
 .masonry-item {
-  border: 1px solid transparent;
-  @apply aspect-[4/3] box-border relative;
-  .selected {
-    position: relative;
-    &:after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      box-sizing: border-box;
-      z-index: 2;
-      border: 3px solid var(--mat-sys-primary);
-      pointer-events: none;
-    }
-  }
-  .delete {
-    @apply absolute left-2 bottom-1 z-10;
-    ::ng-deep {
-      .mat-mdc-checkbox {
-        &:not(.mat-mdc-checkbox-checked) {
-          .mdc-checkbox__background {
-            @apply bg-white/75 border;
-          }
-        }
-      }
-    }
-  }
-  .actions {
-    @apply flex flex-wrap items-center absolute z-10 right-1 top-1;
-    background-color: var(--mat-sys-inverse-surface);
-    border-radius: 4px;
-    .btn {
-      @apply block h-11 w-11 rounded-[4px];
-      &:hover {
-        background-color: color-mix(in srgb, var(--mat-sys-inverse-on-surface) 12%, transparent);
-      }
-    }
-
-    ::ng-deep {
-      .icon-delete {
-        &:hover {
-          .mat-icon {
-            color: var(--mat-sys-error);
-          }
-        }
-      }
-      .mat-icon {
-        color: var(--mat-sys-inverse-on-surface);
-      }
-      .mdc-icon-button {
-        --mat-icon-button-state-layer-size: 44px;
-        --mat-icon-button-icon-size: 24px;
-        @apply p-2.5;
-        .mat-icon {
-          line-height: 1;
-          svg {
-            width: 24px;
-            height: 24px;
-          }
-        }
-        .mat-mdc-button-touch-target {
-          width: 44px;
-          height: 44px;
-        }
-      }
-    }
+  @apply relative min-w-0 overflow-hidden rounded-lg border;
+  border-color: var(--mat-sys-outline-variant);
+  background: var(--mat-sys-surface);
+  &.is-selected {
+    border-color: var(--mat-sys-primary);
+    box-shadow: inset 0 0 0 1px var(--mat-sys-primary);
   }
   .box {
-    @apply relative block w-full h-full p-1 box-border border-0 cursor-pointer;
-    background-color: var(--mat-sys-surface-container-high);
+    @apply relative block aspect-[4/3] w-full overflow-hidden border-0 p-0 cursor-pointer;
+    background: var(--mat-sys-surface-container);
     &:focus-visible {
       @apply outline outline-2 -outline-offset-2;
       outline-color: var(--mat-sys-primary);
     }
   }
-  &:hover {
-    .box {
-      opacity: 0.8;
-    }
-  }
 }
 
-// Management actions wrap below the image so touch targets do not overlap adjacent tiles.
-.managing .masonry-item {
-  @apply flex flex-col aspect-auto;
-  .box {
-    @apply order-first aspect-[4/3] h-auto;
-  }
-  .actions {
-    @apply static justify-end rounded-none;
-  }
-  .delete {
-    @apply bottom-auto top-1 left-1;
-  }
+.batch-checkbox {
+  @apply absolute left-1 top-1 flex h-11 w-11 items-center justify-center rounded-md;
 }
 
-.selection-label {
-  @apply absolute bottom-1 left-1 flex items-center gap-1 rounded px-2 py-1 text-sm;
-  background-color: var(--mat-sys-surface);
+.selection-indicator {
+  @apply absolute left-2 top-2 flex h-6 w-6 items-center justify-center rounded pointer-events-none;
+  background: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface-variant);
+  .is-selected & { color: var(--mat-sys-primary); }
+}
+
+.media-caption {
+  @apply flex min-h-11 min-w-0 items-center pl-2;
+}
+.media-name {
+  @apply min-w-0 flex-1 truncate text-sm leading-5;
   color: var(--mat-sys-on-surface);
-  app-icon {
-    @apply w-5 h-5;
-  }
+}
+.media-more,
+.preview-action {
+  @apply block h-11 w-11 shrink-0;
+  color: var(--mat-sys-on-surface-variant);
+  --mat-icon-button-state-layer-size: 44px;
+  --mat-icon-button-icon-size: 24px;
+}
+.media-more { @apply p-2.5; }
+.preview-action ::ng-deep .mdc-icon-button { @apply p-2.5; }
+.preview-action ::ng-deep .mat-mdc-button-touch-target { @apply h-11 w-11; }
+
+.media-menu-title {
+  @apply max-w-[280px] break-words border-b px-4 py-2 text-sm leading-5;
+  color: var(--mat-sys-on-surface-variant);
+  border-color: var(--mat-sys-outline-variant);
+}
+.media-menu-item {
+  @apply min-h-11;
+  app-icon { @apply mr-3 inline-flex align-middle; }
+}
+.media-menu-danger {
+  @apply mt-1 border-t pt-1;
+  border-color: var(--mat-sys-outline-variant);
+  .media-menu-item { color: var(--mat-sys-error); }
+}
+
+.selection-toolbar {
+  @apply mb-3 flex shrink-0 flex-wrap items-center gap-2 rounded-lg border px-3 py-2;
+  background: var(--mat-sys-surface-container-low);
+  border-color: var(--mat-sys-outline-variant);
+  --mat-button-text-container-height: 44px;
+  --mat-button-outlined-container-height: 44px;
+  --mat-button-text-label-text-size: 14px;
+  --mat-button-outlined-label-text-size: 14px;
+}
+.selection-count { @apply mr-auto text-sm font-medium; }
+.batch-delete {
+  --mat-button-outlined-label-text-color: var(--mat-sys-error);
+  --mat-button-outlined-outline-color: var(--mat-sys-error);
 }
 
 .load {

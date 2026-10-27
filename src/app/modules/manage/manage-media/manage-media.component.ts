@@ -18,6 +18,8 @@ import {
 import { NgOptimizedImage } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ScreenService } from '@core/service/screen.service';
@@ -63,6 +65,8 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     FormsModule,
     ReactiveFormsModule,
     MatCheckboxModule,
+    MatButtonModule,
+    MatMenuModule,
     MatProgressBarModule,
     MatPaginatorModule,
     MatTooltipModule,
@@ -103,8 +107,9 @@ export class ManageMediaComponent implements OnInit {
   private requestPending = false;
   private readonly scrollViewport = viewChild<ElementRef<HTMLElement>>('scrollViewport');
   private readonly loadMoreTrigger = viewChild<ElementRef<HTMLElement>>('loadMoreTrigger');
-  private selectedId: string;
-  public deletedLists: string[] = [];
+  private selectedId = signal<string | undefined>(undefined);
+  /** The single source of truth for management checkboxes and batch actions. */
+  readonly selectedIds = signal<readonly string[]>([]);
   public progress = 0;
   private dialog = inject(MatDialog);
   private builder = inject(BuilderState);
@@ -163,7 +168,7 @@ export class ManageMediaComponent implements OnInit {
           distinctUntilChanged(isEqual)
         )
         .subscribe(value => {
-          if (!isEqual({ ...value, page: 0 }, this.searchFilters)) {
+          if (!isEqual(this.comparableFilters(value), this.comparableFilters(this.searchFilters))) {
             this.onSearch(value);
           }
         });
@@ -196,8 +201,15 @@ export class ManageMediaComponent implements OnInit {
 
   /** Navigate within the media panel when numbered pagination is enabled. */
   onPageChange(page: PageEvent): void {
+    this.selectedIds.set([]);
     this.resetScroll();
     this.requestPage(page.pageIndex);
+  }
+
+  private comparableFilters(value: Record<string, unknown>): Record<string, unknown> {
+    // Formly adds empty controls after the first load. They must not reset an active selection.
+    return Object.fromEntries(Object.entries<unknown>({ ...value, page: 0 })
+      .filter(([, entry]) => entry !== undefined && entry !== null && entry !== ''));
   }
 
   /** Restart the media collection after a filter change or a media mutation. */
@@ -205,7 +217,7 @@ export class ManageMediaComponent implements OnInit {
     this.searchFilters = { ...value, page: 0 };
     this.visibleAssets.set(undefined);
     this.lastPageEmpty.set(false);
-    this.deletedLists = [];
+    this.selectedIds.set([]);
     this.resetScroll();
     this.requestPage(0);
   }
@@ -319,15 +331,23 @@ export class ManageMediaComponent implements OnInit {
       .afterClosed();
   }
 
+  /** Update batch selection without emitting a media-picker result. */
   onChange(checked: boolean, uuid: string): void {
-    if (checked) {
-      this.deletedLists = [...this.deletedLists, uuid];
-    } else {
-      const index = this.deletedLists.findIndex(item => item === uuid);
-      if (index >= 0) {
-        this.deletedLists.splice(index, 1);
-      }
-    }
+    if (!uuid) return;
+    this.selectedIds.update(ids => checked ? [...new Set([...ids, uuid])]
+      : ids.filter(id => id !== uuid));
+  }
+
+  /** Select only media already loaded into this panel. */
+  selectLoaded(): void {
+    const loaded = this.visibleAssets()?.rows.map(item => item.uuid).filter(Boolean) ?? [];
+    this.selectedIds.update(ids => [...new Set([...ids, ...loaded])]);
+  }
+
+  /** Return focus to the media list when the selection toolbar disappears. */
+  clearSelection(): void {
+    this.selectedIds.set([]);
+    this.scrollViewport()?.nativeElement.focus({ preventScroll: true });
   }
 
   handleDelete(file: string): Observable<boolean> {
@@ -348,12 +368,13 @@ export class ManageMediaComponent implements OnInit {
     }
   }
 
-  bulkDelete(lists: string[]): void {
-    this.confirmDelete('MANAGE.MEDIA.CONFIRM_BULK_DELETE_BODY', { count: lists.length })
+  bulkDelete(lists: readonly string[]): void {
+    const selection = [...lists];
+    this.confirmDelete('MANAGE.MEDIA.CONFIRM_BULK_DELETE_BODY', { count: selection.length })
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(confirmed => {
         if (confirmed) {
-          this.runBulkDelete(lists);
+          this.runBulkDelete(selection);
         }
       });
   }
@@ -371,7 +392,7 @@ export class ManageMediaComponent implements OnInit {
       .subscribe({
         complete: () => {
           this.loading.set(false);
-          this.deletedLists = [];
+          this.selectedIds.set([]);
           this.onSearch(this.form.value);
         },
         error: err => console.error('Error deleting files', err),
@@ -379,15 +400,13 @@ export class ManageMediaComponent implements OnInit {
   }
 
   isSelected(item: IManageImg): boolean {
-    if (item.id) {
-      return item.id === this.selectedId;
-    } else {
-      return false;
-    }
+    return this.content().mode === 'manage'
+      ? this.selectedIds().includes(item.uuid)
+      : !!item.id && item.id === this.selectedId();
   }
 
   onSelect(item: IManageImg): void {
-    this.selectedId = item.id;
+    this.selectedId.set(item.id);
     this.builder.selectedMedia$.next({
       img: {
         src: item.source || item.src || '',

@@ -84,17 +84,26 @@ describe('ManageMediaComponent', () => {
     expect(searchChanges).toEqual([]);
   });
 
+  it('keeps the batch selection when deletion is cancelled', () => {
+    confirmWith(false);
+    component.selectedIds.set(['media-1', 'media-2']);
+    component.bulkDelete(component.selectedIds());
+
+    expect(component.selectedIds()).toEqual(['media-1', 'media-2']);
+    expect(manageService.deleteMedia).not.toHaveBeenCalled();
+  });
+
   it('bulk-deletes sequentially, reports full progress and resets the selection', () => {
     confirmWith(true);
-    component.deletedLists = ['media-1', 'media-2'];
+    component.selectedIds.set(['media-1', 'media-2']);
 
-    component.bulkDelete(component.deletedLists);
+    component.bulkDelete(component.selectedIds());
 
     expect(manageService.deleteMedia).toHaveBeenNthCalledWith(1, 'media-1');
     expect(manageService.deleteMedia).toHaveBeenNthCalledWith(2, 'media-2');
     expect(component.progress).toBe(100);
     expect(util.openSnackbar).toHaveBeenCalledWith('MANAGE.MEDIA.ALL_DELETED', 'ok');
-    expect(component.deletedLists).toEqual([]);
+    expect(component.selectedIds()).toEqual([]);
     expect(searchChanges).toEqual([component.form.value]);
   });
 });
@@ -163,7 +172,7 @@ describe('ManageMediaComponent pagination', () => {
     expect(component.visibleAssets()?.rows.map(item => item.id)).toEqual(['1', '2']);
     receive(page(1, [2, 3]));
     expect(component.visibleAssets()?.rows.map(item => item.id)).toEqual(['1', '2', '3']);
-    expect(component.deletedLists).toEqual(['media-2']);
+    expect(component.selectedIds()).toEqual(['media-2']);
 
     component.loadMore();
     receive(page(2, [4, 5]));
@@ -193,7 +202,7 @@ describe('ManageMediaComponent pagination', () => {
 
     expect(requests.at(-1)).toEqual({ name: 'new', page: 0 });
     expect(component.visibleAssets()).toBeUndefined();
-    expect(component.deletedLists).toEqual([]);
+    expect(component.selectedIds()).toEqual([]);
     expect(viewport.scrollTop).toBe(0);
     receive(page(0, [7], 1));
     expect(component.visibleAssets()?.rows.map(item => item.id)).toEqual(['7']);
@@ -229,13 +238,36 @@ describe('ManageMediaComponent pagination', () => {
     expect(component.loadError()).toBe(false);
   });
 
+  it('keeps management checkboxes in sync when selecting loaded media and clearing selection', () => {
+    fixture.componentRef.setInput('content', { type: 'manage-media', mode: 'manage' });
+    receive(page(0, [1, 2]));
+    component.onChange(true, 'media-1');
+    component.loadMore();
+    receive(page(1, [2, 3]));
+    component.selectLoaded();
+    fixture.detectChanges();
+
+    expect(component.selectedIds()).toEqual(['media-1', 'media-2', 'media-3']);
+    const checkboxes = Array.from<HTMLInputElement>(
+      fixture.nativeElement.querySelectorAll('input[type="checkbox"]')
+    );
+    expect(checkboxes.map(checkbox => checkbox.checked)).toEqual([true, true, true]);
+    component.clearSelection();
+    fixture.detectChanges();
+    expect(checkboxes.every(checkbox => !checkbox.checked)).toBe(true);
+    expect(fixture.nativeElement.querySelector('.selection-toolbar')).toBeNull();
+    expect(document.activeElement).toBe(fixture.nativeElement.querySelector('.media-scroll'));
+  });
+
   it('uses replacement pages when numbered pagination is configured', () => {
     component.manageMediaConfig.update(config => ({ ...config, pagination: 'paged' }));
     receive(page(0, [1, 2]));
     component.loadMore();
     expect(requests).toHaveLength(1);
 
+    component.onChange(true, 'media-1');
     component.onPageChange({ pageIndex: 2, pageSize: 2, length: 6 });
+    expect(component.selectedIds()).toEqual([]);
     expect(requests.at(-1)).toEqual({ page: 2 });
     receive(page(2, [5, 6]));
     expect(component.visibleAssets()?.rows.map(item => item.id)).toEqual(['5', '6']);
@@ -252,6 +284,18 @@ describe('ManageMediaComponent pagination', () => {
 
     expect(requests.at(-1)).toEqual({ name: 'new', page: 0 });
     expect(requests).toHaveLength(requestCount);
+  });
+
+  it('preserves selection when Formly initializes empty search controls', () => {
+    vi.useFakeTimers();
+    receive(page(0, [1, 2]));
+    component.onChange(true, 'media-1');
+    component.form.addControl('name', new FormControl(''));
+    vi.advanceTimersByTime(1000);
+
+    expect(requests).toEqual([{ page: 0 }]);
+    expect(component.selectedIds()).toEqual(['media-1']);
+    expect(component.visibleAssets()?.rows).toHaveLength(2);
   });
 
   it('observes the media scroller and disconnects when the component is destroyed', () => {
