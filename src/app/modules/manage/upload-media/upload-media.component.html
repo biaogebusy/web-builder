@@ -1,72 +1,51 @@
-@let entry = filesEntry();
-@let filesLists = files();
 <div class="upload-media">
-  <ngx-file-drop
-    dropZoneLabel="Drop files here"
-    (onFileDrop)="dropped($event)"
-    [multiple]="true"
-    accept=".png,.jpg,.jpeg,.svg,.gif"
-  >
+  @if (capabilityError()) {
+    <p role="alert">{{ 'MANAGE.MEDIA.LOAD_FAILED' | translate }}</p>
+  }
+  @if (types().length) {
+    <p>{{ accept() }}</p>
+  }
+  <ngx-file-drop (onFileDrop)="dropped($event)" [multiple]="true" [accept]="accept()" [disabled]="!types().length">
     <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-      @if (filesLists.length) {
-        <div class="upload-grid">
-          @for (item of entry; track item) {
-            @if (filesLists[$index]) {
-              <div class="thumb-col">
-                <img
-                  class="upload-thumb"
-                  [src]="filesLists[$index].uri.url"
-                  alt=""
-                />
-              </div>
-            }
-          }
-        </div>
-      } @else {
-        <div class="empty-state">
-          <app-icon class="opacity-80 upload-icon" [content]="{ svg: 'cloud-arrow-up-outline' }" />
-          <span class="upload-label">选择媒体批量上传</span>
-          <app-btn
-            (click)="openFileSelector()"
-            [content]="{
-              label: '选择图片',
-              mode: 'raised',
-              color: 'primary',
-              icon: { svg: 'selection-search' },
-            }"
-          />
-        </div>
-      }
+      <div class="empty-state">
+        <app-icon class="upload-icon" [content]="{ svg: 'cloud-arrow-up-outline' }" />
+        <span class="upload-label">{{ 'MANAGE.MEDIA.UPLOAD_HINT' | translate }}</span>
+        <app-btn (btnClick)="openFileSelector()" [content]="{
+          label: 'MANAGE.MEDIA.UPLOAD_CHOOSE' | translate, mode: 'raised', color: 'primary',
+          icon: { svg: 'selection-search' }, disabled: !types().length,
+        }" />
+      </div>
     </ng-template>
   </ngx-file-drop>
-  <div class="upload-table">
-    <div class="table-inner">
-      @for (item of entry; track item) {
-        <mat-divider class="table-divider" />
-        <div class="table-row">
-          <div class="row-left">
-            @if (filesLists[$index]) {
-              <app-icon [content]="{ svg: 'check', color: 'primary' }" />
-            } @else {
-              <app-spinner [content]="{ color: 'primary', size: 24 }" />
-            }
-            <div class="file-name">{{ item.relativePath }}</div>
-            @if (filesLists[$index]) {
-              <div>
-                {{ filesLists[$index].filesize | bytes: 2 }}
-              </div>
-            }
-          </div>
-
-          @if (filesLists[$index]) {
-            <app-icon
-              (click)="onCopy(filesLists[$index].uri.url)"
-              class="copy-btn"
-              [content]="{ svg: 'content-copy' }"
-            />
+  <div class="upload-table" aria-live="polite">
+    @for (row of uploads(); track row.id) {
+      <div class="table-row">
+        <div class="row-left">
+          @if (row.status === 'complete') {
+            <app-icon [content]="{ svg: 'check' }" />
+          } @else if (row.status === 'failed') {
+            <app-icon [content]="{ svg: 'alert-circle-outline' }" />
+          } @else {
+            <app-spinner [content]="{ color: 'primary', size: 24 }" />
+          }
+          <div class="file-name">{{ row.entry.relativePath }}</div>
+          @if (row.media; as media) {
+            <span>{{ (media.size || 0) | bytes: 2 }}</span>
+          }
+          @if (row.error) {
+            <span class="upload-error" role="alert">{{ row.error }}</span>
           }
         </div>
-      }
-    </div>
+        @if (row.media; as media) {
+          @if (media.src && !media.private) {
+            <img class="upload-thumb" [ngSrc]="media.src" width="80" height="60" alt="" />
+          }
+          <app-btn (btnClick)="onCopy(media.source || '')" [content]="{
+            mode: 'icon', icon: { svg: 'content-copy' },
+            ariaLabel: ('MANAGE.MEDIA.COPY_PATH' | translate) + ': ' + row.entry.relativePath,
+          }" />
+        }
+      </div>
+    }
   </div>
 </div>

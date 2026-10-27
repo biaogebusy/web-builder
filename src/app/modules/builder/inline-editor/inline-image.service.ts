@@ -140,6 +140,7 @@ export class InlineImageService {
       inputData: {
         content: {
           type: 'manage-media',
+            purpose: 'web-image',
           time: this.mediaToken,
           fullWidth: true,
         },

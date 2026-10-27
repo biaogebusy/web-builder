@@ -9,7 +9,7 @@ import type { IArticleAccess } from '@core/interface/node/IArticle';
 import type { IComment } from '@core/interface/node/INode';
 import type { IUser } from '@core/interface/IUser';
 import { BuilderPageState } from '@core/state/BuilderPageState';
-import { IMediaAttr } from '@core/interface/manage/IManage';
+import type { IMediaUploadResult } from '@core/interface/manage/IManage';
 import { appendQueryParams, QueryParams } from '@core/util/http-params.util';
 import { resolveNodeLangCode } from '@core/util/node-lang.util';
 import { environment } from 'src/environments/environment';
@@ -297,14 +297,11 @@ export class NodeService extends ApiService {
     }
   }
 
-  uploadImage(fileName: string, imageData: any): Observable<IMediaAttr> {
-    return this.mediaUploadService.uploadImage(fileName, imageData, data =>
-      this.createMediaImage(data)
-    );
-  }
-
-  createMediaImage(data: any): Observable<void> {
-    return this.mediaUploadService.createMediaImage(data);
+  /** Uploads an image in the current consumer context and returns media and file identities. */
+  uploadImage(
+    fileName: string, imageData: ArrayBuffer, canCreateMedia: () => boolean = () => true
+  ): Observable<IMediaUploadResult> {
+    return this.mediaUploadService.uploadImage(fileName, imageData, canCreateMedia);
   }
 
   /** Editor-implementation-agnostic image upload: pick a file, upload it, then hand the URL back via the callback */

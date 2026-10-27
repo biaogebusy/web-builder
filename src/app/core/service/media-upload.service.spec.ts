@@ -51,81 +51,37 @@ describe('MediaUploadService', () => {
     TestBed.resetTestingModule();
   });
 
-  describe('uploadImage', () => {
-    it('posts the binary with a content-disposition filename', async () => {
-      const createMediaImage = vi.fn(() => of(void 0));
-      const pending = lastValueFrom(
-        service.uploadImage('英雄 图.png', new ArrayBuffer(8), createMediaImage)
-      );
-
-      const req = http.expectOne('/api/v1/media/image/field_media_image');
-      expect(req.request.method).toBe('POST');
-      expect(req.request.headers.get('Content-Disposition')).toBe(
-        `file; filename="${encodeURIComponent('英雄 图.png')}"`
-      );
-      req.flush(fileResponse);
-
-      // The media entity is created from the uploaded file before the caller is served
-      expect(createMediaImage).toHaveBeenCalledWith(fileResponse.data);
-      await expect(pending).resolves.toEqual({
-        filename: 'hero.png',
-        uri: { url: '/files/hero.png' },
-        uuid: 'file-uuid',
-      });
-    });
-
-    it('propagates an upload failure', async () => {
-      vi.spyOn(console, 'error').mockImplementation(() => undefined);
-      const pending = lastValueFrom(service.uploadImage('hero.png', new ArrayBuffer(8), () => of()));
-
-      http
-        .expectOne('/api/v1/media/image/field_media_image')
-        .flush('boom', { status: 500, statusText: 'Server Error' });
-
-      await expect(pending).rejects.toBeTruthy();
-    });
-
-    it('propagates a media-creation failure', async () => {
-      vi.spyOn(console, 'error').mockImplementation(() => undefined);
-      const pending = lastValueFrom(
-        service.uploadImage('hero.png', new ArrayBuffer(8), () =>
-          throwError(() => new Error('create failed'))
-        )
-      );
-
-      http.expectOne('/api/v1/media/image/field_media_image').flush(fileResponse);
-
-      await expect(pending).rejects.toThrow('create failed');
-    });
+  it('returns media and file identities from one completed upload', async () => {
+    const pending = lastValueFrom(service.uploadImage('hero.png', new ArrayBuffer(8)));
+    const req = http.expectOne('/api/v3/media/image/upload');
+    expect(req.request.method).toBe('POST');
+    expect(req.request.headers.get('Content-Disposition')).toBe('file; filename="hero.png"');
+    req.flush({ uuid: 'media-uuid', fileId: 'file-uuid', source: '/hero.png' });
+    await expect(pending).resolves.toMatchObject({ uuid: 'media-uuid', fileId: 'file-uuid' });
   });
 
-  describe('createMediaImage', () => {
-    it('links the uploaded file to a new media entity', async () => {
-      const pending = lastValueFrom(service.createMediaImage(fileResponse.data));
-
-      const req = http.expectOne('/api/v1/media/image');
-      expect(req.request.body).toEqual({
-        data: {
-          type: 'media--image',
-          attributes: { name: 'hero.png' },
-          relationships: {
-            field_media_image: { data: { type: 'file--file', id: 'file-uuid' } },
-          },
-        },
-      });
-      req.flush({});
-
-      await expect(pending).resolves.toBeUndefined();
+  it('routes SVG through the server vector validator', async () => {
+    const pending = lastValueFrom(service.uploadImage('logo.SVG', new ArrayBuffer(8)));
+    http.expectOne('/api/v3/media/vector/upload').flush({
+      uuid: 'vector-uuid', fileId: 'file-uuid', source: '/logo.svg',
     });
+    await expect(pending).resolves.toMatchObject({ mediaId: 'vector-uuid' });
+  });
 
-    it('propagates the failure to the caller', async () => {
-      vi.spyOn(console, 'error').mockImplementation(() => undefined);
-      const pending = lastValueFrom(service.createMediaImage(fileResponse.data));
-
-      http.expectOne('/api/v1/media/image').flush('boom', { status: 403, statusText: 'Forbidden' });
-
-      await expect(pending).rejects.toBeTruthy();
+  it('rejects stale results without replaying a write', async () => {
+    let current = true;
+    const pending = lastValueFrom(service.uploadImage('hero.png', new ArrayBuffer(8), () => current));
+    current = false;
+    http.expectOne('/api/v3/media/image/upload').flush({
+      uuid: 'media-uuid', fileId: 'file-uuid', source: '/hero.png',
     });
+    await expect(pending).rejects.toThrow('context changed');
+  });
+
+  it('does not report success when the response lacks a media identity', async () => {
+    const pending = lastValueFrom(service.uploadImage('hero.png', new ArrayBuffer(8)));
+    http.expectOne('/api/v3/media/image/upload').flush({ fileId: 'file-uuid' });
+    await expect(pending).rejects.toThrow('Invalid completed media response');
   });
 
   describe('pickAndUploadImage', () => {

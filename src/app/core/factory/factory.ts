@@ -22,14 +22,12 @@ import {
 import { NotifyService } from '@core/service/notify.service';
 import { ScreenService } from '@core/service/screen.service';
 import { NodeService } from '@core/service/node.service';
-import { IManageAssets } from '@core/interface/manage/IManage';
 import { ILanguage } from '@core/interface/IEnvironment';
 import { CookieService } from 'ngx-cookie-service';
 import { ComponentService } from '@core/service/component.service';
 import { DestroyRef, DOCUMENT, inject, Injector, signal, WritableSignal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IBuilderConfig } from '@core/interface/IBuilder';
-import { getFileType } from '@core/util/file-type.util';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { resolveTheme, THEMKEY } from '@core/util/theme.util';
 import { ThemeService } from '@core/service/theme.service';
@@ -257,48 +255,6 @@ export function userFactory(): WritableSignal<IUser | boolean> {
     user.set(u);
   });
   return user;
-}
-
-/** Load the latest media page; true indicates loading and false an absent or failed result. */
-export function mediaAssetsFactory(): WritableSignal<IManageAssets | boolean> {
-  const api = '/api/v2/media';
-  const nodeService = inject(NodeService);
-  const contentState = inject(ContentState);
-  const userService = inject(UserService);
-  const cookieService = inject(CookieService);
-  const key = userService.localUserKey;
-  const destroyRef = inject(DestroyRef);
-  const assets = signal<IManageAssets | boolean>(false);
-  let noCache = false;
-  if (cookieService.check(key)) {
-    noCache = true;
-  }
-  contentState.mediaAssetsFormChange$
-    .pipe(
-      switchMap(value => {
-        assets.set(true);
-        const params = nodeService.getApiParams({ ...value, noCache });
-        return nodeService.fetch(api, params).pipe(
-          take(1),
-          map(res => ({
-            rows: res.rows.map((item: any) => {
-              const type = getFileType(item.source);
-              return {
-                ...item,
-                src: type === 'svg' ? item.source : item.thumb,
-                title: decodeURIComponent(item.title),
-              };
-            }),
-            pager: nodeService.handlePager(res.pager, res.rows.length),
-          })),
-          catchError(() => of(false))
-        );
-      }),
-      takeUntilDestroyed(destroyRef)
-    )
-    .subscribe(result => assets.set(result));
-
-  return assets;
 }
 
 export function getBuilderConfig(): Observable<IBuilderConfig> {

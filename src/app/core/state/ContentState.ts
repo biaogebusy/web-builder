@@ -12,5 +12,4 @@ export class ContentState {
   public drawerOpened = signal(false);
   public drawerLoading = signal(false);
   public drawerContent = signal<IPage | undefined>(undefined);
-  public mediaAssetsFormChange$ = new Subject<object>();
 }

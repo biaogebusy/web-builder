@@ -48,6 +48,7 @@ export class InlineEditComponent {
       inputData: {
         content: {
           type: 'manage-media',
+            purpose: 'web-image',
           fullWidth: true,
         },
       },

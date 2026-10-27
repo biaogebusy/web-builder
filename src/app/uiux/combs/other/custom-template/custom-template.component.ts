@@ -58,7 +58,7 @@ export class CustomTemplateComponent implements AfterViewInit {
   // Dialog content is created with whatever injector MatDialog itself was resolved from.
   // This component only imports MatPaginatorModule, so in a subtree without MatDialogModule
   // it gets the root MatDialog and the content would miss route-level tokens
-  // (BUILDER_CONFIG / MEDIA_ASSETS / PAGE_CONTENT). Pass this injector to every dialog.
+  // (BUILDER_CONFIG / PAGE_CONTENT). Pass this injector to every dialog.
   private environmentInjector = inject(EnvironmentInjector);
   private util = inject(UtilitiesService);
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
@@ -574,6 +574,7 @@ export class CustomTemplateComponent implements AfterViewInit {
       inputData: {
         content: {
           type: 'manage-media',
+            purpose: 'web-image',
           time,
           fullWidth: true,
         },

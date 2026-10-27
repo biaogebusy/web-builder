@@ -2,17 +2,24 @@ import {
   Component,
   DestroyRef,
   EnvironmentInjector,
+  Injector,
+  effect,
+  untracked,
   OnInit,
   inject,
   signal,
   ChangeDetectionStrategy,
 } from '@angular/core';
+import { Subscription, catchError, map, of } from 'rxjs';
+import { USER } from '@core/token/token-providers';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { IDialog } from '@core/interface/IDialog';
 import { ManageService } from '@core/service/manage.service';
+import type { MediaSelectionPurpose } from '@core/interface/manage/IManage';
+import { canSelectMedia } from '@core/util/media-selection.util';
 import { BuilderState } from '@core/state/BuilderState';
 import { TranslateService } from '@ngx-translate/core';
 import { FieldType, FormlyModule } from '@ngx-formly/core';
@@ -35,7 +42,11 @@ export class ImgPickerComponent extends FieldType implements OnInit {
   /** Media source URL; resolved from the UUID form value on backfill, or set on library pick */
   public src = signal('');
   private destroyRef = inject(DestroyRef);
-  // The media library dialog resolves route-level tokens (BUILDER_CONFIG / MEDIA_ASSETS)
+  private injector = inject(Injector);
+  private user = inject(USER);
+  private preview?: Subscription;
+  private previewUrl = '';
+  // The media library dialog resolves route-level tokens (BUILDER_CONFIG)
   // through the injector MatDialog was resolved from. This component does not import
   // MatDialogModule, so in a subtree without it MatDialog is the root instance and the
   // content would be created under the root injector; pass this injector instead.
@@ -49,12 +60,25 @@ export class ImgPickerComponent extends FieldType implements OnInit {
     return this.options?.formState?.uiTheme === 'shadcn';
   }
 
+  /** Entity-reference fields cannot store a vector bundle in an image-only relationship. */
+  get mediaPurpose(): MediaSelectionPurpose {
+    return this.props['mediaPurpose'] === 'raster-image' ? 'raster-image'
+      : this.props['valueIsUUID'] ? 'image-media' : 'web-image';
+  }
+
   ngOnInit(): void {
+    effect(() => {
+      this.user();
+      untracked(() => this.initPreviewSrc());
+    }, { injector: this.injector });
+    this.formControl.valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.initPreviewSrc());
     this.initPreviewSrc();
+    this.destroyRef.onDestroy(() => this.clearPreview());
     this.builder.selectedMedia$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(({ img, time }) => {
-        if (this.time && this.time === time) {
+        if (this.time && this.time === time && canSelectMedia(img, this.mediaPurpose)) {
           const { src, uuid } = img;
           this.src.set(src);
           this.dialog.closeAll();
@@ -71,13 +95,21 @@ export class ImgPickerComponent extends FieldType implements OnInit {
       });
   }
 
+  private clearPreview(): void {
+    this.preview?.unsubscribe();
+    if (this.previewUrl) URL.revokeObjectURL(this.previewUrl);
+    this.previewUrl = '';
+    this.src.set('');
+  }
+
   /**
    * With valueIsUUID the form value is a media UUID, not a URL, so a freshly
    * backfilled field has nothing renderable in the preview. Resolve the media
-   * by UUID (include=field_media_image) and fall back to the raw value (a URL)
+   * through the public display projection and fall back to the raw value (a URL)
    * when it does not look like a UUID.
    */
   private initPreviewSrc(): void {
+    this.clearPreview();
     const value = this.formControl.value;
     if (!value) {
       return;
@@ -86,20 +118,28 @@ export class ImgPickerComponent extends FieldType implements OnInit {
       this.src.set(value);
       return;
     }
-    this.manageService
+    this.preview = this.manageService
       .getMediaImage(value)
-      .pipe(takeUntilDestroyed(this.destroyRef))
+      .pipe(
+        catchError(() => this.manageService.getMediaFile(value).pipe(map(blob => {
+          if (!['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/svg+xml'].includes(blob.type)) {
+            return { src: '', alt: '' };
+          }
+          this.previewUrl = URL.createObjectURL(blob);
+          return { src: this.previewUrl, alt: '' };
+        }), catchError(() => of({ src: '', alt: '' })))),
+        takeUntilDestroyed(this.destroyRef)
+      )
       .subscribe({
         next: res => {
-          const url = this.manageService.getUrlIncluded(res?.data ?? {}, res?.included ?? []);
+          const url = res.src;
           if (url) {
             this.src.set(url);
             // Mirror what a library pick leaves in props, so the meta block shows file name and alt
             this.field.props = {
               ...this.field.props,
               src: url,
-              fileName: res?.data?.attributes?.name,
-              alt: res?.data?.relationships?.field_media_image?.data?.meta?.alt,
+              alt: res.alt,
             };
           }
         },
@@ -119,6 +159,7 @@ export class ImgPickerComponent extends FieldType implements OnInit {
       inputData: {
         content: {
           type: 'manage-media',
+          purpose: this.mediaPurpose,
           time: this.time,
           fullWidth: true,
         },

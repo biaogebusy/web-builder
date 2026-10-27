@@ -52,6 +52,15 @@
     .toolbar-actions {
       @apply flex flex-wrap shrink-0 items-center gap-3;
     }
+    .toolbar-actions label {
+      @apply flex flex-col gap-1 text-xs;
+      color: var(--mat-sys-on-surface);
+      select {
+        @apply rounded-lg border border-solid px-3 min-h-11 text-sm;
+        background: var(--mat-sys-surface);
+        border-color: var(--mat-sys-outline);
+      }
+    }
     .col-control {
       @apply flex items-center gap-2 h-10 px-1;
       color: var(--mat-sys-on-surface-variant);
@@ -162,6 +171,15 @@
     }
     .toolbar-actions {
       @apply w-full gap-3;
+    }
+    .toolbar-actions label {
+      @apply flex flex-col gap-1 text-xs;
+      color: var(--mat-sys-on-surface);
+      select {
+        @apply rounded-lg border border-solid px-3 min-h-11 text-sm;
+        background: var(--mat-sys-surface);
+        border-color: var(--mat-sys-outline);
+      }
     }
     .col-control {
       @apply min-w-0;

@@ -12,7 +12,6 @@ import {
   BUILDER_CURRENT_PAGE,
   UIUX,
   BUILDER_CONFIG,
-  MEDIA_ASSETS,
   BUILDER_FULL_SCREEN,
   DEBUG_ANIMATE,
 } from '@core/token/token-providers';
@@ -21,7 +20,7 @@ import {
   builderFullScreenFactory,
   debugAnimateFactory,
 } from '@core/factory/builder-factory';
-import { getBuilderConfig, mediaAssetsFactory, uiuxFactory } from '@core/factory/factory';
+import { getBuilderConfig, uiuxFactory } from '@core/factory/factory';
 import { MONACO_EDITOR_CONFIG_PROVIDER } from '@core/config/monaco-editor.config';
 
 export const routes: Routes = [
@@ -42,10 +41,6 @@ export const routes: Routes = [
       {
         provide: BUILDER_CURRENT_PAGE,
         useFactory: builderCurrentPageFactory,
-      },
-      {
-        provide: MEDIA_ASSETS,
-        useFactory: mediaAssetsFactory,
       },
       {
         provide: BUILDER_FULL_SCREEN,

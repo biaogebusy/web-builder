@@ -22,6 +22,28 @@
         />
       </form>
       <div class="toolbar-actions">
+        @if (content().mode === 'manage') {
+          <label>
+            <span>{{ 'MANAGE.MEDIA.KIND' | translate }}</span>
+            <select [value]="form.value.kind || ''"
+              (change)="form.patchValue({kind: $any($event.target).value}); onSearch(form.value)">
+              <option value="">{{ 'MANAGE.MEDIA.ALL_KINDS' | translate }}</option>
+              @for (kind of kinds; track kind) {
+                <option [value]="kind">{{ ('MANAGE.MEDIA.KIND_' + kind) | translate }}</option>
+              }
+            </select>
+          </label>
+        }
+        @if (capabilities().canViewAll) {
+          <label>
+            <span>{{ 'MANAGE.MEDIA.SCOPE' | translate }}</span>
+            <select [value]="form.value.scope || 'all'"
+              (change)="form.patchValue({scope: $any($event.target).value}); onSearch(form.value)">
+              <option value="all">{{ 'MANAGE.MEDIA.ALL_OWNERS' | translate }}</option>
+              <option value="mine">{{ 'MANAGE.MEDIA.MINE' | translate }}</option>
+            </select>
+          </label>
+        }
         <div class="col-control" [matTooltip]="'MANAGE.MEDIA.THUMBNAIL_SIZE' | translate">
           <app-icon
             class="size-icon"
@@ -43,6 +65,7 @@
             aria-hidden="true"
           />
         </div>
+        @if (canUpload()) {
         <app-btn
           class="upload-action"
           (btnClick)="onUpload()"
@@ -53,6 +76,7 @@
             icon: { svg: 'upload-outline' },
           }"
         />
+        }
       </div>
     </div>
     <div class="inner">
@@ -80,7 +104,6 @@
             label: 'MANAGE.MEDIA.CLEAR_SELECTION' | translate, mode: 'text',
           }" />
           <app-btn class="batch-delete"
-            *reqRolesIf="{ params: { reqRoles: ['administrator'] } }"
             (btnClick)="bulkDelete(selectedIds())"
             [content]="{
               label: 'MANAGE.MEDIA.BULK_DELETE' | translate: { count: selectedIds().length },
@@ -107,6 +130,9 @@
                   type="button"
                   (click)="content().mode === 'manage' ? onPreview(item) : onSelect(item)"
                   class="box"
+                  [disabled]="content().mode !== 'manage' && !canSelect(item)"
+                  [matTooltip]="content().mode !== 'manage' && !canSelect(item)
+                    ? ('MANAGE.MEDIA.INCOMPATIBLE_SELECTION' | translate) : ''"
                   [attr.aria-label]="
                     ((content().mode === 'manage' ? 'MANAGE.MEDIA.PREVIEW' : 'MANAGE.MEDIA.SELECT')
                       | translate) + ': ' + item.title
@@ -115,6 +141,9 @@
                 >
                   @if (item.src) {
                     <img class="media-img" [ngSrc]="item.src" width="480" height="360" alt="" />
+                  } @else {
+                    <app-icon [content]="{ svg: item.kind === 'audio' ? 'music-note-outline'
+                      : item.kind === 'video' ? 'video-outline' : 'file-document-outline' }" />
                   }
                   @if (content().mode !== 'manage') {
                     <span class="selection-indicator" aria-hidden="true">
@@ -129,7 +158,7 @@
                     <mat-checkbox
                       [aria-label]="('MANAGE.MEDIA.BATCH_SELECT' | translate) + ': ' + item.title"
                       [checked]="isSelected(item)"
-                      [disabled]="!item.uuid"
+                      [disabled]="!item.uuid || !item.canRemove"
                       (change)="onChange($event.checked, item.uuid)"
                     />
                   </div>
@@ -155,23 +184,26 @@
                         <app-icon [content]="{ svg: 'magnify-plus-outline' }" />
                         <span>{{ 'MANAGE.MEDIA.PREVIEW' | translate }}</span>
                       </button>
+                      @if (item.canRename) {
                       <button mat-menu-item class="media-menu-item"
                         (click)="mediaActions.closeMenu(); onRename(item)">
                         <app-icon [content]="{ svg: 'pencil-outline' }" />
                         <span>{{ 'MANAGE.MEDIA.RENAME' | translate }}</span>
                       </button>
+                      }
                       <button mat-menu-item class="media-menu-item" (click)="onCopy(item)">
                         <app-icon [content]="{ svg: 'content-copy' }" />
                         <span>{{ 'MANAGE.MEDIA.COPY_PATH' | translate }}</span>
                       </button>
-                      <div class="media-menu-danger"
-                        *reqRolesIf="{ params: { reqRoles: ['administrator'] } }">
+                      @if (item.canRemove) {
+                      <div class="media-menu-danger">
                         <button mat-menu-item class="media-menu-item"
                           (click)="mediaActions.closeMenu(); onDelete(item.uuid)">
                           <app-icon [content]="{ svg: 'delete-outline' }" />
                           <span>{{ 'MANAGE.MEDIA.DELETE' | translate }}</span>
                         </button>
                       </div>
+                      }
                     </mat-menu>
                   } @else {
                     <app-btn
@@ -202,12 +234,11 @@
             }
           </div>
         }
-        @if (infiniteScroll() && assets.rows.length) {
+        @if (infiniteScroll()) {
           <div #loadMoreTrigger class="scroll-status">
             <span role="status" aria-live="polite">
               {{ 'MANAGE.MEDIA.LOADED_COUNT' | translate: {
                 count: assets.rows.length,
-                total: assets.pager.totalItems,
               } }}
             </span>
             @if (hasMore() && !loadError()) {
@@ -236,20 +267,14 @@
         </div>
       }
       <div class="bottom">
-        @if (!infiniteScroll() && visibleAssets(); as assets) {
-          <div class="page">
-            @if (assets.rows.length) {
-              <mat-paginator
-                (page)="onPageChange($event)"
-                [length]="assets.pager.totalItems"
-                [pageSize]="assets.pager.itemsPerPage"
-                [showFirstLastButtons]="true"
-                [hidePageSize]="true"
-                [pageIndex]="assets.pager.currentPage"
-                aria-label="Select page"
-              />
-            }
-          </div>
+        @if (!infiniteScroll() && visibleAssets()) {
+          <app-btn (btnClick)="onPageChange(pageIndex() - 1)" [content]="{
+            label: 'MANAGE.MEDIA.PREVIOUS' | translate, disabled: pageIndex() === 0 || loading(),
+          }" />
+          <span>{{ pageIndex() + 1 }}</span>
+          <app-btn (btnClick)="onPageChange(pageIndex() + 1)" [content]="{
+            label: 'MANAGE.MEDIA.NEXT' | translate, disabled: !hasMore() || loading(),
+          }" />
         }
       </div>
     </div>

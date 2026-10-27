@@ -2,7 +2,7 @@ import AxeBuilder from '@axe-core/playwright';
 import type { Page } from '@playwright/test';
 import { expect, test } from './fixtures/test';
 
-async function openMedia(page: Page, mode?: 'manage', theme = 'light-theme') {
+async function openMedia(page: Page, mode?: 'manage', theme = 'light-theme', formats = false) {
   await page.route('**/__media-touch__/*.svg', route => route.fulfill({
     contentType: 'image/svg+xml',
     body: '<svg xmlns="http://www.w3.org/2000/svg" width="270" height="480">' +
@@ -21,18 +21,53 @@ async function openMedia(page: Page, mode?: 'manage', theme = 'light-theme') {
             : {},
       });
     }
-    if (url.pathname === '/api/v2/media') {
+    if (url.pathname === '/api/v3/media/capabilities') {
+      return route.fulfill({ json: { types: formats ? [
+        { bundle: 'vector', kind: 'vector', label: 'SVG', extensions: ['svg'], maxBytes: 1048576, canUpload: true },
+        { bundle: 'document', kind: 'document', label: 'Documents', extensions: ['txt'], maxBytes: 1048576, canUpload: true },
+      ] : [], canViewAll: true } });
+    }
+    if (url.pathname.endsWith('/media-23/file')) {
+      return route.fulfill({ body: 'Private fixture', contentType: 'text/plain' });
+    }
+    if (url.pathname.endsWith('/vector/upload')) {
+      return route.fulfill({ status: 201, json: {
+        uuid: 'new-media', fileId: 'new-file', source: '/__media-touch__/new.svg',
+        src: '/__media-touch__/new.svg', size: 80, title: 'logo.svg', kind: 'vector',
+      } });
+    }
+    if (url.pathname === '/api/v3/media') {
       return route.fulfill({ json: {
         rows: Array.from({ length: 24 }, (_, i) => ({
           id: String(i), uuid: `media-${i}`, title: `Image ${i}`,
-          thumb: `/__media-touch__/${i}.svg`, source: `/__media-touch__/${i}.svg`,
+          src: `/__media-touch__/${i}.svg`, kind: 'vector', mimeType: 'image/svg+xml',
+          canRename: true, canRemove: true, source: `/__media-touch__/${i}.svg`,
+          ...(formats && i === 23 ? { title: 'Private notes', filename: 'notes.txt',
+            kind: 'document', mimeType: 'text/plain', size: 15, private: true, src: '',
+            source: '/api/v3/media/media-23/file' } : {}),
         })),
-        pager: { current_page: 0, total_pages: 1, total_items: 24, items_per_page: 24 },
+        nextCursor: null, scope: 'mine',
       } });
     }
     return route.fulfill({ json: {} });
   });
-  await page.goto('/builder/media-touch');
+  await page.route('**/oauth/token', route => route.fulfill({ json: {
+    access_token: 'fixture-token', token_type: 'Bearer', expires_in: 3600,
+  } }));
+  await page.route('**/api/v3/accountProfile*', route => route.fulfill({ json: {
+    uid: 7, name: 'media-author', roles: ['authenticated'],
+  } }));
+  await page.route('**/api/v1/user/user*', route => route.fulfill({ json: { data: [{
+    id: 'media-author', display_name: 'Media Author', mail: 'fixture@example.test',
+    roles: [{ meta: { drupal_internal__target_id: 'authenticated' } }],
+  }] } }));
+  await page.addInitScript(() => {
+    sessionStorage.setItem('xinshi-oauth-pkce', JSON.stringify({
+      verifier: 'fixture-verifier', state: 'fixture-state', mode: 'redirect',
+      returnUrl: '/builder/media-touch',
+    }));
+  });
+  await page.goto('/me/login/callback?code=fixture-code&state=fixture-state');
   await expect(page.locator('app-manage-media .masonry-item')).toHaveCount(24);
 }
 
@@ -144,3 +179,29 @@ for (const viewport of [
     });
   });
 }
+
+test('uploads SVG through capabilities and downloads a private document with authentication', async ({ page }) => {
+  await openMedia(page, 'manage', 'light-theme', true);
+  const library = page.locator('app-manage-media');
+  const sourceRead = page.waitForRequest(request => request.url().endsWith('/media-23/file'));
+  await library.getByRole('button', { name: '预览: Private notes', exact: true }).click();
+  const preview = page.getByRole('dialog');
+  await expect(preview).toContainText('text/plain');
+  const download = page.waitForEvent('download');
+  await preview.getByRole('button', { name: '下载', exact: true }).click();
+  expect((await sourceRead).headers()['authorization']).toBe('Bearer fixture-token');
+  expect((await download).suggestedFilename()).toBe('notes.txt');
+  const audit = await new AxeBuilder({ page }).include('.cdk-overlay-container')
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
+  expect(audit.violations).toEqual([]);
+  await preview.getByRole('button', { name: '关闭', exact: true }).click();
+  await library.locator('.upload-action button').click();
+  const upload = page.waitForRequest(request => request.url().endsWith('/vector/upload'));
+  await page.locator('app-upload-media input[type=file]').setInputFiles({
+    name: 'logo.svg', mimeType: 'image/svg+xml',
+    buffer: Buffer.from('<svg xmlns="http://www.w3.org/2000/svg"><rect width="8" height="8"/></svg>'),
+  });
+  expect((await upload).headers()['authorization']).toBe('Bearer fixture-token');
+  await expect(page.locator('app-upload-media .upload-thumb')).toBeVisible();
+  await expect(page.locator('app-upload-media .table-row')).toContainText('logo.svg');
+});

@@ -29,7 +29,7 @@ import { filter, take, takeUntil } from 'rxjs';
 import type { IDialog } from '@core/interface/IDialog';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
-import { MEDIA_ASSETS } from '@core/token/token-providers';
+import { BUILDER_CONFIG } from '@core/token/token-providers';
 import { TOOLBAR_TOOLTIP_ABOVE, ToolbarKeynavDirective } from '@core/directive/toolbar-keynav.directive';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
@@ -74,7 +74,7 @@ export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
   readonly autofocus = input(false);
   readonly htmlChange = output<string>();
   /** The media library is route-scoped to Builder; public forms keep only direct upload. */
-  readonly mediaLibraryAvailable = inject(MEDIA_ASSETS, { optional: true }) !== null;
+  readonly mediaLibraryAvailable = inject(BUILDER_CONFIG, { optional: true }) !== null;
 
   private readonly editorElement = viewChild.required<ElementRef<HTMLDivElement>>('tiptapEditor');
   /** Host element of the shared bubble component, handed to the BubbleMenu extension for positioning */
@@ -251,6 +251,7 @@ export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
         inputData: {
           content: {
             type: 'manage-media',
+            purpose: 'web-image',
             time,
             fullWidth: true,
           },
@@ -261,7 +262,7 @@ export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
         panelClass: this.injector.get(ManageService).mediaDialogClass,
         data: config,
         // ManageMediaComponent depends on Builder route tokens such as
-        // BUILDER_CONFIG and MEDIA_ASSETS, so preserve the click-site injector.
+        // BUILDER_CONFIG and BUILDER_CONFIG, so preserve the click-site injector.
         injector: this.environmentInjector,
       });
       dialogOpened = true;

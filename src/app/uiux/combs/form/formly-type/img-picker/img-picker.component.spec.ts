@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UntypedFormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { provideRouter } from '@angular/router';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { provideUiuxMocks } from '@uiux/testing/mocks';
 import { ManageService } from '@core/service/manage.service';
 
@@ -45,18 +45,36 @@ describe('ImgPickerComponent', () => {
     expect(dialog.open.mock.calls[0][1].injector).toBeInstanceOf(EnvironmentInjector);
   });
 
+  it('restricts UUID fields to image media and URL fields to web images', () => {
+    const dialog = TestBed.inject(MatDialog) as any;
+    component.field.props = { valueIsUUID: true };
+    component.openMedias();
+    expect(dialog.open.mock.lastCall[1].data.inputData.content.purpose).toBe('image-media');
+    component.field.props = {};
+    component.openMedias();
+    expect(dialog.open.mock.lastCall[1].data.inputData.content.purpose).toBe('web-image');
+    component.field.props = { valueIsUUID: true, mediaPurpose: 'raster-image' };
+    component.openMedias();
+    expect(dialog.open.mock.lastCall[1].data.inputData.content.purpose).toBe('raster-image');
+  });
+
+  it('rejects a vector UUID even if an incompatible event reaches the field', () => {
+    component.field.props = { valueIsUUID: true };
+    component.ngOnInit();
+    component.openMedias();
+    component.builder.selectedMedia$.next({
+      img: { src: '/logo.svg', uuid: 'vector-1', bundle: 'vector', tag: 'img', alt: '', fileName: '' },
+      time: component.time,
+      value: { type: 'manage-media', time: component.time },
+    });
+    expect(component.formControl.value).toBeNull();
+  });
+
   it('resolves a backfilled media UUID into a preview URL and file meta', () => {
     const manageService = TestBed.inject(ManageService) as any;
-    manageService.getUrlIncluded.mockReturnValue('/sites/default/files/cover.jpg');
-    manageService.getMediaImage.mockReturnValue(
-      of({
-        data: {
-          attributes: { name: 'cover.jpg' },
-          relationships: { field_media_image: { data: { id: 'f1', meta: { alt: '封面' } } } },
-        },
-        included: [{ id: 'f1', attributes: { uri: { url: '/sites/default/files/cover.jpg' } } }],
-      })
-    );
+    manageService.getMediaImage.mockReturnValue(of({
+      src: '/sites/default/files/cover.jpg', alt: '封面',
+    }));
     component.field = {
       key: 'field_image',
       props: { valueIsUUID: true },
@@ -68,8 +86,41 @@ describe('ImgPickerComponent', () => {
     component.ngOnInit();
 
     expect(component.src()).toBe('/sites/default/files/cover.jpg');
-    expect(component.field.props?.fileName).toBe('cover.jpg');
+    expect(component.formControl.value).toBe('d9b1c290-8a7e-4f9e-9d3e-1a2b3c4d5e6f');
     expect(component.field.props?.alt).toBe('封面');
+  });
+
+  it('previews an authorized private image without changing its stored UUID', () => {
+    const manage = TestBed.inject(ManageService) as any;
+    manage.getMediaImage.mockReturnValue(throwError(() => new Error('private')));
+    manage.getMediaFile.mockReturnValue(of(new Blob(['png'], { type: 'image/png' })));
+    const revoke = vi.fn();
+    const OriginalURL = URL;
+    vi.stubGlobal('URL', class extends OriginalURL {
+      static createObjectURL = vi.fn(() => 'blob:private-image');
+      static revokeObjectURL = revoke;
+    });
+    const uuid = 'd9b1c290-8a7e-4f9e-9d3e-1a2b3c4d5e6f';
+    component.field.props = { valueIsUUID: true };
+    component.formControl.setValue(uuid);
+    component.ngOnInit();
+    expect(component.src()).toBe('blob:private-image');
+    expect(component.formControl.value).toBe(uuid);
+    fixture.destroy();
+    expect(revoke).toHaveBeenCalledWith('blob:private-image');
+    vi.unstubAllGlobals();
+  });
+
+  it('keeps a historical UUID when both public and protected preview lookups fail', () => {
+    const manage = TestBed.inject(ManageService) as any;
+    manage.getMediaImage.mockReturnValue(throwError(() => new Error('unavailable')));
+    manage.getMediaFile.mockReturnValue(throwError(() => new Error('denied')));
+    const uuid = 'd9b1c290-8a7e-4f9e-9d3e-1a2b3c4d5e6f';
+    component.field.props = { valueIsUUID: true };
+    component.formControl.setValue(uuid);
+    component.ngOnInit();
+    expect(component.formControl.value).toBe(uuid);
+    expect(component.src()).toBe('');
   });
 
   it('uses the plain form value directly when it is not a UUID', () => {
