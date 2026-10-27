@@ -33,6 +33,8 @@ export class MediaUploadService extends ApiService {
       return this.library.upload(bundle, fileName, imageData);
     }).pipe(map(media => {
       if (!isCurrent() || this.user() !== account) throw new Error('Media upload context changed');
+      // URL consumers cannot embed an authenticated download route in published content.
+      if (media.private) throw new Error('A public image source is required');
       if (!media.uuid || !media.fileId || media.uuid === media.fileId || !media.source) {
         throw new Error('Invalid completed media response');
       }

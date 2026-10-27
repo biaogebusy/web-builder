@@ -36,7 +36,7 @@ export function canSelectMedia(
   const mime = mediaSourceMime(media);
   const raster = rasterMimeTypes.has(mime);
   if (purpose === 'raster-image') {
-    return raster && (!media.bundle || media.bundle === 'image');
+    return !media.private && raster && (!media.bundle || media.bundle === 'image');
   }
   if (purpose === 'image-media') {
     return (!media.bundle || media.bundle === 'image') && (raster || mime === 'image/svg+xml');

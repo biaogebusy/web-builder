@@ -35,4 +35,11 @@ describe('media selection purposes', () => {
     expect(isRasterImageFile({ name: 'fake.png', type: 'text/html' })).toBe(false);
     expect(isRasterImageFile({ name: 'photo.bmp', type: 'image/bmp' })).toBe(false);
   });
+  it('does not pass an authenticated download URL to a public image consumer', () => {
+    const media = { mimeType: 'image/png', bundle: 'image', private: true };
+    expect(canSelectMedia(media, 'raster-image')).toBe(false);
+    expect(canSelectMedia(media, 'web-image')).toBe(false);
+    expect(canSelectMedia(media, 'image-media')).toBe(true);
+  });
+
 });
