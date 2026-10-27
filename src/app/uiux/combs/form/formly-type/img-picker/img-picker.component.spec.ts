@@ -93,7 +93,7 @@ describe('ImgPickerComponent', () => {
   it('previews an authorized private image without changing its stored UUID', () => {
     const manage = TestBed.inject(ManageService) as any;
     manage.getMediaImage.mockReturnValue(throwError(() => new Error('private')));
-    manage.getMediaFile.mockReturnValue(of(new Blob(['png'], { type: 'image/png' })));
+    manage.getMediaFile.mockReturnValue(of(new Blob(['historical'], { type: 'image/bmp' })));
     const revoke = vi.fn();
     const OriginalURL = URL;
     vi.stubGlobal('URL', class extends OriginalURL {

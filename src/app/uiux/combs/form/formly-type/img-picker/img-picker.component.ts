@@ -122,7 +122,7 @@ export class ImgPickerComponent extends FieldType implements OnInit {
       .getMediaImage(value)
       .pipe(
         catchError(() => this.manageService.getMediaFile(value).pipe(map(blob => {
-          if (!['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/svg+xml'].includes(blob.type)) {
+          if (!blob.type.startsWith('image/')) {
             return { src: '', alt: '' };
           }
           this.previewUrl = URL.createObjectURL(blob);
