@@ -10,7 +10,7 @@ import {
 } from '@core/interface/IBuilder';
 import { ICard1v1 } from '@core/interface/widgets/ICard';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { LocalStorageService } from 'ngx-webstorage';
+import { LIB_CONFIG, LocalStorageService } from 'ngx-webstorage';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { cloneDeep, get, map } from 'lodash-es';
 
@@ -104,9 +104,10 @@ export class BuilderState {
     if (!this.screenService.isPlatformBrowser()) {
       return;
     }
-    // Key prefix must match withNgxWebstorageConfig({ separator: ':' }) in app.config
-    const storageKey = `ngx-webstorage:${this.versionKey}`;
-    window.addEventListener('storage', (event: StorageEvent) => {
+    const { prefix = 'ngx-webstorage', separator = '|', caseSensitive = false } = inject(LIB_CONFIG);
+    const versionKey = caseSensitive ? this.versionKey : this.versionKey.toLowerCase();
+    const storageKey = `${prefix}${separator}${versionKey}`;
+    const onStorage = (event: StorageEvent) => {
       if (event.key !== storageKey || !event.newValue) {
         return;
       }
@@ -118,7 +119,9 @@ export class BuilderState {
       } catch {
         // Keep the in-memory state if the data is malformed
       }
-    });
+    };
+    window.addEventListener('storage', onStorage);
+    this.destroyRef.onDestroy(() => window.removeEventListener('storage', onStorage));
   }
 
   queuePageLoad(page: IBuilderPendingPageLoad): void {

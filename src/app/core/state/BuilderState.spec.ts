@@ -2,7 +2,7 @@ import { DOCUMENT } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 import type { IPage } from '@core/interface/IAppConfig';
-import { LocalStorageService } from 'ngx-webstorage';
+import { LocalStorageService, withNgxWebstorageConfig } from 'ngx-webstorage';
 import { vi } from 'vitest';
 
 import { ScreenService } from '@core/service/screen.service';
@@ -22,7 +22,14 @@ describe('BuilderState tree and draft behavior', () => {
     TestBed.resetTestingModule();
   });
 
-  const createState = (pages: IPage[], isBrowser = false) => {
+  const createState = (
+    pages: IPage[],
+    isBrowser = false,
+    storageConfig: Parameters<typeof withNgxWebstorageConfig>[0] = {
+      separator: ':',
+      caseSensitive: true,
+    }
+  ) => {
     const storage = {
       retrieve: vi.fn(() => pages),
       store: vi.fn(),
@@ -31,6 +38,7 @@ describe('BuilderState tree and draft behavior', () => {
     TestBed.configureTestingModule({
       providers: [
         BuilderState,
+        ...withNgxWebstorageConfig(storageConfig).providers,
         { provide: DOCUMENT, useValue: document },
         { provide: LocalStorageService, useValue: storage },
         { provide: MatDialog, useValue: { open: vi.fn(), getDialogById: vi.fn() } },
@@ -406,33 +414,62 @@ describe('BuilderState tree and draft behavior', () => {
     expect(storage.store).not.toHaveBeenCalled();
   });
 
-  it('syncs the version signal when another context writes the draft storage', () => {
-    const { state } = createState([makePage([], { title: 'Local' })], true);
+  it.each([
+    { config: { separator: ':', caseSensitive: true }, key: 'ngx-webstorage:version' },
+    { config: { separator: '|', caseSensitive: true }, key: 'ngx-webstorage|version' },
+    { config: {}, key: 'ngx-webstorage|version' },
+    { config: { prefix: 'drafts', separator: '/' }, key: 'drafts/version' },
+    { config: { prefix: '', separator: '' }, key: 'version' },
+  ])('syncs external drafts using the configured key $key', ({ config, key }) => {
+    const { state, storage } = createState([makePage([], { title: 'Local' })], true, config);
 
     window.dispatchEvent(
       new StorageEvent('storage', {
-        key: 'ngx-webstorage:version',
+        key,
         newValue: JSON.stringify([{ title: '外部更新', body: [], current: true }]),
       })
     );
 
     expect(state.currentPage.title).toBe('外部更新');
+    expect(TestBed.inject(BuilderPageState).currentPage()?.title).toBe('外部更新');
+    expect(storage.store).not.toHaveBeenCalled();
   });
 
-  it('ignores foreign, empty, and malformed storage events', () => {
+  it.each([':', '|'])('ignores invalid external drafts with separator %s', separator => {
+    const { state, storage } = createState([makePage([], { title: 'Local' })], true, { separator });
+    const storageKey = `ngx-webstorage${separator}version`;
+    const initialVersion = state.version();
+
+    for (const key of [
+      `ngx-webstorage${separator}other`,
+      `ngx-webstorage${separator === ':' ? '|' : ':'}version`,
+      `foreign${separator}version`,
+      `${storageKey}-backup`,
+      null,
+    ]) {
+      window.dispatchEvent(new StorageEvent('storage', { key, newValue: '[{}]' }));
+      expect(state.version()).toBe(initialVersion);
+    }
+    for (const newValue of ['[]', '{broken', '{}', 'null', 'false', '', null]) {
+      window.dispatchEvent(new StorageEvent('storage', { key: storageKey, newValue }));
+      expect(state.version()).toBe(initialVersion);
+    }
+
+    expect(storage.store).not.toHaveBeenCalled();
+  });
+
+  it('stops syncing external drafts when the state is destroyed', () => {
     const { state } = createState([makePage([], { title: 'Local' })], true);
+    const initialVersion = state.version();
+    TestBed.resetTestingModule();
 
     window.dispatchEvent(
-      new StorageEvent('storage', { key: 'ngx-webstorage:other', newValue: '[{}]' })
+      new StorageEvent('storage', {
+        key: 'ngx-webstorage:version',
+        newValue: JSON.stringify([makePage([], { title: 'External' })]),
+      })
     );
-    window.dispatchEvent(
-      new StorageEvent('storage', { key: 'ngx-webstorage:version', newValue: JSON.stringify([]) })
-    );
-    window.dispatchEvent(
-      new StorageEvent('storage', { key: 'ngx-webstorage:version', newValue: '{broken' })
-    );
-    window.dispatchEvent(new StorageEvent('storage', { key: 'ngx-webstorage:version' }));
 
-    expect(state.currentPage.title).toBe('Local');
+    expect(state.version()).toBe(initialVersion);
   });
 });
