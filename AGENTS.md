@@ -17,6 +17,11 @@ The Drupal backends are sibling directories of this repo (not inside it); check 
 
 - `../pro` — the pro deployment checkout of this frontend (branch `pro`). It merges `master` in and carries the deployment-specific delta; the same thin-seam rules as downstream CMS branches apply.
 
+## Sibling Docker Deployment Repository
+
+- `../builder-docker` — a Docker deployment kit for trial users to install the web builder frontend and its CMS backend quickly. `docker-compose.yml` defines the PHP (`wodby/drupal-php`), nginx (`wodby/nginx`), MariaDB (`wodby/mariadb`) and frontend Node services. `install.sh` reads `.env` for ports, database credentials, image tags and the Drupal root password, then installs the CMS baseline from `init.d/` (`drupal.sql`, `services.yml`). The kit installs the base stack: the `web-builder` frontend checkout plus `builder-cms`.
+- When a change in this repository affects that kit, update `../builder-docker` in the same delivery. Sync at least: image tags in `.env` (`PHP_TAG`, `NGINX_TAG`, `MARIADB_TAG`) when required runtime versions change; CORS origins in `init.d/services.yml`; `init.d/drupal.sql` when the installed CMS baseline changes; and the install steps in `README.md` and `install.sh` when the production environment shape or build inputs change. Read the actual files in `../builder-docker` before each sync; do not assume they still match this repository's local configuration.
+
 ## Sibling Documentation Repository
 
 - `../xinshi-docs/stories/` is the single maintenance location for feature, architecture, API, operations, and WBS documentation. See the [documentation index](../xinshi-docs/stories/develop/engineering/documentation.mdx). Keep the relevant MDX in sync when behavior changes; this application retains only `docs/README.md` and source entry points, not duplicate specifications. Documentation-only changes do not require application tests; follow the documentation repository's instructions for index generation, builds, and link checks.
