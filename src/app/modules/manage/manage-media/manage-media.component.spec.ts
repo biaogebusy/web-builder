@@ -2,7 +2,7 @@ import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
 import { MatDialog } from '@angular/material/dialog';
-import { provideRouter } from '@angular/router';
+import { provideRouter, Router } from '@angular/router';
 import { of, Subject, throwError } from 'rxjs';
 import type { IManageAssets, IManageImg } from '@core/interface/manage/IManage';
 import { MediaLibraryService } from '@core/service/media-library.service';
@@ -88,6 +88,37 @@ describe('ManageMediaComponent catalog', () => {
     expect(component.visibleAssets()).toBeUndefined();
     fixture.destroy();
     expect(third.observed).toBe(false);
+  });
+
+  it('shows a sign-in prompt and hides the toolbar for anonymous visitors', async () => {
+    user.set(false);
+    const { fixture } = await setup();
+    const element = fixture.nativeElement as HTMLElement;
+    expect(element.querySelector('.toolbar')).toBeNull();
+    expect(element.querySelector('.media-grid')?.classList.contains('guest')).toBe(true);
+    expect(element.querySelector('.login-required')?.textContent)
+      .toContain('MANAGE.MEDIA.LOGIN_TITLE');
+    expect(library.list).not.toHaveBeenCalled();
+  });
+
+  it('opens the front login page with the current URL after a sign-in request', async () => {
+    user.set(false);
+    const { component } = await setup();
+    const router = TestBed.inject(Router);
+    const navigate = vi.spyOn(router, 'navigate').mockResolvedValue(true);
+    component.onLogin();
+    expect(navigate).toHaveBeenCalledWith(['/me/login'], {
+      queryParams: { returnUrl: router.url },
+    });
+  });
+
+  it('keeps filter labels accessible but visually hidden', async () => {
+    const { fixture } = await setup();
+    const labels = Array.from(
+      (fixture.nativeElement as HTMLElement).querySelectorAll('.toolbar-actions label > span')
+    );
+    expect(labels).toHaveLength(1);
+    expect(labels.every(label => label.classList.contains('sr-only'))).toBe(true);
   });
 
   it('does not retry failed pages automatically and retains loaded rows', async () => {

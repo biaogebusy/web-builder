@@ -9,9 +9,12 @@
   .media-grid {
     @apply grid grid-cols-1 gap-3 md:gap-5 h-full;
     grid-template-rows: auto minmax(0, 1fr);
+    &.guest {
+      grid-template-rows: minmax(0, 1fr);
+    }
   }
   .toolbar {
-    @apply flex flex-wrap items-start justify-start gap-3 min-w-0 border-0 border-b border-solid pb-3;
+    @apply flex flex-wrap items-center justify-start gap-3 min-w-0 border-0 border-b border-solid pb-3;
     border-color: var(--mat-sys-outline-variant);
     --shadcn-control-height: 40px;
     --shadcn-radius-sm: 8px;
@@ -56,7 +59,7 @@
       @apply flex flex-col gap-1 text-xs;
       color: var(--mat-sys-on-surface);
       select {
-        @apply rounded-lg border border-solid px-3 min-h-11 text-sm;
+        @apply rounded-lg border border-solid px-3 min-h-10 text-sm;
         background: var(--mat-sys-surface);
         border-color: var(--mat-sys-outline);
       }
@@ -176,7 +179,7 @@
       @apply flex flex-col gap-1 text-xs;
       color: var(--mat-sys-on-surface);
       select {
-        @apply rounded-lg border border-solid px-3 min-h-11 text-sm;
+        @apply rounded-lg border border-solid px-3 min-h-10 text-sm;
         background: var(--mat-sys-surface);
         border-color: var(--mat-sys-outline);
       }

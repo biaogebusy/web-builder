@@ -14,6 +14,7 @@ import {
   untracked,
 } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
+import { Router } from '@angular/router';
 import { FormControl, FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
@@ -23,7 +24,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ScreenService } from '@core/service/screen.service';
 import { Observable, Subscription, from, of } from 'rxjs';
 import { isEqual } from 'lodash-es';
-import { BUILDER_CONFIG, USER } from '@core/token/token-providers';
+import { BUILDER_CONFIG, CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { IManageAssets, IManageImg, IManageMedia, MediaCapabilities } from '@core/interface/manage/IManage';
 import { MediaLibraryService } from '@core/service/media-library.service';
 import {
@@ -76,9 +77,16 @@ export class ManageMediaComponent implements OnInit {
   private builderConfig = toSignal(inject(BUILDER_CONFIG), { initialValue: undefined });
   private library = inject(MediaLibraryService);
   private user = inject(USER);
+  private router = inject(Router);
+  private coreConfig = inject(CORE_CONFIG);
   private activeAccount = this.user();
   readonly capabilities = signal<MediaCapabilities>({ types: [], canViewAll: false });
   readonly canUpload = computed(() => this.capabilities().types.some(type => type.canUpload));
+  /** Media routes require authentication, so anonymous visitors get a sign-in prompt. */
+  readonly signedIn = computed(() => {
+    const account = this.user();
+    return !!account && typeof account !== 'boolean';
+  });
   readonly kinds = ['image', 'vector', 'document', 'audio', 'video'];
   readonly pageIndex = signal(0);
   private cursors: (string | null)[] = [null];
@@ -168,7 +176,7 @@ export class ManageMediaComponent implements OnInit {
           this.capabilities.set({ types: [], canViewAll: false });
           this.selectedIds.set([]);
           this.loading.set(false);
-          if (account && typeof account !== 'boolean') {
+          if (this.signedIn()) {
             this.capabilityRequest = this.library.capabilities().subscribe({
               next: value => this.capabilities.set(value),
               error: () => this.loadError.set(true),
@@ -240,6 +248,13 @@ export class ManageMediaComponent implements OnInit {
     event.preventDefault();
     (event.target as HTMLElement)?.blur();
     this.onSearch(this.form.value);
+  }
+
+  /** Return to this page after authentication. */
+  onLogin(): void {
+    void this.router.navigate([this.coreConfig.guard?.defaultFrontLoginPage || '/me/login'], {
+      queryParams: { returnUrl: this.router.url },
+    });
   }
 
   /** Fetch at most one additional page without replacing the visible collection. */
