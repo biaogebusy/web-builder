@@ -230,8 +230,7 @@
 }
 
 .selection-indicator {
-  @apply absolute left-2 top-2 flex h-6 w-6 items-center justify-center rounded pointer-events-none;
-  background: var(--mat-sys-surface);
+  @apply absolute left-1 top-1 flex h-11 w-11 items-center justify-center pointer-events-none;
   color: var(--mat-sys-on-surface-variant);
   .is-selected & { color: var(--mat-sys-primary); }
 }
@@ -243,16 +242,12 @@
   @apply min-w-0 flex-1 truncate text-sm leading-5;
   color: var(--mat-sys-on-surface);
 }
-.media-more,
-.preview-action {
-  @apply block h-11 w-11 shrink-0;
+.media-more {
+  @apply block h-11 w-11 shrink-0 p-2.5;
   color: var(--mat-sys-on-surface-variant);
   --mat-icon-button-state-layer-size: 44px;
   --mat-icon-button-icon-size: 24px;
 }
-.media-more { @apply p-2.5; }
-.preview-action ::ng-deep .mdc-icon-button { @apply p-2.5; }
-.preview-action ::ng-deep .mat-mdc-button-touch-target { @apply h-11 w-11; }
 
 .media-menu-title {
   @apply max-w-[280px] break-words border-b px-4 py-2 text-sm leading-5;

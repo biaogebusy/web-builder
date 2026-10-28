@@ -179,58 +179,45 @@
                 }
                 <div class="media-caption">
                   <span class="media-name" [title]="item.title">{{ item.title }}</span>
-                  @if (content().mode === 'manage') {
-                    <!-- The menu trigger belongs on the native button for focus and ARIA state. -->
-                    <button
-                      type="button"
-                      mat-icon-button
-                      class="media-more"
-                      #mediaActions="matMenuTrigger"
-                      [matMenuTriggerFor]="mediaMenu"
-                      [attr.aria-label]="('MANAGE.MEDIA.MORE_ACTIONS' | translate) + ': ' + item.title"
-                    >
-                      <app-icon [content]="{ svg: 'dots-horizontal' }" />
+                  <!-- The menu trigger belongs on the native button for focus and ARIA state. -->
+                  <button
+                    type="button"
+                    mat-icon-button
+                    class="media-more"
+                    #mediaActions="matMenuTrigger"
+                    [matMenuTriggerFor]="mediaMenu"
+                    [attr.aria-label]="('MANAGE.MEDIA.MORE_ACTIONS' | translate) + ': ' + item.title"
+                  >
+                    <app-icon [content]="{ svg: 'dots-horizontal' }" />
+                  </button>
+                  <mat-menu #mediaMenu="matMenu">
+                    <div class="media-menu-title">{{ item.title }}</div>
+                    <button mat-menu-item class="media-menu-item"
+                      (click)="mediaActions.closeMenu(); onPreview(item)">
+                      <app-icon [content]="{ svg: 'magnify-plus-outline' }" />
+                      <span>{{ 'MANAGE.MEDIA.PREVIEW' | translate }}</span>
                     </button>
-                    <mat-menu #mediaMenu="matMenu">
-                      <div class="media-menu-title">{{ item.title }}</div>
+                    @if (item.canRename) {
+                    <button mat-menu-item class="media-menu-item"
+                      (click)="mediaActions.closeMenu(); onRename(item)">
+                      <app-icon [content]="{ svg: 'pencil-outline' }" />
+                      <span>{{ 'MANAGE.MEDIA.RENAME' | translate }}</span>
+                    </button>
+                    }
+                    <button mat-menu-item class="media-menu-item" (click)="onCopy(item)">
+                      <app-icon [content]="{ svg: 'content-copy' }" />
+                      <span>{{ 'MANAGE.MEDIA.COPY_PATH' | translate }}</span>
+                    </button>
+                    @if (item.canRemove) {
+                    <div class="media-menu-danger">
                       <button mat-menu-item class="media-menu-item"
-                        (click)="mediaActions.closeMenu(); onPreview(item)">
-                        <app-icon [content]="{ svg: 'magnify-plus-outline' }" />
-                        <span>{{ 'MANAGE.MEDIA.PREVIEW' | translate }}</span>
+                        (click)="mediaActions.closeMenu(); onDelete(item.uuid)">
+                        <app-icon [content]="{ svg: 'delete-outline' }" />
+                        <span>{{ 'MANAGE.MEDIA.DELETE' | translate }}</span>
                       </button>
-                      @if (item.canRename) {
-                      <button mat-menu-item class="media-menu-item"
-                        (click)="mediaActions.closeMenu(); onRename(item)">
-                        <app-icon [content]="{ svg: 'pencil-outline' }" />
-                        <span>{{ 'MANAGE.MEDIA.RENAME' | translate }}</span>
-                      </button>
-                      }
-                      <button mat-menu-item class="media-menu-item" (click)="onCopy(item)">
-                        <app-icon [content]="{ svg: 'content-copy' }" />
-                        <span>{{ 'MANAGE.MEDIA.COPY_PATH' | translate }}</span>
-                      </button>
-                      @if (item.canRemove) {
-                      <div class="media-menu-danger">
-                        <button mat-menu-item class="media-menu-item"
-                          (click)="mediaActions.closeMenu(); onDelete(item.uuid)">
-                          <app-icon [content]="{ svg: 'delete-outline' }" />
-                          <span>{{ 'MANAGE.MEDIA.DELETE' | translate }}</span>
-                        </button>
-                      </div>
-                      }
-                    </mat-menu>
-                  } @else {
-                    <app-btn
-                      class="preview-action"
-                      (btnClick)="onPreview(item)"
-                      [content]="{
-                        label: 'MANAGE.MEDIA.PREVIEW' | translate,
-                        ariaLabel: ('MANAGE.MEDIA.PREVIEW' | translate) + ': ' + item.title,
-                        mode: 'icon',
-                        icon: { svg: 'magnify-plus-outline' },
-                      }"
-                    />
-                  }
+                    </div>
+                    }
+                  </mat-menu>
                 </div>
               </div>
             }
@@ -248,7 +235,7 @@
             }
           </div>
         }
-        @if (infiniteScroll()) {
+        @if (infiniteScroll() && (assets.rows.length || hasMore())) {
           <div #loadMoreTrigger class="scroll-status">
             <span role="status" aria-live="polite">
               {{ 'MANAGE.MEDIA.LOADED_COUNT' | translate: {

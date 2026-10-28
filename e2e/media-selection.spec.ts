@@ -78,7 +78,7 @@ for (const viewport of [
     test.use({ viewport, hasTouch: true });
 
     test('selects the image in one tap and keeps preview separate', async ({ page }, info) => {
-      await openMedia(page);
+      await openMedia(page, undefined, viewport.width === 1133 ? 'dark-theme' : 'light-theme');
       const library = page.locator('app-manage-media');
       const tile = library.getByRole('button', { name: '选择: Image 0', exact: true });
       await tile.tap();
@@ -87,14 +87,22 @@ for (const viewport of [
       await expect(library.locator('.media-name').first()).toHaveText('Image 0');
 
       const next = library.getByRole('button', { name: '选择: Image 1', exact: true });
-      const preview = library.getByRole('button', { name: '预览: Image 1', exact: true });
-      const bounds = (await preview.boundingBox())!;
+      const indicator = tile.locator('.selection-indicator');
+      await expect(indicator).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+      const more = library.getByRole('button', { name: '更多操作: Image 1', exact: true });
+      const bounds = (await more.boundingBox())!;
       expect(bounds.width).toBeGreaterThanOrEqual(44);
       expect(bounds.height).toBeGreaterThanOrEqual(44);
-      await preview.tap();
+      await more.tap();
+      const menu = page.getByRole('menu');
+      await expect(menu.getByRole('menuitem', { name: '重命名', exact: true })).toBeVisible();
+      await expect(menu.getByRole('menuitem', { name: '复制路径', exact: true })).toBeVisible();
+      await expect(next).toHaveAttribute('aria-pressed', 'false');
+      await menu.getByRole('menuitem', { name: '预览', exact: true }).tap();
       await expect(page.getByRole('dialog')).toBeVisible();
       await page.getByRole('dialog').getByRole('button', { name: '关闭', exact: true }).tap();
       await expect(next).toHaveAttribute('aria-pressed', 'false');
+      await expect(more).toBeFocused();
 
       await next.focus();
       await page.keyboard.press('Space');
