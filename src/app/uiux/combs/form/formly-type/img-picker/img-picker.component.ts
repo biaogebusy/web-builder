@@ -1,3 +1,4 @@
+import { buildMediaDialogConfig } from '@core/util/media-dialog';
 import {
   Component,
   DestroyRef,
@@ -154,24 +155,19 @@ export class ImgPickerComponent extends FieldType implements OnInit {
 
   openMedias(): void {
     this.time = new Date();
-    const config: IDialog = {
-      disableActions: true,
-      inputData: {
-        content: {
-          type: 'manage-media',
-          purpose: this.mediaPurpose,
-          time: this.time,
-          fullWidth: true,
-        },
-      },
-    };
-    this.dialog.open(DialogComponent, {
-      width: '85vw',
-      panelClass: this.manageService.mediaDialogClass,
-      id: 'img-picker',
-      data: config,
-      injector: this.environmentInjector,
-    });
+
+    this.dialog.open(
+      DialogComponent,
+      buildMediaDialogConfig(
+        { purpose: this.mediaPurpose, time: this.time },
+        {
+          width: '85vw',
+          panelClass: this.manageService.mediaDialogClass,
+          id: 'img-picker',
+          injector: this.environmentInjector,
+        }
+      )
+    );
   }
 
   /** Clearing the reference is destructive for the saved content, so confirm first */

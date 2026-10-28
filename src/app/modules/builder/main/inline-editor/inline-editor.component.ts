@@ -1,3 +1,4 @@
+import { buildMediaDialogConfig } from '@core/util/media-dialog';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, input } from '@angular/core';
 import { SHARE_IMPORTS } from '@share/share-imports';
 import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
@@ -8,7 +9,6 @@ import type { IMetaEdit } from '@core/interface/IBuilder';
 import { UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ManageService } from '@core/service/manage.service';
-import { IDialog } from '@core/interface/IDialog';
 
 /**
  * Right-side property panel for inline editing in the canvas. Only image (mode: 'img') editing
@@ -43,21 +43,16 @@ export class InlineEditComponent {
   }
 
   openMedias(): void {
-    const config: IDialog = {
-      disableActions: true,
-      inputData: {
-        content: {
-          type: 'manage-media',
-            purpose: 'web-image',
-          fullWidth: true,
-        },
-      },
-    };
-    this.dialog.open(DialogComponent, {
-      width: '100%',
-      panelClass: this.manageService.mediaDialogClass,
-      data: config,
-    });
+    this.dialog.open(
+      DialogComponent,
+      buildMediaDialogConfig(
+        { purpose: 'web-image' },
+        {
+          width: '100%',
+          panelClass: this.manageService.mediaDialogClass,
+        }
+      )
+    );
   }
 
   onModelChange(value: any): void {

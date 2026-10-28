@@ -26,7 +26,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Editor } from '@tiptap/core';
 import { filter, take, takeUntil } from 'rxjs';
-import type { IDialog } from '@core/interface/IDialog';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { BUILDER_CONFIG } from '@core/token/token-providers';
@@ -234,37 +233,38 @@ export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
     let dialogOpened = false;
 
     try {
-      const [{ MatDialog }, { BuilderState }, { ManageService }, { DialogComponent }] =
-        await Promise.all([
-          import('@angular/material/dialog'),
-          import('@core/state/BuilderState'),
-          import('@core/service/manage.service'),
-          import('@uiux/widgets/dialog/dialog.component'),
-        ]);
+      const [
+        { MatDialog },
+        { BuilderState },
+        { ManageService },
+        { DialogComponent },
+        { buildMediaDialogConfig },
+      ] = await Promise.all([
+        import('@angular/material/dialog'),
+        import('@core/state/BuilderState'),
+        import('@core/service/manage.service'),
+        import('@uiux/widgets/dialog/dialog.component'),
+        import('@core/util/media-dialog'),
+      ]);
       if (this.destroyed || editor.isDestroyed || this.editor() !== editor) {
         return;
       }
 
       const time = new Date();
-      const config: IDialog = {
-        disableActions: true,
-        inputData: {
-          content: {
-            type: 'manage-media',
-            purpose: 'web-image',
-            time,
-            fullWidth: true,
-          },
-        },
-      };
-      const dialogRef = this.injector.get(MatDialog).open(DialogComponent, {
-        width: '85vw',
-        panelClass: this.injector.get(ManageService).mediaDialogClass,
-        data: config,
-        // ManageMediaComponent depends on Builder route tokens such as
-        // BUILDER_CONFIG and BUILDER_CONFIG, so preserve the click-site injector.
-        injector: this.environmentInjector,
-      });
+
+      const dialogRef = this.injector.get(MatDialog).open(
+        DialogComponent,
+        buildMediaDialogConfig(
+          { purpose: 'web-image', time },
+          {
+            width: '85vw',
+            panelClass: this.injector.get(ManageService).mediaDialogClass,
+            // ManageMediaComponent depends on Builder route tokens such as
+            // BUILDER_CONFIG and BUILDER_CONFIG, so preserve the click-site injector.
+            injector: this.environmentInjector,
+          }
+        )
+      );
       dialogOpened = true;
       dialogRef
         .afterClosed()

@@ -1,3 +1,5 @@
+import { buildMediaDialogConfig } from '@core/util/media-dialog';
+import { buildCustomTemplateDialogConfig } from '@core/util/custom-template-dialog';
 import { MatPaginatorIntlCro } from '@core/service/paginator.service';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { getLibraryAsset } from '@core/config/library-assets';
@@ -27,7 +29,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { ICoreConfig } from '@core/interface/IAppConfig';
 import { CORE_CONFIG } from '@core/token/token-providers';
-import { IDialog } from '@core/interface/IDialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { BuilderState } from '@core/state/BuilderState';
 import { generatePath } from '@core/util/dom-path.util';
@@ -569,23 +570,18 @@ export class CustomTemplateComponent implements AfterViewInit {
 
   private openImgPicker(img: HTMLImageElement): void {
     const time = new Date();
-    const config: IDialog = {
-      disableActions: true,
-      inputData: {
-        content: {
-          type: 'manage-media',
-            purpose: 'web-image',
-          time,
-          fullWidth: true,
-        },
-      },
-    };
-    const dialogRef = this.dialog.open(DialogComponent, {
-      width: '85vw',
-      panelClass: this.manageService.mediaDialogClass,
-      data: config,
-      injector: this.environmentInjector,
-    });
+
+    const dialogRef = this.dialog.open(
+      DialogComponent,
+      buildMediaDialogConfig(
+        { purpose: 'web-image', time },
+        {
+          width: '85vw',
+          panelClass: this.manageService.mediaDialogClass,
+          injector: this.environmentInjector,
+        }
+      )
+    );
     this.builder.selectedMedia$
       .pipe(
         filter(media => media.time === time),
@@ -628,23 +624,8 @@ export class CustomTemplateComponent implements AfterViewInit {
   }
 
   private openDialog(config: ICustomTemplateDialog): void {
-    const inputData = Array.isArray(config.content) ? config.content : { content: config.content };
-    const dialogData: IDialog = {
-      disableActions: true,
-      inputData,
-    };
-    const rawPanelClass = config.params?.panelClass;
-    const panelClass = Array.isArray(rawPanelClass)
-      ? rawPanelClass
-      : typeof rawPanelClass === 'string' && rawPanelClass.trim()
-        ? rawPanelClass.trim().split(/\s+/)
-        : ['close-outside', 'dialog-p-0'];
     this.dialog.open(DialogComponent, {
-      width: config.params?.width || 'auto',
-      height: config.params?.height || 'auto',
-      ...config.params,
-      panelClass,
-      data: dialogData,
+      ...buildCustomTemplateDialogConfig(config),
       injector: this.environmentInjector,
     });
   }

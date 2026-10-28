@@ -1,3 +1,4 @@
+import { buildMediaDialogConfig } from '@core/util/media-dialog';
 import { Component, inject, ChangeDetectionStrategy, input } from '@angular/core';
 import { SHARE_IMPORTS } from '@share/share-imports';
 import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
@@ -11,7 +12,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { ManageService } from '@core/service/manage.service';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 import { MatDrawer } from '@angular/material/sidenav';
-import { IDialog } from '@core/interface/IDialog';
 import { TranslateService } from '@ngx-translate/core';
 import { buildHubMenu, HUB_MENU_KEYS } from '../../hub/hub-entries';
 
@@ -42,23 +42,17 @@ export class BuilderSidebarComponent {
   private dialog = inject(MatDialog);
   private manageService = inject(ManageService);
 
-
   onSelectAssets(): void {
-    const config: IDialog = {
-      disableActions: true,
-      inputData: {
-        content: {
-          type: 'manage-media',
-          fullWidth: true,
-          mode: 'manage',
-        },
-      },
-    };
-    this.dialog.open(DialogComponent, {
-      width: '85vw',
-      panelClass: this.manageService.mediaDialogClass,
-      data: config,
-    });
+    this.dialog.open(
+      DialogComponent,
+      buildMediaDialogConfig(
+        { mode: 'manage' },
+        {
+          width: '85vw',
+          panelClass: this.manageService.mediaDialogClass,
+        }
+      )
+    );
   }
 
   onToggleBuilderTheme(mode: 'light' | 'dark'): void {

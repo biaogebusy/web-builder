@@ -1,3 +1,4 @@
+import { buildMediaDialogConfig } from '@core/util/media-dialog';
 import {
   ApplicationRef,
   ComponentRef,
@@ -9,7 +10,6 @@ import {
   signal,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { IDialog } from '@core/interface/IDialog';
 import { IMetaEdit } from '@core/interface/IBuilder';
 import { BuilderState } from '@core/state/BuilderState';
 import { ManageService } from '@core/service/manage.service';
@@ -135,28 +135,23 @@ export class InlineImageService {
   /** Open the media-library dialog; the selection is fed back via selectedMedia$ */
   openMediaLibrary(): void {
     this.mediaToken = new Date();
-    const config: IDialog = {
-      disableActions: true,
-      inputData: {
-        content: {
-          type: 'manage-media',
-            purpose: 'web-image',
-          time: this.mediaToken,
-          fullWidth: true,
-        },
-      },
-    };
-    this.dialog.open(DialogComponent, {
-      width: '85vw',
-      panelClass: this.manageService.mediaDialogClass,
-      id: 'inline-image-media',
-      data: config,
-      // This service is a root singleton, and the root MatDialog creates dialog
-      // content with the root injector by default, so route-level tokens
-      // (BUILDER_CONFIG etc.) would not resolve; use the injector captured at
-      // selection time instead.
-      injector: this.active()?.envInjector,
-    });
+
+    this.dialog.open(
+      DialogComponent,
+      buildMediaDialogConfig(
+        { purpose: 'web-image', time: this.mediaToken },
+        {
+          width: '85vw',
+          panelClass: this.manageService.mediaDialogClass,
+          id: 'inline-image-media',
+          // This service is a root singleton, and the root MatDialog creates dialog
+          // content with the root injector by default, so route-level tokens
+          // (BUILDER_CONFIG etc.) would not resolve; use the injector captured at
+          // selection time instead.
+          injector: this.active()?.envInjector,
+        }
+      )
+    );
   }
 
   replaceSrc(url: string): void {
@@ -212,7 +207,7 @@ export class InlineImageService {
       mode: 'over',
       hasBackdrop: false,
       style: {
-        'width': '284px',
+        width: '284px',
         'max-width': 'calc(100vw - 50px)',
       },
       elements: [meta],

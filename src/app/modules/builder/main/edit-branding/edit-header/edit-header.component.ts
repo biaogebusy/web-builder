@@ -1,3 +1,4 @@
+import { confirmBrandingLanguageSwitch } from '../branding-language-switch';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -30,7 +31,6 @@ import { merge, shareReplay } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import { IBranding, IHeader, IMainMenu } from '@core/interface/branding/IBranding';
-import { IDialog } from '@core/interface/IDialog';
 import { ContentService } from '@core/service/content.service';
 import { NodeService } from '@core/service/node.service';
 import { BuilderService } from '@core/service/builder.service';
@@ -235,22 +235,7 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
       this.navigateToLang(langCode);
       return;
     }
-    // The canDeactivate guard only intercepts route leaves, not query-param changes on the same route; confirm manually here
-    const config: IDialog = {
-      title: this.translate.instant('BUILDER.EDIT_BRANDING.SWITCH_LANG_TITLE'),
-      yesLabel: this.translate.instant('BUILDER.EDIT_BRANDING.SWITCH_LANG_YES'),
-      noLabel: this.translate.instant('BUILDER.EDIT_BRANDING.SWITCH_LANG_NO'),
-      inputData: {
-        content: {
-          type: 'text',
-          fullWidth: true,
-          body: this.translate.instant('BUILDER.EDIT_BRANDING.SWITCH_LANG_CONFIRM'),
-        },
-      },
-    };
-    this.dialog
-      .open(DialogComponent, { width: '360px', data: config })
-      .afterClosed()
+    confirmBrandingLanguageSwitch(this.dialog, this.translate)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(result => {
         if (result) {

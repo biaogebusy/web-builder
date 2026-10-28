@@ -1,3 +1,4 @@
+import { buildCustomTemplateDialogConfig } from '@core/util/custom-template-dialog';
 import {
   Component,
   DestroyRef,
@@ -125,26 +126,7 @@ export class DialogRepeatComponent extends FieldArrayType implements OnInit {
       this.openInfo('请先填写弹窗内容（content）');
       return;
     }
-    const inputData = Array.isArray(item.content)
-      ? item.content
-      : { content: item.content };
-    const dialogData: IDialog = {
-      disableActions: true,
-      inputData,
-    };
-    const rawPanelClass = item.params?.panelClass;
-    const panelClass = Array.isArray(rawPanelClass)
-      ? rawPanelClass
-      : typeof rawPanelClass === 'string' && rawPanelClass.trim()
-        ? rawPanelClass.trim().split(/\s+/)
-        : ['close-outside', 'dialog-p-0'];
-    this.dialog.open(DialogComponent, {
-      width: item.params?.width || 'auto',
-      height: item.params?.height || 'auto',
-      ...item.params,
-      panelClass,
-      data: dialogData,
-    });
+    this.dialog.open(DialogComponent, buildCustomTemplateDialogConfig(item));
   }
 
   private openInfo(body: string): void {

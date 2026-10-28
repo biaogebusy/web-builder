@@ -1,3 +1,4 @@
+import { menuHoverState } from '../menu-hover';
 import {
   Component,
   OnInit,
@@ -8,8 +9,6 @@ import {
   input
 } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
-import { fromEvent, of } from 'rxjs';
-import { mergeMap, delay, takeUntil } from 'rxjs/operators';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
 import type { IMainMenu } from '@core/interface/branding/IBranding';
@@ -37,38 +36,10 @@ export class MegaMenuComponent implements OnInit {
   }
 
   initActionEvent(): void {
-    const megaMenu = this.eleRef.nativeElement;
-    const enter = fromEvent(megaMenu, 'mouseenter');
-    const leave = fromEvent(megaMenu, 'mouseleave');
-
-    enter
-      .pipe(
-        mergeMap(event => {
-          return of(event).pipe(delay(100), takeUntil(leave));
-        })
-      )
-      .subscribe(() => {
-        this.active = true;
+    menuHoverState(this.eleRef.nativeElement, this.screenState.stickyMenu$)
+      .subscribe(active => {
+        this.active = active;
         this.cd.detectChanges();
       });
-
-    leave
-      .pipe(
-        mergeMap(event => {
-          return of(event).pipe(delay(100), takeUntil(enter));
-        })
-      )
-      .subscribe(() => {
-        this.active = false;
-        this.cd.detectChanges();
-      });
-
-    this.screenState.stickyMenu$.subscribe(sticky => {
-      if (!sticky) {
-        return;
-      }
-      this.active = false;
-      this.cd.detectChanges();
-    });
   }
 }
