@@ -19,14 +19,15 @@ const fixture = () => ({
   },
 });
 
-function run(meta, entry = html, check = true) {
+function run(meta, entry = html, check = true, targets = []) {
   const root = mkdtempSync(join(tmpdir(), 'initial-bundle-test-'));
   const dist = join(root, 'dist/performance');
   try {
     mkdirSync(join(dist, 'browser'), { recursive: true });
     writeFileSync(join(dist, 'stats.json'), JSON.stringify(meta));
     writeFileSync(join(dist, 'browser/index.csr.html'), entry);
-    return spawnSync(process.execPath, [script, ...(check ? ['--check'] : [])], {
+    const args = [script, ...(check ? ['--check'] : []), ...(targets.length ? [dist, ...targets] : [])];
+    return spawnSync(process.execPath, args, {
       cwd: root, encoding: 'utf8', timeout: 10_000,
     });
   } finally {
@@ -107,4 +108,15 @@ test('keeps the original analysis command advisory', () => {
   assert.equal(result.status, 0, result.stderr);
   assert.match(result.stdout, /initial chunks: 2/);
   assert.doesNotMatch(result.stdout, /boundary passed/);
+});
+
+test('reports the requested input and its CommonJS importer for an explicit build directory', () => {
+  const meta = fixture();
+  meta.outputs['main.js'].imports[0].kind = 'require-call';
+  meta.inputs['src/main.ts'].imports.push({ path: builder, kind: 'require-call' });
+  meta.inputs[builder] = { imports: [] };
+  const result = run(meta, html, false, [builder]);
+  assert.equal(result.status, 0, result.stderr);
+  assert.match(result.stdout, /<- src\/main.ts/);
+  assert.match(result.stdout, /in eager bundle: true/);
 });

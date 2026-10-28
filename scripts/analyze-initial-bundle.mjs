@@ -109,7 +109,7 @@ for (const t of targets) {
     console.log(`  ${kb(bytes)}  ${input}`);
     for (const importer of initialInputs) {
       if (inputs[importer]?.imports.some(i =>
-        i.kind === 'import-statement' && i.path === input
+        isStatic(i) && i.path === input
       )) console.log(`    <- ${importer}`);
     }
   }
