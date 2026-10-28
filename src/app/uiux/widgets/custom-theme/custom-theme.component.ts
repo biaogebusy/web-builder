@@ -19,6 +19,7 @@ import {
   generatePalette, generateThemeVars, exportThemeCss,
 } from '@core/util/theme-palette.util';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { downloadBlob } from '@core/util/download-blob';
 import { NodeService } from '@core/service/node.service';
 import { BuilderService } from '@core/service/builder.service';
 import { ScreenService } from '@core/service/screen.service';
@@ -240,12 +241,7 @@ export class CustomThemeComponent implements OnInit {
   onExportCss(): void {
     const css = exportThemeCss(this.seed(), this.isDark(), this.variant());
     const blob = new Blob([css], { type: 'text/css' });
-    const url = URL.createObjectURL(blob);
-    const anchor = this.document.createElement('a');
-    anchor.href = url;
-    anchor.download = 'custom-theme.css';
-    anchor.click();
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, 'custom-theme.css', { document: this.document, revokeAfterMs: 0 });
     this.util.openSnackbar(this.translate.instant('CUSTOM_THEME.EXPORTED_TOAST'), 'ok');
   }
 
