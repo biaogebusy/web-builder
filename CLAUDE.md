@@ -94,6 +94,8 @@ deployment details out of anything that ships upstream.
 
 - `npm start` — local dev server (proxies API to the backend configured in `config/proxy.config.js`; the target differs per branch)
 - `npm run build` — production build plus static asset precompression (`ng build --configuration production && npm run precompress`)
+- `npm run perf:build` — production measurement build and public initial JS dependency check
+- `npm run check:public-bundle -- <output directory>` — check existing Angular stats and CSR entry
 - `npm test` — run unit tests once (Vitest via `@angular/build:unit-test` builder); covers all `src/**` specs except `src/server/**`; setup in `src/test-setup.ts`, shared test providers in `src/test-providers.ts`
 - `npm run test:server` — run server-side specs (`src/server/**`, including Node and SQLite tests) via root `vitest.config.ts`; the two channels split coverage with no overlap
 - `npm run test:unit` — run both unit test channels in sequence on demand
@@ -227,6 +229,9 @@ Angular SSR via `@angular/ssr` (`outputMode: server`). Express entry point: `src
   - When shared code (used on public pages) needs builder behavior, gate it: dynamic `import('@modules/builder/...')` triggered only inside the canvas (see `ContenteditDirective`), or wrap builder-only template regions in `@defer` (see `dynamic-component` / `layout-builder` toolbars)
   - Editor libraries reachable from public registries (e.g., `tiptap-editor` in `DYNAMIC_COMPONENT_LOADERS` / formly types) must stay behind their lazy loaders — never import them eagerly from shared code
   - Before adding such a dependency, verify: does any public-page chunk now pull it in?
+  - After changing routes or shared imports, run `npm run perf:build`. Its initial JS check rejects
+    Builder, Tiptap, ProseMirror, Monaco and JSONEditor runtime inputs in the static entry graph.
+    Check other public lazy paths separately; this command does not validate all public chunks or CSS.
 - Use `npm install` only (not yarn or pnpm) — respects `package-lock.json`
 - ESLint rules: single quotes, semicolons required, max line length 100 (warnings), `any` type is allowed
 - Angular self-closing tags preferred in templates
