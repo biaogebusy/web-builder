@@ -1,6 +1,8 @@
 import { menuHoverState } from '../menu-hover';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   Component,
+  DestroyRef,
   OnInit,
   ElementRef,
   ChangeDetectionStrategy,
@@ -28,6 +30,7 @@ export class MegaMenuComponent implements OnInit {
   private screenState = inject(ScreenState);
   private screenService = inject(ScreenService);
   private cd = inject(ChangeDetectorRef);
+  private destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -37,6 +40,7 @@ export class MegaMenuComponent implements OnInit {
 
   initActionEvent(): void {
     menuHoverState(this.eleRef.nativeElement, this.screenState.stickyMenu$)
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(active => {
         this.active = active;
         this.cd.detectChanges();
