@@ -1,4 +1,5 @@
 import { confirmBrandingLanguageSwitch } from '../branding-language-switch';
+import { BrandingSaveService } from '../branding-save.service';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -32,7 +33,6 @@ import { environment } from 'src/environments/environment';
 import { IBranding, IFooter } from '@core/interface/branding/IBranding';
 import { ContentService } from '@core/service/content.service';
 import { NodeService } from '@core/service/node.service';
-import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { HasUnsavedChanges } from '@core/guards/unsaved-changes.guard';
 import { TranslateService } from '@ngx-translate/core';
@@ -41,9 +41,7 @@ import { BrandingPreviewComponent } from '../branding-preview/branding-preview.c
 import { formatBrandingJson, getBrandingJsonError, mergeBrandingJson } from '../branding-json.util';
 import { buildFooterConfig } from '../branding-config.util';
 import {
-  BRANDING_JSON_ENDPOINT,
   IBrandingNode,
-  buildBrandingUpdateBody,
   canSaveBranding,
   listBrandingNodes,
   pickBrandingNode,
@@ -86,11 +84,12 @@ interface FooterMenuGroup {
     NgxSkeletonLoaderModule,
     BrandingPreviewComponent,
   ],
-  providers: [provideXinshiFormly()],
+  providers: [provideXinshiFormly(), BrandingSaveService],
 })
 export class EditFooterComponent implements OnInit, HasUnsavedChanges {
   loading = signal(false);
-  saving = signal(false);
+  private readonly brandingSave = inject(BrandingSaveService);
+  saving = this.brandingSave.saving;
   dirty = signal(false);
   branding = signal<IBranding | null>(null);
   footer = signal<IFooter | null>(null);
@@ -189,7 +188,6 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private contentService = inject(ContentService);
-  private builderService = inject(BuilderService);
   private nodeService = inject(NodeService);
   private util = inject(UtilitiesService);
   private snackBar = inject(MatSnackBar);
@@ -885,47 +883,17 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
     );
   }
 
+  /** Save this editor's section without sharing draft state with other editors. */
   onSave(): void {
-    if (!this.nodeUuid()) {
-      this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.NOT_FOUND_NODE'));
-      return;
-    }
-
-    this.saving.set(true);
-    const branding = this.branding()!;
-    let footer = this.buildFooter();
-
-    if (this.jsonEditMode() && this.customJson) {
-      try {
-        footer = mergeBrandingJson(footer, this.customJson);
-        this.jsonError.set('');
-      } catch {
-        this.saving.set(false);
-        this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.JSON_FORMAT_ERROR'), 'ok');
-        return;
-      }
-    }
-
-    this.builderService
-      .updateAttributes(
-        { uuid: this.nodeUuid(), langcode: this.nodeLangcode() },
-        BRANDING_JSON_ENDPOINT,
-        buildBrandingUpdateBody(branding, 'footer', footer),
-        {}
-      )
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: res => {
-          this.saving.set(false);
-          if (res) {
-            this.dirty.set(false);
-            this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.FOOTER_UPDATE_SUCCESS'), 'ok');
-          }
-        },
-        error: () => {
-          this.saving.set(false);
-          this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.UPDATE_FAIL'));
-        },
-      });
+    this.brandingSave.save(
+      {
+        node: { uuid: this.nodeUuid(), langcode: this.nodeLangcode() },
+        branding: this.branding()!,
+        section: 'footer',
+        buildSection: () => this.buildFooter(),
+        customJson: this.jsonEditMode() ? this.customJson : undefined,
+      },
+      { dirty: this.dirty, jsonError: this.jsonError }
+    );
   }
 }
