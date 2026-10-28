@@ -1,5 +1,6 @@
 import { confirmBrandingLanguageSwitch } from '../branding-language-switch';
 import { BrandingSaveService } from '../branding-save.service';
+import { BrandingEditorContextService } from '../branding-editor-context.service';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -27,12 +28,10 @@ import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { FORM_IMPORTS } from '@uiux/combs/form/form-imports';
 import { provideXinshiFormly } from '@uiux/combs/form/formly-feature.config';
 import { shadcnFormOptions } from '@uiux/combs/form/formly-shadcn/formly-shadcn.config';
-import { merge, shareReplay } from 'rxjs';
+import { merge } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import { IBranding, IFooter } from '@core/interface/branding/IBranding';
-import { ContentService } from '@core/service/content.service';
-import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { HasUnsavedChanges } from '@core/guards/unsaved-changes.guard';
 import { TranslateService } from '@ngx-translate/core';
@@ -40,12 +39,7 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { BrandingPreviewComponent } from '../branding-preview/branding-preview.component';
 import { formatBrandingJson, getBrandingJsonError, mergeBrandingJson } from '../branding-json.util';
 import { buildFooterConfig } from '../branding-config.util';
-import {
-  IBrandingNode,
-  canSaveBranding,
-  listBrandingNodes,
-  pickBrandingNode,
-} from '../branding-save.util';
+import { canSaveBranding } from '../branding-save.util';
 import {
   appendBrandingChild,
   appendBrandingItem,
@@ -84,10 +78,11 @@ interface FooterMenuGroup {
     NgxSkeletonLoaderModule,
     BrandingPreviewComponent,
   ],
-  providers: [provideXinshiFormly(), BrandingSaveService],
+  providers: [provideXinshiFormly(), BrandingSaveService, BrandingEditorContextService],
 })
 export class EditFooterComponent implements OnInit, HasUnsavedChanges {
-  loading = signal(false);
+  private readonly editorContext = inject(BrandingEditorContextService);
+  loading = this.editorContext.loading;
   private readonly brandingSave = inject(BrandingSaveService);
   saving = this.brandingSave.saving;
   dirty = signal(false);
@@ -103,7 +98,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
   // Language switcher: rendered only for multi-language deployments with more than one language configured
   langs = environment.langs ?? [];
   showLangSwitch = environment.multiLang && this.langs.length > 1;
-  brandingNodes = signal<IBrandingNode[]>([]);
+  brandingNodes = this.editorContext.nodes;
   activeSection = signal<string>('params');
   showJson = signal(false);
   previewBranding = signal<IBranding | null>(null);
@@ -187,15 +182,11 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
 
   private route = inject(ActivatedRoute);
   private router = inject(Router);
-  private contentService = inject(ContentService);
-  private nodeService = inject(NodeService);
   private util = inject(UtilitiesService);
   private snackBar = inject(MatSnackBar);
   private dialog = inject(MatDialog);
   private destroyRef = inject(DestroyRef);
   private translate = inject(TranslateService);
-  /** Branding node list fetched once, shared by param-less entry resolution and language-switcher graying out */
-  private brandingNodes$ = listBrandingNodes(this.nodeService).pipe(shareReplay(1));
 
   hasUnsavedChanges(): boolean {
     return this.dirty();
@@ -210,27 +201,9 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
   }
 
   ngOnInit(): void {
-    if (this.showLangSwitch) {
-      this.brandingNodes$
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(nodes => this.brandingNodes.set(nodes));
-    }
-    this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
-      const { uuid, langcode } = params;
-      if (uuid) {
-        this.initNode(uuid, langcode ?? '');
-        return;
-      }
-      // Entering directly from the management center/menu or switching language has no uuid; resolve the branding node by alias + target language
-      const target = langcode || this.nodeService.getLang(this.nodeService.pageUrl)?.langCode;
-      this.brandingNodes$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(nodes => {
-        const node = pickBrandingNode(nodes, target);
-        if (!node) {
-          this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.MISSING_NODE'));
-          return;
-        }
-        this.initNode(node.uuid, node.langcode);
-      });
+    this.editorContext.connect(!!this.showLangSwitch, {
+      selectNode: node => this.initNode(node.uuid, node.langcode),
+      applyBranding: branding => this.applyBranding(branding),
     });
   }
 
@@ -238,7 +211,6 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
     this.nodeUuid.set(uuid);
     this.nodeLangcode.set(langcode);
     this.queryParams = { uuid, langcode };
-    this.loadData();
   }
 
   // ── Content-language switch ──
@@ -272,37 +244,28 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
     this.router.navigate([], { relativeTo: this.route, queryParams: { langcode: langCode } });
   }
 
+  /** Refresh the selected node through the component's current read scope. */
   loadData(): void {
-    this.loading.set(true);
-    // The loaded language must match the node being saved: build the language prefix from the node langcode, not the current URL
-    this.contentService
-      .loadBranding(`/${this.nodeLangcode()}/`)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: branding => {
-          this.branding.set(branding);
-          const footer = branding.footer ?? ({ params: { mode: 'light' } } as IFooter);
-          this.footer.set(footer);
-          this.menuItems.set([...(footer.mainMenu ?? [])]);
-          this.mobileMenuItems.set([...(footer.mobileMenu ?? [])]);
+    this.editorContext.reload();
+  }
 
-          this.initParamsFields(footer);
-          this.initBrandFields(footer);
-          this.initSocialFields(footer);
-          this.initNewsletterFields(footer);
-          this.initBottomFields(footer);
-          this.initFixBarFields(footer);
-          this.initDynamic(footer);
-          this.updateJsonPreview();
-          this.loading.set(false);
-          this.dirty.set(false);
-          this.listenFormChanges();
-        },
-        error: () => {
-          this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.LOAD_FAIL'));
-          this.loading.set(false);
-        },
-      });
+  private applyBranding(branding: IBranding): void {
+    this.branding.set(branding);
+    const footer = branding.footer ?? ({ params: { mode: 'light' } } as IFooter);
+    this.footer.set(footer);
+    this.menuItems.set([...(footer.mainMenu ?? [])]);
+    this.mobileMenuItems.set([...(footer.mobileMenu ?? [])]);
+
+    this.initParamsFields(footer);
+    this.initBrandFields(footer);
+    this.initSocialFields(footer);
+    this.initNewsletterFields(footer);
+    this.initBottomFields(footer);
+    this.initFixBarFields(footer);
+    this.initDynamic(footer);
+    this.updateJsonPreview();
+    this.dirty.set(false);
+    this.listenFormChanges();
   }
 
   private listenFormChanges(): void {
