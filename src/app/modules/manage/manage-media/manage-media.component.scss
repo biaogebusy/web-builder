@@ -131,6 +131,12 @@
     .empty {
       @apply flex flex-1 flex-col items-center justify-center text-center gap-2 px-6 py-10;
       color: var(--mat-sys-outline);
+      &.login-required {
+        @apply transition-opacity duration-200 motion-reduce:transition-none;
+        &.is-leaving {
+          @apply opacity-0;
+        }
+      }
       .empty-title {
         @apply text-lg font-medium;
         color: var(--mat-sys-on-surface);

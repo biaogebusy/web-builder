@@ -83,7 +83,7 @@
     }
     <div class="inner">
       @if (!signedIn()) {
-        <div class="empty login-required" role="status">
+        <div class="empty login-required" role="status" [class.is-leaving]="signingIn()">
           <app-icon class="empty-icon" [content]="{ svg: 'account-outline', inline: true }" />
           <div class="empty-title">{{ 'MANAGE.MEDIA.LOGIN_TITLE' | translate }}</div>
           <div class="empty-desc">{{ 'MANAGE.MEDIA.LOGIN_DESC' | translate }}</div>

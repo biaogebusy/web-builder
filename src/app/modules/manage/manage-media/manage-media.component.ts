@@ -14,7 +14,6 @@ import {
   untracked,
 } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
-import { Router } from '@angular/router';
 import { FormControl, FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
@@ -24,9 +23,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ScreenService } from '@core/service/screen.service';
 import { Observable, Subscription, from, of } from 'rxjs';
 import { isEqual } from 'lodash-es';
-import { BUILDER_CONFIG, CORE_CONFIG, USER } from '@core/token/token-providers';
+import { BUILDER_CONFIG, USER } from '@core/token/token-providers';
 import type { IManageAssets, IManageImg, IManageMedia, MediaCapabilities } from '@core/interface/manage/IManage';
 import { MediaLibraryService } from '@core/service/media-library.service';
+import { UserService } from '@core/service/user.service';
 import {
   catchError,
   concatMap,
@@ -77,8 +77,7 @@ export class ManageMediaComponent implements OnInit {
   private builderConfig = toSignal(inject(BUILDER_CONFIG), { initialValue: undefined });
   private library = inject(MediaLibraryService);
   private user = inject(USER);
-  private router = inject(Router);
-  private coreConfig = inject(CORE_CONFIG);
+  private userService = inject(UserService);
   private activeAccount = this.user();
   readonly capabilities = signal<MediaCapabilities>({ types: [], canViewAll: false });
   readonly canUpload = computed(() => this.capabilities().types.some(type => type.canUpload));
@@ -87,6 +86,8 @@ export class ManageMediaComponent implements OnInit {
     const account = this.user();
     return !!account && typeof account !== 'boolean';
   });
+  /** Fades the prompt while the in-place login dialog is open. */
+  readonly signingIn = signal(false);
   readonly kinds = ['image', 'vector', 'document', 'audio', 'video'];
   readonly pageIndex = signal(0);
   private cursors: (string | null)[] = [null];
@@ -250,11 +251,17 @@ export class ManageMediaComponent implements OnInit {
     this.onSearch(this.form.value);
   }
 
-  /** Return to this page after authentication. */
-  onLogin(): void {
-    void this.router.navigate([this.coreConfig.guard?.defaultFrontLoginPage || '/me/login'], {
-      queryParams: { returnUrl: this.router.url },
-    });
+  /** Authenticate in place; the account effect reloads the library when the user changes. */
+  async onLogin(): Promise<void> {
+    if (this.signingIn()) {
+      return;
+    }
+    this.signingIn.set(true);
+    const dialogRef = await this.userService.openLoginDialog();
+    dialogRef
+      .afterClosed()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.signingIn.set(false));
   }
 
   /** Fetch at most one additional page without replacing the visible collection. */

@@ -2,15 +2,21 @@ import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
 import { MatDialog } from '@angular/material/dialog';
-import { provideRouter, Router } from '@angular/router';
+import { provideRouter } from '@angular/router';
 import { of, Subject, throwError } from 'rxjs';
 import type { IManageAssets, IManageImg } from '@core/interface/manage/IManage';
 import { MediaLibraryService } from '@core/service/media-library.service';
 import { ManageService } from '@core/service/manage.service';
 import { ScreenService } from '@core/service/screen.service';
+import { UserService } from '@core/service/user.service';
 import { BUILDER_CONFIG, USER } from '@core/token/token-providers';
 import { BuilderState } from '@core/state/BuilderState';
-import { createMatDialogMock, createManageServiceMock, provideCoreMocks } from '@core/testing/mocks';
+import {
+  createManageServiceMock,
+  createMatDialogMock,
+  createUserServiceMock,
+  provideCoreMocks,
+} from '@core/testing/mocks';
 import { ManageMediaComponent } from './manage-media.component';
 
 const row = (uuid: string, extra: Partial<IManageImg> = {}): IManageImg => ({
@@ -29,6 +35,7 @@ describe('ManageMediaComponent catalog', () => {
   };
   const manage = createManageServiceMock();
   const dialog = createMatDialogMock();
+  const userService = createUserServiceMock();
 
   async function setup(mode = 'manage') {
     await TestBed.configureTestingModule({
@@ -37,6 +44,7 @@ describe('ManageMediaComponent catalog', () => {
         { provide: USER, useValue: user },
         { provide: MediaLibraryService, useValue: library },
         { provide: ManageService, useValue: manage },
+        { provide: UserService, useValue: userService },
         { provide: MatDialog, useValue: dialog },
         { provide: ScreenService, useValue: { isPlatformBrowser: () => true } },
         { provide: BUILDER_CONFIG, useValue: of({ manageMedia: { row: 2, sidebar: { form: [] } } }) },
@@ -101,15 +109,35 @@ describe('ManageMediaComponent catalog', () => {
     expect(library.list).not.toHaveBeenCalled();
   });
 
-  it('opens the front login page with the current URL after a sign-in request', async () => {
+  it('opens the in-place login dialog and fades the sign-in prompt', async () => {
     user.set(false);
-    const { component } = await setup();
-    const router = TestBed.inject(Router);
-    const navigate = vi.spyOn(router, 'navigate').mockResolvedValue(true);
-    component.onLogin();
-    expect(navigate).toHaveBeenCalledWith(['/me/login'], {
-      queryParams: { returnUrl: router.url },
-    });
+    const { component, fixture } = await setup();
+    userService.openLoginDialog.mockResolvedValue({ afterClosed: () => of(undefined) });
+    const pending = component.onLogin();
+    expect(userService.openLoginDialog).toHaveBeenCalledTimes(1);
+    expect(component.signingIn()).toBe(true);
+    fixture.detectChanges();
+    expect(
+      (fixture.nativeElement as HTMLElement).querySelector('.login-required.is-leaving')
+    ).not.toBeNull();
+    await pending;
+    expect(component.signingIn()).toBe(false);
+  });
+
+  it('reloads the library after the login dialog signs the user in', async () => {
+    user.set(false);
+    const { component, fixture } = await setup();
+    const closed = new Subject<boolean>();
+    userService.openLoginDialog.mockResolvedValue({ afterClosed: () => closed });
+    void component.onLogin();
+    await Promise.resolve();
+    expect(library.list).not.toHaveBeenCalled();
+    user.set({ id: 'bob' });
+    fixture.detectChanges();
+    expect(library.list).toHaveBeenCalledTimes(1);
+    closed.next(true);
+    closed.complete();
+    expect(component.signingIn()).toBe(false);
   });
 
   it('keeps filter labels accessible but visually hidden', async () => {
