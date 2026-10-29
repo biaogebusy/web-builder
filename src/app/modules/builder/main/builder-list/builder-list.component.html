@@ -29,7 +29,7 @@
         </div>
       }
       <div class="wrapper" [class]="previewClass()">
-        @if (builder.loading()) {
+        @if (builder.loading() || builder.pageSettingsLoading()) {
           <div class="load">
             <app-loading />
           </div>

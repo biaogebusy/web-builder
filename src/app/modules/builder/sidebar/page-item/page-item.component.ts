@@ -243,8 +243,6 @@ export class PageItemComponent {
   }
 
   updatePageSetting(): void {
-    this.builder.loading.set(true);
-
     this.builderService.openPageSetting(
       this.page(),
       '/api/v1/node/landing_page',

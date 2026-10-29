@@ -23,6 +23,7 @@
             class="right-drawer"
             [class]="rightContent?.classes"
             #builderRightDrawer
+            (closedStart)="onRightDrawerClosed()"
             [style]="{
               overflow: builderRightDrawer.opened ? 'visible' : 'auto',
             }"

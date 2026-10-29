@@ -51,6 +51,8 @@ export class BuilderState {
   public themeMode = signal<'light' | 'dark'>('light');
   public rightContent$ = new Subject<IBuilderDynamicContent>();
   public closeRightDrawer$ = new Subject<boolean>();
+  /** Reports a UI close or shell destruction without issuing another close command. */
+  readonly rightDrawerClosed$ = new Subject<void>();
   public fixedChange$ = new Subject<boolean>();
   public animateDisable$ = new Subject<boolean>();
   public fullScreen$ = new Subject<boolean>();
@@ -63,6 +65,8 @@ export class BuilderState {
   public pendingPageLoad = signal<IBuilderPendingPageLoad | null>(null);
 
   public loading = signal(true);
+  /** Keeps settings reads independent of canvas loading and delayed local updates. */
+  readonly pageSettingsLoading = signal(false);
   public updateSuccess$ = new Subject<boolean>();
   /** Cancels pending canvas reads before a new local or remote page selection. */
   readonly pageSelection$ = new Subject<void>();

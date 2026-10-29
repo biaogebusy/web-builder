@@ -110,7 +110,6 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
   /** Opens settings for the saved page without submitting local canvas edits. */
   onPageSettings(page: IPage): void {
     if (!page.uuid || page.translation) return;
-    this.builder.loading.set(true);
     this.builderService.openPageSetting(
       { uuid: page.uuid, langcode: page.langcode },
       '/api/v1/node/landing_page',

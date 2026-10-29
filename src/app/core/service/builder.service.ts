@@ -4,7 +4,7 @@ import { cmsWriteContext } from '@core/config/cms-http-context';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ApiService } from './api.service';
 import type { IPage } from '@core/interface/IAppConfig';
-import { firstValueFrom, Observable, of, Subscription, throwError, timer } from 'rxjs';
+import { firstValueFrom, merge, Observable, of, Subscription, throwError, timer } from 'rxjs';
 import { UtilitiesService } from './utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { NodeService } from './node.service';
@@ -62,6 +62,7 @@ export class BuilderService extends ApiService {
   private translate = inject(TranslateService);
   private versionCheckSub?: Subscription;
   private versionDialogOpen = false;
+  private pageSettingsRequest?: Subscription;
 
   constructor() {
     super();
@@ -789,14 +790,17 @@ export class BuilderService extends ApiService {
     return lang ? `/${lang}` : '';
   }
 
+  /** Loads settings only while their drawer selection remains active. */
   openPageSetting(
     page: { uuid: string; langcode?: string },
     api: string,
     params: QueryParams | string
   ): void {
+    this.pageSettingsRequest?.unsubscribe();
+    this.builder.pageSettingsLoading.set(true);
     const { uuid, langcode } = page;
     const lang = getApiLang(langcode);
-    this.nodeService
+    this.pageSettingsRequest = this.nodeService
       .fetch(`${api}/${uuid}`, params, lang)
       .pipe(
         catchError((error: any) => {
@@ -804,7 +808,15 @@ export class BuilderService extends ApiService {
           this.util.openSnackbar(statusText, 'ok');
           return of(false);
         }),
-        take(1)
+        take(1),
+        takeUntil(merge(
+          this.builder.pageSelection$,
+          this.builder.rightContent$,
+          this.builder.closeRightDrawer$.pipe(filter(Boolean)),
+          this.builder.rightDrawerClosed$
+        )),
+        takeUntilDestroyed(this.destroyRef),
+        finalize(() => this.builder.pageSettingsLoading.set(false))
       )
       .subscribe(res => {
         if (res) {
@@ -839,7 +851,6 @@ export class BuilderService extends ApiService {
             ],
           });
         }
-        this.builder.loading.set(false);
       });
   }
 

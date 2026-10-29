@@ -554,6 +554,177 @@ describe('BuilderService', () => {
     });
   });
 
+  describe('page settings reads with real builder state', () => {
+    let service: BuilderService;
+    let state: BuilderState;
+    const panel = vi.fn();
+    const settings = (id: string, langcode = 'en') => ({ data: {
+      id, type: 'node--landing_page', attributes: {
+        title: `Page ${id}`, langcode, default_langcode: true,
+      },
+    } });
+    const open = (uuid = 'a', langcode = 'en') => service.openPageSetting(
+      { uuid, langcode }, '/api/v1/node/landing_page', { include: 'uid' }
+    );
+
+    beforeEach(() => {
+      service = createService([{
+        nid: '42', title: 'Unsaved canvas', body: [], current: true, dirty: true,
+      }]);
+      state = TestBed.inject(BuilderState);
+      state.rightContent$.subscribe(panel);
+    });
+
+    afterEach(() => {
+      TestBed.resetTestingModule();
+      vi.useRealTimers();
+    });
+
+    it.each(['page', 'language'])('keeps the latest settings %s after reversed responses', kind => {
+      const first = new Subject<unknown>();
+      const latest = new Subject<unknown>();
+      fetch.mockReturnValueOnce(first).mockReturnValueOnce(latest);
+      open();
+      const target = kind === 'page' ? 'b' : 'a';
+      const langcode = kind === 'language' ? 'zh-hans' : 'en';
+      open(target, langcode);
+      expect(state.pageSettingsLoading()).toBe(true);
+      latest.next(settings(target, langcode));
+      first.next(settings('a'));
+
+      expect(panel).toHaveBeenCalledExactlyOnceWith(expect.objectContaining({
+        title: 'BUILDER.PAGE_LIST.PAGE_PROPS',
+        elements: [expect.objectContaining({ content: settings(target, langcode) })],
+      }));
+      expect(first.observed).toBe(false);
+      expect(state.pageSettingsLoading()).toBe(false);
+      expect(state.currentPage).toMatchObject({ title: 'Unsaved canvas', dirty: true });
+      expect(fetch).toHaveBeenLastCalledWith(
+        `/api/v1/node/landing_page/${target}`, { include: 'uid' },
+        langcode === 'zh-hans' ? '' : 'en'
+      );
+    });
+
+    it.each(['close', 'UI close', 'panel', 'local page', 'remote page', 'destroy'])(
+      'cancels a settings read on %s and ignores its later failure', action => {
+        const read = new Subject<unknown>();
+        fetch.mockReturnValueOnce(read);
+        open();
+        if (action === 'close') state.closeRightDrawer$.next(true);
+        if (action === 'UI close') state.rightDrawerClosed$.next();
+        if (action === 'panel') state.rightContent$.next({ title: 'Other panel', elements: [] });
+        if (action === 'local page') state.loadNewPage({ title: 'Selected draft', body: [] });
+        if (action === 'remote page') {
+          fetch.mockReturnValueOnce(new Subject<IPage>());
+          service.loadPage({ nid: '43' });
+        }
+        if (action === 'destroy') TestBed.resetTestingModule();
+        expect(read.observed).toBe(false);
+        expect(state.pageSettingsLoading()).toBe(false);
+        read.error(new HttpErrorResponse({ status: 503, statusText: 'Old failure' }));
+
+        expect(openSnackbar).not.toHaveBeenCalled();
+        expect(panel).toHaveBeenCalledTimes(action === 'panel' ? 1 : 0);
+        if (action === 'remote page') expect(state.loading()).toBe(true);
+        expect(post).not.toHaveBeenCalled();
+        expect(patch).not.toHaveBeenCalled();
+      }
+    );
+
+    it('does not finish an earlier canvas read when settings finish first', () => {
+      const canvas = new Subject<IPage>();
+      const read = new Subject<unknown>();
+      fetch.mockReturnValueOnce(canvas).mockReturnValueOnce(read);
+      service.loadPage({ nid: '43' });
+      open();
+      read.next(settings('a'));
+
+      expect(panel).toHaveBeenCalledOnce();
+      expect(canvas.observed).toBe(true);
+      expect(state.pageSettingsLoading()).toBe(false);
+      expect(state.loading()).toBe(true);
+      canvas.next({ nid: '43', title: 'Selected canvas', body: [], status: true });
+      expect(state.loading()).toBe(false);
+      expect(state.currentPage.title).toBe('Selected canvas');
+    });
+
+    it('preserves a settings read when a close command is false', () => {
+      const read = new Subject<unknown>();
+      fetch.mockReturnValueOnce(read);
+      open();
+      state.closeRightDrawer$.next(false);
+      expect(read.observed).toBe(true);
+      read.next(settings('a'));
+      expect(panel).toHaveBeenCalledOnce();
+    });
+
+    it('keeps the current draft after a settings failure and permits retry', () => {
+      fetch.mockReturnValueOnce(throwError(() => new HttpErrorResponse({
+        status: 503, statusText: 'Settings unavailable',
+      })));
+      open();
+      expect(openSnackbar).toHaveBeenCalledExactlyOnceWith('Settings unavailable', 'ok');
+      expect(state.pageSettingsLoading()).toBe(false);
+      expect(panel).not.toHaveBeenCalled();
+      expect(state.currentPage).toMatchObject({ title: 'Unsaved canvas', dirty: true });
+      fetch.mockReturnValueOnce(of(settings('a')));
+      open();
+      expect(panel).toHaveBeenCalledOnce();
+    });
+
+    it('keeps the latest settings loading after a superseded request fails', () => {
+      const first = new Subject<unknown>();
+      const latest = new Subject<unknown>();
+      fetch.mockReturnValueOnce(first).mockReturnValueOnce(latest);
+      open('a');
+      open('b');
+      first.error(new HttpErrorResponse({ status: 503 }));
+      expect(state.pageSettingsLoading()).toBe(true);
+      expect(panel).not.toHaveBeenCalled();
+      expect(openSnackbar).not.toHaveBeenCalled();
+      latest.next(settings('b'));
+      expect(state.pageSettingsLoading()).toBe(false);
+    });
+
+    it.each(['empty', 'refusal'])('releases settings loading on %s without changing the draft', result => {
+      const read = new Subject<unknown>();
+      fetch.mockReturnValueOnce(read);
+      open();
+      expect(state.pageSettingsLoading()).toBe(true);
+      if (result === 'empty') read.complete();
+      else read.next(false);
+      expect(state.pageSettingsLoading()).toBe(false);
+      expect(panel).not.toHaveBeenCalled();
+      expect(state.currentPage).toMatchObject({ title: 'Unsaved canvas', dirty: true });
+    });
+
+    it.each(['settings first', 'initialization first'])(
+      'keeps initialization and settings loading independent: %s', order => {
+        vi.useFakeTimers();
+        state.initPage([{ title: 'New draft', body: [], current: true }]);
+        const read = new Subject<unknown>();
+        fetch.mockReturnValueOnce(read);
+        open();
+        if (order === 'settings first') {
+          read.next(settings('a'));
+          expect(state.loading()).toBe(true);
+          expect(state.pageSettingsLoading()).toBe(false);
+          vi.advanceTimersByTime(600);
+        } else {
+          vi.advanceTimersByTime(600);
+          expect(state.loading()).toBe(false);
+          expect(state.pageSettingsLoading()).toBe(true);
+          read.next(settings('a'));
+        }
+        expect(state.loading()).toBe(false);
+        expect(state.pageSettingsLoading()).toBe(false);
+        expect(TestBed.inject(LocalStorageService).store).toHaveBeenCalledWith(
+          'version', state.version()
+        );
+      }
+    );
+  });
+
   describe('remote reads with real canvas state', () => {
     const drafts = (): IPage[] => [
       { nid: '10', langcode: 'en', title: 'Unsaved draft', body: [], current: true, dirty: true },
