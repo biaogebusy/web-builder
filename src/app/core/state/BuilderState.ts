@@ -86,12 +86,16 @@ export class BuilderState {
   // Track removals without adding identifiers to persisted local drafts.
   private pendingVersionIndex?: number;
   private versionSelectionTimer?: ReturnType<typeof setTimeout>;
+  private pageUpdateTimer?: ReturnType<typeof setTimeout>;
 
   // Component path currently being edited in the code editor, read across external callers
   public editingCodePath = signal<string | null>(null);
 
   constructor() {
-    this.destroyRef.onDestroy(() => this.cancelVersionSelection());
+    this.destroyRef.onDestroy(() => {
+      this.cancelVersionSelection();
+      this.cancelPageUpdate();
+    });
     const localVersion = this.storage.retrieve(this.versionKey);
     if (localVersion?.length) {
       this.version.set(localVersion);
@@ -120,8 +124,9 @@ export class BuilderState {
       try {
         const version = JSON.parse(event.newValue);
         if (Array.isArray(version) && version.length > 0) {
-          if (this.pendingVersionIndex !== undefined) {
+          if (this.pendingVersionIndex !== undefined || this.pageUpdateTimer !== undefined) {
             this.cancelVersionSelection();
+            this.cancelPageUpdate();
             this.loading.set(false);
           }
           this.version.set(version);
@@ -371,6 +376,7 @@ export class BuilderState {
 
   private beginPageSelection(): void {
     this.cancelVersionSelection();
+    this.cancelPageUpdate();
     this.pageSelection$.next();
   }
 
@@ -380,8 +386,16 @@ export class BuilderState {
     this.pendingVersionIndex = undefined;
   }
 
+  private cancelPageUpdate(): void {
+    clearTimeout(this.pageUpdateTimer);
+    this.pageUpdateTimer = undefined;
+  }
+
+  /** Save and reveal the latest canvas update after its rendering delay. */
   updatePage(index?: number): void {
-    setTimeout(() => {
+    this.cancelPageUpdate();
+    this.pageUpdateTimer = setTimeout(() => {
+      this.pageUpdateTimer = undefined;
       this.saveLocalVersions();
 
       if (index !== undefined) {

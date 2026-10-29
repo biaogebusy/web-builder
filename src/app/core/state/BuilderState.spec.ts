@@ -219,6 +219,160 @@ describe('BuilderState tree and draft behavior', () => {
     });
   });
 
+  describe('delayed canvas updates', () => {
+    const drafts = () => [
+      makePage([{ type: 'text', body: 'First' }, { type: 'text', body: 'Second' }]),
+      makePage([], { title: 'Other draft', current: false }),
+    ];
+    const drop = (state: BuilderState, currentIndex = 0) =>
+      state.dropComponent({ previousIndex: 1, currentIndex } as any);
+
+    beforeEach(() => vi.useFakeTimers());
+    afterEach(() => vi.useRealTimers());
+
+    it('persists initialization and finishes loading after the full delay', () => {
+      const { state, storage } = createState([]);
+      expect(state.loading()).toBe(true);
+      vi.advanceTimersByTime(599);
+      expect(storage.store).not.toHaveBeenCalled();
+      vi.advanceTimersByTime(1);
+      expect(storage.store).toHaveBeenCalledWith('version', state.version());
+      expect(state.loading()).toBe(false);
+    });
+
+    it('keeps only the latest drop scroll while saving every edit immediately', () => {
+      const { state, storage } = createState(drafts());
+      const screen = TestBed.inject(ScreenService);
+      drop(state);
+      expect(storage.store).toHaveBeenCalledOnce();
+      vi.advanceTimersByTime(200);
+      state.transferComponent({ currentIndex: 1,
+        item: { data: { type: 'text', body: 'Inserted' } } } as any);
+      expect(storage.store).toHaveBeenCalledTimes(2);
+      expect(state.currentPage.body).toEqual([
+        { type: 'text', body: 'Second' }, { type: 'text', body: 'Inserted' },
+        { type: 'text', body: 'First' },
+      ]);
+      vi.advanceTimersByTime(400);
+      expect(screen.scrollToAnchor).not.toHaveBeenCalled();
+      expect(storage.store).toHaveBeenCalledTimes(2);
+      vi.advanceTimersByTime(200);
+      expect(screen.scrollToAnchor).toHaveBeenCalledExactlyOnceWith('item-1');
+      expect(storage.store).toHaveBeenCalledTimes(3);
+    });
+
+    it('does not finish a later local selection or scroll its canvas', () => {
+      const { state, storage } = createState(drafts());
+      const screen = TestBed.inject(ScreenService);
+      drop(state);
+      vi.advanceTimersByTime(200);
+      state.showVersionPage(1);
+      vi.advanceTimersByTime(400);
+      expect(state.loading()).toBe(true);
+      expect(screen.scrollToAnchor).not.toHaveBeenCalled();
+      expect(storage.store).toHaveBeenCalledOnce();
+      vi.advanceTimersByTime(200);
+      expect(state.currentPage.title).toBe('Other draft');
+      expect(state.version()[0].body[0]).toMatchObject({ body: 'Second' });
+      expect(state.loading()).toBe(false);
+      expect(storage.store).toHaveBeenCalledTimes(2);
+    });
+
+    it('preserves the new initialization delay and saves the new drafts once', () => {
+      const { state, storage } = createState(drafts());
+      state.initPage([makePage([], { title: 'First initialization' })]);
+      vi.advanceTimersByTime(200);
+      state.initPage([makePage([], { title: 'Latest initialization' })]);
+      vi.advanceTimersByTime(400);
+      expect(state.loading()).toBe(true);
+      expect(storage.store).not.toHaveBeenCalled();
+      vi.advanceTimersByTime(200);
+      expect(state.loading()).toBe(false);
+      expect(storage.store).toHaveBeenCalledExactlyOnceWith('version', state.version());
+      expect(state.currentPage.title).toBe('Latest initialization');
+    });
+
+    it.each(['load', 'delete'] as const)('cancels the old scroll after %s replaces the page', action => {
+      const { state, storage } = createState(drafts());
+      const screen = TestBed.inject(ScreenService);
+      drop(state);
+      if (action === 'load') state.loadNewPage(makePage([], { title: 'Loaded draft' }));
+      else state.deleteLocalPage(0);
+      expect(storage.store).toHaveBeenCalledTimes(2);
+      vi.advanceTimersByTime(600);
+      expect(screen.scrollToAnchor).not.toHaveBeenCalled();
+      expect(storage.store).toHaveBeenCalledTimes(2);
+      expect(state.currentPage.title).toBe(action === 'load' ? 'Loaded draft' : 'Other draft');
+    });
+
+    it('keeps a pending scroll when only a background draft is deleted', () => {
+      const { state, storage } = createState(drafts());
+      const screen = TestBed.inject(ScreenService);
+      drop(state);
+      state.deleteLocalPage(1);
+      vi.advanceTimersByTime(600);
+      expect(screen.scrollToAnchor).toHaveBeenCalledExactlyOnceWith('item-0');
+      expect(storage.store).toHaveBeenCalledTimes(3);
+      expect(state.currentPage.body[0]).toMatchObject({ body: 'Second' });
+    });
+
+    it.each([false, true])('handles external replacement during initialization (valid: %s)', valid => {
+      const { state, storage } = createState(drafts(), true);
+      state.initPage([makePage([], { title: 'Initialized draft' })]);
+      const selection = vi.fn();
+      state.pageSelection$.subscribe(selection);
+      window.dispatchEvent(new StorageEvent('storage', {
+        key: 'ngx-webstorage:version',
+        newValue: valid ? JSON.stringify([makePage([], { title: 'External draft' })]) : '{broken',
+      }));
+      expect(state.loading()).toBe(!valid);
+      vi.advanceTimersByTime(600);
+      expect(state.currentPage.title).toBe(valid ? 'External draft' : 'Initialized draft');
+      expect(storage.store).toHaveBeenCalledTimes(valid ? 0 : 1);
+      expect(selection).not.toHaveBeenCalled();
+    });
+
+    it('does not scroll or write back an external replacement after a drop', () => {
+      const { state, storage } = createState(drafts(), true);
+      const screen = TestBed.inject(ScreenService);
+      drop(state);
+      window.dispatchEvent(new StorageEvent('storage', {
+        key: 'ngx-webstorage:version',
+        newValue: JSON.stringify([makePage([], { title: 'External draft' })]),
+      }));
+      vi.advanceTimersByTime(600);
+      expect(screen.scrollToAnchor).not.toHaveBeenCalled();
+      expect(storage.store).toHaveBeenCalledOnce();
+      expect(state.currentPage.title).toBe('External draft');
+    });
+
+    it('does not run pending canvas work after state destruction', () => {
+      const { state, storage } = createState(drafts());
+      const screen = TestBed.inject(ScreenService);
+      drop(state);
+      TestBed.resetTestingModule();
+      vi.advanceTimersByTime(600);
+      expect(screen.scrollToAnchor).not.toHaveBeenCalled();
+      expect(storage.store).toHaveBeenCalledOnce();
+    });
+
+    it.each([false, true])('respects the clear-history decision after a drop (%s)', async confirmed => {
+      await import('@uiux/widgets/dialog/dialog.component');
+      const { state, storage } = createState(drafts());
+      const screen = TestBed.inject(ScreenService);
+      const open = vi.spyOn(TestBed.inject(MatDialog), 'open').mockReturnValue({
+        afterClosed: () => of(confirmed),
+      } as any);
+      drop(state);
+      state.clearAllHistory();
+      await vi.waitFor(() => expect(open).toHaveBeenCalledOnce());
+      vi.advanceTimersByTime(600);
+      expect(screen.scrollToAnchor).toHaveBeenCalledTimes(confirmed ? 0 : 1);
+      expect(storage.store).toHaveBeenCalledTimes(2);
+      expect(state.currentPage.title).toBe(confirmed ? '未命名' : 'Test page');
+    });
+  });
+
   it('shares restored and updated drafts with public language readers', () => {
     const { state } = createState([makePage([], { langcode: 'en' })]);
     const pageState = TestBed.inject(BuilderPageState);

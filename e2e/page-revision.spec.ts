@@ -380,6 +380,54 @@ for (const deleted of ['Background draft', 'Remaining draft']) {
   });
 }
 
+test('selecting a local draft cancels the previous drag update', async ({ context, page }) => {
+  await openHistory(context, page, route => route.fulfill({ json: revisions }));
+  const storageKey = await restoreDrafts(page, deletionDrafts);
+  await context.route('**/api/v3/node/component', route => route.fulfill({ json: [
+    { label: 'Unused group', elements: [] },
+    { label: 'Test widgets', icon: 'text', elements: [
+      { label: 'Text', child: [{ label: 'Inserted widget',
+        content: { type: 'text', body: '<p>Inserted widget</p>' } }] },
+    ] },
+  ] }));
+  await context.route('**/api/v3/landingPage/json/*', route =>
+    route.fulfill({ json: { changed: 0 } }));
+  await page.goto('/builder');
+  const canvas = page.locator('app-builder-list');
+  await expect(canvas).toContainText('Original draft');
+  const widget = page.locator('app-builder-panel .drag-wrapper').filter({ hasText: 'Inserted widget' });
+  await expect(widget).toBeVisible();
+  await page.addStyleTag({ content: '.cdk-drag-animating { transition: none !important; }' });
+  const start = new Date('2026-10-29T00:00:00Z');
+  await page.clock.install({ time: start });
+  await page.clock.pauseAt(new Date(start.valueOf() + 1000));
+  const source = await widget.boundingBox();
+  const target = await page.locator('#builder-list').boundingBox();
+  if (!source || !target) throw new Error('Expected a visible widget and canvas drop target.');
+  await page.mouse.move(source.x + source.width / 2, source.y + source.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(source.x + source.width / 2 + 10, source.y + source.height / 2);
+  await page.mouse.move(target.x + target.width / 2, target.y + 10, { steps: 12 });
+  await page.mouse.up();
+  await page.clock.runFor(32);
+  await expect(canvas).toContainText('Inserted widget');
+  expect(await page.evaluate(key => JSON.parse(localStorage.getItem(key) || '[]')[0].body.length,
+    storageKey)).toBe(2);
+
+  await page.clock.runFor(168);
+  await page.locator('app-builder-version mat-list-item').filter({ hasText: 'Remaining draft' })
+    .locator('mat-icon').first().click();
+  await page.clock.runFor(32);
+  await expect(canvas.locator('app-loading')).toBeVisible();
+  await page.clock.runFor(400);
+  await expect(canvas.locator('app-loading')).toBeVisible();
+  await page.clock.runFor(200);
+  await expect(canvas).toContainText('Remaining draft');
+  await expect(canvas.locator('app-loading')).toHaveCount(0);
+  expect(await page.evaluate(key => JSON.parse(localStorage.getItem(key) || '[]')
+    .find((draft: { current: boolean }) => draft.current).title, storageKey)).toBe('Remaining draft');
+});
+
 test('a later revision selection replaces the pending draft read', async ({ context, page }) => {
   const reads: Route[] = [];
   const aborted: string[] = [];
