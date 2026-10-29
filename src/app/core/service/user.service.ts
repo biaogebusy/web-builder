@@ -1,5 +1,5 @@
 import { HttpHeaders, HttpParams } from '@angular/common/http';
-import { DOCUMENT, Injectable, PLATFORM_ID, REQUEST, inject } from '@angular/core';
+import { DOCUMENT, Injectable, Injector, PLATFORM_ID, REQUEST, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Observable, of, Subject, Subscription, firstValueFrom } from 'rxjs';
 import { ApiService } from './api.service';
@@ -21,8 +21,9 @@ import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { JsonObject } from '@core/interface/common';
 import { environment } from 'src/environments/environment';
 import { CookieService } from 'ngx-cookie-service';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog, MatDialogRef, MatDialogState } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import type { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 
 const loadDialogComponent = (): Promise<typeof DialogComponent> =>
@@ -132,7 +133,8 @@ export class UserService extends ApiService {
   private dialog = inject(MatDialog);
   private cryptoJS = inject(CryptoJSService);
   private cookieService = inject(CookieService);
-  private route = inject(ActivatedRoute);
+  private injector = inject(Injector);
+  private loginDialog?: MatDialogRef<DialogComponent>;
   private doc = inject(DOCUMENT);
   private platformId = inject(PLATFORM_ID);
   private serverRequest = inject(REQUEST, { optional: true });
@@ -845,27 +847,34 @@ export class UserService extends ApiService {
     );
   }
 
-  async openLoginDialog(): Promise<MatDialogRef<DialogComponent>> {
-    const { queryParams } = this.route.snapshot;
-    const { pathname } = this.doc.location;
-    const options = {
-      returnUrl: pathname,
-      ...queryParams,
-    };
-    this.router.navigate([], { queryParams: options });
+  /** Open one login form without changing the current URL; cancelled navigation cannot open it late. */
+  async openLoginDialog(
+    returnUrl = this.router.url,
+    signal?: AbortSignal
+  ): Promise<MatDialogRef<DialogComponent>> {
+    const DialogComponent = await loadDialogComponent();
+    signal?.throwIfAborted();
+    if (this.loginDialog?.getState() === MatDialogState.OPEN) return this.loginDialog;
     const config: IDialog = {
       disableActions: true,
       inputData: {
         content: {
           type: 'login',
           fullWidth: true,
+          returnUrl,
         },
       },
     };
-    const DialogComponent = await loadDialogComponent();
-    return this.dialog.open(DialogComponent, {
-      panelClass: ['close-outside', 'close-icon-white', 'login-dialog'],
+    const ref = this.dialog.open(DialogComponent, {
+      panelClass: ['close-outside', 'login-dialog'],
+      // Eager translation setup can re-enter authentication through the HTTP interceptor.
+      ariaLabel: this.injector.get(TranslateService).instant('LOGIN.TITLE'),
       data: config,
     });
+    this.loginDialog = ref;
+    ref.afterClosed().pipe(take(1)).subscribe(() => {
+      if (this.loginDialog === ref) this.loginDialog = undefined;
+    });
+    return ref;
   }
 }

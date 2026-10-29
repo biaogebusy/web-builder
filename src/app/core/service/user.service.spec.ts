@@ -1,9 +1,52 @@
 import { TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { provideRouter, Router } from '@angular/router';
+import { MatDialog, MatDialogState } from '@angular/material/dialog';
+import { Subject } from 'rxjs';
 import { HttpTestingController } from '@angular/common/http/testing';
 import type { IUser } from '@core/interface/IUser';
 import { UserService } from '@core/service/user.service';
 import { provideCoreMocks } from '@core/testing/mocks';
+
+describe('UserService login dialog', () => {
+  const closed = new Subject();
+  const ref = { afterClosed: () => closed, getState: () => MatDialogState.OPEN };
+  const dialog = { open: vi.fn((_component: unknown,
+    _config: { data: { inputData: { content: { returnUrl: string } } } }) => ref) };
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+    TestBed.configureTestingModule({
+      providers: [provideRouter([]), ...provideCoreMocks(), UserService,
+        { provide: MatDialog, useValue: dialog }],
+    });
+  });
+
+  it('reuses one dialog for concurrent callers without mutating the URL', async () => {
+    const service = TestBed.inject(UserService);
+    const router = TestBed.inject(Router);
+    const navigate = vi.spyOn(router, 'navigate');
+    const [first, second] = await Promise.all([
+      service.openLoginDialog('/builder?filter=draft#details'), service.openLoginDialog(),
+    ]);
+    expect(first).toBe(second);
+    expect(dialog.open).toHaveBeenCalledOnce();
+    expect(dialog.open.mock.calls[0][1].data.inputData.content.returnUrl)
+      .toBe('/builder?filter=draft#details');
+    expect(navigate).not.toHaveBeenCalled();
+    closed.next(false);
+    await service.openLoginDialog();
+    expect(dialog.open).toHaveBeenCalledTimes(2);
+    closed.next(false);
+  });
+
+  it('does not open a dialog after its requesting navigation has been cancelled', async () => {
+    const controller = new AbortController();
+    const opening = TestBed.inject(UserService).openLoginDialog('/builder', controller.signal);
+    controller.abort();
+    await expect(opening).rejects.toMatchObject({ name: 'AbortError' });
+    expect(dialog.open).not.toHaveBeenCalled();
+  });
+});
 
 describe('UserService auth channel', () => {
   let service: UserService;

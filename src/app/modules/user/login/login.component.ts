@@ -2,6 +2,7 @@ import {
   Component,
   OnInit,
   inject,
+  input,
   DestroyRef,
   signal,
   computed,
@@ -90,6 +91,8 @@ const CODE_VALID_MINUTES = 5;
   ],
 })
 export class LoginComponent implements OnInit {
+  /** The destination requested by a login dialog, independent of the current page URL. */
+  readonly content = input<{ returnUrl?: string }>();
   public coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   public user = inject(USER);
   public currentUser = computed(() => {
@@ -156,7 +159,9 @@ export class LoginComponent implements OnInit {
         setTimeout(() => {
           const { returnUrl = this.coreConfig.login.loginRedirect, ...queryParams } =
             this.route.snapshot.queryParams;
-          this.router.navigate([returnUrl], { queryParams });
+          const target = this.router.parseUrl(returnUrl || '/');
+          target.queryParams = { ...queryParams, ...target.queryParams };
+          this.router.navigateByUrl(target);
         }, 2000);
       });
     }
@@ -215,7 +220,7 @@ export class LoginComponent implements OnInit {
     this.resetMessages();
     this.loading.set(true);
     const mode: OAuthMode = this.inDialog ? 'popup' : 'redirect';
-    const { returnUrl } = this.route.snapshot.queryParams;
+    const returnUrl = this.content()?.returnUrl ?? this.route.snapshot.queryParams['returnUrl'];
     this.requestAuthorize({ mode, returnUrl, signal: this.authAbort.signal }, provider)
       .catch(error => {
         console.error('Authorize failed:', error);

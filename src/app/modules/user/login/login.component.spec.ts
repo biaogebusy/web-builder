@@ -58,6 +58,14 @@ describe('LoginComponent', () => {
     });
   });
 
+  it('passes the requested destination to OAuth without using the background page URL', () => {
+    fixture.componentRef.setInput('content', { returnUrl: '/builder?filter=draft#details' });
+    component.login();
+    expect(userService.startAuthorize).toHaveBeenCalledWith(expect.objectContaining({
+      returnUrl: '/builder?filter=draft#details',
+    }));
+  });
+
   it('falls back to localized copy instead of echoing an unmapped backend message', () => {
     userService.loginByPhone.mockReturnValueOnce(of({ ok: false, message: 'Unexpected failure' }));
     component.phoneForm.patchValue({ phone: '13800138000', code: '1234' });
