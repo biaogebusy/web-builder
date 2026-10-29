@@ -56,13 +56,13 @@ export const HUB_GROUPS: IHubGroup[] = [
         label: 'BUILDER.HUB.HEADER_ENTRY',
         desc: 'BUILDER.HUB.HEADER_ENTRY_DESC',
         link: '/builder/edit-branding/header',
-        icon: 'page-layout-header',
+        icon: 'border-top-variant',
       },
       {
         label: 'BUILDER.HUB.FOOTER_ENTRY',
         desc: 'BUILDER.HUB.FOOTER_ENTRY_DESC',
         link: '/builder/edit-branding/footer',
-        icon: 'page-layout-footer',
+        icon: 'border-bottom-variant',
       },
       {
         label: 'BUILDER.HUB.UIUX_ENTRY',
@@ -77,12 +77,6 @@ export const HUB_GROUPS: IHubGroup[] = [
     title: 'BUILDER.HUB.SYSTEM_TITLE',
     entries: [
       {
-        label: 'BUILDER.HUB.SETTINGS_ENTRY',
-        desc: 'BUILDER.HUB.SETTINGS_ENTRY_DESC',
-        link: '/builder/settings',
-        icon: 'cog-outline',
-      },
-      {
         // "Builder" is fixed, so it earns a permanent entry here; the site-specific
         // page groups are listed by the hub's dynamic page-group section instead
         label: 'BUILDER.HUB.BUILDER_PAGES_ENTRY',
@@ -95,6 +89,12 @@ export const HUB_GROUPS: IHubGroup[] = [
         desc: 'BUILDER.HUB.CONFIG_CHECK_ENTRY_DESC',
         link: '/builder/config-check',
         icon: 'clipboard-check-outline',
+      },
+      {
+        label: 'BUILDER.HUB.SETTINGS_ENTRY',
+        desc: 'BUILDER.HUB.SETTINGS_ENTRY_DESC',
+        link: '/builder/settings',
+        icon: 'cog-outline',
       },
     ],
   },
