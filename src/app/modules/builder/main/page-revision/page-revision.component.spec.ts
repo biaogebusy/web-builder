@@ -14,7 +14,7 @@ import {
   createUserServiceMock,
 } from '@core/testing/mocks';
 import { provideBuilderMocks } from '@modules/builder/testing/mocks';
-import { of, throwError } from 'rxjs';
+import { of, Subject, throwError } from 'rxjs';
 
 import { PageRevisionComponent } from './page-revision.component';
 import { RevisionDiffComponent } from './revision-diff/revision-diff.component';
@@ -225,6 +225,18 @@ describe('PageRevisionComponent', () => {
     expect(component.canCompare()).toBe(false);
   });
 
+  it('labels the native comparison checkboxes', async () => {
+    screenService.isPlatformBrowser.mockReturnValue(true);
+    fixture.componentRef.setInput('content', panel);
+    await fixture.whenStable();
+
+    const inputs: HTMLInputElement[] = Array.from(
+      fixture.nativeElement.querySelectorAll('.revision-select input')
+    );
+    expect(inputs).toHaveLength(2);
+    expect(inputs.every(input => !!input.getAttribute('aria-label'))).toBe(true);
+  });
+
   it('stops a third revision from being ticked', () => {
     builderService.getPageRevisions.mockReturnValue(
       of({
@@ -312,5 +324,94 @@ describe('PageRevisionComponent', () => {
     builderState.updateSuccess$.next(true);
 
     expect(component.selectedVids()).toEqual([]);
+  });
+
+  describe('pending list requests', () => {
+    const response = (vid: string) => ({
+      status: true, message: '', revisions: [revision(vid, true)],
+    });
+    let first: Subject<ReturnType<typeof response>>;
+    let latest: Subject<ReturnType<typeof response>>;
+
+    beforeEach(async () => {
+      first = new Subject();
+      latest = new Subject();
+      builderService.getPageRevisions
+        .mockReturnValueOnce(first)
+        .mockReturnValueOnce(latest);
+      screenService.isPlatformBrowser.mockReturnValue(true);
+      fixture.componentRef.setInput('content', panel);
+      await fixture.whenStable();
+      builderState.updateSuccess$.next(true);
+    });
+
+    it('keeps the newest list and comparison selection when an earlier response arrives last', async () => {
+      latest.next(response('30'));
+      latest.complete();
+      component.toggleCompare('30');
+      first.next(response('29'));
+      first.complete();
+      await fixture.whenStable();
+
+      expect(component.revisions().map(item => item.vid)).toEqual(['30']);
+      expect(component.selectedVids()).toEqual(['30']);
+      expect(fixture.nativeElement.querySelector('.revision-vid').textContent).toContain('#30');
+    });
+
+    it('keeps the loading state until the current request responds', async () => {
+      first.next(response('29'));
+      first.complete();
+      await fixture.whenStable();
+
+      expect(component.loading()).toBe(true);
+      expect(fixture.nativeElement.querySelector('app-spinner')).not.toBeNull();
+      expect(fixture.nativeElement.querySelector('[role="status"]')).not.toBeNull();
+      expect(fixture.nativeElement.querySelector('mat-progress-spinner')).not.toBeNull();
+      expect(fixture.nativeElement.querySelector('.revision-row')).toBeNull();
+      latest.next(response('30'));
+      latest.complete();
+      await fixture.whenStable();
+      expect(component.loading()).toBe(false);
+      expect(component.revisions()[0].vid).toBe('30');
+    });
+
+    it.each([403, 503])('ignores a superseded HTTP %i failure', async status => {
+      latest.next(response('30'));
+      latest.complete();
+      first.error(new HttpErrorResponse({ status }));
+      await fixture.whenStable();
+
+      expect(component.forbidden()).toBe(false);
+      expect(component.error()).toBe(false);
+      expect(fixture.nativeElement.querySelector('.revision-row')).not.toBeNull();
+    });
+
+    it('unsubscribes the replaced request and permits retry after the current request fails', async () => {
+      expect(first.observed).toBe(false);
+      expect(latest.observed).toBe(true);
+      latest.error(new HttpErrorResponse({ status: 503 }));
+      await fixture.whenStable();
+      expect(component.loading()).toBe(false);
+      expect(component.error()).toBe(true);
+
+      builderService.getPageRevisions.mockReturnValue(of(response('31')));
+      fixture.nativeElement.querySelector('app-btn button').click();
+      await fixture.whenStable();
+      expect(component.error()).toBe(false);
+      expect(component.revisions()[0].vid).toBe('31');
+    });
+
+    it('ends pending reads and save notifications when the panel is destroyed', () => {
+      const readCount = builderService.getPageRevisions.mock.calls.length;
+      fixture.destroy();
+      first.next(response('29'));
+      latest.next(response('30'));
+      builderState.updateSuccess$.next(true);
+
+      expect(first.observed).toBe(false);
+      expect(latest.observed).toBe(false);
+      expect(component.revisions()).toEqual([]);
+      expect(builderService.getPageRevisions).toHaveBeenCalledTimes(readCount);
+    });
   });
 });
