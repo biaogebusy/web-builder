@@ -6,7 +6,7 @@ import { NavigationEnd, Router } from '@angular/router';
   selector: '[checkChildMenuActive]',
 })
 export class CheckChildMenuActiveDirective implements AfterViewInit {
-  private el = inject(ElementRef);
+  private el = inject<ElementRef<HTMLElement>>(ElementRef);
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);
 
@@ -26,12 +26,7 @@ export class CheckChildMenuActiveDirective implements AfterViewInit {
 
   updateClasses(): void {
     const el = this.el.nativeElement;
-    if (el.classList.contains('active')) {
-      el.classList.remove('active');
-    }
-    const isChildActive = el.querySelectorAll('a[class~=active]');
-    if (isChildActive.length > 0) {
-      el.classList.add('active');
-    }
+    // Preserve the class attribute when navigation leaves the active state unchanged.
+    el.classList.toggle('active', el.querySelector('a[class~=active]') !== null);
   }
 }

@@ -91,8 +91,7 @@ describe('CheckChildMenuActiveDirective', () => {
     });
 
     it('considers the parent own <a class="active"> as a matching child', () => {
-      // querySelectorAll('a[class~=active]') selects all descendant <a>s
-      // including the parent link itself.
+      // The parent's own anchor is also a descendant of the directive host.
       const { fixture } = setup();
       fixture.detectChanges();
       vi.advanceTimersByTime(0);
@@ -103,6 +102,32 @@ describe('CheckChildMenuActiveDirective', () => {
   });
 
   describe('router navigation', () => {
+    it('does not rewrite parent classes when navigation keeps their active state', async () => {
+      vi.useRealTimers();
+      const { fixture, events$ } = setup();
+      await fixture.whenStable();
+      const parent: HTMLElement = fixture.nativeElement.querySelector('.parent');
+      const solo: HTMLElement = fixture.nativeElement.querySelector('.parent-solo');
+      await vi.waitFor(() => expect(parent.classList.contains('active')).toBe(true));
+      vi.useFakeTimers();
+
+      const observer = new MutationObserver(() => undefined);
+      for (const element of [parent, solo]) {
+        observer.observe(element, { attributes: true, attributeFilter: ['class'] });
+      }
+      const mutations: number[] = [];
+      for (let id = 1; id <= 3; id++) {
+        events$.next(new NavigationEnd(id, `/a/child2?visit=${id}`, '/a/child2'));
+        vi.advanceTimersByTime(0);
+        mutations.push(observer.takeRecords().length);
+      }
+      observer.disconnect();
+
+      expect(parent.classList.contains('active')).toBe(true);
+      expect(solo.classList.contains('active')).toBe(false);
+      expect(mutations).toEqual([0, 0, 0]);
+    });
+
     it('re-runs updateClasses after NavigationEnd events', () => {
       const { fixture, events$ } = setup();
       fixture.detectChanges();

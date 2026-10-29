@@ -76,3 +76,30 @@ test('English grouped navigation supports keyboard links and active route feedba
   await expect(page).toHaveURL(/\/builder\/settings$/);
   await expect(settings).toHaveClass(/active/);
 });
+
+test('expanded menu moves the active parent to the selected page', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await openSidebar(page, 'light-theme');
+  const sidebar = page.locator('app-builder-sidebar');
+  await sidebar.locator('.toggle .wrapper').click();
+  await sidebar.locator('mat-expansion-panel-header').press('Space');
+  const entries = sidebar.locator('.accordion-menu mat-list.no-child');
+  const settings = entries.filter({ has: page.locator('a[href="/builder/settings"]') });
+  const pages = entries.filter({ has: page.locator('a[href="/builder/page-list"]') });
+  const group = sidebar.locator('.accordion-menu mat-expansion-panel').first();
+
+  await settings.locator('a').click();
+  await expect(page).toHaveURL(/\/builder\/settings$/);
+  await expect(settings).toHaveClass(/\bactive\b/);
+  await expect(pages).not.toHaveClass(/\bactive\b/);
+  await expect(group).toHaveClass(/\bactive\b/);
+
+  const header = group.locator('mat-expansion-panel-header');
+  if (await header.getAttribute('aria-expanded') === 'false') await header.press('Space');
+  await expect(pages.locator('a')).toBeVisible();
+  await pages.locator('a').click();
+  await expect(page).toHaveURL(/\/builder\/page-list$/);
+  await expect(settings).not.toHaveClass(/\bactive\b/);
+  await expect(pages).toHaveClass(/\bactive\b/);
+  await expect(group).toHaveClass(/\bactive\b/);
+});
