@@ -573,19 +573,14 @@ export class BuilderState {
   loadNewPage(page: IPage, close?: boolean): void {
     this.beginPageSelection();
     const currentPage = { ...page, current: true, time: new Date().toLocaleString() };
-    const langcode = this.getPageIdentityLang(page);
+    // Match stored identity, so an anonymous draft still loads as a new local copy.
+    const somePageIndex = this.findPageIndex({
+      uuid: page.uuid,
+      nid: page.nid,
+      langcode: this.getPageIdentityLang(page),
+    });
     this.version.update(list => {
       const next = list.map(version => ({ ...version, current: false }));
-      const somePageIndex = next.findIndex(item => {
-        const itemLangcode = this.getPageIdentityLang(item);
-        if (page.uuid && item.uuid && item.uuid === page.uuid && itemLangcode === langcode) {
-          return true;
-        }
-        if (page.nid && item.nid && item.nid === page.nid && itemLangcode === langcode) {
-          return true;
-        }
-        return false;
-      });
       if (somePageIndex > -1) {
         next[somePageIndex] = currentPage;
       } else {

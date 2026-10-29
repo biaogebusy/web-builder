@@ -651,6 +651,53 @@ describe('BuilderState tree and draft behavior', () => {
     });
   });
 
+  it('replaces the first matching page even when a later page matches the UUID', () => {
+    const first = makePage([], { nid: '7', uuid: 'first', langcode: 'en' });
+    const later = makePage([], { nid: '8', uuid: 'later', langcode: 'en', current: false });
+    const { state, storage } = createState([first, later]);
+
+    state.loadNewPage(makePage([], { nid: '7', uuid: 'later', langcode: 'en', title: 'Loaded' }));
+
+    expect(state.version()).toHaveLength(2);
+    expect(state.version()[0]).toMatchObject({ title: 'Loaded', current: true });
+    expect(state.version()[1]).toEqual(later);
+    expect(storage.store).toHaveBeenCalledExactlyOnceWith('version', state.version());
+  });
+
+  it('loads an anonymous draft as a new copy while lookup still supports object references', () => {
+    const original = makePage([], { title: 'Anonymous draft' });
+    const { state, storage } = createState([original]);
+    expect(state.getLocalPageByPage(original)).toBe(original);
+
+    state.loadNewPage(original, false);
+
+    expect(state.version()).toHaveLength(2);
+    expect(state.version()[0]).toMatchObject({ title: 'Anonymous draft', current: true });
+    expect(state.version()[1]).toEqual({ ...original, current: false });
+    expect(storage.store).toHaveBeenCalledOnce();
+  });
+
+  it('replaces a translation draft by its saved target identity and keeps the source', () => {
+    const source = makePage([], { nid: '7', langcode: 'en', current: false });
+    const draft = makePage([], { nid: '7', langcode: 'en', translation: true, target: 'zh-hans' });
+    const { state } = createState([source, draft]);
+
+    state.loadNewPage(makePage([], { nid: '7', langcode: 'zh-hans', title: 'Saved translation' }));
+
+    expect(state.version()).toHaveLength(2);
+    expect(state.version()[0]).toEqual(source);
+    expect(state.version()[1]).toMatchObject({ title: 'Saved translation', current: true });
+    expect(state.currentPage.translation).toBeUndefined();
+    expect(state.currentPage.target).toBeUndefined();
+  });
+
+  it.each([undefined, ''])('preserves an unspecified language identity: %s', langcode => {
+    const { state } = createState([makePage([], { uuid: 'page' })]);
+    state.loadNewPage(makePage([], { uuid: 'page', langcode, title: 'Loaded' }));
+    expect(state.version()).toHaveLength(1);
+    expect(state.currentPage.title).toBe('Loaded');
+  });
+
   it('finds a local page by nid and language and reports its dirty state', () => {
     const source = makePage([], { nid: '7', langcode: 'zh-hans', dirty: true });
     const translation = makePage([], { nid: '7', langcode: 'en', current: false });
