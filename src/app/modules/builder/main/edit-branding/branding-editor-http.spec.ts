@@ -1,6 +1,7 @@
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -121,6 +122,96 @@ describe.each([
     read().flush(branding);
     expect(editor.branding()).toEqual(branding);
     expect(editor.nodeLangcode()).toBe('');
+  });
+
+  it('updates dirty state and previews once per form event after repeated loads', async () => {
+    const { editor, fixture } = await createEditor();
+    const isHeader = editor instanceof EditHeaderComponent;
+    const key = isHeader ? 'themeSwitch' : 'mode';
+    const control = new FormControl<boolean | string>(isHeader ? false : 'light');
+    editor.paramsForm.addControl(key, control, { emitEvent: false });
+    const markDirty = vi.spyOn(editor, 'markDirty');
+    const updatePreview = vi.spyOn(editor, 'updateJsonPreview');
+    const calls: { load: number; dirty: number; preview: number }[] = [];
+
+    for (let index = 0; index < 4; index++) {
+      const langcode = index < 2 ? 'zh-hans' : 'en';
+      if (index % 2 === 0) {
+        query.next({ uuid: `branding-${langcode}`, langcode });
+      } else {
+        editor.loadData();
+      }
+      read(index < 2 ? '' : '/en').flush(branding);
+      await fixture.whenStable();
+      expect(editor.dirty()).toBe(false);
+      markDirty.mockClear();
+      updatePreview.mockClear();
+
+      const value = isHeader ? index % 2 === 0 : index % 2 === 0 ? 'inverse' : 'light';
+      control.setValue(value);
+      await fixture.whenStable();
+      calls.push({
+        load: index + 1,
+        dirty: markDirty.mock.calls.length,
+        preview: updatePreview.mock.calls.length,
+      });
+      expect(editor.dirty()).toBe(true);
+      expect(editor.canSave()).toBe(true);
+      expect(JSON.parse(editor.jsonPreview()).params[key]).toBe(value);
+      const preview = isHeader
+        ? editor.previewBranding()?.header
+        : editor.previewBranding()?.footer;
+      expect(preview?.params).toMatchObject({ [key]: value });
+    }
+
+    expect(calls).toEqual([1, 2, 3, 4].map(load => ({ load, dirty: 1, preview: 1 })));
+  });
+
+  it('observes every editor form and releases all observations on destruction', async () => {
+    const { editor, fixture } = await createEditor();
+    query.next({ uuid: 'branding-en', langcode: 'en' });
+    read('/en').flush(branding);
+    const forms =
+      editor instanceof EditHeaderComponent
+        ? [
+            editor.paramsForm,
+            editor.logoForm,
+            editor.searchForm,
+            editor.actionsForm,
+            editor.topForm,
+          ]
+        : [
+            editor.paramsForm,
+            editor.brandForm,
+            editor.socialForm,
+            editor.newsletterForm,
+            editor.bottomForm,
+            editor.fixBarForm,
+          ];
+    const markDirty = vi.spyOn(editor, 'markDirty');
+    const updatePreview = vi.spyOn(editor, 'updateJsonPreview');
+
+    for (const form of forms) {
+      markDirty.mockClear();
+      updatePreview.mockClear();
+      editor.dirty.set(false);
+      form.updateValueAndValidity();
+      await fixture.whenStable();
+      expect(markDirty).toHaveBeenCalledOnce();
+      expect(updatePreview).toHaveBeenCalledOnce();
+      expect(editor.dirty()).toBe(true);
+    }
+
+    fixture.destroy();
+    markDirty.mockClear();
+    updatePreview.mockClear();
+    const preview = editor.jsonPreview();
+    editor.dirty.set(false);
+    forms.forEach(form => form.updateValueAndValidity());
+    expect(markDirty).not.toHaveBeenCalled();
+    expect(updatePreview).not.toHaveBeenCalled();
+    expect(editor.dirty()).toBe(false);
+    expect(editor.jsonPreview()).toBe(preview);
   });
 
   it.each([undefined, null, {}])(
