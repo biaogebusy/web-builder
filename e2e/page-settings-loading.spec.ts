@@ -1,4 +1,5 @@
 import type { BrowserContext, Page, Route } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from './fixtures/test';
 
 async function setup(context: BrowserContext, page: Page) {
@@ -40,7 +41,7 @@ async function setup(context: BrowserContext, page: Page) {
       .find(item => item.startsWith('ngx-webstorage') && item.endsWith('version'))!;
     localStorage.setItem(key, JSON.stringify([{
       nid: '100', uuid: 'local', langcode: 'en', title: 'Unsaved canvas', current: true,
-      dirty: true, body: [{ type: 'text', body: '<p>Unsaved canvas content</p>' }],
+      dirty: true, changed: '1', body: [{ type: 'text', body: '<p>Unsaved canvas content</p>' }],
     }]));
     return key;
   });
@@ -411,3 +412,97 @@ test('translation failure preserves the draft and allows retry', async ({ contex
   expect(writes).toEqual([]);
   expect(errors).toEqual([]);
 });
+
+async function startVersionChecks(page: Page): Promise<void> {
+  const start = new Date('2026-10-29T00:00:00Z');
+  await page.clock.install({ time: start });
+  await page.clock.pauseAt(new Date(start.valueOf() + 1000));
+  await page.locator('app-builder-version mat-list-item').filter({ hasText: 'Unsaved canvas' })
+    .locator('mat-icon').first().click();
+  await page.clock.runFor(32);
+  await expect(page.locator('app-builder-list app-loading')).toBeVisible();
+}
+
+async function fulfillVersionCheck(route: Route): Promise<void> {
+  await route.fulfill({ json: {
+    nid: '100', langcode: 'en', title: 'Updated draft', changed: '2', status: true,
+    body: [{ type: 'json', attributes: { body: {
+      type: 'text', body: '<p>Updated draft content</p>',
+    } } }],
+  } });
+}
+
+test('version checks wait for loading and cancel when another canvas read starts', async ({
+  context, page,
+}) => {
+  const { canvas, aborted, writes, errors } = await setup(context, page);
+  await startVersionChecks(page);
+  expect(canvas).toHaveLength(0);
+  await page.clock.runFor(600);
+  await expect(page.locator('app-builder-list app-loading')).toHaveCount(0);
+  await page.clock.runFor(30000);
+  await expect.poll(() => canvas.length).toBe(1);
+  expect(new URL(canvas[0].request().url()).pathname).toBe('/en/api/v3/landingPage/json/100');
+  await page.getByRole('button', { name: 'Page B', exact: true }).click();
+  await expect.poll(() => canvas.length).toBe(2);
+  await fulfillVersionCheck(canvas[0]);
+  await page.clock.runFor(30000);
+  await expect.poll(() => aborted).toContain('/en/api/v3/landingPage/json/100');
+  expect(canvas).toHaveLength(2);
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  await expect(page.locator('app-builder-list app-loading')).toBeVisible();
+  await fulfillCanvas(canvas[1]);
+  await page.clock.runFor(32);
+  await expect(page.locator('app-builder-list')).toContainText('Selected canvas content');
+  await page.clock.runFor(30000);
+  await expect.poll(() => canvas.length).toBe(3);
+  expect(new URL(canvas[2].request().url()).pathname).toBe('/en/api/v3/landingPage/json/2');
+  await fulfillCanvas(canvas[2]);
+  expect(writes).toEqual([]);
+  expect(errors).toEqual([]);
+});
+
+for (const accepted of [false, true]) {
+  test(`a valid version update decision remains available (${accepted})`, async ({ context, page }) => {
+    const { canvas, writes, errors, storageKey } = await setup(context, page);
+    await startVersionChecks(page);
+    await page.clock.runFor(30000);
+    await expect.poll(() => canvas.length).toBe(1);
+    await fulfillVersionCheck(canvas[0]);
+    await page.clock.runFor(300);
+    const dialog = page.getByRole('dialog', { name: '当前页面不是最新版本', exact: true });
+    await expect(dialog).toBeVisible();
+    if (!accepted) {
+      await page.clock.resume();
+      await page.addStyleTag({ content: '*, *::before, *::after { transition: none !important; }' });
+      for (const dark of [false, true]) {
+        await page.evaluate(value => {
+          document.documentElement.classList.toggle('light-theme', !value);
+          document.documentElement.classList.toggle('dark-theme', value);
+        }, dark);
+        expect((await new AxeBuilder({ page }).include('[role="dialog"]')
+          .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze()).violations).toEqual([]);
+        await page.screenshot({
+          path: test.info().outputPath(`current-version-confirmation-${dark ? 'dark' : 'light'}.png`),
+          animations: 'disabled',
+        });
+      }
+      await page.clock.pauseAt(new Date(await page.evaluate(() => Date.now()) + 1000));
+    }
+    await page.clock.runFor(30000);
+    expect(canvas).toHaveLength(1);
+    await dialog.getByRole('button', { name: accepted ? '确认更新' : '取消', exact: true }).click();
+    await page.clock.runFor(300);
+    await expect(dialog).toHaveCount(0);
+    await expect(page.locator('app-builder-list'))
+      .toContainText(accepted ? 'Updated draft content' : 'Unsaved canvas content');
+    const current = await page.evaluate(key => JSON.parse(localStorage.getItem(key) || '[]')
+      .find((draft: { current: boolean }) => draft.current), storageKey);
+    expect(current).toMatchObject({ nid: '100', changed: accepted ? '2' : '1' });
+    await page.clock.runFor(30000);
+    await expect.poll(() => canvas.length).toBe(2);
+    await fulfillVersionCheck(canvas[1]);
+    expect(writes).toEqual([]);
+    expect(errors).toEqual([]);
+  });
+}

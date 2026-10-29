@@ -901,6 +901,137 @@ describe('BuilderService', () => {
     );
   });
 
+  describe('version checks with real canvas state', () => {
+    let service: BuilderService;
+    let state: BuilderState;
+    let decision: Subject<boolean>;
+    const closeDialog = vi.fn();
+    const draft = (nid = '10'): IPage => ({
+      nid, langcode: 'en', title: `Draft ${nid}`, body: [], current: true, dirty: true, changed: '1',
+    });
+    const serverPage = (nid = '10'): IPage => ({ ...draft(nid), changed: '2', status: true });
+    const start = () => {
+      service.checkIsLatestPage(state.currentPage);
+      vi.advanceTimersByTime(0);
+    };
+
+    beforeEach(() => {
+      vi.useFakeTimers();
+      service = createService([draft(), { ...draft('11'), current: false }]);
+      state = TestBed.inject(BuilderState);
+      vi.spyOn(TestBed.inject(LocalStorageService), 'retrieve')
+        .mockImplementation(() => state.version());
+      decision = new Subject<boolean>();
+      closeDialog.mockReset();
+      const dialog = { afterClosed: () => decision, close: closeDialog };
+      dialogOpen.mockReturnValue(dialog);
+    });
+
+    afterEach(() => {
+      TestBed.resetTestingModule();
+      vi.useRealTimers();
+    });
+
+    it.each(['local', 'remote'])('skips checks while a %s selection loads', selection => {
+      fetch.mockReturnValue(of(serverPage('11')));
+      if (selection === 'local') state.showVersionPage(1);
+      else state.beginPageLoad();
+      start();
+      expect(fetch).not.toHaveBeenCalled();
+      if (selection === 'local') vi.advanceTimersByTime(600);
+      else state.loadNewPage(draft('11'));
+      expect(fetch).not.toHaveBeenCalled();
+      vi.advanceTimersByTime(selection === 'local' ? 29400 : 30000);
+      expect(fetch).toHaveBeenCalledExactlyOnceWith(
+        '/api/v3/landingPage/json/11', { noCache: 1 }, 'en'
+      );
+      expect(dialogOpen).toHaveBeenCalledOnce();
+    });
+
+    it.each(['local', 'remote'])('cancels an old check on a new %s selection', selection => {
+      const read = new Subject<IPage>();
+      fetch.mockReturnValueOnce(read).mockReturnValue(of(serverPage('11')));
+      start();
+      if (selection === 'local') state.showVersionPage(1);
+      else state.beginPageLoad();
+      expect(read.observed).toBe(false);
+      read.next(serverPage());
+      read.error(new Error('Superseded check'));
+      expect(dialogOpen).not.toHaveBeenCalled();
+      expect(state.loading()).toBe(true);
+      expect(state.currentPage).toMatchObject({ nid: '10', dirty: true });
+      if (selection === 'local') vi.advanceTimersByTime(600);
+      else state.loadNewPage(draft('11'));
+      vi.advanceTimersByTime(30000);
+      expect(fetch.mock.calls.at(-1)).toEqual([
+        '/api/v3/landingPage/json/11', { noCache: 1 }, 'en',
+      ]);
+      expect(dialogOpen).toHaveBeenCalledOnce();
+      expect(post).not.toHaveBeenCalled();
+      expect(patch).not.toHaveBeenCalled();
+    });
+
+    it.each(['local', 'remote'])('closes and invalidates an old confirmation on %s selection', kind => {
+      fetch.mockReturnValue(of(serverPage()));
+      start();
+      expect(dialogOpen).toHaveBeenCalledOnce();
+      if (kind === 'local') state.loadNewPage(draft('11'));
+      else state.beginPageLoad();
+      const expected = state.currentPage;
+      expect(closeDialog).toHaveBeenCalledOnce();
+      decision.next(true);
+      expect(state.currentPage).toEqual(expected);
+      expect(state.loading()).toBe(kind === 'remote');
+      if (kind === 'remote') state.loadNewPage(draft('11'));
+      fetch.mockReturnValue(of(serverPage('11')));
+      vi.advanceTimersByTime(30000);
+      expect(dialogOpen).toHaveBeenCalledTimes(2);
+    });
+
+    it.each(['read', 'confirmation'])('releases a pending %s on service destruction', stage => {
+      const read = new Subject<IPage>();
+      fetch.mockReturnValue(stage === 'read' ? read : of(serverPage()));
+      start();
+      const load = vi.spyOn(state, 'loadNewPage');
+      TestBed.resetTestingModule();
+      expect(stage === 'read' ? read.observed : decision.observed).toBe(false);
+      if (stage === 'confirmation') expect(closeDialog).toHaveBeenCalledOnce();
+      decision.next(true);
+      read.next(serverPage());
+      vi.advanceTimersByTime(30000);
+      expect(fetch).toHaveBeenCalledOnce();
+      expect(load).not.toHaveBeenCalled();
+    });
+
+    it('keeps a current check after background deletion and retries failed reads', () => {
+      const read = new Subject<IPage>();
+      fetch.mockReturnValueOnce(read).mockReturnValue(of(serverPage()));
+      start();
+      state.deleteLocalPage(1);
+      expect(read.observed).toBe(true);
+      read.error(new Error('Temporary failure'));
+      expect(dialogOpen).not.toHaveBeenCalled();
+      expect(openSnackbar).not.toHaveBeenCalled();
+      vi.advanceTimersByTime(30000);
+      expect(dialogOpen).toHaveBeenCalledOnce();
+      expect(state.currentPage).toMatchObject({ nid: '10', dirty: true });
+    });
+
+    it.each([false, true])('preserves a valid update decision (%s) and resumes checking', accepted => {
+      fetch.mockReturnValue(of(serverPage()));
+      start();
+      vi.advanceTimersByTime(30000);
+      expect(fetch).toHaveBeenCalledOnce();
+      decision.next(accepted);
+      expect(state.currentPage.changed).toBe(accepted ? '2' : '1');
+      expect(state.currentPage.nid).toBe('10');
+      vi.advanceTimersByTime(30000);
+      expect(fetch).toHaveBeenCalledTimes(2);
+      expect(post).not.toHaveBeenCalled();
+      expect(patch).not.toHaveBeenCalled();
+    });
+  });
+
   describe('remote reads with real canvas state', () => {
     const drafts = (): IPage[] => [
       { nid: '10', langcode: 'en', title: 'Unsaved draft', body: [], current: true, dirty: true },

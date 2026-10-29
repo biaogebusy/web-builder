@@ -312,8 +312,10 @@ for (const input of ['mouse', 'Enter', 'Space'] as const) {
     await expect(canvas.locator('app-loading')).toHaveCount(0);
     expect(versionChecks).toEqual([]);
 
+    await page.clock.install();
     await rows.filter({ hasText: 'Remaining draft' }).locator('mat-icon').first().click();
     await expect(canvas).toContainText('Remaining draft');
+    await page.clock.fastForward(30000);
     await expect.poll(() => versionChecks.length).toBe(1);
     await deleteDraft(page, rows.filter({ hasText: 'Remaining draft' }), input);
     await expect(rows).toHaveCount(1);

@@ -413,7 +413,8 @@ export class BuilderService extends ApiService {
     this.versionCheckSub?.unsubscribe();
     this.versionCheckSub = timer(0, VERSION_CHECK_INTERVAL)
       .pipe(
-        filter(() => this.router.url.includes(BUILDERPATH) && !this.versionDialogOpen),
+        filter(() => this.router.url.includes(BUILDERPATH)
+          && !this.versionDialogOpen && !this.builder.loading()),
         map(() => this.getLocalCurrentPage()),
         filter((localPage): localPage is IPage => Boolean(localPage?.nid)),
         switchMap(localPage => {
@@ -421,6 +422,7 @@ export class BuilderService extends ApiService {
           return this.nodeService
             .fetch(`/api/v3/landingPage/json/${localPage.nid}`, { noCache: 1 }, lang)
             .pipe(
+              takeUntil(this.builder.pageSelection$),
               map((serverPage: IPage) => ({ localPage, serverPage })),
               catchError(() => of(null))
             );
@@ -454,7 +456,7 @@ export class BuilderService extends ApiService {
   private promptLatestUpdate(localPage: IPage, serverPage: IPage): void {
     const config: IDialog = {
       title: `当前页面不是最新版本`,
-      titleClasses: 'text-red-500',
+      titleClasses: 'text-warn',
       yesLabel: '确认更新',
       noLabel: '取消',
       inputData: {
@@ -473,9 +475,16 @@ export class BuilderService extends ApiService {
 
     dialogRef
       .afterClosed()
-      .pipe(take(1))
+      .pipe(
+        take(1),
+        takeUntil(this.builder.pageSelection$),
+        takeUntilDestroyed(this.destroyRef),
+        finalize(() => {
+          this.versionDialogOpen = false;
+          dialogRef.close();
+        })
+      )
       .subscribe(result => {
-        this.versionDialogOpen = false;
         if (result) {
           this.builder.loadNewPage(formatToExtraData(serverPage));
         }
