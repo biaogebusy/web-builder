@@ -207,6 +207,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
       selectNode: node => this.initNode(node.uuid, node.langcode),
       applyBranding: branding => this.applyBranding(branding),
     });
+    this.listenFormChanges();
   }
 
   private initNode(uuid: string, langcode: string): void {
@@ -267,7 +268,6 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
     this.initDynamic(footer);
     this.updateJsonPreview();
     this.dirty.set(false);
-    this.listenFormChanges();
   }
 
   private listenFormChanges(): void {

@@ -183,6 +183,7 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
       selectNode: node => this.initNode(node.uuid, node.langcode),
       applyBranding: branding => this.applyBranding(branding),
     });
+    this.listenFormChanges();
   }
 
   private initNode(uuid: string, langcode: string): void {
@@ -239,7 +240,6 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
     this.initTopFields(branding.header);
     this.updateJsonPreview();
     this.dirty.set(false);
-    this.listenFormChanges();
   }
 
   // #3 Listen to form changes → update JSON preview + dirty flag
