@@ -1,6 +1,14 @@
 import AxeBuilder from '@axe-core/playwright';
 import type { BrowserContext, Page, Route } from '@playwright/test';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { expect, test } from './fixtures/test';
+
+const localePath = process.env['E2E_DIST']
+  ? resolve(process.env['E2E_DIST'], 'browser/assets/i18n/zh-hans.json')
+  : resolve('src/assets/i18n/zh-hans.json');
+const revisionLabels: { COMPARE_IDENTICAL: string } =
+  JSON.parse(readFileSync(localePath, 'utf8')).BUILDER.REVISION;
 
 const revisions = {
   status: true, message: '', nid: '12', uuid: 'revision-page', vid: '30', langcode: 'en',
@@ -73,7 +81,7 @@ test('revision history retries a failed list and preserves comparison and previe
   await compare.click();
   const dialog = page.getByRole('dialog');
   await expect(dialog.locator('.diff-side-vid')).toHaveText(['#29', '#30']);
-  await expect(dialog).toContainText('这两个历史版本的内容完全相同。');
+  await expect(dialog).toContainText(revisionLabels.COMPARE_IDENTICAL);
   expect([...revisionPaths].sort()).toEqual([
     '/en/api/v3/landingPage/revisions/12/29', '/en/api/v3/landingPage/revisions/12/30',
   ]);
