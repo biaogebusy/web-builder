@@ -348,6 +348,38 @@ test('deleting a background draft preserves a pending revision read', async ({ c
   expect(aborted).toEqual([]);
 });
 
+for (const deleted of ['Background draft', 'Remaining draft']) {
+  test(`pending local selection survives deletion of ${deleted}`, async ({ context, page }) => {
+    const writes: string[] = [];
+    page.on('request', request => {
+      if (['POST', 'PATCH', 'DELETE'].includes(request.method())) writes.push(request.url());
+    });
+    await openHistory(context, page, route => route.fulfill({ json: revisions }));
+    const storageKey = await restoreDrafts(page, deletionDrafts);
+    await page.locator('.right-header button').click();
+    await expect(page.locator('app-builder-list')).toContainText('Original draft');
+    const start = new Date('2026-10-29T00:00:00Z');
+    await page.clock.install({ time: start });
+    await page.clock.pauseAt(new Date(start.valueOf() + 1000));
+    const rows = page.locator('app-builder-version mat-list-item');
+    await rows.filter({ hasText: 'Remaining draft' }).locator('mat-icon').first().click();
+    await page.clock.runFor(32);
+    await expect(page.locator('app-builder-list app-loading')).toBeVisible();
+    await deleteDraft(page, rows.filter({ hasText: deleted }), 'mouse');
+    await page.clock.runFor(32);
+    await expect(rows).toHaveCount(2);
+    await page.clock.runFor(600);
+
+    const expected = deleted === 'Background draft' ? 'Remaining draft' : 'Original draft';
+    await expect(page.locator('app-builder-list')).toContainText(expected);
+    expect(await page.evaluate(key => JSON.parse(localStorage.getItem(key) || '[]')
+      .filter((draft: { current: boolean }) => draft.current)
+      .map((draft: { title: string }) => draft.title), storageKey)).toEqual([expected]);
+    await expect(page.locator('app-builder-list app-loading')).toHaveCount(0);
+    expect(writes).toEqual([]);
+  });
+}
+
 test('a later revision selection replaces the pending draft read', async ({ context, page }) => {
   const reads: Route[] = [];
   const aborted: string[] = [];
