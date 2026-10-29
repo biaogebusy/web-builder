@@ -31,8 +31,13 @@
 
   <!-- Status text only: page loads and saves already announce themselves through the snackbar,
        which owns the live region, so no aria-live is duplicated here -->
-  @if (active() || dirty() || translationDraft()) {
+  @if (active() || dirty() || translationDraft() || page().published === false) {
     <div class="status-row">
+      @if (page().published === false) {
+        <span class="status-badge unpublished-badge">
+          {{ 'BUILDER.PAGE_LIST.UNPUBLISHED' | translate }}
+        </span>
+      }
       @if (active()) {
         <span class="status-badge current-badge">
           {{ 'BUILDER.PAGE_LIST.CURRENT_EDITING' | translate }}
@@ -52,7 +57,7 @@
   }
   <div class="url-row">
     <span class="url-link">{{ page().url }}</span>
-    @if (page().url) {
+    @if (page().url && page().published !== false) {
       <a
         class="preview-link"
         [href]="previewUrl()"

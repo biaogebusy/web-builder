@@ -272,6 +272,8 @@ export interface IPageList {
 }
 
 export interface IPageMeta {
+  /** CMS publication state for this exact translation. */
+  published?: boolean;
   author: string;
   changed: string;
   nid: string;

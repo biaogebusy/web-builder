@@ -71,6 +71,21 @@ describe('PageItemComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('labels an unpublished page separately from unsaved edits and keeps editing available', () => {
+    setPage({ nid: '12', title: 'Draft', url: '/draft', published: false });
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('.unpublished-badge')?.textContent)
+      .toContain('BUILDER.PAGE_LIST.UNPUBLISHED');
+    expect(fixture.nativeElement.querySelector('.unsaved-badge')).toBeNull();
+    expect(fixture.nativeElement.querySelector('.preview-link')).toBeNull();
+    component.loadPage();
+    expect(builderService.loadPage).toHaveBeenCalled();
+    fixture.componentRef.setInput('page', { nid: '12', title: 'Published', url: '/draft', published: true });
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('.unpublished-badge')).toBeNull();
+    expect(fixture.nativeElement.querySelector('.preview-link')).not.toBeNull();
+  });
+
   it('warns instead of loading when the page misses its nid', () => {
     setPage({ langcode: 'en' });
 
@@ -122,6 +137,16 @@ describe('PageItemComponent', () => {
     expect(builderState.loadNewPage).toHaveBeenCalledWith(localPage);
     expect(builderService.loadPage).not.toHaveBeenCalled();
     expect(util.openSnackbar).toHaveBeenCalledWith('BUILDER.PAGE_LIST.LOADING_LOCAL_DRAFT', 'ok');
+  });
+
+  it('uses the list publication state when opening an older local draft', () => {
+    const localPage: IPage = { nid: '12', title: 'Local changes', body: [], dirty: true, published: true };
+    setPage({ nid: '12', title: 'Draft', published: false });
+    builderState.getLocalPageByPage.mockReturnValue(localPage);
+    confirmWith(false);
+    component.loadPage();
+    expect(builderState.loadNewPage).toHaveBeenCalledWith({ ...localPage, published: false });
+    expect(localPage.published).toBe(true);
   });
 
   it('discards the local version only when the server copy is explicitly chosen', () => {

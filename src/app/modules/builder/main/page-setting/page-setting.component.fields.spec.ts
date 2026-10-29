@@ -1,6 +1,7 @@
 import { signal } from '@angular/core';
 import type { FormlyFieldConfig } from '@ngx-formly/core';
 import { Subject, of } from 'rxjs';
+import { contentFormFixture } from '@core/testing/content-form.fixture';
 import { PageSettingComponent } from './page-setting.component';
 
 function createFacade(type: 'node--landing_page' | 'node--json') {
@@ -11,6 +12,10 @@ function createFacade(type: 'node--landing_page' | 'node--json') {
   const component = Object.create(PageSettingComponent.prototype) as any;
 
   component.loading = signal(false);
+  component.publicationLoading = signal(false);
+  component.publicationFailed = signal(false);
+  component.nodeForms = { getSchema: vi.fn(() => of(contentFormFixture())) };
+  component.model = {};
   component.fields = [];
   component.screenService = { isPlatformBrowser: vi.fn(() => true) };
   component.translate = { instant };
@@ -97,6 +102,7 @@ describe('PageSettingComponent fields façade', () => {
     expect(basicKeys).toEqual([
       'title',
       'alias',
+      'publicationState',
       'page_group',
       'cover',
       'is_transparent',
@@ -132,7 +138,9 @@ describe('PageSettingComponent fields façade', () => {
       ['keywords', ''],
       ['robots', 'noindex, nofollow'],
     ]);
-    expect(instant.mock.calls.map(([key]) => key)).toEqual([
+    expect(instant.mock.calls.map(([key]) => key).filter(key =>
+      !key.startsWith('BUILDER.PAGE_SETTING.STATE') && !key.startsWith('BUILDER.NODE_ADD.STATE')
+    )).toEqual([
       'BUILDER.PAGE_SETTING.TITLE',
       'BUILDER.PAGE_SETTING.URL_ALIAS',
       'BUILDER.PAGE_SETTING.AUTHOR',

@@ -1,4 +1,7 @@
 {
+  "PAGE": {
+    "UNAVAILABLE": "页面不存在或已下线"
+  },
   "MAP": {"VIEW": "下方地点的地图", "PLACES": "地点列表", "FIT": "显示全部地点", "COORDINATES": "经度、纬度", "LOAD_FAILED": "地图加载失败。可刷新页面重试。"},
   "VIDEO": { "LOAD_FAILED": "视频加载失败。", "RETRY": "重试" },
   "APP": {
@@ -244,6 +247,8 @@
       "ADD_TO_EDITOR": "添加到编辑区"
     },
     "PAGE_LIST": {
+      "UNPUBLISHED": "未发布",
+      "UNPUBLISHED_HINT": "未发布：公共网址不可见，可在 Builder 内编辑和预览。",
       "PAGE_TITLE": "着陆页管理",
       "MANAGE_SUFFIX": "{{name}}管理",
       "LOADING_PAGE": "正在加载{{title}}",
@@ -406,6 +411,11 @@
       "WEBFORM_SUBMIT": "提交"
     },
     "PAGE_SETTING": {
+      "STATE": "页面状态",
+      "STATE_RETRY": "重新读取页面状态",
+      "STATE_UNKNOWN": "状态不可用",
+      "STATE_LOAD_FAILED": "无法读取页面状态，请重试。",
+      "UPDATE_FAIL": "页面更新失败，请检查权限或重试。",
       "AUTHOR": "作者",
       "PAGE_CATEGORY": "页面分类",
       "NONE": "无",

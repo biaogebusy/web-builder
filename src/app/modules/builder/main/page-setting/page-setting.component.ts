@@ -17,19 +17,22 @@ import { IDialog } from '@core/interface/IDialog';
 import { IUser } from '@core/interface/IUser';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
+import { NodeFieldFormService, type INodeFormSchema } from '@core/service/node-field-form.service';
 import { ScreenService } from '@core/service/screen.service';
 import { UserService } from '@core/service/user.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { USER } from '@core/token/token-providers';
 import { appendQueryParams } from '@core/util/http-params.util';
-import { decodeMetaTags, isTranslationLang, type MetaTags } from '@core/util/builder-page.util';
+import { decodeMetaTags, getAttrAlias, isTranslationLang, type MetaTags } from '@core/util/builder-page.util';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
 import { buildPageSettingCommonField, buildPageSettingFields } from './page-setting-fields';
 import { buildPageSettingAttributes, buildPageSettingRelationships } from './page-setting-payload';
+import { firstValueFrom } from 'rxjs';
+import { buildPagePublicationAttributes, buildPagePublicationField } from './page-publication-fields';
 
 @Component({
   selector: 'app-page-setting',
@@ -46,16 +49,24 @@ export class PageSettingComponent implements OnInit {
   public model: any = {};
   public fields: FormlyFieldConfig[];
   public loading = signal<boolean>(false);
+  readonly updating = signal(false);
+  readonly publicationLoading = signal(false);
+  readonly publicationFailed = signal(false);
+  readonly updateFailed = signal(false);
   public type: 'node--landing_page' | 'node--json';
   // Deleting a translation version removes only the current language; the source-language version deletes the node itself (all languages)
   public isTranslation = false;
   // Tags stored on the node, so an update keeps the tags the SEO group does not expose
   private metaTags: MetaTags = {};
+  private publicationSchema: INodeFormSchema | null = null;
+  private publicationField?: FormlyFieldConfig;
+  private savedAlias = '';
 
   private dialog = inject(MatDialog);
   private builder = inject(BuilderState);
   private util = inject(UtilitiesService);
   private nodeService = inject(NodeService);
+  private nodeForms = inject(NodeFieldFormService);
   private screenService = inject(ScreenService);
   private builderService = inject(BuilderService);
   private destroyRef = inject(DestroyRef);
@@ -77,16 +88,61 @@ export class PageSettingComponent implements OnInit {
       this.type = type;
       this.isTranslation = type === 'node--landing_page' && isTranslationLang(langcode);
       this.metaTags = decodeMetaTags(data.attributes.meta_tags);
+      this.savedAlias = getAttrAlias(data.attributes);
+      if (type === 'node--landing_page') {
+        this.publicationField = buildPagePublicationField(null,
+          typeof data.attributes.status === 'boolean'
+            ? data.attributes.status ? 'published' : 'unpublished' : '',
+          key => this.translate.instant(key));
+        // The shared Formly wrapper clones its fields; keep the live field for async updates.
+        this.publicationField.hooks = { onInit: field => { this.publicationField = field; } };
+      }
       this.fields = buildPageSettingFields({
         data,
         included,
         getCommonField: (key, defaultValue) => this.getCommonField(key, defaultValue),
         onCoverInit: field => this.initCoverUpdate(field, id, langcode),
         translate: key => this.translate.instant(key),
+        publicationField: this.publicationField,
       });
 
       this.loading.set(false);
+      if (type === 'node--landing_page') this.refreshPublication();
     }
+  }
+
+  /** Refreshes status permissions without rebuilding or resetting the other form fields. */
+  refreshPublication(): void {
+    const field = this.publicationField;
+    if (!field || this.publicationLoading()) return;
+    const { data } = this.content().content;
+    this.publicationLoading.set(true);
+    this.publicationFailed.set(false);
+    Object.assign(field.props!, { disabled: true });
+    field.options?.detectChanges?.(field);
+    this.nodeForms.getSchema('landing_page', data.id, data.attributes.langcode)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: schema => {
+          this.publicationSchema = schema;
+          const currentField = this.publicationField!;
+          const next = buildPagePublicationField(schema, '', key => this.translate.instant(key));
+          Object.assign(currentField.props!, next.props);
+          currentField.defaultValue = next.defaultValue;
+          this.model.publicationState = schema.defaults.state;
+          currentField.formControl?.setValue(schema.defaults.state);
+          this.publicationLoading.set(false);
+          currentField.options?.detectChanges?.(currentField);
+        },
+        error: () => {
+          this.publicationSchema = null;
+          this.publicationLoading.set(false);
+          this.publicationFailed.set(true);
+          const currentField = this.publicationField!;
+          Object.assign(currentField.props!, { disabled: true });
+          currentField.options?.detectChanges?.(currentField);
+        },
+      });
   }
 
   getCommonField(key: string, defaultValue: string): FormlyFieldConfig {
@@ -141,6 +197,7 @@ export class PageSettingComponent implements OnInit {
       this.userService.openLoginDialog();
       return;
     }
+    if (this.loading() || this.updating() || this.publicationLoading() || this.form.invalid) return;
     const { content } = this.content();
     const { data } = content;
     const {
@@ -148,69 +205,76 @@ export class PageSettingComponent implements OnInit {
       attributes: { langcode, drupal_internal__nid },
     } = data;
 
+    const schema = this.publicationSchema;
+    const page = { uuid: id, langcode };
+    this.updating.set(true);
     this.loading.set(true);
-    let alias = false;
+    this.updateFailed.set(false);
     try {
-      alias = await this.builderService.updateUrlalias(
-        {
-          nid: drupal_internal__nid,
-          langcode,
-        },
-        value.alias.trim()
+      const attributes = {
+        ...this.getAttributesParams(value),
+        ...(type === 'node--landing_page'
+          ? buildPagePublicationAttributes(schema, value.publicationState) : {}),
+      };
+      const alias = value.alias.trim();
+      if (alias !== this.savedAlias) {
+        const saved = await this.builderService.updateUrlalias(
+          { nid: drupal_internal__nid, langcode }, alias
+        );
+        if (!saved) {
+          this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_SETTING.ALIAS_FAIL'));
+          this.updateFailed.set(true);
+          return;
+        }
+        this.savedAlias = alias;
+      }
+      const response = await firstValueFrom(this.builderService.updateAttributes(
+        page, api, attributes, this.getRelationshiopParams(value)
+      ));
+      if (!response) {
+        this.updateFailed.set(true);
+        return;
+      }
+      if (type === 'node--landing_page') {
+        const statusField = schema?.baseFieldNames.status ?? 'status';
+        let published = response.data?.attributes?.[statusField];
+        if (schema?.moderated) {
+          // Pending revisions can have a different publication flag from the public default.
+          published = undefined;
+          try {
+            const current = await firstValueFrom(this.nodeService.fetch(
+              `/api/v1/node/landing_page/${encodeURIComponent(id)}`,
+              { 'fields[node--landing_page]': statusField }, langcode
+            ));
+            published = current.data?.attributes?.[statusField];
+          } catch {
+            // The settings were saved; retain the last known flag if the follow-up read fails.
+          }
+        }
+        this.metaTags = decodeMetaTags((attributes as Record<string, unknown>)['meta_tags']);
+        this.builder.updatePageSettings(page, {
+          title: response.data?.attributes?.title ?? value.title,
+          meta: Object.entries(this.metaTags).map(([name, content]) => ({ name, content })),
+          ...(typeof published === 'boolean' ? { published } : {}),
+          ...(typeof value.is_transparent === 'boolean' ? { config: {
+            headerMode: { transparent: value.is_transparent, style: value.transparent_style },
+          } } : {}),
+        });
+        if (!this.destroyRef.destroyed) this.refreshPublication();
+      } else {
+        this.builder.loading.set(true);
+        this.builderService.loadPage({ langcode, nid: drupal_internal__nid });
+      }
+      this.builder.updateSuccess$.next(true);
+      this.util.openSnackbar(
+        this.translate.instant('BUILDER.PAGE_SETTING.UPDATE_SUCCESS', { title: value.title }), 'ok'
       );
     } catch {
+      this.updateFailed.set(true);
+    } finally {
       this.loading.set(false);
-      return;
+      this.updating.set(false);
     }
-
-    if (!alias) {
-      this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_SETTING.ALIAS_FAIL'));
-      this.loading.set(false);
-      return;
-    }
-    this.builderService
-      .updateAttributes(
-        {
-          uuid: id,
-          langcode,
-        },
-        api,
-        {
-          ...this.getAttributesParams(value),
-        },
-        {
-          ...this.getRelationshiopParams(value),
-        }
-      )
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: res => {
-          this.loading.set(false);
-          if (res) {
-            this.util.openSnackbar(
-              this.translate.instant('BUILDER.PAGE_SETTING.UPDATE_SUCCESS', { title: value.title }),
-              'ok'
-            );
-            this.builder.loading.set(true);
-            this.builderService.loadPage({ langcode, nid: drupal_internal__nid });
-            this.builder.updateSuccess$.next(true);
-          }
-        },
-        error: err => {
-          const { status } = err;
-          switch (status) {
-            case 403:
-              this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_SETTING.NO_PERMISSION'));
-              break;
-            default:
-              this.util.openSnackbar(
-                this.translate.instant('BUILDER.PAGE_SETTING.DELETE_FAIL', { title: value.title })
-              );
-              break;
-          }
-          this.builder.loading.set(true);
-        },
-      });
   }
 
   getAttributesParams(value: any): object {

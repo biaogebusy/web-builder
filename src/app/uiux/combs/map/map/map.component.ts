@@ -264,7 +264,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       this.contentState.drawerOpened.set(true);
       this.contentState.drawerLoading.set(true);
       this.contentService
-        .loadPageContent(url)
+        .loadPageContent(url, true, true)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((content: IPage) => {
           this.contentState.drawerLoading.set(false);

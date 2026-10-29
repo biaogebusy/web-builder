@@ -261,6 +261,22 @@ export class BuilderState {
     this.saveLocalVersions();
   }
 
+  /** Applies saved settings without replacing the canvas or clearing its unsaved changes. */
+  updatePageSettings(
+    page: Pick<IPage, 'uuid' | 'langcode'>,
+    settings: Partial<Pick<IPage, 'title' | 'published' | 'meta' | 'config'>>
+  ): void {
+    const index = this.findPageIndex(page);
+    if (index < 0) {
+      return;
+    }
+    this.version.update(list => list.map((item, i) => i === index ? {
+      ...item, ...settings,
+      ...(settings.config ? { config: { ...item.config, ...settings.config } } : {}),
+    } : item));
+    this.saveLocalVersions();
+  }
+
   // Only flip the flag without persisting; callers run saveLocalVersions themselves after finishing the change
   markCurrentPageDirty(): void {
     this.version.update(list => {

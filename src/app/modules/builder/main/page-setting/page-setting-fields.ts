@@ -7,6 +7,7 @@ interface PageSettingFieldsOptions {
   getCommonField: (key: string, defaultValue: any) => FormlyFieldConfig;
   onCoverInit: (field: FormlyFieldConfig) => void;
   translate: (key: string) => string;
+  publicationField?: FormlyFieldConfig;
 }
 
 export function buildPageSettingFields({
@@ -15,6 +16,7 @@ export function buildPageSettingFields({
   getCommonField,
   onCoverInit,
   translate,
+  publicationField,
 }: PageSettingFieldsOptions): FormlyFieldConfig[] {
   const {
     type,
@@ -62,6 +64,7 @@ export function buildPageSettingFields({
     basicFields.splice(
       2,
       0,
+      ...(publicationField ? [publicationField] : []),
       {
         key: 'page_group',
         type: 'mat-select',

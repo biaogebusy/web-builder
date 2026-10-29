@@ -229,6 +229,24 @@ describe('BuilderState tree and draft behavior', () => {
     expect(pageState.currentPage()?.langcode).toBe('en');
   });
 
+  it('updates saved settings for one translation while preserving unsaved canvas content', () => {
+    const body = [{ type: 'text', body: 'Unsaved content' }];
+    const page = makePage(body, { uuid: 'page-1', langcode: 'en', published: true, dirty: true,
+      config: { node: { nid: '12' }, headerMode: { transparent: true } } });
+    const other = makePage([], { uuid: 'page-1', langcode: 'zh-hans', published: true });
+    const { state, storage } = createState([page, other]);
+    state.updatePageSettings({ uuid: 'page-1', langcode: 'en' }, {
+      published: false, title: 'Updated title', config: { headerMode: { transparent: false } },
+    });
+    expect(state.version()[0]).toEqual({ ...page, published: false, title: 'Updated title',
+      config: { node: { nid: '12' }, headerMode: { transparent: false } } });
+    expect(state.version()[0].body).toBe(body);
+    expect(state.version()[1]).toBe(other);
+    expect(storage.store).toHaveBeenCalledOnce();
+    state.updatePageSettings({ uuid: 'missing', langcode: 'en' }, { published: false });
+    expect(storage.store).toHaveBeenCalledOnce();
+  });
+
   it('resolves root and nested component paths', () => {
     const body = [
       { type: 'layout', elements: [{ type: 'text' }, { type: 'img' }] },

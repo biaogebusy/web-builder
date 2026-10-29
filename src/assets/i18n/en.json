@@ -1,4 +1,7 @@
 {
+  "PAGE": {
+    "UNAVAILABLE": "This page is unavailable."
+  },
   "MAP": {"VIEW": "Map of the listed places", "PLACES": "Places", "FIT": "Show all places", "COORDINATES": "Longitude, latitude", "LOAD_FAILED": "The map could not be loaded. Reload the page to try again."},
   "VIDEO": { "LOAD_FAILED": "The video could not be loaded.", "RETRY": "Retry" },
   "APP": {
@@ -244,6 +247,8 @@
       "ADD_TO_EDITOR": "Add to editor"
     },
     "PAGE_LIST": {
+      "UNPUBLISHED": "Unpublished",
+      "UNPUBLISHED_HINT": "Unpublished: hidden at the public URL. You can edit and preview it in Builder.",
       "PAGE_TITLE": "Landing page management",
       "MANAGE_SUFFIX": "{{name}} management",
       "LOADING_PAGE": "Loading {{title}}",
@@ -406,6 +411,11 @@
       "WEBFORM_SUBMIT": "Submit"
     },
     "PAGE_SETTING": {
+      "STATE": "Page status",
+      "STATE_RETRY": "Reload page status",
+      "STATE_UNKNOWN": "Status unavailable",
+      "STATE_LOAD_FAILED": "Page status could not be loaded. Please retry.",
+      "UPDATE_FAIL": "Page could not be updated. Check your permissions or retry.",
       "AUTHOR": "Author",
       "PAGE_CATEGORY": "Page category",
       "NONE": "None",

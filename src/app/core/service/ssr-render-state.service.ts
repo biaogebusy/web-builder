@@ -11,6 +11,10 @@ import { Injectable, REQUEST_CONTEXT, inject } from '@angular/core';
 export interface SsrRequestContext {
   degraded?: boolean;
   degradedReasons?: string[];
+  /** Public page authority used before a rendered document can be reused. */
+  publicPage?: { url: string; key: string };
+  /** Propagates public content failures to the document response. */
+  publicPageStatus?: number;
 }
 
 export function isSsrRenderDegraded(context: unknown): boolean {
@@ -37,6 +41,15 @@ export function isTransientContentError(error: unknown): boolean {
 @Injectable({ providedIn: 'root' })
 export class SsrRenderStateService {
   private context = inject(REQUEST_CONTEXT, { optional: true });
+
+  /** Records the current public read without exposing any user credentials. */
+  setPublicPage(url: string, key?: string, status = 200): void {
+    if (typeof this.context === 'object' && this.context !== null) {
+      const context = this.context as SsrRequestContext;
+      context.publicPageStatus = status;
+      context.publicPage = key ? { url, key } : undefined;
+    }
+  }
 
   /** Flag the current server render as degraded; no-op in the browser. */
   markDegraded(reason: string): void {

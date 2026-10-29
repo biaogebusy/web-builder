@@ -103,7 +103,7 @@ describe('RouteService', () => {
 
     service.eventLinkToNav(event);
 
-    expect(contentService.loadPageContent).toHaveBeenCalledWith('/docs/guide');
+    expect(contentService.loadPageContent).toHaveBeenCalledWith('/docs/guide', true, true);
     expect(contentState.drawerContent()).toEqual({ title: '文档', body: [] });
     expect(contentState.drawerLoading()).toBe(false);
     expect(event.preventDefault).toHaveBeenCalled();

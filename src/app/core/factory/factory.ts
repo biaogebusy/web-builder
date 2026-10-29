@@ -1,7 +1,8 @@
 import { NavigationEnd, Router } from '@angular/router';
 import { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { ContentService } from '@core/service/content.service';
-import { Observable, firstValueFrom, forkJoin, from, interval, of } from 'rxjs';
+import { EMPTY, Observable, firstValueFrom, forkJoin, from, fromEvent, interval, of } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { ContentState } from '@core/state/ContentState';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -14,6 +15,7 @@ import {
   distinctUntilChanged,
   filter,
   map,
+  mergeWith,
   shareReplay,
   startWith,
   switchMap,
@@ -25,7 +27,7 @@ import { NodeService } from '@core/service/node.service';
 import { ILanguage } from '@core/interface/IEnvironment';
 import { CookieService } from 'ngx-cookie-service';
 import { ComponentService } from '@core/service/component.service';
-import { DestroyRef, DOCUMENT, inject, Injector, signal, WritableSignal } from '@angular/core';
+import { DestroyRef, DOCUMENT, inject, Injector, PLATFORM_ID, signal, WritableSignal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 import { CORE_CONFIG } from '@core/token/token-providers';
@@ -53,19 +55,31 @@ export function pageContentFactory(
   const componentService = inject(ComponentService);
   const destroyRef = inject(DestroyRef);
   const coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  const doc = inject(DOCUMENT);
+  const browser = isPlatformBrowser(inject(PLATFORM_ID));
+  const revisit$ = browser && doc.defaultView
+    ? fromEvent(doc.defaultView, 'focus').pipe(
+        mergeWith(fromEvent(doc, 'visibilitychange').pipe(filter(() => !doc.hidden))),
+        map(() => getInitialPageUrl(contentService.pageUrl))
+      )
+    : EMPTY;
 
   const initialPageUrl = getInitialPageUrl(contentService.pageUrl);
-  const cachedPage = contentService.getCachedPageContent(initialPageUrl);
+  const cachedPage = contentService.getCachedPageContent(
+    initialPageUrl, shouldPreloadPageComponents(initialPageUrl)
+  );
   const pageContent = signal<IPage | undefined | false>(cachedPage ?? false);
   if (cachedPage) {
     contentState.pageConfig.set(cachedPage.config);
   }
+  let initialRead = true;
   router.events
     .pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd),
       startWith(null),
       map(event => (event ? contentService.pageUrl : initialPageUrl)),
       distinctUntilChanged(),
+      mergeWith(revisit$),
       // Angular caches route-level injectors on the route config, so this
       // subscription outlives PageComponent and keeps seeing every navigation.
       // Without the guard, entering /builder or /me fetches CMS content for
@@ -76,9 +90,14 @@ export function pageContentFactory(
           (!!options.builderPages && isBuilderCustomPageUrl(pageUrl))
       ),
       switchMap(pageUrl => {
+        if (!initialRead && shouldPreloadPageComponents(pageUrl)) {
+          pageContent.set(false);
+          contentState.drawerOpened.set(false);
+        }
+        initialRead = false;
         return forkJoin({
           config: from(contentService.loadConfig(coreConfig, pageUrl)),
-          page: contentService.loadPageContent(pageUrl),
+          page: contentService.loadPageContent(pageUrl, true, shouldPreloadPageComponents(pageUrl)),
         }).pipe(
           switchMap(({ page }) =>
             from(componentService.preloadComponentTypes(page)).pipe(map(() => page))
@@ -172,7 +191,7 @@ export function preloadInitialDynamicComponents(): Promise<void> {
   return firstValueFrom(
     forkJoin({
       branding: contentService.loadBranding(pageUrl),
-      page: contentService.loadPageContent(pageUrl, false),
+      page: contentService.loadPageContent(pageUrl, false, true),
     })
   )
     .then(content => componentService.preloadComponentTypes(content))
