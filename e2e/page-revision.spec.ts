@@ -7,8 +7,8 @@ import { expect, test } from './fixtures/test';
 const localePath = process.env['E2E_DIST']
   ? resolve(process.env['E2E_DIST'], 'browser/assets/i18n/zh-hans.json')
   : resolve('src/assets/i18n/zh-hans.json');
-const revisionLabels: { COMPARE_IDENTICAL: string } =
-  JSON.parse(readFileSync(localePath, 'utf8')).BUILDER.REVISION;
+const labels = JSON.parse(readFileSync(localePath, 'utf8'));
+const revisionLabels: { COMPARE_IDENTICAL: string; COMPARE_FAIL: string } = labels.BUILDER.REVISION;
 
 const revisions = {
   status: true, message: '', nid: '12', uuid: 'revision-page', vid: '30', langcode: 'en',
@@ -126,4 +126,103 @@ test('closing revision history cancels its pending list and reopening starts a n
   } finally {
     release();
   }
+});
+
+async function openComparison(page: Page): Promise<void> {
+  const panel = page.locator('app-page-revision');
+  await panel.getByRole('checkbox', { name: '勾选历史版本 #30 进行比较', exact: true }).check();
+  await panel.getByRole('checkbox', { name: '勾选历史版本 #29 进行比较', exact: true }).check();
+  await panel.getByRole('button', { name: '比较', exact: true }).click();
+}
+
+async function fulfillRevision(route: Route): Promise<void> {
+  const vid = new URL(route.request().url()).pathname.split('/').pop();
+  await route.fulfill({ json: {
+    status: true, message: '', title: 'Revision fixture', nid: '12', uuid: 'revision-page',
+    vid, body: [{ attributes: { body: { type: 'text', body: `Revision ${vid} content` } } }],
+  } });
+}
+
+test('revision comparison shows loading for both reads and retries a partially failed pair', async ({
+  context, page,
+}) => {
+  const reads: Route[] = [];
+  const pageErrors: string[] = [];
+  page.on('pageerror', error => pageErrors.push(error.message));
+  await openHistory(context, page, route => route.fulfill({ json: revisions }));
+  await context.route('**/api/v3/landingPage/revisions/12/*', route => { reads.push(route); });
+  await openComparison(page);
+  await expect.poll(() => reads.length).toBe(2);
+  const dialog = page.getByRole('dialog');
+  const loading = dialog.getByRole('status', { name: labels.APP.LOADING, exact: true });
+  await expect(loading).toBeVisible();
+  await expect(loading.locator('mat-progress-spinner')).toBeVisible();
+  await expect(dialog.locator('ngx-monaco-diff-editor')).toHaveCount(0);
+  const accessibility = await new AxeBuilder({ page }).include('app-revision-diff')
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
+  expect(accessibility.violations).toEqual([]);
+
+  await fulfillRevision(reads[0]);
+  await expect(loading).toBeVisible();
+  await expect(dialog.locator('ngx-monaco-diff-editor')).toHaveCount(0);
+  await reads[1].fulfill({ status: 503, json: { message: 'Synthetic failure' } });
+  await expect(dialog).toContainText(revisionLabels.COMPARE_FAIL);
+  await expect(loading).toHaveCount(0);
+  await expect(dialog.locator('ngx-monaco-diff-editor')).toHaveCount(0);
+  const failureAccessibility = await new AxeBuilder({ page }).include('app-revision-diff')
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
+  expect(failureAccessibility.violations).toEqual([]);
+
+  await dialog.getByRole('button', { name: '刷新', exact: true }).click();
+  await expect.poll(() => reads.length).toBe(4);
+  await expect(loading.locator('mat-progress-spinner')).toBeVisible();
+  await expect(dialog).not.toContainText(revisionLabels.COMPARE_FAIL);
+  await fulfillRevision(reads[3]);
+  await expect(loading).toBeVisible();
+  await expect(dialog.locator('ngx-monaco-diff-editor')).toHaveCount(0);
+  await fulfillRevision(reads[2]);
+  await expect(loading).toHaveCount(0);
+  await expect(dialog.locator('.monaco-diff-editor')).toBeVisible();
+  await expect(dialog.locator('.diff-side-vid')).toHaveText(['#29', '#30']);
+  const paths = reads.map(route => new URL(route.request().url()).pathname);
+  expect(paths.slice(0, 2).sort()).toEqual([
+    '/en/api/v3/landingPage/revisions/12/29', '/en/api/v3/landingPage/revisions/12/30',
+  ]);
+  expect(paths.slice(2).sort()).toEqual(paths.slice(0, 2).sort());
+  await dialog.getByRole('button', { name: '关闭', exact: true }).click();
+  await expect(page.locator('app-page-revision').getByRole('button', {
+    name: '比较', exact: true,
+  })).toBeFocused();
+  expect(pageErrors).toEqual([]);
+});
+
+test('closing a loading comparison cancels both reads and permits reopening', async ({
+  context, page,
+}) => {
+  const reads: Route[] = [];
+  const aborted: string[] = [];
+  page.on('requestfailed', request => {
+    if (/\/landingPage\/revisions\/12\/\d+/.test(request.url())) aborted.push(request.url());
+  });
+  await openHistory(context, page, route => route.fulfill({ json: revisions }));
+  await context.route('**/api/v3/landingPage/revisions/12/*', route => { reads.push(route); });
+  await openComparison(page);
+  await expect.poll(() => reads.length).toBe(2);
+  const dialog = page.getByRole('dialog');
+  await expect(dialog.getByRole('status', { name: labels.APP.LOADING })).toBeVisible();
+  await dialog.getByRole('button', { name: '关闭', exact: true }).click();
+  await expect(dialog).toHaveCount(0);
+  await Promise.all(reads.map(fulfillRevision));
+  await expect.poll(() => aborted.length).toBe(2);
+
+  const compare = page.locator('app-page-revision').getByRole('button', {
+    name: '比较', exact: true,
+  });
+  await expect(compare).toBeFocused();
+  await compare.click();
+  await expect.poll(() => reads.length).toBe(4);
+  await expect(dialog.getByRole('status', { name: labels.APP.LOADING })).toBeVisible();
+  await Promise.all(reads.slice(2).map(fulfillRevision));
+  await expect(dialog.locator('.monaco-diff-editor')).toBeVisible();
+  await expect(dialog.getByRole('status')).toHaveCount(0);
 });

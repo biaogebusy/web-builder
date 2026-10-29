@@ -20,8 +20,8 @@
     </p>
   </div>
   @if (loading()) {
-    <div class="diff-state">
-      <app-spinner />
+    <div class="diff-state" role="status" [attr.aria-label]="'APP.LOADING' | translate">
+      <app-spinner [content]="{ size: 40 }" aria-hidden="true" />
     </div>
   } @else if (error()) {
     <div class="diff-state">
