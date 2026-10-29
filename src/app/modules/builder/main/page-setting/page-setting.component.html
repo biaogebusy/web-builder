@@ -1,15 +1,5 @@
 <div class="page-setting-wrapper">
   <div class="page-setting">
-    @if (type === 'node--landing_page' && pageLanguage(); as language) {
-      <p class="language-context">
-        <strong>{{ language.label }}</strong>
-        @if (language.original === true) {
-          <span>{{ 'BUILDER.PAGE_LIST.ORIGINAL_VERSION' | translate }}</span>
-        } @else if (language.original === false) {
-          <span>{{ 'BUILDER.PAGE_LIST.TRANSLATED_VERSION' | translate }}</span>
-        }
-      </p>
-    }
     @if (loading() || publicationLoading()) {
       <div class="load">
         <app-loading />
@@ -66,7 +56,7 @@
         class="delete-page"
         (click)="deletePage(model)"
         [content]="{
-          label: deleteLabel() | translate: { lang: pageLanguage()?.label },
+          label: deleteLabel() | translate,
           disabled: deletion.busy(),
           color: 'warn',
           mode: 'flat',

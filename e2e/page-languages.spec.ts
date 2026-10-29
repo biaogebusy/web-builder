@@ -127,8 +127,12 @@ for (const mode of ['list', 'settings', 'rejected', 'missing'] as const) {
     if (mode === 'settings') {
       await page.getByRole('menuitem', { name: '页面设置', exact: true }).click();
       const settings = page.locator('app-page-setting');
-      await expect(settings.locator('.language-context')).toContainText('中文');
-      await expect(settings.locator('.language-context')).toContainText('翻译版本');
+      const language = page.locator('.right-title .language-context');
+      await expect(language).toContainText('中文');
+      await expect(language).toContainText('翻译版本');
+      await expect(language).toBeInViewport();
+      await page.screenshot({ path: 'test-results/page-languages/05-settings-header-desktop.png',
+        fullPage: true, animations: 'disabled' });
       await page.setViewportSize({ width: 390, height: 844 });
       await page.addStyleTag({ content: '* { transition: none !important; }' });
       for (const theme of ['light', 'dark']) {
@@ -136,7 +140,7 @@ for (const mode of ['list', 'settings', 'rejected', 'missing'] as const) {
           document.documentElement.classList.toggle('light-theme', !dark);
           document.documentElement.classList.toggle('dark-theme', dark);
         }, theme === 'dark');
-        expect((await new AxeBuilder({ page }).include('app-page-setting').analyze()).violations)
+        expect((await new AxeBuilder({ page }).include('.page-settings-drawer').analyze()).violations)
           .toEqual([]);
         await page.screenshot({ path: `test-results/page-languages/05-settings-actions-${theme}.png`,
           fullPage: true, animations: 'disabled' });

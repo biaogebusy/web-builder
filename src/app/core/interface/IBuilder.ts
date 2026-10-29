@@ -79,6 +79,13 @@ export interface IBuilderDynamicContent {
   style?: CssStyleValue;
   classes?: string;
   title: string;
+  /** Optional context displayed beside the drawer title. */
+  titleContext?: {
+    /** Short label for the resource shown in the drawer. */
+    label: string;
+    /** Additional identity or status text. */
+    description?: string;
+  };
 }
 
 export interface IBuilderSamplePage {

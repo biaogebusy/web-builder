@@ -29,7 +29,6 @@ import { decodeMetaTags, getAttrAlias, type MetaTags } from '@core/util/builder-
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TranslateService } from '@ngx-translate/core';
-import { environment } from 'src/environments/environment';
 import { buildPageSettingCommonField, buildPageSettingFields } from './page-setting-fields';
 import { buildPageSettingAttributes, buildPageSettingRelationships } from './page-setting-payload';
 import { firstValueFrom } from 'rxjs';
@@ -80,13 +79,6 @@ export class PageSettingComponent implements OnInit {
     });
   });
   public type: 'node--landing_page' | 'node--json';
-  /** Language identity shown beside the page settings. */
-  readonly pageLanguage = computed(() => {
-    const attributes = this.content()?.content?.data?.attributes;
-    return attributes?.langcode ? {
-      label: this.getLangLabel(attributes.langcode), original: attributes.default_langcode,
-    } : undefined;
-  });
   /** The destructive action names its scope before opening the confirmation. */
   readonly deleteLabel = computed(() => {
     const data = this.content()?.content?.data;
@@ -416,9 +408,5 @@ export class PageSettingComponent implements OnInit {
         this.builder.updateSuccess$.next(true);
         this.builder.closeRightDrawer$.next(true);
       });
-  }
-
-  private getLangLabel(code: string): string {
-    return environment.langs?.find(item => item.langCode === code)?.label ?? code;
   }
 }
