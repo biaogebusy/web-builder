@@ -34,6 +34,13 @@ The Drupal backends are sibling directories of this repo (not inside it); check 
 
 - Treat refactoring that preserves existing behavior and UI as routine project maintenance.
   This rule applies to all project areas.
+- Control code growth across the project. Before adding code, search for and reuse existing
+  services, helpers and contracts. Keep responsibilities cohesive and dependencies explicit.
+- Add abstractions only for demonstrated shared behavior. Avoid speculative frameworks,
+  duplicate execution paths and unnecessary dependencies. Remove replaced code within the task scope.
+- Record implementation and test line additions, deletions and net changes separately in the tracker.
+  State the commits and path scope. Explain net growth, the reuse considered and the required new
+  responsibility. Do not count downstream merges twice or trade correctness for fewer lines.
 - Before development, fixes or reviews, read the
   [project refactoring tracker](../xinshi-docs/stories/develop/engineering/continuous-refactoring.mdx).
   Identify open items that affect the task and keep each change within the active task scope.
