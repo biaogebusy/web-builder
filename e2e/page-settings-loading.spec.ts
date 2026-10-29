@@ -2,7 +2,7 @@ import type { BrowserContext, Page, Route } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from './fixtures/test';
 
-async function setup(context: BrowserContext, page: Page) {
+async function setup(context: BrowserContext, page: Page, draftOverrides = {}) {
   const settings: Route[] = [];
   const canvas: Route[] = [];
   const aborted: string[] = [];
@@ -36,15 +36,16 @@ async function setup(context: BrowserContext, page: Page) {
   await page.goto('/builder/page-list');
   await expect.poll(() => page.evaluate(() => Object.keys(localStorage)
     .find(key => key.startsWith('ngx-webstorage') && key.endsWith('version')))).toBeTruthy();
-  const storageKey = await page.evaluate(() => {
+  const storageKey = await page.evaluate(overrides => {
     const key = Object.keys(localStorage)
       .find(item => item.startsWith('ngx-webstorage') && item.endsWith('version'))!;
     localStorage.setItem(key, JSON.stringify([{
       nid: '100', uuid: 'local', langcode: 'en', title: 'Unsaved canvas', current: true,
       dirty: true, changed: '1', body: [{ type: 'text', body: '<p>Unsaved canvas content</p>' }],
+      ...overrides,
     }]));
     return key;
-  });
+  }, draftOverrides);
   await page.reload();
   await expect(page.locator('app-builder-list')).toContainText('Unsaved canvas content');
   await context.route('**/api/v1/node/landing_page/*', route => { settings.push(route); });
@@ -430,6 +431,60 @@ async function fulfillVersionCheck(route: Route): Promise<void> {
       type: 'text', body: '<p>Updated draft content</p>',
     } } }],
   } });
+}
+
+for (const draft of [
+  { langcode: 'en', translation: true, target: 'zh-hans' },
+  { langcode: 'zh-hans', translation: true, target: 'en' },
+  { langcode: 'zh-hans', translation: undefined, target: undefined },
+]) {
+  test(`version checks preserve translation identity ${JSON.stringify(draft)}`, async ({ context, page }) => {
+    const { canvas, writes, errors, storageKey } = await setup(context, page, draft);
+    const target = draft.target || draft.langcode;
+    const response = {
+      nid: '100', status: true, langcode: target, title: 'Updated translation', changed: '2',
+      body: [{ type: 'json', attributes: { body: {
+        type: 'text', body: '<p>Updated translation content</p>',
+      } } }],
+    };
+    await startVersionChecks(page);
+    await page.clock.runFor(30000);
+    await expect.poll(() => canvas.length).toBe(1);
+    expect(new URL(canvas[0].request().url()).pathname)
+      .toBe(`${target === 'en' ? '/en' : ''}/api/v3/landingPage/json/100`);
+    await canvas[0].fulfill({ json: { ...response, langcode: target === 'en' ? 'zh-hans' : 'en' } });
+    await page.clock.runFor(300);
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(page.locator('app-builder-list')).toContainText('Unsaved canvas content');
+    await page.clock.runFor(30000);
+    await expect.poll(() => canvas.length).toBe(2);
+    await canvas[1].fulfill({ status: 403, json: { message: 'Synthetic permission refusal' } });
+    await page.clock.runFor(300);
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+
+    for (const accepted of [false, true]) {
+      await page.clock.runFor(30000);
+      await expect.poll(() => canvas.length).toBe(accepted ? 4 : 3);
+      await canvas[canvas.length - 1].fulfill({ json: response });
+      await page.clock.runFor(300);
+      const dialog = page.getByRole('dialog', { name: '当前页面不是最新版本', exact: true });
+      await expect(dialog).toBeVisible();
+      await dialog.getByRole('button', { name: accepted ? '确认更新' : '取消', exact: true }).click();
+      await page.clock.runFor(300);
+      await expect(dialog).toHaveCount(0);
+      await expect(page.locator('app-builder-list'))
+        .toContainText(accepted ? 'Updated translation content' : 'Unsaved canvas content');
+      const current = await page.evaluate(key => JSON.parse(localStorage.getItem(key) || '[]')
+        .find((item: { current: boolean }) => item.current), storageKey);
+      expect(current).toMatchObject(accepted ? { nid: '100', langcode: target, changed: '2' }
+        : { nid: '100', langcode: draft.langcode, dirty: true, changed: '1' });
+      expect(current.target).toBe(accepted ? undefined : draft.target);
+      expect(current.translation).toBe(accepted ? undefined : draft.translation);
+    }
+    await page.screenshot({ path: test.info().outputPath('updated-target-language.png') });
+    expect(writes).toEqual([]);
+    expect(errors).toEqual([]);
+  });
 }
 
 test('version checks wait for loading and cancel when another canvas read starts', async ({

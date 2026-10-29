@@ -1030,6 +1030,80 @@ describe('BuilderService', () => {
       expect(post).not.toHaveBeenCalled();
       expect(patch).not.toHaveBeenCalled();
     });
+
+    it.each([
+      ['en', 'zh-hans', ''],
+      ['zh-hans', 'en', 'en'],
+    ])('checks the translation target %s → %s and ignores source fallback', (source, target, apiLang) => {
+      state.loadNewPage({ ...draft(), langcode: source, translation: true, target });
+      fetch.mockReturnValue(of({ ...serverPage(), langcode: source }));
+      const before = state.version();
+      start();
+      expect(fetch).toHaveBeenCalledExactlyOnceWith(
+        '/api/v3/landingPage/json/10', { noCache: 1 }, apiLang
+      );
+      expect(dialogOpen).not.toHaveBeenCalled();
+      decision.next(true);
+      expect(state.version()).toEqual(before);
+      expect(post).not.toHaveBeenCalled();
+      expect(patch).not.toHaveBeenCalled();
+    });
+
+    it.each([
+      { nid: '11' }, { nid: undefined }, { langcode: 'zh-hans' },
+      { langcode: undefined }, { langcode: '' }, { status: false }, { status: undefined },
+    ])('ignores an unsuccessful or mismatched version response: %j', invalid => {
+      fetch.mockReturnValue(of({ ...serverPage(), ...invalid }));
+      start();
+      expect(dialogOpen).not.toHaveBeenCalled();
+      expect(state.currentPage).toEqual(draft());
+      fetch.mockReturnValue(of(serverPage()));
+      vi.advanceTimersByTime(30000);
+      expect(dialogOpen).toHaveBeenCalledOnce();
+    });
+
+    it.each([false, true])('preserves the default language request when langcode is absent: %s', missing => {
+      state.loadNewPage({ ...draft(), langcode: missing ? undefined : 'zh-hans' });
+      fetch.mockReturnValue(of({ ...serverPage(), langcode: 'zh-hans' }));
+      start();
+      expect(fetch).toHaveBeenCalledExactlyOnceWith(
+        '/api/v3/landingPage/json/10', { noCache: 1 }, ''
+      );
+      expect(dialogOpen).toHaveBeenCalledOnce();
+    });
+
+    describe.each([false, true])('target version updates for a new translation draft: %s', translating => {
+      it.each([false, true])('preserves both language copies after the decision: %s', accepted => {
+        const source = state.currentPage;
+        state.loadNewPage({ ...draft(), title: 'Unsaved translation',
+          langcode: translating ? 'en' : 'zh-hans',
+          ...(translating ? { translation: true as const, target: 'zh-hans' } : {}),
+        });
+        const before = state.currentPage;
+        fetch.mockReturnValueOnce(throwError(() => new HttpErrorResponse({ status: 403 })))
+          .mockReturnValue(of({ ...serverPage(), langcode: 'zh-hans', title: 'Remote translation' }));
+        start();
+        expect(dialogOpen).not.toHaveBeenCalled();
+        expect(state.currentPage).toEqual(before);
+        vi.advanceTimersByTime(30000);
+        expect(fetch.mock.calls.at(-1)).toEqual([
+          '/api/v3/landingPage/json/10', { noCache: 1 }, '',
+        ]);
+        expect(dialogOpen).toHaveBeenCalledOnce();
+        decision.next(accepted);
+        if (accepted) {
+          expect(state.currentPage).toMatchObject({
+            nid: '10', langcode: 'zh-hans', title: 'Remote translation', changed: '2',
+          });
+          expect(state.currentPage.translation).toBeUndefined();
+          expect(state.currentPage.target).toBeUndefined();
+        } else expect(state.currentPage).toEqual(before);
+        expect(state.version().find(page => !page.translation && page.langcode === 'en'))
+          .toEqual({ ...source, current: false });
+        expect(post).not.toHaveBeenCalled();
+        expect(patch).not.toHaveBeenCalled();
+      });
+    });
   });
 
   describe('remote reads with real canvas state', () => {

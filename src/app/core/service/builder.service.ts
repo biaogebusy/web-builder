@@ -418,11 +418,14 @@ export class BuilderService extends ApiService {
         map(() => this.getLocalCurrentPage()),
         filter((localPage): localPage is IPage => Boolean(localPage?.nid)),
         switchMap(localPage => {
-          const lang = getApiLang(localPage.langcode);
+          const lang = getApiLang(this.builder.getPageIdentityLang(localPage));
           return this.nodeService
             .fetch(`/api/v3/landingPage/json/${localPage.nid}`, { noCache: 1 }, lang)
             .pipe(
               takeUntil(this.builder.pageSelection$),
+              filter((serverPage: IPage) => serverPage?.status === true
+                && serverPage.nid === localPage.nid && Boolean(serverPage.langcode)
+                && getApiLang(serverPage.langcode) === lang),
               map((serverPage: IPage) => ({ localPage, serverPage })),
               catchError(() => of(null))
             );
