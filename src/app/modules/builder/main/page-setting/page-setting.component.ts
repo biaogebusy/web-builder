@@ -92,7 +92,7 @@ export class PageSettingComponent implements OnInit {
     const data = this.content()?.content?.data;
     if (data?.type !== 'node--landing_page') return 'BUILDER.PAGE_SETTING.DELETE';
     return data.attributes.default_langcode === true ? 'BUILDER.PAGE_SETTING.DELETE_ALL_LANG'
-      : data.attributes.default_langcode === false ? 'BUILDER.PAGE_SETTING.DELETE_TRANSLATION'
+      : data.attributes.default_langcode === false ? 'BUILDER.PAGE_SETTING.DELETE_TRANSLATION_SHORT'
         : 'BUILDER.PAGE_SETTING.REVIEW_DELETE';
   });
   /** Shares verification and confirmation with the page list entry. */

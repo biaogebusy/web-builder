@@ -460,6 +460,7 @@
       "DELETE_CONFIRM": "Confirm deleting <strong>{{title}}</strong>? This cannot be undone.",
       "DELETE_ALL_LANG_CONFIRM": "Permanently delete <strong>all language versions</strong> of <strong>{{title}}</strong>. The selected <strong>{{lang}}</strong> version is the original and cannot be deleted separately.<br><br>To hide only this language, cancel and unpublish it in Page settings. This keeps the content.",
       "DELETE_TRANSLATION": "Delete only {{lang}} version",
+      "DELETE_TRANSLATION_SHORT": "Delete translation",
       "DELETE_TRANSLATION_TITLE": "Delete only {{lang}} version",
       "DELETE_TRANSLATION_CONFIRM": "Permanently delete the <strong>{{lang}}</strong> version of <strong>{{title}}</strong>. <strong>Other language versions will remain.</strong><br><br>To hide it temporarily, cancel and unpublish it in Page settings. This keeps the content.",
       "DELETE_TRANSLATION_SUCCESS": "{{lang}} version of {{title}} deleted",
@@ -479,7 +480,7 @@
       "STATE_SAVED_SUCCESS": "Page status saved for “{{title}}”",
       "SAVED_STATUS_UNCONFIRMED": "Settings saved, but public status could not be confirmed. Reopen page settings to check.",
       "REVIEW_DELETE": "Delete…",
-      "DELETE_ALL_LANG": "Delete page and all languages",
+      "DELETE_ALL_LANG": "Delete page",
       "DELETE_ALL_LANG_TITLE": "Delete page and all languages",
       "DELETE_ALL_LANG_SUCCESS": "Deleted “{{title}}” and all its language versions",
       "DELETE_CHECK_FAILED": "Could not verify the page language and deletion scope. The page was not deleted. Refresh the list and try again."

@@ -460,6 +460,7 @@
       "DELETE_CONFIRM": "确认删除 <strong>{{title}}</strong>？删除后不可恢复！",
       "DELETE_ALL_LANG_CONFIRM": "将永久删除 <strong>{{title}}</strong> 的<strong>全部语言版本</strong>。当前选中的是 <strong>{{lang}}</strong> 原始版本，无法单独删除。<br><br>如果只想下线当前语言，请取消并在“页面设置”中取消发布，保留内容。",
       "DELETE_TRANSLATION": "仅删除 {{lang}} 版本",
+      "DELETE_TRANSLATION_SHORT": "删除译文",
       "DELETE_TRANSLATION_TITLE": "仅删除 {{lang}} 版本",
       "DELETE_TRANSLATION_CONFIRM": "将永久删除 <strong>{{title}}</strong> 的 <strong>{{lang}}</strong> 版本。<strong>其他语言版本将保留。</strong><br><br>如果只想暂时下线，请取消并在“页面设置”中取消发布，保留内容。",
       "DELETE_TRANSLATION_SUCCESS": "已删除 {{title}} 的 {{lang}} 版本",
@@ -479,7 +480,7 @@
       "STATE_SAVED_SUCCESS": "“{{title}}”的页面状态已保存",
       "SAVED_STATUS_UNCONFIRMED": "设置已保存，暂时无法确认公共发布状态，请重新打开页面设置确认。",
       "REVIEW_DELETE": "删除…",
-      "DELETE_ALL_LANG": "删除页面及全部语言版本",
+      "DELETE_ALL_LANG": "删除整页",
       "DELETE_ALL_LANG_TITLE": "删除页面及全部语言版本",
       "DELETE_ALL_LANG_SUCCESS": "已删除“{{title}}”及其全部语言版本",
       "DELETE_CHECK_FAILED": "无法确认页面的语言和删除范围。页面未删除，请刷新列表后重试。"

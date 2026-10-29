@@ -1,3 +1,5 @@
+@use '@angular/material' as mat;
+
 :host {
   @apply flex min-h-0 flex-1 flex-col;
 }
@@ -21,7 +23,26 @@
 }
 
 .actions {
-  @apply flex flex-wrap items-center gap-2;
+  @apply grid grid-cols-3 items-stretch gap-2;
+
+  ::ng-deep {
+    app-btn > div {
+      @apply h-full;
+    }
+
+    .mdc-button {
+      @apply h-full min-h-10 w-full min-w-0 whitespace-normal px-2 py-2;
+    }
+  }
+}
+
+.delete-page {
+  @include mat.button-overrides((
+    filled-container-color: var(--mat-sys-error),
+    filled-label-text-color: var(--mat-sys-on-error),
+    filled-state-layer-color: var(--mat-sys-on-error),
+    filled-ripple-color: color-mix(in srgb, var(--mat-sys-on-error) 12%, transparent),
+  ));
 }
 
 .settings-footer {

@@ -81,6 +81,7 @@ export class PageDeletionService {
           };
           return this.dialog.open(DialogComponent, {
             width: '440px', maxWidth: 'calc(100vw - 32px)', data: config,
+            panelClass: 'page-deletion-dialog',
             autoFocus: '.dialog-actions button:first-child',
           }).afterClosed().pipe(switchMap(confirmed => {
             if (!confirmed) return of(false as const);

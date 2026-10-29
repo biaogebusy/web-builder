@@ -101,7 +101,7 @@ for (const mode of ['list', 'settings', 'rejected', 'missing'] as const) {
       expect((await new AxeBuilder({ page }).include('app-page-item').include('.mat-mdc-menu-panel')
         .analyze()).violations).toEqual([]);
       await page.screenshot({ path: 'test-results/page-languages/01-language-actions.png', fullPage: true, animations: 'disabled' });
-      await page.getByRole('menuitem', { name: '删除页面及全部语言版本', exact: true }).click();
+      await page.getByRole('menuitem', { name: '删除整页', exact: true }).click();
       const dialog = page.getByRole('dialog');
       await expect(dialog).toContainText('全部语言版本');
       await expect(dialog).toContainText('EN');
@@ -130,7 +130,18 @@ for (const mode of ['list', 'settings', 'rejected', 'missing'] as const) {
       await expect(settings.locator('.language-context')).toContainText('中文');
       await expect(settings.locator('.language-context')).toContainText('翻译版本');
       await page.setViewportSize({ width: 390, height: 844 });
-      await settings.getByRole('button', { name: '仅删除 中文 版本', exact: true }).click();
+      await page.addStyleTag({ content: '* { transition: none !important; }' });
+      for (const theme of ['light', 'dark']) {
+        await page.evaluate(dark => {
+          document.documentElement.classList.toggle('light-theme', !dark);
+          document.documentElement.classList.toggle('dark-theme', dark);
+        }, theme === 'dark');
+        expect((await new AxeBuilder({ page }).include('app-page-setting').analyze()).violations)
+          .toEqual([]);
+        await page.screenshot({ path: `test-results/page-languages/05-settings-actions-${theme}.png`,
+          fullPage: true, animations: 'disabled' });
+      }
+      await settings.getByRole('button', { name: '删除译文', exact: true }).click();
     } else {
       await page.getByRole('menuitem', { name: '仅删除 中文 版本', exact: true }).click();
     }

@@ -63,11 +63,13 @@
         />
       }
       <app-btn
+        class="delete-page"
         (click)="deletePage(model)"
         [content]="{
           label: deleteLabel() | translate: { lang: pageLanguage()?.label },
           disabled: deletion.busy(),
           color: 'warn',
+          mode: 'flat',
         }"
       />
     </div>

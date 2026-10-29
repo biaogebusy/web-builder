@@ -121,7 +121,7 @@ describe('PageSettingComponent', () => {
 
     component.deletePage({ type: 'node--landing_page' });
 
-    expect(component.deleteLabel()).toBe('BUILDER.PAGE_SETTING.DELETE_TRANSLATION');
+    expect(component.deleteLabel()).toBe('BUILDER.PAGE_SETTING.DELETE_TRANSLATION_SHORT');
     expect(builderService.deleteTranslation).toHaveBeenCalledWith('7', 'en');
     expect(nodeService.deleteEntity).not.toHaveBeenCalled();
   });
