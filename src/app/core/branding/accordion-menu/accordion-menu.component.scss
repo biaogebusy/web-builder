@@ -12,7 +12,7 @@
 }
 .menu-group-divider {
   @apply my-3;
-  border-color: var(--mat-sys-outline-variant);
+  background-color: var(--mat-sys-outline-variant);
 }
 .mat-accordion {
   .mat-expansion-panel-header,

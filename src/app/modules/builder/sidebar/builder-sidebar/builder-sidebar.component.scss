@@ -132,7 +132,7 @@
 
             .menu-group-divider {
               @apply my-3 mx-[30px];
-              border-color: var(--mat-sys-outline-variant);
+              background-color: var(--mat-sys-outline-variant);
             }
 
             ::ng-deep {
