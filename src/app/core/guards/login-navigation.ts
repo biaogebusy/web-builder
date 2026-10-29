@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
-import { RedirectCommand, Router, type GuardResult } from '@angular/router';
-import { catchError, defer, finalize, from, map, of, switchMap, take } from 'rxjs';
+import { Router, type GuardResult } from '@angular/router';
+import { catchError, defer, finalize, from, of, switchMap, take, tap } from 'rxjs';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { UserService } from '@core/service/user.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
@@ -12,7 +12,7 @@ export function checkLoginForNavigation(returnUrl: string) {
   const config = inject<ICoreConfig>(CORE_CONFIG);
   const loginPage = config?.guard?.defaultFrontLoginPage ?? '/me/login';
   const loginUrl = router.createUrlTree([loginPage], { queryParams: { returnUrl } });
-  const currentUrl = router.parseUrl(router.url);
+  const navigation = router.getCurrentNavigation();
 
   return userService.getLoginState().pipe(
     take(1),
@@ -34,8 +34,10 @@ export function checkLoginForNavigation(returnUrl: string) {
           take(1),
           // A close result alone does not prove that authentication succeeded.
           switchMap(() => userService.getLoginState().pipe(take(1))),
-          map(authenticated =>
-            authenticated || new RedirectCommand(currentUrl, { replaceUrl: true })),
+          tap(authenticated => {
+            // Abort before CanMatch can fall through; the router restores the history position.
+            if (!authenticated) navigation?.abort();
+          }),
           finalize(() => {
             controller.abort();
             dialog?.close();

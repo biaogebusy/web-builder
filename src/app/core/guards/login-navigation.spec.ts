@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { provideRouter, Router } from '@angular/router';
+import {
+  NavigationCancel, NavigationCancellationCode, provideRouter, Router, withRouterConfig,
+} from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
 import { of, Subject } from 'rxjs';
 import { ScreenService } from '@core/service/screen.service';
@@ -43,7 +45,7 @@ describe('shared login navigation', () => {
             canMatch: [authMatchGuard], data: { requireAuth: true } },
           { path: 'my/profile', component: PrivatePage, canActivate: [authGuard] },
           { path: '**', component: FallbackPage },
-        ]),
+        ], withRouterConfig({ canceledNavigationResolution: 'computed' })),
         { provide: CORE_CONFIG, useValue: config },
         { provide: UserService, useValue: user },
         { provide: ScreenService, useValue: { isPlatformBrowser: () => true } },
@@ -70,10 +72,16 @@ describe('shared login navigation', () => {
   it.each(['/protected', '/my/profile'])('cancels %s without entering the fallback route',
     async path => {
       await harness.navigateByUrl('/public?source=menu#intro');
+      const cancelled: NavigationCancel[] = [];
+      const events = router.events.subscribe(event => {
+        if (event instanceof NavigationCancel) cancelled.push(event);
+      });
       const navigation = router.navigateByUrl(path);
       await vi.waitFor(() => expect(user.openLoginDialog).toHaveBeenCalledOnce());
       closed.next(true);
-      await navigation;
+      expect(await navigation).toBe(false);
+      expect(cancelled.map(event => event.code)).toEqual([NavigationCancellationCode.Aborted]);
+      events.unsubscribe();
       expect(router.url).toBe('/public?source=menu#intro');
       expect(harness.routeNativeElement?.textContent).toBe('Public');
     });

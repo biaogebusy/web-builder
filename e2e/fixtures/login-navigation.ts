@@ -1,4 +1,4 @@
-import type { Page } from '@playwright/test';
+import type { Locator, Page } from '@playwright/test';
 
 /** Synthetic login endpoints shared by public-page and deployment-specific navigation tests. */
 export async function mockLoginNavigation(
@@ -43,7 +43,7 @@ export async function mockLoginNavigation(
 }
 
 /** Complete the existing SMS form against the synthetic authentication endpoint. */
-export async function submitLogin(page: Page) {
+export async function submitLogin(page: Page | Locator) {
   const form = page.locator('app-login .phone-form');
   await form.locator('[formControlName="phone"]').fill('13800138000');
   await form.locator('[formControlName="code"]').fill('123456');

@@ -12,7 +12,9 @@ import {
   withIncrementalHydration,
 } from '@angular/platform-browser';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
-import { provideRouter, TitleStrategy, withInMemoryScrolling, withPreloading } from '@angular/router';
+import {
+  provideRouter, TitleStrategy, withInMemoryScrolling, withPreloading, withRouterConfig,
+} from '@angular/router';
 import zhHans from '@angular/common/locales/zh-Hans';
 import { registerLocaleData } from '@angular/common';
 import { provideNgxWebstorage, withLocalStorage, withNgxWebstorageConfig } from 'ngx-webstorage';
@@ -68,6 +70,7 @@ export const appConfig: ApplicationConfig = {
     ),
     provideRouter(
       routes,
+      withRouterConfig({ canceledNavigationResolution: 'computed' }),
       withPreloading(SelectivePreloadingStrategy),
       withInMemoryScrolling({
         scrollPositionRestoration: 'enabled',
