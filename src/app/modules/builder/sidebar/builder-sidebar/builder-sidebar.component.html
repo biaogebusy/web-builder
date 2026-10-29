@@ -64,7 +64,10 @@
           matTooltipPosition="right"
         >
           @if (item.icon) {
-            <app-icon [routerLink]="item.href" [content]="item.icon" />
+            <a class="menu-trigger" [routerLink]="item.href" [attr.aria-label]="item.label"
+              [attr.tabindex]="item.href ? null : 0" [attr.role]="item.href ? null : 'button'">
+              <app-icon [content]="item.icon" />
+            </a>
           }
           @if (item.child) {
             <div class="child">
@@ -72,25 +75,33 @@
                 <div class="title">{{ item.label }}</div>
                 <div class="child-menu">
                   <mat-list>
-                    @for (item of item.child; track item) {
-                      <a
-                        mat-list-item
-                        [routerLink]="item.href"
-                        [routerLinkActive]="['active']"
-                        [routerLinkActiveOptions]="{
-                          paths: 'exact',
-                          queryParams: 'subset',
-                          matrixParams: 'ignored',
-                          fragment: 'ignored',
-                        }"
-                        (click)="onHiddeRightDrawer()"
-                        *reqRolesIf="item"
-                      >
-                        @if (item.icon) {
-                          <app-icon class="child-icon" [content]="item.icon" />
-                        }
-                        {{ item.label }}
-                      </a>
+                    @for (group of item.child | menuGroups: user(); track $index) {
+                      @if (!$first) {
+                        <hr class="menu-group-divider" />
+                      }
+                      @if (group.label) {
+                        <h2 class="menu-group-heading sr-only">{{ group.label }}</h2>
+                      }
+                      @for (item of group.items; track item) {
+                        <a
+                          mat-list-item
+                          [class.grouped-menu-item]="!!group.label"
+                          [routerLink]="item.href"
+                          [routerLinkActive]="['active']"
+                          [routerLinkActiveOptions]="{
+                            paths: 'exact',
+                            queryParams: 'subset',
+                            matrixParams: 'ignored',
+                            fragment: 'ignored',
+                          }"
+                          (click)="onHiddeRightDrawer()"
+                        >
+                          @if (item.icon) {
+                            <app-icon class="child-icon" [content]="item.icon" />
+                          }
+                          {{ item.label }}
+                        </a>
+                      }
                     }
                   </mat-list>
                 </div>

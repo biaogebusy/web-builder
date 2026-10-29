@@ -5,7 +5,8 @@ import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { AccordionMenuComponent } from '@core/branding/accordion-menu/accordion-menu.component';
 import { IBranding } from '@core/interface/branding/IBranding';
 import { BuilderState } from '@core/state/BuilderState';
-import { BRANDING, BUILDER_CONFIG } from '@core/token/token-providers';
+import { BRANDING, BUILDER_CONFIG, USER } from '@core/token/token-providers';
+import { MenuGroupsPipe } from '@core/pipe/menu-groups.pipe';
 import { combineLatest, map, Observable } from 'rxjs';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -20,9 +21,10 @@ import { buildHubMenu, HUB_MENU_KEYS } from '../../hub/hub-entries';
   selector: 'app-builder-sidebar',
   templateUrl: './builder-sidebar.component.html',
   styleUrls: ['./builder-sidebar.component.scss'],
-  imports: [SHARE_IMPORTS, WIDGETS_IMPORTS, AccordionMenuComponent],
+  imports: [SHARE_IMPORTS, WIDGETS_IMPORTS, AccordionMenuComponent, MenuGroupsPipe],
 })
 export class BuilderSidebarComponent {
+  protected readonly user = inject(USER);
   public branding$ = inject(BRANDING);
   private translate = inject(TranslateService);
   // Always append the "Manage" menu (persistent navigation); entries shared with the /builder/hub page via hub-entries

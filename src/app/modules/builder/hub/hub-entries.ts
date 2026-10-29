@@ -103,7 +103,7 @@ export const HUB_GROUPS: IHubGroup[] = [
 /** i18n keys for the sidebar "Manage" menu, prefetched via translate.stream */
 export const HUB_MENU_KEYS: string[] = [
   'BUILDER.HUB.MENU',
-  ...HUB_GROUPS.flatMap(group => group.entries.map(entry => entry.label)),
+  ...HUB_GROUPS.flatMap(group => [group.title, ...group.entries.map(entry => entry.label)]),
 ];
 
 /**
@@ -113,9 +113,8 @@ export const HUB_MENU_KEYS: string[] = [
  * Only fixed management entries are included: publish entries are generated
  * dynamically from the site's actual content types and vary in number (5 by
  * default, more can be enabled via core_config), which would stretch a
- * permanent sidebar menu, so they only appear on the hub page. The sidebar is
- * a flat quick channel for returning users (no descriptions); the hub is the
- * hub with explanations - the two serve different purposes.
+ * permanent sidebar menu, so they only appear on the hub page. Section labels
+ * retain the hub's organization without repeating its entry descriptions.
  */
 export function buildHubMenu(translate: (key: string) => string): IMainMenu {
   return {
@@ -124,6 +123,7 @@ export function buildHubMenu(translate: (key: string) => string): IMainMenu {
     icon: { svg: 'view-grid-outline' },
     child: HUB_GROUPS.flatMap(group =>
       group.entries.map(entry => ({
+        group: translate(group.title),
         label: translate(entry.label),
         href: entry.link,
         icon: { svg: entry.icon },

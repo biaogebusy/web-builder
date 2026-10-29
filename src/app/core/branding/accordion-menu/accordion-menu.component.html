@@ -1,9 +1,15 @@
 @if (content(); as contentValue) {
   <mat-accordion multi>
-    @for (item of contentValue; track item) {
-      <ng-container *reqRolesIf="item">
+    @for (group of contentValue | menuGroups: user(); track $index) {
+      @if (!$first) {
+        <hr class="menu-group-divider" />
+      }
+      @if (group.label) {
+        <h2 class="menu-group-heading sr-only">{{ group.label }}</h2>
+      }
+      @for (item of group.items; track item) {
         @if (!item.child && !item.dynamicMenu) {
-          <mat-list class="no-child" checkChildMenuActive>
+          <mat-list class="no-child" [class.grouped-menu-item]="!!group.label" checkChildMenuActive>
             <mat-list-item>
               @if (item.icon) {
                 <app-icon matListItemIcon class="acc-icon" [content]="item.icon" />
@@ -65,7 +71,7 @@
             <app-dynamic-menu class="dynamic-menu-inner" [uuid]="item.uuid" />
           </mat-expansion-panel>
         }
-      </ng-container>
+      }
     }
   </mat-accordion>
 }
