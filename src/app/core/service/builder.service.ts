@@ -665,11 +665,17 @@ export class BuilderService extends ApiService {
    * still goes through JSON:API node deletion, which cascades to all language versions.
    */
   deleteTranslation(nid: string | number, langcode: string): Observable<any> {
-    return this.http.post(
+    return this.http.post<{ status: boolean }>(
       `${this.apiUrl}${LANDING_PAGE_API.translate}/delete/${nid}/${langcode}`,
       {},
       { ...this.optionsWithBearerToken(), context: cmsWriteContext() }
-    );
+    ).pipe(map((response: unknown) => {
+      if (!response || typeof response !== 'object' || !('status' in response) ||
+        response.status !== true) {
+        throw new Error('The CMS did not confirm translation deletion.');
+      }
+      return response;
+    }));
   }
 
   updateAttributes(
@@ -802,8 +808,20 @@ export class BuilderService extends ApiService {
       )
       .subscribe(res => {
         if (res) {
+          const attributes = res.data?.attributes;
+          const language = res.data?.type === 'node--landing_page' && attributes?.langcode
+            ? {
+                label: environment.langs?.find(item => item.langCode === attributes.langcode)?.label
+                  ?? attributes.langcode,
+                description: attributes.default_langcode === true
+                  ? this.translate.instant('BUILDER.PAGE_LIST.ORIGINAL_VERSION')
+                  : attributes.default_langcode === false
+                    ? this.translate.instant('BUILDER.PAGE_LIST.TRANSLATED_VERSION') : undefined,
+              }
+            : undefined;
           this.builder.rightContent$.next({
             title: this.translate.instant('BUILDER.PAGE_LIST.PAGE_PROPS'),
+            titleContext: language,
             mode: 'over',
             hasBackdrop: true,
             classes: 'page-settings-drawer',

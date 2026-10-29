@@ -79,6 +79,13 @@ export interface IBuilderDynamicContent {
   style?: CssStyleValue;
   classes?: string;
   title: string;
+  /** Optional context displayed beside the drawer title. */
+  titleContext?: {
+    /** Short label for the resource shown in the drawer. */
+    label: string;
+    /** Additional identity or status text. */
+    description?: string;
+  };
 }
 
 export interface IBuilderSamplePage {
@@ -272,6 +279,10 @@ export interface IPageList {
 }
 
 export interface IPageMeta {
+  /** True only for this node's original language version, as reported by the CMS. */
+  default_langcode?: boolean;
+  /** Language codes of existing versions the current account can view. */
+  translation_languages?: string[];
   /** CMS publication state for this exact translation. */
   published?: boolean;
   /** Viewable workflow state of the same revision and translation as this row. */

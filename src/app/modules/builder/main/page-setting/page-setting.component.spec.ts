@@ -38,7 +38,7 @@ describe('PageSettingComponent', () => {
   };
 
   // ngOnInit builds the form only in the browser, and only signed-in users can delete
-  const initAs = (langcode: string): void => {
+  const initAs = (langcode: string, original = false): void => {
     user.set({ id: 'user-1' });
     screenService.isPlatformBrowser.mockReturnValue(true);
     fixture.componentRef.setInput('content', {
@@ -49,6 +49,7 @@ describe('PageSettingComponent', () => {
           attributes: {
             title: 'Home',
             langcode,
+            default_langcode: original,
             drupal_internal__nid: 7,
             changed: '2026-08-14',
             path: { alias: '/home' },
@@ -58,6 +59,11 @@ describe('PageSettingComponent', () => {
         included: [{ type: 'user--user', attributes: { display_name: 'admin' } }],
       },
     });
+    nodeService.fetch.mockReturnValue(of({ data: {
+      id: 'uuid-7', type: 'node--landing_page', attributes: {
+        langcode, default_langcode: original, drupal_internal__nid: 7,
+      },
+    } }));
     component.ngOnInit();
   };
 
@@ -109,32 +115,32 @@ describe('PageSettingComponent', () => {
     expect(builderService.loadPage).not.toHaveBeenCalled();
   });
 
-  it('deletes only the current translation for a non default language page', () => {
+  it('deletes only the version identified as a translation by the CMS', () => {
     initAs('en');
     confirmWith(true);
 
     component.deletePage({ type: 'node--landing_page' });
 
-    expect(component.isTranslation).toBe(true);
-    expect(builderService.deleteTranslation).toHaveBeenCalledWith(7, 'en');
+    expect(component.deleteLabel()).toBe('BUILDER.PAGE_SETTING.DELETE_TRANSLATION_SHORT');
+    expect(builderService.deleteTranslation).toHaveBeenCalledWith('7', 'en');
     expect(nodeService.deleteEntity).not.toHaveBeenCalled();
   });
 
   it('warns that every language version goes away before deleting the source language', () => {
-    initAs('zh-hans');
+    initAs('zh-hans', true);
     const open = confirmWith(true);
 
     component.deletePage({ type: 'node--landing_page' });
 
     const config: any = open.mock.calls[0][1];
     expect(config.data.inputData.content.body).toBe('BUILDER.PAGE_SETTING.DELETE_ALL_LANG_CONFIRM');
-    expect(component.isTranslation).toBe(false);
+    expect(component.deleteLabel()).toBe('BUILDER.PAGE_SETTING.DELETE_ALL_LANG');
     expect(nodeService.deleteEntity).toHaveBeenCalledWith('/api/v1/node/landing_page', 'uuid-7');
     expect(builderService.deleteTranslation).not.toHaveBeenCalled();
   });
 
   it('keeps the page when the delete dialog is cancelled', () => {
-    initAs('zh-hans');
+    initAs('zh-hans', true);
     confirmWith(false);
 
     component.deletePage({ type: 'node--landing_page' });

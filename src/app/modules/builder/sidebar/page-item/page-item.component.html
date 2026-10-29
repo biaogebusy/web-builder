@@ -13,9 +13,6 @@
           {{ page().title }}
         </button>
       </h3>
-      @if (isTranslation()) {
-        <span class="language-badge">{{ getLangLabel(page().langcode) }}</span>
-      }
     </div>
     <button
       type="button"
@@ -28,6 +25,16 @@
       <app-icon [content]="{ svg: 'dots-vertical' }" />
     </button>
   </div>
+  @if (showLanguage && page().langcode) {
+    <div class="language-row">
+      <span class="language-badge">{{ getLangLabel(page().langcode) }}</span>
+      @if (page().default_langcode === true) {
+        <span>{{ 'BUILDER.PAGE_LIST.ORIGINAL_VERSION' | translate }}</span>
+      } @else if (page().default_langcode === false) {
+        <span>{{ 'BUILDER.PAGE_LIST.TRANSLATED_VERSION' | translate }}</span>
+      }
+    </div>
+  }
 
   <!-- Status text only: page loads and saves already announce themselves through the snackbar,
        which owns the live region, so no aria-live is duplicated here -->
@@ -120,11 +127,11 @@
   </button>
   @if (showLanguage && langs) {
     @for (item of langs; track item.langCode) {
-      @if (!item.default && item.langCode !== page().langcode) {
+      @if (item.langCode !== page().langcode) {
         <button mat-menu-item (click)="createLangVersion(item.langCode)">
           <span class="page-item-menu__content">
             <app-icon class="page-item-menu__icon" [content]="{ svg: 'translate' }" />
-            <span>{{ 'BUILDER.PAGE_LIST.EDIT_LANG' | translate: { label: item.label } }}</span>
+            <span>{{ languageAction(item.langCode) | translate: { label: item.label } }}</span>
           </span>
         </button>
       }
@@ -150,15 +157,15 @@
     </span>
   </button>
   <mat-divider />
-  <button mat-menu-item class="page-item-menu__delete" (click)="deletePage()">
+  <button mat-menu-item class="page-item-menu__delete" (click)="deletePage()"
+    [disabled]="deletion.busy()">
     <span class="page-item-menu__content">
       <app-icon
         class="page-item-menu__icon"
         [content]="{ svg: 'trash-can-outline', color: 'warn' }"
       />
       <span>{{
-        (isTranslation() ? 'BUILDER.PAGE_LIST.DELETE_TRANSLATION' : 'BUILDER.PAGE_LIST.DELETE_PAGE')
-          | translate
+        deleteLabel() | translate: { lang: getLangLabel(page().langcode) }
       }}</span>
     </span>
   </button>

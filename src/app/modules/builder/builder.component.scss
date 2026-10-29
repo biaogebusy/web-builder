@@ -100,7 +100,17 @@
   height: 50px;
   border-bottom: 1px solid var(--mat-sys-surface-dim);
   .right-title {
-    @apply text-base;
+    @apply flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1 text-base;
+  }
+  .language-context {
+    @apply flex flex-wrap items-center gap-x-2 text-sm font-normal;
+    color: var(--mat-sys-on-surface-variant);
+  }
+  &:has(.language-context) {
+    @apply h-auto min-h-[50px] py-2;
+    > app-btn {
+      @apply shrink-0;
+    }
   }
 }
 .right-content {
