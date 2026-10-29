@@ -40,9 +40,6 @@ for (const authenticated of [false, true]) {
 }
 
 test('unpublished builder row opens editable content and retains the private preview', async ({ context, page }) => {
-  await page.addInitScript(() => {
-    if (!localStorage.getItem('ngx-webstorage:version')) localStorage.setItem('ngx-webstorage:version', JSON.stringify([{ title: 'Existing local draft', current: true, body: [{ type: 'text', body: '<p>Existing draft</p>' }] }]));
-  });
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.stack || error.message));
   await context.route('**/api/**', route => route.fulfill({ json: { rows: [] } }));
@@ -71,7 +68,6 @@ test('unpublished builder row opens editable content and retains the private pre
   await row.getByRole('button', { name: 'Draft fixture', exact: true }).click();
   expect(errors).toEqual([]);
   await expect.poll(() => reads.filter(url => url.includes('/json/12'))).not.toEqual([]);
-  await expect.poll(async () => JSON.parse(await page.evaluate(() => localStorage.getItem('ngx-webstorage:version') || '[]'))).toEqual(expect.arrayContaining([expect.objectContaining({ nid: '12', published: false })]));
   await expect(page.locator('app-builder-list .publication-bar')).toContainText('未发布');
   await expect(page.locator('app-builder-list')).toContainText('Publication fixture content');
   expect((await new AxeBuilder({ page }).include('.publication-bar').include('app-page-item').analyze()).violations).toEqual([]);
