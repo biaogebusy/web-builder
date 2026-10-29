@@ -51,6 +51,7 @@
     @if (config) {
       @for (item of config.menu; track item) {
         <div
+          #menuItem
           class="item"
           [routerLinkActive]="['active']"
           [routerLinkActiveOptions]="{
@@ -94,7 +95,7 @@
                             matrixParams: 'ignored',
                             fragment: 'ignored',
                           }"
-                          (click)="onHiddeRightDrawer()"
+                          (click)="onSelectChildMenu(menuItem)"
                         >
                           @if (item.icon) {
                             <app-icon class="child-icon" [content]="item.icon" />

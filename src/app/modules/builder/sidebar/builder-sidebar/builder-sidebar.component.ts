@@ -80,7 +80,9 @@ export class BuilderSidebarComponent {
     sidebarDrawer.toggle();
   }
 
-  onHiddeRightDrawer(): void {
+  /** Keep a visible focus target when navigation opens a dialog over the collapsed menu. */
+  onSelectChildMenu(menuItem: HTMLElement): void {
+    menuItem.querySelector<HTMLAnchorElement>('.menu-trigger')?.focus();
     this.builder.closeRightDrawer$.next(true);
   }
 }

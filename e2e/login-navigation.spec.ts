@@ -67,3 +67,31 @@ test('OAuth popup login continues the pending navigation', async ({ page, contex
   await expect(page).toHaveURL(/\/builder\/hub\?filter=draft#details$/);
   await expect(page.getByRole('dialog')).toHaveCount(0);
 });
+
+test('a collapsed sidebar restores its visible trigger after cancelled login', async ({ page }) => {
+  await mockLoginNavigation(page, '/my/profile', { builderGuard: false });
+  await page.route('**/api/v3/landingPage**', route => {
+    if (new URL(route.request().url()).searchParams.get('content') !== '/core/builder') {
+      return route.fallback();
+    }
+    return route.fulfill({ json: { tour: { enable: false }, menu: [{
+      label: '账户', icon: { name: 'person' },
+      child: [{ label: '我的资料', href: '/my/profile' }],
+    }] } });
+  });
+  await page.goto('/builder/hub');
+  const trigger = page.locator('app-builder-sidebar .menu-trigger[aria-label="账户"]');
+  const link = page.locator('app-builder-sidebar .child-menu a[href="/my/profile"]');
+  for (const keyboard of [false, true]) {
+    await trigger.focus();
+    if (keyboard) await link.press('Enter', { noWaitAfter: true });
+    else await link.click({ noWaitAfter: true });
+    const dialog = page.getByRole('dialog', { name: '欢迎登录', exact: true });
+    await expect(dialog.getByRole('button', { name: '关闭', exact: true })).toBeFocused();
+    await page.keyboard.press('Escape');
+    await expect(dialog).toHaveCount(0);
+    await expect(page).toHaveURL(/\/builder\/hub$/);
+    await expect(trigger).toBeFocused();
+    await expect(link).toBeVisible();
+  }
+});
