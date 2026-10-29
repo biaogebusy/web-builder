@@ -1,0 +1,13 @@
+:host {
+  @apply block mb-4;
+}
+
+.publication-settings {
+  @apply flex flex-col gap-2 p-4 rounded-lg;
+  background: var(--mat-sys-surface-container-low);
+}
+
+.hint {
+  @apply text-sm;
+  color: var(--mat-sys-on-surface-variant);
+}

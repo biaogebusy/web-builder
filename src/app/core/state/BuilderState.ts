@@ -239,6 +239,16 @@ export class BuilderState {
     this.saveLocalVersions();
   }
 
+  /** Updates server publication metadata without replacing or marking the local draft saved. */
+  setPagePublication(page: Pick<IPage, 'uuid' | 'langcode'>, published: boolean): void {
+    const index = this.findPageIndex(page);
+    if (index < 0) {
+      return;
+    }
+    this.version.update(list => list.map((item, i) => i === index ? { ...item, published } : item));
+    this.saveLocalVersions();
+  }
+
   // Only flip the flag without persisting; callers run saveLocalVersions themselves after finishing the change
   markCurrentPageDirty(): void {
     this.version.update(list => {

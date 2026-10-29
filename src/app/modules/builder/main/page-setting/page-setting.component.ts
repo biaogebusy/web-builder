@@ -30,13 +30,14 @@ import { TranslateService } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
 import { buildPageSettingCommonField, buildPageSettingFields } from './page-setting-fields';
 import { buildPageSettingAttributes, buildPageSettingRelationships } from './page-setting-payload';
+import { PagePublicationComponent } from './page-publication.component';
 
 @Component({
   selector: 'app-page-setting',
   templateUrl: './page-setting.component.html',
   styleUrl: './page-setting.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SHARE_IMPORTS, WIDGETS_IMPORTS, FORM_IMPORTS],
+  imports: [SHARE_IMPORTS, WIDGETS_IMPORTS, FORM_IMPORTS, PagePublicationComponent],
 })
 export class PageSettingComponent implements OnInit {
   private user = inject(USER);

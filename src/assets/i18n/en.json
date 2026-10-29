@@ -411,6 +411,16 @@
       "WEBFORM_SUBMIT": "Submit"
     },
     "PAGE_SETTING": {
+      "STATE": "Page status",
+      "STATE_RETRY": "Retry",
+      "STATE_LOADING": "Loading page status…",
+      "STATE_LOAD_FAILED": "Page status could not be loaded. Please retry.",
+      "STATE_HINT": "Status is saved separately and keeps your unsaved canvas changes. Unpublished pages are hidden at public URLs and remain editable in the Builder preview.",
+      "STATE_WORKFLOW_HINT": "Select a state allowed by the review workflow. The workflow determines whether the public page remains published. Unsaved canvas changes are preserved.",
+      "STATE_READ_ONLY": "Your account cannot change the page status.",
+      "STATE_SAVE": "Update status",
+      "STATE_SAVED": "Page status updated.",
+      "STATE_SAVE_FAILED": "Page status could not be updated. Check your permissions or retry.",
       "AUTHOR": "Author",
       "PAGE_CATEGORY": "Page category",
       "NONE": "None",

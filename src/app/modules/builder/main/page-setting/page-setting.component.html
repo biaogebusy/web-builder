@@ -5,6 +5,9 @@
         <app-loading />
       </div>
     }
+    @if (type === 'node--landing_page') {
+      <app-page-publication [page]="content().content.data" />
+    }
     <app-formly [form]="form" [fields]="fields" [model]="model" />
     <div class="actions">
       <app-btn

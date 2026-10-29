@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { of, throwError } from 'rxjs';
+import { firstValueFrom, of, throwError } from 'rxjs';
 import { describe, expect, it, beforeEach, vi } from 'vitest';
 import { NodeFieldFormService } from './node-field-form.service';
 import { contentFormFixture } from '@core/testing/content-form.fixture';
@@ -16,6 +16,18 @@ describe('NodeFieldFormService', () => {
       providers: [{ provide: NodeService, useValue: nodeServiceMock }],
     });
     service = TestBed.inject(NodeFieldFormService);
+  });
+
+  it('reads publication capabilities without fetching taxonomy control options', async () => {
+    const schema = contentFormFixture({ fields: [{
+      key: 'group', label: 'Group', fieldType: 'entity_reference', required: false,
+      targetType: 'taxonomy_term', targetBundle: 'page_group',
+    }] });
+    nodeServiceMock.fetch.mockClear().mockReturnValue(of(schema));
+    await expect(firstValueFrom(service.getSchema('landing_page', 'page-1', 'en'))).resolves.toBe(schema);
+    expect(nodeServiceMock.fetch).toHaveBeenCalledExactlyOnceWith(
+      '/api/v3/node-form/landing_page/page-1', { lang: 'en' }
+    );
   });
 
   describe('buildForm', () => {
