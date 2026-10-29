@@ -1,10 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
+import type { IPage } from '@core/interface/IAppConfig';
 import { BuilderService } from '@core/service/builder.service';
 import { createBuilderServiceMock } from '@core/testing/mocks';
 import { provideBuilderMocks } from '@modules/builder/testing/mocks';
-import { of, throwError } from 'rxjs';
+import { Subject, of, throwError } from 'rxjs';
 
 import {
   RevisionDiffComponent,
@@ -48,6 +49,7 @@ describe('RevisionDiffComponent', () => {
 
   beforeEach(async () => {
     vi.clearAllMocks();
+    builderService.getPageRevision.mockReset();
     builderService.getPageRevision
       .mockReturnValueOnce(of(page('Old', '28')))
       .mockReturnValueOnce(of(page('New', '29')));
@@ -116,6 +118,107 @@ describe('RevisionDiffComponent', () => {
     fixture.detectChanges();
 
     expect(component.identical()).toBe(false);
+  });
+
+  describe('pending revision reads', () => {
+    let left: Subject<IPage>;
+    let right: Subject<IPage>;
+
+    beforeEach(async () => {
+      left = new Subject<IPage>();
+      right = new Subject<IPage>();
+      builderService.getPageRevision.mockReset();
+      builderService.getPageRevision.mockReturnValueOnce(left).mockReturnValueOnce(right);
+      await fixture.whenStable();
+    });
+
+    it.each(['left', 'right'])('keeps loading after only the %s side completes', async side => {
+      const root: HTMLElement = fixture.nativeElement;
+      expect(root.querySelector('[role="status"]')?.getAttribute('aria-label'))
+        .toBe('APP.LOADING');
+      expect(root.querySelector('app-spinner mat-progress-spinner svg')).not.toBeNull();
+      expect(root.querySelector('ngx-monaco-diff-editor')).toBeNull();
+
+      const first = side === 'left' ? left : right;
+      const second = side === 'left' ? right : left;
+      first.next(page('First'));
+      first.complete();
+      await fixture.whenStable();
+
+      expect(component.loading()).toBe(true);
+      expect(component.models()).toBeNull();
+      expect(root.querySelector('app-spinner mat-progress-spinner svg')).not.toBeNull();
+      expect(root.querySelector('ngx-monaco-diff-editor')).toBeNull();
+
+      second.next(page('Second'));
+      second.complete();
+      await fixture.whenStable();
+
+      expect(component.loading()).toBe(false);
+      expect(component.error()).toBe(false);
+      expect(component.models()?.original.code).toContain(side === 'left' ? 'First' : 'Second');
+      expect(component.models()?.modified.code).toContain(side === 'left' ? 'Second' : 'First');
+      expect(root.querySelector('[role="status"]')).toBeNull();
+      expect(root.querySelector('ngx-monaco-diff-editor')).not.toBeNull();
+    });
+
+    it.each(['request', 'payload'])('retries a failed %s with a new pair', async failure => {
+      if (failure === 'request') {
+        left.error(new Error('offline'));
+      } else {
+        left.next({ status: false } as IPage);
+        left.complete();
+        right.next(page('Rejected pair'));
+        right.complete();
+      }
+      await fixture.whenStable();
+      const root: HTMLElement = fixture.nativeElement;
+      expect(component.loading()).toBe(false);
+      expect(component.error()).toBe(true);
+      expect(component.models()).toBeNull();
+      expect(right.observed).toBe(false);
+      expect(root.textContent).toContain('BUILDER.REVISION.COMPARE_FAIL');
+      expect(root.querySelector('app-spinner')).toBeNull();
+
+      const retryLeft = new Subject<IPage>();
+      const retryRight = new Subject<IPage>();
+      builderService.getPageRevision
+        .mockReturnValueOnce(retryLeft).mockReturnValueOnce(retryRight);
+      root.querySelector<HTMLButtonElement>('.diff-state app-btn button')!.click();
+      await fixture.whenStable();
+
+      expect(builderService.getPageRevision).toHaveBeenCalledTimes(4);
+      expect(component.error()).toBe(false);
+      expect(root.textContent).not.toContain('BUILDER.REVISION.COMPARE_FAIL');
+      expect(root.querySelector('[role="status"]')).not.toBeNull();
+      expect(root.querySelector('app-spinner mat-progress-spinner svg')).not.toBeNull();
+      retryRight.next(page('Retry right'));
+      retryRight.complete();
+      await fixture.whenStable();
+      expect(component.models()).toBeNull();
+      expect(component.loading()).toBe(true);
+      retryLeft.next(page('Retry left'));
+      retryLeft.complete();
+      await fixture.whenStable();
+
+      expect(component.loading()).toBe(false);
+      expect(component.models()?.original.code).toContain('Retry left');
+      expect(component.models()?.modified.code).toContain('Retry right');
+    });
+
+    it('unsubscribes both pending reads when the dialog is destroyed', () => {
+      expect(left.observed).toBe(true);
+      expect(right.observed).toBe(true);
+      fixture.destroy();
+
+      expect(left.observed).toBe(false);
+      expect(right.observed).toBe(false);
+      left.next(page('Late left'));
+      left.complete();
+      right.next(page('Late right'));
+      right.complete();
+      expect(component.models()).toBeNull();
+    });
   });
 
   // Revision metadata differs between any two revisions and every save writes new block ids

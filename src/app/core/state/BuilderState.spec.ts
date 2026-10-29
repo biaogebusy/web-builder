@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import type { IPage } from '@core/interface/IAppConfig';
 import { LocalStorageService, withNgxWebstorageConfig } from 'ngx-webstorage';
 import { vi } from 'vitest';
+import { of } from 'rxjs';
 
 import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -55,6 +56,168 @@ describe('BuilderState tree and draft behavior', () => {
       storage,
     };
   };
+
+  describe('delayed local draft selection', () => {
+    const drafts = () => ['A', 'B', 'C'].map((title, index) =>
+      makePage([], { title, current: index === 0 }));
+
+    beforeEach(() => vi.useFakeTimers());
+    afterEach(() => vi.useRealTimers());
+
+    it('keeps only the latest selection and its full loading delay', () => {
+      const { state, storage } = createState(drafts());
+      state.showVersionPage(1);
+      vi.advanceTimersByTime(200);
+      state.showVersionPage(2);
+      vi.advanceTimersByTime(400);
+
+      expect(state.currentPage.title).toBe('A');
+      expect(state.loading()).toBe(true);
+      expect(storage.store).not.toHaveBeenCalled();
+      vi.advanceTimersByTime(200);
+      expect(state.currentPage).toMatchObject({ title: 'C', current: true });
+      expect(state.loading()).toBe(false);
+      expect(storage.store).toHaveBeenCalledOnce();
+    });
+
+    it('keeps the selected draft when an earlier background draft is removed', () => {
+      const { state } = createState(drafts());
+      state.showVersionPage(2);
+      state.deleteLocalPage(1);
+      expect(state.loading()).toBe(true);
+      vi.advanceTimersByTime(600);
+
+      expect(state.version()).toEqual([
+        makePage([], { title: 'A', current: false }),
+        makePage([], { title: 'C', current: true }),
+      ]);
+      expect(state.loading()).toBe(false);
+    });
+
+    it('keeps the current draft when the pending selection is deleted', () => {
+      const { state, storage } = createState(drafts());
+      state.showVersionPage(1);
+      state.deleteLocalPage(1);
+      expect(state.loading()).toBe(false);
+      vi.advanceTimersByTime(600);
+
+      expect(state.currentPage).toMatchObject({ title: 'A', current: true });
+      expect(state.version().map(page => page.title)).toEqual(['A', 'C']);
+      expect(storage.store).toHaveBeenCalledOnce();
+    });
+
+    it('does not replace a newly loaded draft with an older selection', () => {
+      const { state, storage } = createState(drafts());
+      state.showVersionPage(2);
+      state.loadNewPage(makePage([], { title: 'New draft' }));
+      vi.advanceTimersByTime(600);
+
+      expect(state.currentPage).toMatchObject({ title: 'New draft', current: true });
+      expect(storage.store).toHaveBeenCalledOnce();
+    });
+
+    it('preserves reinitialization and its loading delay', () => {
+      const { state } = createState(drafts());
+      state.showVersionPage(2);
+      vi.advanceTimersByTime(200);
+      state.initPage([makePage([], { title: 'Initialized draft' })]);
+      vi.advanceTimersByTime(400);
+
+      expect(state.currentPage.current).toBe(true);
+      expect(state.loading()).toBe(true);
+      vi.advanceTimersByTime(200);
+      expect(state.currentPage).toMatchObject({ title: 'Initialized draft', current: true });
+      expect(state.loading()).toBe(false);
+    });
+
+    it('keeps the fallback selection after deleting the current draft', () => {
+      const { state, storage } = createState(drafts());
+      state.showVersionPage(2);
+      state.deleteLocalPage(0);
+      vi.advanceTimersByTime(600);
+
+      expect(state.currentPage).toMatchObject({ title: 'B', current: true });
+      expect(storage.store).toHaveBeenCalledOnce();
+    });
+
+    it('preserves edits to an unsaved draft while its selection is pending', () => {
+      const { state } = createState(drafts());
+      state.showVersionPage(2);
+      state.version.update(list => list.map((page, index) => index === 2
+        ? { ...page, title: 'Renamed draft', dirty: true } : page));
+      state.deleteLocalPage(1);
+      vi.advanceTimersByTime(600);
+
+      expect(state.currentPage).toMatchObject({ title: 'Renamed draft', dirty: true, current: true });
+    });
+
+    it('does not let an invalid index cancel a valid pending selection', () => {
+      const { state } = createState(drafts());
+      state.showVersionPage(1);
+      for (const index of [-1, 3, 0.5, Number.NaN]) state.showVersionPage(index);
+      vi.advanceTimersByTime(600);
+
+      expect(state.currentPage).toMatchObject({ title: 'B', current: true });
+    });
+
+    it('does not persist a pending selection after state destruction', () => {
+      const { state, storage } = createState(drafts());
+      state.showVersionPage(1);
+      TestBed.resetTestingModule();
+      vi.advanceTimersByTime(600);
+
+      expect(storage.store).not.toHaveBeenCalled();
+      expect(state.currentPage).toMatchObject({ title: 'A', current: true });
+    });
+
+    it.each([false, true])('respects the clear-history decision (confirmed: %s)', async confirmed => {
+      await import('@uiux/widgets/dialog/dialog.component');
+      const { state } = createState(drafts());
+      const open = vi.spyOn(TestBed.inject(MatDialog), 'open').mockReturnValue({
+        afterClosed: () => of(confirmed),
+      } as any);
+      state.showVersionPage(2);
+      state.clearAllHistory();
+      await vi.waitFor(() => expect(open).toHaveBeenCalledOnce());
+      vi.advanceTimersByTime(600);
+
+      expect(state.currentPage).toMatchObject({
+        title: confirmed ? '未命名' : 'C', current: true,
+      });
+      expect(state.loading()).toBe(false);
+    });
+
+    it.each([false, true])('handles external replacement during selection (valid: %s)', valid => {
+      const { state, storage } = createState(drafts(), true);
+      state.showVersionPage(2);
+      window.dispatchEvent(new StorageEvent('storage', {
+        key: 'ngx-webstorage:version',
+        newValue: valid ? JSON.stringify([makePage([], { title: 'External draft' })]) : '{broken',
+      }));
+      vi.advanceTimersByTime(600);
+
+      expect(state.currentPage).toMatchObject({
+        title: valid ? 'External draft' : 'C', current: true,
+      });
+      expect(storage.store).toHaveBeenCalledTimes(valid ? 0 : 1);
+      expect(state.loading()).toBe(false);
+    });
+
+    it('tracks the selection through removal of all languages of another page', () => {
+      const { state } = createState([
+        makePage([], { title: 'A' }),
+        makePage([], { nid: '7', langcode: 'en', current: false }),
+        makePage([], { nid: '7', langcode: 'zh-hans', current: false }),
+        makePage([], { title: 'D', current: false }),
+      ]);
+      state.showVersionPage(3);
+      state.deleteLocalPageByPage({ nid: '7' }, true);
+      vi.advanceTimersByTime(600);
+
+      expect(state.currentPage).toMatchObject({ title: 'D', current: true });
+      expect(state.version()).toHaveLength(2);
+    });
+  });
 
   it('shares restored and updated drafts with public language readers', () => {
     const { state } = createState([makePage([], { langcode: 'en' })]);

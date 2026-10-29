@@ -66,6 +66,31 @@ describe('BuilderVersionComponent', () => {
     expect(builderState.deleteLocalPage).toHaveBeenCalledWith(0);
   });
 
+  it('deletes through the native button without selecting or checking a version', async () => {
+    await fixture.whenStable();
+    const button: HTMLButtonElement = fixture.nativeElement.querySelector('app-btn.delete button');
+
+    button.click();
+    await fixture.whenStable();
+
+    expect(builderState.deleteLocalPage).toHaveBeenCalledExactlyOnceWith(1);
+    expect(builderState.switchVersion).not.toHaveBeenCalled();
+    expect(builderService.checkIsLatestPage).not.toHaveBeenCalled();
+  });
+
+  it('still selects and checks a version when its row is clicked', async () => {
+    await fixture.whenStable();
+    const row: HTMLElement = fixture.nativeElement.querySelectorAll('mat-list-item')[1];
+
+    row.click();
+    await fixture.whenStable();
+
+    const page = builderState.version()[1];
+    expect(builderState.switchVersion).toHaveBeenCalledExactlyOnceWith(page, 1);
+    expect(builderService.checkIsLatestPage).toHaveBeenCalledExactlyOnceWith(page);
+    expect(builderState.deleteLocalPage).not.toHaveBeenCalled();
+  });
+
   it('renames the version title and persists the local versions', () => {
     component.onUpdateTitle({ target: { textContent: '首页改版' } }, 0);
 

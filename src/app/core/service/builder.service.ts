@@ -8,7 +8,7 @@ import { firstValueFrom, Observable, of, Subscription, throwError, timer } from 
 import { UtilitiesService } from './utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { NodeService } from './node.service';
-import { catchError, filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { catchError, filter, map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -62,6 +62,7 @@ export class BuilderService extends ApiService {
   private translate = inject(TranslateService);
   private versionCheckSub?: Subscription;
   private versionDialogOpen = false;
+  private revisionDraftRequest?: Subscription;
 
   constructor() {
     super();
@@ -71,6 +72,8 @@ export class BuilderService extends ApiService {
     page: { langcode?: string; nid: string; isTemplate?: boolean },
     openSetting = false
   ): void {
+    // A later page or language selection supersedes an unfinished revision preview.
+    this.revisionDraftRequest?.unsubscribe();
     const { langcode, nid, isTemplate } = page;
     const lang = getApiLang(langcode);
     this.nodeService
@@ -212,10 +215,11 @@ export class BuilderService extends ApiService {
    * being rejected as stale.
    */
   loadPageRevision(page: { langcode?: string; nid: string; vid: string }): void {
+    this.revisionDraftRequest?.unsubscribe();
     const { vid } = page;
     this.builder.loading.set(true);
-    this.getPageRevision(page)
-      .pipe(take(1))
+    this.revisionDraftRequest = this.getPageRevision(page)
+      .pipe(take(1), takeUntil(this.builder.pageSelection$), takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (content: IPage) => {
           this.builder.loading.set(false);

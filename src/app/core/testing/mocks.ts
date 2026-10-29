@@ -91,6 +91,7 @@ export const createBuilderStateMock = () => ({
   pendingPageLoad: signal(null),
   loading: signal(false),
   updateSuccess$: new Subject<boolean>(),
+  pageSelection$: new Subject<void>(),
   COPYCOMPONENTKEY: 'cck',
   COPYWIDGETKEY: 'cwk',
   version: signal<IPage[]>([]),
