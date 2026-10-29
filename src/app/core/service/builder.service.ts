@@ -800,12 +800,14 @@ export class BuilderService extends ApiService {
       .subscribe(res => {
         if (res) {
           this.builder.rightContent$.next({
-            title: '页面配置',
+            title: this.translate.instant('BUILDER.PAGE_LIST.PAGE_PROPS'),
             mode: 'over',
             hasBackdrop: true,
+            classes: 'page-settings-drawer',
             style: {
-              padding: '14px',
-              'max-width': 'calc(100vw - 80px)',
+              'padding': '0',
+              'width': '100%',
+              'max-width': '100vw',
             },
             elements: [
               {

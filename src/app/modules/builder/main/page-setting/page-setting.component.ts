@@ -6,6 +6,7 @@ import {
   inject,
   signal,
   input,
+  computed,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormGroup } from '@angular/forms';
@@ -53,6 +54,29 @@ export class PageSettingComponent implements OnInit {
   readonly publicationLoading = signal(false);
   readonly publicationFailed = signal(false);
   readonly updateFailed = signal(false);
+  readonly selectedPublicationState = signal('');
+  readonly savedPublicationState = signal('');
+  /** Describes what the single settings save action will do. */
+  readonly updateLabel = computed(() => {
+    if (this.updating()) return 'BUILDER.PAGE_SETTING.SAVING';
+    const state = this.selectedPublicationState();
+    if (this.publicationFailed() || state === this.savedPublicationState()) {
+      return 'BUILDER.PAGE_SETTING.UPDATE';
+    }
+    switch (state) {
+      case 'published': return 'BUILDER.PAGE_SETTING.SAVE_AND_PUBLISH';
+      case 'unpublished': return 'BUILDER.PAGE_SETTING.SAVE_AND_UNPUBLISH';
+      case 'draft': return 'BUILDER.PAGE_SETTING.SAVE_AS_DRAFT';
+      default: return 'BUILDER.PAGE_SETTING.UPDATE';
+    }
+  });
+  /** Publication uses the saved content, so retain and identify any local canvas edits. */
+  readonly hasUnsavedCanvas = computed(() => {
+    const data = this.content()?.content?.data;
+    return !!data?.id && this.builder.isPageDirty({
+      uuid: data.id, langcode: data.attributes.langcode,
+    });
+  });
   public type: 'node--landing_page' | 'node--json';
   // Deleting a translation version removes only the current language; the source-language version deletes the node itself (all languages)
   public isTranslation = false;
@@ -95,7 +119,12 @@ export class PageSettingComponent implements OnInit {
             ? data.attributes.status ? 'published' : 'unpublished' : '',
           key => this.translate.instant(key));
         // The shared Formly wrapper clones its fields; keep the live field for async updates.
-        this.publicationField.hooks = { onInit: field => { this.publicationField = field; } };
+        this.publicationField.hooks = { onInit: field => {
+          this.publicationField = field;
+          this.selectedPublicationState.set(field.formControl?.value ?? '');
+          field.formControl?.valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe(state => this.selectedPublicationState.set(state));
+        } };
       }
       this.fields = buildPageSettingFields({
         data,
@@ -125,6 +154,8 @@ export class PageSettingComponent implements OnInit {
       .subscribe({
         next: schema => {
           this.publicationSchema = schema;
+          this.savedPublicationState.set(schema.defaults.state);
+          this.selectedPublicationState.set(schema.defaults.state);
           const currentField = this.publicationField!;
           const next = buildPagePublicationField(schema, '', key => this.translate.instant(key));
           Object.assign(currentField.props!, next.props);
@@ -206,6 +237,9 @@ export class PageSettingComponent implements OnInit {
     } = data;
 
     const schema = this.publicationSchema;
+    const requestedState = value.publicationState;
+    const stateChanged = !!schema && requestedState !== schema.defaults.state;
+    let successMessage = 'BUILDER.PAGE_SETTING.UPDATE_SUCCESS';
     const page = { uuid: id, langcode };
     this.updating.set(true);
     this.loading.set(true);
@@ -260,6 +294,21 @@ export class PageSettingComponent implements OnInit {
             headerMode: { transparent: value.is_transparent, style: value.transparent_style },
           } } : {}),
         });
+        if (stateChanged) {
+          if (typeof published !== 'boolean') {
+            successMessage = 'BUILDER.PAGE_SETTING.SAVED_STATUS_UNCONFIRMED';
+          } else if (requestedState === 'published' && published) {
+            successMessage = 'BUILDER.PAGE_SETTING.PUBLISHED_SUCCESS';
+          } else if (requestedState === 'unpublished' && !published) {
+            successMessage = 'BUILDER.PAGE_SETTING.UNPUBLISHED_SUCCESS';
+          } else if (requestedState === 'draft') {
+            successMessage = published
+              ? 'BUILDER.PAGE_SETTING.DRAFT_WITH_PUBLISHED_SUCCESS'
+              : 'BUILDER.PAGE_SETTING.DRAFT_SUCCESS';
+          } else {
+            successMessage = 'BUILDER.PAGE_SETTING.STATE_SAVED_SUCCESS';
+          }
+        }
         if (!this.destroyRef.destroyed) this.refreshPublication();
       } else {
         this.builder.loading.set(true);
@@ -267,7 +316,7 @@ export class PageSettingComponent implements OnInit {
       }
       this.builder.updateSuccess$.next(true);
       this.util.openSnackbar(
-        this.translate.instant('BUILDER.PAGE_SETTING.UPDATE_SUCCESS', { title: value.title }), 'ok'
+        this.translate.instant(successMessage, { title: value.title }), 'ok'
       );
     } catch {
       this.updateFailed.set(true);
@@ -292,12 +341,15 @@ export class PageSettingComponent implements OnInit {
   }
 
   onPreview(): void {
+    const { attributes } = this.content().content.data;
     const config: IDialog = {
       disableActions: true,
       inputData: {
         content: {
           type: 'iframe',
-          url: appendQueryParams(this.model.alias, { nocache: true }),
+          url: appendQueryParams('/preview', {
+            nid: attributes.drupal_internal__nid, lang: attributes.langcode,
+          }),
           width: '100%',
           fullWidth: true,
           classes: 'h-screen',

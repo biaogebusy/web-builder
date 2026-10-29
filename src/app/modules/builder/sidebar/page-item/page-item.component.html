@@ -34,14 +34,18 @@
   @if (active() || dirty() || translationDraft() || publicationState()) {
     <div class="status-row">
       @if (publicationLabel(); as label) {
-        <span
+        <button
+          type="button"
           class="status-badge publication-badge"
+          (click)="updatePageSetting()"
+          [attr.aria-label]="'BUILDER.PAGE_LIST.EDIT_STATE' | translate: { state: (label | translate) }"
           [class.unpublished-badge]="publicationState() === 'unpublished'"
           [class.draft-badge]="publicationState() === 'draft'"
           [class.published-badge]="publicationState() === 'published'"
         >
           {{ label | translate }}
-        </span>
+          <app-icon [content]="{ svg: 'chevron-down' }" />
+        </button>
       }
       @if (active()) {
         <span class="status-badge current-badge">
@@ -108,6 +112,12 @@
       <span>{{ 'BUILDER.PAGE_LIST.LOAD_EDIT' | translate }}</span>
     </span>
   </button>
+  <button mat-menu-item (click)="updatePageSetting()">
+    <span class="page-item-menu__content">
+      <app-icon class="page-item-menu__icon" [content]="{ svg: 'cog' }" />
+      <span>{{ 'BUILDER.PAGE_LIST.PAGE_PROPS' | translate }}</span>
+    </span>
+  </button>
   @if (showLanguage && langs) {
     @for (item of langs; track item.langCode) {
       @if (!item.default && item.langCode !== page().langcode) {
@@ -137,12 +147,6 @@
     <span class="page-item-menu__content">
       <app-icon class="page-item-menu__icon" [content]="{ svg: 'history' }" />
       <span>{{ 'BUILDER.PAGE_LIST.PAGE_REVISIONS' | translate }}</span>
-    </span>
-  </button>
-  <button mat-menu-item (click)="updatePageSetting()">
-    <span class="page-item-menu__content">
-      <app-icon class="page-item-menu__icon" [content]="{ svg: 'cog' }" />
-      <span>{{ 'BUILDER.PAGE_LIST.PAGE_PROPS' | translate }}</span>
     </span>
   </button>
   <mat-divider />

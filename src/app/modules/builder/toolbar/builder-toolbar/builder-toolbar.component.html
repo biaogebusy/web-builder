@@ -107,6 +107,18 @@
           "
         />
         @if (page) {
+          @if (page.uuid && !page.translation) {
+            <app-btn
+              class="page-settings-btn"
+              [matTooltip]="'BUILDER.PAGE_LIST.PAGE_PROPS' | translate"
+              (btnClick)="onPageSettings(page)"
+              [content]="{
+                label: 'BUILDER.PAGE_LIST.PAGE_PROPS' | translate,
+                mode: 'icon',
+                icon: { svg: 'cog-outline' },
+              }"
+            />
+          }
           <app-btn
             class="submit-btn"
             (click)="onSubmit(page)"

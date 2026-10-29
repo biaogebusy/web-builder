@@ -194,7 +194,7 @@
       "SHOW_SIDEBAR": "显示边栏",
       "TOGGLE_FULL_WIDTH": "切换全宽",
       "SUBMIT_TRANSLATION": "提交翻译",
-      "SUBMIT_UPDATE": "提交更新",
+      "SUBMIT_UPDATE": "保存内容",
       "SUBMIT_DRAFT": "提交草稿",
       "DRAFT_BADGE_TIP": "当前页面尚未发布，处于草稿状态，点击右侧按钮可发布",
       "SELECT_TEMPLATE": "选择模板创建页面",
@@ -208,7 +208,7 @@
       "TRANSLATION_DRAFT_TIP": "目标语言：{{lang}}",
       "UPDATE_SUCCESS": "更新成功",
       "UNSAVED_CHANGES": "未提交更改",
-      "UNSAVED_CHANGES_TIP": "页面有未提交到线上的本地修改，点击右侧提交更新按钮同步"
+      "UNSAVED_CHANGES_TIP": "画布有未保存的修改，点击“保存内容”同步修改"
     },
     "SWITCH_PREVIEW": {
       "TOOLTIP": "切换设备",
@@ -248,7 +248,6 @@
     },
     "PAGE_LIST": {
       "UNPUBLISHED": "未发布",
-      "UNPUBLISHED_HINT": "未发布：公共网址不可见，可在 Builder 内编辑和预览。",
       "PAGE_TITLE": "着陆页管理",
       "MANAGE_SUFFIX": "{{name}}管理",
       "LOADING_PAGE": "正在加载{{title}}",
@@ -284,8 +283,8 @@
       "EDIT_LANG": "编辑{{label}}",
       "PAGE_JSON": "页面 JSON",
       "PAGE_REVISIONS": "历史版本",
-      "PAGE_PROPS": "页面属性",
-      "OPEN_PAGE_PROPS_CONFIRM": "是否需要打开页面属性面板？",
+      "PAGE_PROPS": "页面设置",
+      "OPEN_PAGE_PROPS_CONFIRM": "是否打开页面设置？",
       "CHECK_LANDING_VIEW": "请检查 LandingPage View 配置",
       "TRANSLATION_EXISTS": "已有{{label}}语言页面，正在载入",
       "LOAD_TRANSLATION_FAIL": "载入 {{title}} 失败，请重试",
@@ -300,7 +299,8 @@
       "DELETE_PAGE": "删除页面",
       "DELETE_TRANSLATION": "删除翻译",
       "DELETE_TITLE": "删除页面",
-      "DELETE_CONFIRM": "确认删除 <strong>{{title}}</strong>？删除后不可恢复！"
+      "DELETE_CONFIRM": "确认删除 <strong>{{title}}</strong>？删除后不可恢复！",
+      "EDIT_STATE": "修改页面状态，当前为{{state}}"
     },
     "VERSION": {
       "HISTORY": "历史记录",
@@ -431,7 +431,7 @@
       "UPDATE_TIME": "更新时间",
       "LANGUAGE": "语言",
       "CONTENT_TYPE": "内容类型",
-      "URL_ALIAS": "url 别名",
+      "URL_ALIAS": "页面地址",
       "PAGE_DESC": "页面描述",
       "BASIC": "基础配置",
       "SEO": "SEO 设置",
@@ -444,13 +444,13 @@
       "SEO_ROBOTS_DEFAULT": "站点默认",
       "SEO_ROBOTS_INDEX": "允许收录（index, follow）",
       "SEO_ROBOTS_NOINDEX": "禁止收录（noindex, nofollow）",
-      "UPDATE": "更新",
+      "UPDATE": "保存设置",
       "EDIT_JSON": "编辑 JSON",
-      "PREVIEW": "预览",
+      "PREVIEW": "预览草稿",
       "ALIAS_FAIL": "更新别名失败，请联系管理员！",
       "ALIAS_SYNC_PARTIAL_FAIL": "部分语言的 URL 别名同步失败，请手动检查",
       "TRANSLATION_ALIAS_SYNC_FAIL": "翻译页面 URL 别名同步失败，请手动检查",
-      "UPDATE_SUCCESS": "更新{{title}}成功",
+      "UPDATE_SUCCESS": "已保存“{{title}}”的页面设置",
       "NO_PERMISSION": "权限不足！",
       "DELETE_TITLE": "删除页面",
       "DELETE_CONFIRM": "确认删除 <strong>{{title}}</strong>？删除后不可恢复！",
@@ -461,7 +461,19 @@
       "DELETE_TRANSLATION_SUCCESS": "已删除 {{title}} 的 {{lang}} 版本",
       "DELETE_TRANSLATION_FAIL": "删除 {{title}} 的 {{lang}} 版本失败，请联系管理员！",
       "DELETE_FAIL": "删除{{title}}失败，请联系管理员！",
-      "DELETE_SUCCESS": "删除{{title}}成功"
+      "DELETE_SUCCESS": "删除{{title}}成功",
+      "INFORMATION": "页面信息",
+      "SAVING": "正在保存…",
+      "SAVE_AND_PUBLISH": "保存并发布",
+      "SAVE_AND_UNPUBLISH": "保存并取消发布",
+      "SAVE_AS_DRAFT": "保存为草稿",
+      "UNSAVED_CANVAS": "该页面有未保存的画布修改。发布将使用已保存的内容；如需发布这些修改，请先载入该页面并点击“保存内容”。",
+      "PUBLISHED_SUCCESS": "“{{title}}”已发布",
+      "UNPUBLISHED_SUCCESS": "“{{title}}”已取消发布，公共网址不再可见",
+      "DRAFT_WITH_PUBLISHED_SUCCESS": "“{{title}}”已保存为草稿，当前已发布版本仍对外可见",
+      "DRAFT_SUCCESS": "“{{title}}”已保存为草稿",
+      "STATE_SAVED_SUCCESS": "“{{title}}”的页面状态已保存",
+      "SAVED_STATUS_UNCONFIRMED": "设置已保存，暂时无法确认公共发布状态，请重新打开页面设置确认。"
     },
     "CARD_PAGE": {
       "TITLE_UPDATED": "已更新标题为{{title}}"

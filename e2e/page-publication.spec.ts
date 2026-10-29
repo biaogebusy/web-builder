@@ -94,9 +94,9 @@ test('unpublished /404 page opens in the builder and retains the private preview
   await row.getByRole('button', { name: 'Draft fixture', exact: true }).click();
   expect(errors).toEqual([]);
   await expect.poll(() => reads.filter(url => url.includes('/json/12'))).not.toEqual([]);
-  await expect(page.locator('app-builder-list .publication-bar')).toContainText('未发布');
+  await expect(page.locator('app-builder-list .publication-bar')).toHaveCount(0);
   await expect(page.locator('app-builder-list')).toContainText('Publication fixture content');
-  expect((await new AxeBuilder({ page }).include('.publication-bar').include('app-page-item').analyze()).violations).toEqual([]);
+  expect((await new AxeBuilder({ page }).include('app-page-item').analyze()).violations).toEqual([]);
   await page.screenshot({ path: 'test-results/publication-builder.png', fullPage: true });
   await page.goto('/preview');
   await expect(page.locator('app-preview')).toContainText('Publication fixture content');

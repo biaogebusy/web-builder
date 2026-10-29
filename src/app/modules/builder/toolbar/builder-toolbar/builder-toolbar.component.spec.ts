@@ -38,6 +38,7 @@ describe('BuilderToolbarComponent', () => {
     createLandingPage: vi.fn(),
     updateLandingPage: vi.fn(),
     loadPage: vi.fn(),
+    openPageSetting: vi.fn(),
   };
   const util = { openSnackbar: vi.fn() };
   const storage = { retrieve: vi.fn(), observe: vi.fn(() => of([])), store: vi.fn() };
@@ -69,6 +70,17 @@ describe('BuilderToolbarComponent', () => {
       ],
     });
     component = TestBed.runInInjectionContext(() => new BuilderToolbarComponent());
+  });
+
+  it('opens settings for the current language without saving canvas changes', () => {
+    const page: IPage = { uuid: 'page-42', nid: '42', langcode: 'en',
+      title: 'Unsaved edits', dirty: true, body: [{ type: 'text' }] };
+    component.onPageSettings(page);
+    expect(builderService.openPageSetting).toHaveBeenCalledWith(
+      { uuid: 'page-42', langcode: 'en' }, '/api/v1/node/landing_page', expect.anything()
+    );
+    expect(builderService.updateLandingPage).not.toHaveBeenCalled();
+    expect(page.dirty).toBe(true);
   });
 
   it('keeps the draft and upgrades it in place after creating a page', () => {

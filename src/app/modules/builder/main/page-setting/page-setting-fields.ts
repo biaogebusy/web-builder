@@ -32,7 +32,7 @@ export function buildPageSettingFields({
     },
   } = data;
   const user = included.find(item => item.type === 'user--user');
-  const basicFields = [
+  const basicFields: FormlyFieldConfig[] = [
     getCommonField('title', title.trim()),
     getCommonField(
       'alias',
@@ -42,6 +42,8 @@ export function buildPageSettingFields({
         langcode,
       })
     ),
+  ];
+  const informationFields = [
     {
       key: 'author',
       type: 'input',
@@ -144,6 +146,10 @@ export function buildPageSettingFields({
   if (type === 'node--landing_page') {
     tabs.push(getCommonField('meta_tags', decodeMetaTags(meta_tags)));
   }
+  tabs.push({
+    props: { label: translate('BUILDER.PAGE_SETTING.INFORMATION') },
+    fieldGroup: informationFields,
+  });
 
   return [
     {

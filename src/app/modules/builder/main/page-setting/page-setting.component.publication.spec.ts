@@ -3,6 +3,7 @@ import { TestBed, type ComponentFixture } from '@angular/core/testing';
 import { FormControl } from '@angular/forms';
 import type { FormlyFieldConfig } from '@ngx-formly/core';
 import type { INodeFormSchema } from '@core/service/node-field-form.service';
+import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
 import { NodeFieldFormService } from '@core/service/node-field-form.service';
@@ -70,6 +71,9 @@ describe('Page settings publication', () => {
     });
     expect(updateUrlalias).not.toHaveBeenCalled();
     expect(loadPage).not.toHaveBeenCalled();
+    expect(TestBed.inject(UtilitiesService).openSnackbar).toHaveBeenCalledWith(
+      'BUILDER.PAGE_SETTING.PUBLISHED_SUCCESS', 'ok'
+    );
     expect(builder.updatePageSettings).toHaveBeenCalledWith(
       { uuid: 'page-1', langcode: 'zh-hans' }, {
         title: 'Updated title', published: true,
@@ -110,6 +114,7 @@ describe('Page settings publication', () => {
     component.ngOnInit();
     component.model.title = 'Unsaved setting';
     expect(component.publicationFailed()).toBe(true);
+    expect(component.updateLabel()).toBe('BUILDER.PAGE_SETTING.UPDATE');
     getSchema.mockReturnValue(of(schema()));
     component.refreshPublication();
     expect(component.publicationFailed()).toBe(false);
@@ -129,6 +134,11 @@ describe('Page settings publication', () => {
     expect(rendered.props!.disabled).toBe(false);
     expect(rendered.formControl!.value).toBe('unpublished');
     expect(rendered.options!.detectChanges).toHaveBeenCalledWith(rendered);
+    expect(component.updateLabel()).toBe('BUILDER.PAGE_SETTING.UPDATE');
+    rendered.formControl!.setValue('published');
+    expect(component.updateLabel()).toBe('BUILDER.PAGE_SETTING.SAVE_AND_PUBLISH');
+    rendered.formControl!.setValue('draft');
+    expect(component.updateLabel()).toBe('BUILDER.PAGE_SETTING.SAVE_AS_DRAFT');
     permission.complete();
   });
 
@@ -151,6 +161,18 @@ describe('Page settings publication', () => {
     expect(builder.updatePageSettings.mock.calls[0][1].published).toBe(true);
   });
 
+  it('explains when a new draft leaves the published version visible', async () => {
+    getSchema.mockReturnValue(of(contentFormFixture({
+      moderated: true, baseFields: { moderation_state: 'moderation_state' },
+      states: [{ value: 'draft', label: 'Draft' }],
+    })));
+    component.ngOnInit();
+    await component.onUpdate(values('draft'));
+    expect(TestBed.inject(UtilitiesService).openSnackbar).toHaveBeenCalledWith(
+      'BUILDER.PAGE_SETTING.DRAFT_WITH_PUBLISHED_SUCCESS', 'ok'
+    );
+  });
+
   it('does not invent a flag when settings save but the default revision read fails', async () => {
     getSchema.mockReturnValue(of(contentFormFixture({ moderated: true })));
     fetchNode.mockReturnValue(throwError(() => ({ status: 403 })));
@@ -158,6 +180,9 @@ describe('Page settings publication', () => {
     await component.onUpdate(values('unpublished'));
     expect(builder.updatePageSettings.mock.calls[0][1]).not.toHaveProperty('published');
     expect(component.updateFailed()).toBe(false);
+    expect(TestBed.inject(UtilitiesService).openSnackbar).toHaveBeenCalledWith(
+      'BUILDER.PAGE_SETTING.SAVED_STATUS_UNCONFIRMED', 'ok'
+    );
   });
 
   it('preserves local metadata when the CMS rejects the combined update', async () => {

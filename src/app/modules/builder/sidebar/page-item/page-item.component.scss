@@ -92,8 +92,22 @@
   }
 
   .publication-badge {
+    @apply inline-flex min-h-6 cursor-pointer items-center gap-1;
     color: var(--mat-sys-on-secondary-container);
     background-color: var(--mat-sys-secondary-container);
+
+    &:hover {
+      box-shadow: inset 0 0 0 1px var(--mat-sys-outline);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--mat-sys-primary);
+      outline-offset: 2px;
+    }
+
+    ::ng-deep .mat-icon {
+      @apply h-3 w-3 text-xs leading-3;
+    }
   }
 
   .draft-badge {

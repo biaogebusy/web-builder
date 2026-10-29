@@ -16,11 +16,17 @@
     @if (updateFailed()) {
       <p role="status">{{ 'BUILDER.PAGE_SETTING.UPDATE_FAIL' | translate }}</p>
     }
+  </div>
+  <div class="settings-footer">
+    @if (hasUnsavedCanvas()) {
+      <p class="save-scope">{{ 'BUILDER.PAGE_SETTING.UNSAVED_CANVAS' | translate }}</p>
+    }
     <div class="actions">
       <app-btn
-        (click)="onUpdate(model)"
+        class="save-settings"
+        (btnClick)="onUpdate(model)"
         [content]="{
-          label: 'BUILDER.PAGE_SETTING.UPDATE' | translate,
+          label: updateLabel() | translate,
           color: 'primary',
           mode: 'raised',
           disabled: loading() || updating() || publicationLoading() || form.invalid,

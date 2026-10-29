@@ -50,13 +50,30 @@
       @apply flex flex-col h-full;
       overflow: hidden;
     }
+
+    &.page-settings-drawer {
+      @apply w-full;
+      max-width: 420px;
+    }
+
+    &.page-settings-drawer ::ng-deep {
+      .right-content {
+        @apply flex flex-col overflow-hidden;
+      }
+
+      .right-content > app-dynamic-component,
+      .right-content > app-dynamic-component > .content-wrapper {
+        @apply flex min-h-0 flex-1 flex-col;
+      }
+    }
   }
   .builder {
     @apply flex-1 overflow-auto h-full;
   }
 
   @media (max-width: 599px) {
-    &.mobile-navigation-hidden {
+    &.mobile-navigation-hidden,
+    &:has(.page-settings-drawer.mat-drawer-opened) {
       .sidebar-drawer {
         @apply hidden;
       }

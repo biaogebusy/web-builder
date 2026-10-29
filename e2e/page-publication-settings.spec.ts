@@ -1,19 +1,19 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from './fixtures/test';
 
-for (const mode of ['allowed', 'read-only', 'moderated', 'rejected', 'two-step'] as const) {
+for (const mode of ['allowed', 'read-only', 'moderated', 'rejected', 'republish'] as const) {
   test(`Builder page publication settings: ${mode}`, async ({ context, page }) => {
-    const twoStep = mode === 'two-step';
-    if (twoStep) await page.setViewportSize({ width: 1440, height: 1000 });
-    let published = !twoStep;
-    let state = twoStep ? 'unpublished' : 'published';
+    const republish = mode === 'republish';
+    if (republish) await page.setViewportSize({ width: 1440, height: 1000 });
+    let published = !republish;
+    let state = republish ? 'unpublished' : 'published';
     let title = 'Status fixture';
     let canvasReads = 0;
     const writes: Record<string, unknown>[] = [];
     const errors: string[] = [];
     page.on('pageerror', error => errors.push(error.message));
     const editable = mode !== 'read-only';
-    const moderated = mode === 'moderated' || twoStep;
+    const moderated = mode === 'moderated' || republish;
     await context.route('**/api/**', route => route.fulfill({ json: { rows: [] } }));
     await context.route('**/session/token', route => route.fulfill({
       contentType: 'text/plain', body: 't'.repeat(43),
@@ -51,7 +51,7 @@ for (const mode of ['allowed', 'read-only', 'moderated', 'rejected', 'two-step']
     await context.route('**/api/v2/node/landing-page*', route => route.fulfill({ json: {
       rows: [{ nid: '12', uuid: 'page-12', langcode: 'zh-hans',
         title, url: '/status-fixture', published,
-        ...(twoStep ? { moderation_state: state, moderation_state_label: state } : {}) }],
+        ...(republish ? { moderation_state: state, moderation_state_label: state } : {}) }],
       pager: { current_page: 0, total_pages: 1, total_items: 1, items_per_page: 10 },
     } }));
     await context.route('**/api/v3/node-form/landing_page/page-12*', route => {
@@ -61,9 +61,9 @@ for (const mode of ['allowed', 'read-only', 'moderated', 'rejected', 'two-step']
           : { status: 'status' } : {},
         baseFieldNames: { status: 'status' }, moderated,
         defaults: { state, promote: false, sticky: false }, canDelete: false,
-        states: !editable ? [] : twoStep
-          ? state === 'unpublished' ? [{ value: 'draft', label: '草稿' }]
-            : [{ value: 'draft', label: '草稿' }, { value: 'published', label: '已发布' }]
+        states: !editable ? [] : republish
+          ? [{ value: 'draft', label: '草稿' }, { value: 'published', label: '已发布' },
+            { value: 'unpublished', label: '未发布' }]
           : moderated
           ? [{ value: 'review', label: '待审核' }]
           : [{ value: 'published', label: 'Published' }, { value: 'unpublished', label: 'Unpublished' }],
@@ -79,7 +79,7 @@ for (const mode of ['allowed', 'read-only', 'moderated', 'rejected', 'two-step']
         expect(route.request().headers()['authorization']).toBe('Bearer synthetic-editor');
         if (mode === 'rejected') return route.fulfill({ status: 403, json: { errors: [] } });
         title = payload.data.attributes.title;
-        if (twoStep) {
+        if (republish) {
           state = payload.data.attributes.moderation_state;
           published = state === 'published';
         } else if (moderated) {
@@ -108,13 +108,19 @@ for (const mode of ['allowed', 'read-only', 'moderated', 'rejected', 'two-step']
     await expect(page.locator('app-builder-list')).toContainText('Canvas content stays here');
     const readsBefore = canvasReads;
     await row.locator('.more-trigger').click();
-    if (twoStep) {
-      await expect(page.getByRole('menuitem', { name: '页面属性', exact: true })).toBeVisible();
+    if (republish) {
+      await expect(page.getByRole('menuitem', { name: '页面设置', exact: true })).toBeVisible();
       await page.mouse.move(1000, 100);
-      await page.screenshot({ path: 'test-results/publication-audit/01-entry.png',
+      await page.screenshot({ path: 'test-results/publication-ux/entry.png',
         fullPage: true, animations: 'disabled' });
     }
-    await page.getByRole('menuitem', { name: '页面属性', exact: true }).click();
+    if (republish) {
+      await page.keyboard.press('Escape');
+      await row.locator('.publication-badge').focus();
+      await page.keyboard.press('Enter');
+    } else {
+      await page.getByRole('menuitem', { name: '页面设置', exact: true }).click();
+    }
     const panel = page.locator('app-page-setting');
     const select = panel.getByRole('combobox', { name: '页面状态' });
     await expect(select).toBeVisible();
@@ -122,45 +128,55 @@ for (const mode of ['allowed', 'read-only', 'moderated', 'rejected', 'two-step']
     if (!editable) {
       await page.setViewportSize({ width: 390, height: 844 });
       await expect(select).toBeDisabled();
-      await expect(panel.getByRole('button', { name: '更新', exact: true })).toBeEnabled();
+      await expect(panel.locator('.save-settings button')).toBeEnabled();
       expect(writes).toEqual([]);
-    } else if (twoStep) {
+    } else if (republish) {
       await expect(row.locator('.unpublished-badge')).toHaveText('未发布');
-      await select.click();
-      await expect(page.getByRole('option', { name: '已发布', exact: true })).toHaveCount(0);
-      await page.screenshot({ path: 'test-results/publication-audit/02-unpublished-options.png', fullPage: true, animations: 'disabled' });
-      await page.getByRole('option', { name: '草稿', exact: true }).click();
-      await panel.getByRole('button', { name: '更新', exact: true }).click();
-      await expect(row.locator('.draft-badge')).toHaveText('草稿');
-      await expect(row.locator('.unpublished-badge')).toHaveCount(0);
-      await expect(row.locator('.preview-link')).toHaveCount(0);
-      await expect(select).toContainText('草稿');
-      await expect(page.locator('app-builder-list .publication-bar')).toContainText('未发布');
-      await select.scrollIntoViewIfNeeded();
-      await page.screenshot({ path: 'test-results/publication-audit/03-draft-saved.png', fullPage: true, animations: 'disabled' });
-      await select.click();
+      await panel.getByRole('button', { name: '预览草稿', exact: true }).click();
+      await expect(page.frameLocator('.page-preview-dialog iframe').locator('app-preview'))
+        .toContainText('Canvas content stays here');
+      await page.keyboard.press('Escape');
+      await expect(panel.locator('.save-settings button')).toBeInViewport();
+      await expect(panel.getByRole('tab', { name: '页面信息', exact: true })).toBeVisible();
+      await select.focus();
+      await page.keyboard.press('Enter');
       await expect(page.getByRole('option', { name: '已发布', exact: true })).toBeVisible();
-      await page.screenshot({ path: 'test-results/publication-audit/04-publish-options.png', fullPage: true, animations: 'disabled' });
+      await page.screenshot({ path: 'test-results/publication-ux/direct-options.png',
+        fullPage: true, animations: 'disabled' });
       await page.getByRole('option', { name: '已发布', exact: true }).click();
-      await panel.getByRole('button', { name: '更新', exact: true }).click();
+      await expect(panel.locator('.save-settings button')).toHaveText('保存并发布');
+      await panel.locator('.save-settings button').click();
       await expect(row.locator('.published-badge')).toHaveText('已发布');
       await expect(row.locator('.draft-badge')).toHaveCount(0);
       await expect(row.locator('.preview-link')).toBeVisible();
       await expect(page.locator('app-builder-list .publication-bar')).toHaveCount(0);
-      expect(writes.map(write => write.moderation_state)).toEqual(['draft', 'published']);
+      expect(writes.map(write => write.moderation_state)).toEqual(['published']);
+      await expect(page.locator('mat-snack-bar-container')).toContainText('已发布');
+      await expect(select).toContainText('已发布');
+      await expect(panel.locator('.save-settings button')).toHaveText('保存设置');
       for (const write of writes) {
+        expect(write.title).toBe(title);
         expect(write).not.toHaveProperty('body');
         expect(write).not.toHaveProperty('status');
       }
       expect(canvasReads).toBe(readsBefore);
       await expect(page.locator('app-builder-list')).toContainText('Canvas content stays here');
       await select.scrollIntoViewIfNeeded();
-      await page.screenshot({ path: 'test-results/publication-audit/05-published.png', fullPage: true, animations: 'disabled' });
+      await page.screenshot({ path: 'test-results/publication-ux/published.png',
+        fullPage: true, animations: 'disabled' });
+      await page.setViewportSize({ width: 390, height: 844 });
+      await expect(panel.locator('.save-settings button')).toBeInViewport();
+      await expect(select).toBeInViewport();
+      await expect(page.locator('.sidebar-drawer')).toBeHidden();
+      const saveBox = await panel.locator('.save-settings button').boundingBox();
+      expect(saveBox!.x).toBeGreaterThanOrEqual(0);
+      await page.screenshot({ path: 'test-results/publication-ux/mobile.png',
+        fullPage: true, animations: 'disabled' });
     } else {
       await panel.getByRole('textbox', { name: '标题', exact: true }).fill('Updated status fixture');
       await select.click();
       await page.getByRole('option', { name: moderated ? '待审核' : '未发布', exact: true }).click();
-      await panel.getByRole('button', { name: '更新', exact: true }).click();
+      await panel.locator('.save-settings button').click();
       if (mode === 'rejected') {
         await expect(panel).toContainText('页面更新失败');
         expect(published).toBe(true);
@@ -170,7 +186,7 @@ for (const mode of ['allowed', 'read-only', 'moderated', 'rejected', 'two-step']
           await expect(page.locator('app-builder-list .publication-bar')).toHaveCount(0);
           await expect(row.locator('.unpublished-badge')).toHaveCount(0);
         } else {
-          await expect(page.locator('app-builder-list .publication-bar')).toContainText('未发布');
+          await expect(page.locator('app-builder-list .publication-bar')).toHaveCount(0);
           await expect(row.locator('.unpublished-badge')).toHaveText('未发布');
         }
       }
@@ -187,7 +203,7 @@ for (const mode of ['allowed', 'read-only', 'moderated', 'rejected', 'two-step']
         await expect(select).toContainText('未发布');
         await select.click();
         await page.getByRole('option', { name: '已发布', exact: true }).click();
-        await panel.getByRole('button', { name: '更新', exact: true }).click();
+        await panel.locator('.save-settings button').click();
         await expect(page.locator('app-builder-list .publication-bar')).toHaveCount(0);
         await expect(row.locator('.unpublished-badge')).toHaveCount(0);
         await expect(select).toContainText('已发布');
@@ -201,6 +217,22 @@ for (const mode of ['allowed', 'read-only', 'moderated', 'rejected', 'two-step']
       .toEqual([]);
     expect((await new AxeBuilder({ page }).include('app-page-item').analyze()).violations)
       .toEqual([]);
+    if (republish) {
+      await page.addStyleTag({ content: '* { transition: none !important; }' });
+      await page.evaluate(() => {
+        document.documentElement.classList.remove('light-theme');
+        document.documentElement.classList.add('dark-theme');
+        document.documentElement.style.colorScheme = 'dark';
+      });
+      expect((await new AxeBuilder({ page }).include('app-page-setting').analyze()).violations)
+        .toEqual([]);
+      await page.screenshot({ path: 'test-results/publication-ux/mobile-dark.png',
+        fullPage: true, animations: 'disabled' });
+      await page.setViewportSize({ width: 1440, height: 1000 });
+      await page.locator('.right-header app-btn button').click();
+      await page.locator('.page-settings-btn button:visible').first().click();
+      await expect(select).toBeVisible();
+    }
     expect(errors).toEqual([]);
     await select.scrollIntoViewIfNeeded();
     await page.screenshot({ path: `test-results/publication-settings-${mode}.png`, fullPage: true });

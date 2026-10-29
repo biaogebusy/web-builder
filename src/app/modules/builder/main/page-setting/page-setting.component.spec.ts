@@ -99,6 +99,16 @@ describe('PageSettingComponent', () => {
     expect(userService.openLoginDialog).toHaveBeenCalled();
   });
 
+  it('previews the selected language through the private Builder route', () => {
+    initAs('en');
+    const open = confirmWith(false);
+    component.onPreview();
+    expect(open.mock.calls[0][1]?.data).toMatchObject({
+      inputData: { content: { url: '/preview?nid=7&lang=en' } },
+    });
+    expect(builderService.loadPage).not.toHaveBeenCalled();
+  });
+
   it('deletes only the current translation for a non default language page', () => {
     initAs('en');
     confirmWith(true);

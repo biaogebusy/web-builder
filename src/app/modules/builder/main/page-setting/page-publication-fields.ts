@@ -8,7 +8,7 @@ export function buildPagePublicationField(
   translate: (key: string) => string
 ): FormlyFieldConfig {
   const state = schema?.defaults.state ?? currentState;
-  const label = (value: string): string => value === 'published' || value === 'unpublished'
+  const label = (value: string): string => ['published', 'unpublished', 'draft'].includes(value)
     ? translate(`BUILDER.NODE_ADD.STATE_${value.toUpperCase()}`)
     : value || translate('BUILDER.PAGE_SETTING.STATE_UNKNOWN');
   const options = (schema?.states ?? []).map(option => ({

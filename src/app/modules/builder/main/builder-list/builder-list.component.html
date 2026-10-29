@@ -1,11 +1,5 @@
 @let configData = builderConfig$ | async;
 @if (currentPage(); as page) {
-  @if (page.published === false) {
-    <div class="publication-bar" role="status">
-      <app-icon [content]="{ svg: 'eye-off-outline' }" />
-      <span>{{ 'BUILDER.PAGE_LIST.UNPUBLISHED_HINT' | translate }}</span>
-    </div>
-  }
   @if (page.body.length > 0) {
     <div class="builder-list" id="gsap-scroller">
       @if (revisionPreview(); as preview) {

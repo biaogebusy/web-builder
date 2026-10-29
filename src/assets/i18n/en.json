@@ -194,7 +194,7 @@
       "SHOW_SIDEBAR": "Show sidebar",
       "TOGGLE_FULL_WIDTH": "Toggle full width",
       "SUBMIT_TRANSLATION": "Submit translation",
-      "SUBMIT_UPDATE": "Submit update",
+      "SUBMIT_UPDATE": "Save content",
       "SUBMIT_DRAFT": "Submit draft",
       "DRAFT_BADGE_TIP": "This page is unpublished and in draft state. Click the button on the right to publish.",
       "SELECT_TEMPLATE": "Select a template to create page",
@@ -208,7 +208,7 @@
       "TRANSLATION_DRAFT_TIP": "Target language: {{lang}}",
       "UPDATE_SUCCESS": "Updated successfully",
       "UNSAVED_CHANGES": "Unsaved changes",
-      "UNSAVED_CHANGES_TIP": "This page has local changes that are not submitted yet. Click the submit button on the right to sync."
+      "UNSAVED_CHANGES_TIP": "The canvas has unsaved changes. Select Save content to save these changes."
     },
     "SWITCH_PREVIEW": {
       "TOOLTIP": "Switch device",
@@ -248,7 +248,6 @@
     },
     "PAGE_LIST": {
       "UNPUBLISHED": "Unpublished",
-      "UNPUBLISHED_HINT": "Unpublished: hidden at the public URL. You can edit and preview it in Builder.",
       "PAGE_TITLE": "Landing page management",
       "MANAGE_SUFFIX": "{{name}} management",
       "LOADING_PAGE": "Loading {{title}}",
@@ -285,7 +284,7 @@
       "PAGE_JSON": "Page JSON",
       "PAGE_REVISIONS": "Revisions",
       "PAGE_PROPS": "Page settings",
-      "OPEN_PAGE_PROPS_CONFIRM": "Open the page settings panel?",
+      "OPEN_PAGE_PROPS_CONFIRM": "Open page settings?",
       "CHECK_LANDING_VIEW": "Please check the LandingPage View config",
       "TRANSLATION_EXISTS": "{{label}} translation already exists. Loading...",
       "LOAD_TRANSLATION_FAIL": "Failed to load {{title}}. Please retry.",
@@ -300,7 +299,8 @@
       "DELETE_PAGE": "Delete page",
       "DELETE_TRANSLATION": "Delete translation",
       "DELETE_TITLE": "Delete page",
-      "DELETE_CONFIRM": "Confirm deleting <strong>{{title}}</strong>? This cannot be undone."
+      "DELETE_CONFIRM": "Confirm deleting <strong>{{title}}</strong>? This cannot be undone.",
+      "EDIT_STATE": "Change page status, currently {{state}}"
     },
     "VERSION": {
       "HISTORY": "History",
@@ -431,7 +431,7 @@
       "UPDATE_TIME": "Updated at",
       "LANGUAGE": "Language",
       "CONTENT_TYPE": "Content type",
-      "URL_ALIAS": "URL alias",
+      "URL_ALIAS": "Page URL",
       "PAGE_DESC": "Page description",
       "BASIC": "Basic settings",
       "SEO": "SEO settings",
@@ -444,13 +444,13 @@
       "SEO_ROBOTS_DEFAULT": "Site default",
       "SEO_ROBOTS_INDEX": "Allow indexing (index, follow)",
       "SEO_ROBOTS_NOINDEX": "Block indexing (noindex, nofollow)",
-      "UPDATE": "Update",
+      "UPDATE": "Save settings",
       "EDIT_JSON": "Edit JSON",
-      "PREVIEW": "Preview",
+      "PREVIEW": "Preview draft",
       "ALIAS_FAIL": "Failed to update alias. Please contact admin.",
       "ALIAS_SYNC_PARTIAL_FAIL": "Failed to sync the URL alias for some languages. Please check manually.",
       "TRANSLATION_ALIAS_SYNC_FAIL": "Failed to sync the URL alias for the translated page. Please check manually.",
-      "UPDATE_SUCCESS": "{{title}} updated",
+      "UPDATE_SUCCESS": "Settings saved for “{{title}}”",
       "NO_PERMISSION": "Permission denied",
       "DELETE_TITLE": "Delete page",
       "DELETE_CONFIRM": "Confirm deleting <strong>{{title}}</strong>? This cannot be undone.",
@@ -461,7 +461,19 @@
       "DELETE_TRANSLATION_SUCCESS": "{{lang}} version of {{title}} deleted",
       "DELETE_TRANSLATION_FAIL": "Failed to delete the {{lang}} version of {{title}}. Please contact admin.",
       "DELETE_FAIL": "Failed to delete {{title}}. Please contact admin.",
-      "DELETE_SUCCESS": "{{title}} deleted"
+      "DELETE_SUCCESS": "{{title}} deleted",
+      "INFORMATION": "Page info",
+      "SAVING": "Saving…",
+      "SAVE_AND_PUBLISH": "Save and publish",
+      "SAVE_AND_UNPUBLISH": "Save and unpublish",
+      "SAVE_AS_DRAFT": "Save as draft",
+      "UNSAVED_CANVAS": "This page has unsaved canvas changes. Publishing uses saved content. To publish these changes, load this page and select Save content first.",
+      "PUBLISHED_SUCCESS": "“{{title}}” is published",
+      "UNPUBLISHED_SUCCESS": "“{{title}}” is unpublished and its public URL is no longer visible",
+      "DRAFT_WITH_PUBLISHED_SUCCESS": "“{{title}}” was saved as a draft. The published version is still visible to visitors.",
+      "DRAFT_SUCCESS": "“{{title}}” saved as a draft",
+      "STATE_SAVED_SUCCESS": "Page status saved for “{{title}}”",
+      "SAVED_STATUS_UNCONFIRMED": "Settings saved, but public status could not be confirmed. Reopen page settings to check."
     },
     "CARD_PAGE": {
       "TITLE_UPDATED": "Title updated to {{title}}"
@@ -1319,7 +1331,6 @@
       "CHART_TAB": "Chart",
       "CHART_OPTION_JSON": "ECharts option JSON",
       "SHOW": "Show",
-      "CHART_TYPE": "Chart type",
       "CHART_SERIES_NAME": "Series name",
       "CHART_SERIES_LABEL": "Show value labels",
       "CHART_LEGEND_TAB": "Legend",
@@ -1478,7 +1489,6 @@
       "TITLE_TAB": "Title",
       "WIDGET_TAB": "Widget",
       "FORM_TAB": "Form",
-      "WEBFORM_ID": "Webform ID",
       "ACTION_CLASSES": "Button wrapper class",
       "FORM_CLASSES": "Form wrapper class",
       "SYNC_WEBFORM_FIELDS": "Refresh fields from CMS",
