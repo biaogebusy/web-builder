@@ -70,6 +70,7 @@ describe('BuilderService', () => {
     TestBed.resetTestingModule();
     vi.clearAllMocks();
     fetch.mockReset();
+    dialogOpen.mockReset();
     get.mockReturnValue(of({ data: {} }));
     getLocalPageByPage.mockReturnValue(undefined);
   });
@@ -531,6 +532,7 @@ describe('BuilderService', () => {
 
     it('cancels a pending revision after clearing local history is confirmed', async () => {
       state.clearAllHistory();
+      await vi.dynamicImportSettled();
       await vi.waitFor(() => expect(dialogOpen).toHaveBeenCalledOnce());
       read.next(response);
 
@@ -545,6 +547,7 @@ describe('BuilderService', () => {
     it('keeps the pending revision when clearing history is dismissed', async () => {
       dialogOpen.mockReturnValueOnce({ afterClosed: () => of(false) });
       state.clearAllHistory();
+      await vi.dynamicImportSettled();
       await vi.waitFor(() => expect(dialogOpen).toHaveBeenCalledOnce());
       expect(read.observed).toBe(true);
       read.next(response);
@@ -971,6 +974,7 @@ describe('BuilderService', () => {
         if (selection === 'delete') state.deleteLocalPage(0);
         if (selection === 'clear') {
           state.clearAllHistory();
+          await vi.dynamicImportSettled();
           await vi.waitFor(() => expect(dialogOpen).toHaveBeenCalledOnce());
         }
         expect(read.observed).toBe(false);
