@@ -91,6 +91,11 @@
     background-color: var(--mat-sys-error-container);
   }
 
+  .unpublished-badge {
+    color: var(--mat-sys-on-secondary-container);
+    background-color: var(--mat-sys-secondary-container);
+  }
+
   .url-row {
     @apply flex min-w-0 items-center justify-between gap-2;
   }

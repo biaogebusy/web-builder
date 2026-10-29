@@ -68,6 +68,56 @@ describe('ContentService', () => {
   });
 
   describe('loadPageContent', () => {
+    it('does not expose a legacy response that lacks public publication verification', async () => {
+      const pending = firstValueFrom(service.loadPageContent('/about', false, true));
+      http.expectOne(`${LANDING}?content=%2Fabout&public=true`)
+        .flush({ title: 'Privileged legacy draft', published: false, body: [{ type: 'text', body: 'Draft' }] });
+      await expect(pending).resolves.toEqual({ title: '', body: [], unavailable: true });
+      expect(requestContext.publicPageStatus).toBe(503);
+    });
+
+    it('rechecks public publication after a successful read and removes withdrawn content', async () => {
+      const first = firstValueFrom(service.loadPageContent('/about', false, true));
+      const request = http.expectOne(`${LANDING}?content=%2Fabout&public=true`);
+      expect(request.request.transferCache).toBe(false);
+      request.flush({ title: 'Published title', body: [], publicPageKey: 'node:1:en:1' });
+      await first;
+
+      const second = firstValueFrom(service.loadPageContent('/about', false, true));
+      http.expectOne(`${LANDING}?content=%2Fabout&public=true`)
+        .flush({}, { status: 404, statusText: 'Not Found' });
+      await expect(second).resolves.toMatchObject({ body: [], unavailable: true });
+      expect(service.getCachedPageContent('/about', true)?.title).toBe('');
+      expect(requestContext.publicPageStatus).toBe(404);
+      expect(requestContext.publicPage).toBeUndefined();
+    });
+
+    it('keeps public and builder reads separate and prevents query overrides', async () => {
+      const draft = firstValueFrom(service.loadPageContent('/about', false));
+      http.expectOne(`${LANDING}?content=%2Fabout`).flush({ title: 'Draft', published: false });
+      await draft;
+      const publicRead = firstValueFrom(service.loadPageContent('/about&public=false', false, true));
+      http.expectOne(`${LANDING}?content=%2Fabout&public=true`)
+        .flush({}, { status: 404, statusText: 'Not Found' });
+      await expect(publicRead).resolves.toMatchObject({ unavailable: true });
+      expect(service.getCachedPageContent('/about')?.title).toBe('Draft');
+    });
+
+    it('records public authority for SSR and fails closed on a later unavailable source', async () => {
+      setup({ platform: 'server' });
+      const first = firstValueFrom(service.loadPageContent('/about', false, true));
+      http.expectOne(`${LANDING}?content=%2Fabout&public=true`)
+        .flush({ body: [], publicPageKey: 'node:1:en:4' });
+      await first;
+      expect(requestContext.publicPage).toEqual({ url: `${LANDING}?content=%2Fabout&public=true`, key: 'node:1:en:4' });
+      const second = firstValueFrom(service.loadPageContent('/about', false, true));
+      http.expectOne(`${LANDING}?content=%2Fabout&public=true`)
+        .flush({}, { status: 503, statusText: 'Unavailable' });
+      await expect(second).resolves.toMatchObject({ unavailable: true });
+      expect(requestContext.publicPageStatus).toBe(503);
+      expect(requestContext.publicPage).toBeUndefined();
+    });
+
     it('requests the landing page endpoint for the current path', async () => {
       const pending = firstValueFrom(service.loadPageContent());
 

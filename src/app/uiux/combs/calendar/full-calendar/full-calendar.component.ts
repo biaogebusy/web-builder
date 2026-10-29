@@ -129,7 +129,7 @@ export class FullCalendarComponent extends BaseComponent implements OnInit {
         this.contentState.drawerLoading.set(true);
         this.cd.detectChanges();
         this.contentService
-          .loadPageContent(info.event.url)
+          .loadPageContent(info.event.url, true, true)
           .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe((content: IPage) => {
             this.contentState.drawerLoading.set(false);

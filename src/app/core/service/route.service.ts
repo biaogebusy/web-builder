@@ -88,7 +88,7 @@ export class RouteService {
           this.contentState.drawerOpened.set(true);
           this.contentState.drawerLoading.set(true);
           this.contentService
-            .loadPageContent(link)
+            .loadPageContent(link, true, true)
             .pipe(take(1))
             .subscribe((content: IPage) => {
               this.contentState.drawerContent.set(content);

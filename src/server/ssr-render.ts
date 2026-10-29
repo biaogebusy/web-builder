@@ -16,6 +16,7 @@ import { readPositiveInteger } from './env';
 import { getRequestTiming, setSsrTimingHeaders } from './request-timing';
 import { getAuthCookieName, getSsrCacheDecision } from './ssr-cache-policy';
 import { SsrHtmlCache } from './ssr-html-cache';
+import { canReusePublicPage } from './public-page-access';
 
 /**
  * Render the Angular application for every request that reaches it, with a render timeout,
@@ -78,15 +79,12 @@ export function createSsrRenderHandler(): RequestHandler {
   }
 
   function setPublicCacheHeaders(res: Response): void {
-    const maxAgeSeconds = Math.max(1, Math.floor(ssrCacheTtlMs / 1000));
-    res.setHeader(
-      'Cache-Control',
-      `public, max-age=0, s-maxage=${maxAgeSeconds}, stale-while-revalidate=60`
-    );
-    res.setHeader('X-Accel-Expires', maxAgeSeconds.toString());
+    // Only the process cache rechecks CMS publication before returning old HTML.
+    res.setHeader('Cache-Control', 'private, no-store');
+    res.setHeader('X-Accel-Expires', '0');
   }
 
-  return (req, res, next) => {
+  return async (req, res, next) => {
     const requestTiming = getRequestTiming(res);
     const cacheDecision = getSsrCacheDecision(req, {
       authCookieNames: authCookieName ? [authCookieName] : [],
@@ -95,7 +93,8 @@ export function createSsrRenderHandler(): RequestHandler {
 
     if (cacheDecision.cacheable) {
       const cached = ssrCache.get(cacheDecision.key);
-      if (cached) {
+      const publication = ssrCache.getPublication(cacheDecision.key);
+      if (cached && publication && await canReusePublicPage(publication)) {
         requestTiming.cacheStatus = 'HIT';
         res.setHeader('Content-Type', 'text/html; charset=utf-8');
         setPublicCacheHeaders(res);
@@ -149,6 +148,16 @@ export function createSsrRenderHandler(): RequestHandler {
         res.setHeader('X-SSR-Duration', Math.round(renderMs).toString());
         setSsrTimingHeaders(res, requestTiming);
         if (response) {
+          if (ssrContext.publicPageStatus !== undefined) {
+            setPublicCacheHeaders(res);
+            const headers = new Headers(response.headers);
+            headers.set('Cache-Control', 'private, no-store');
+            headers.set('X-Accel-Expires', '0');
+            response = new globalThis.Response(response.body, {
+              headers,
+              status: ssrContext.publicPageStatus,
+            });
+          }
           const degraded = isSsrRenderDegraded(ssrContext);
           if (degraded) {
             ssrMetrics.degraded += 1;
@@ -157,12 +166,13 @@ export function createSsrRenderHandler(): RequestHandler {
             // (the client recovers on its own), but must not be reused: keep it
             // out of the local SSR cache and out of shared caches until a
             // healthy render replaces it.
-            res.setHeader('Cache-Control', 'private, no-cache');
+            res.setHeader('Cache-Control', ssrContext.publicPageStatus === undefined
+              ? 'private, no-cache' : 'private, no-store');
             res.setHeader('X-Accel-Expires', '0');
           }
-          if (cacheDecision.cacheable && response.status === 200 && !degraded) {
+          if (cacheDecision.cacheable && response.status === 200 && !degraded && ssrContext.publicPage) {
             const html = await response.clone().text();
-            ssrCache.set(cacheDecision.key, html);
+            ssrCache.set(cacheDecision.key, html, ssrContext.publicPage);
             setPublicCacheHeaders(res);
           }
           writeResponseToNodeResponse(response, res);

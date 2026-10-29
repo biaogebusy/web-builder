@@ -150,7 +150,10 @@ export class PageItemComponent {
   private loadLocalDraft(localPage: IPage): void {
     const page = this.page();
     this.builder.loading.set(false);
-    this.builder.loadNewPage(localPage);
+    this.builder.loadNewPage({
+      ...localPage,
+      ...(typeof page.published === 'boolean' ? { published: page.published } : {}),
+    });
     this.util.openSnackbar(
       this.translate.instant('BUILDER.PAGE_LIST.LOADING_LOCAL_DRAFT', { title: page.title }),
       'ok'

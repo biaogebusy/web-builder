@@ -85,7 +85,7 @@ export class LinkComponent extends BaseComponent implements OnInit {
       this.contentState.drawerOpened.set(true);
       this.contentState.drawerLoading.set(true);
       this.contentService
-        .loadPageContent(contentValue.href)
+        .loadPageContent(contentValue.href, true, true)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((content: IPage) => {
           this.contentState.drawerLoading.set(false);

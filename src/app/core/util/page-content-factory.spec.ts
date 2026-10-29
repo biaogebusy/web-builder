@@ -15,7 +15,7 @@ import { CORE_CONFIG } from '@core/token/token-providers';
 import { of, Subject } from 'rxjs';
 
 describe('pageContentFactory', () => {
-  it('keeps the current page until the next page component types are ready', async () => {
+  it('clears stale public content while the next page is checked', async () => {
     const routerEvents = new Subject<NavigationEnd>();
     let currentUrl = '/home';
     const loadPageContent = vi.fn((pageUrl: string) => of({ body: [], title: pageUrl } as IPage));
@@ -54,7 +54,7 @@ describe('pageContentFactory', () => {
         },
         {
           provide: ContentState,
-          useValue: { pageConfig: signal(undefined) },
+          useValue: { pageConfig: signal(undefined), drawerOpened: signal(false) },
         },
         { provide: CORE_CONFIG, useValue: {} },
       ],
@@ -70,8 +70,8 @@ describe('pageContentFactory', () => {
     currentUrl = '/calendar';
     routerEvents.next(new NavigationEnd(2, '/calendar', '/calendar'));
 
-    await vi.waitFor(() => expect(loadPageContent).toHaveBeenCalledWith('/calendar'));
-    expect(pageTitle()).toBe('/home');
+    await vi.waitFor(() => expect(loadPageContent).toHaveBeenCalledWith('/calendar', true, true));
+    expect(pageTitle()).toBeUndefined();
 
     resolveCalendar!();
     await vi.waitFor(() => expect(pageTitle()).toBe('/calendar'));
@@ -104,13 +104,13 @@ describe('pageContentFactory', () => {
           },
         },
         { provide: ComponentService, useValue: { preloadComponentTypes: () => Promise.resolve() } },
-        { provide: ContentState, useValue: { pageConfig: signal(undefined) } },
+        { provide: ContentState, useValue: { pageConfig: signal(undefined), drawerOpened: signal(false) } },
         { provide: CORE_CONFIG, useValue: {} },
       ],
     });
 
     TestBed.runInInjectionContext(pageContentFactory);
-    await vi.waitFor(() => expect(loadPageContent).toHaveBeenCalledWith('/home'));
+    await vi.waitFor(() => expect(loadPageContent).toHaveBeenCalledWith('/home', true, true));
 
     currentUrl = '/builder';
     routerEvents.next(new NavigationEnd(2, '/builder', '/builder'));
@@ -145,7 +145,7 @@ describe('pageContentFactory', () => {
           },
         },
         { provide: ComponentService, useValue: { preloadComponentTypes: () => Promise.resolve() } },
-        { provide: ContentState, useValue: { pageConfig: signal(undefined) } },
+        { provide: ContentState, useValue: { pageConfig: signal(undefined), drawerOpened: signal(false) } },
         { provide: CORE_CONFIG, useValue: {} },
       ],
     });
@@ -184,7 +184,7 @@ describe('pageContentFactory', () => {
           },
         },
         { provide: ComponentService, useValue: { preloadComponentTypes: () => Promise.resolve() } },
-        { provide: ContentState, useValue: { pageConfig: signal(undefined) } },
+        { provide: ContentState, useValue: { pageConfig: signal(undefined), drawerOpened: signal(false) } },
         { provide: CORE_CONFIG, useValue: {} },
       ],
     });
@@ -241,7 +241,7 @@ describe('preloadInitialDynamicComponents', () => {
 
     await TestBed.runInInjectionContext(preloadInitialDynamicComponents);
 
-    expect(loadPageContent).toHaveBeenCalledWith('/node/36', false);
+    expect(loadPageContent).toHaveBeenCalledWith('/node/36', false, true);
     expect(preloadComponentTypes).toHaveBeenCalledWith({ branding, page });
   });
 });

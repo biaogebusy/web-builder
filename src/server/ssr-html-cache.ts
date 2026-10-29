@@ -8,6 +8,7 @@ interface SsrHtmlCacheEntry {
   bytes: number;
   expiresAt: number;
   html: string;
+  publication?: { url: string; key: string };
 }
 
 export interface SsrHtmlCacheStats {
@@ -57,7 +58,12 @@ export class SsrHtmlCache {
     return entry.html;
   }
 
-  set(key: string, html: string): boolean {
+  /** Returns the source authority that must approve reuse of the cached document. */
+  getPublication(key: string): { url: string; key: string } | undefined {
+    return this.cache.get(key)?.publication;
+  }
+
+  set(key: string, html: string, publication?: { url: string; key: string }): boolean {
     const bytes = Buffer.byteLength(html, 'utf8');
     if (bytes > this.options.maxBytes) {
       this.rejectedOversize += 1;
@@ -73,6 +79,7 @@ export class SsrHtmlCache {
       bytes,
       expiresAt: this.now() + this.options.ttlMs,
       html,
+      publication,
     });
     this.totalBytes += bytes;
     this.sets += 1;

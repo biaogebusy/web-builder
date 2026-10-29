@@ -1,11 +1,11 @@
-import { HttpHeaders } from '@angular/common/http';
+import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject, Observable, lastValueFrom, of } from 'rxjs';
-import { catchError, retry, shareReplay, switchMap, take, tap, timeout } from 'rxjs/operators';
+import { catchError, finalize, map, retry, shareReplay, switchMap, take, tap, timeout } from 'rxjs/operators';
 import { TagsService } from '@core/service/tags.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { ApiService } from '@core/service/api.service';
@@ -54,25 +54,45 @@ export class ContentService extends ApiService {
     this.screenState.scroll$.next(true);
   }
 
-  loadPageContent(pageUrl = this.pageUrl, updateState = true): Observable<IPage> {
+  /** Public readers reject drafts and recheck CMS; builder readers retain their authorized cache. */
+  loadPageContent(pageUrl = this.pageUrl, updateState = true, publicPage = false): Observable<IPage> {
     const { lang, path } = this.getUrlPath(pageUrl);
     if (environment.production) {
-      const key = this.getLandingPageUrl(lang, path);
+      const key = this.getLandingPageUrl(lang, path, publicPage ? { public: true } : {});
       if (!this.pageCache.has(key)) {
-        const req$ = this.http.get<IPage>(key);
+        const req$ = this.http.get<IPage>(key, publicPage ? { transferCache: false, cache: 'no-store' } : {});
         // Under SSR the global HTTP timeout covers the fallback; do not retry, so slow
         // requests do not multiply the render budget
-        const withRetry$ = this.isServer ? req$ : req$.pipe(retry({ count: 1, delay: 500 }));
+        const withRetry$ = this.isServer || publicPage ? req$ : req$.pipe(retry({ count: 1, delay: 500 }));
         this.pageCache.set(
           key,
           withRetry$.pipe(
+            map(page => {
+              if (publicPage && (typeof page?.publicPageKey !== 'string' || !page.publicPageKey)) {
+                throw new HttpErrorResponse({ status: 503, statusText: 'Public page verification unavailable' });
+              }
+              return page;
+            }),
             catchError(error => {
               console.error('Failed to load page content:', error);
               this.markSsrDegraded('page-content', error);
+              if (publicPage) {
+                const status = error instanceof HttpErrorResponse && [403, 404].includes(error.status)
+                  ? 404 : 503;
+                this.ssrRenderState.setPublicPage(key, undefined, status);
+                return of({ title: '', body: [], unavailable: true } as IPage);
+              }
               return of({} as IPage);
             }),
-            tap(page => this.pageValueCache.set(key, page)),
-            shareReplay(1)
+            tap(page => {
+              this.pageValueCache.set(key, page);
+              if (publicPage && !page.unavailable) {
+                this.ssrRenderState.setPublicPage(key, page.publicPageKey);
+              }
+            }),
+            // Share concurrent reads, but recheck public content on the next visit.
+            finalize(() => { if (publicPage) { this.pageCache.delete(key); } }),
+            shareReplay({ bufferSize: 1, refCount: publicPage })
           )
         );
       }
@@ -106,10 +126,10 @@ export class ContentService extends ApiService {
     }
   }
 
-  getCachedPageContent(pageUrl = this.pageUrl): IPage | undefined {
+  getCachedPageContent(pageUrl = this.pageUrl, publicPage = false): IPage | undefined {
     const { lang, path } = this.getUrlPath(pageUrl);
     const key = environment.production
-      ? this.getLandingPageUrl(lang, path)
+      ? this.getLandingPageUrl(lang, path, publicPage ? { public: true } : {})
       : `${this.apiUrl}/assets/app${lang}${pageUrl}.json`;
     return this.pageValueCache.get(key);
   }

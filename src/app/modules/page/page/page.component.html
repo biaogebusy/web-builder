@@ -9,6 +9,11 @@
     <app-header />
     <div class="page">
       @if (pageContent(); as page) {
+        @if (page.unavailable) {
+          <div class="public-unavailable" role="status">
+            <app-title [content]="{ label: 'PAGE.UNAVAILABLE' | translate, style: 'none' }" />
+          </div>
+        }
         @if (user() && page.nid) {
           <div class="page-toolbar">
             <app-btn
