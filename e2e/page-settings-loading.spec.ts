@@ -81,9 +81,9 @@ async function openJson(page: Page, letter: string): Promise<void> {
   await page.getByRole('menuitem', { name: '页面 JSON', exact: true }).click();
 }
 
-async function fulfillJson(route: Route, letter: string): Promise<void> {
+async function fulfillJson(route: Route, letter: string, langcode = 'en'): Promise<void> {
   await route.fulfill({ json: {
-    status: true, nid: letter === 'A' ? '1' : '2', langcode: 'en', title: `JSON ${letter}`,
+    status: true, nid: letter === 'A' ? '1' : '2', langcode, title: `JSON ${letter}`,
     body: [{ type: 'json', attributes: { body: { type: 'text', body: `<p>JSON ${letter}</p>` } } }],
   } });
 }
@@ -317,5 +317,97 @@ test('settings failure preserves the canvas and allows retry', async ({ context,
   await expect.poll(() => settings.length).toBe(2);
   await fulfillSettings(settings[1], 'A');
   await expect(page.locator('app-page-setting')).toBeVisible();
+  expect(errors).toEqual([]);
+});
+
+async function openTranslation(page: Page, letter: string): Promise<void> {
+  await page.getByRole('button', { name: `Page ${letter}的更多操作`, exact: true }).click();
+  await page.getByRole('menuitem', { name: '打开 中文 版本', exact: true }).click();
+}
+
+test('translation keeps the latest row after reversed responses', async ({ context, page }) => {
+  const { canvas, aborted, writes, errors, storageKey } = await setup(context, page);
+  await openTranslation(page, 'A');
+  await expect.poll(() => canvas.length).toBe(1);
+  expect(new URL(canvas[0].request().url()).searchParams.get('noCache')).toBe('1');
+  await openTranslation(page, 'B');
+  await expect.poll(() => canvas.length).toBe(2);
+  await fulfillJson(canvas[1], 'B', 'zh-hans');
+  await expect(page.locator('app-builder-list')).toContainText('JSON B');
+  await fulfillJson(canvas[0], 'A', 'zh-hans');
+  await expect.poll(() => aborted).toContain('/zh-hans/api/v3/landingPage/json/1');
+  await expect(page.locator('app-builder-list')).toContainText('JSON B');
+  await expect(page.locator('app-builder-list')).not.toContainText('JSON A');
+  await expect(page.locator('app-builder-list app-loading')).toHaveCount(0);
+  const stored = await page.evaluate(key => JSON.parse(localStorage.getItem(key) || '[]'), storageKey);
+  expect(stored).toEqual(expect.arrayContaining([
+    expect.objectContaining({ nid: '100', title: 'Unsaved canvas', dirty: true, current: false }),
+    expect.objectContaining({ nid: '2', langcode: 'zh-hans', current: true }),
+  ]));
+  await page.screenshot({ path: test.info().outputPath('latest-translation.png'), fullPage: true });
+  expect(writes).toEqual([]);
+  expect(errors).toEqual([]);
+});
+
+for (const latest of ['translation', 'canvas']) {
+  test(`the latest ${latest} selection owns loading during translation switching`, async ({
+    context, page,
+  }) => {
+    const { canvas, aborted, writes, errors } = await setup(context, page);
+    const openCanvas = () => page.getByRole('button', { name: 'Page B', exact: true }).click();
+    if (latest === 'translation') await openCanvas();
+    else await openTranslation(page, 'A');
+    await expect.poll(() => canvas.length).toBe(1);
+    if (latest === 'translation') await openTranslation(page, 'A');
+    else await openCanvas();
+    await expect.poll(() => canvas.length).toBe(2);
+    await canvas[0].fulfill({ status: 503, json: { message: 'Superseded selection' } });
+    await expect.poll(() => aborted).toContain(new URL(canvas[0].request().url()).pathname);
+    await expect(page.locator('app-builder-list app-loading')).toBeVisible();
+    await expect(page.locator('mat-snack-bar-container')
+      .filter({ hasText: '失败' })).toHaveCount(0);
+    if (latest === 'translation') await fulfillJson(canvas[1], 'A', 'zh-hans');
+    else await fulfillCanvas(canvas[1]);
+    await expect(page.locator('app-builder-list'))
+      .toContainText(latest === 'translation' ? 'JSON A' : 'Selected canvas content');
+    await expect(page.locator('app-builder-list app-loading')).toHaveCount(0);
+    expect(writes).toEqual([]);
+    expect(errors).toEqual([]);
+  });
+}
+
+test('a new canvas selection cancels the translation source fallback', async ({ context, page }) => {
+  const { canvas, aborted, writes, errors } = await setup(context, page);
+  await openTranslation(page, 'A');
+  await expect.poll(() => canvas.length).toBe(1);
+  await fulfillJson(canvas[0], 'A');
+  await expect.poll(() => canvas.length).toBe(2);
+  expect(new URL(canvas[1].request().url()).pathname).toBe('/en/api/v3/landingPage/json/1');
+  await page.getByRole('button', { name: 'Page B', exact: true }).click();
+  await expect.poll(() => canvas.length).toBe(3);
+  await fulfillJson(canvas[1], 'A');
+  await expect.poll(() => aborted).toContain('/en/api/v3/landingPage/json/1');
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  await expect(page.locator('app-builder-list app-loading')).toBeVisible();
+  await fulfillCanvas(canvas[2]);
+  await expect(page.locator('app-builder-list')).toContainText('Selected canvas content');
+  expect(writes).toEqual([]);
+  expect(errors).toEqual([]);
+});
+
+test('translation failure preserves the draft and allows retry', async ({ context, page }) => {
+  const { canvas, writes, errors } = await setup(context, page);
+  await openTranslation(page, 'A');
+  await expect.poll(() => canvas.length).toBe(1);
+  await canvas[0].fulfill({ status: 503, json: { message: 'Synthetic translation failure' } });
+  await expect(page.locator('mat-snack-bar-container')
+    .filter({ hasText: '载入 Page A 失败，请重试' })).toBeVisible();
+  await expect(page.locator('app-builder-list app-loading')).toHaveCount(0);
+  await expect(page.locator('app-builder-list')).toContainText('Unsaved canvas content');
+  await openTranslation(page, 'A');
+  await expect.poll(() => canvas.length).toBe(2);
+  await fulfillJson(canvas[1], 'A', 'zh-hans');
+  await expect(page.locator('app-builder-list')).toContainText('JSON A');
+  expect(writes).toEqual([]);
   expect(errors).toEqual([]);
 });

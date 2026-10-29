@@ -29,7 +29,7 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { PageDeletionService } from '../../service/page-deletion.service';
-import { map, switchMap } from 'rxjs/operators';
+import { finalize, map, switchMap, takeUntil } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -274,7 +274,7 @@ export class PageItemComponent {
       return;
     }
     const lang = this.langs?.find(l => l.langCode === targetlang);
-    this.builder.loading.set(true);
+    const finishLoading = this.builder.beginPageLoad();
     this.nodeService
       .fetch(`/api/v3/landingPage/json/${currentPage.nid}`, { noCache: 1 }, targetlang)
       .pipe(
@@ -292,11 +292,12 @@ export class PageItemComponent {
             )
             .pipe(map((source: IPage) => ({ source })));
         }),
-        takeUntilDestroyed(this.destroyRef)
+        takeUntil(this.builder.pageSelection$),
+        takeUntilDestroyed(this.destroyRef),
+        finalize(finishLoading)
       )
       .subscribe({
         next: ({ existing, source }: { existing?: IPage; source?: IPage }) => {
-          this.builder.loading.set(false);
           if (existing) {
             this.util.openSnackbar(
               this.translate.instant('BUILDER.PAGE_LIST.TRANSLATION_EXISTS', {
@@ -312,7 +313,6 @@ export class PageItemComponent {
           this.openCreateTranslationDialog(currentPage, targetlang, source as IPage, label);
         },
         error: () => {
-          this.builder.loading.set(false);
           this.util.openSnackbar(
             this.translate.instant('BUILDER.PAGE_LIST.LOAD_TRANSLATION_FAIL', {
               title: currentPage.title,
@@ -347,7 +347,7 @@ export class PageItemComponent {
     this.dialog
       .open(DialogComponent, { width: '340px', data: config })
       .afterClosed()
-      .pipe(takeUntilDestroyed(this.destroyRef))
+      .pipe(takeUntil(this.builder.pageSelection$), takeUntilDestroyed(this.destroyRef))
       .subscribe(result => {
         if (!result) return;
         this.util.openSnackbar(

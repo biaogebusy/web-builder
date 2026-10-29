@@ -94,6 +94,7 @@ export const createBuilderStateMock = () => ({
   pageSettingsLoading: signal(false),
   updateSuccess$: new Subject<boolean>(),
   pageSelection$: new Subject<void>(),
+  beginPageLoad: vi.fn(() => vi.fn()),
   COPYCOMPONENTKEY: 'cck',
   COPYWIDGETKEY: 'cwk',
   version: signal<IPage[]>([]),

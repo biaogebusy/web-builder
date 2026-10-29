@@ -17,9 +17,145 @@ import {
   createUtilitiesServiceMock,
 } from '@core/testing/mocks';
 import { provideBuilderMocks } from '@modules/builder/testing/mocks';
-import { of } from 'rxjs';
+import { of, Subject } from 'rxjs';
+import { LocalStorageService } from 'ngx-webstorage';
 
 import { PageItemComponent } from './page-item.component';
+
+describe('PageItemComponent translation selection with real builder state', () => {
+  let state: BuilderState;
+  let fixture: ComponentFixture<PageItemComponent>;
+  let node: ReturnType<typeof createNodeServiceMock>;
+  let util: ReturnType<typeof createUtilitiesServiceMock>;
+  let confirm: Subject<boolean>;
+  const openDialog = vi.fn();
+  const page = (nid = '12', langcode = 'en'): IPage => ({
+    nid, langcode, title: `Translation ${nid}`, body: [], status: true,
+  });
+  const row = (nid = '12') => {
+    const result = TestBed.createComponent(PageItemComponent);
+    result.componentRef.setInput('page', { nid, langcode: 'zh-hans', title: `Source ${nid}` });
+    vi.spyOn(result.debugElement.injector.get(MatDialog), 'open').mockImplementation(openDialog);
+    return result;
+  };
+
+  beforeEach(async () => {
+    node = createNodeServiceMock();
+    util = createUtilitiesServiceMock();
+    confirm = new Subject<boolean>();
+    openDialog.mockReset().mockReturnValue({ afterClosed: () => confirm });
+    await TestBed.configureTestingModule({
+      imports: [PageItemComponent, MatIconTestingModule],
+      providers: [
+        provideRouter([]),
+        ...provideBuilderMocks(), BuilderState,
+        { provide: NodeService, useValue: node },
+        { provide: UtilitiesService, useValue: util },
+        { provide: LocalStorageService, useValue: {
+          retrieve: () => [{ nid: '1', title: 'Unsaved canvas', body: [], dirty: true, current: true }],
+          store: vi.fn(),
+        } },
+      ],
+    }).compileComponents();
+    state = TestBed.inject(BuilderState);
+    fixture = row();
+  });
+
+  afterEach(() => TestBed.resetTestingModule());
+
+  it.each(['same row', 'other row'])('keeps the latest translation from %s', source => {
+    const first = new Subject<IPage>();
+    const latest = new Subject<IPage>();
+    node.fetch.mockReturnValueOnce(first).mockReturnValueOnce(latest);
+    fixture.componentInstance.createLangVersion('en');
+    const next = source === 'same row' ? fixture : row('13');
+    next.componentInstance.createLangVersion('en');
+    expect(first.observed).toBe(false);
+    first.error(new Error('Superseded translation'));
+    expect(state.loading()).toBe(true);
+    expect(util.openSnackbar).not.toHaveBeenCalled();
+    latest.next(page(source === 'same row' ? '12' : '13'));
+    expect(state.currentPage.title).toBe(source === 'same row' ? 'Translation 12' : 'Translation 13');
+    expect(state.loading()).toBe(false);
+  });
+
+  it.each(['target', 'source'])('cancels the %s read when another canvas read starts', stage => {
+    const read = new Subject<IPage>();
+    if (stage === 'source') node.fetch.mockReturnValueOnce(of(page('12', 'zh-hans')));
+    node.fetch.mockReturnValueOnce(read);
+    fixture.componentInstance.createLangVersion('en');
+    const finish = state.beginPageLoad();
+    read.next(page());
+    expect(read.observed).toBe(false);
+    expect(state.currentPage).toMatchObject({ title: 'Unsaved canvas', dirty: true });
+    expect(state.loading()).toBe(true);
+    expect(openDialog).not.toHaveBeenCalled();
+    finish();
+    expect(state.loading()).toBe(false);
+  });
+
+  it('takes loading ownership from the earlier canvas read', () => {
+    const finishEarlier = state.beginPageLoad();
+    const read = new Subject<IPage>();
+    node.fetch.mockReturnValueOnce(read);
+    fixture.componentInstance.createLangVersion('en');
+    finishEarlier();
+    expect(state.loading()).toBe(true);
+    read.next(page());
+    expect(state.currentPage.title).toBe('Translation 12');
+    expect(state.loading()).toBe(false);
+  });
+
+  it('lets a local dirty translation replace a pending remote translation', () => {
+    const read = new Subject<IPage>();
+    node.fetch.mockReturnValueOnce(read);
+    fixture.componentInstance.createLangVersion('en');
+    const local = { ...page('13', 'zh-hans'), title: 'Local translation', dirty: true,
+      current: false, translation: true as const, target: 'en' };
+    state.version.update(pages => [...pages, local]);
+    row('13').componentInstance.createLangVersion('en');
+    read.next(page());
+    expect(read.observed).toBe(false);
+    expect(node.fetch).toHaveBeenCalledOnce();
+    expect(state.currentPage).toMatchObject({ title: 'Local translation', dirty: true });
+  });
+
+  it.each(['failure', 'empty'])('ends loading after %s and permits retry', result => {
+    const read = new Subject<IPage>();
+    node.fetch.mockReturnValueOnce(read);
+    fixture.componentInstance.createLangVersion('en');
+    if (result === 'failure') read.error(new Error('Unavailable'));
+    else read.complete();
+    expect(state.loading()).toBe(false);
+    expect(state.currentPage).toMatchObject({ title: 'Unsaved canvas', dirty: true });
+    node.fetch.mockReturnValueOnce(of(page()));
+    fixture.componentInstance.createLangVersion('en');
+    expect(state.currentPage.title).toBe('Translation 12');
+  });
+
+  it('ends the pending load when its row is destroyed', () => {
+    const read = new Subject<IPage>();
+    node.fetch.mockReturnValueOnce(read);
+    fixture.componentInstance.createLangVersion('en');
+    fixture.destroy();
+    expect(read.observed).toBe(false);
+    expect(state.loading()).toBe(false);
+    expect(state.currentPage.title).toBe('Unsaved canvas');
+  });
+
+  it.each(['local', 'remote'])('ignores the old confirmation after a new %s selection', selection => {
+    node.fetch.mockReturnValueOnce(of(page('12', 'zh-hans')))
+      .mockReturnValueOnce(of(page('12', 'zh-hans')));
+    fixture.componentInstance.createLangVersion('en');
+    expect(openDialog).toHaveBeenCalledOnce();
+    if (selection === 'local') state.loadNewPage({ title: 'New local draft', body: [] });
+    else state.beginPageLoad();
+    const expected = state.currentPage;
+    confirm.next(true);
+    expect(state.currentPage).toEqual(expected);
+    expect(state.loading()).toBe(selection === 'remote');
+  });
+});
 
 describe('PageItemComponent', () => {
   let component: PageItemComponent;
