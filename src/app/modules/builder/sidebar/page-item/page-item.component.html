@@ -31,11 +31,16 @@
 
   <!-- Status text only: page loads and saves already announce themselves through the snackbar,
        which owns the live region, so no aria-live is duplicated here -->
-  @if (active() || dirty() || translationDraft() || page().published === false) {
+  @if (active() || dirty() || translationDraft() || publicationState()) {
     <div class="status-row">
-      @if (page().published === false) {
-        <span class="status-badge unpublished-badge">
-          {{ 'BUILDER.PAGE_LIST.UNPUBLISHED' | translate }}
+      @if (publicationLabel(); as label) {
+        <span
+          class="status-badge publication-badge"
+          [class.unpublished-badge]="publicationState() === 'unpublished'"
+          [class.draft-badge]="publicationState() === 'draft'"
+          [class.published-badge]="publicationState() === 'published'"
+        >
+          {{ label | translate }}
         </span>
       }
       @if (active()) {

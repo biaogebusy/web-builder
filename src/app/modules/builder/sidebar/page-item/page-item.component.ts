@@ -94,6 +94,22 @@ export class PageItemComponent {
   /** True when this page has a local version with changes not saved to the server. */
   readonly dirty = computed(() => this.builder.isPageDirty(this.page()));
 
+  /** Workflow state takes precedence for display; public access still uses published. */
+  readonly publicationState = computed(() => {
+    const page = this.page();
+    return page.moderation_state || (typeof page.published === 'boolean'
+      ? page.published ? 'published' : 'unpublished' : undefined);
+  });
+
+  /** Known states use the UI locale; other states retain their CMS label. */
+  readonly publicationLabel = computed(() => {
+    const state = this.publicationState();
+    if (state === 'unpublished') return 'BUILDER.PAGE_LIST.UNPUBLISHED';
+    if (state === 'draft') return 'BUILDER.NODE_ADD.STATE_DRAFT';
+    if (state === 'published') return 'BUILDER.NODE_ADD.STATE_PUBLISHED';
+    return this.page().moderation_state_label || state;
+  });
+
   readonly previewUrl = computed(() => appendQueryParams(this.page().url || '', { preview: true }));
 
   /** Title click: the page is already open, so opening it again would be a no-op */

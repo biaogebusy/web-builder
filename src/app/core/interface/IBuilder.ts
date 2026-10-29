@@ -274,6 +274,10 @@ export interface IPageList {
 export interface IPageMeta {
   /** CMS publication state for this exact translation. */
   published?: boolean;
+  /** Viewable workflow state of the same revision and translation as this row. */
+  moderation_state?: string;
+  /** CMS label for a custom workflow state. */
+  moderation_state_label?: string;
   author: string;
   changed: string;
   nid: string;

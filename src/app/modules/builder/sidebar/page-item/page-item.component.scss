@@ -91,9 +91,19 @@
     background-color: var(--mat-sys-error-container);
   }
 
-  .unpublished-badge {
+  .publication-badge {
     color: var(--mat-sys-on-secondary-container);
     background-color: var(--mat-sys-secondary-container);
+  }
+
+  .draft-badge {
+    color: var(--mat-sys-on-tertiary-container);
+    background-color: var(--mat-sys-tertiary-container);
+  }
+
+  .published-badge {
+    color: var(--mat-sys-on-primary-container);
+    background-color: var(--mat-sys-primary-container);
   }
 
   .url-row {

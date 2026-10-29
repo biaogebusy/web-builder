@@ -95,6 +95,38 @@ describe('PageItemComponent', () => {
     expect(builderService.loadPage).not.toHaveBeenCalled();
   });
 
+  it.each([
+    ['unpublished', false, 'BUILDER.PAGE_LIST.UNPUBLISHED'],
+    ['draft', false, 'BUILDER.NODE_ADD.STATE_DRAFT'],
+    ['published', true, 'BUILDER.NODE_ADD.STATE_PUBLISHED'],
+  ] as const)('displays the CMS %s state without treating it as an unsaved canvas',
+    (state, published, label) => {
+      setPage({ nid: '12', url: '/page', published, moderation_state: state });
+      fixture.detectChanges();
+      expect(fixture.nativeElement.querySelector('.publication-badge')?.textContent)
+        .toContain(label);
+      expect(fixture.nativeElement.querySelector('.unsaved-badge')).toBeNull();
+      expect(!!fixture.nativeElement.querySelector('.preview-link')).toBe(published);
+    });
+
+  it('keeps public preview governed by publication when a workflow state is present', () => {
+    setPage({ nid: '12', url: '/page', published: true, moderation_state: 'draft' });
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('.draft-badge')).not.toBeNull();
+    expect(fixture.nativeElement.querySelector('.preview-link')).not.toBeNull();
+  });
+
+  it('uses a custom workflow label and does not infer an unavailable state', () => {
+    setPage({ nid: '12', published: false,
+      moderation_state: 'review', moderation_state_label: 'Editorial review' });
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('.publication-badge')?.textContent)
+      .toContain('Editorial review');
+    setPage({ nid: '12' });
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('.publication-badge')).toBeNull();
+  });
+
   it('loads the selected page into the builder', () => {
     const load = vi.fn();
     component.pageLoad.subscribe(load);

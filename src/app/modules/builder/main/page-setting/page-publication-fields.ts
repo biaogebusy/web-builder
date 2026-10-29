@@ -27,6 +27,8 @@ export function buildPagePublicationField(
       label: translate('BUILDER.PAGE_SETTING.STATE'),
       disabled: !writable,
       options,
+      // Refresh Material's selection when Formly reuses option positions for new workflow states.
+      compareWith: (left: unknown, right: unknown) => left === right,
     },
   };
 }
