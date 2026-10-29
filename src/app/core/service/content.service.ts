@@ -80,7 +80,7 @@ export class ContentService extends ApiService {
                 const status = error instanceof HttpErrorResponse && [403, 404].includes(error.status)
                   ? 404 : 503;
                 this.ssrRenderState.setPublicPage(key, undefined, status);
-                return of({ title: '', body: [], unavailable: true } as IPage);
+                return this.loadPublicNotFoundPage(lang, path, status);
               }
               return of({} as IPage);
             }),
@@ -124,6 +124,43 @@ export class ContentService extends ApiService {
         })
       );
     }
+  }
+
+  private loadPublicNotFoundPage(lang: string, path: string, status: number): Observable<IPage> {
+    const fallback: IPage = { title: '', body: [], unavailable: true };
+    if (status !== 404 || this.splitContentPath(path).content.replace(/\/+$/, '') === '/404') {
+      return of(fallback);
+    }
+    const key = this.getLandingPageUrl(lang, '/404', { public: true });
+    // Read directly so the fallback cannot recurse or replace the original document's 404 status.
+    return this.http.get<IPage>(key, { transferCache: false, cache: 'no-store' }).pipe(
+      map(page => {
+        if (!page || typeof page !== 'object' || Array.isArray(page)
+          || typeof page.publicPageKey !== 'string' || !page.publicPageKey
+          || !Array.isArray(page.body) || !page.body.length
+          || !page.body.every(item => {
+            const type = item?.type ?? item?.content?.type;
+            return item && typeof item === 'object' && !Array.isArray(item)
+              && typeof type === 'string' && type.trim().length > 0;
+          })) {
+          return fallback;
+        }
+        // Display the published fallback without offering to edit it as the requested page.
+        return {
+          title: typeof page.title === 'string' ? page.title : '',
+          body: page.body,
+          ...(Array.isArray(page.meta) && page.meta.every(item =>
+            item && typeof item === 'object' && !Array.isArray(item)) ? { meta: page.meta } : {}),
+          ...(page.config && typeof page.config === 'object' && !Array.isArray(page.config)
+            ? { config: page.config } : {}),
+          unavailable: true,
+        };
+      }),
+      catchError(error => {
+        this.markSsrDegraded('not-found-page', error);
+        return of(fallback);
+      })
+    );
   }
 
   getCachedPageContent(pageUrl = this.pageUrl, publicPage = false): IPage | undefined {
@@ -283,7 +320,7 @@ export class ContentService extends ApiService {
 
   getRepository(owner: string, repo: string, token: string): Observable<GithubRepository> {
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
+      'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
     });
 

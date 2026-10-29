@@ -68,6 +68,118 @@ describe('ContentService', () => {
   });
 
   describe('loadPageContent', () => {
+    it.each(['browser', 'server'] as const)(
+      'loads the published /404 page without replacing the document status on the %s', async platform => {
+        setup({ platform });
+        const first = firstValueFrom(service.loadPageContent('/about', false, true));
+        http.expectOne(`${LANDING}?content=%2Fabout&public=true`).flush({
+          title: 'Withdrawn title', publicPageKey: 'node:1:en:1',
+          body: [{ type: 'text', body: 'Withdrawn body' }],
+        });
+        await first;
+
+        const customPage = {
+          title: 'Page not found',
+          body: [{ type: 'text', classes: 'text-center', body: '<p>Return to the homepage</p>' }],
+          meta: [{ name: 'description', content: 'Custom missing page' }],
+          config: { headerMode: { transparent: false } },
+        };
+        const pending = firstValueFrom(service.loadPageContent('/about', true, true));
+        const request = http.expectOne(`${LANDING}?content=%2Fabout&public=true`);
+        expect(request.request.transferCache).toBe(false);
+        expect(request.request.cache).toBe('no-store');
+        request.flush({ body: [{ type: 'text', body: 'Legacy configured JSON is ignored' }] },
+          { status: 404, statusText: 'Not Found' });
+        const fallbackRequest = http.expectOne(`${LANDING}?content=%2F404&public=true`);
+        expect(fallbackRequest.request.transferCache).toBe(false);
+        expect(fallbackRequest.request.cache).toBe('no-store');
+        fallbackRequest.flush({
+          ...customPage, nid: '404', uuid: 'page-404', published: true,
+          publicPageKey: 'node:404:en:1', unavailable: false,
+        });
+        const page = await pending;
+        expect(page).toEqual({ ...customPage, unavailable: true });
+        expect(tags.updateTags).toHaveBeenCalledWith(page);
+        expect(service.getCachedPageContent('/about', true)).toBe(page);
+        expect(requestContext.publicPageStatus).toBe(404);
+        expect(requestContext.publicPage).toBeUndefined();
+
+        const restored = firstValueFrom(service.loadPageContent('/about', false, true));
+        http.expectOne(`${LANDING}?content=%2Fabout&public=true`).flush({
+          title: 'Republished', body: [], publicPageKey: 'node:1:en:2',
+        });
+        await expect(restored).resolves.toMatchObject({ title: 'Republished' });
+        expect(requestContext.publicPageStatus).toBe(200);
+      }
+    );
+
+    it('uses the current language for /404 and accepts wrapped component inputs', async () => {
+      const body = [{ content: { type: 'text', body: 'Custom 404 content' } }];
+      const pending = firstValueFrom(service.loadPageContent('/en/about', true, true));
+      http.expectOne(`/en${LANDING}?content=%2Fabout&public=true`)
+        .flush({}, { status: 404, statusText: 'Not Found' });
+      http.expectOne(`/en${LANDING}?content=%2F404&public=true`).flush({
+        title: 404, body, meta: [null], config: 'invalid', publicPageKey: 'node:404:en:1',
+      });
+      await expect(pending).resolves.toEqual({ title: '', body, unavailable: true });
+    });
+
+    it.each([
+      null, [], '<html>Proxy error</html>', {}, { body: [] }, { body: 'invalid' },
+      { body: [null] }, { body: [{}] }, { body: [{ type: '' }] },
+    ])('uses the default unavailable page for invalid 404 content: %j', async payload => {
+      const pending = firstValueFrom(service.loadPageContent('/about', true, true));
+      http.expectOne(`${LANDING}?content=%2Fabout&public=true`)
+        .flush({}, { status: 404, statusText: 'Not Found' });
+      http.expectOne(`${LANDING}?content=%2F404&public=true`).flush(
+        payload && typeof payload === 'object' && !Array.isArray(payload)
+          ? { ...payload, publicPageKey: 'node:404:en:1' } : payload
+      );
+      await expect(pending).resolves.toEqual({ title: '', body: [], unavailable: true });
+      expect(requestContext.publicPageStatus).toBe(404);
+    });
+
+    it.each([403, 404, 503])('stops after /404 returns HTTP %i', async status => {
+      const pending = firstValueFrom(service.loadPageContent('/about', false, true));
+      http.expectOne(`${LANDING}?content=%2Fabout&public=true`)
+        .flush({}, { status: 404, statusText: 'Not Found' });
+      http.expectOne(`${LANDING}?content=%2F404&public=true`).flush({
+        title: 'Unpublished 404', body: [{ type: 'text', body: 'Private 404 content' }],
+      }, { status, statusText: 'Failure' });
+      await expect(pending).resolves.toEqual({ title: '', body: [], unavailable: true });
+      expect(requestContext.publicPageStatus).toBe(404);
+      expect(requestContext.publicPage).toBeUndefined();
+    });
+
+    it.each(['/404', '/404/', '/en/404&preview=true'])(
+      'does not request a missing /404 page again: %s', async path => {
+        const pending = firstValueFrom(service.loadPageContent(path, false, true));
+        http.expectOne(request => request.url.includes('content=%2F404'))
+          .flush({}, { status: 404, statusText: 'Not Found' });
+        await expect(pending).resolves.toEqual({ title: '', body: [], unavailable: true });
+        expect(requestContext.publicPageStatus).toBe(404);
+      }
+    );
+
+    it('does not accept a /404 response without publication verification', async () => {
+      const pending = firstValueFrom(service.loadPageContent('/about', false, true));
+      http.expectOne(`${LANDING}?content=%2Fabout&public=true`)
+        .flush({}, { status: 404, statusText: 'Not Found' });
+      http.expectOne(`${LANDING}?content=%2F404&public=true`).flush({
+        title: 'Legacy draft', body: [{ type: 'text', body: 'Private 404 content' }],
+      });
+      await expect(pending).resolves.toEqual({ title: '', body: [], unavailable: true });
+    });
+
+    it.each([500, 503])('does not request /404 or display a body from HTTP %i', async status => {
+      const pending = firstValueFrom(service.loadPageContent('/about', false, true));
+      http.expectOne(`${LANDING}?content=%2Fabout&public=true`).flush({
+        title: 'Unverified content', body: [{ type: 'text', body: 'Do not render' }],
+      }, { status, statusText: 'Failure' });
+      await expect(pending).resolves.toEqual({ title: '', body: [], unavailable: true });
+      expect(requestContext.publicPageStatus).toBe(503);
+    });
+
     it('does not expose a legacy response that lacks public publication verification', async () => {
       const pending = firstValueFrom(service.loadPageContent('/about', false, true));
       http.expectOne(`${LANDING}?content=%2Fabout&public=true`)
@@ -86,6 +198,8 @@ describe('ContentService', () => {
       const second = firstValueFrom(service.loadPageContent('/about', false, true));
       http.expectOne(`${LANDING}?content=%2Fabout&public=true`)
         .flush({}, { status: 404, statusText: 'Not Found' });
+      http.expectOne(`${LANDING}?content=%2F404&public=true`)
+        .flush({}, { status: 404, statusText: 'Not Found' });
       await expect(second).resolves.toMatchObject({ body: [], unavailable: true });
       expect(service.getCachedPageContent('/about', true)?.title).toBe('');
       expect(requestContext.publicPageStatus).toBe(404);
@@ -98,6 +212,8 @@ describe('ContentService', () => {
       await draft;
       const publicRead = firstValueFrom(service.loadPageContent('/about&public=false', false, true));
       http.expectOne(`${LANDING}?content=%2Fabout&public=true`)
+        .flush({}, { status: 404, statusText: 'Not Found' });
+      http.expectOne(`${LANDING}?content=%2F404&public=true`)
         .flush({}, { status: 404, statusText: 'Not Found' });
       await expect(publicRead).resolves.toMatchObject({ unavailable: true });
       expect(service.getCachedPageContent('/about')?.title).toBe('Draft');

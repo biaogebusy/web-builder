@@ -7,9 +7,16 @@ const branding = {
   footer: { params: { mode: 'light' }, logo: { label: 'Publication fixture' }, mainMenu: [] },
 };
 const body = [{ type: 'text', body: '<p>Publication fixture content</p>' }];
+const notFound = {
+  title: 'Custom page not found', nid: '404', publicPageKey: 'node:404:en:1',
+  body: [{ type: 'text', containerClasses: 'custom-not-found text-center p-8',
+    body: '<h1>页面已经离开</h1><p>请返回首页查看其他内容。</p><a href="/">返回首页</a>' }],
+};
 
-for (const authenticated of [false, true]) {
-  test(`public page disappears after withdrawal (${authenticated ? 'authenticated' : 'anonymous'})`, async ({ context, page }) => {
+for (const [authenticated, custom404] of [
+  [false, false], [true, false], [false, true], [true, true],
+]) {
+  test(`public withdrawal (${authenticated ? 'authenticated' : 'anonymous'}, ${custom404 ? 'custom' : 'default'} 404)`, async ({ context, page }) => {
     let published = true;
     const publicReads: URL[] = [];
     const errors: string[] = [];
@@ -22,24 +29,43 @@ for (const authenticated of [false, true]) {
       if (content === '/core/base') return route.fulfill({ json: { defaultTheme: 'light-theme', builder: { guard: false } } });
       if (content === '/core/branding') return route.fulfill({ json: branding });
       publicReads.push(url);
-      return route.fulfill({ status: published ? 200 : 404, json: published ? { title: 'Public fixture', body, publicPageKey: 'node:1:en:1' } : {} });
+      if (content === '/404') return route.fulfill({ status: custom404 ? 200 : 404, json: custom404 ? notFound : {} });
+      return route.fulfill({ status: published ? 200 : 404, json: published ? { title: 'Public fixture', body, publicPageKey: 'node:1:en:1' } : { body: [{ type: 'text', body: 'Legacy configured JSON' }] } });
     });
     await page.goto('/publication-fixture');
     await expect(page.locator('app-page')).toContainText('Publication fixture content');
     published = false;
     await page.evaluate(() => window.dispatchEvent(new Event('focus')));
-    await expect(page.locator('.public-unavailable')).toBeVisible();
+    const fallback = page.locator(custom404 ? '.custom-not-found' : '.public-unavailable');
+    await expect(fallback).toBeVisible();
     await expect(page.locator('app-page')).not.toContainText('Publication fixture content');
+    await expect(page.locator('app-page')).not.toContainText('Legacy configured JSON');
+    if (!custom404) {
+      await expect(fallback.locator('app-text .text-body')).toHaveText('页面不存在或已下线');
+    }
+    if (custom404) {
+      await expect(fallback).toContainText('页面已经离开');
+      await expect(fallback).toHaveCSS('text-align', 'center');
+      await expect(page).toHaveTitle(notFound.title);
+      await expect(page.locator('.public-unavailable')).toHaveCount(0);
+      await expect(page.locator('.page-toolbar')).toHaveCount(0);
+      await page.screenshot({ path: `test-results/custom-404-${authenticated}.png` });
+    }
     await page.goto('/publication-fixture?preview=true&public=false');
-    await expect(page.locator('.public-unavailable')).toBeVisible();
+    await expect(fallback).toBeVisible();
+    expect(page.url()).toContain('/publication-fixture?');
     expect(publicReads.length).toBeGreaterThan(1);
     expect(publicReads.every(url => url.searchParams.get('public') === 'true')).toBe(true);
-    expect((await new AxeBuilder({ page }).include('.public-unavailable').analyze()).violations).toEqual([]);
+    expect((await new AxeBuilder({ page }).include(custom404 ? '.custom-not-found' : '.public-unavailable').analyze()).violations).toEqual([]);
+    published = true;
+    await page.evaluate(() => window.dispatchEvent(new Event('focus')));
+    await expect(page.locator('app-page')).toContainText('Publication fixture content');
+    await expect(fallback).toHaveCount(0);
     expect(errors).toEqual([]);
   });
 }
 
-test('unpublished builder row opens editable content and retains the private preview', async ({ context, page }) => {
+test('unpublished /404 page opens in the builder and retains the private preview', async ({ context, page }) => {
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.stack || error.message));
   await context.route('**/api/**', route => route.fulfill({ json: { rows: [] } }));
@@ -54,7 +80,7 @@ test('unpublished builder row opens editable content and retains the private pre
       : content === '/core/branding' ? branding : {} });
   });
   await context.route('**/api/v2/node/landing-page*', route => route.fulfill({ json: {
-    rows: [{ nid: '12', uuid: 'page-12', langcode: 'zh-hans', title: 'Draft fixture', url: '/draft', published: false }],
+    rows: [{ nid: '12', uuid: 'page-12', langcode: 'zh-hans', title: 'Draft fixture', url: '/404', published: false }],
     pager: { current_page: 0, total_pages: 1, total_items: 1, items_per_page: 10 },
   } }));
   await context.route('**/api/v3/node/component*', route => route.fulfill({ json: [] }));

@@ -9,12 +9,12 @@
     <app-header />
     <div class="page">
       @if (pageContent(); as page) {
-        @if (page.unavailable) {
+        @if (page.unavailable && !page.body.length) {
           <div class="public-unavailable" role="status">
-            <app-title [content]="{ label: 'PAGE.UNAVAILABLE' | translate, style: 'none' }" />
+            <app-text [content]="{ type: 'text', body: 'PAGE.UNAVAILABLE' | translate }" />
           </div>
         }
-        @if (user() && page.nid) {
+        @if (!page.unavailable && user() && page.nid) {
           <div class="page-toolbar">
             <app-btn
               (click)="onEdit(page.nid)"
