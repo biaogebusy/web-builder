@@ -4,6 +4,8 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { provideRouter } from '@angular/router';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
+import { NodeFieldFormService } from '@core/service/node-field-form.service';
+import { contentFormFixture } from '@core/testing/content-form.fixture';
 import { ScreenService } from '@core/service/screen.service';
 import { UserService } from '@core/service/user.service';
 import {
@@ -71,6 +73,7 @@ describe('PageSettingComponent', () => {
         { provide: UserService, useValue: userService },
         { provide: BuilderService, useValue: builderService },
         { provide: NodeService, useValue: nodeService },
+        { provide: NodeFieldFormService, useValue: { getSchema: () => of(contentFormFixture()) } },
         { provide: ScreenService, useValue: screenService },
         { provide: USER, useValue: user },
       ],

@@ -1,14 +1,21 @@
 <div class="page-setting-wrapper">
   <div class="page-setting">
-    @if (loading()) {
+    @if (loading() || publicationLoading()) {
       <div class="load">
         <app-loading />
       </div>
     }
-    @if (type === 'node--landing_page') {
-      <app-page-publication [page]="content().content.data" />
-    }
     <app-formly [form]="form" [fields]="fields" [model]="model" />
+    @if (publicationFailed()) {
+      <p role="status">{{ 'BUILDER.PAGE_SETTING.STATE_LOAD_FAILED' | translate }}</p>
+      <app-btn
+        (click)="refreshPublication()"
+        [content]="{ label: 'BUILDER.PAGE_SETTING.STATE_RETRY' | translate }"
+      />
+    }
+    @if (updateFailed()) {
+      <p role="status">{{ 'BUILDER.PAGE_SETTING.UPDATE_FAIL' | translate }}</p>
+    }
     <div class="actions">
       <app-btn
         (click)="onUpdate(model)"
@@ -16,6 +23,7 @@
           label: 'BUILDER.PAGE_SETTING.UPDATE' | translate,
           color: 'primary',
           mode: 'raised',
+          disabled: loading() || updating() || publicationLoading() || form.invalid,
         }"
       />
       @if (type === 'node--json') {

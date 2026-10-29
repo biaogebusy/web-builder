@@ -239,13 +239,19 @@ export class BuilderState {
     this.saveLocalVersions();
   }
 
-  /** Updates server publication metadata without replacing or marking the local draft saved. */
-  setPagePublication(page: Pick<IPage, 'uuid' | 'langcode'>, published: boolean): void {
+  /** Applies saved settings without replacing the canvas or clearing its unsaved changes. */
+  updatePageSettings(
+    page: Pick<IPage, 'uuid' | 'langcode'>,
+    settings: Partial<Pick<IPage, 'title' | 'published' | 'meta' | 'config'>>
+  ): void {
     const index = this.findPageIndex(page);
     if (index < 0) {
       return;
     }
-    this.version.update(list => list.map((item, i) => i === index ? { ...item, published } : item));
+    this.version.update(list => list.map((item, i) => i === index ? {
+      ...item, ...settings,
+      ...(settings.config ? { config: { ...item.config, ...settings.config } } : {}),
+    } : item));
     this.saveLocalVersions();
   }
 
