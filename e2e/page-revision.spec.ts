@@ -239,6 +239,20 @@ async function fulfillDraft(route: Route, title: string, nid = '12', langcode = 
   } });
 }
 
+async function restoreDrafts(page: Page, drafts: object[]): Promise<string> {
+  const storageKey = await page.evaluate(value => {
+    const keys = Object.keys(localStorage).filter(key =>
+      key.startsWith('ngx-webstorage') && key.endsWith('version'));
+    if (keys.length !== 1) throw new Error('Expected one persisted builder version key.');
+    localStorage.setItem(keys[0], JSON.stringify(value));
+    return keys[0];
+  }, drafts);
+  await page.reload();
+  await page.getByRole('button', { name: 'Revision fixture的更多操作', exact: true }).click();
+  await page.getByRole('menuitem', { name: '历史版本', exact: true }).click();
+  return storageKey;
+}
+
 test('a later revision selection replaces the pending draft read', async ({ context, page }) => {
   const reads: Route[] = [];
   const aborted: string[] = [];
@@ -304,24 +318,15 @@ test('revision loading preserves an unconfirmed draft and permits retry after fa
     if (['POST', 'PATCH', 'DELETE'].includes(request.method())) writes.push(request.url());
   });
   await openHistory(context, page, route => route.fulfill({ json: revisions }));
-  const storageKey = await page.evaluate(() => {
-    const keys = Object.keys(localStorage).filter(key =>
-      key.startsWith('ngx-webstorage') && key.endsWith('version'));
-    if (keys.length !== 1) throw new Error('Expected one persisted builder version key.');
-    localStorage.setItem(keys[0], JSON.stringify([{
-      nid: '12', langcode: 'en', uuid: 'revision-page', title: 'Local unsaved draft',
-      body: [{ type: 'text', body: '<p>Unsaved content</p>' }], current: true, dirty: true,
-    }]));
-    return keys[0];
-  });
+  const storageKey = await restoreDrafts(page, [{
+    nid: '12', langcode: 'en', uuid: 'revision-page', title: 'Local unsaved draft',
+    body: [{ type: 'text', body: '<p>Unsaved content</p>' }], current: true, dirty: true,
+  }]);
   const currentDraft = () => page.evaluate(key =>
     JSON.parse(localStorage.getItem(key) || '[]')
       .find((draft: { current: boolean }) => draft.current), storageKey
   );
-  await page.reload();
   await expect(page.locator('app-builder-list')).toContainText('Unsaved content');
-  await page.getByRole('button', { name: 'Revision fixture的更多操作', exact: true }).click();
-  await page.getByRole('menuitem', { name: '历史版本', exact: true }).click();
   await context.route('**/api/v3/landingPage/revisions/12/*', route => { reads.push(route); });
   const preview = page.getByRole('button', { name: '载入历史版本 #29 到草稿', exact: true });
   const dialog = page.getByRole('dialog');
@@ -348,3 +353,51 @@ test('revision loading preserves an unconfirmed draft and permits retry after fa
   });
   expect(writes).toEqual([]);
 });
+
+for (const entry of ['history', 'page list']) {
+  test(`selecting a local draft from ${entry} supersedes a pending revision`, async ({
+    context, page,
+  }) => {
+    const reads: Route[] = [];
+    const aborted: string[] = [];
+    const writes: string[] = [];
+    page.on('requestfailed', request => {
+      if (request.url().includes('/revisions/12/29')) aborted.push(request.url());
+    });
+    page.on('request', request => {
+      if (['POST', 'PATCH', 'DELETE'].includes(request.method())) writes.push(request.url());
+    });
+    await openHistory(context, page, route => route.fulfill({ json: revisions }), {
+      nid: '43', langcode: 'en',
+    });
+    const storageKey = await restoreDrafts(page, [{
+      nid: '12', langcode: 'en', uuid: 'revision-page', title: 'Original draft',
+      body: [{ type: 'text', body: '<p>Original draft</p>' }], current: true, dirty: false,
+    }, {
+      nid: '43', langcode: 'en', uuid: 'other-43', title: 'Selected local draft',
+      body: [{ type: 'text', body: '<p>Selected local content</p>' }], current: false, dirty: true,
+    }]);
+    await context.route('**/api/v3/landingPage/revisions/12/*', route => { reads.push(route); });
+    await page.getByRole('button', { name: '载入历史版本 #29 到草稿', exact: true }).click();
+    await expect.poll(() => reads.length).toBe(1);
+    await page.locator('.right-header button').click();
+    if (entry === 'history') {
+      await page.locator('app-builder-version mat-list-item')
+        .filter({ hasText: 'Selected local draft' }).locator('mat-icon').first().click();
+    } else {
+      await page.getByRole('button', { name: 'Other selection', exact: true }).click();
+      await page.getByRole('dialog').getByRole('button', {
+        name: labels.BUILDER.PAGE_LIST.OPEN_DRAFT_KEEP, exact: true,
+      }).click();
+    }
+    await expect(page.locator('app-builder-list')).toContainText('Selected local content');
+    await fulfillDraft(reads[0], 'Superseded revision');
+    await expect(page.locator('app-builder-list')).not.toContainText('Superseded revision');
+    await expect.poll(() => aborted.length).toBe(1);
+    expect(await page.evaluate(key => JSON.parse(localStorage.getItem(key) || '[]')
+      .find((draft: { current: boolean }) => draft.current), storageKey)).toMatchObject({
+      nid: '43', langcode: 'en', title: 'Selected local draft', dirty: true,
+    });
+    expect(writes).toEqual([]);
+  });
+}

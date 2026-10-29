@@ -64,6 +64,8 @@ export class BuilderState {
 
   public loading = signal(true);
   public updateSuccess$ = new Subject<boolean>();
+  /** Cancels pending draft reads before an explicit local page selection. */
+  readonly pageSelection$ = new Subject<void>();
   public COPYCOMPONENTKEY = 'cck';
   public COPYWIDGETKEY = 'cwk';
   private destroyRef = inject(DestroyRef);
@@ -192,6 +194,10 @@ export class BuilderState {
     } else if (!next.some(page => page.current)) {
       next[0] = { ...next[0], current: true };
     }
+    if (removedCurrent) {
+      this.pageSelection$.next();
+      this.loading.set(false);
+    }
     this.version.set(next);
     // Only the page being edited owns the right drawer, so leave it open for background removals
     if (removedCurrent) {
@@ -278,6 +284,7 @@ export class BuilderState {
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(result => {
           if (result) {
+            this.pageSelection$.next();
             this.version.set([
               {
                 title: '未命名',
@@ -286,6 +293,7 @@ export class BuilderState {
                 time: new Date().toLocaleString(),
               },
             ]);
+            this.loading.set(false);
             this.closeRightDrawer$.next(true);
             this.saveLocalVersions();
           }
@@ -298,12 +306,14 @@ export class BuilderState {
   }
 
   initPage(version: IPage[]): void {
+    this.pageSelection$.next();
     this.loading.set(true);
     this.version.set(version);
     this.updatePage();
   }
 
   showVersionPage(index: number): void {
+    this.pageSelection$.next();
     this.loading.set(true);
     setTimeout(() => {
       // reset current
@@ -474,6 +484,7 @@ export class BuilderState {
   }
 
   loadNewPage(page: IPage, close?: boolean): void {
+    this.pageSelection$.next();
     const currentPage = { ...page, current: true, time: new Date().toLocaleString() };
     const langcode = this.getPageIdentityLang(page);
     this.version.update(list => {
@@ -496,6 +507,7 @@ export class BuilderState {
       return next;
     });
 
+    this.loading.set(false);
     this.closeRightDrawer$.next(close ?? true);
     this.saveLocalVersions();
   }

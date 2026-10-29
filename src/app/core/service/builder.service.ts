@@ -8,7 +8,7 @@ import { firstValueFrom, Observable, of, Subscription, throwError, timer } from 
 import { UtilitiesService } from './utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { NodeService } from './node.service';
-import { catchError, filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { catchError, filter, map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -219,7 +219,7 @@ export class BuilderService extends ApiService {
     const { vid } = page;
     this.builder.loading.set(true);
     this.revisionDraftRequest = this.getPageRevision(page)
-      .pipe(take(1), takeUntilDestroyed(this.destroyRef))
+      .pipe(take(1), takeUntil(this.builder.pageSelection$), takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (content: IPage) => {
           this.builder.loading.set(false);

@@ -12,6 +12,7 @@ import { Subject, of, throwError } from 'rxjs';
 import { BuilderService } from './builder.service';
 import { ContentService } from './content.service';
 import { NodeService } from './node.service';
+import { ScreenService } from './screen.service';
 import { UtilitiesService } from './utilities.service';
 
 describe('BuilderService', () => {
@@ -30,7 +31,7 @@ describe('BuilderService', () => {
     afterClosed: () => of(true),
   }));
 
-  const createService = (): BuilderService => {
+  const createService = (pages?: IPage[]): BuilderService => {
     TestBed.configureTestingModule({
       providers: [
         BuilderService,
@@ -38,7 +39,7 @@ describe('BuilderService', () => {
         { provide: DOCUMENT, useValue: document },
         { provide: HttpClient, useValue: { patch, post, get } },
         { provide: MatDialog, useValue: { open: dialogOpen } },
-        {
+        pages ? BuilderState : {
           provide: BuilderState,
           useValue: {
             loading: { set: loadingSet },
@@ -46,13 +47,17 @@ describe('BuilderService', () => {
             getLocalPageByPage,
             deleteLocalPageByPage,
             updateSuccess$: { next: updateSuccessNext },
+            pageSelection$: new Subject<void>(),
           },
         },
         { provide: UtilitiesService, useValue: { openSnackbar } },
         { provide: NodeService, useValue: { fetch } },
         { provide: ContentService, useValue: { loadBuilderConfig: () => of({}) } },
         { provide: Router, useValue: { url: '/builder' } },
-        { provide: LocalStorageService, useValue: {} },
+        { provide: LocalStorageService, useValue: { retrieve: () => pages, store: vi.fn() } },
+        { provide: ScreenService, useValue: {
+          isPlatformBrowser: () => false, scrollToAnchor: vi.fn(),
+        } },
         { provide: TranslateService, useValue: { instant: (key: string) => key } },
       ],
     });
@@ -424,6 +429,118 @@ describe('BuilderService', () => {
       expect(latest.observed).toBe(false);
       latest.next(revision('29'));
       expect(loadNewPage).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('revision reads with real draft selection', () => {
+    let read: Subject<IPage>;
+    let state: BuilderState;
+    const response: IPage = {
+      nid: '42', langcode: 'en', title: 'Historical content', body: [], status: true,
+      vid: '31', changed: '1740226733',
+    };
+
+    beforeEach(() => {
+      read = new Subject<IPage>();
+      fetch.mockReturnValueOnce(read);
+      const service = createService([{
+        nid: '42', langcode: 'en', title: 'Current draft', body: [], current: true,
+      }, {
+        nid: '43', langcode: 'en', title: 'Other draft', body: [], current: false, dirty: true,
+      }]);
+      state = TestBed.inject(BuilderState);
+      service.loadPageRevision({ nid: '42', langcode: 'en', vid: '29' });
+    });
+
+    afterEach(() => vi.useRealTimers());
+
+    it.each([{ nid: '43', langcode: 'en' }, { nid: '42', langcode: 'zh-hans' }])(
+      'keeps the selected local draft %j after a late revision response', page => {
+        state.loadNewPage({ ...page, title: 'Selected draft', body: [], dirty: true });
+        read.next(response);
+
+        expect(state.currentPage).toMatchObject({ ...page, title: 'Selected draft', dirty: true });
+        expect(state.currentPage.revisionVid).toBeUndefined();
+        expect(state.loading()).toBe(false);
+        expect(read.observed).toBe(false);
+        expect(openSnackbar).not.toHaveBeenCalled();
+        expect(patch).not.toHaveBeenCalled();
+        expect(post).not.toHaveBeenCalled();
+      }
+    );
+
+    it('cancels when history selection starts and leaves its loading timer in charge', () => {
+      vi.useFakeTimers();
+      state.showVersionPage(1);
+      expect(read.observed).toBe(false);
+      read.error(new HttpErrorResponse({ status: 503 }));
+      expect(state.loading()).toBe(true);
+      vi.advanceTimersByTime(600);
+
+      expect(state.currentPage).toMatchObject({ nid: '43', dirty: true });
+      expect(state.loading()).toBe(false);
+      expect(openSnackbar).not.toHaveBeenCalled();
+    });
+
+    it('keeps a newly initialized draft after a late revision response', () => {
+      vi.useFakeTimers();
+      state.initPage([{ title: 'New draft', body: [], current: true }]);
+      read.next(response);
+      expect(state.loading()).toBe(true);
+      vi.advanceTimersByTime(600);
+
+      expect(state.currentPage.title).toBe('New draft');
+      expect(state.loading()).toBe(false);
+      expect(read.observed).toBe(false);
+      expect(openSnackbar).not.toHaveBeenCalled();
+    });
+
+    it('does not reopen a removed current draft when its revision arrives', () => {
+      state.deleteLocalPage(0);
+      read.next(response);
+
+      expect(state.version()).toHaveLength(1);
+      expect(state.currentPage).toMatchObject({ nid: '43', dirty: true });
+      expect(state.loading()).toBe(false);
+      expect(read.observed).toBe(false);
+      expect(openSnackbar).not.toHaveBeenCalled();
+    });
+
+    it('keeps the revision read when only a background draft is removed', () => {
+      state.deleteLocalPage(1);
+      expect(read.observed).toBe(true);
+      expect(state.loading()).toBe(true);
+      read.next(response);
+
+      expect(state.currentPage).toMatchObject({
+        nid: '42', revisionVid: '29', vid: '31', changed: '1740226733', dirty: true,
+      });
+      expect(openSnackbar).toHaveBeenCalledExactlyOnceWith('BUILDER.REVISION.LOADED', 'ok');
+      expect(state.loading()).toBe(false);
+    });
+
+    it('cancels a pending revision after clearing local history is confirmed', async () => {
+      state.clearAllHistory();
+      await vi.waitFor(() => expect(dialogOpen).toHaveBeenCalledOnce());
+      read.next(response);
+
+      expect(state.version()).toHaveLength(1);
+      expect(state.currentPage.nid).toBeUndefined();
+      expect(state.currentPage.body).toEqual([]);
+      expect(state.loading()).toBe(false);
+      expect(read.observed).toBe(false);
+      expect(openSnackbar).not.toHaveBeenCalled();
+    });
+
+    it('keeps the pending revision when clearing history is dismissed', async () => {
+      dialogOpen.mockReturnValueOnce({ afterClosed: () => of(false) });
+      state.clearAllHistory();
+      await vi.waitFor(() => expect(dialogOpen).toHaveBeenCalledOnce());
+      expect(read.observed).toBe(true);
+      read.next(response);
+
+      expect(state.currentPage).toMatchObject({ nid: '42', revisionVid: '29', dirty: true });
+      expect(openSnackbar).toHaveBeenCalledExactlyOnceWith('BUILDER.REVISION.LOADED', 'ok');
     });
   });
 
