@@ -554,6 +554,179 @@ describe('BuilderService', () => {
     });
   });
 
+  describe('page JSON drawer reads with real builder state', () => {
+    let service: BuilderService;
+    let state: BuilderState;
+    const panel = vi.fn();
+    const content = (nid = '1', langcode = 'en'): IPage => ({
+      nid, langcode, status: true, title: `JSON ${nid}`, body: [],
+    });
+    const open = (nid = '1', langcode = 'en') => service.loadPageJSON({ nid, langcode });
+    const openSettings = () => service.openPageSetting(
+      { uuid: 'settings', langcode: 'en' }, '/api/v1/node/landing_page', { include: 'uid' }
+    );
+    const settings = { data: { attributes: { title: 'Settings' } } };
+
+    beforeEach(() => {
+      service = createService([{
+        nid: '42', title: 'Unsaved canvas', body: [], current: true, dirty: true,
+      }]);
+      state = TestBed.inject(BuilderState);
+      state.rightContent$.subscribe(panel);
+    });
+
+    afterEach(() => {
+      TestBed.resetTestingModule();
+      vi.useRealTimers();
+    });
+
+    it.each(['page', 'language'])(
+      'uses the latest JSON %s and keeps its update target after reversed responses', kind => {
+        const first = new Subject<IPage>();
+        const latest = new Subject<IPage>();
+        fetch.mockReturnValueOnce(first).mockReturnValueOnce(latest);
+        open();
+        const nid = kind === 'page' ? '2' : '1';
+        const langcode = kind === 'language' ? 'zh-hans' : 'en';
+        open(nid, langcode);
+        latest.next(content(nid, langcode));
+        first.next(content());
+        expect(panel).toHaveBeenCalledExactlyOnceWith(expect.objectContaining({
+          title: 'JSON', mode: 'over', hasBackdrop: true, style: { width: '800px' },
+          elements: [expect.objectContaining({
+            type: 'jsoneditor', schemaType: 'page', fullWidth: true,
+            data: expect.objectContaining({ nid, langcode, title: `JSON ${nid}` }),
+            actions: [{ type: 'updatePage', label: '更新JSON', params: { nid, langcode } }],
+          })],
+        }));
+        expect(first.observed).toBe(false);
+        expect(latest.observed).toBe(false);
+        expect(fetch).toHaveBeenLastCalledWith(
+          `/api/v3/landingPage/json/${nid}`, { noCache: 1 }, langcode === 'en' ? 'en' : ''
+        );
+        expect(state.currentPage).toMatchObject({ title: 'Unsaved canvas', dirty: true });
+        expect(post).not.toHaveBeenCalled();
+        expect(patch).not.toHaveBeenCalled();
+      }
+    );
+
+    it.each(['close', 'UI close', 'panel', 'local page', 'remote page', 'destroy'])(
+      'cancels pending JSON on %s and ignores a late response', action => {
+        const read = new Subject<IPage>();
+        fetch.mockReturnValueOnce(read);
+        open();
+        if (action === 'close') state.closeRightDrawer$.next(true);
+        if (action === 'UI close') state.rightDrawerClosed$.next();
+        if (action === 'panel') state.rightContent$.next({ title: 'History', elements: [] });
+        if (action === 'local page') state.loadNewPage({ title: 'Selected draft', body: [] });
+        if (action === 'remote page') {
+          fetch.mockReturnValueOnce(new Subject<IPage>());
+          service.loadPage({ nid: '2' });
+        }
+        if (action === 'destroy') TestBed.resetTestingModule();
+        panel.mockClear();
+        read.next(content());
+        expect(panel).not.toHaveBeenCalled();
+        expect(read.observed).toBe(false);
+        expect(openSnackbar).not.toHaveBeenCalled();
+      }
+    );
+
+    it.each(['JSON first', 'settings first'])(
+      'cancels the earlier drawer read as soon as the next starts: %s', order => {
+        const first = new Subject<unknown>();
+        const latest = new Subject<unknown>();
+        fetch.mockReturnValueOnce(first).mockReturnValueOnce(latest);
+        if (order === 'JSON first') { open(); openSettings(); }
+        else { openSettings(); open(); }
+        expect(first.observed).toBe(false);
+        first.next(order === 'JSON first' ? content() : settings);
+        expect(panel).not.toHaveBeenCalled();
+        expect(latest.observed).toBe(true);
+        expect(state.pageSettingsLoading()).toBe(order === 'JSON first');
+        latest.next(order === 'JSON first' ? settings : content());
+        expect(panel).toHaveBeenCalledOnce();
+        expect(state.pageSettingsLoading()).toBe(false);
+      }
+    );
+
+    it('keeps an earlier canvas read and its loading state while JSON opens', () => {
+      const canvas = new Subject<IPage>();
+      const json = new Subject<IPage>();
+      fetch.mockReturnValueOnce(canvas).mockReturnValueOnce(json);
+      service.loadPage({ nid: '2' });
+      open();
+      json.next(content());
+      expect(state.loading()).toBe(true);
+      expect(canvas.observed).toBe(true);
+      expect(state.pageSettingsLoading()).toBe(false);
+      canvas.next(content('2'));
+      expect(state.currentPage).toMatchObject({ nid: '2', title: 'JSON 2' });
+      expect(state.loading()).toBe(false);
+    });
+
+    it('ignores false close commands and permits a fresh read after closing', () => {
+      const first = new Subject<IPage>();
+      fetch.mockReturnValueOnce(first);
+      open();
+      state.closeRightDrawer$.next(false);
+      expect(first.observed).toBe(true);
+      state.closeRightDrawer$.next(true);
+      first.next(content());
+      expect(panel).not.toHaveBeenCalled();
+      fetch.mockReturnValueOnce(of(content('2')));
+      open('2');
+      expect(panel).toHaveBeenCalledOnce();
+    });
+
+    it('reports a JSON failure, preserves the draft and permits retry', () => {
+      const read = new Subject<IPage>();
+      fetch.mockReturnValueOnce(read);
+      open();
+      read.error(new HttpErrorResponse({ status: 503 }));
+      expect(openSnackbar).toHaveBeenCalledExactlyOnceWith('BUILDER.PAGE_LIST.LOAD_PAGE_FAIL', 'ok');
+      expect(state.currentPage).toMatchObject({ title: 'Unsaved canvas', dirty: true });
+      expect(panel).not.toHaveBeenCalled();
+      fetch.mockReturnValueOnce(of(content()));
+      open();
+      expect(panel).toHaveBeenCalledOnce();
+    });
+
+    it('ignores a superseded JSON failure while settings remain pending', () => {
+      const first = new Subject<IPage>();
+      const latest = new Subject<unknown>();
+      fetch.mockReturnValueOnce(first).mockReturnValueOnce(latest);
+      open();
+      openSettings();
+      first.error(new HttpErrorResponse({ status: 503 }));
+      expect(openSnackbar).not.toHaveBeenCalled();
+      expect(state.pageSettingsLoading()).toBe(true);
+      expect(latest.observed).toBe(true);
+      latest.next(settings);
+      expect(panel).toHaveBeenCalledOnce();
+    });
+
+    it('preserves the refusal message without opening JSON or changing the draft', () => {
+      fetch.mockReturnValueOnce(of({ ...content(), status: false }));
+      open();
+      expect(openSnackbar).toHaveBeenCalledExactlyOnceWith('该页面非builder创建，请到后台编辑', 'ok');
+      expect(panel).not.toHaveBeenCalled();
+      expect(state.currentPage).toMatchObject({ title: 'Unsaved canvas', dirty: true });
+    });
+
+    it('allows retry after an empty JSON read', () => {
+      const read = new Subject<IPage>();
+      fetch.mockReturnValueOnce(read);
+      open();
+      read.complete();
+      expect(panel).not.toHaveBeenCalled();
+      expect(openSnackbar).not.toHaveBeenCalled();
+      fetch.mockReturnValueOnce(of(content()));
+      open();
+      expect(panel).toHaveBeenCalledOnce();
+    });
+  });
+
   describe('page settings reads with real builder state', () => {
     let service: BuilderService;
     let state: BuilderState;

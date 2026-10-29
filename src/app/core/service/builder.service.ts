@@ -62,7 +62,13 @@ export class BuilderService extends ApiService {
   private translate = inject(TranslateService);
   private versionCheckSub?: Subscription;
   private versionDialogOpen = false;
-  private pageSettingsRequest?: Subscription;
+  private drawerReadRequest?: Subscription;
+  private readonly drawerReadCancelled$ = merge(
+    this.builder.pageSelection$,
+    this.builder.rightContent$,
+    this.builder.closeRightDrawer$.pipe(filter(Boolean)),
+    this.builder.rightDrawerClosed$
+  );
 
   constructor() {
     super();
@@ -146,44 +152,55 @@ export class BuilderService extends ApiService {
       });
   }
 
+  /** Loads page JSON only while its drawer selection remains active. */
   loadPageJSON(page: { langcode?: string; nid: string }): void {
+    this.drawerReadRequest?.unsubscribe();
     const { langcode, nid } = page;
     const lang = getApiLang(langcode);
-    this.nodeService
+    this.drawerReadRequest = this.nodeService
       .fetch(`/api/v3/landingPage/json/${nid}`, { noCache: 1 }, lang)
-      .pipe(take(1))
-      .subscribe((content: IPage) => {
-        const { status } = content;
-        if (status) {
-          const jsonWidget: IJsoneditor = {
-            type: 'jsoneditor',
-            data: formatToExtraData(content),
-            classes: 'full-height',
-            schemaType: 'page',
-            fullWidth: true,
-            actions: [
-              {
-                type: 'updatePage',
-                label: '更新JSON',
-                params: {
-                  nid,
-                  langcode,
+      .pipe(
+        take(1),
+        takeUntil(this.drawerReadCancelled$),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe({
+        next: (content: IPage) => {
+          const { status } = content;
+          if (status) {
+            const jsonWidget: IJsoneditor = {
+              type: 'jsoneditor',
+              data: formatToExtraData(content),
+              classes: 'full-height',
+              schemaType: 'page',
+              fullWidth: true,
+              actions: [
+                {
+                  type: 'updatePage',
+                  label: '更新JSON',
+                  params: {
+                    nid,
+                    langcode,
+                  },
                 },
+              ],
+            };
+            this.builder.rightContent$.next({
+              title: 'JSON',
+              mode: 'over',
+              hasBackdrop: true,
+              style: {
+                width: '800px',
               },
-            ],
-          };
-          this.builder.rightContent$.next({
-            title: 'JSON',
-            mode: 'over',
-            hasBackdrop: true,
-            style: {
-              width: '800px',
-            },
-            elements: [jsonWidget],
-          });
-        } else {
-          this.util.openSnackbar('该页面非builder创建，请到后台编辑', 'ok');
-        }
+              elements: [jsonWidget],
+            });
+          } else {
+            this.util.openSnackbar('该页面非builder创建，请到后台编辑', 'ok');
+          }
+        },
+        error: () => {
+          this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_LIST.LOAD_PAGE_FAIL'), 'ok');
+        },
       });
   }
 
@@ -796,11 +813,11 @@ export class BuilderService extends ApiService {
     api: string,
     params: QueryParams | string
   ): void {
-    this.pageSettingsRequest?.unsubscribe();
+    this.drawerReadRequest?.unsubscribe();
     this.builder.pageSettingsLoading.set(true);
     const { uuid, langcode } = page;
     const lang = getApiLang(langcode);
-    this.pageSettingsRequest = this.nodeService
+    this.drawerReadRequest = this.nodeService
       .fetch(`${api}/${uuid}`, params, lang)
       .pipe(
         catchError((error: any) => {
@@ -809,12 +826,7 @@ export class BuilderService extends ApiService {
           return of(false);
         }),
         take(1),
-        takeUntil(merge(
-          this.builder.pageSelection$,
-          this.builder.rightContent$,
-          this.builder.closeRightDrawer$.pipe(filter(Boolean)),
-          this.builder.rightDrawerClosed$
-        )),
+        takeUntil(this.drawerReadCancelled$),
         takeUntilDestroyed(this.destroyRef),
         finalize(() => this.builder.pageSettingsLoading.set(false))
       )

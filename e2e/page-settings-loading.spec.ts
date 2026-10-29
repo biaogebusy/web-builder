@@ -16,7 +16,7 @@ async function setup(context: BrowserContext, page: Page) {
   await context.route('**/assets/app/**/builder.json', route => route.fulfill({ json: {} }));
   await context.route('**/api/v3/landingPage*', route => route.fulfill({ json:
     new URL(route.request().url()).searchParams.get('content') === '/core/base'
-      ? { defaultTheme: 'light-theme', builder: { guard: false } } : {},
+      ? { defaultTheme: 'light-theme', librariesUseLocal: true, builder: { guard: false } } : {},
   }));
   await context.route('**/api/v2/node/landing-page*', route => route.fulfill({ json: {
     rows: ['a', 'b'].map((id, index) => ({
@@ -75,6 +75,136 @@ async function fulfillCanvas(route: Route): Promise<void> {
     } } }],
   } });
 }
+
+async function openJson(page: Page, letter: string): Promise<void> {
+  await page.getByRole('button', { name: `Page ${letter}的更多操作`, exact: true }).click();
+  await page.getByRole('menuitem', { name: '页面 JSON', exact: true }).click();
+}
+
+async function fulfillJson(route: Route, letter: string): Promise<void> {
+  await route.fulfill({ json: {
+    status: true, nid: letter === 'A' ? '1' : '2', langcode: 'en', title: `JSON ${letter}`,
+    body: [{ type: 'json', attributes: { body: { type: 'text', body: `<p>JSON ${letter}</p>` } } }],
+  } });
+}
+
+test('page JSON keeps the latest selection after reversed responses', async ({ context, page }) => {
+  const { canvas: json, aborted, writes, errors, storageKey } = await setup(context, page);
+  await openJson(page, 'A');
+  await expect.poll(() => json.length).toBe(1);
+  await openJson(page, 'B');
+  await expect.poll(() => json.length).toBe(2);
+  await fulfillJson(json[1], 'B');
+  const editor = page.locator('app-jsoneditor .ace_content');
+  await expect(editor).toContainText('JSON B');
+  await fulfillJson(json[0], 'A');
+  await expect.poll(() => aborted).toContain('/en/api/v3/landingPage/json/1');
+  await expect(editor).toContainText('JSON B');
+  await expect(editor).not.toContainText('JSON A');
+  await page.screenshot({ path: test.info().outputPath('latest-page-json.png'), fullPage: true });
+  expect(await page.evaluate(key => JSON.parse(localStorage.getItem(key) || '[]')[0], storageKey))
+    .toMatchObject({ title: 'Unsaved canvas', dirty: true });
+  expect(writes).toEqual([]);
+  expect(errors).toEqual([]);
+});
+
+for (const first of ['JSON', 'settings']) {
+  test(`starting a new drawer read cancels pending ${first}`, async ({ context, page }) => {
+    const { canvas: json, settings, aborted, writes, errors } = await setup(context, page);
+    if (first === 'JSON') {
+      await openJson(page, 'A');
+      await expect.poll(() => json.length).toBe(1);
+      await openSettings(page, 'B');
+      await expect.poll(() => settings.length).toBe(1);
+      await fulfillJson(json[0], 'A');
+      await expect.poll(() => aborted).toContain('/en/api/v3/landingPage/json/1');
+      await expect(page.locator('app-jsoneditor')).toHaveCount(0);
+      await expect(page.locator('app-builder-list app-loading')).toBeVisible();
+      await fulfillSettings(settings[0], 'B');
+      await expect(page.locator('app-page-setting').getByRole('textbox', { name: '标题', exact: false }))
+        .toHaveValue('Settings B');
+    } else {
+      await openSettings(page, 'A');
+      await expect.poll(() => settings.length).toBe(1);
+      await openJson(page, 'B');
+      await expect.poll(() => json.length).toBe(1);
+      await fulfillSettings(settings[0], 'A');
+      await expect.poll(() => aborted).toContain('/en/api/v1/node/landing_page/a');
+      await expect(page.locator('app-page-setting')).toHaveCount(0);
+      await expect(page.locator('app-builder-list app-loading')).toHaveCount(0);
+      await fulfillJson(json[0], 'B');
+      await expect(page.locator('app-jsoneditor .ace_content')).toContainText('JSON B');
+    }
+    expect(writes).toEqual([]);
+    expect(errors).toEqual([]);
+  });
+}
+
+test('page JSON cannot replace history or reopen it after closing', async ({ context, page }) => {
+  const { canvas: json, aborted, errors } = await setup(context, page);
+  await openJson(page, 'A');
+  await expect.poll(() => json.length).toBe(1);
+  await page.getByRole('button', { name: 'Page B的更多操作', exact: true }).click();
+  await page.getByRole('menuitem', { name: '历史版本', exact: true }).click();
+  await expect(page.locator('app-page-revision')).toBeVisible();
+  await page.locator('.right-header button').click();
+  await expect(page.locator('app-page-revision')).toHaveCount(0);
+  await fulfillJson(json[0], 'A');
+  await expect.poll(() => aborted).toContain('/en/api/v3/landingPage/json/1');
+  await expect(page.locator('app-jsoneditor')).toHaveCount(0);
+  await expect(page.locator('.right-header')).not.toBeVisible();
+  expect(errors).toEqual([]);
+});
+
+test('a new canvas selection cancels JSON while keeping canvas loading', async ({ context, page }) => {
+  const { canvas, aborted, errors } = await setup(context, page);
+  await openJson(page, 'A');
+  await expect.poll(() => canvas.length).toBe(1);
+  await page.getByRole('button', { name: 'Page B', exact: true }).click();
+  await expect.poll(() => canvas.length).toBe(2);
+  await fulfillJson(canvas[0], 'A');
+  await expect.poll(() => aborted).toContain('/en/api/v3/landingPage/json/1');
+  await expect(page.locator('app-jsoneditor')).toHaveCount(0);
+  await expect(page.locator('app-builder-list app-loading')).toBeVisible();
+  await fulfillCanvas(canvas[1]);
+  await expect(page.locator('app-builder-list')).toContainText('Selected canvas content');
+  await expect(page.locator('app-builder-list app-loading')).toHaveCount(0);
+  expect(errors).toEqual([]);
+});
+
+test('JSON can open while an earlier canvas read keeps loading', async ({ context, page }) => {
+  const { canvas, errors } = await setup(context, page);
+  await page.getByRole('button', { name: 'Page B', exact: true }).click();
+  await expect.poll(() => canvas.length).toBe(1);
+  await openJson(page, 'A');
+  await expect.poll(() => canvas.length).toBe(2);
+  await fulfillJson(canvas[1], 'A');
+  await expect(page.locator('app-jsoneditor .ace_content')).toContainText('JSON A');
+  await expect(page.locator('app-builder-list app-loading')).toBeVisible();
+  await fulfillCanvas(canvas[0]);
+  await expect(page.locator('app-jsoneditor')).toHaveCount(0);
+  await expect(page.locator('app-builder-list')).toContainText('Selected canvas content');
+  await expect(page.locator('app-builder-list app-loading')).toHaveCount(0);
+  expect(errors).toEqual([]);
+});
+
+test('page JSON failure shows feedback and allows retry without losing the draft', async ({
+  context, page,
+}) => {
+  const { canvas: json, errors, writes } = await setup(context, page);
+  await openJson(page, 'A');
+  await expect.poll(() => json.length).toBe(1);
+  await json[0].fulfill({ status: 503, json: { message: 'Synthetic JSON failure' } });
+  await expect(page.locator('mat-snack-bar-container')
+    .filter({ hasText: '页面载入失败，请重试' })).toBeVisible();
+  await expect(page.locator('app-builder-list')).toContainText('Unsaved canvas content');
+  await openJson(page, 'A');
+  await expect.poll(() => json.length).toBe(2);
+  await fulfillJson(json[1], 'A');
+  await expect(page.locator('app-jsoneditor .ace_content')).toContainText('JSON A');
+  expect(errors).toEqual([]);
+  expect(writes).toEqual([]);
+});
 
 test('the latest settings selection wins when responses arrive in reverse order', async ({
   context, page,
