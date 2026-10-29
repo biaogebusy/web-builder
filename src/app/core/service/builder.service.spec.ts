@@ -8,7 +8,7 @@ import { BuilderState } from '@core/state/BuilderState';
 import { API_URL } from '@core/token/token-providers';
 import { TranslateService } from '@ngx-translate/core';
 import { LocalStorageService } from 'ngx-webstorage';
-import { of, throwError } from 'rxjs';
+import { Subject, of, throwError } from 'rxjs';
 import { BuilderService } from './builder.service';
 import { ContentService } from './content.service';
 import { NodeService } from './node.service';
@@ -336,6 +336,95 @@ describe('BuilderService', () => {
     expect(loadNewPage).toHaveBeenCalledWith(
       expect.objectContaining({ dirty: true, revisionVid: '28' })
     );
+  });
+
+  describe('revision draft requests', () => {
+    const revision = (vid: string, langcode = 'en'): IPage => ({
+      nid: '42', langcode, title: `Revision ${vid}`, body: [], status: true,
+      vid: '31', changed: '1740226733',
+    });
+    let first: Subject<IPage>;
+    let latest: Subject<IPage>;
+    let service: BuilderService;
+
+    beforeEach(() => {
+      first = new Subject<IPage>();
+      latest = new Subject<IPage>();
+      fetch.mockReturnValueOnce(first).mockReturnValueOnce(latest);
+      service = createService();
+      service.loadPageRevision({ nid: '42', langcode: 'en', vid: '28' });
+      service.loadPageRevision({ nid: '42', langcode: 'en', vid: '29' });
+    });
+
+    it('keeps the latest revision when an older response arrives last', () => {
+      latest.next(revision('29'));
+      first.next(revision('28'));
+
+      expect(loadNewPage).toHaveBeenCalledExactlyOnceWith(expect.objectContaining({
+        nid: '42', langcode: 'en', title: 'Revision 29', dirty: true,
+        revisionVid: '29', vid: '31', changed: '1740226733',
+      }));
+      expect(openSnackbar).toHaveBeenCalledExactlyOnceWith('BUILDER.REVISION.LOADED', 'ok');
+      expect(patch).not.toHaveBeenCalled();
+      expect(post).not.toHaveBeenCalled();
+    });
+
+    it('does not finish loading when only the replaced read completes', () => {
+      first.next(revision('28'));
+
+      expect(loadingSet).not.toHaveBeenCalledWith(false);
+      expect(loadNewPage).not.toHaveBeenCalled();
+      latest.next(revision('29'));
+      expect(loadingSet).toHaveBeenLastCalledWith(false);
+    });
+
+    it('unsubscribes the replaced read and ignores its failure', () => {
+      expect(first.observed).toBe(false);
+      first.error(new HttpErrorResponse({ status: 503 }));
+
+      expect(openSnackbar).not.toHaveBeenCalled();
+      expect(loadingSet).not.toHaveBeenCalledWith(false);
+      expect(latest.observed).toBe(true);
+    });
+
+    it('preserves the draft on a current failure and permits retry', () => {
+      latest.error(new HttpErrorResponse({ status: 503 }));
+      first.next(revision('28'));
+
+      expect(loadNewPage).not.toHaveBeenCalled();
+      expect(openSnackbar).toHaveBeenCalledExactlyOnceWith('BUILDER.REVISION.LOAD_FAIL', 'ok');
+      expect(loadingSet).toHaveBeenLastCalledWith(false);
+      fetch.mockReturnValueOnce(of(revision('30')));
+      service.loadPageRevision({ nid: '42', langcode: 'en', vid: '30' });
+      expect(loadNewPage).toHaveBeenCalledExactlyOnceWith(expect.objectContaining({
+        revisionVid: '30', title: 'Revision 30', dirty: true,
+      }));
+    });
+
+    it.each([{ nid: '43', langcode: 'en' }, { nid: '42', langcode: 'zh-hans' }])(
+      'keeps a later page selection %j in charge of loading', page => {
+        const pageRead = new Subject<IPage>();
+        fetch.mockReturnValueOnce(pageRead);
+        service.loadPage(page);
+        first.next(revision('28'));
+        latest.next(revision('29'));
+
+        expect(loadNewPage).not.toHaveBeenCalled();
+        expect(openSnackbar).not.toHaveBeenCalled();
+        expect(loadingSet).not.toHaveBeenCalledWith(false);
+        expect(latest.observed).toBe(false);
+        pageRead.next({ ...revision('current'), ...page });
+        expect(loadNewPage).toHaveBeenCalledExactlyOnceWith(expect.objectContaining(page));
+      }
+    );
+
+    it('unsubscribes pending reads when the service is destroyed', () => {
+      TestBed.resetTestingModule();
+      expect(first.observed).toBe(false);
+      expect(latest.observed).toBe(false);
+      latest.next(revision('29'));
+      expect(loadNewPage).not.toHaveBeenCalled();
+    });
   });
 
   it('saves an old revision as the newest one and reloads what the server now serves', () => {

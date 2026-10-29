@@ -62,6 +62,7 @@ export class BuilderService extends ApiService {
   private translate = inject(TranslateService);
   private versionCheckSub?: Subscription;
   private versionDialogOpen = false;
+  private revisionDraftRequest?: Subscription;
 
   constructor() {
     super();
@@ -71,6 +72,8 @@ export class BuilderService extends ApiService {
     page: { langcode?: string; nid: string; isTemplate?: boolean },
     openSetting = false
   ): void {
+    // A later page or language selection supersedes an unfinished revision preview.
+    this.revisionDraftRequest?.unsubscribe();
     const { langcode, nid, isTemplate } = page;
     const lang = getApiLang(langcode);
     this.nodeService
@@ -212,10 +215,11 @@ export class BuilderService extends ApiService {
    * being rejected as stale.
    */
   loadPageRevision(page: { langcode?: string; nid: string; vid: string }): void {
+    this.revisionDraftRequest?.unsubscribe();
     const { vid } = page;
     this.builder.loading.set(true);
-    this.getPageRevision(page)
-      .pipe(take(1))
+    this.revisionDraftRequest = this.getPageRevision(page)
+      .pipe(take(1), takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (content: IPage) => {
           this.builder.loading.set(false);

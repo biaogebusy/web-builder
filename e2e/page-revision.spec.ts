@@ -18,7 +18,8 @@ const revisions = {
 };
 
 async function openHistory(context: BrowserContext, page: Page,
-  list: (route: Route) => Promise<void>): Promise<void> {
+  list: (route: Route) => Promise<void>,
+  otherPage?: { nid: string; langcode: string }): Promise<void> {
   await context.route('**/api/**', route => route.fulfill({ json: {} }));
   await context.route('**/assets/app/**/builder.json', route => route.fulfill({ json: {} }));
   await context.route('**/api/v3/landingPage*', route => route.fulfill({ json:
@@ -27,7 +28,9 @@ async function openHistory(context: BrowserContext, page: Page,
   }));
   await context.route('**/api/v2/node/landing-page*', route => route.fulfill({ json: {
     rows: [{ nid: '12', uuid: 'revision-page', title: 'Revision fixture', langcode: 'en',
-      url: '/en/revision-fixture', changed: '2025-02-22T00:00:00Z', author: 'Editor' }],
+      url: '/en/revision-fixture', changed: '2025-02-22T00:00:00Z', author: 'Editor' },
+    ...(otherPage ? [{ ...otherPage, uuid: `other-${otherPage.nid}`, title: 'Other selection',
+      url: '/other-selection', changed: '2025-02-22T00:00:00Z', author: 'Editor' }] : [])],
     pager: { current_page: 0, total_pages: 1, total_items: 1, items_per_page: 10 },
   } }));
   await context.route('**/api/v2/taxonomy/page_group*', route =>
@@ -225,4 +228,115 @@ test('closing a loading comparison cancels both reads and permits reopening', as
   await Promise.all(reads.slice(2).map(fulfillRevision));
   await expect(dialog.locator('.monaco-diff-editor')).toBeVisible();
   await expect(dialog.getByRole('status')).toHaveCount(0);
+});
+
+async function fulfillDraft(route: Route, title: string, nid = '12', langcode = 'en'): Promise<void> {
+  await route.fulfill({ json: {
+    status: true, message: '', nid, langcode, title, uuid: `page-${nid}`, vid: '31',
+    changed: '1740226733', body: [{ type: 'json', attributes: {
+      body: { type: 'text', body: `<p>${title}</p>` },
+    } }],
+  } });
+}
+
+test('a later revision selection replaces the pending draft read', async ({ context, page }) => {
+  const reads: Route[] = [];
+  const aborted: string[] = [];
+  const writes: string[] = [];
+  page.on('requestfailed', request => {
+    if (request.url().includes('/revisions/12/29')) aborted.push(request.url());
+  });
+  page.on('request', request => {
+    if (['POST', 'PATCH', 'DELETE'].includes(request.method())) writes.push(request.url());
+  });
+  await openHistory(context, page, route => route.fulfill({ json: revisions }));
+  await context.route('**/api/v3/landingPage/revisions/12/*', route => { reads.push(route); });
+  const panel = page.locator('app-page-revision');
+  await panel.getByRole('button', { name: '载入历史版本 #29 到草稿', exact: true }).click();
+  await expect.poll(() => reads.length).toBe(1);
+  await panel.getByRole('button', { name: '载入历史版本 #30 到草稿', exact: true }).click();
+  await expect.poll(() => reads.length).toBe(2);
+  await fulfillDraft(reads[1], 'Latest selected revision');
+  await expect(page.locator('app-builder-list')).toContainText('Latest selected revision');
+  await fulfillDraft(reads[0], 'Superseded revision');
+  await expect.poll(() => aborted.length).toBe(1);
+  await expect(page.locator('app-builder-list')).toContainText('Latest selected revision');
+  await expect(page.locator('app-builder-list')).not.toContainText('Superseded revision');
+  await expect(page.locator('.revision-bar')).toContainText('30');
+  expect(writes).toEqual([]);
+});
+
+for (const selection of [{ nid: '43', langcode: 'en' }, { nid: '12', langcode: 'zh-hans' }]) {
+  test(`opening ${selection.nid}/${selection.langcode} supersedes a pending revision`, async ({
+    context, page,
+  }) => {
+    const reads: Route[] = [];
+    const pageReads: Route[] = [];
+    const aborted: string[] = [];
+    page.on('requestfailed', request => {
+      if (request.url().includes('/revisions/12/29')) aborted.push(request.url());
+    });
+    await openHistory(context, page, route => route.fulfill({ json: revisions }), selection);
+    await context.route('**/api/v3/landingPage/revisions/12/*', route => { reads.push(route); });
+    await context.route(`**/api/v3/landingPage/json/${selection.nid}?*`, route => {
+      pageReads.push(route);
+    });
+    await page.getByRole('button', { name: '载入历史版本 #29 到草稿', exact: true }).click();
+    await expect.poll(() => reads.length).toBe(1);
+    await page.locator('.right-header button').click();
+    await page.getByRole('button', { name: 'Other selection', exact: true }).click();
+    await expect.poll(() => pageReads.length).toBe(1);
+    await fulfillDraft(reads[0], 'Superseded revision');
+    await expect.poll(() => aborted.length).toBe(1);
+    await fulfillDraft(pageReads[0], 'Current selection', selection.nid, selection.langcode);
+    await expect(page.locator('app-builder-list')).toContainText('Current selection');
+    await expect(page.locator('app-builder-list')).not.toContainText('Superseded revision');
+    await expect(page.locator('.revision-bar')).toHaveCount(0);
+  });
+}
+
+test('revision loading preserves an unconfirmed draft and permits retry after failure', async ({
+  context, page,
+}) => {
+  const reads: Route[] = [];
+  const writes: string[] = [];
+  page.on('request', request => {
+    if (['POST', 'PATCH', 'DELETE'].includes(request.method())) writes.push(request.url());
+  });
+  await context.addInitScript(() => {
+    localStorage.setItem('ngx-webstorage:version', JSON.stringify([{
+      nid: '12', langcode: 'en', uuid: 'revision-page', title: 'Local unsaved draft',
+      body: [{ type: 'text', body: '<p>Unsaved content</p>' }], current: true, dirty: true,
+    }]));
+  });
+  const currentDraft = () => page.evaluate(() =>
+    JSON.parse(localStorage.getItem('ngx-webstorage:version') || '[]')
+      .find((draft: { current: boolean }) => draft.current)
+  );
+  await openHistory(context, page, route => route.fulfill({ json: revisions }));
+  await context.route('**/api/v3/landingPage/revisions/12/*', route => { reads.push(route); });
+  const preview = page.getByRole('button', { name: '载入历史版本 #29 到草稿', exact: true });
+  const dialog = page.getByRole('dialog');
+  await preview.click();
+  await expect(dialog).toContainText(labels.BUILDER.REVISION.PREVIEW_TITLE);
+  await dialog.getByRole('button', { name: '取消', exact: true }).click();
+  expect(reads).toHaveLength(0);
+  expect(await currentDraft()).toMatchObject({ title: 'Local unsaved draft', dirty: true });
+
+  await preview.click();
+  await dialog.getByRole('button', { name: labels.BUILDER.REVISION.PREVIEW_YES }).click();
+  await expect.poll(() => reads.length).toBe(1);
+  await reads[0].fulfill({ status: 503, json: { message: 'Synthetic failure' } });
+  await expect(page.getByText(labels.BUILDER.REVISION.LOAD_FAIL, { exact: true })).toBeVisible();
+  expect(await currentDraft()).toMatchObject({ title: 'Local unsaved draft', dirty: true });
+
+  await preview.click();
+  await dialog.getByRole('button', { name: labels.BUILDER.REVISION.PREVIEW_YES }).click();
+  await expect.poll(() => reads.length).toBe(2);
+  await fulfillDraft(reads[1], 'Restored after retry');
+  await expect(page.locator('app-builder-list')).toContainText('Restored after retry');
+  expect(await currentDraft()).toMatchObject({
+    nid: '12', langcode: 'en', revisionVid: '29', vid: '31', dirty: true,
+  });
+  expect(writes).toEqual([]);
 });
