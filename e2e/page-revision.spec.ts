@@ -303,17 +303,25 @@ test('revision loading preserves an unconfirmed draft and permits retry after fa
   page.on('request', request => {
     if (['POST', 'PATCH', 'DELETE'].includes(request.method())) writes.push(request.url());
   });
-  await context.addInitScript(() => {
-    localStorage.setItem('ngx-webstorage:version', JSON.stringify([{
+  await openHistory(context, page, route => route.fulfill({ json: revisions }));
+  const storageKey = await page.evaluate(() => {
+    const keys = Object.keys(localStorage).filter(key =>
+      key.startsWith('ngx-webstorage') && key.endsWith('version'));
+    if (keys.length !== 1) throw new Error('Expected one persisted builder version key.');
+    localStorage.setItem(keys[0], JSON.stringify([{
       nid: '12', langcode: 'en', uuid: 'revision-page', title: 'Local unsaved draft',
       body: [{ type: 'text', body: '<p>Unsaved content</p>' }], current: true, dirty: true,
     }]));
+    return keys[0];
   });
-  const currentDraft = () => page.evaluate(() =>
-    JSON.parse(localStorage.getItem('ngx-webstorage:version') || '[]')
-      .find((draft: { current: boolean }) => draft.current)
+  const currentDraft = () => page.evaluate(key =>
+    JSON.parse(localStorage.getItem(key) || '[]')
+      .find((draft: { current: boolean }) => draft.current), storageKey
   );
-  await openHistory(context, page, route => route.fulfill({ json: revisions }));
+  await page.reload();
+  await expect(page.locator('app-builder-list')).toContainText('Unsaved content');
+  await page.getByRole('button', { name: 'Revision fixture的更多操作', exact: true }).click();
+  await page.getByRole('menuitem', { name: '历史版本', exact: true }).click();
   await context.route('**/api/v3/landingPage/revisions/12/*', route => { reads.push(route); });
   const preview = page.getByRole('button', { name: '载入历史版本 #29 到草稿', exact: true });
   const dialog = page.getByRole('dialog');
