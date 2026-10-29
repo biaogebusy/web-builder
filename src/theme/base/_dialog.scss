@@ -6,7 +6,7 @@
       overflow-y: visible;
       .dialog-colse-outside-btn {
         .mat-icon {
-          color: #fff;
+          color: var(--mat-sys-inverse-on-surface);
         }
       }
       .mat-mdc-dialog-content {

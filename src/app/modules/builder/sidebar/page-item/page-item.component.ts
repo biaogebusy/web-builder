@@ -21,7 +21,6 @@ import {
   formatToExtraData,
   getApiLang,
   getPageParams,
-  isTranslationLang,
 } from '@core/util/builder-page.util';
 import { appendQueryParams } from '@core/util/http-params.util';
 import { SHARE_IMPORTS } from '@share/share-imports';
@@ -29,6 +28,7 @@ import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
+import { PageDeletionService } from '../../service/page-deletion.service';
 import { map, switchMap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
@@ -38,6 +38,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./page-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SHARE_IMPORTS, WIDGETS_IMPORTS],
+  providers: [PageDeletionService],
 })
 export class PageItemComponent {
   /** Page meta rendered by this row */
@@ -50,6 +51,8 @@ export class PageItemComponent {
   public readonly langs = environment.langs;
   public readonly showLanguage =
     environment.multiLang && Boolean(environment.langs && environment.langs.length > 1);
+  /** Shares verification and confirmation with the page settings entry. */
+  readonly deletion = inject(PageDeletionService);
   private currentPage = inject(BUILDER_CURRENT_PAGE);
   private builder = inject(BuilderState);
   private dialog = inject(MatDialog);
@@ -368,96 +371,32 @@ export class PageItemComponent {
       });
   }
 
+  /** Deletes only the scope confirmed against current CMS language metadata. */
   deletePage(): void {
     const page = this.page();
-    const translation = this.isTranslation();
-    const lang = this.getLangLabel(page.langcode);
-    const config: IDialog = translation
-      ? {
-          title: this.translate.instant('BUILDER.PAGE_SETTING.DELETE_TRANSLATION_TITLE'),
-          noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
-          yesLabel: this.translate.instant('BUILDER.PAGE_SETTING.DELETE_TRANSLATION'),
-          inputData: {
-            content: {
-              type: 'text',
-              fullWidth: true,
-              body: this.translate.instant('BUILDER.PAGE_SETTING.DELETE_TRANSLATION_CONFIRM', {
-                title: page.title,
-                lang,
-              }),
-            },
-          },
-        }
-      : {
-          title: this.translate.instant('BUILDER.PAGE_LIST.DELETE_TITLE'),
-          noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
-          yesLabel: this.translate.instant('BUILDER.PAGE_SETTING.DELETE'),
-          inputData: {
-            content: {
-              type: 'text',
-              fullWidth: true,
-              body: this.translate.instant(
-                environment.multiLang
-                  ? 'BUILDER.PAGE_SETTING.DELETE_ALL_LANG_CONFIRM'
-                  : 'BUILDER.PAGE_LIST.DELETE_CONFIRM',
-                { title: page.title }
-              ),
-            },
-          },
-        };
-    this.dialog
-      .open(DialogComponent, { width: '340px', data: config })
-      .afterClosed()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(result => {
-        if (!result) return;
-        this.builder.loading.set(true);
-        const request$ = translation
-          ? this.builderService.deleteTranslation(page.nid, page.langcode)
-          : this.nodeService.deleteEntity('/api/v1/node/landing_page', page.uuid);
-        request$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
-          next: () => {
-            this.builder.loading.set(false);
-            this.builder.deleteLocalPageByPage(page, !translation);
-            this.util.openSnackbar(
-              translation
-                ? this.translate.instant('BUILDER.PAGE_SETTING.DELETE_TRANSLATION_SUCCESS', {
-                    title: page.title,
-                    lang,
-                  })
-                : this.translate.instant('BUILDER.PAGE_SETTING.DELETE_SUCCESS', {
-                    title: page.title,
-                  }),
-              'ok'
-            );
-            this.refresh.emit();
-          },
-          error: err => {
-            this.builder.loading.set(false);
-            if (err.status === 403) {
-              this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_SETTING.NO_PERMISSION'));
-            } else {
-              this.util.openSnackbar(
-                translation
-                  ? this.translate.instant('BUILDER.PAGE_SETTING.DELETE_TRANSLATION_FAIL', {
-                      title: page.title,
-                      lang,
-                    })
-                  : this.translate.instant('BUILDER.PAGE_SETTING.DELETE_FAIL', {
-                      title: page.title,
-                    })
-              );
-            }
-          },
-        });
-      });
+    this.deletion.delete(page).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(scope => {
+      if (!scope) return;
+      this.builder.deleteLocalPageByPage(page, scope === 'page');
+      this.refresh.emit();
+    });
+  }
+
+  /** The server identifies the original version; the site language is not evidence. */
+  readonly deleteLabel = computed(() => this.page().default_langcode === true
+    ? 'BUILDER.PAGE_SETTING.DELETE_ALL_LANG'
+    : this.page().default_langcode === false
+      ? 'BUILDER.PAGE_SETTING.DELETE_TRANSLATION' : 'BUILDER.PAGE_SETTING.REVIEW_DELETE');
+
+  /** Known existing versions open directly; unknown metadata retains an honest neutral label. */
+  languageAction(langcode: string): string {
+    const languages = this.page().translation_languages;
+    if (!languages) return 'BUILDER.PAGE_LIST.OPEN_LANG';
+    return languages.includes(langcode)
+      ? 'BUILDER.PAGE_LIST.EDIT_LANG' : 'BUILDER.PAGE_LIST.CREATE_LANG';
   }
 
   getLangLabel(code: string): string {
     return this.langs?.find(l => l.langCode === code)?.label ?? code;
   }
 
-  isTranslation(): boolean {
-    return isTranslationLang(this.page().langcode);
-  }
 }

@@ -42,6 +42,14 @@ describe('PageItemComponent', () => {
     fixture.componentRef.setInput('page', page as IPageMeta);
   };
 
+  const verifyLanguage = (langcode: string, original: boolean) => {
+    nodeService.fetch.mockReturnValue(of({ data: {
+      id: 'uuid-7', type: 'node--landing_page', attributes: {
+        langcode, default_langcode: original, drupal_internal__nid: 7,
+      },
+    } }));
+  };
+
   beforeEach(async () => {
     vi.clearAllMocks();
     currentPage.set(undefined);
@@ -454,6 +462,7 @@ describe('PageItemComponent', () => {
     confirmWith(true);
     setPage({ nid: '7', uuid: 'uuid-7', langcode: 'en', title: 'Home' });
 
+    verifyLanguage('en', false);
     component.deletePage();
 
     expect(builderService.deleteTranslation).toHaveBeenCalledWith('7', 'en');
@@ -468,6 +477,7 @@ describe('PageItemComponent', () => {
     confirmWith(true);
     setPage({ nid: '7', uuid: 'uuid-7', langcode: 'zh-hans', title: 'Home' });
 
+    verifyLanguage('zh-hans', true);
     component.deletePage();
 
     expect(nodeService.deleteEntity).toHaveBeenCalledWith('/api/v1/node/landing_page', 'uuid-7');
@@ -482,6 +492,7 @@ describe('PageItemComponent', () => {
     const open = confirmWith(false);
     setPage({ nid: '7', uuid: 'uuid-7', langcode: 'zh-hans', title: 'Home' });
 
+    verifyLanguage('zh-hans', true);
     component.deletePage();
 
     const config: any = open.mock.calls[0][1];
@@ -490,22 +501,33 @@ describe('PageItemComponent', () => {
     expect(builderService.deleteTranslation).not.toHaveBeenCalled();
   });
 
-  it('flags non default language pages as translations', () => {
-    setPage({ langcode: 'en' });
-    expect(component.isTranslation()).toBe(true);
+  it('uses the CMS original flag independently of the site default language', () => {
+    setPage({ langcode: 'zh-hans', default_langcode: false });
+    expect(component.deleteLabel()).toBe('BUILDER.PAGE_SETTING.DELETE_TRANSLATION');
 
-    setPage({ langcode: 'zh-hans' });
-    expect(component.isTranslation()).toBe(false);
+    setPage({ langcode: 'en', default_langcode: true });
+    expect(component.deleteLabel()).toBe('BUILDER.PAGE_SETTING.DELETE_ALL_LANG');
   });
 
-  // The default language is the norm on every row, so only translations earn a badge
-  it('badges the language of translation rows only', () => {
+  it('labels the language on both original and translated rows', () => {
     fixture.detectChanges();
-    expect(fixture.nativeElement.querySelector('.language-badge')).toBeNull();
+    expect(fixture.nativeElement.querySelector('.language-badge')?.textContent.trim()).toBe('中文');
 
     setPage({ nid: '12', uuid: 'uuid-12', langcode: 'en', title: 'Home' });
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelector('.language-badge')?.textContent.trim()).toBe('EN');
+  });
+
+  it('distinguishes existing versions, new drafts and unknown language metadata', () => {
+    setPage({ langcode: 'en', default_langcode: true, translation_languages: ['en', 'zh-hans'] });
+    expect(component.languageAction('zh-hans')).toBe('BUILDER.PAGE_LIST.EDIT_LANG');
+    expect(component.languageAction('fr')).toBe('BUILDER.PAGE_LIST.CREATE_LANG');
+    expect(component.deleteLabel()).toBe('BUILDER.PAGE_SETTING.DELETE_ALL_LANG');
+    setPage({ langcode: 'zh-hans', default_langcode: false });
+    expect(component.deleteLabel()).toBe('BUILDER.PAGE_SETTING.DELETE_TRANSLATION');
+    expect(component.languageAction('en')).toBe('BUILDER.PAGE_LIST.OPEN_LANG');
+    setPage({ langcode: 'zh-hans' });
+    expect(component.deleteLabel()).toBe('BUILDER.PAGE_SETTING.REVIEW_DELETE');
   });
 
   it('asks the owning list to refresh once the page is deleted', () => {
@@ -515,6 +537,7 @@ describe('PageItemComponent', () => {
     const refresh = vi.fn();
     component.refresh.subscribe(refresh);
 
+    verifyLanguage('zh-hans', true);
     component.deletePage();
 
     expect(refresh).toHaveBeenCalled();

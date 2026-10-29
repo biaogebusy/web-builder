@@ -151,7 +151,7 @@ for (const mode of ['allowed', 'read-only', 'moderated', 'rejected', 'republish'
       await expect(row.locator('.preview-link')).toBeVisible();
       await expect(page.locator('app-builder-list .publication-bar')).toHaveCount(0);
       expect(writes.map(write => write.moderation_state)).toEqual(['published']);
-      await expect(page.locator('mat-snack-bar-container')).toContainText('已发布');
+      await expect(page.locator('mat-snack-bar-container').last()).toContainText('已发布');
       await expect(select).toContainText('已发布');
       await expect(panel.locator('.save-settings button')).toHaveText('保存设置');
       for (const write of writes) {

@@ -67,6 +67,11 @@
     background-color: var(--mat-sys-primary-container);
   }
 
+  .language-row {
+    @apply my-1 flex flex-wrap items-center gap-2 text-xs;
+    color: var(--mat-sys-on-surface-variant);
+  }
+
   // Alignment only: the trigger keeps the stock mat-icon-button look and hover state layer
   .more-trigger {
     @apply -mr-2 -mt-2 shrink-0;

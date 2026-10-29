@@ -662,11 +662,17 @@ export class BuilderService extends ApiService {
    * still goes through JSON:API node deletion, which cascades to all language versions.
    */
   deleteTranslation(nid: string | number, langcode: string): Observable<any> {
-    return this.http.post(
+    return this.http.post<{ status: boolean }>(
       `${this.apiUrl}${LANDING_PAGE_API.translate}/delete/${nid}/${langcode}`,
       {},
       { ...this.optionsWithBearerToken(), context: cmsWriteContext() }
-    );
+    ).pipe(map((response: unknown) => {
+      if (!response || typeof response !== 'object' || !('status' in response) ||
+        response.status !== true) {
+        throw new Error('The CMS did not confirm translation deletion.');
+      }
+      return response;
+    }));
   }
 
   updateAttributes(

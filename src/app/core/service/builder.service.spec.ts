@@ -258,6 +258,14 @@ describe('BuilderService', () => {
     );
   });
 
+  it('rejects a translation deletion when the CMS returns a business failure', async () => {
+    const service = createService();
+    post.mockReturnValueOnce(of({ status: false }));
+    await expect(new Promise((resolve, reject) => service.deleteTranslation('42', 'en')
+      .subscribe({ next: resolve, error: reject }))).rejects
+      .toThrow('The CMS did not confirm translation deletion.');
+  });
+
   // Patching the node's path field over JSON:API drops the pathauto flag that marks an
   // alias as hand-written — core copies the parsed field across with getValue(), which
   // skips computed properties — so the write goes through a backend endpoint that sets
