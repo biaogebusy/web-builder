@@ -1,3 +1,4 @@
+import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -10,6 +11,8 @@ import { BuilderService } from '@core/service/builder.service';
 import { ContentService } from '@core/service/content.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { BrandingEditorContextService } from './branding-editor-context.service';
+import { BrandingSaveService } from './branding-save.service';
 import { EditHeaderComponent } from './edit-header/edit-header.component';
 import { EditFooterComponent } from './edit-footer/edit-footer.component';
 
@@ -49,7 +52,24 @@ describe.each([
         { provide: MatDialog, useValue: {} },
         { provide: TranslateService, useValue: { instant: (key: string) => key } },
       ],
-    }).overrideComponent(Editor, { set: { template: '', imports: [] } });
+    }).overrideComponent(Editor, {
+      set: {
+        template: '',
+        imports: [],
+        providers: [
+          BrandingSaveService,
+          {
+            provide: BrandingEditorContextService,
+            useValue: {
+              loading: signal(false),
+              ready: signal(true),
+              nodes: signal([]),
+              connect: vi.fn(),
+            },
+          },
+        ],
+      },
+    });
   });
 
   function createEditor() {

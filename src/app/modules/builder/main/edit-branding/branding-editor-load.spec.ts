@@ -53,7 +53,8 @@ describe.each([
         {
           provide: ContentService,
           useValue: {
-            loadBranding: (path: string) => {
+            getUrlPath: (path: string) => ({ lang: path === '/en/' ? '/en' : '' }),
+            loadJSON: (path: string) => {
               const response = new Subject<IBranding>();
               reads.push({ path, response });
               return response;
@@ -104,7 +105,7 @@ describe.each([
       expect(editor.nodeUuid()).toBe('explicit-node');
       expect(editor.nodeLangcode()).toBe(langcode ?? '');
       expect(editor.queryParams).toEqual({ uuid: 'explicit-node', langcode: langcode ?? '' });
-      expect(reads[0].path).toBe(`/${langcode ?? ''}/`);
+      expect(reads[0].path).toBe(langcode === 'en' ? '/en/core/branding' : '/core/branding');
       expect(editor.loading()).toBe(true);
       reads[0].response.next(branding('explicit'));
       expect(editor.branding()).toEqual(branding('explicit'));
@@ -121,7 +122,7 @@ describe.each([
       resolveList();
       const expected = langcode === 'en' ? 'en' : 'zh-hans';
       expect(editor.nodeUuid()).toBe(`branding-${expected}`);
-      expect(reads[0].path).toBe(`/${expected}/`);
+      expect(reads[0].path).toBe(expected === 'en' ? '/en/core/branding' : '/core/branding');
       if (langcode) expect(getLang).not.toHaveBeenCalled();
       else expect(getLang).toHaveBeenCalledExactlyOnceWith('/zh-hans/');
     }
@@ -138,7 +139,7 @@ describe.each([
     query.next({ langcode: 'zh-hans' });
     expect(lists).toHaveLength(1);
     expect(editor.nodeUuid()).toBe('branding-zh-hans');
-    expect(reads.map(read => read.path)).toEqual(['/en/', '/zh-hans/']);
+    expect(reads.map(read => read.path)).toEqual(['/en/core/branding', '/core/branding']);
   });
 
   it('reports an empty list without loading content', async () => {
@@ -153,12 +154,15 @@ describe.each([
 
   it('retries a failed content read through the existing refresh entry', async () => {
     const { editor } = await createEditor();
+    vi.useFakeTimers();
     query.next({ uuid: 'branding-en', langcode: 'en' });
     reads[0].response.error(new Error('read failed'));
+    await vi.advanceTimersByTimeAsync(500);
+    vi.useRealTimers();
     expect(editor.loading()).toBe(false);
     expect(openSnackbar).toHaveBeenCalledExactlyOnceWith('BUILDER.EDIT_BRANDING.LOAD_FAIL');
     editor.loadData();
-    expect(reads.map(read => read.path)).toEqual(['/en/', '/en/']);
+    expect(reads.map(read => read.path)).toEqual(['/en/core/branding', '/en/core/branding']);
     reads[1].response.next(branding('retry'));
     expect(editor.branding()).toEqual(branding('retry'));
     expect(editor.loading()).toBe(false);

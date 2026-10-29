@@ -114,7 +114,9 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
   jsonError = signal('');
 
   canSave = computed(() =>
-    canSaveBranding(this.dirty(), this.loading(), this.saving(), !!this.footer())
+    canSaveBranding(
+      this.dirty(), this.loading(), this.saving(), this.editorContext.ready() && !!this.footer()
+    )
   );
 
   paramsForm = new UntypedFormGroup({});
@@ -848,6 +850,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
 
   /** Save this editor's section without sharing draft state with other editors. */
   onSave(): void {
+    if (!this.editorContext.ready()) return;
     this.brandingSave.save(
       {
         node: { uuid: this.nodeUuid(), langcode: this.nodeLangcode() },

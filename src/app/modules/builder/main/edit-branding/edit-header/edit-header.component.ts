@@ -105,7 +105,9 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
 
   // Save button state
   canSave = computed(() =>
-    canSaveBranding(this.dirty(), this.loading(), this.saving(), !!this.header())
+    canSaveBranding(
+      this.dirty(), this.loading(), this.saving(), this.editorContext.ready() && !!this.header()
+    )
   );
 
   paramsForm = new UntypedFormGroup({});
@@ -821,6 +823,7 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
 
   /** Save this editor's section without sharing draft state with other editors. */
   onSave(): void {
+    if (!this.editorContext.ready()) return;
     this.brandingSave.save(
       {
         node: { uuid: this.nodeUuid(), langcode: this.nodeLangcode() },
