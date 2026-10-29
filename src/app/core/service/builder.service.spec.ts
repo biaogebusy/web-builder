@@ -39,37 +39,39 @@ describe('BuilderService', () => {
         { provide: DOCUMENT, useValue: document },
         { provide: HttpClient, useValue: { patch, post, get } },
         { provide: MatDialog, useValue: { open: dialogOpen } },
-        pages ? BuilderState : {
-          provide: BuilderState,
-          useValue: {
-            loading: { set: loadingSet },
-            loadNewPage,
-            getLocalPageByPage,
-            deleteLocalPageByPage,
-            updateSuccess$: { next: updateSuccessNext },
-            pageSelection$: new Subject<void>(),
-          },
-        },
+        BuilderState,
         { provide: UtilitiesService, useValue: { openSnackbar } },
         { provide: NodeService, useValue: { fetch } },
         { provide: ContentService, useValue: { loadBuilderConfig: () => of({}) } },
         { provide: Router, useValue: { url: '/builder' } },
-        { provide: LocalStorageService, useValue: { retrieve: () => pages, store: vi.fn() } },
+        { provide: LocalStorageService, useValue: {
+          retrieve: () => pages ?? [{ title: 'Current draft', body: [], current: true }],
+          store: vi.fn(),
+        } },
         { provide: ScreenService, useValue: {
           isPlatformBrowser: () => false, scrollToAnchor: vi.fn(),
         } },
         { provide: TranslateService, useValue: { instant: (key: string) => key } },
       ],
     });
-    return TestBed.inject(BuilderService);
+    const service = TestBed.inject(BuilderService);
+    if (!pages) {
+      const state = TestBed.inject(BuilderState);
+      vi.spyOn(state.loading, 'set').mockImplementation(loadingSet);
+      vi.spyOn(state, 'loadNewPage').mockImplementation(loadNewPage);
+      vi.spyOn(state, 'getLocalPageByPage').mockImplementation(getLocalPageByPage);
+      vi.spyOn(state, 'deleteLocalPageByPage').mockImplementation(deleteLocalPageByPage);
+      vi.spyOn(state.updateSuccess$, 'next').mockImplementation(updateSuccessNext);
+    }
+    return service;
   };
 
   beforeEach(() => {
+    TestBed.resetTestingModule();
     vi.clearAllMocks();
     fetch.mockReset();
     get.mockReturnValue(of({ data: {} }));
     getLocalPageByPage.mockReturnValue(undefined);
-    TestBed.resetTestingModule();
   });
 
   it('loads a page and clears the loading state', () => {
@@ -541,6 +543,184 @@ describe('BuilderService', () => {
 
       expect(state.currentPage).toMatchObject({ nid: '42', revisionVid: '29', dirty: true });
       expect(openSnackbar).toHaveBeenCalledExactlyOnceWith('BUILDER.REVISION.LOADED', 'ok');
+    });
+  });
+
+  describe('remote reads with real canvas state', () => {
+    const drafts = (): IPage[] => [
+      { nid: '10', langcode: 'en', title: 'Unsaved draft', body: [], current: true, dirty: true },
+      { nid: '11', langcode: 'en', title: 'Other draft', body: [], current: false },
+    ];
+    const response: IPage = {
+      nid: '42', langcode: 'en', title: 'Remote content', body: [], status: true,
+    };
+
+    afterEach(() => {
+      TestBed.resetTestingModule();
+      vi.useRealTimers();
+    });
+
+    it.each(['page', 'language', 'revision'])(
+      'lets a later %s read supersede an ordinary page read', selection => {
+        const first = new Subject<IPage>();
+        const latest = new Subject<IPage>();
+        fetch.mockReturnValueOnce(first).mockReturnValueOnce(latest);
+        const service = createService(drafts());
+        const state = TestBed.inject(BuilderState);
+        service.loadPage({ nid: '42', langcode: 'en' });
+        const target = { nid: selection === 'page' ? '43' : '42',
+          langcode: selection === 'language' ? 'zh-hans' : 'en' };
+        if (selection === 'revision') {
+          service.loadPageRevision({ ...target, vid: '29' });
+        } else {
+          service.loadPage(target);
+        }
+
+        expect(first.observed).toBe(false);
+        first.error(new HttpErrorResponse({ status: 503 }));
+        expect(openSnackbar).not.toHaveBeenCalled();
+        expect(state.currentPage.title).toBe('Unsaved draft');
+        expect(state.loading()).toBe(true);
+        latest.next({ ...response, ...target });
+        expect(state.currentPage).toMatchObject({ ...target, title: 'Remote content' });
+        expect(state.currentPage.revisionVid).toBe(selection === 'revision' ? '29' : undefined);
+        expect(state.loading()).toBe(false);
+        expect(post).not.toHaveBeenCalled();
+        expect(patch).not.toHaveBeenCalled();
+      }
+    );
+
+    it('ignores an ordinary page response that arrives after the latest selection', () => {
+      const first = new Subject<IPage>();
+      const latest = new Subject<IPage>();
+      fetch.mockReturnValueOnce(first).mockReturnValueOnce(latest);
+      const service = createService(drafts());
+      const state = TestBed.inject(BuilderState);
+      service.loadPage({ nid: '41' });
+      service.loadPage({ nid: '42' });
+      latest.next(response);
+      first.next({ ...response, nid: '41', title: 'Stale content' });
+
+      expect(state.currentPage).toMatchObject({ nid: '42', title: 'Remote content' });
+      expect(state.version().some(page => page.nid === '41')).toBe(false);
+    });
+
+    it.each(['load', 'history', 'initialize', 'delete', 'clear'])(
+      'keeps a local %s selection after an ordinary read arrives late', async selection => {
+        vi.useFakeTimers();
+        const read = new Subject<IPage>();
+        fetch.mockReturnValueOnce(read);
+        const service = createService(drafts());
+        const state = TestBed.inject(BuilderState);
+        service.loadPage({ nid: '42' });
+        if (selection === 'load') state.loadNewPage({ title: 'Local selection', body: [] });
+        if (selection === 'history') state.showVersionPage(1);
+        if (selection === 'initialize') state.initPage([{ title: 'New draft', body: [] }]);
+        if (selection === 'delete') state.deleteLocalPage(0);
+        if (selection === 'clear') {
+          state.clearAllHistory();
+          await vi.waitFor(() => expect(dialogOpen).toHaveBeenCalledOnce());
+        }
+        expect(read.observed).toBe(false);
+        read.next(response);
+        if (selection === 'history' || selection === 'initialize') {
+          expect(state.loading()).toBe(true);
+        }
+        vi.advanceTimersByTime(600);
+        expect(state.currentPage.title).toBe({ load: 'Local selection', history: 'Other draft',
+          initialize: 'New draft', delete: 'Other draft', clear: '未命名' }[selection]);
+        expect(state.loading()).toBe(false);
+        expect(openSnackbar).not.toHaveBeenCalled();
+      }
+    );
+
+    it('preserves an ordinary read after background deletion and invalid local selections', () => {
+      const read = new Subject<IPage>();
+      fetch.mockReturnValueOnce(read);
+      const service = createService(drafts());
+      const state = TestBed.inject(BuilderState);
+      service.loadPage({ nid: '42' });
+      state.deleteLocalPage(1);
+      state.showVersionPage(5);
+      state.deleteLocalPage(-1);
+      expect(read.observed).toBe(true);
+      expect(state.loading()).toBe(true);
+      read.next(response);
+      expect(state.currentPage.title).toBe('Remote content');
+      expect(state.loading()).toBe(false);
+    });
+
+    describe.each(['page', 'revision'])('%s loading ownership', kind => {
+      const start = (service: BuilderService): void => {
+        if (kind === 'page') service.loadPage({ nid: '42', langcode: 'en' });
+        else service.loadPageRevision({ nid: '42', langcode: 'en', vid: '29' });
+      };
+
+      it.each(['initialize', 'update', 'history'])(
+        'replaces the pending %s timer without losing the current draft', pending => {
+          vi.useFakeTimers();
+          const read = new Subject<IPage>();
+          fetch.mockReturnValueOnce(read);
+          const service = createService(pending === 'initialize' ? [] : drafts());
+          const state = TestBed.inject(BuilderState);
+          const storage = TestBed.inject(LocalStorageService);
+          const screen = TestBed.inject(ScreenService);
+          if (pending === 'update') state.updatePage(2);
+          if (pending === 'history') state.showVersionPage(1);
+          const before = state.currentPage;
+          vi.advanceTimersByTime(200);
+          start(service);
+          const saves = vi.mocked(storage.store).mock.calls.length;
+          vi.advanceTimersByTime(600);
+
+          expect(state.loading()).toBe(true);
+          expect(state.currentPage).toEqual(before);
+          expect(storage.store).toHaveBeenCalledTimes(saves);
+          expect(screen.scrollToAnchor).not.toHaveBeenCalled();
+          read.error(new HttpErrorResponse({ status: 503 }));
+          expect(state.loading()).toBe(false);
+          expect(state.currentPage).toEqual(before);
+          if (pending !== 'history') {
+            expect(storage.store).toHaveBeenLastCalledWith('version', state.version());
+          }
+        }
+      );
+
+      it.each(['error', 'refusal', 'empty'])(
+        'releases current loading after %s and permits retry without losing the draft', result => {
+          const read = new Subject<IPage>();
+          fetch.mockReturnValueOnce(read);
+          const service = createService(drafts());
+          const state = TestBed.inject(BuilderState);
+          start(service);
+          expect(state.loading()).toBe(true);
+          if (result === 'error') read.error(new HttpErrorResponse({ status: 503 }));
+          if (result === 'refusal') read.next({ ...response, status: false });
+          if (result === 'empty') read.complete();
+          expect(state.loading()).toBe(false);
+          expect(state.currentPage).toMatchObject({ title: 'Unsaved draft', dirty: true });
+
+          fetch.mockReturnValueOnce(of(response));
+          start(service);
+          expect(state.loading()).toBe(false);
+          expect(state.currentPage.title).toBe('Remote content');
+        }
+      );
+
+      it('cancels the pending read when its service is destroyed', () => {
+        const read = new Subject<IPage>();
+        fetch.mockReturnValueOnce(read);
+        const service = createService(drafts());
+        const state = TestBed.inject(BuilderState);
+        start(service);
+        TestBed.resetTestingModule();
+        const setLoading = vi.spyOn(state.loading, 'set');
+        read.next(response);
+        expect(read.observed).toBe(false);
+        expect(setLoading).not.toHaveBeenCalled();
+        expect(state.currentPage.title).toBe('Unsaved draft');
+        expect(openSnackbar).not.toHaveBeenCalled();
+      });
     });
   });
 

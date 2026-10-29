@@ -484,6 +484,70 @@ for (const selection of [{ nid: '43', langcode: 'en' }, { nid: '12', langcode: '
   });
 }
 
+for (const selection of ['page', 'revision', 'local draft']) {
+  test(`a later ${selection} supersedes an ordinary canvas page read`, async ({ context, page }) => {
+    const reads: Route[] = [];
+    const aborted: string[] = [];
+    const writes: string[] = [];
+    const pageErrors: string[] = [];
+    page.on('requestfailed', request => {
+      if (request.url().includes('/landingPage/json/12?')) aborted.push(request.url());
+    });
+    page.on('request', request => {
+      if (['POST', 'PATCH', 'DELETE'].includes(request.method())) writes.push(request.url());
+    });
+    page.on('pageerror', error => pageErrors.push(error.message));
+    await openHistory(context, page, route => route.fulfill({ json: revisions }), {
+      nid: '43', langcode: 'en',
+    });
+    const storageKey = await restoreDrafts(page, [{
+      nid: '10', langcode: 'en', title: 'Original draft', current: true,
+      body: [{ type: 'text', body: '<p>Original content</p>' }], dirty: true,
+    }, ...(selection === 'local draft' ? [{
+      nid: '43', langcode: 'en', title: 'Selected local draft', current: false,
+      body: [{ type: 'text', body: '<p>Selected local content</p>' }], dirty: true,
+    }] : [])]);
+    await context.route('**/api/v3/landingPage/json/*', route => { reads.push(route); });
+    await context.route('**/api/v3/landingPage/revisions/12/*', route => { reads.push(route); });
+    await page.locator('.right-header button').click();
+    await page.getByRole('button', { name: 'Revision fixture', exact: true }).click();
+    await expect.poll(() => reads.length).toBe(1);
+    const loading = page.locator('app-builder-list app-loading');
+    await expect(loading).toBeVisible();
+
+    if (selection === 'revision') {
+      await page.getByRole('button', { name: 'Revision fixture的更多操作', exact: true }).click();
+      await page.getByRole('menuitem', { name: '历史版本', exact: true }).click();
+      await page.getByRole('button', { name: '载入历史版本 #29 到草稿', exact: true }).click();
+    } else if (selection === 'page') {
+      await page.getByRole('button', { name: 'Other selection', exact: true }).click();
+    } else {
+      await page.locator('app-builder-version mat-list-item')
+        .filter({ hasText: 'Selected local draft' }).locator('mat-icon').first().click();
+    }
+
+    await reads[0].fulfill({ status: 503, json: { message: 'Superseded read failure' } });
+    await expect.poll(() => aborted.length).toBe(1);
+    if (selection !== 'local draft') {
+      await expect.poll(() => reads.length).toBe(2);
+      await expect(loading).toBeVisible();
+      await fulfillDraft(reads[1], 'Latest remote content', selection === 'page' ? '43' : '12');
+    }
+    await expect(loading).toHaveCount(0);
+    await expect(page.locator('app-builder-list')).toContainText(
+      selection === 'local draft' ? 'Selected local content' : 'Latest remote content'
+    );
+    await expect(page.getByText(labels.BUILDER.PAGE_LIST.LOAD_PAGE_FAIL, { exact: true }))
+      .toHaveCount(0);
+    const current = await page.evaluate(key => JSON.parse(localStorage.getItem(key) || '[]')
+      .find((draft: { current: boolean }) => draft.current), storageKey);
+    expect(current.nid).toBe(selection === 'revision' ? '12' : '43');
+    expect(current.revisionVid).toBe(selection === 'revision' ? '29' : undefined);
+    expect(writes).toEqual([]);
+    expect(pageErrors).toEqual([]);
+  });
+}
+
 test('revision loading preserves an unconfirmed draft and permits retry after failure', async ({
   context, page,
 }) => {

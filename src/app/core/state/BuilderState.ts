@@ -64,7 +64,7 @@ export class BuilderState {
 
   public loading = signal(true);
   public updateSuccess$ = new Subject<boolean>();
-  /** Cancels pending draft reads before an explicit local page selection. */
+  /** Cancels pending canvas reads before a new local or remote page selection. */
   readonly pageSelection$ = new Subject<void>();
   public COPYCOMPONENTKEY = 'cck';
   public COPYWIDGETKEY = 'cwk';
@@ -87,6 +87,7 @@ export class BuilderState {
   private pendingVersionIndex?: number;
   private versionSelectionTimer?: ReturnType<typeof setTimeout>;
   private pageUpdateTimer?: ReturnType<typeof setTimeout>;
+  private pageSelectionId = 0;
 
   // Component path currently being edited in the code editor, read across external callers
   public editingCodePath = signal<string | null>(null);
@@ -374,7 +375,25 @@ export class BuilderState {
     }, 600);
   }
 
+  /** Start a remote canvas read and return a completion callback for this selection only. */
+  beginPageLoad(): () => void {
+    // Initialization can still depend on the delayed save when a remote read starts.
+    if (this.pageUpdateTimer !== undefined) {
+      this.saveLocalVersions();
+    }
+    this.beginPageSelection();
+    const selectionId = this.pageSelectionId;
+    this.loading.set(true);
+    return () => {
+      if (!this.destroyRef.destroyed && selectionId === this.pageSelectionId) {
+        this.loading.set(false);
+      }
+    };
+  }
+
   private beginPageSelection(): void {
+    // Invalidate completion callbacks before notifying the reads that will finalize.
+    this.pageSelectionId++;
     this.cancelVersionSelection();
     this.cancelPageUpdate();
     this.pageSelection$.next();

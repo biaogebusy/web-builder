@@ -8,7 +8,7 @@ import { firstValueFrom, Observable, of, Subscription, throwError, timer } from 
 import { UtilitiesService } from './utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { NodeService } from './node.service';
-import { catchError, filter, map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
+import { catchError, filter, finalize, map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -62,7 +62,6 @@ export class BuilderService extends ApiService {
   private translate = inject(TranslateService);
   private versionCheckSub?: Subscription;
   private versionDialogOpen = false;
-  private revisionDraftRequest?: Subscription;
 
   constructor() {
     super();
@@ -72,17 +71,20 @@ export class BuilderService extends ApiService {
     page: { langcode?: string; nid: string; isTemplate?: boolean },
     openSetting = false
   ): void {
-    // A later page or language selection supersedes an unfinished revision preview.
-    this.revisionDraftRequest?.unsubscribe();
+    const finishLoading = this.builder.beginPageLoad();
     const { langcode, nid, isTemplate } = page;
     const lang = getApiLang(langcode);
     this.nodeService
       .fetch(`/api/v3/landingPage/json/${nid}`, { noCache: 1 }, lang)
-      .pipe(take(1))
+      .pipe(
+        take(1),
+        takeUntil(this.builder.pageSelection$),
+        takeUntilDestroyed(this.destroyRef),
+        finalize(finishLoading)
+      )
       .subscribe({
         next: (content: IPage) => {
           const { body, status, uuid } = content;
-          this.builder.loading.set(false);
           if (status) {
             this.builder.loadNewPage(formatToExtraData(content, isTemplate));
             this.util.openSnackbar(
@@ -138,7 +140,6 @@ export class BuilderService extends ApiService {
           }
         },
         error: () => {
-          this.builder.loading.set(false);
           this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_LIST.LOAD_PAGE_FAIL'), 'ok');
         },
       });
@@ -215,14 +216,17 @@ export class BuilderService extends ApiService {
    * being rejected as stale.
    */
   loadPageRevision(page: { langcode?: string; nid: string; vid: string }): void {
-    this.revisionDraftRequest?.unsubscribe();
+    const finishLoading = this.builder.beginPageLoad();
     const { vid } = page;
-    this.builder.loading.set(true);
-    this.revisionDraftRequest = this.getPageRevision(page)
-      .pipe(take(1), takeUntil(this.builder.pageSelection$), takeUntilDestroyed(this.destroyRef))
+    this.getPageRevision(page)
+      .pipe(
+        take(1),
+        takeUntil(this.builder.pageSelection$),
+        takeUntilDestroyed(this.destroyRef),
+        finalize(finishLoading)
+      )
       .subscribe({
         next: (content: IPage) => {
-          this.builder.loading.set(false);
           if (!content?.status) {
             this.util.openSnackbar(this.translate.instant('BUILDER.REVISION.LOAD_FAIL'), 'ok');
             return;
@@ -237,7 +241,6 @@ export class BuilderService extends ApiService {
           this.util.openSnackbar(this.translate.instant('BUILDER.REVISION.LOADED', { vid }), 'ok');
         },
         error: () => {
-          this.builder.loading.set(false);
           this.util.openSnackbar(this.translate.instant('BUILDER.REVISION.LOAD_FAIL'), 'ok');
         },
       });
