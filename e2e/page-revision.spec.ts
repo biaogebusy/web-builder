@@ -1,5 +1,5 @@
 import AxeBuilder from '@axe-core/playwright';
-import type { BrowserContext, Page, Route } from '@playwright/test';
+import type { BrowserContext, Locator, Page, Route } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { expect, test } from './fixtures/test';
@@ -252,6 +252,101 @@ async function restoreDrafts(page: Page, drafts: object[]): Promise<string> {
   await page.getByRole('menuitem', { name: '历史版本', exact: true }).click();
   return storageKey;
 }
+
+const deletionDrafts = ['Original draft', 'Background draft', 'Remaining draft'].map((title, i) => ({
+  nid: ['12', '43', '44'][i], langcode: 'en', uuid: `draft-${i}`, title,
+  body: [{ type: 'text', body: `<p>${title}</p>` }], current: i === 0, dirty: false,
+}));
+
+async function deleteDraft(page: Page, row: Locator, input: 'mouse' | 'Enter' | 'Space') {
+  const button = row.locator('.delete button');
+  if (input === 'mouse') {
+    await row.hover();
+    await button.click();
+  } else {
+    await page.mouse.move(0, 0);
+    await row.locator('.version-title').focus();
+    await page.keyboard.press('Tab');
+    await expect(button).toBeFocused();
+    await expect(button).toBeVisible();
+    const accessibility = await new AxeBuilder({ page }).include('app-builder-version')
+      .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
+    expect(accessibility.violations).toEqual([]);
+    await page.keyboard.press(input);
+  }
+}
+
+for (const input of ['mouse', 'Enter', 'Space'] as const) {
+  test(`local draft deletion with ${input} preserves selection after indices shift`, async ({
+    context, page,
+  }) => {
+    const versionChecks: string[] = [];
+    const writes: string[] = [];
+    const pageErrors: string[] = [];
+    page.on('pageerror', error => pageErrors.push(error.message));
+    page.on('request', request => {
+      if (['POST', 'PATCH', 'DELETE'].includes(request.method())) writes.push(request.url());
+    });
+    await openHistory(context, page, route => route.fulfill({ json: revisions }));
+    const storageKey = await restoreDrafts(page, deletionDrafts);
+    await page.locator('.right-header button').click();
+    await context.route('**/api/v3/landingPage/json/*', route => {
+      versionChecks.push(route.request().url());
+      return route.fulfill({ json: { changed: 0 } });
+    });
+    const stored = () => page.evaluate(key => JSON.parse(localStorage.getItem(key) || '[]')
+      .map((draft: { title: string; current: boolean }) => ({
+        title: draft.title, current: draft.current,
+      })), storageKey);
+    const rows = page.locator('app-builder-version mat-list-item');
+    const canvas = page.locator('app-builder-list');
+    await expect(canvas).toContainText('Original draft');
+    await deleteDraft(page, rows.filter({ hasText: 'Background draft' }), input);
+    await expect(rows).toHaveCount(2);
+    // Wait past the row selection's 600 ms delay to detect a bubbled click selecting the next draft.
+    await page.waitForTimeout(750);
+    expect(await stored()).toEqual([
+      { title: 'Original draft', current: true }, { title: 'Remaining draft', current: false },
+    ]);
+    await expect(canvas).toContainText('Original draft');
+    await expect(canvas.locator('app-loading')).toHaveCount(0);
+    expect(versionChecks).toEqual([]);
+
+    await rows.filter({ hasText: 'Remaining draft' }).locator('mat-icon').first().click();
+    await expect(canvas).toContainText('Remaining draft');
+    await expect.poll(() => versionChecks.length).toBe(1);
+    await deleteDraft(page, rows.filter({ hasText: 'Remaining draft' }), input);
+    await expect(rows).toHaveCount(1);
+    await page.waitForTimeout(750);
+    expect(await stored()).toEqual([{ title: 'Original draft', current: true }]);
+    await expect(canvas).toContainText('Original draft');
+    await expect(canvas.locator('app-loading')).toHaveCount(0);
+    await expect(rows.locator('.delete')).toHaveCount(0);
+    expect(versionChecks).toHaveLength(1);
+    expect(writes).toEqual([]);
+    expect(pageErrors).toEqual([]);
+  });
+}
+
+test('deleting a background draft preserves a pending revision read', async ({ context, page }) => {
+  const reads: Route[] = [];
+  const aborted: string[] = [];
+  page.on('requestfailed', request => {
+    if (request.url().includes('/revisions/12/29')) aborted.push(request.url());
+  });
+  await openHistory(context, page, route => route.fulfill({ json: revisions }));
+  await restoreDrafts(page, deletionDrafts);
+  await context.route('**/api/v3/landingPage/revisions/12/*', route => { reads.push(route); });
+  await page.getByRole('button', { name: '载入历史版本 #29 到草稿', exact: true }).click();
+  await expect.poll(() => reads.length).toBe(1);
+  await page.locator('.right-header button').click();
+  const rows = page.locator('app-builder-version mat-list-item');
+  await deleteDraft(page, rows.filter({ hasText: 'Background draft' }), 'mouse');
+  await expect(rows).toHaveCount(2);
+  await fulfillDraft(reads[0], 'Revision after background deletion');
+  await expect(page.locator('app-builder-list')).toContainText('Revision after background deletion');
+  expect(aborted).toEqual([]);
+});
 
 test('a later revision selection replaces the pending draft read', async ({ context, page }) => {
   const reads: Route[] = [];

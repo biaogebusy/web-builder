@@ -2,7 +2,8 @@
 .builder-version {
   .mat-mdc-list-item {
     cursor: pointer;
-    &:hover {
+    &:hover,
+    &:focus-within {
       .delete {
         display: block;
       }
