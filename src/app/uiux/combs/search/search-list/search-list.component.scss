@@ -12,7 +12,7 @@
     }
   }
   .results {
-    @apply text-neutral-500;
+    color: var(--mat-sys-on-surface-variant);
   }
   .list {
     background-color: var(--mat-sys-background);
