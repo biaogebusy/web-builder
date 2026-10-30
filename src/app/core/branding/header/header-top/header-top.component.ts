@@ -39,13 +39,11 @@ export class HeaderTopComponent implements OnInit {
         .mqAlias$()
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(mq => {
-          if (mq.includes('md') || mq.includes('lg') || mq.includes('xl')) {
-            this.ele.nativeElement.classList.remove('hidden');
-            this.ele.nativeElement.classList.add('block');
-          } else {
-            this.ele.nativeElement.classList.remove('block');
-            this.ele.nativeElement.classList.add('hidden');
-          }
+          const visible = mq.includes('md') || mq.includes('lg') || mq.includes('xl');
+          const classes = this.ele.nativeElement.classList;
+          // Preserve the class attribute when the breakpoint keeps the same visibility.
+          classes.toggle('block', visible);
+          classes.toggle('hidden', !visible);
         });
     }
   }
