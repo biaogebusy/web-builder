@@ -68,7 +68,7 @@ export const HUB_GROUPS: IHubGroup[] = [
         label: 'BUILDER.HUB.UIUX_ENTRY',
         desc: 'BUILDER.HUB.UIUX_ENTRY_DESC',
         link: '/builder/node/uiux',
-        icon: 'puzzle-outline',
+        icon: 'view-quilt-outline',
         reqRoles: ['administrator'],
       },
     ],
