@@ -101,6 +101,60 @@ describe('CheckChildMenuActiveDirective', () => {
     });
   });
 
+  describe('pending updates', () => {
+    it('cancels the initial update when its menu is destroyed before the timer runs', () => {
+      const { fixture } = setup();
+      fixture.autoDetectChanges();
+      const parent: HTMLElement = fixture.nativeElement.querySelector('.parent');
+      expect(parent.classList.contains('active')).toBe(false);
+
+      fixture.destroy();
+      vi.advanceTimersByTime(0);
+
+      expect(parent.classList.contains('active')).toBe(false);
+    });
+
+    it('cancels queued navigation updates and ignores events after destruction', () => {
+      const { fixture, events$ } = setup();
+      fixture.autoDetectChanges();
+      vi.advanceTimersByTime(0);
+      const parent: HTMLElement = fixture.nativeElement.querySelector('.parent');
+      parent.querySelector('a.active')!.classList.remove('active');
+      for (let id = 1; id <= 3; id++) {
+        events$.next(new NavigationEnd(id, `/page-${id}`, `/page-${id}`));
+      }
+      expect(parent.classList.contains('active')).toBe(true);
+
+      fixture.destroy();
+      events$.next(new NavigationEnd(4, '/after-destroy', '/after-destroy'));
+      vi.advanceTimersByTime(0);
+
+      expect(parent.classList.contains('active')).toBe(true);
+    });
+
+    it('defers rapid navigation updates until descendant links have their latest state', () => {
+      const { fixture, events$ } = setup();
+      fixture.autoDetectChanges();
+      vi.advanceTimersByTime(0);
+      const parent: HTMLElement = fixture.nativeElement.querySelector('.parent');
+      const link = parent.querySelector('a.active')!;
+
+      link.classList.remove('active');
+      events$.next(new NavigationEnd(1, '/other', '/other'));
+      expect(parent.classList.contains('active')).toBe(true);
+      link.classList.add('active');
+      events$.next(new NavigationEnd(2, '/a/child2', '/a/child2'));
+      vi.advanceTimersByTime(0);
+      expect(parent.classList.contains('active')).toBe(true);
+
+      link.classList.remove('active');
+      events$.next(new NavigationEnd(3, '/other', '/other'));
+      expect(parent.classList.contains('active')).toBe(true);
+      vi.advanceTimersByTime(0);
+      expect(parent.classList.contains('active')).toBe(false);
+    });
+  });
+
   describe('router navigation', () => {
     it('does not rewrite parent classes when navigation keeps their active state', async () => {
       vi.useRealTimers();

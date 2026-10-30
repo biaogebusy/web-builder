@@ -1,6 +1,7 @@
 import { AfterViewInit, DestroyRef, Directive, ElementRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router } from '@angular/router';
+import { delay, filter, startWith } from 'rxjs';
 
 @Directive({
   selector: '[checkChildMenuActive]',
@@ -11,17 +12,15 @@ export class CheckChildMenuActiveDirective implements AfterViewInit {
   private destroyRef = inject(DestroyRef);
 
   ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.updateClasses();
-    }, 0);
-
-    this.router.events.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        setTimeout(() => {
-          this.updateClasses();
-        }, 0);
-      }
-    });
+    this.router.events
+      .pipe(
+        filter(event => event instanceof NavigationEnd),
+        startWith(null),
+        delay(0),
+        // Cancel queued updates as well as the event subscription when the menu is removed.
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe(() => this.updateClasses());
   }
 
   updateClasses(): void {
