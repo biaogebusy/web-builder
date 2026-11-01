@@ -115,6 +115,7 @@ export const HUB_MENU_KEYS: string[] = [
  * default, more can be enabled via core_config), which would stretch a
  * permanent sidebar menu, so they only appear on the hub page. Section labels
  * retain the hub's organization without repeating its entry descriptions.
+ * The landing-page list remains available through its hub card.
  */
 export function buildHubMenu(translate: (key: string) => string): IMainMenu {
   return {
@@ -122,13 +123,15 @@ export function buildHubMenu(translate: (key: string) => string): IMainMenu {
     href: '/builder/hub',
     icon: { svg: 'view-grid-outline' },
     child: HUB_GROUPS.flatMap(group =>
-      group.entries.map(entry => ({
-        group: translate(group.title),
-        label: translate(entry.label),
-        href: entry.link,
-        icon: { svg: entry.icon },
-        ...(entry.reqRoles ? { params: { reqRoles: entry.reqRoles } } : {}),
-      }))
+      group.entries
+        .filter(entry => entry.link !== '/builder/page-list')
+        .map(entry => ({
+          group: translate(group.title),
+          label: translate(entry.label),
+          href: entry.link,
+          icon: { svg: entry.icon },
+          ...(entry.reqRoles ? { params: { reqRoles: entry.reqRoles } } : {}),
+        }))
     ),
   };
 }

@@ -12,7 +12,7 @@ describe('management menu groups', () => {
     expect(menu.href).toBe('/builder/hub');
     const translatedGroups = new Set(Object.values(labels));
     expect(menu.child?.filter(item => translatedGroups.has(item.group || '')).map(item => item.group))
-      .toEqual(['Content', 'Content', 'Appearance', 'Appearance', 'Appearance',
+      .toEqual(['Content', 'Appearance', 'Appearance', 'Appearance',
         'System', 'System', 'System']);
     expect(menu.child?.find(item => item.href === '/builder/node/uiux')?.params.reqRoles)
       .toEqual(['administrator']);

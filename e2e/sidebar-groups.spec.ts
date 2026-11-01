@@ -85,7 +85,7 @@ test('expanded menu moves the active parent to the selected page', async ({ page
   await sidebar.locator('mat-expansion-panel-header').press('Space');
   const entries = sidebar.locator('.accordion-menu mat-list.no-child');
   const settings = entries.filter({ has: page.locator('a[href="/builder/settings"]') });
-  const pages = entries.filter({ has: page.locator('a[href="/builder/page-list"]') });
+  const pages = entries.filter({ has: page.locator('a[href="/builder/pages/Builder"]') });
   const group = sidebar.locator('.accordion-menu mat-expansion-panel').first();
 
   await settings.locator('a').click();
@@ -98,7 +98,7 @@ test('expanded menu moves the active parent to the selected page', async ({ page
   if (await header.getAttribute('aria-expanded') === 'false') await header.press('Space');
   await expect(pages.locator('a')).toBeVisible();
   await pages.locator('a').click();
-  await expect(page).toHaveURL(/\/builder\/page-list$/);
+  await expect(page).toHaveURL(/\/builder\/pages\/Builder$/);
   await expect(settings).not.toHaveClass(/\bactive\b/);
   await expect(pages).toHaveClass(/\bactive\b/);
   await expect(group).toHaveClass(/\bactive\b/);
