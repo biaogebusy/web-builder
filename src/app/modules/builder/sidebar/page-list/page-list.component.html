@@ -1,59 +1,95 @@
-<div class="page-list">
-  <div class="reload">
-    @if (!loading()) {
-      <app-btn
-        [matTooltip]="'BUILDER.PAGE_LIST.RESET' | translate"
-        matTooltipPosition="above"
-        (click)="onReload()"
-        [content]="{
-          label: '',
-          mode: 'icon',
-          color: undefined,
-          icon: { svg: 'reload' },
-        }"
-      />
+@let pages = lists();
+@let pagination = pager();
+<section class="page-list" [attr.aria-label]="'BUILDER.PAGE_LIST.MANAGE_LIST' | translate">
+  <div class="list-header">
+    <app-title [content]="{
+      label: 'BUILDER.PAGE_LIST.MANAGE_LIST' | translate,
+      style: 'none', classes: '!m-0 text-base font-semibold',
+    }" />
+    <div class="header-actions">
+      <app-btn [content]="{
+        mode: 'icon', icon: { svg: 'plus' },
+        ariaLabel: 'BUILDER.LIST.NEW_PAGE' | translate,
+      }" [matTooltip]="'BUILDER.LIST.NEW_PAGE' | translate" #newTooltip="matTooltip"
+        (focusin)="newTooltip.show(0)" (focusout)="newTooltip.hide(0)"
+        (click)="newTooltip.hide(0); onNewPage()" />
+      <app-btn [content]="{
+        mode: 'icon', icon: { svg: 'reload' }, disabled: loading(),
+        ariaLabel: 'BUILDER.PAGE_LIST.REFRESH' | translate,
+      }" [matTooltip]="'BUILDER.PAGE_LIST.REFRESH' | translate" #refreshTooltip="matTooltip"
+        [matTooltipDisabled]="loading()"
+        (focusin)="refreshTooltip.show(0)" (focusout)="refreshTooltip.hide(0)"
+        (click)="refreshTooltip.hide(0); onReload()" />
+    </div>
+  </div>
+  <div class="search-form" [class.filters-open]="filtersOpen()">
+    <app-formly [fields]="fields" [form]="form" [model]="model"
+      (modelChange)="onModelChange()" />
+  </div>
+  <div class="filter-toolbar">
+    <button type="button" mat-button class="filter-toggle"
+      [class.is-filtered]="filterCount() > 0" [attr.aria-expanded]="filtersOpen()"
+      (click)="filtersOpen.set(!filtersOpen())">
+      <span class="filter-toggle-content">
+        <app-icon [content]="{ svg: 'filter-variant' }" />
+        <span>{{ 'BUILDER.PAGE_LIST.FILTERS' | translate }}</span>
+        @if (filterCount()) { <span class="filter-count">{{ filterCount() }}</span> }
+      </span>
+    </button>
+    @if (hasFilters()) {
+      <app-btn [content]="{ label: 'BUILDER.PAGE_LIST.CLEAR_FILTERS' | translate }"
+        (click)="onReset()" />
+    } @else if (pagination) {
+      <span class="list-count">{{ 'BUILDER.PAGE_LIST.TOTAL' | translate: { count: pagination.totalItems } }}</span>
     }
   </div>
-  <app-title
-    [content]="{
-      label: 'BUILDER.PAGE_LIST.MANAGE_LIST' | translate,
-      style: 'none',
-      classes: 'p-y-xs !mb-0 bold text-lg',
-    }"
-  />
-  <div class="form">
-    <app-formly
-      [fields]="fields"
-      [form]="form"
-      [model]="model"
-      (modelChange)="onModelChange($event)"
-    />
-  </div>
-  <div class="lists-wrapper">
-    <div class="lists">
-      @if (loading()) {
-        <div class="loading-wrapper">
-          <app-loading [content]="{ size: 50 }" />
+  <div class="lists-wrapper" [attr.aria-busy]="loading()">
+    @if (loading()) {
+      <div class="loading-indicator" role="status"
+        [attr.aria-label]="'BUILDER.PAGE_LIST.LOADING' | translate">
+        <app-progress-bar [content]="{ mode: 'indeterminate' }" />
+      </div>
+    }
+    <div class="lists" #listElement>
+      @if (loadError()) {
+        <div class="list-state" role="status">
+          <app-icon class="state-icon" [content]="{ svg: 'cloud-alert-outline' }" />
+          <h3>{{ 'BUILDER.PAGE_LIST.LOAD_ERROR' | translate }}</h3>
+          <p>{{ 'BUILDER.PAGE_LIST.LOAD_ERROR_HINT' | translate }}</p>
+          <app-btn [content]="{ label: 'BUILDER.PAGE_LIST.RETRY' | translate, mode: 'stroked' }"
+            (click)="onReload()" />
         </div>
-      }
-      @if (lists(); as content) {
-        @for (page of content; track page) {
+      } @else if (pages) {
+        @for (page of pages; track page.nid + ':' + page.langcode) {
           <app-page-item [page]="page" (refresh)="onReload()" (pageLoad)="onPageLoaded()" />
+        } @empty {
+          @if (!loading()) {
+            <div class="list-state" role="status">
+              <app-icon class="state-icon" [content]="{ svg: hasFilters() ? 'magnify' : 'file-document-outline' }" />
+              <h3>{{ (hasFilters() ? 'BUILDER.PAGE_LIST.NO_RESULTS' : 'BUILDER.PAGE_LIST.EMPTY') | translate }}</h3>
+              <p>{{ (hasFilters() ? 'BUILDER.PAGE_LIST.NO_RESULTS_HINT' : 'BUILDER.PAGE_LIST.EMPTY_HINT') | translate }}</p>
+              @if (hasFilters()) {
+                <app-btn [content]="{ label: 'BUILDER.PAGE_LIST.CLEAR_FILTERS' | translate, mode: 'stroked' }"
+                  (click)="onReset()" />
+              } @else {
+                <app-btn [content]="{ label: 'BUILDER.LIST.NEW_PAGE' | translate, mode: 'flat' }"
+                  (click)="onNewPage()" />
+              }
+            </div>
+          }
         }
+      } @else if (loading()) {
+        <div class="list-state"><p>{{ 'BUILDER.PAGE_LIST.LOADING' | translate }}</p></div>
       }
     </div>
   </div>
-  @if (pager(); as pager) {
-    <div class="pager">
-      <mat-paginator
-        (page)="onPageChange($event)"
-        [length]="pager.totalItems"
-        [pageSize]="pager.itemsPerPage"
-        [showFirstLastButtons]="true"
-        [hidePageSize]="true"
-        [pageIndex]="pager.currentPage"
-        aria-label="Select page"
-      />
-    </div>
+  @if (pagination) {
+    @if (pagination.totalItems > 0) {
+      <mat-paginator class="pager" (page)="onPageChange($event)"
+        [length]="pagination.totalItems" [pageSize]="pagination.itemsPerPage"
+        [showFirstLastButtons]="false" [hidePageSize]="true" [disabled]="loading()"
+        [pageIndex]="pagination.currentPage"
+        [attr.aria-label]="'BUILDER.PAGE_LIST.PAGINATION' | translate" />
+    }
   }
-</div>
+</section>

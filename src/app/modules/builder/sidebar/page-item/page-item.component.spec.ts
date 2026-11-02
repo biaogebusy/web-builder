@@ -167,7 +167,8 @@ describe('PageItemComponent', () => {
   const currentPage = signal<IPage | undefined | false>(undefined);
 
   // MatDialog comes from modules in the component's standalone imports, so spy the real instance
-  const confirmWith = (result: boolean) => {
+  const confirmWith = (result: boolean | string | undefined) => {
+    fixture.detectChanges();
     const dialog = fixture.debugElement.injector.get(MatDialog);
     return vi
       .spyOn(dialog, 'open')
@@ -306,7 +307,7 @@ describe('PageItemComponent', () => {
       dirty: true,
     };
     builderState.getLocalPageByPage.mockReturnValue(localPage);
-    confirmWith(false);
+    confirmWith('local');
 
     component.loadPage();
 
@@ -319,7 +320,7 @@ describe('PageItemComponent', () => {
     const localPage: IPage = { nid: '12', title: 'Local changes', body: [], dirty: true, published: true };
     setPage({ nid: '12', title: 'Draft', published: false });
     builderState.getLocalPageByPage.mockReturnValue(localPage);
-    confirmWith(false);
+    confirmWith('local');
     component.loadPage();
     expect(builderState.loadNewPage).toHaveBeenCalledWith({ ...localPage, published: false });
     expect(localPage.published).toBe(true);
@@ -333,12 +334,23 @@ describe('PageItemComponent', () => {
       body: [],
       dirty: true,
     });
-    confirmWith(true);
+    confirmWith('server');
 
     component.loadPage();
 
     expect(builderService.loadPage).toHaveBeenCalledWith({ nid: '12', langcode: 'zh-hans' });
     expect(builderState.loadNewPage).not.toHaveBeenCalled();
+  });
+
+  it.each([undefined, false, ''])('keeps the current page when draft choice is dismissed: %s', result => {
+    builderState.getLocalPageByPage.mockReturnValue({ nid: '12', title: 'Draft', body: [], dirty: true });
+    confirmWith(result);
+    const loaded = vi.fn();
+    component.pageLoad.subscribe(loaded);
+    component.loadPage();
+    expect(builderState.loadNewPage).not.toHaveBeenCalled();
+    expect(builderService.loadPage).not.toHaveBeenCalled();
+    expect(loaded).not.toHaveBeenCalled();
   });
 
   it('opens a clean page from the server without asking anything', () => {

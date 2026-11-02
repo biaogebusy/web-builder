@@ -2,6 +2,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  TemplateRef,
+  viewChild,
+  viewChildren,
   computed,
   inject,
   input,
@@ -9,6 +12,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
+import { MatTooltip } from '@angular/material/tooltip';
 import { IPage } from '@core/interface/IAppConfig';
 import { IPageMeta, IPageRevisionPanel } from '@core/interface/IBuilder';
 import { IDialog } from '@core/interface/IDialog';
@@ -53,6 +57,8 @@ export class PageItemComponent {
     environment.multiLang && Boolean(environment.langs && environment.langs.length > 1);
   /** Shares verification and confirmation with the page settings entry. */
   readonly deletion = inject(PageDeletionService);
+  private draftChoice = viewChild<TemplateRef<unknown>>('draftChoice');
+  private tooltips = viewChildren(MatTooltip);
   private currentPage = inject(BUILDER_CURRENT_PAGE);
   private builder = inject(BuilderState);
   private dialog = inject(MatDialog);
@@ -115,6 +121,17 @@ export class PageItemComponent {
 
   readonly previewUrl = computed(() => appendQueryParams(this.page().url || '', { preview: true }));
 
+  /** Prepare clipped text before Material handles pointer entry; keyboard focus opens it directly. */
+  updateOverflowTooltip(tooltip: MatTooltip, text: HTMLElement, showImmediately = false): void {
+    tooltip.message = text.scrollWidth > text.clientWidth ? text.textContent?.trim() || '' : '';
+    if (showImmediately) tooltip.show(0);
+  }
+
+  /** Close row hints when the containing list handles Escape. */
+  hideTooltips(): void {
+    this.tooltips().forEach(tooltip => tooltip.hide(0));
+  }
+
   /** Title click: the page is already open, so opening it again would be a no-op */
   loadPage(): void {
     if (this.active()) {
@@ -137,32 +154,15 @@ export class PageItemComponent {
     this.loadPageFromServer();
   }
 
-  // Dismissing the dialog keeps the draft, so unsaved work is only ever lost by a deliberate click
   private openDraftChoiceDialog(localPage: IPage): void {
-    const config: IDialog = {
-      title: this.translate.instant('BUILDER.PAGE_LIST.OPEN_DRAFT_TITLE'),
-      noLabel: this.translate.instant('BUILDER.PAGE_LIST.OPEN_DRAFT_KEEP'),
-      yesLabel: this.translate.instant('BUILDER.PAGE_LIST.OPEN_DRAFT_SERVER'),
-      inputData: {
-        content: {
-          type: 'text',
-          fullWidth: true,
-          body: this.translate.instant('BUILDER.PAGE_LIST.OPEN_DRAFT_CONFIRM', {
-            title: this.page().title,
-          }),
-        },
-      },
-    };
-    this.dialog
-      .open(DialogComponent, { width: '340px', data: config })
+    const template = this.draftChoice();
+    if (!template) return;
+    this.dialog.open(template, { width: '400px', autoFocus: '[data-draft-cancel]' })
       .afterClosed()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(fromServer => {
-        if (fromServer) {
-          this.loadPageFromServer();
-          return;
-        }
-        this.loadLocalDraft(localPage);
+      .pipe(takeUntil(this.builder.pageSelection$), takeUntilDestroyed(this.destroyRef))
+      .subscribe(choice => {
+        if (choice === 'server') this.loadPageFromServer();
+        if (choice === 'local') this.loadLocalDraft(localPage);
       });
   }
 

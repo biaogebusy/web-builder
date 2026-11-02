@@ -1,9 +1,14 @@
 import { MatPaginatorIntlCro } from '@core/service/paginator.service';
 import { MatPaginatorIntl } from '@angular/material/paginator';
+import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltip } from '@angular/material/tooltip';
 import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  DOCUMENT,
+  ElementRef,
+  viewChild,
+  viewChildren,
   OnInit,
   computed,
   effect,
@@ -23,17 +28,24 @@ import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState, IBuilderPendingPageLoad } from '@core/state/BuilderState';
-import { USER } from '@core/token/token-providers';
 import { PageItemComponent } from '../page-item/page-item.component';
 import type { QueryParams } from '@core/util/http-params.util';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { TranslateService } from '@ngx-translate/core';
-import { merge } from 'lodash-es';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorIntlCro }],
+  providers: [
+    { provide: MatPaginatorIntl, useClass: MatPaginatorIntlCro },
+    {
+      provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
+      useValue: {
+        showDelay: 500, hideDelay: 100, touchendHideDelay: 1500,
+        position: 'above', tooltipClass: 'page-list-tooltip',
+      },
+    },
+  ],
   selector: 'app-page-list',
   templateUrl: './page-list.component.html',
   styleUrls: ['./page-list.component.scss'],
@@ -41,15 +53,22 @@ import { environment } from 'src/environments/environment';
   imports: [SHARE_IMPORTS, WIDGETS_IMPORTS, FORM_IMPORTS, MatPaginatorModule, PageItemComponent],
 })
 export class PageListComponent extends BaseComponent implements OnInit {
-  private user = inject(USER);
-
-  readonly content = input<any>();
+  /** Optional builder panel configuration. */
+  readonly content = input<unknown>();
   public form = new FormGroup({
-    page: new FormControl(0),
+    page: new FormControl(0, { nonNullable: true }),
+    title: new FormControl('', { nonNullable: true, updateOn: 'submit' }),
+    group: new FormControl('', { nonNullable: true }),
+    langcode: new FormControl('', { nonNullable: true }),
   });
-  public model: any = {
-    noCache: true,
-  };
+  public model = this.form.getRawValue();
+  readonly filtersOpen = signal(false);
+  readonly filterCount = signal(0);
+  readonly hasFilters = signal(false);
+  private listElement = viewChild<ElementRef<HTMLElement>>('listElement');
+  private tooltips = viewChildren(MatTooltip);
+  private pageItems = viewChildren(PageItemComponent);
+  private document = inject(DOCUMENT);
   public langs = environment.langs;
   private builder = inject(BuilderState);
   private util = inject(UtilitiesService);
@@ -61,6 +80,15 @@ export class PageListComponent extends BaseComponent implements OnInit {
   private translate = inject(TranslateService);
   private pendingPageLoad?: IBuilderPendingPageLoad;
 
+  private dismissTooltip(event: KeyboardEvent): void {
+    if (event.key !== 'Escape' || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey
+      || !this.document.querySelector('.page-list-tooltip')) return;
+    this.tooltips().forEach(tooltip => tooltip.hide(0));
+    this.pageItems().forEach(item => item.hideTooltips());
+    event.stopPropagation();
+    event.preventDefault();
+  }
+
   private queryParams = signal<QueryParams | string>({ noCache: 1 });
 
   private listRes = this.nodeService.fetchResource(() => ({
@@ -70,19 +98,12 @@ export class PageListComponent extends BaseComponent implements OnInit {
 
   public loading = this.listRes.isLoading;
 
-  private pageList = computed<IPageList | undefined>(() => {
-    if (this.listRes.error()) {
-      return {
-        rows: [],
-        pager: {
-          current_page: null,
-          total_pages: 0,
-          total_items: 0,
-        },
-      } as any;
-    }
-    return this.listRes.value();
-  });
+  readonly loadError = computed(() => Boolean(this.listRes.error()));
+
+  // Reload retains the resource value, so existing rows and scroll position stay mounted.
+  private pageList = computed<IPageList | undefined>(() =>
+    this.loadError() ? undefined : this.listRes.value()
+  );
 
   public lists = computed<IPageMeta[] | undefined>(() => this.pageList()?.rows);
 
@@ -93,81 +114,40 @@ export class PageListComponent extends BaseComponent implements OnInit {
 
   public fields: FormlyFieldConfig[] = [
     {
-      type: 'tabs',
+      key: 'title',
+      type: 'input',
+      props: {
+        label: this.translate.instant('BUILDER.PAGE_LIST.SEARCH_TITLE'),
+        placeholder: this.translate.instant('BUILDER.PAGE_LIST.SEARCH_PLACEHOLDER'),
+        appearance: 'outline',
+      },
+      modelOptions: { updateOn: 'submit' },
+    },
+    {
+      fieldGroupClassName: 'page-list-filters grid grid-cols-1 gap-2',
       fieldGroup: [
         {
+          key: 'group',
+          type: 'mat-select',
           props: {
-            label: this.translate.instant('BUILDER.PAGE_LIST.BASIC'),
+            api: '/api/v2/taxonomy/page_group',
+            nocache: true,
+            label: this.translate.instant('BUILDER.PAGE_LIST.CATEGORY'),
+            appearance: 'outline',
+            options: [{ label: this.translate.instant('BUILDER.PAGE_LIST.ALL'), value: '' }],
           },
-          fieldGroup: [
-            {
-              fieldGroupClassName: 'grid grid-cols-12 gap-1',
-              fieldGroup: [
-                {
-                  key: 'title',
-                  type: 'input',
-                  className: 'col-span-12',
-                  props: {
-                    label: this.translate.instant('BUILDER.PAGE_LIST.SEARCH_TITLE'),
-                    placeholder: this.translate.instant('BUILDER.PAGE_LIST.SEARCH_PLACEHOLDER'),
-                  },
-                  modelOptions: {
-                    updateOn: 'submit',
-                  },
-                },
-              ],
-            },
-          ],
         },
         {
+          key: 'langcode',
+          type: 'select',
           props: {
-            label: this.translate.instant('BUILDER.PAGE_LIST.ADVANCED'),
+            label: this.translate.instant('BUILDER.PAGE_LIST.LANGUAGE'),
+            appearance: 'outline',
+            options: [
+              { label: this.translate.instant('BUILDER.PAGE_LIST.ALL'), value: '' },
+              ...(this.langs ?? []).map(lang => ({ label: lang.label, value: lang.langCode })),
+            ],
           },
-          fieldGroup: [
-            {
-              fieldGroupClassName: 'grid grid-cols-12 gap-1',
-              fieldGroup: [
-                {
-                  key: 'group',
-                  type: 'mat-select',
-                  className: 'col-span-7',
-                  props: {
-                    api: '/api/v2/taxonomy/page_group',
-                    nocache: true,
-                    label: this.translate.instant('BUILDER.PAGE_LIST.CATEGORY'),
-                    options: [
-                      {
-                        label: this.translate.instant('BUILDER.PAGE_LIST.ALL'),
-                        value: null,
-                      },
-                    ],
-                  },
-                },
-                {
-                  key: 'langcode',
-                  type: 'select',
-                  className: 'col-span-5',
-                  props: {
-                    label: this.translate.instant('BUILDER.PAGE_LIST.LANGUAGE'),
-                    options: [
-                      {
-                        label: this.translate.instant('BUILDER.PAGE_LIST.ALL'),
-                        value: '',
-                      },
-                      ...(this.langs
-                        ? this.langs.map(lang => {
-                            return {
-                              label: lang.label,
-                              value: lang.langCode,
-                            };
-                          })
-                        : []),
-                    ],
-                  },
-                },
-              ],
-            },
-          ],
         },
       ],
     },
@@ -175,10 +155,22 @@ export class PageListComponent extends BaseComponent implements OnInit {
 
   constructor() {
     super();
+    // Capture Escape before the drawer handles it, even when focus is outside this list.
+    const dismissTooltip = (event: KeyboardEvent) => this.dismissTooltip(event);
+    this.document.addEventListener('keydown', dismissTooltip, true);
+    this.destroyRef.onDestroy(() => {
+      this.document.removeEventListener('keydown', dismissTooltip, true);
+    });
     effect(() => {
-      const error: any = this.listRes.error();
-      if (error?.status === 404) {
+      const error = this.listRes.error();
+      if (error && 'status' in error && error.status === 404) {
         this.util.openSnackbar(this.translate.instant('BUILDER.SETTINGS.CHECK_API'), 'ok');
+      }
+    });
+    effect(() => {
+      const pager = this.pager();
+      if (!this.loading() && pager && pager.currentPage > 0 && !this.lists()?.length) {
+        this.navigateToPage(Math.max(0, Math.ceil(pager.totalItems / pager.itemsPerPage) - 1));
       }
     });
   }
@@ -203,24 +195,35 @@ export class PageListComponent extends BaseComponent implements OnInit {
           langcode,
         });
       } else {
-        Object.keys(query).forEach(key => {
-          this.form.get(key)?.patchValue(query[key], { onlySelf: true, emitEvent: false });
-          this.form.get(key)?.markAsTouched();
-        });
-
-        const params = this.getApiParams({ ...query, noCache: 1 });
-        this.queryParams.set(params);
+        this.model = {
+          title: query['title'] || '',
+          group: query['group'] || '',
+          langcode: query['langcode'] || '',
+          page: Math.max(0, Number(query['page']) || 0),
+        };
+        this.form.patchValue(this.model, { emitEvent: false });
+        this.filterCount.set(
+          Number(Boolean(this.model.group)) + Number(Boolean(this.model.langcode))
+        );
+        this.hasFilters.set(Boolean(this.model.title || this.filterCount()));
+        this.queryParams.set(this.getApiParams({ ...this.model, noCache: 1 }));
       }
     });
   }
 
-  onModelChange(value: any): void {
-    this.form.get('page')?.patchValue(0, { onlySelf: true, emitEvent: false });
-    const formValue = merge(value, this.form.getRawValue());
-    this.router.navigate([], {
-      queryParams: formValue,
+  /** Apply search or filters from the first page. */
+  onModelChange(): void {
+    this.navigateToPage(0);
+  }
+
+  private navigateToPage(page: number): void {
+    this.form.controls.page.setValue(page, { emitEvent: false });
+    const list = this.listElement()?.nativeElement;
+    if (list) list.scrollTop = 0;
+    void this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: this.form.getRawValue(),
     });
-    this.queryParams.set(this.getApiParams({ ...formValue, noCache: 1 }));
   }
 
   loadPage(page: any): void {
@@ -257,17 +260,25 @@ export class PageListComponent extends BaseComponent implements OnInit {
     });
   }
 
+  /** Pagination keeps all active filters. */
   onPageChange(page: PageEvent): void {
-    this.form.get('page')?.patchValue(page.pageIndex, { onlySelf: true, emitEvent: false });
-    const value = merge(this.model, this.form.getRawValue());
-    this.router.navigate([], {
-      queryParams: value,
-    });
-    this.queryParams.set(this.getApiParams(value));
+    this.navigateToPage(page.pageIndex);
   }
 
+  /** Refresh data without changing filters, pagination or scroll position. */
   onReload(): void {
-    this.form.reset();
-    this.onModelChange({ title: '', time: +new Date() });
+    this.listRes.reload();
+  }
+
+  /** Clear only the list query and return to its first page. */
+  onReset(): void {
+    this.form.reset({ title: '', group: '', langcode: '', page: 0 }, { emitEvent: false });
+    this.model = this.form.getRawValue();
+    this.navigateToPage(0);
+  }
+
+  /** Open the existing new-page flow. */
+  onNewPage(): void {
+    this.builder.onNewPage();
   }
 }

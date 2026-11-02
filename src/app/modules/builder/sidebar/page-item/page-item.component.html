@@ -5,12 +5,16 @@
         <button
           type="button"
           class="title-btn"
-          [matTooltip]="active() ? ('BUILDER.PAGE_LIST.ALREADY_EDITING' | translate) : page().title"
+          (focus)="updateOverflowTooltip(titleTooltip, titleText, true)"
+          (blur)="titleTooltip.hide(0)"
           [attr.aria-current]="active() ? 'page' : null"
           [attr.aria-disabled]="active() ? 'true' : null"
           (click)="loadPage()"
         >
-          {{ page().title }}
+          <span class="title-text" #titleText matTooltip #titleTooltip="matTooltip"
+            (pointerenter)="updateOverflowTooltip(titleTooltip, titleText)">
+            {{ page().title }}
+          </span>
         </button>
       </h3>
     </div>
@@ -19,46 +23,48 @@
       class="more-trigger"
       mat-icon-button
       [matMenuTriggerFor]="menu"
+      #menuTrigger="matMenuTrigger"
       [matTooltip]="'BUILDER.PAGE_LIST.MORE_ACTIONS' | translate"
+      [matTooltipDisabled]="menuTrigger.menuOpen"
       [attr.aria-label]="'BUILDER.PAGE_LIST.MORE_ACTIONS_FOR' | translate: { title: page().title }"
     >
       <app-icon [content]="{ svg: 'dots-vertical' }" />
     </button>
   </div>
-  @if (showLanguage && page().langcode) {
-    <div class="language-row">
-      <span class="language-badge">{{ getLangLabel(page().langcode) }}</span>
-      @if (page().default_langcode === true) {
-        <span>{{ 'BUILDER.PAGE_LIST.ORIGINAL_VERSION' | translate }}</span>
-      } @else if (page().default_langcode === false) {
-        <span>{{ 'BUILDER.PAGE_LIST.TRANSLATED_VERSION' | translate }}</span>
-      }
-    </div>
-  }
-
-  <!-- Status text only: page loads and saves already announce themselves through the snackbar,
-       which owns the live region, so no aria-live is duplicated here -->
-  @if (active() || dirty() || translationDraft() || publicationState()) {
-    <div class="status-row">
-      @if (publicationLabel(); as label) {
-        <button
-          type="button"
-          class="status-badge publication-badge"
-          (click)="updatePageSetting()"
-          [attr.aria-label]="'BUILDER.PAGE_LIST.EDIT_STATE' | translate: { state: (label | translate) }"
-          [class.unpublished-badge]="publicationState() === 'unpublished'"
-          [class.draft-badge]="publicationState() === 'draft'"
-          [class.published-badge]="publicationState() === 'published'"
-        >
-          {{ label | translate }}
-          <app-icon [content]="{ svg: 'chevron-down' }" />
-        </button>
-      }
-      @if (active()) {
-        <span class="status-badge current-badge">
-          {{ 'BUILDER.PAGE_LIST.CURRENT_EDITING' | translate }}
+  <div class="status-row">
+    @if (showLanguage && page().langcode) {
+      <span class="language-row">
+        <span class="language-badge" [matTooltip]="(page().default_langcode === false
+          ? 'BUILDER.PAGE_LIST.TRANSLATED_VERSION'
+          : page().default_langcode === true ? 'BUILDER.PAGE_LIST.ORIGINAL_VERSION' : '') | translate">
+          {{ getLangLabel(page().langcode) }}
         </span>
-      }
+        @if (page().default_langcode === true) {
+          <span class="sr-only">{{ 'BUILDER.PAGE_LIST.ORIGINAL_VERSION' | translate }}</span>
+        } @else if (page().default_langcode === false) {
+          <span class="sr-only">{{ 'BUILDER.PAGE_LIST.TRANSLATED_VERSION' | translate }}</span>
+        }
+      </span>
+    }
+    @if (publicationLabel(); as label) {
+      <button type="button" class="status-badge publication-badge"
+        (click)="updatePageSetting()"
+        [matTooltip]="'BUILDER.PAGE_LIST.STATE_HINT' | translate"
+        [attr.aria-label]="'BUILDER.PAGE_LIST.EDIT_STATE' | translate: { state: (label | translate) }"
+        [class.unpublished-badge]="publicationState() === 'unpublished'"
+        [class.draft-badge]="publicationState() === 'draft'"
+        [class.published-badge]="publicationState() === 'published'">
+        {{ label | translate }}
+      </button>
+    }
+    @if (active()) {
+      <span class="status-badge current-badge">
+        {{ 'BUILDER.PAGE_LIST.CURRENT_EDITING' | translate }}
+      </span>
+    }
+  </div>
+  @if (dirty() || translationDraft()) {
+    <div class="editing-row">
       @if (dirty()) {
         <span class="status-badge unsaved-badge">
           {{ 'BUILDER.PAGE_LIST.UNSAVED' | translate }}
@@ -72,14 +78,15 @@
     </div>
   }
   <div class="url-row">
-    <span class="url-link">{{ page().url }}</span>
+    <span class="url-link" #urlText matTooltip #urlTooltip="matTooltip"
+      (pointerenter)="updateOverflowTooltip(urlTooltip, urlText)">{{ page().url }}</span>
     @if (page().url && page().published !== false) {
       <a
         class="preview-link"
         [href]="previewUrl()"
         target="_blank"
         rel="noopener noreferrer"
-        [matTooltip]="page().url"
+        [matTooltip]="'BUILDER.PAGE_LIST.PREVIEW_HINT' | translate"
         [attr.aria-label]="'BUILDER.PAGE_LIST.PREVIEW_PAGE' | translate: { title: page().title }"
       >
         <app-icon [content]="{ svg: 'open-in-new' }" />
@@ -89,23 +96,27 @@
   <div class="meta">
     <div class="meta-primary">
       @if (page().taxonomy) {
-        <span class="meta-item taxonomy">
+        <span class="meta-item taxonomy" #taxonomyText matTooltip #taxonomyTooltip="matTooltip"
+          (pointerenter)="updateOverflowTooltip(taxonomyTooltip, taxonomyText)">
           <span class="sr-only">{{ 'BUILDER.PAGE_LIST.CATEGORY' | translate }}: </span>
           {{ page().taxonomy }}
         </span>
       }
       @if (page().author) {
-        <span class="meta-item author">
+        <span class="meta-item author" #authorText matTooltip #authorTooltip="matTooltip"
+          (pointerenter)="updateOverflowTooltip(authorTooltip, authorText)">
           <span class="sr-only">{{ 'BUILDER.PAGE_LIST.AUTHOR' | translate }}: </span>
           {{ page().author }}
         </span>
       }
     </div>
     @if (page().changed) {
-      <span class="meta-item date">
-        <span class="sr-only">{{ 'BUILDER.PAGE_LIST.UPDATED' | translate }}: </span>
-        <time [attr.datetime]="page().changed | date: 'yyyy-MM-ddTHH:mm:ssZZZZZ'">
+      <span class="meta-item date" [matTooltip]="(page().changed | date: 'yyyy/MM/dd HH:mm') || ''">
+        <span class="sr-only">{{ 'BUILDER.PAGE_LIST.UPDATED' | translate }}:
           {{ page().changed | date: 'yyyy/MM/dd HH:mm' }}
+        </span>
+        <time aria-hidden="true" [attr.datetime]="page().changed | date: 'yyyy-MM-ddTHH:mm:ssZZZZZ'">
+          {{ page().changed | date: 'MM/dd' }}
         </time>
       </span>
     }
@@ -170,3 +181,22 @@
     </span>
   </button>
 </mat-menu>
+
+<ng-template #draftChoice>
+  <h2 mat-dialog-title>{{ 'BUILDER.PAGE_LIST.OPEN_DRAFT_TITLE' | translate }}</h2>
+  <mat-dialog-content>
+    <p class="draft-page-title">{{ page().title }}</p>
+    <p>{{ 'BUILDER.PAGE_LIST.DRAFT_CHOICE_HINT' | translate }}</p>
+  </mat-dialog-content>
+  <mat-dialog-actions class="draft-actions">
+    <button mat-button mat-dialog-close data-draft-cancel>
+      {{ 'BUILDER.COMMON.CANCEL' | translate }}
+    </button>
+    <button mat-button mat-dialog-close="server">
+      {{ 'BUILDER.PAGE_LIST.OPEN_DRAFT_SERVER' | translate }}
+    </button>
+    <button mat-flat-button mat-dialog-close="local">
+      {{ 'BUILDER.PAGE_LIST.OPEN_DRAFT_KEEP' | translate }}
+    </button>
+  </mat-dialog-actions>
+</ng-template>
