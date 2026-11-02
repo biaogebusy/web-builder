@@ -107,6 +107,12 @@
 }
 
 @mixin custom-overide() {
+  // A new tooltip starts at the viewport origin before CDK positions it. Keep its hidden host
+  // out of hit testing so a stationary pointer cannot dismiss the first keyboard tooltip.
+  mat-tooltip-component:not(:has(.mat-mdc-tooltip-show)) {
+    @apply pointer-events-none;
+  }
+
   .mat-mdc-tooltip {
     font-size: 12px;
   }

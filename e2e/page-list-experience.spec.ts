@@ -49,6 +49,7 @@ test('empty states recover and draft dismissal keeps the current canvas', async 
   const list = page.locator('app-page-list');
   await expect(list.locator('app-page-item')).toHaveCount(10);
   const canvas = page.locator('app-builder-list');
+  await expect(canvas).toContainText('本地草稿：正在准备的新内容，尚未提交到服务器。');
   const before = await canvas.innerText();
   const draft = list.locator('app-page-item').filter({ hasText: '企业服务介绍' }).first();
   for (const dismiss of ['escape', 'button', 'backdrop']) {
@@ -195,6 +196,7 @@ for (const theme of ['light-theme', 'dark-theme']) {
     }
     await expect(page.locator('mat-drawer.sidebar')).toHaveClass(new RegExp(theme));
     await expect(page.locator('mat-drawer.sidebar')).not.toHaveClass(/mat-drawer-animating/);
+    // Keep the pointer at the initial overlay origin while opening the first keyboard tooltip.
     await page.mouse.move(0, 0);
     const visible = await list.locator('.lists').evaluate(el => {
       const box = el.getBoundingClientRect();
@@ -208,9 +210,11 @@ for (const theme of ['light-theme', 'dark-theme']) {
     await list.locator('.filter-toggle').focus();
     await page.keyboard.press('Tab');
     await expect(list.locator('.title-btn').first()).toBeFocused();
-    await expect(page.locator('.mat-mdc-tooltip-surface').filter({
+    const titleTooltip = page.locator('.mat-mdc-tooltip-surface').filter({
       hasText: '全球服务与行业解决方案',
-    })).toHaveText(
+    });
+    await expect(titleTooltip).toBeVisible();
+    await expect(titleTooltip).toHaveText(
       '全球服务与行业解决方案：帮助成长型企业建立统一的数字体验'
     );
     await list.locator('.filter-toggle').focus();
