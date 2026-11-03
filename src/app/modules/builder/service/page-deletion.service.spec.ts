@@ -5,9 +5,11 @@ import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Subject, firstValueFrom, of, throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { PageDeletionService, type PageDeletionTarget } from './page-deletion.service';
 
 describe('PageDeletionService', () => {
+  const languages = environment.langs;
   const target: PageDeletionTarget = {
     uuid: 'page-7', nid: '7', langcode: 'zh-hans', title: 'About us',
   };
@@ -23,6 +25,8 @@ describe('PageDeletionService', () => {
   const openSnackbar = vi.fn();
   const instant = vi.fn((key: string, params?: unknown) => `${key}:${JSON.stringify(params)}`);
   let service: PageDeletionService;
+
+  afterEach(() => { environment.langs = languages; });
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -46,7 +50,7 @@ describe('PageDeletionService', () => {
     expect(fetch).toHaveBeenCalledWith('/api/v1/node/landing_page/page-7', {
       'noCache': expect.any(Number),
       'fields[node--landing_page]': 'langcode,default_langcode,drupal_internal__nid',
-    }, 'zh-hans');
+    }, '');
     expect(deleteTranslation).toHaveBeenCalledWith('7', 'zh-hans');
     expect(deleteEntity).not.toHaveBeenCalled();
     expect(open.mock.calls[0][1].data.yesLabel).toContain('DELETE_TRANSLATION');
@@ -56,6 +60,25 @@ describe('PageDeletionService', () => {
     fetch.mockReturnValue(of(resource('en', true)));
     expect(await firstValueFrom(service.delete({ ...target, langcode: 'en' }))).toBe('page');
     expect(open.mock.calls[0][1].data.yesLabel).toContain('DELETE_ALL_LANG');
+    expect(deleteEntity).toHaveBeenCalledWith('/api/v1/node/landing_page', 'page-7');
+    expect(deleteTranslation).not.toHaveBeenCalled();
+  });
+
+  it.each([
+    ['zh-hans', 'zh-hans', ''], ['en', 'en', ''],
+    ['zh-hans', 'en', 'en'], ['en', 'zh-hans', 'zh-hans'],
+  ])('uses the configured %s default for a %s original', async (defaultLang, langcode, prefix) => {
+    environment.langs = languages?.map(lang => ({
+      ...lang, default: lang.langCode === defaultLang,
+    }));
+    fetch.mockReturnValue(of(resource(langcode, true)));
+
+    expect(await firstValueFrom(service.delete({ ...target, langcode }))).toBe('page');
+
+    expect(fetch).toHaveBeenCalledWith('/api/v1/node/landing_page/page-7', {
+      'noCache': expect.any(Number),
+      'fields[node--landing_page]': 'langcode,default_langcode,drupal_internal__nid',
+    }, prefix);
     expect(deleteEntity).toHaveBeenCalledWith('/api/v1/node/landing_page', 'page-7');
     expect(deleteTranslation).not.toHaveBeenCalled();
   });

@@ -25,7 +25,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { USER } from '@core/token/token-providers';
 import { appendQueryParams } from '@core/util/http-params.util';
-import { decodeMetaTags, getAttrAlias, type MetaTags } from '@core/util/builder-page.util';
+import { decodeMetaTags, getApiLang, getAttrAlias, type MetaTags } from '@core/util/builder-page.util';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TranslateService } from '@ngx-translate/core';
@@ -286,7 +286,7 @@ export class PageSettingComponent implements OnInit {
           try {
             const current = await firstValueFrom(this.nodeService.fetch(
               `/api/v1/node/landing_page/${encodeURIComponent(id)}`,
-              { 'fields[node--landing_page]': statusField }, langcode
+              { 'fields[node--landing_page]': statusField }, getApiLang(langcode)
             ));
             published = current.data?.attributes?.[statusField];
           } catch {

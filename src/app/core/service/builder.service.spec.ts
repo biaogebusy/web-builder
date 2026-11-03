@@ -9,6 +9,7 @@ import { API_URL } from '@core/token/token-providers';
 import { TranslateService } from '@ngx-translate/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Subject, of, throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { BuilderService } from './builder.service';
 import { ContentService } from './content.service';
 import { NodeService } from './node.service';
@@ -91,6 +92,35 @@ describe('BuilderService', () => {
     expect(loadNewPage).toHaveBeenCalledOnce();
     expect(loadingSet).toHaveBeenCalledWith(false);
     expect(openSnackbar).toHaveBeenCalledWith('BUILDER.PAGE_LIST.LOADED_PAGE', 'ok');
+  });
+
+  it.each([
+    ['zh-hans', 'zh-hans', ''], ['en', 'en', ''],
+    ['zh-hans', 'en', '/en'], ['en', 'zh-hans', '/zh-hans'],
+  ])('keeps page updates language-aware with default %s and content %s', (defaultLang, langcode, prefix) => {
+    const languages = environment.langs;
+    try {
+      environment.langs = languages?.map(lang => ({
+        ...lang, default: lang.langCode === defaultLang,
+      }));
+      const service = createService();
+      const page = { nid: '42', uuid: 'page-42', langcode, title: 'Updated page', body: [] };
+      service.updateLandingPage(page, false).subscribe();
+      expect(patch).toHaveBeenLastCalledWith(
+        `https://example.com${prefix}/api/v3/landingPage/update/42`,
+        expect.objectContaining({ nid: '42', langcode }), expect.anything()
+      );
+
+      service.updateAttributes(page, '/api/v1/node/landing_page', { title: page.title }, {})
+        .subscribe();
+      expect(patch).toHaveBeenLastCalledWith(
+        `${prefix}/api/v1/node/landing_page/page-42`,
+        { data: { type: 'node--landing_page', id: 'page-42',
+          attributes: { title: 'Updated page' }, relationships: {} } }, expect.anything()
+      );
+    } finally {
+      environment.langs = languages;
+    }
   });
 
   it('shows the server refusal once and preserves the unsaved page', () => {

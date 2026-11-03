@@ -175,6 +175,9 @@ export async function mockPageList(page: Page) {
   });
   await context.route('**/api/v1/node/landing_page/*', route => {
     const req = route.request();
+    if (new URL(req.url()).pathname.startsWith('/zh-hans/')) {
+      return route.fulfill({ status: 404, json: {} });
+    }
     const row = rows.find(x => req.url().includes(x.uuid));
     if (!row) return route.fulfill({ status: 404, json: {} });
     if (req.method() === 'PATCH') {

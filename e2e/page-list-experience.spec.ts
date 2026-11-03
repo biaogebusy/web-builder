@@ -2,6 +2,32 @@ import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from './fixtures/test';
 import { mockPageList } from './fixtures/page-list';
 
+test('deletes a Chinese original through the unprefixed API and refreshes the list', async ({ page }) => {
+  const { state, rows } = await mockPageList(page);
+  const target = rows[0];
+  await page.goto('/me/login/callback?code=test-code&state=test-state');
+  const list = page.locator('app-page-list');
+  await expect(list.locator('app-page-item')).toHaveCount(10);
+  const row = list.locator('app-page-item').filter({
+    has: page.getByRole('button', { name: target.title, exact: true }),
+  });
+  await row.locator('.more-trigger').click();
+  const inspection = page.waitForRequest(request => request.method() === 'GET' &&
+    new URL(request.url()).searchParams.has('fields[node--landing_page]'));
+  await page.getByRole('menuitem', { name: '删除整页', exact: true }).click();
+  expect(new URL((await inspection).url()).pathname)
+    .toBe(`/api/v1/node/landing_page/${target.uuid}`);
+  const dialog = page.getByRole('dialog');
+  await expect(dialog).toContainText('全部语言版本');
+  await expect(dialog.getByRole('button', { name: '取消', exact: true })).toBeFocused();
+  expect(state.writes).toEqual([]);
+  await dialog.getByRole('button', { name: '删除整页', exact: true }).click();
+  await expect.poll(() => state.writes).toEqual([{ method: 'DELETE', id: target.nid }]);
+  await expect(row).toHaveCount(0);
+  await expect(list.locator('.list-count')).toHaveText('共 24 页');
+  expect(state.errors).toEqual([]);
+});
+
 test('page list preserves search, page and scroll after refresh and save', async ({ page }, info) => {
   const { state, rows } = await mockPageList(page);
   await page.setViewportSize({ width: 1440, height: 900 });

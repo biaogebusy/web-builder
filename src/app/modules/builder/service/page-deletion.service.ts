@@ -4,6 +4,7 @@ import type { IDialog } from '@core/interface/IDialog';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { getApiLang } from '@core/util/builder-page.util';
 import { TranslateService } from '@ngx-translate/core';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { escape } from 'lodash-es';
@@ -52,7 +53,7 @@ export class PageDeletionService {
       return this.nodeService.fetch(`${api}/${page.uuid}`, {
         noCache: Date.now(),
         [`fields[node--${bundle}]`]: 'langcode,default_langcode,drupal_internal__nid',
-      }, page.langcode).pipe(
+      }, getApiLang(page.langcode)).pipe(
         map(response => {
           const data = response?.data;
           const attributes = data?.attributes;

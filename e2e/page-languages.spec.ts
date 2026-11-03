@@ -70,6 +70,9 @@ for (const mode of ['list', 'settings', 'rejected', 'missing'] as const) {
     await context.route('**/api/v1/node/landing_page/page-12*', route => {
       const request = route.request();
       const url = new URL(request.url());
+      if (url.pathname.startsWith('/zh-hans/')) {
+        return route.fulfill({ status: 404, json: {} });
+      }
       if (request.method() !== 'GET') {
         writes.push(`${request.method()} ${url.pathname}`);
         return route.fulfill({ status: 204 });

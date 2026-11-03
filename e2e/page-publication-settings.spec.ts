@@ -70,6 +70,9 @@ for (const mode of ['allowed', 'read-only', 'moderated', 'rejected', 'republish'
       } });
     });
     await context.route('**/api/v1/node/landing_page/page-12*', route => {
+      if (new URL(route.request().url()).pathname.startsWith('/zh-hans/')) {
+        return route.fulfill({ status: 404, json: {} });
+      }
       if (route.request().method() === 'PATCH') {
         const payload = route.request().postDataJSON();
         writes.push(payload.data.attributes);

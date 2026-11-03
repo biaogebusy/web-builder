@@ -13,9 +13,11 @@ import { contentFormFixture } from '@core/testing/content-form.fixture';
 import { createBuilderStateMock, provideCoreMocks } from '@core/testing/mocks';
 import { USER } from '@core/token/token-providers';
 import { of, Subject, throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { PageSettingComponent } from './page-setting.component';
 
 describe('Page settings publication', () => {
+  const languages = environment.langs;
   let fixture: ComponentFixture<PageSettingComponent>;
   let component: PageSettingComponent;
   const getSchema = vi.fn();
@@ -31,6 +33,8 @@ describe('Page settings publication', () => {
     type: 'node--landing_page', title: 'Updated title', alias: '/home', publicationState: state,
     is_transparent: false, transparent_style: 'dark', meta_tags: { description: 'Updated SEO' },
   });
+
+  afterEach(() => { environment.langs = languages; });
 
   beforeEach(async () => {
     vi.clearAllMocks();
@@ -142,7 +146,11 @@ describe('Page settings publication', () => {
     permission.complete();
   });
 
-  it('uses the permitted workflow field and the default revision publication flag', async () => {
+  it.each([['zh-hans', ''], ['en', 'zh-hans']])(
+    'reads publication with site default %s', async (defaultLang, prefix) => {
+    environment.langs = languages?.map(lang => ({
+      ...lang, default: lang.langCode === defaultLang,
+    }));
     getSchema.mockReturnValue(of(contentFormFixture({
       moderated: true, baseFields: { moderation_state: 'workflow' },
       baseFieldNames: { status: 'is_published' },
@@ -157,7 +165,7 @@ describe('Page settings publication', () => {
     expect(updateAttributes.mock.calls[0][2]).not.toHaveProperty('status');
     expect(fetchNode).toHaveBeenCalledWith('/api/v1/node/landing_page/page-1', {
       'fields[node--landing_page]': 'is_published',
-    }, 'zh-hans');
+    }, prefix);
     expect(builder.updatePageSettings.mock.calls[0][1].published).toBe(true);
   });
 
