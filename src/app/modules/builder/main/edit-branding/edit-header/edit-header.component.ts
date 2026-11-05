@@ -37,7 +37,11 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { HasUnsavedChanges } from '@core/guards/unsaved-changes.guard';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { BrandingPreviewComponent } from '../branding-preview/branding-preview.component';
-import { formatBrandingJson, getBrandingJsonError, mergeBrandingJson } from '../branding-json.util';
+import {
+  changeBrandingJson,
+  toggleBrandingJsonEditMode,
+  updateBrandingJsonPreview,
+} from '../branding-json-state';
 import { buildHeaderConfig } from '../branding-config.util';
 import { canSaveBranding } from '../branding-save.util';
 import {
@@ -266,13 +270,9 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
     if (!this.header()) {
       return;
     }
-    try {
-      const built = this.buildHeader();
-      this.jsonPreview.set(formatBrandingJson(built));
-      this.updateLivePreview(built);
-    } catch {
-      // skip
-    }
+    updateBrandingJsonPreview(this, () => this.buildHeader(), value => {
+      this.updateLivePreview(value);
+    });
   }
 
   private updateLivePreview(header: IHeader): void {
@@ -282,28 +282,14 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
     }
   }
 
-  // #3 Toggle JSON edit mode
   toggleJsonEditMode(): void {
-    if (!this.jsonEditMode()) {
-      this.customJson = this.jsonPreview();
-      this.jsonError.set('');
-    }
-    this.jsonEditMode.set(!this.jsonEditMode());
+    toggleBrandingJsonEditMode(this);
   }
 
-  // #5 Validate JSON on input
   onJsonChange(value: string): void {
-    this.customJson = value;
-    this.markDirty();
-    const error = getBrandingJsonError(value);
-    this.jsonError.set(error);
-    if (!error) {
-      try {
-        this.updateLivePreview(mergeBrandingJson(this.buildHeader(), value));
-      } catch {
-        // keep last valid preview
-      }
-    }
+    changeBrandingJson(this, value, () => this.buildHeader(), config => {
+      this.updateLivePreview(config);
+    });
   }
 
   initParamsFields(header: IHeader): void {

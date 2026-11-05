@@ -89,6 +89,77 @@ describe.each([
     return { editor, fixture, branding, value, build };
   }
 
+  it('previews corrected JSON without changing the source or the other section', () => {
+    const { editor, branding } = createEditor();
+    const original = structuredClone(branding);
+    editor.dirty.set(false);
+    editor.onJsonChange('{"params":{"customFlag":true}}');
+    const validPreview = editor.previewBranding();
+    expect(validPreview?.[section]?.params).toMatchObject({ customFlag: true });
+    expect(validPreview?.[section === 'header' ? 'footer' : 'header'])
+      .toBe(branding[section === 'header' ? 'footer' : 'header']);
+    expect(editor.dirty()).toBe(true);
+    expect(editor.jsonError()).toBe('');
+    editor.onJsonChange('{');
+    expect(editor.customJson).toBe('{');
+    expect(editor.jsonError()).not.toBe('');
+    expect(editor.previewBranding()).toBe(validPreview);
+    editor.onJsonChange('{"params":{"customFlag":false}}');
+    expect(editor.previewBranding()?.[section]?.params).toMatchObject({ customFlag: false });
+    expect(editor.jsonError()).toBe('');
+    expect(branding).toEqual(original);
+    expect(updateAttributes).not.toHaveBeenCalled();
+  });
+
+  it('copies the generated preview only when entering JSON mode, per instance', () => {
+    const first = createEditor().editor;
+    const second = createEditor().editor;
+    first.jsonPreview.set('{"params":{}}');
+    first.toggleJsonEditMode();
+    expect(first.jsonEditMode()).toBe(true);
+    expect(first.customJson).toBe(first.jsonPreview());
+    expect(first.jsonError()).toBe('');
+    first.onJsonChange('{');
+    first.toggleJsonEditMode();
+    expect(first.jsonEditMode()).toBe(false);
+    expect(first.customJson).toBe('{');
+    expect(first.jsonError()).not.toBe('');
+    expect(second.jsonEditMode()).toBe(false);
+    expect(second.customJson).toBe('');
+    expect(second.jsonError()).toBe('previous JSON error');
+    expect(second.previewBranding()).toBeNull();
+    first.toggleJsonEditMode();
+    expect(first.customJson).toBe(first.jsonPreview());
+    expect(first.jsonError()).toBe('');
+  });
+
+  it('keeps previews when no section is loaded or its form cannot build', () => {
+    const { editor, build, value } = createEditor();
+    editor.dirty.set(false);
+    editor.updateJsonPreview();
+    expect(build).not.toHaveBeenCalled();
+    if (editor instanceof EditHeaderComponent) {
+      editor.header.set(value as IHeader);
+    } else {
+      editor.footer.set(value as IFooter);
+    }
+    editor.updateJsonPreview();
+    const preview = editor.previewBranding();
+    const json = editor.jsonPreview();
+    expect(JSON.parse(json)).toEqual(value);
+    expect(preview?.[section]).toEqual(value);
+    expect(editor.dirty()).toBe(false);
+    build.mockImplementation(() => { throw new Error('incomplete form'); });
+    editor.updateJsonPreview();
+    expect(editor.jsonPreview()).toBe(json);
+    expect(editor.previewBranding()).toBe(preview);
+    editor.onJsonChange('{}');
+    expect(editor.customJson).toBe('{}');
+    expect(editor.dirty()).toBe(true);
+    expect(editor.jsonError()).toBe('');
+    expect(editor.previewBranding()).toBe(preview);
+  });
+
   it('rejects a missing node before building or changing save state', () => {
     const { editor, build } = createEditor();
     editor.nodeUuid.set('');

@@ -37,7 +37,11 @@ import { HasUnsavedChanges } from '@core/guards/unsaved-changes.guard';
 import { TranslateService } from '@ngx-translate/core';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { BrandingPreviewComponent } from '../branding-preview/branding-preview.component';
-import { formatBrandingJson, getBrandingJsonError, mergeBrandingJson } from '../branding-json.util';
+import {
+  changeBrandingJson,
+  toggleBrandingJsonEditMode,
+  updateBrandingJsonPreview,
+} from '../branding-json-state';
 import { buildFooterConfig } from '../branding-config.util';
 import { canSaveBranding } from '../branding-save.util';
 import {
@@ -294,13 +298,9 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
     if (!this.footer()) {
       return;
     }
-    try {
-      const built = this.buildFooter();
-      this.jsonPreview.set(formatBrandingJson(built));
-      this.updateLivePreview(built);
-    } catch {
-      /* skip */
-    }
+    updateBrandingJsonPreview(this, () => this.buildFooter(), value => {
+      this.updateLivePreview(value);
+    });
   }
 
   private updateLivePreview(footer: IFooter): void {
@@ -311,25 +311,13 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
   }
 
   toggleJsonEditMode(): void {
-    if (!this.jsonEditMode()) {
-      this.customJson = this.jsonPreview();
-      this.jsonError.set('');
-    }
-    this.jsonEditMode.set(!this.jsonEditMode());
+    toggleBrandingJsonEditMode(this);
   }
 
   onJsonChange(value: string): void {
-    this.customJson = value;
-    this.markDirty();
-    const error = getBrandingJsonError(value);
-    this.jsonError.set(error);
-    if (!error) {
-      try {
-        this.updateLivePreview(mergeBrandingJson(this.buildFooter(), value));
-      } catch {
-        // keep last valid preview
-      }
-    }
+    changeBrandingJson(this, value, () => this.buildFooter(), config => {
+      this.updateLivePreview(config);
+    });
   }
 
   // ── Field init (unchanged) ──
