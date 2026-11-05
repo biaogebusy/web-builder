@@ -63,30 +63,27 @@ export function buildCommentsParams(
   return {
     path,
     type: getCommentType(content),
-    params: buildQueryString(
-      {
-        'filter[entity_id.id]': getCommentRelEntityId(content),
-        include: 'uid,uid.user_picture,pid',
-        'fields[user--user]': 'name,user_picture',
-        'fields[file--file]': 'uri,url',
-        sort: '-created',
-        jsonapi_include: 1,
-        timeStamp,
-      },
-      { encodeKeys: false }
-    ),
+    params: buildCommentQuery('entity_id.id', getCommentRelEntityId(content), timeStamp),
   };
 }
 
 export function buildCommentsPidParams(pid: string, timeStamp: number): string {
+  return buildCommentQuery('pid.id', pid, timeStamp);
+}
+
+function buildCommentQuery(
+  field: 'entity_id.id' | 'pid.id',
+  id: string,
+  timeStamp: number
+): string {
   return buildQueryString(
     {
-      'filter[pid.id]': pid,
-      include: 'uid,uid.user_picture,pid',
+      [`filter[${field}]`]: id,
+      'include': 'uid,uid.user_picture,pid',
       'fields[user--user]': 'name,user_picture',
       'fields[file--file]': 'uri,url',
-      sort: '-created',
-      jsonapi_include: 1,
+      'sort': '-created',
+      'jsonapi_include': 1,
       timeStamp,
     },
     { encodeKeys: false }
