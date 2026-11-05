@@ -6,6 +6,7 @@ import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { IUiux } from '@core/interface/IBuilder';
 import { UIUX } from '@core/token/token-providers';
+import type { FormlyFieldConfig } from '@ngx-formly/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, of, Subject, throwError } from 'rxjs';
 
@@ -87,6 +88,119 @@ describe('NodeUiuxComponent', () => {
 
     component = TestBed.runInInjectionContext(() => new NodeUiuxComponent());
     component.categoriesLoaded.set(true);
+  });
+
+  describe('category loading', () => {
+    const term = (id: string, name?: string, parent?: string) => ({
+      id,
+      attributes: { name },
+      relationships: {
+        parent: { data: parent ? [{ type: 'taxonomy_term--component_type', id: parent }] : [] },
+      },
+    });
+    const options = () => {
+      const fields: FormlyFieldConfig[] =
+        dialog.open.mock.lastCall![1].data.inputData.content.fields;
+      return fields.find(field => field.key === 'category')?.props?.options;
+    };
+
+    beforeEach(() => component.categoriesLoaded.set(false));
+
+    for (const mode of ['create', 'edit'] as const) {
+      const open = () => mode === 'create' ? component.onAdd() : component.onEdit(heroItem);
+
+      it(`loads ordered category paths once for ${mode} and reuses them on the next open`, () => {
+        const response$ = new Subject<unknown>();
+        nodeService.fetch.mockReturnValueOnce(response$);
+        if (mode === 'edit') {
+          nodeService.fetch.mockReturnValueOnce(of({ data: { relationships: {
+            category: { data: [{ id: 'leaf' }] },
+          } } }));
+        }
+
+        open();
+
+        expect(nodeService.fetch).toHaveBeenNthCalledWith(
+          1, '/api/v1/taxonomy_term/component_type', 'include=parent&page[limit]=200'
+        );
+        expect(component.loading()).toBe(true);
+        expect(dialog.open).not.toHaveBeenCalled();
+        response$.next({
+          data: [term('leaf', 'Leaf', 'branch'), term('branch', 'Branch', 'root'),
+            term('missing', undefined, 'unknown')],
+          included: [term('root', 'Root'), term('branch', 'Updated branch')],
+        });
+        const expected = [
+          { value: 'leaf', label: 'Root > Updated branch > Leaf' },
+          { value: 'branch', label: 'Root > Updated branch' },
+          { value: 'missing', label: 'unknown > missing' },
+        ];
+        expect(options()).toEqual(expected);
+        expect(component.loading()).toBe(false);
+        expect(component.categoriesLoaded()).toBe(true);
+        expect(response$.observed).toBe(false);
+        expect(dialog.open.mock.lastCall![1].data.inputData.content.form.value.category)
+          .toEqual(mode === 'edit' ? ['leaf'] : []);
+        closed$.next(false);
+
+        component.onAdd();
+
+        expect(nodeService.fetch).toHaveBeenCalledTimes(mode === 'edit' ? 2 : 1);
+        expect(options()).toEqual(expected);
+        expect(nodeService.addEntity).not.toHaveBeenCalled();
+        expect(builderService.updateAttributes).not.toHaveBeenCalled();
+      });
+
+      it(`reports a failed category load during ${mode} and allows a retry`, () => {
+        const response$ = new Subject<unknown>();
+        nodeService.fetch.mockReturnValueOnce(response$);
+        open();
+
+        response$.error(new Error('Categories unavailable'));
+
+        expect(component.loading()).toBe(false);
+        expect(component.categoriesLoaded()).toBe(false);
+        expect(dialog.open).not.toHaveBeenCalled();
+        expect(util.openSnackbar).toHaveBeenCalledWith(
+          mode === 'create' ? 'BUILDER.NODE_UIUX.LOAD_CATEGORIES_FAILED'
+            : 'BUILDER.NODE_UIUX.LOAD_COMPONENT_FAILED',
+          'BUILDER.COMMON.OK'
+        );
+
+        open();
+
+        expect(nodeService.fetch).toHaveBeenCalledTimes(mode === 'edit' ? 4 : 2);
+        expect(component.categoriesLoaded()).toBe(true);
+        expect(options()).toEqual([]);
+      });
+    }
+
+    it('caches an empty category response without refetching', () => {
+      nodeService.fetch.mockReturnValueOnce(of({}));
+      component.onAdd();
+      expect(options()).toEqual([]);
+      closed$.next(false);
+
+      component.onAdd();
+
+      expect(component.categoriesLoaded()).toBe(true);
+      expect(nodeService.fetch).toHaveBeenCalledTimes(1);
+      expect(options()).toEqual([]);
+    });
+
+    it('cancels a pending category load when the component is destroyed', () => {
+      const response$ = new Subject<unknown>();
+      nodeService.fetch.mockReturnValueOnce(response$);
+      component.onAdd();
+      expect(response$.observed).toBe(true);
+
+      TestBed.resetTestingModule();
+      response$.next({ data: [term('late', 'Late')] });
+
+      expect(response$.observed).toBe(false);
+      expect(component.categoriesLoaded()).toBe(false);
+      expect(dialog.open).not.toHaveBeenCalled();
+    });
   });
 
   it('searches components inside collapsed groups and hides unmatched groups', () => {

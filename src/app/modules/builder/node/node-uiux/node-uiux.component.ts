@@ -89,7 +89,6 @@ interface IGroupView {
 interface ICategoryOption {
   id: string;
   name: string;
-  l1Name: string;
 }
 
 type TableRow = GroupL1Row | GroupL2Row | IComponentItem;
@@ -754,11 +753,6 @@ export class NodeUiuxComponent {
             );
             if (real) parentMap.set(t.id, real.id);
           });
-          const getL1 = (id: string, depth = 0): string => {
-            if (depth > 5) return nameMap.get(id) || id;
-            const pid = parentMap.get(id);
-            return pid ? getL1(pid, depth + 1) : (nameMap.get(id) || id);
-          };
           const getPath = (id: string, depth = 0): string => {
             if (depth > 5) return nameMap.get(id) || id;
             const pid = parentMap.get(id);
@@ -768,7 +762,6 @@ export class NodeUiuxComponent {
           return allTerms.map((t: any) => ({
             id: t.id,
             name: getPath(t.id),
-            l1Name: getL1(t.id),
           }));
         }),
         tap(cats => {
