@@ -50,6 +50,13 @@ interface IComponentItem {
   l2Label: string;
 }
 
+interface ComponentFormValue {
+  title: string;
+  icon: string;
+  category: string[];
+  body?: object;
+}
+
 interface GroupL1Row {
   isL1Group: true;
   name: string;
@@ -447,13 +454,8 @@ export class NodeUiuxComponent {
       .subscribe({
         next: cats => {
           this.loading.set(false);
-          const form = new UntypedFormGroup({
-            title: new FormControl('', Validators.required),
-            icon: new FormControl(''),
-            category: new FormControl([]),
-            body: new FormControl({}),
-          });
           const model = { title: '', icon: '', category: [], body: {} };
+          const form = this.createComponentForm(model);
           this.dialog
             .open(DialogComponent, {
               width: '900px',
@@ -470,24 +472,14 @@ export class NodeUiuxComponent {
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe(confirmed => {
               if (confirmed !== true) return;
-              const { title, icon, category, body } = form.value;
-              const trimmedTitle = title?.trim();
-              if (!trimmedTitle) {
-                this.util.openSnackbar(
-                  this.translate.instant('BUILDER.NODE_UIUX.TITLE_REQUIRED'),
-                  this.okLabel
-                );
-                return;
-              }
+              const metadata = this.componentMetadata(form.value);
+              if (!metadata) return;
+              const { body } = form.value;
               const bodyValue = body && typeof body === 'object' ? body : {};
-              const catData = (category || []).map((id: string) => ({
-                type: 'taxonomy_term--component_type', id,
-              }));
               this.loading.set(true);
               this.nodeService
                 .addEntity('/api/v1/node/component', {
-                  title: trimmedTitle,
-                  icon: icon || null,
+                  ...metadata.attributes,
                   body: JSON.stringify(bodyValue),
                 })
                 .pipe(
@@ -496,7 +488,7 @@ export class NodeUiuxComponent {
                       { uuid: res.data.id },
                       '/api/v1/node/component',
                       {},
-                      { category: { data: catData } }
+                      metadata.relationships
                     )
                   ),
                   takeUntilDestroyed(this.destroyRef)
@@ -546,12 +538,8 @@ export class NodeUiuxComponent {
           const currentCatIds: string[] = (node?.data?.relationships?.category?.data || []).map(
             (c: any) => c.id
           );
-          const form = new UntypedFormGroup({
-            title: new FormControl(item.label, Validators.required),
-            icon: new FormControl(item.icon || ''),
-            category: new FormControl(currentCatIds),
-          });
           const model = { title: item.label, icon: item.icon || '', category: currentCatIds };
+          const form = this.createComponentForm(model);
           this.dialog
             .open(DialogComponent, {
               width: '500px',
@@ -567,25 +555,15 @@ export class NodeUiuxComponent {
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe(confirmed => {
               if (confirmed !== true) return;
-              const { title, icon, category } = form.value;
-              const trimmedTitle = title?.trim();
-              if (!trimmedTitle) {
-                this.util.openSnackbar(
-                  this.translate.instant('BUILDER.NODE_UIUX.TITLE_REQUIRED'),
-                  this.okLabel
-                );
-                return;
-              }
+              const metadata = this.componentMetadata(form.value);
+              if (!metadata) return;
               this.loading.set(true);
-              const catData = (category || []).map((id: string) => ({
-                type: 'taxonomy_term--component_type', id,
-              }));
               this.builderService
                 .updateAttributes(
                   { uuid: item.uuid },
                   '/api/v1/node/component',
-                  { title: trimmedTitle, icon: icon || null },
-                  { category: { data: catData } }
+                  metadata.attributes,
+                  metadata.relationships
                 )
                 .pipe(takeUntilDestroyed(this.destroyRef))
                 .subscribe({
@@ -803,6 +781,32 @@ export class NodeUiuxComponent {
           this.categoriesLoaded.set(true);
         })
       );
+  }
+
+  private createComponentForm(model: ComponentFormValue): UntypedFormGroup {
+    const form = new UntypedFormGroup({
+      title: new FormControl(model.title, Validators.required),
+      icon: new FormControl(model.icon),
+      category: new FormControl(model.category),
+    });
+    if (model.body !== undefined) form.addControl('body', new FormControl(model.body));
+    return form;
+  }
+
+  private componentMetadata({ title, icon, category }: ComponentFormValue) {
+    const trimmedTitle = title?.trim();
+    if (!trimmedTitle) {
+      this.util.openSnackbar(
+        this.translate.instant('BUILDER.NODE_UIUX.TITLE_REQUIRED'), this.okLabel
+      );
+      return null;
+    }
+    return {
+      attributes: { title: trimmedTitle, icon: icon || null },
+      relationships: { category: { data: (category || []).map(id => ({
+        type: 'taxonomy_term--component_type', id,
+      })) } },
+    };
   }
 
   private buildFormDialog(

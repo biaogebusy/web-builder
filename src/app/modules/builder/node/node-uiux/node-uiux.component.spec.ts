@@ -275,6 +275,60 @@ describe('NodeUiuxComponent', () => {
     expect(contentService.reloadUIUX).toHaveBeenCalled();
   });
 
+  for (const mode of ['create', 'edit'] as const) {
+    it(`rejects a blank title in the ${mode} form without writing`, () => {
+      if (mode === 'create') component.onAdd();
+      else component.onEdit(heroItem);
+      const form = dialog.open.mock.calls[0][1].data.inputData.content.form;
+      form.patchValue({ title: '  ' });
+
+      closed$.next(true);
+
+      expect(nodeService.addEntity).not.toHaveBeenCalled();
+      expect(builderService.updateAttributes).not.toHaveBeenCalled();
+      expect(component.loading()).toBe(false);
+      expect(util.openSnackbar).toHaveBeenCalledWith(
+        'BUILDER.NODE_UIUX.TITLE_REQUIRED', 'BUILDER.COMMON.OK'
+      );
+    });
+  }
+
+  it('creates the JSON body before assigning categories to the returned component', () => {
+    const created$ = new Subject<{ data: { id: string } }>();
+    nodeService.addEntity.mockReturnValueOnce(created$);
+    component.onAdd();
+    const form = dialog.open.mock.calls[0][1].data.inputData.content.form;
+    form.patchValue({ title: '  Card  ', icon: '', category: ['cat-1'], body: { type: 'card' } });
+
+    closed$.next(true);
+
+    expect(nodeService.addEntity).toHaveBeenCalledWith('/api/v1/node/component', {
+      title: 'Card', icon: null, body: '{"type":"card"}',
+    });
+    expect(builderService.updateAttributes).not.toHaveBeenCalled();
+    created$.next({ data: { id: 'new-uuid' } });
+    expect(builderService.updateAttributes).toHaveBeenCalledWith(
+      { uuid: 'new-uuid' }, '/api/v1/node/component', {},
+      { category: { data: [{ type: 'taxonomy_term--component_type', id: 'cat-1' }] } }
+    );
+    created$.complete();
+  });
+
+  it('updates trimmed metadata with an empty category relationship and no body', () => {
+    component.onEdit(heroItem);
+    const form = dialog.open.mock.calls[0][1].data.inputData.content.form;
+    expect(form.contains('body')).toBe(false);
+    form.patchValue({ title: '  Renamed  ', icon: 'star', category: [] });
+
+    closed$.next(true);
+
+    expect(nodeService.addEntity).not.toHaveBeenCalled();
+    expect(builderService.updateAttributes).toHaveBeenCalledWith(
+      { uuid: 'hero-uuid' }, '/api/v1/node/component',
+      { title: 'Renamed', icon: 'star' }, { category: { data: [] } }
+    );
+  });
+
   it('shows an error and clears loading when updating fails', () => {
     builderService.updateAttributes.mockReturnValueOnce(
       throwError(() => new Error('Update failed'))
