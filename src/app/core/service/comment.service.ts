@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IComment } from '@core/interface/node/INode';
 import { CORE_CONFIG } from '@core/token/token-providers';
-import { appendQueryParams, type QueryParams } from '@core/util/http-params.util';
+import { appendQueryParams } from '@core/util/http-params.util';
 import {
   buildCommentsParams,
   buildCommentsPidParams,
@@ -12,8 +12,6 @@ import {
 } from '@core/util/node-comment.util';
 import { forkJoin, map, Observable, switchMap } from 'rxjs';
 import { ApiService } from './api.service';
-
-type ApiQueryParams = QueryParams | string | null | undefined;
 
 @Injectable({
   providedIn: 'root',
@@ -103,7 +101,7 @@ export class CommentService extends ApiService {
     const path = this.commentGetPath;
     const type = this.getCommentType(content);
     const { params } = this.getCommentsParams(content, timeStamp);
-    return this.getNodes(path, type, params).pipe(
+    return this.getCollection(path, type, params).pipe(
       switchMap((data: any) => {
         const lists = data.data
           .filter((list: any) => {
@@ -118,7 +116,7 @@ export class CommentService extends ApiService {
           });
         const obj: any = {};
         lists.map((item: any) => {
-          obj[item.id] = this.getNodes(
+          obj[item.id] = this.getCollection(
             path,
             type,
             this.getCommentsPidParams(item.id, timeStamp)
@@ -147,17 +145,6 @@ export class CommentService extends ApiService {
   getCustomApiComment(uuid: string, timeStamp = 1): Observable<any> {
     return this.http.get<IComment[]>(
       appendQueryParams(`${this.apiUrl}/api/v3/comment/comment/${uuid}`, { timeStamp }),
-      this.httpOptionsOfCommon
-    );
-  }
-
-  private getNodes(path: string, type: string, params: ApiQueryParams = ''): Observable<any> {
-    const apiPath = `${this.apiUrl}${path}/${type}`;
-    return this.http.get<any>(
-      appendQueryParams(apiPath, params, {
-        arrayFormat: 'plus',
-        encodeKeys: false,
-      }),
       this.httpOptionsOfCommon
     );
   }

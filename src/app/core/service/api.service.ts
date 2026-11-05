@@ -3,7 +3,7 @@ import { Injectable, inject, DOCUMENT } from '@angular/core';
 import { ILanguage } from '@core/interface/IEnvironment';
 import { IPager } from '@core/interface/widgets/IWidgets';
 import { API_URL } from '@core/token/token-providers';
-import { buildQueryString, QueryParams } from '@core/util/http-params.util';
+import { appendQueryParams, buildQueryString, QueryParams } from '@core/util/http-params.util';
 import { getLangPrefix } from '@core/util/language.util';
 import camelCase from 'lodash-es/camelCase';
 import result from 'lodash-es/result';
@@ -120,6 +120,22 @@ export class ApiService {
       encodeKeys: false,
     });
   }
+
+  /** Keeps collection reads on the common headers and Drupal query encoding. */
+  protected getCollection(
+    path: string,
+    type: string,
+    params: QueryParams | string | null | undefined = ''
+  ): Observable<unknown> {
+    return this.http.get<unknown>(
+      appendQueryParams(`${this.apiUrl}${path}/${type}`, params, {
+        arrayFormat: 'plus',
+        encodeKeys: false,
+      }),
+      this.httpOptionsOfCommon
+    );
+  }
+
   handlePager(pager: any, length?: number): IPager {
     const { current_page, total_pages, total_items, items_per_page } = pager;
     if (current_page === null && total_pages === 0) {

@@ -98,14 +98,7 @@ export class NodeService extends ApiService {
 
   // params can use for noCache
   getNodes(path: string, type: string, params: ApiQueryParams = ''): Observable<any> {
-    const apiPath = `${this.apiUrl}${path}/${type}`;
-    return this.http.get<any>(
-      appendQueryParams(apiPath, params, {
-        arrayFormat: 'plus',
-        encodeKeys: false,
-      }),
-      this.httpOptionsOfCommon
-    );
+    return this.getCollection(path, type, params);
   }
 
   /**
