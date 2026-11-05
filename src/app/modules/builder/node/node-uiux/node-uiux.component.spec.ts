@@ -202,6 +202,50 @@ describe('NodeUiuxComponent', () => {
     expect(pending.totalCount()).toBe(0);
   });
 
+  it('counts all components independently of search and expansion and follows feed updates', () => {
+    seedGroups();
+    uiux$.next([
+      ...uiux$.value,
+      { label: 'Empty', icon: '', type: 'component', elements: [] },
+      { label: 'Samples', icon: '', type: 'sample', elements: { label: 'Pages', elements: [] } },
+    ]);
+    expect(component.totalCount()).toBe(2);
+    expect(component.groupCount()).toBe(3);
+    component.expandedGroups.set(new Set());
+    expect(component.visibleItemUuids()).toEqual([]);
+    expect(component.totalCount()).toBe(2);
+
+    component.onSearch('button');
+    expect(component.visibleItemUuids()).toEqual(['button-uuid']);
+    expect(component.totalCount()).toBe(2);
+    uiux$.next([{
+      label: 'Widget', icon: '', type: 'base',
+      elements: [{ label: 'Controls', child: [{ uuid: 'new-button', label: 'Button' }] }],
+    }]);
+    expect(component.totalCount()).toBe(1);
+    expect(component.visibleItemUuids()).toEqual(['new-button']);
+
+    uiux$.next([]);
+    expect(component.totalCount()).toBe(0);
+    expect(component.groupTree()).toEqual([]);
+  });
+
+  it('counts components without UUIDs but excludes them and group rows from selection', () => {
+    uiux$.next([{
+      label: 'Widget', icon: '', type: 'base',
+      elements: [{ label: 'Controls', child: [
+        { uuid: 'button', label: 'Button' }, { label: 'Unsaved' },
+      ] }],
+    }]);
+    component.expandedGroups.set(new Set(['Widget']));
+    expect(component.totalCount()).toBe(2);
+    expect(component.visibleItemUuids()).toEqual(['button']);
+    expect(component.groupTree()[0].subGroups[0].items).toHaveLength(2);
+    component.toggleSelectAll(true);
+    expect([...component.selectedIds()]).toEqual(['button']);
+    expect(component.isAllSelected()).toBe(true);
+  });
+
   it('does not start creating when the dialog close button is used', () => {
     component.onAdd();
 
