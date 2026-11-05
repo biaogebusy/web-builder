@@ -136,22 +136,15 @@ export class ApiService {
     );
   }
 
+  /** Keeps Views page numbering and the existing zero-page row-count fallback. */
   handlePager(pager: any, length?: number): IPager {
     const { current_page, total_pages, total_items, items_per_page } = pager;
-    if (current_page === null && total_pages === 0) {
-      return {
-        itemsPerPage: length || total_items,
-        currentPage: 0,
-        totalItems: total_items,
-        totalPages: total_pages,
-      };
-    } else {
-      return {
-        itemsPerPage: items_per_page,
-        currentPage: current_page,
-        totalItems: total_items,
-        totalPages: total_pages,
-      };
-    }
+    const useFallback = current_page === null && total_pages === 0;
+    return {
+      itemsPerPage: useFallback ? length || total_items : items_per_page,
+      currentPage: useFallback ? 0 : current_page,
+      totalItems: total_items,
+      totalPages: total_pages,
+    };
   }
 }
