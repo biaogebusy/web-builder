@@ -47,10 +47,10 @@ jobs:
             ${{ runner.os }}-node22-angular-${{ hashFiles('package-lock.json', 'angular.json', 'tsconfig*.json') }}-
 
       - name: NPM Install
-        run: npm ci
+        run: bash scripts/ci-install.sh
 
       - name: CI and deployment regressions
-        run: node --test scripts/ci-changes.test.mjs scripts/deploy-assets.test.mjs
+        run: node --test scripts/ci-install.test.mjs scripts/ci-changes.test.mjs scripts/deploy-assets.test.mjs
 
       - name: NPM build all App Production
         run: npm run build
