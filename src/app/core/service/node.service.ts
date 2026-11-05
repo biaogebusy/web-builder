@@ -206,16 +206,16 @@ export class NodeService extends ApiService {
     return attr?.path?.alias ? attr.path.alias : `/node/${attr.drupal_internal__nid}`;
   }
 
-  addComment(type: string, entityData: any, token: string): Observable<any> {
-    return this.commentService.addComment(type, entityData, token);
+  addComment(type: string, entityData: any): Observable<any> {
+    return this.commentService.addComment(type, entityData);
   }
 
-  updateComment(type: string, entityData: any, uuid: string, token: string): Observable<any> {
-    return this.commentService.updateComment(type, entityData, uuid, token);
+  updateComment(type: string, entityData: any, uuid: string): Observable<any> {
+    return this.commentService.updateComment(type, entityData, uuid);
   }
 
-  replyComment(type: string, entityData: any, token: string): Observable<any> {
-    return this.commentService.replyComment(type, entityData, token);
+  replyComment(type: string, entityData: any): Observable<any> {
+    return this.commentService.replyComment(type, entityData);
   }
 
   getCommentType(content: any): string {

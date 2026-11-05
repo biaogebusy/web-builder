@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IComment } from '@core/interface/node/INode';
-import { CORE_CONFIG, USER } from '@core/token/token-providers';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { appendQueryParams, type QueryParams } from '@core/util/http-params.util';
 import {
   buildCommentsParams,
@@ -20,7 +20,6 @@ type ApiQueryParams = QueryParams | string | null | undefined;
 })
 export class CommentService extends ApiService {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
-  private user = inject(USER);
 
   private readonly commentGetPath = '/api/v1/comment';
 
@@ -38,17 +37,17 @@ export class CommentService extends ApiService {
   }
 
   /** Creates a comment using the caller's permitted text format. */
-  addComment(type: string, entityData: any, token: string): Observable<any> {
+  addComment(type: string, entityData: any): Observable<any> {
     return this.writeComment(type, entityData);
   }
 
   /** Updates body fields without changing the comment author. */
-  updateComment(type: string, entityData: any, uuid: string, token: string): Observable<any> {
+  updateComment(type: string, entityData: any, uuid: string): Observable<any> {
     return this.writeComment(type, entityData, uuid);
   }
 
   /** Replies using the same format policy as a new comment. */
-  replyComment(type: string, entityData: any, token: string): Observable<any> {
+  replyComment(type: string, entityData: any): Observable<any> {
     return this.writeComment(type, entityData);
   }
 
@@ -101,8 +100,6 @@ export class CommentService extends ApiService {
   }
 
   getCommentsWitchChild(content: any, timeStamp = 1): Observable<any> {
-    const user = this.user();
-    const token = typeof user === 'object' ? user.access_token : undefined;
     const path = this.commentGetPath;
     const type = this.getCommentType(content);
     const { params } = this.getCommentsParams(content, timeStamp);
