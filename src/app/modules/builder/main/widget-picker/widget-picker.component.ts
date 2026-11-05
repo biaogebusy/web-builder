@@ -120,34 +120,21 @@ export class WidgetPickerComponent implements OnInit {
    */
   public visibleItems = computed<ISearchHit[]>(() => {
     const q = this.searchQuery().trim().toLowerCase();
-    const groups = this.widgetGroups();
-    if (q) {
-      const hits: ISearchHit[] = [];
-      for (const group of groups) {
-        for (const item of group.child) {
-          const haystack = [item.label, item.mark, group.label]
-            .filter(Boolean)
-            .join(' ')
-            .toLowerCase();
-          if (haystack.includes(q)) hits.push({ item, group });
-        }
+    let groups = this.widgetGroups();
+    // Search spans every category; only an empty query uses the selected chip.
+    if (!q) {
+      const idx = this.activeCategoryIndex();
+      if (idx !== 0) {
+        const group = groups[idx - 1];
+        groups = group ? [group] : [];
       }
-      return hits;
     }
-    const idx = this.activeCategoryIndex();
-    // Index 0 is the "All" synthetic chip — flatten everything
-    if (idx === 0) {
-      const all: ISearchHit[] = [];
-      for (const group of groups) {
-        for (const item of group.child) {
-          all.push({ item, group });
-        }
-      }
-      return all;
-    }
-    const group = groups[idx - 1];
-    if (!group) return [];
-    return group.child.map(item => ({ item, group }));
+    const items = groups.flatMap(group => group.child.map(item => ({ item, group })));
+    return q
+      ? items.filter(({ item, group }) =>
+          [item.label, item.mark, group.label].filter(Boolean).join(' ').toLowerCase().includes(q)
+        )
+      : items;
   });
 
   /** Number of results shown; used in the result count line */

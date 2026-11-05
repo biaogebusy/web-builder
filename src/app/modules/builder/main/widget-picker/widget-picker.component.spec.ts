@@ -144,6 +144,32 @@ describe('WidgetPickerComponent', () => {
       expect(component.visibleItems()).toEqual([]);
       expect(component.isSearching()).toBe(true);
     });
+
+    it('keeps library order and matches labels, marks and categories as one search text', () => {
+      const groups = component.widgetGroups();
+      expect(component.visibleItems().map(hit => hit.item.id)).toEqual([
+        'hero-1v1', 'hero-2v1', 'card-1v1', 'webform:contact',
+      ]);
+      expect(component.visibleItems()[0].group).toBe(groups[0]);
+      expect(component.visibleItems()[0].item).toBe(groups[0].child[0]);
+
+      component.searchQuery.set(' HERO 1V1 大标题 ');
+      expect(component.visibleItems().map(hit => hit.item.id)).toEqual(['hero-1v1']);
+      component.searchQuery.set('首屏');
+      expect(component.visibleItems().map(hit => hit.item.id)).toEqual(['hero-1v1', 'hero-2v1']);
+      component.selectCategory(2);
+      component.searchQuery.set('   ');
+      expect(component.visibleItems().map(hit => hit.item.id)).toEqual(['card-1v1']);
+    });
+
+    it.each([-1, 99])('keeps invalid category %s empty unless a search is active', index => {
+      component.selectCategory(index);
+      expect(component.visibleItems()).toEqual([]);
+      component.searchQuery.set('hero');
+      expect(component.visibleItems().map(hit => hit.item.id)).toEqual(['hero-1v1', 'hero-2v1']);
+      component.clearSearch();
+      expect(component.visibleItems()).toEqual([]);
+    });
   });
 
   it('warns and does nothing when no target position has been selected', () => {
