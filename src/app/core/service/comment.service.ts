@@ -97,26 +97,19 @@ export class CommentService extends ApiService {
     return mapComment(comment, level, this.coreConfig?.defaultAvatar);
   }
 
+  /** Keeps the two-stage read and completion behavior of the comment tree. */
   getCommentsWitchChild(content: any, timeStamp = 1): Observable<any> {
     const path = this.commentGetPath;
     const type = this.getCommentType(content);
     const { params } = this.getCommentsParams(content, timeStamp);
     return this.getCollection(path, type, params).pipe(
       switchMap((data: any) => {
-        const lists = data.data
-          .filter((list: any) => {
-            if (list.pid.id) {
-              return false;
-            } else {
-              return true;
-            }
-          })
-          .map((comment: any) => {
-            return this.handleComment(comment, 1);
-          });
-        const obj: any = {};
-        lists.map((item: any) => {
-          obj[item.id] = this.getCollection(
+        const lists: IComment[] = data.data
+          .filter((list: any) => !list.pid.id)
+          .map((comment: any) => this.handleComment(comment, 1));
+        const childRequests: Record<string, Observable<IComment[]>> = {};
+        lists.forEach(item => {
+          childRequests[item.id] = this.getCollection(
             path,
             type,
             this.getCommentsPidParams(item.id, timeStamp)
@@ -125,18 +118,12 @@ export class CommentService extends ApiService {
               if (!childs.data) {
                 return [];
               }
-              return childs.data.map((child: any) => {
-                return this.handleComment(child, 2);
-              });
+              return childs.data.map((child: any) => this.handleComment(child, 2));
             })
           );
         });
-        return forkJoin(obj).pipe(
-          map((comments: any) => {
-            return lists.map((item: any) => {
-              return Object.assign(item, { child: comments[item.id] });
-            });
-          })
+        return forkJoin(childRequests).pipe(
+          map(comments => lists.map(item => Object.assign(item, { child: comments[item.id] })))
         );
       })
     );
