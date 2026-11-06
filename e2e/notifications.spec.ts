@@ -2,10 +2,12 @@ import { mockLoginNavigation, submitLogin } from './fixtures/login-navigation';
 import { expect, test } from './fixtures/test';
 
 for (const theme of ['light-theme', 'dark-theme']) {
-  test(`notifications retain their source and read action: ${theme}`, async ({ page, context }, info) => {
+  test(`notifications recover polling and retain their source: ${theme}`, async ({ page, context }, info) => {
     const reads: string[] = [];
     const writes: string[] = [];
     const errors: string[] = [];
+    let failing = false;
+    let recovered = false;
     page.on('pageerror', error => errors.push(error.message));
     await mockLoginNavigation(page, '/home', { theme });
     await context.route('**/api/v3/landingPage*', route => {
@@ -29,7 +31,10 @@ for (const theme of ['light-theme', 'dark-theme']) {
       reads.push(url.pathname);
       expect(url.searchParams.get('noCache')).toBe('1');
       const name = url.pathname.split('notify-')[1].replace('/', '');
-      const ids = name === 'first' ? ['first-1', 'first-2'] : name === 'second' ? ['second-1'] : [];
+      if (failing && name === 'second') return route.fulfill({ status: 503, json: {} });
+      const ids = name === 'first'
+        ? (failing ? ['partial'] : recovered ? ['first-new'] : ['first-1', 'first-2'])
+        : name === 'second' ? [recovered ? 'second-new' : 'second-1'] : [];
       return route.fulfill({ json: { rows: ids.map(id => ({
         uuid: id, title: `Notification ${id}`, url: `/messages/${id}`,
       })) } });
@@ -42,6 +47,7 @@ for (const theme of ['light-theme', 'dark-theme']) {
     await page.goto('/me/login');
     await submitLogin(page);
     await expect(page).toHaveURL(/\/home$/);
+    await page.clock.install();
     await page.reload();
     const bell = page.getByRole('button', { name: 'show notify' });
     await expect(bell.locator('.mat-badge-content')).toHaveText('3');
@@ -54,8 +60,31 @@ for (const theme of ['light-theme', 'dark-theme']) {
       .evaluateAll(icons => icons.map(icon => icon.getAttribute('data-mat-icon-name'))))
       .toEqual(['bell-outline', 'bell-outline', 'email-outline']);
     await page.screenshot({ path: info.outputPath('notifications.png') });
-    await menu.getByRole('link', { name: 'Notification second-1' }).click();
-    await expect.poll(() => writes).toEqual(['/api/v1/flagging/second/second-1']);
+    failing = true;
+    for (let attempt = 0; attempt < 2; attempt++) {
+      await Promise.all([
+        page.waitForResponse(response => response.url().includes('/notify-second/')
+          && response.status() === 503),
+        page.clock.fastForward(120000),
+      ]);
+      await expect(bell.locator('.mat-badge-content')).toHaveText('3');
+      await expect(menu.locator('app-link')).toHaveText([
+        'Notification first-1', 'Notification first-2', 'Notification second-1',
+      ]);
+    }
+    failing = false;
+    recovered = true;
+    await page.clock.fastForward(120000);
+    await expect(bell.locator('.mat-badge-content')).toHaveText('2');
+    await expect(menu.locator('app-link')).toHaveText([
+      'Notification first-new', 'Notification second-new',
+    ]);
+    await expect.poll(() => menu.locator('mat-list-item app-icon mat-icon')
+      .evaluateAll(icons => icons.map(icon => icon.getAttribute('data-mat-icon-name'))))
+      .toEqual(['bell-outline', 'email-outline']);
+    await page.screenshot({ path: info.outputPath('notifications-recovered.png') });
+    await menu.getByRole('link', { name: 'Notification second-new' }).click();
+    await expect.poll(() => writes).toEqual(['/api/v1/flagging/second/second-new']);
     expect(reads.some(path => /admin|restricted/.test(path))).toBe(false);
     expect(errors).toEqual([]);
   });

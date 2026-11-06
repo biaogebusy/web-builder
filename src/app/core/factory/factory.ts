@@ -3,6 +3,7 @@ import { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { ContentService } from '@core/service/content.service';
 import { EMPTY, Observable, firstValueFrom, forkJoin, from, fromEvent, interval, of } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { ContentState } from '@core/state/ContentState';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -129,7 +130,16 @@ export function notifyFactory(coreConfig: ICoreConfig): WritableSignal<INotify[]
     source
       .pipe(
         startWith(0),
-        switchMap(() => notifyService.getWatchList()),
+        switchMap(() => notifyService.getWatchList().pipe(
+          catchError((error: unknown) => {
+            if (error instanceof HttpErrorResponse &&
+                (error.status === 0 || (error.status >= 500 && error.status < 600))) {
+              // Keep the last complete list and let the next scheduled poll read again.
+              return EMPTY;
+            }
+            throw error;
+          })
+        )),
         map(res =>
           Object.keys(res).flatMap(item => {
             const api = apis[Number(item)];
