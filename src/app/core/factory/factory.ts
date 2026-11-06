@@ -115,6 +115,7 @@ export function pageContentFactory(
   return pageContent;
 }
 
+/** Combines allowed notification sources in configuration order on each poll. */
 export function notifyFactory(coreConfig: ICoreConfig): WritableSignal<INotify[] | boolean> {
   const notifyService = inject(NotifyService);
   const destroyRef = inject(DestroyRef);
@@ -129,28 +130,26 @@ export function notifyFactory(coreConfig: ICoreConfig): WritableSignal<INotify[]
       .pipe(
         startWith(0),
         switchMap(() => notifyService.getWatchList()),
-        map(res => {
-          let lists: INotify[] = [];
-          Object.keys(res).forEach((item: any) => {
-            const message = res[item].rows.map((list: any) => ({
+        map(res =>
+          Object.keys(res).flatMap(item => {
+            const api = apis[Number(item)];
+            return res[item].rows.map((list: any) => ({
               link: {
                 href: list.url,
                 label: list.title,
               },
               icon: {
-                svg: apis[item].icon,
+                svg: api.icon,
                 inline: true,
-                color: apis[item].color,
+                color: api.color,
               },
               message: list.message,
               date: list.date,
-              action: apis[item].action,
+              action: api.action,
               uuid: list.uuid,
             }));
-            lists = [...message];
-          });
-          return lists;
-        }),
+          })
+        ),
         takeUntilDestroyed(destroyRef)
       )
       .subscribe((res: INotify[]) => {
