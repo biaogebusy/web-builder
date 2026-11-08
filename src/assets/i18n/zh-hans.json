@@ -2,7 +2,7 @@
   "PAGE": {
     "UNAVAILABLE": "页面不存在或已下线"
   },
-  "MAP": {"VIEW": "下方地点的地图", "PLACES": "地点列表", "FIT": "显示全部地点", "COORDINATES": "经度、纬度", "LOAD_FAILED": "地图加载失败。可刷新页面重试。"},
+  "MAP": {"VIEW": "下方地点的地图", "PLACES": "地点列表", "FIT": "显示全部地点", "COORDINATES": "经度、纬度", "LOAD_FAILED": "地图加载失败，可刷新页面重试。"},
   "VIDEO": { "LOAD_FAILED": "视频加载失败。", "RETRY": "重试" },
   "APP": {
     "LOADING": "加载中……"
@@ -116,7 +116,7 @@
       "LOGIN": "登录",
       "UPLOAD_DIRECTORY": "不支持上传目录。",
       "UPLOAD_FORMAT": "文件格式或大小超出当前上传限制。",
-      "UPLOAD_FAILED": "上传未完成。再次上传前，请先检查媒体库。",
+      "UPLOAD_FAILED": "上传未完成，请在再次上传前检查媒体库。",
       "UPLOAD_HINT": "将支持的文件拖放到此处",
       "UPLOAD_CHOOSE": "选择图片",
       "UPLOAD": "上传媒体",
@@ -252,7 +252,7 @@
       "TOTAL": "共 {{count}} 页",
       "LOADING": "正在加载页面…",
       "LOAD_ERROR": "暂时无法加载页面",
-      "LOAD_ERROR_HINT": "请检查网络后重试。搜索和筛选条件已保留。",
+      "LOAD_ERROR_HINT": "搜索和筛选条件已保留，请检查网络后重试。",
       "RETRY": "重新加载",
       "NO_RESULTS": "没有找到匹配的页面",
       "NO_RESULTS_HINT": "试试其他关键词，或清除筛选查看全部页面。",
@@ -260,7 +260,7 @@
       "EMPTY_HINT": "新建页面并保存后，就能在这里管理站点内容。",
       "PAGINATION": "页面列表分页",
       "STATE_HINT": "打开页面设置",
-      "DRAFT_CHOICE_HINT": "这个页面有本地未保存修改。可以继续编辑草稿，或放弃修改并载入服务器版本。取消将保持当前页面。",
+      "DRAFT_CHOICE_HINT": "这个页面有本地未保存修改，可以继续编辑草稿，或放弃修改并载入服务器版本。取消将保持当前页面。",
       "UNPUBLISHED": "未发布",
       "PAGE_TITLE": "着陆页管理",
       "MANAGE_SUFFIX": "{{name}}管理",
@@ -304,7 +304,7 @@
       "LOAD_TRANSLATION_FAIL": "载入 {{title}} 失败，请重试",
       "LOADING_TRANSLATION": "已打开 {{lang}} 翻译草稿，修改后请点击“保存翻译”",
       "CREATE_LANG_TITLE": "创建翻译草稿",
-      "CREATE_LANG_CONFIRM": "将以 <strong>{{title}}</strong> 的当前内容创建 <strong>{{lang}}</strong> 翻译草稿。文字不会自动翻译。修改完成后，点击“保存翻译”才会创建服务器上的语言版本。",
+      "CREATE_LANG_CONFIRM": "将以 <strong>{{title}}</strong> 的当前内容创建 <strong>{{lang}}</strong> 翻译草稿，但文字不会自动翻译。修改完成后，点击“保存翻译”才会创建服务器上的语言版本。",
       "CREATE_LANG_YES": "开始编辑草稿",
       "EDITING_TRANSLATION": "正在编辑 {{lang}} 草稿版本",
       "PREVIEW_PAGE": "预览{{title}}（在新窗口打开）",
@@ -487,7 +487,7 @@
       "SAVE_AND_PUBLISH": "保存并发布",
       "SAVE_AND_UNPUBLISH": "保存并取消发布",
       "SAVE_AS_DRAFT": "保存为草稿",
-      "UNSAVED_CANVAS": "该页面有未保存的画布修改。发布将使用已保存的内容；如需发布这些修改，请先载入该页面并点击“保存内容”。",
+      "UNSAVED_CANVAS": "该页面有未保存的画布修改，发布将使用已保存的内容；如需发布这些修改，请先载入该页面并点击“保存内容”。",
       "PUBLISHED_SUCCESS": "“{{title}}”已发布",
       "UNPUBLISHED_SUCCESS": "“{{title}}”已取消发布，公共网址不再可见",
       "DRAFT_WITH_PUBLISHED_SUCCESS": "“{{title}}”已保存为草稿，当前已发布版本仍对外可见",
@@ -498,7 +498,7 @@
       "DELETE_ALL_LANG": "删除整页",
       "DELETE_ALL_LANG_TITLE": "删除页面及全部语言版本",
       "DELETE_ALL_LANG_SUCCESS": "已删除“{{title}}”及其全部语言版本",
-      "DELETE_CHECK_FAILED": "无法确认页面的语言和删除范围。页面未删除，请刷新列表后重试。"
+      "DELETE_CHECK_FAILED": "无法确认页面的语言和删除范围，页面未删除，请刷新列表后重试。"
     },
     "CARD_PAGE": {
       "TITLE_UPDATED": "已更新标题为{{title}}"
@@ -744,7 +744,7 @@
       "REVISION_LOG_PLACEHOLDER": "本次修改说明（可选）",
       "EDIT_CONFLICT": "内容已被他人修改，请刷新后再保存。",
       "EDIT_CONFLICT_TITLE": "保存冲突",
-      "EDIT_CONFLICT_BODY": "保存前检测到该内容已被他人修改。可以放弃当前修改并加载最新版本，或继续编辑后重试保存。",
+      "EDIT_CONFLICT_BODY": "保存前检测到该内容已被他人修改，可以放弃当前修改并加载最新版本，或继续编辑后重试保存。",
       "CONFLICT_RELOAD": "放弃修改并加载最新",
       "DRAFT_TITLE": "本地草稿",
       "DRAFT_CONFIRM": "检测到本地未保存的修改。继续编辑本地草稿，还是放弃修改并载入服务器最新版本？",
@@ -755,7 +755,7 @@
       "FORM_INVALID": "请完善必填字段后再提交！",
       "SUBMIT_FAILED": "提交失败：{{message}}",
       "SUBMIT_SUCCESS": "创建成功！可继续创建新内容。",
-      "FORM_ACCESS_DENIED": "当前账户暂未获得此内容的操作权限。你可以返回管理中心，继续处理有权限的内容。",
+      "FORM_ACCESS_DENIED": "当前账户暂未获得此内容的操作权限，你可以返回管理中心，继续处理有权限的内容。",
       "FORM_SIGN_IN_REQUIRED": "登录状态已失效，请重新登录后再试。",
       "ACCESS_LABEL": "访问受限",
       "ACCESS_CREATE_CONTEXT": "发布内容",
@@ -767,8 +767,8 @@
       "ACCESS_RECHECK": "重新检查权限",
       "ACCESS_HELP_TITLE": "需要使用此功能？",
       "ACCESS_HELP": "请联系站点管理员确认内容权限。权限更新后，请重新登录并再次检查。",
-      "FORM_UNSUPPORTED": "此内容类型的表单配置尚不受支持。请联系管理员检查表单显示和必填字段。",
-      "LOAD_FORM_ERROR": "内容表单加载失败。请检查网络后重试。"
+      "FORM_UNSUPPORTED": "此内容类型的表单配置尚不受支持，请联系管理员检查表单显示和必填字段。",
+      "LOAD_FORM_ERROR": "内容表单加载失败，请检查网络后重试。"
     },
     "NODE_MANAGE": {
       "PAGE_TITLE": "内容管理",

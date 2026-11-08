@@ -80,6 +80,20 @@ MDX, Markdown, source README files, and repository guidance.
   programmatically, then review meaning and procedure order. Follow the documentation
   repository's instructions for index generation, builds, and link checks.
 
+### Chinese interface copy
+
+- Review Chinese interface text with the [terminology and writing rules](../xinshi-docs/stories/develop/engineering/terminology.mdx).
+- Use Chinese punctuation in Chinese prose. Keep code, URLs, interpolation tokens and technical syntax unchanged.
+- For one short status message and its consequence or recovery action, prefer one coherent sentence.
+  Connect related clauses with a comma and use one sentence-ending mark, for example:
+  “页面已发布，聊天中的后续修改不会自动更新此页面。”
+- Keep independent instructions, qualifications and paragraph topics in separate sentences or lists.
+  Multiple full stops in a genuine paragraph are valid; never judge correctness by punctuation count alone.
+- Omit full stops from short button labels, field labels and headings. Use a question mark for confirmation questions.
+- When changing interface copy, review matching translations and hardcoded UI messages by meaning.
+  Preserve conditions, action order, numbers and placeholders; update affected exact-text checks.
+  Use punctuation scans to find candidates, not to replace punctuation across the project automatically.
+
 ## Branches & Deployments
 
 - **`master` is the open-source base branch and the single source of truth.** Downstream deployment branches build on it: they merge `master` in, never the other way. Anything that is not part of the base product stays out of `master`.
