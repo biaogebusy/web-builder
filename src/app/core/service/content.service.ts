@@ -205,6 +205,10 @@ export class ContentService extends ApiService {
           catchError(error => {
             console.error('Failed to load branding:', error);
             this.markSsrDegraded('branding', error);
+            // SSR keeps one request per render; browser navigation can recover later.
+            if (!this.isServer && isTransientContentError(error)) {
+              this.brandingCache.delete(key);
+            }
             return of({} as IBranding);
           }),
           shareReplay(1)
@@ -229,6 +233,9 @@ export class ContentService extends ApiService {
           catchError(error => {
             console.error('base json not found:', error);
             this.markSsrDegraded('core-config', error);
+            if (!this.isServer && isTransientContentError(error)) {
+              this.coreConfigCache.delete(configPath);
+            }
             return of({} as ICoreConfig);
           }),
           shareReplay(1)

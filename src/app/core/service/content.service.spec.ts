@@ -431,6 +431,99 @@ describe('ContentService', () => {
     });
   });
 
+  describe.each(['branding', 'config'] as const)('%s failure recovery', kind => {
+    const endpoint = `${LANDING}?content=%2Fcore%2F${kind === 'branding' ? 'branding' : 'base'}`;
+    const recovered = kind === 'branding' ? { header: [] } : { animate: true };
+    const read = (path = '/about') => {
+      if (kind === 'branding') return lastValueFrom(service.loadBranding(path));
+      const config = {};
+      return service.loadConfig(config, path).then(() => config);
+    };
+    const fail = async (status: number) => {
+      for (let attempt = 0; attempt <= (kind === 'branding' ? 1 : 2); attempt++) {
+        if (attempt) await vi.advanceTimersByTimeAsync(kind === 'branding' ? 500 : 1000);
+        const request = http.expectOne(endpoint);
+        if (status === 0) request.error(new ProgressEvent('error'));
+        else request.flush('Unavailable', { status, statusText: 'Unavailable' });
+      }
+    };
+
+    beforeEach(() => {
+      vi.useFakeTimers();
+      vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    });
+    afterEach(() => vi.useRealTimers());
+
+    it.each([0, 503])('shares failures and recovers the same language after HTTP %i', async status => {
+      const first = read();
+      const concurrent = read();
+      await fail(status);
+      expect(await Promise.all([first, concurrent])).toEqual([{}, {}]);
+
+      const english = read('/en/about');
+      http.expectOne(`/en${endpoint}`).flush(recovered);
+      await english;
+      const retry = read();
+      const sharedRetry = read();
+      http.expectOne(endpoint).flush(recovered);
+      expect(await Promise.all([retry, sharedRetry])).toEqual([recovered, recovered]);
+      expect(await read()).toEqual(recovered);
+      expect(await read('/en/about')).toEqual(recovered);
+      http.expectNone(() => true);
+    });
+
+    it.each([403, 404])('keeps the existing stable HTTP %i fallback cached', async status => {
+      const first = read();
+      await fail(status);
+      expect(await first).toEqual({});
+      expect(await read()).toEqual({});
+      http.expectNone(endpoint);
+    });
+
+    it('keeps one degraded SSR read without adding another render request', async () => {
+      setup({ platform: 'server' });
+      const first = read();
+      http.expectOne(endpoint).flush('Unavailable', { status: 503, statusText: 'Unavailable' });
+      expect(await first).toEqual({});
+      expect(requestContext.degraded).toBe(true);
+      expect(await read()).toEqual({});
+      http.expectNone(endpoint);
+    });
+  });
+
+  it('recovers branding on the next read after both attempts time out', async () => {
+    vi.useFakeTimers();
+    vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    try {
+      const endpoint = `${LANDING}?content=%2Fcore%2Fbranding`;
+      const first = lastValueFrom(service.loadBranding());
+      const attempt = http.expectOne(endpoint);
+      await vi.advanceTimersByTimeAsync(5000);
+      expect(attempt.cancelled).toBe(true);
+      await vi.advanceTimersByTimeAsync(500);
+      const retried = http.expectOne(endpoint);
+      await vi.advanceTimersByTimeAsync(5000);
+      expect(retried.cancelled).toBe(true);
+      expect(await first).toEqual({});
+      const recovered = lastValueFrom(service.loadBranding());
+      http.expectOne(endpoint).flush({ header: [] });
+      expect(await recovered).toEqual({ header: [] });
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it('does not replace the active configuration with a late language response', async () => {
+    const config = {};
+    const previous = service.loadConfig(config, '/en/about');
+    const current = service.loadConfig(config, '/about');
+    http.expectOne(`${LANDING}?content=%2Fcore%2Fbase`).flush({ animate: true });
+    await current;
+    http.expectOne(`/en${LANDING}?content=%2Fcore%2Fbase`).flush({ animate: false });
+    await previous;
+    expect(config).toEqual({ animate: true });
+  });
+
   describe('loadUIUX', () => {
     it('shares one request across subscribers and refreshes on demand', async () => {
       const first = firstValueFrom(service.loadUIUX());

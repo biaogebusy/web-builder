@@ -234,14 +234,14 @@ describe.each([
     }
   );
 
-  it('recovers from an HTTP failure even when public rendering cached its empty fallback', async () => {
+  it('recovers from an HTTP failure while public rendering retains a stable 403 fallback', async () => {
     const { editor } = await createEditor();
     vi.useFakeTimers();
     vi.spyOn(console, 'error').mockImplementation(() => undefined);
     const content = TestBed.inject(ContentService);
     let publicValue: IBranding | undefined;
     content.loadBranding('/en/').subscribe(value => (publicValue = value));
-    await failRead('/en');
+    await failRead('/en', 403);
     expect(publicValue).toEqual({});
 
     query.next({ uuid: 'branding-en', langcode: 'en' });
