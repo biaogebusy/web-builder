@@ -305,11 +305,16 @@
       cursor: pointer;
       display: flex;
       .wrapper {
+        @apply p-0 bg-transparent;
         cursor: pointer;
         display: flex;
         justify-content: center;
         align-items: center;
         color: var(--mat-sys-on-surface);
+        &:focus-visible {
+          outline: 2px solid currentColor;
+          outline-offset: 2px;
+        }
         ::ng-deep {
           .custom-icon {
             align-items: center;

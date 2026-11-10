@@ -21,6 +21,47 @@ async function openSidebar(page: Page, theme: string, english = false) {
 }
 
 for (const theme of ['light-theme', 'dark-theme']) {
+  for (const english of [false, true]) {
+    test(`sidebar toggle accessibility: ${theme}, english=${english}`, async ({ page }) => {
+      await openSidebar(page, theme, english);
+      const sidebar = page.locator('app-builder-sidebar');
+      const toggle = sidebar.locator('.toggle .wrapper');
+      await expect(toggle).toHaveAccessibleName(english ? 'Expand' : '展开');
+      await toggle.focus();
+      await page.keyboard.press('Shift+Tab');
+      await page.keyboard.press('Tab');
+      await expect(toggle).toBeFocused();
+      await page.keyboard.press('Space');
+      await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+      await expect(toggle).toHaveAccessibleName(english ? 'Collapse' : '收起');
+      await expect(toggle).toBeFocused();
+      await page.keyboard.press('Enter');
+      await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+      await expect(toggle).toBeFocused();
+      expect(await toggle.evaluate(el => getComputedStyle(el).outlineStyle)).not.toBe('none');
+      expect((await new AxeBuilder({ page }).include('app-builder-sidebar .bottom')
+        .withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()).violations).toEqual([]);
+    });
+
+    test(`sidebar theme tooltip contrast: ${theme}, english=${english}`, async ({ page }) => {
+      await openSidebar(page, theme, english);
+      const themeButton = page.locator('app-builder-sidebar .icon-actions-row app-btn').last();
+      for (let changes = 0; changes < 2; changes++) {
+        await themeButton.hover();
+        const tooltip = page.locator('.mat-mdc-tooltip');
+        await expect(tooltip).toHaveCSS('opacity', '1');
+        await expect(tooltip).toContainText(english ? 'Switch to' : '切换');
+        expect((await new AxeBuilder({ page }).include('.mat-mdc-tooltip')
+          .withRules(['color-contrast']).analyze()).violations).toEqual([]);
+        await themeButton.click();
+        await page.mouse.move(400, 0);
+        await expect(tooltip).toBeHidden();
+      }
+    });
+  }
+}
+
+for (const theme of ['light-theme', 'dark-theme']) {
   for (const expanded of [false, true]) {
     test(`sidebar group dividers: ${theme}, expanded=${expanded}`, async ({ page }) => {
       await page.setViewportSize({ width: 1440, height: 900 });

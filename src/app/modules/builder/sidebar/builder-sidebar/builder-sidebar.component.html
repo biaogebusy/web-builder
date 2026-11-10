@@ -135,6 +135,7 @@
             [content]="{
               label: '',
               mode: 'icon',
+              ariaLabel: (mode === 'light' ? 'BUILDER.SIDEBAR.TOGGLE_DARK' : 'BUILDER.SIDEBAR.TOGGLE_LIGHT') | translate,
               icon: {
                 svg: mode === 'light' ? 'white-balance-sunny' : 'moon-waning-crescent',
               },
@@ -148,16 +149,22 @@
           <app-user-menu />
         }
         <div class="toggle">
-          <div class="wrapper" role="button" tabindex="0" (click)="onToggle()" (keyup.enter)="onToggle()">
+          <button
+            class="wrapper"
+            type="button"
+            [attr.aria-label]="(sidebarDrawer().opened ? 'BUILDER.SIDEBAR.COLLAPSE' : 'BUILDER.SIDEBAR.EXPAND') | translate"
+            [attr.aria-expanded]="sidebarDrawer().opened"
+            (click)="onToggle()"
+          >
             @if (sidebarDrawer().opened) {
               <app-icon [content]="{ svg: 'chevron-left' }">
-                <div class="text">{{ 'BUILDER.SIDEBAR.COLLAPSE' | translate }}</div>
+                <span class="text">{{ 'BUILDER.SIDEBAR.COLLAPSE' | translate }}</span>
               </app-icon>
             }
             @if (!sidebarDrawer().opened) {
               <app-icon [matTooltip]="'BUILDER.SIDEBAR.EXPAND' | translate" [content]="{ svg: 'chevron-right' }" />
             }
-          </div>
+          </button>
         </div>
       </div>
     }
