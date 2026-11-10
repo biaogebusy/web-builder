@@ -31,8 +31,14 @@ test('HTTP/2 static bursts have a bounded budget separate from business requests
       for (const session of sessions) session.destroy();
       origin.closeAllConnections();
       await new Promise(resolve => origin.close(resolve));
-      try { docker('rm', '-f', container); }
-      finally { rmSync(directory, { recursive: true, force: true }); }
+      try {
+        const failures = docker('exec', container, 'cat', '/tmp/static-test.log').split('\n')
+          .filter(line => line.includes('[error]') && line.includes('upstream'));
+        if (failures.length) t.diagnostic(failures.join('\n'));
+      } finally {
+        try { docker('rm', '-f', container); }
+        finally { rmSync(directory, { recursive: true, force: true }); }
+      }
     });
     origin.listen(0, '0.0.0.0');
     await once(origin, 'listening');
