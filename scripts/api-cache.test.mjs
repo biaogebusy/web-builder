@@ -32,6 +32,7 @@ http {
   access_log off;
   proxy_cache_path /tmp/cache-test keys_zone=proxy_cache_panel:1m;
   limit_conn_zone $binary_remote_addr zone=perip:1m;
+  limit_conn_zone "$server_name:$binary_remote_addr" zone=static_perip:1m;
   limit_conn_zone $server_name zone=perserver:1m;
   limit_req_zone $binary_remote_addr zone=auth_login:1m rate=5r/m;
   map $http_upgrade $connection_upgrade { default upgrade; '' close; }
