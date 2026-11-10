@@ -77,7 +77,7 @@ jobs:
       cancel-in-progress: false
     env:
       DEPLOY_ROOT: /mnt/wwwroot/app/base
-      DEPLOY_CONTAINER: base
+      DEPLOY_CONTAINER: builder-base
     steps:
       - name: Checkout
         uses: actions/checkout@v4
