@@ -22,6 +22,42 @@ describe('BtnComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it.each(['text', 'raised', 'stroked', 'flat', 'icon', 'fab', 'mini-fab'])(
+    'keeps an ordinary %s button free of menu semantics and duplicate clicks',
+    mode => {
+      fixture.componentRef.setInput('content', {
+        mode,
+        label: 'Ordinary action',
+        icon: { svg: 'send' },
+      });
+      const clicked = vi.fn();
+      component.btnClick.subscribe(clicked);
+      fixture.detectChanges();
+      const button: HTMLButtonElement = fixture.nativeElement.querySelector('button');
+      for (const attribute of ['aria-haspopup', 'aria-expanded', 'aria-controls']) {
+        expect(button.hasAttribute(attribute)).toBe(false);
+      }
+      button.click();
+      expect(clicked).toHaveBeenCalledTimes(1);
+    }
+  );
+
+  it.each(['fab', 'mini-fab'])('prevents activation of a disabled %s button', mode => {
+    fixture.componentRef.setInput('content', {
+      mode,
+      label: 'Disabled action',
+      icon: { svg: 'send' },
+      disabled: true,
+    });
+    const clicked = vi.fn();
+    component.btnClick.subscribe(clicked);
+    fixture.detectChanges();
+    const button: HTMLButtonElement = fixture.nativeElement.querySelector('button');
+    expect(button.disabled).toBe(true);
+    button.click();
+    expect(clicked).not.toHaveBeenCalled();
+  });
+
   it('should use explicit ariaLabel on fab button', () => {
     fixture.componentRef.setInput('content', {
       mode: 'fab',

@@ -1,31 +1,35 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  inject,
-  output,
-  input,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, output, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import type { MatMenuPanel } from '@angular/material/menu';
 import { ContenteditDirective } from '@core/directive/contentedit.directive';
 import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 import type { IBtn } from '@core/interface/widgets/IBtn';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { RouteService } from '@core/service/route.service';
 import { IconComponent } from '../icon/icon.component';
+import { BtnMenuTriggerDirective } from './btn-menu-trigger.directive';
 
 @Component({
   selector: 'app-btn',
   templateUrl: './btn.component.html',
   styleUrls: ['./btn.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatButtonModule, IconComponent, ReqRolesDirective, ContenteditDirective, SafeHtmlPipe],
+  imports: [
+    MatButtonModule,
+    BtnMenuTriggerDirective,
+    IconComponent,
+    ReqRolesDirective,
+    ContenteditDirective,
+    SafeHtmlPipe,
+  ],
   host: {
     '[class.disabled]': 'content()?.disabled ?? false',
   },
 })
 export class BtnComponent {
   readonly content = input<IBtn>();
+  /** The native button owns the menu's keyboard handling, focus and accessible state. */
+  readonly menu = input<MatMenuPanel | null>(null);
   /**
    * Button click output. Whether the button is a plain button without href or a
    * navigation button with href, it emits first and then runs the original
