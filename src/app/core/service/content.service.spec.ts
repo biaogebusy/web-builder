@@ -356,6 +356,94 @@ describe('ContentService', () => {
     });
   });
 
+  describe('builder page recovery', () => {
+    const path = '/builder/default-page';
+    const endpoint = `${LANDING}?content=%2Fbuilder%2Fdefault-page`;
+    const read = () => firstValueFrom(service.loadPageContent(path, false));
+    const rejectRead = (status: number) => {
+      const request = http.expectOne(endpoint);
+      if (status === 0) request.error(new ProgressEvent('error'));
+      else request.flush('Unavailable', { status, statusText: 'Unavailable' });
+    };
+    const exhaustRetry = async (status: number) => {
+      rejectRead(status);
+      await vi.advanceTimersByTimeAsync(500);
+      rejectRead(status);
+    };
+
+    beforeEach(() => {
+      vi.useFakeTimers();
+      vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    });
+    afterEach(() => vi.useRealTimers());
+
+    it.each([0, 503])('shares a fresh read after HTTP %i without evicting other pages', async status => {
+      const otherPaths = ['/en/builder/default-page', '/builder/other'];
+      for (const otherPath of otherPaths) {
+        const pending = firstValueFrom(service.loadPageContent(otherPath, false));
+        http.expectOne(request => request.url !== endpoint).flush({ title: otherPath, body: [] });
+        await pending;
+      }
+      const first = read();
+      const concurrent = read();
+      await exhaustRetry(status);
+      await expect(Promise.all([first, concurrent])).resolves.toEqual([{}, {}]);
+
+      const recovered = { title: 'Recovered default page', body: [] };
+      const next = read();
+      const shared = read();
+      http.expectOne(endpoint).flush(recovered);
+      await expect(Promise.all([next, shared])).resolves.toEqual([recovered, recovered]);
+      expect(service.getCachedPageContent(path)).toEqual(recovered);
+      await expect(read()).resolves.toEqual(recovered);
+      for (const otherPath of otherPaths) {
+        await expect(firstValueFrom(service.loadPageContent(otherPath, false)))
+          .resolves.toEqual({ title: otherPath, body: [] });
+      }
+      http.expectNone(() => true);
+      expect(tags.updateTags).not.toHaveBeenCalled();
+    });
+
+    it('allows another visit after repeated failures without background reads', async () => {
+      for (let visit = 0; visit < 2; visit++) {
+        const pending = read();
+        await exhaustRetry(503);
+        await expect(pending).resolves.toEqual({});
+        await vi.advanceTimersByTimeAsync(10_000);
+        http.expectNone(endpoint);
+      }
+      const pending = read();
+      http.expectOne(endpoint).flush({ title: 'Recovered', body: [] });
+      await expect(pending).resolves.toEqual({ title: 'Recovered', body: [] });
+    });
+
+    it.each([403, 404])('keeps the existing stable HTTP %i fallback cached', async status => {
+      const pending = read();
+      await exhaustRetry(status);
+      await expect(pending).resolves.toEqual({});
+      await expect(read()).resolves.toEqual({});
+      http.expectNone(endpoint);
+    });
+
+    it('keeps a successful empty page cached', async () => {
+      const pending = read();
+      http.expectOne(endpoint).flush({ title: 'Empty page', body: [] });
+      await pending;
+      await expect(read()).resolves.toEqual({ title: 'Empty page', body: [] });
+      http.expectNone(endpoint);
+    });
+
+    it.each([0, 503])('keeps HTTP %i shared within a degraded SSR render', async status => {
+      setup({ platform: 'server' });
+      const pending = read();
+      rejectRead(status);
+      await expect(pending).resolves.toEqual({});
+      await expect(read()).resolves.toEqual({});
+      http.expectNone(endpoint);
+      expect(requestContext.degradedReasons).toEqual(['page-content']);
+    });
+  });
+
   it('ignores array payloads when updating the page state', () => {
     service.updatePage([] as unknown as IPage);
 

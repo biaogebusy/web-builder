@@ -54,7 +54,7 @@ export class ContentService extends ApiService {
     this.screenState.scroll$.next(true);
   }
 
-  /** Public readers reject drafts and recheck CMS; builder readers retain their authorized cache. */
+  /** Public readers recheck CMS publication; builder readers retain successful authorized reads. */
   loadPageContent(pageUrl = this.pageUrl, updateState = true, publicPage = false): Observable<IPage> {
     const { lang, path } = this.getUrlPath(pageUrl);
     if (environment.production) {
@@ -81,6 +81,10 @@ export class ContentService extends ApiService {
                   ? 404 : 503;
                 this.ssrRenderState.setPublicPage(key, undefined, status);
                 return this.loadPublicNotFoundPage(lang, path, status);
+              }
+              // Keep this read's fallback, but let the next builder visit reach the CMS.
+              if (!this.isServer && isTransientContentError(error)) {
+                this.pageCache.delete(key);
               }
               return of({} as IPage);
             }),
