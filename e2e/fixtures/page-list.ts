@@ -1,11 +1,9 @@
 import type { Page, Route } from '@playwright/test';
-import { readFileSync } from 'node:fs';
+import { storageKey } from './storage';
 
 /** Synthetic CMS for page-list interactions; no real writes or login are used. */
 export async function mockPageList(page: Page) {
-  const separator = readFileSync('src/app/app.config.ts', 'utf8')
-    .match(/withNgxWebstorageConfig\(\{\s*separator:\s*['"]([^'"]+)['"]/)?.[1];
-  if (!separator) throw new Error('Missing storage separator in app configuration');
+  const versionKey = storageKey('version');
   const context = page.context();
   const state = {
     failure: false,
@@ -215,9 +213,9 @@ export async function mockPageList(page: Page) {
   });
   page.on('pageerror', e => state.errors.push(e.message));
   await page.addInitScript(
-    ({ drafts, separator }) => {
+    ({ drafts, versionKey }) => {
       if (!sessionStorage.getItem('audit-initialized')) {
-        localStorage.setItem(`ngx-webstorage${separator}version`, JSON.stringify(drafts));
+        localStorage.setItem(versionKey, JSON.stringify(drafts));
         sessionStorage.setItem(
           'xinshi-oauth-pkce',
           JSON.stringify({
@@ -230,7 +228,7 @@ export async function mockPageList(page: Page) {
         sessionStorage.setItem('audit-initialized', 'yes');
       }
     },
-    { drafts: [localPage(rows[0], true), localPage(rows[4])], separator }
+    { drafts: [localPage(rows[0], true), localPage(rows[4])], versionKey }
   );
   return { state, rows };
 }

@@ -1,6 +1,9 @@
 import AxeBuilder from '@axe-core/playwright';
 import type { BrowserContext, Locator, Page } from '@playwright/test';
 import { expect, test } from './fixtures/test';
+import { storageKey } from './fixtures/storage';
+
+const versionKey = storageKey('version');
 
 interface CanvasSession {
   failCategories?: boolean;
@@ -48,14 +51,14 @@ const stubCanvasSession = async (
     login: '2026-01-01T00:00:00+00:00',
     roles: [{ meta: { drupal_internal__target_id: 'administrator' } }],
   }] } }));
-  await page.addInitScript((body: Record<string, unknown>) => {
+  await page.addInitScript(({ body, versionKey }) => {
     sessionStorage.setItem('xinshi-oauth-pkce', JSON.stringify({
       verifier: 'test-verifier', state: 'test-state', mode: 'redirect', returnUrl: '/builder',
     }));
-    localStorage.setItem('ngx-webstorage:version', JSON.stringify([{
+    localStorage.setItem(versionKey, JSON.stringify([{
       title: 'Component upload', current: true, body: [body],
     }]));
-  }, body);
+  }, { body, versionKey });
 
   await page.goto('/me/login/callback?code=test-code&state=test-state');
   await expect(page).toHaveURL(/\/builder$/);
@@ -138,10 +141,10 @@ test('administrator uploads a canvas snapshot with category and icon using the k
   await expect.poll(() => libraryReads).toBeGreaterThan(readsBeforeSave);
   await expect(canvasItem).toBeFocused();
   await expect(canvasItem).toContainText('Reusable draft content');
-  expect(await page.evaluate(() => {
-    const pages = JSON.parse(localStorage.getItem('ngx-webstorage:version') ?? '[]');
+  expect(await page.evaluate(versionKey => {
+    const pages = JSON.parse(localStorage.getItem(versionKey) ?? '[]');
     return pages[0].body[0].extra;
-  })).toEqual(component.extra);
+  }, versionKey)).toEqual(component.extra);
 });
 
 test('nested canvas widgets expose a keyboard focus target for their toolbar', async ({
