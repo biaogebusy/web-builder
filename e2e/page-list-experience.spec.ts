@@ -1,6 +1,14 @@
 import AxeBuilder from '@axe-core/playwright';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { expect, test } from './fixtures/test';
 import { mockPageList } from './fixtures/page-list';
+
+const localePath = process.env['E2E_DIST']
+  ? resolve(process.env['E2E_DIST'], 'browser/assets/i18n/zh-hans.json')
+  : resolve('src/assets/i18n/zh-hans.json');
+const deletePageLabel: string = JSON.parse(readFileSync(localePath, 'utf8'))
+  .BUILDER.PAGE_SETTING.DELETE_ALL_LANG;
 
 test('deletes a Chinese original through the unprefixed API and refreshes the list', async ({ page }) => {
   const { state, rows } = await mockPageList(page);
@@ -14,14 +22,14 @@ test('deletes a Chinese original through the unprefixed API and refreshes the li
   await row.locator('.more-trigger').click();
   const inspection = page.waitForRequest(request => request.method() === 'GET' &&
     new URL(request.url()).searchParams.has('fields[node--landing_page]'));
-  await page.getByRole('menuitem', { name: '删除整页', exact: true }).click();
+  await page.getByRole('menuitem', { name: deletePageLabel, exact: true }).click();
   expect(new URL((await inspection).url()).pathname)
     .toBe(`/api/v1/node/landing_page/${target.uuid}`);
   const dialog = page.getByRole('dialog');
   await expect(dialog).toContainText('全部语言版本');
   await expect(dialog.getByRole('button', { name: '取消', exact: true })).toBeFocused();
   expect(state.writes).toEqual([]);
-  await dialog.getByRole('button', { name: '删除整页', exact: true }).click();
+  await dialog.getByRole('button', { name: deletePageLabel, exact: true }).click();
   await expect.poll(() => state.writes).toEqual([{ method: 'DELETE', id: target.nid }]);
   await expect(row).toHaveCount(0);
   await expect(list.locator('.list-count')).toHaveText('共 24 页');
