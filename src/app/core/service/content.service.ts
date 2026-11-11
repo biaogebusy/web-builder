@@ -4,7 +4,7 @@ import { isPlatformServer } from '@angular/common';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { environment } from 'src/environments/environment';
-import { BehaviorSubject, Observable, lastValueFrom, of } from 'rxjs';
+import { BehaviorSubject, Observable, defer, lastValueFrom, of } from 'rxjs';
 import { catchError, finalize, map, retry, shareReplay, switchMap, take, tap, timeout } from 'rxjs/operators';
 import { TagsService } from '@core/service/tags.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
@@ -266,14 +266,27 @@ export class ContentService extends ApiService {
     Object.assign(target, config);
   }
 
+  /** Shares library updates and retries transient browser failures when a consumer reopens. */
   loadUIUX(): Observable<IUiux[]> {
     const { lang } = this.getUrlPath(this.pageUrl);
     const api = `${this.apiUrl}${lang}/api/v3/node/component`;
     if (!this.uiuxCache) {
-      this.uiuxCache = this.uiuxRefresh$.pipe(
-        switchMap(() => this.http.get<IUiux[]>(api).pipe(catchError(() => of([])))),
+      let retryNeeded = false;
+      const shared = this.uiuxRefresh$.pipe(
+        switchMap(() => {
+          retryNeeded = false;
+          return this.http.get<IUiux[]>(api).pipe(catchError(error => {
+            retryNeeded = !this.isServer && isTransientContentError(error);
+            return of([]);
+          }));
+        }),
         shareReplay(1)
       );
+      // Route providers retain this observable; replacing it would strand existing consumers.
+      this.uiuxCache = defer(() => {
+        if (retryNeeded) this.reloadUIUX();
+        return shared;
+      });
     }
     return this.uiuxCache;
   }

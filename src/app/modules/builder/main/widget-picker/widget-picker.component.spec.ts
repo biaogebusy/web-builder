@@ -10,7 +10,7 @@ import {
 } from '@core/testing/mocks';
 import { provideBuilderMocks } from '@modules/builder/testing/mocks';
 import { LocalStorageService } from 'ngx-webstorage';
-import { Observable, of, Subject, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject, throwError } from 'rxjs';
 
 import { WebformPickerService } from './webform/webform-picker.service';
 import { WidgetPickerComponent } from './widget-picker.component';
@@ -58,8 +58,10 @@ describe('WidgetPickerComponent', () => {
       ],
     },
   ];
+  let library: BehaviorSubject<ReturnType<typeof makeLibrary>>;
 
   beforeEach(async () => {
+    library = new BehaviorSubject(makeLibrary());
     vi.clearAllMocks();
     webformPicker.getWebforms.mockReturnValue(
       of([{ id: 'contact', title: '联系我们', description: '客服表单' }])
@@ -76,7 +78,7 @@ describe('WidgetPickerComponent', () => {
         { provide: UtilitiesService, useValue: util },
         { provide: LocalStorageService, useValue: storage },
         { provide: WebformPickerService, useValue: webformPicker },
-        { provide: UIUX, useValue: of(makeLibrary()) },
+        { provide: UIUX, useValue: library },
       ],
     }).compileComponents();
 
@@ -87,6 +89,18 @@ describe('WidgetPickerComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('renders an empty library and receives recovery without retaining previous components', () => {
+    library.next([]);
+    fixture.detectChanges();
+    expect(component.widgetGroups().map(group => group.id)).toEqual(['webform']);
+    expect(component.visibleItems()).toHaveLength(1);
+    expect(fixture.nativeElement.textContent).not.toContain('Hero 1v1');
+    library.next(makeLibrary());
+    fixture.detectChanges();
+    expect(component.visibleItems()).toHaveLength(4);
+    expect(fixture.nativeElement.textContent).toContain('Hero 1v1');
   });
 
   describe('single-level category navigation', () => {

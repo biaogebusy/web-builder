@@ -72,7 +72,7 @@ export class WidgetPickerComponent implements OnInit {
 
   public bcData = signal<any>(false);
   public hoveredWidget = signal<IBuilderComponentElement | null>(null);
-  public widgets = signal<IUiux>({ label: '', icon: '', type: 'base', elements: [] });
+  public widgets = signal<IUiux | undefined>(undefined);
   public searchQuery = signal('');
   /** Index of the selected category chip; 0 = "All", 1..n map to widgetGroups() */
   public activeCategoryIndex = signal(0);
@@ -102,7 +102,7 @@ export class WidgetPickerComponent implements OnInit {
   }));
 
   public widgetGroups = computed<IBuilderComponent[]>(() => {
-    const elements = this.widgets().elements;
+    const elements = this.widgets()?.elements;
     const groups = Array.isArray(elements) ? elements : [];
     // The webform endpoint is optional, so a deployment that did not enable it
     // must not get a category whose only possible content is an error

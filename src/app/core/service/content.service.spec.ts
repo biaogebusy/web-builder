@@ -525,6 +525,94 @@ describe('ContentService', () => {
   });
 
   describe('loadUIUX', () => {
+    it.each([0, 503])('recovers a captured feed after HTTP %i for new and existing readers', status => {
+      const feed = service.loadUIUX();
+      const existing = vi.fn();
+      const first = feed.subscribe(existing);
+      const failed = http.expectOne('/api/v3/node/component');
+      if (status === 0) failed.error(new ProgressEvent('error'));
+      else failed.flush('Unavailable', { status, statusText: 'Unavailable' });
+      expect(existing).toHaveBeenLastCalledWith([]);
+      http.expectNone('/api/v3/node/component');
+
+      const reopened = vi.fn();
+      const second = feed.subscribe(reopened);
+      const concurrent = feed.subscribe();
+      try {
+        const recovery = http.expectOne('/api/v3/node/component');
+        concurrent.unsubscribe();
+        expect(recovery.cancelled).toBe(false);
+        recovery.flush([{ id: 2 }]);
+        expect(existing).toHaveBeenLastCalledWith([{ id: 2 }]);
+        expect(reopened).toHaveBeenLastCalledWith([{ id: 2 }]);
+        const cached = vi.fn();
+        feed.subscribe(cached).unsubscribe();
+        expect(cached).toHaveBeenLastCalledWith([{ id: 2 }]);
+        http.expectNone('/api/v3/node/component');
+      } finally {
+        first.unsubscribe();
+        second.unsubscribe();
+        concurrent.unsubscribe();
+      }
+    });
+
+    it.each([200, 403, 404])('keeps an empty HTTP %i result until explicit refresh', status => {
+      const feed = service.loadUIUX();
+      const first = feed.subscribe();
+      http.expectOne('/api/v3/node/component').flush([], { status, statusText: 'Response' });
+      first.unsubscribe();
+      const values = vi.fn();
+      const reopened = feed.subscribe(values);
+      try {
+        expect(values).toHaveBeenLastCalledWith([]);
+        http.expectNone('/api/v3/node/component');
+        service.reloadUIUX();
+        http.expectOne('/api/v3/node/component').flush([{ id: 3 }]);
+        expect(values).toHaveBeenLastCalledWith([{ id: 3 }]);
+      } finally {
+        reopened.unsubscribe();
+      }
+    });
+
+    it('recovers a failed refresh without splitting the shared stream or retrying in the background', () => {
+      const feed = service.loadUIUX();
+      const values = vi.fn();
+      const existing = feed.subscribe(values);
+      http.expectOne('/api/v3/node/component').flush([{ id: 1 }]);
+      service.reloadUIUX();
+      http.expectOne('/api/v3/node/component')
+        .flush('Unavailable', { status: 503, statusText: 'Unavailable' });
+      expect(values).toHaveBeenLastCalledWith([]);
+      http.expectNone('/api/v3/node/component');
+      const reopened = feed.subscribe();
+      try {
+        http.expectOne('/api/v3/node/component')
+          .flush('Unavailable', { status: 503, statusText: 'Unavailable' });
+        http.expectNone('/api/v3/node/component');
+        service.reloadUIUX();
+        http.expectOne('/api/v3/node/component').flush([{ id: 4 }]);
+        expect(values).toHaveBeenLastCalledWith([{ id: 4 }]);
+        feed.subscribe().unsubscribe();
+        http.expectNone('/api/v3/node/component');
+      } finally {
+        existing.unsubscribe();
+        reopened.unsubscribe();
+      }
+    });
+
+    it('keeps a failed SSR read shared within the same render', () => {
+      setup({ platform: 'server' });
+      const feed = service.loadUIUX();
+      const first = feed.subscribe();
+      http.expectOne('/api/v3/node/component')
+        .flush('Unavailable', { status: 503, statusText: 'Unavailable' });
+      first.unsubscribe();
+      const values = vi.fn();
+      feed.subscribe(values).unsubscribe();
+      expect(values).toHaveBeenLastCalledWith([]);
+      http.expectNone('/api/v3/node/component');
+    });
+
     it('shares one request across subscribers and refreshes on demand', async () => {
       const first = firstValueFrom(service.loadUIUX());
       http.expectOne('/api/v3/node/component').flush([{ id: 1 }]);
