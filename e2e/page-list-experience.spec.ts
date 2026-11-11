@@ -137,6 +137,8 @@ for (const theme of ['light-theme', 'dark-theme']) {
     if (theme === 'dark-theme') {
       await page.locator('app-builder-sidebar app-btn:has([data-mat-icon-name="white-balance-sunny"]) button')
         .click();
+      // Theme setup must release focus before checking for absent tooltips.
+      await page.evaluate(() => (document.activeElement as HTMLElement)?.blur());
     }
     const tooltip = page.locator('.mat-mdc-tooltip-surface:visible');
     const captureTooltip = async (name: string) => {
