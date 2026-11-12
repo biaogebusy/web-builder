@@ -47,6 +47,7 @@ export async function mockPageList(page: Page) {
   function localPage(row: (typeof rows)[number], current = false) {
     return {
       ...row,
+      changed: String(Date.parse(row.changed) / 1000),
       current,
       dirty: true,
       body: [{ type: 'text', body: '<p>本地草稿：正在准备的新内容，尚未提交到服务器。</p>' }],

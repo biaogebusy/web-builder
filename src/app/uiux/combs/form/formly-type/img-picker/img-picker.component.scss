@@ -6,6 +6,7 @@
     border-radius: 4px;
     font-size: 14px;
     background-color: var(--mat-sys-primary-fixed);
+    color: var(--mat-sys-on-primary-fixed);
     img {
       width: 40px;
       height: 40px;
@@ -28,6 +29,7 @@
   // shadcn-themed forms: the meta card uses shadcn tokens (buttons are covered by the global .shad-btn-* classes)
   &.shadcn .meta {
     background-color: var(--shadcn-muted);
+    color: var(--shadcn-foreground);
     border: 1px solid var(--shadcn-border);
   }
 }

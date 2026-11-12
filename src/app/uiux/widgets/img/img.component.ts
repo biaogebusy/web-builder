@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, forwardRef, ChangeDetectionStrategy, input } from '@angular/core';
+import { Component, computed, forwardRef, ChangeDetectionStrategy, input } from '@angular/core';
 import { ContenteditDirective } from '@core/directive/contentedit.directive';
 import type { IImg } from '@core/interface/widgets/IImg';
 import { DynamicComponentComponent } from '../builder/dynamic-component/dynamic-component.component';
@@ -21,4 +21,9 @@ import { DynamicComponentComponent } from '../builder/dynamic-component/dynamic-
 export class ImgComponent {
   readonly content = input<IImg>();
   readonly isBg = input(false);
+  /** NgOptimizedImage requires a new element when its intrinsic dimensions change. */
+  readonly imageSize = computed(() => ({
+    width: this.content()?.width || 400,
+    height: this.content()?.height || 300,
+  }));
 }

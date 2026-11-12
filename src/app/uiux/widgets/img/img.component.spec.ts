@@ -55,4 +55,41 @@ describe('ImgComponent', () => {
     expect(img.getAttribute('loading')).toBe('eager');
     expect(img.getAttribute('fetchpriority')).toBe('high');
   });
+
+  it.each([undefined, '/details'])('updates intrinsic dimensions with href %s', href => {
+    const content = { src: '/image.svg', alt: 'Image', width: 320, height: 240, href };
+    fixture.componentRef.setInput('content', content);
+    fixture.detectChanges();
+    const original = fixture.nativeElement.querySelector('img');
+    fixture.componentRef.setInput('content', { ...content, width: 640, height: 480 });
+    expect(() => fixture.detectChanges()).not.toThrow();
+    const resized = fixture.nativeElement.querySelector('img');
+    expect(resized).not.toBe(original);
+    expect(resized.getAttribute('width')).toBe('640');
+    expect(resized.getAttribute('height')).toBe('480');
+    expect(resized.getAttribute('alt')).toBe('Image');
+    expect(fixture.nativeElement.querySelector('a')?.getAttribute('href')).toBe(href);
+  });
+
+  it('keeps the element when only ordinary image properties change', () => {
+    const content = { src: '/image.svg', alt: 'Image', width: 320, height: 240 };
+    fixture.componentRef.setInput('content', content);
+    fixture.detectChanges();
+    const original = fixture.nativeElement.querySelector('img');
+    fixture.componentRef.setInput('content', { ...content,
+      src: '/replacement.svg', alt: 'Replacement', style: { borderRadius: '12px' } });
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('img')).toBe(original);
+    expect(original.getAttribute('src')).toBe('/replacement.svg');
+    expect(original.getAttribute('alt')).toBe('Replacement');
+    expect(original.style.borderRadius).toBe('12px');
+  });
+
+  it('preserves the existing fallback dimensions', () => {
+    fixture.componentRef.setInput('content', { src: '/image.svg' });
+    fixture.detectChanges();
+    const img = fixture.nativeElement.querySelector('img');
+    expect(img.getAttribute('width')).toBe('400');
+    expect(img.getAttribute('height')).toBe('300');
+  });
 });
