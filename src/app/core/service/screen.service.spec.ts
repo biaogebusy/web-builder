@@ -217,6 +217,30 @@ describe('ScreenService', () => {
       expect(setIntervalSpy).toHaveBeenCalled();
       setIntervalSpy.mockRestore();
     });
+
+    it.each(['search', 'scroll'])('cancels pending %s work without affecting another request', stage => {
+      const { service, doc } = setup();
+      const cancelled = doc.createElement('div');
+      cancelled.id = 'cancelled-anchor';
+      cancelled.scrollIntoView = vi.fn();
+      const retained = doc.createElement('div');
+      retained.id = 'retained-anchor';
+      retained.scrollIntoView = vi.fn();
+      doc.body.append(retained);
+      if (stage === 'scroll') doc.body.append(cancelled);
+
+      const cancel = service.scrollToAnchor(cancelled.id);
+      service.scrollToAnchor(retained.id);
+      cancel();
+      cancel();
+      if (stage === 'search') doc.body.append(cancelled);
+      vi.advanceTimersByTime(6000);
+
+      expect(cancelled.scrollIntoView).not.toHaveBeenCalled();
+      expect(retained.scrollIntoView).toHaveBeenCalledOnce();
+      cancelled.remove();
+      retained.remove();
+    });
   });
 
   describe('revealAndScroll (via scrollToAnchor)', () => {

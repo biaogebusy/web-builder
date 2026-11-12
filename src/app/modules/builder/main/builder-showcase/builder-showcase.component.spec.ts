@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { provideRouter } from '@angular/router';
+import { signal } from '@angular/core';
+import { IBuilderShowcase } from '@core/interface/IBuilder';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -23,6 +25,7 @@ describe('BuilderShowcaseComponent', () => {
   let fixture: ComponentFixture<BuilderShowcaseComponent>;
   const builderState = Object.assign(createBuilderStateMock(), {
     currentPage: { title: '', body: [{ type: 'text' }, { type: 'btn' }] },
+    currentShowcase: signal<IBuilderShowcase | false>(false),
   });
   const nodeService = createNodeServiceMock();
   const util = createUtilitiesServiceMock();
@@ -39,6 +42,8 @@ describe('BuilderShowcaseComponent', () => {
 
   beforeEach(async () => {
     vi.clearAllMocks();
+    builderState.cancelFixedShowcase.mockImplementation(() =>
+      builderState.currentShowcase.set(false));
     await TestBed.configureTestingModule({
       imports: [BuilderShowcaseComponent],
       providers: [
@@ -118,6 +123,7 @@ describe('BuilderShowcaseComponent', () => {
     vi.useFakeTimers();
     const widget = { type: 'hero-1v1', content: {} };
 
+    builderState.currentShowcase.set(component.content());
     component.insert(widget);
     expect(builderState.pushComponent).toHaveBeenCalledWith(widget);
 

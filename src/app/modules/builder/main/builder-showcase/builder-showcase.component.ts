@@ -23,6 +23,7 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { LocalStorageService } from 'ngx-webstorage';
 import { TranslateService } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
+import { BuilderInsertionService } from '../builder-workspace/builder-insertion.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -41,6 +42,7 @@ export class BuilderShowcaseComponent implements OnInit {
   private translate = inject(TranslateService);
   private nodeService = inject(NodeService);
   private destroyRef = inject(DestroyRef);
+  private insertion = inject(BuilderInsertionService);
   public user = inject(USER);
   public deleting = signal(false);
 
@@ -148,11 +150,7 @@ export class BuilderShowcaseComponent implements OnInit {
 
   insert(component: any): void {
     this.builder.pushComponent(component);
-    setTimeout(() => {
-      const length = this.builder.currentPage.body.length;
-      this.screenService.scrollToAnchor(`item-${length - 1}`);
-      this.builder.cancelFixedShowcase();
-      this.onClose();
-    }, 200);
+    this.insertion.reveal(this.builder.currentPage.body.length - 1, 200,
+      this.destroyRef, this.content());
   }
 }

@@ -18,12 +18,14 @@ import { BuilderToolbarComponent } from '../../toolbar/builder-toolbar/builder-t
 import { BuilderVersionComponent } from '../../sidebar/builder-version/builder-version.component';
 import { BuilderShowcaseComponent } from '../builder-showcase/builder-showcase.component';
 import { BuilderListComponent } from '../builder-list/builder-list.component';
+import { BuilderInsertionService } from './builder-insertion.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-builder-workspace',
   templateUrl: './builder-workspace.component.html',
   styleUrl: './builder-workspace.component.scss',
+  providers: [BuilderInsertionService],
   imports: [
     SHARE_IMPORTS,
     WIDGETS_IMPORTS,
