@@ -1,5 +1,21 @@
 @if (content(); as contentValue) {
   <div [class]="contentValue.iconPosition" *reqRolesIf="contentValue">
+    @if (canEditEmptyLabel()) {
+      <div class="empty-label">
+        @if (contentValue.icon && contentValue.icon.svg) {
+          <app-icon
+            [class.order-1]="contentValue.iconPosition === 'right'"
+            [content]="contentValue.icon"
+          />
+        }
+        <span
+          class="label-edit-target"
+          contentedit="label"
+          contenteditProfile="inline"
+          [contenteditPlaceholder]="'BUILDER.INLINE_EDITOR.EDIT_BUTTON_LABEL' | translate"
+        ></span>
+      </div>
+    } @else {
     @switch (contentValue.mode) {
       @case ('raised') {
         @if (!contentValue.href) {
@@ -269,6 +285,7 @@
           </a>
         }
       }
+    }
     }
   </div>
 }

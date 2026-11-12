@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component, computed, inject, output, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy, Component, ElementRef, computed, inject, output, input,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import type { MatMenuPanel } from '@angular/material/menu';
 import { ContenteditDirective } from '@core/directive/contentedit.directive';
@@ -6,6 +8,8 @@ import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 import type { IBtn } from '@core/interface/widgets/IBtn';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { RouteService } from '@core/service/route.service';
+import { CONTENT_EDITOR } from '@core/token/content-editor.token';
+import { TranslatePipe } from '@ngx-translate/core';
 import { IconComponent } from '../icon/icon.component';
 import { BtnMenuTriggerDirective } from './btn-menu-trigger.directive';
 
@@ -20,6 +24,7 @@ import { BtnMenuTriggerDirective } from './btn-menu-trigger.directive';
     IconComponent,
     ReqRolesDirective,
     ContenteditDirective,
+    TranslatePipe,
     SafeHtmlPipe,
   ],
   host: {
@@ -28,6 +33,17 @@ import { BtnMenuTriggerDirective } from './btn-menu-trigger.directive';
 })
 export class BtnComponent {
   readonly content = input<IBtn>();
+  private readonly editor = inject(CONTENT_EDITOR, { optional: true });
+  private readonly element = inject<ElementRef<HTMLElement>>(ElementRef);
+
+  /** Keep empty-label editing separate from native button and link activation. */
+  protected canEditEmptyLabel(): boolean {
+    const content = this.content();
+    return content?.label === '' && !content.disabled &&
+      !['icon', 'fab', 'mini-fab'].includes(content.mode ?? '') &&
+      !!this.editor && !!this.element.nativeElement.closest('.component-item');
+  }
+
   /** The native button owns the menu's keyboard handling, focus and accessible state. */
   readonly menu = input<MatMenuPanel | null>(null);
   /**

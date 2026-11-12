@@ -378,6 +378,7 @@
       "CLEAR_STYLES": "清空样式",
       "EDIT_TEXT": "编辑文本",
       "EDIT_TITLE": "编辑标题",
+      "EDIT_BUTTON_LABEL": "编辑按钮文字",
       "EDIT_IMG": "编辑图片",
       "IMG_TOOLBAR": "图片操作",
       "UPLOAD": "上传替换",
