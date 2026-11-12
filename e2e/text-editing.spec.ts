@@ -2,40 +2,16 @@ import AxeBuilder from '@axe-core/playwright';
 import type { Page } from '@playwright/test';
 import { expect, test } from './fixtures/test';
 import { mockPageList } from './fixtures/page-list';
-import { storageKey } from './fixtures/storage';
+import { openTextCanvas, readCurrentDraft as draft } from './fixtures/text-canvas';
 
 const paragraphs = [
   { type: 'text', body: '<p>First editable paragraph.</p>' },
   { type: 'text', body: '<p>Second editable paragraph.</p>' },
 ];
 
-async function draft(page: Page) {
-  return page.evaluate(key => JSON.parse(localStorage.getItem(key) || '[]')
-    .find((item: { current: boolean }) => item.current), storageKey('version'));
-}
-
 async function openText(page: Page, width = 1440, theme = 'light-theme') {
-  const { state } = await mockPageList(page);
-  page.on('console', message => {
-    if (message.type() === 'error') state.errors.push(message.text());
-  });
-  await page.context().route('**/api/v3/node/component', route => route.fulfill({
-    json: [{ label: 'Unused', elements: [] }, { label: 'Text', elements: [] }],
-  }));
-  await page.setViewportSize({ width: 1440, height: 900 });
-  await page.goto('/me/login/callback?code=test-code&state=test-state');
-  await expect(page.locator('app-page-list')).toBeVisible({ timeout: 15_000 });
-  await page.waitForLoadState('networkidle');
-  await page.evaluate(({ key, themeKey, theme, paragraphs }) => {
-    const drafts = JSON.parse(localStorage.getItem(key)!);
-    drafts.find((item: { current: boolean }) => item.current).body = paragraphs;
-    localStorage.setItem(key, JSON.stringify(drafts));
-    localStorage.setItem(themeKey, JSON.stringify(theme));
-  }, { key: storageKey('version'), themeKey: storageKey('themeMode'), theme, paragraphs });
-  await page.goto('/builder');
-  await expect(page.locator('html')).toHaveClass(new RegExp(theme));
+  const state = await openTextCanvas(page, paragraphs, width, theme);
   await expect(page.locator('app-builder-list .text-body')).toHaveCount(2);
-  await page.setViewportSize({ width, height: 900 });
   return state;
 }
 
@@ -43,6 +19,7 @@ test('cleared body can be entered again with the mouse and survives refresh', as
   const state = await openText(page);
   const body = page.locator('app-builder-list .text-body').first();
   await body.click({ position: { x: 20, y: 10 } });
+  await expect(body.locator('.ProseMirror')).toBeFocused();
   await body.locator('.ProseMirror').fill('');
   await page.mouse.click(1200, 750);
   await expect.poll(async () => (await draft(page)).body[0].body).toBe('');
@@ -56,6 +33,7 @@ test('cleared body can be entered again with the mouse and survives refresh', as
   await target.click({ position: { x: 20, y: 20 } });
   await expect(body.locator('.ProseMirror')).toBeFocused();
   await expect(target).toHaveCount(0);
+  await expect(body.locator('.ProseMirror')).toBeFocused();
   await body.locator('.ProseMirror').fill('Restored paragraph.');
   await page.mouse.click(1200, 750);
   await expect.poll(async () => (await draft(page)).body[0].body)
@@ -73,6 +51,7 @@ for (const [width, theme] of [[1440, 'light-theme'], [390, 'dark-theme']] as con
     const state = await openText(page, width, theme);
     const body = page.locator('app-builder-list .text-body').first();
     await body.click({ position: { x: 20, y: 10 } });
+    await expect(body.locator('.ProseMirror')).toBeFocused();
     await body.locator('.ProseMirror').fill('');
     // Tab moves outside the editor without relying on a desktop-only blank coordinate.
     await page.keyboard.press('Tab');
@@ -100,6 +79,7 @@ for (const [width, theme] of [[1440, 'light-theme'], [390, 'dark-theme']] as con
     expect(await draft(page)).toEqual(unchanged);
     await target.focus();
     await page.keyboard.press('Enter');
+    await expect(body.locator('.ProseMirror')).toBeFocused();
     await body.locator('.ProseMirror').fill('Keyboard recovery.');
     await page.keyboard.press('Enter');
     await page.keyboard.type('Second line.');
@@ -116,8 +96,10 @@ test('normal paragraph switching preserves both edits', async ({ page }) => {
   const state = await openText(page);
   const bodies = page.locator('app-builder-list .text-body');
   await bodies.nth(0).click({ position: { x: 20, y: 10 } });
+  await expect(bodies.nth(0).locator('.ProseMirror')).toBeFocused();
   await bodies.nth(0).locator('.ProseMirror').fill('First changed.');
   await bodies.nth(1).click({ position: { x: 20, y: 10 } });
+  await expect(bodies.nth(1).locator('.ProseMirror')).toBeFocused();
   await bodies.nth(1).locator('.ProseMirror').fill('Second changed.');
   await page.mouse.click(1200, 750);
   await expect.poll(async () => (await draft(page)).body.map((item: { body: string }) => item.body))

@@ -377,6 +377,7 @@
     "INLINE_EDITOR": {
       "CLEAR_STYLES": "Clear styles",
       "EDIT_TEXT": "Edit text",
+      "EDIT_TITLE": "Edit title",
       "EDIT_IMG": "Edit image",
       "IMG_TOOLBAR": "Image actions",
       "UPLOAD": "Upload & replace",

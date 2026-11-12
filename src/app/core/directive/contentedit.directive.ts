@@ -35,7 +35,7 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
    * 'inline' is single-line tiptap (headings): inline marks only, Enter commits, no paragraph wrapper
    */
   readonly contenteditProfile = input<'plain' | 'rich' | 'inline'>('plain');
-  /** Optional empty-body label; kept outside the editable HTML. */
+  /** Optional empty-text label; kept outside the editable HTML. */
   readonly contenteditPlaceholder = input('');
   private readonly editing = signal(false);
 
