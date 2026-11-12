@@ -138,8 +138,9 @@ export class TiptapBubbleMenuComponent {
   }
 
   closeLinkPanel(): void {
+    // Restore focus before removing the input, which would otherwise trigger a canvas blur commit.
+    this.editor()?.view.focus();
     this.linkPanelOpen.set(false);
-    this.editor()?.commands.focus();
   }
 
   toggleStylePanel(): void {

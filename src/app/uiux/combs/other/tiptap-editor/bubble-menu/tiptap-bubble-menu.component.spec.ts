@@ -41,6 +41,26 @@ describe('TiptapBubbleMenuComponent', () => {
     fixture.destroy();
   });
 
+  it('restores focus and selection before removing the focused link panel', async () => {
+    editor = createEditor(false);
+    fixture.componentRef.setInput('editor', editor);
+    await fixture.whenStable();
+    editor.commands.setTextSelection({ from: 1, to: 4 });
+    fixture.componentInstance.openLinkPanel();
+    await fixture.whenStable();
+    const input = fixture.nativeElement.querySelector('app-tiptap-link-panel input');
+    input.focus();
+
+    fixture.componentInstance.closeLinkPanel();
+
+    expect(document.activeElement).toBe(editor.view.dom);
+    expect(editor.state.selection.from).toBe(1);
+    expect(editor.state.selection.to).toBe(4);
+    expect(editor.getHTML()).toBe('<p>hello</p>');
+    await fixture.whenStable();
+    expect(fixture.nativeElement.querySelector('app-tiptap-link-panel')).toBeNull();
+  });
+
   it('样式面板:应用字色/字号到选区,空值恢复默认字号', () => {
     editor = createEditor(true);
     fixture.componentRef.setInput('editor', editor);
