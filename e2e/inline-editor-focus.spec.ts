@@ -1,8 +1,13 @@
-import { testInlinePanelFocus } from './fixtures/inline-panel-focus';
+import {
+  linkPanel, stylePanel, testInlinePanelFocus, testInlinePanelHandoff,
+} from './fixtures/inline-panel-focus';
 import { expect, test } from './fixtures/test';
 import { openTextCanvas, readCurrentDraft as draft } from './fixtures/text-canvas';
 
 testInlinePanelFocus('app-tiptap-link-panel', '链接');
+testInlinePanelHandoff(linkPanel, stylePanel);
+testInlinePanelHandoff(stylePanel, linkPanel);
+testInlinePanelHandoff(stylePanel, stylePanel);
 
 test('applying and removing a link preserves the uncommitted text selection', async ({ page }) => {
   const state = await openTextCanvas(page, [{ type: 'text', body: '<p>Original body.</p>' }]);

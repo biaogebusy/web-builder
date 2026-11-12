@@ -41,24 +41,32 @@ describe('TiptapBubbleMenuComponent', () => {
     fixture.destroy();
   });
 
-  it('restores focus and selection before removing the focused link panel', async () => {
+  it.each([
+    ['link', 'closeLinkPanel'],
+    ['link', 'toggleStylePanel'],
+    ['style', 'openLinkPanel'],
+    ['style', 'toggleStylePanel'],
+  ] as const)('restores focus before removing %s through %s', async (source, action) => {
     editor = createEditor(false);
     fixture.componentRef.setInput('editor', editor);
     await fixture.whenStable();
     editor.commands.setTextSelection({ from: 1, to: 4 });
-    fixture.componentInstance.openLinkPanel();
+    if (source === 'link') fixture.componentInstance.openLinkPanel();
+    else fixture.componentInstance.toggleStylePanel();
     await fixture.whenStable();
-    const input = fixture.nativeElement.querySelector('app-tiptap-link-panel input');
+    const input = fixture.nativeElement.querySelector(source === 'link'
+      ? 'app-tiptap-link-panel input' : '.style-panel select');
     input.focus();
 
-    fixture.componentInstance.closeLinkPanel();
+    fixture.componentInstance[action]();
 
     expect(document.activeElement).toBe(editor.view.dom);
     expect(editor.state.selection.from).toBe(1);
     expect(editor.state.selection.to).toBe(4);
     expect(editor.getHTML()).toBe('<p>hello</p>');
     await fixture.whenStable();
-    expect(fixture.nativeElement.querySelector('app-tiptap-link-panel')).toBeNull();
+    expect(fixture.nativeElement.querySelector(source === 'link'
+      ? 'app-tiptap-link-panel' : '.style-panel')).toBeNull();
   });
 
   it('样式面板:应用字色/字号到选区,空值恢复默认字号', () => {

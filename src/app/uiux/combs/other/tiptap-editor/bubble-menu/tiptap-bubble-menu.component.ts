@@ -133,6 +133,8 @@ export class TiptapBubbleMenuComponent {
 
   openLinkPanel(): void {
     if (this.selectionState()) { this.action.emit('link'); return; }
+    if (this.linkPanelOpen()) return;
+    this.editor()?.view.focus();
     this.stylePanelOpen.set(false);
     this.linkPanelOpen.set(true);
   }
@@ -144,6 +146,7 @@ export class TiptapBubbleMenuComponent {
   }
 
   toggleStylePanel(): void {
+    this.editor()?.view.focus();
     this.linkPanelOpen.set(false);
     this.stylePanelOpen.update(open => !open);
   }
