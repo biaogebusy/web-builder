@@ -31,6 +31,8 @@ vi.mock('@modules/builder/inline-editor/inline-image.service', () => ({
         <p>rich body</p>
       </div>
       <h2 class="inline" contentedit="title" contenteditProfile="inline">title</h2>
+      <div class="empty" contentedit="body" contenteditProfile="rich"
+        contenteditPlaceholder="Edit text"></div>
       <span class="plain" contentedit="label">label</span>
       <img class="cimg" contentedit="src" src="/files/a.png" alt="" />
     </div>
@@ -111,8 +113,48 @@ describe('ContenteditDirective', () => {
 
     expect(emissions.length).toBe(0);
     const options = activateMock.mock.calls[0][0];
-    expect(options.onActivated).toBeUndefined();
     expect(options.onCommitted).toBeUndefined();
+  });
+
+  it.each(['Enter', ' '])('activates an empty target with %j and restores it on cancel', async key => {
+    const empty = fixture.nativeElement.querySelector('.empty') as HTMLElement;
+    expect(empty.getAttribute('role')).toBe('button');
+    expect(empty.tabIndex).toBe(0);
+    expect(empty.getAttribute('aria-label')).toBe('Edit text');
+    expect(empty.innerHTML).toBe('');
+    const event = new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true });
+    empty.dispatchEvent(event);
+    await vi.waitFor(() => expect(activateMock).toHaveBeenCalledTimes(1));
+    expect(event.defaultPrevented).toBe(true);
+    const options = activateMock.mock.calls[0][0];
+    expect(options.clickCoords).toBeUndefined();
+    options.onActivated();
+    fixture.detectChanges();
+    expect(empty.hasAttribute('role')).toBe(false);
+    expect(empty.hasAttribute('data-contentedit-placeholder')).toBe(false);
+    empty.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true }));
+    await flushDynamicImport();
+    expect(activateMock).toHaveBeenCalledTimes(1);
+    options.onDeactivated('cancel');
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(empty.getAttribute('role')).toBe('button');
+    expect(document.activeElement).toBe(empty);
+    expect(builderMock.updatePageContentByPath).not.toHaveBeenCalled();
+  });
+
+  it('does not take focus back after an unchanged empty commit', async () => {
+    const empty = fixture.nativeElement.querySelector('.empty') as HTMLElement;
+    empty.click();
+    await vi.waitFor(() => expect(activateMock).toHaveBeenCalledTimes(1));
+    const options = activateMock.mock.calls[0][0];
+    options.onActivated();
+    fixture.detectChanges();
+    options.onDeactivated('commit');
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(empty.getAttribute('role')).toBe('button');
+    expect(document.activeElement).not.toBe(empty);
   });
 
   it('img:交给 InlineImageService 选中,不再直推 drawer', async () => {
@@ -170,6 +212,12 @@ describe('ContenteditDirective outside the builder route', () => {
     const paste = new Event('paste', { bubbles: true, cancelable: true });
     plain.dispatchEvent(paste);
     expect(paste.defaultPrevented).toBe(false);
+    const empty = fixture.nativeElement.querySelector('.empty') as HTMLElement;
+    expect(empty.hasAttribute('role')).toBe(false);
+    expect(empty.hasAttribute('tabindex')).toBe(false);
+    const key = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true });
+    empty.dispatchEvent(key);
+    expect(key.defaultPrevented).toBe(false);
     fixture.destroy();
   });
 });

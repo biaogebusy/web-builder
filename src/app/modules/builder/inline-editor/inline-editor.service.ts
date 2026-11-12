@@ -53,6 +53,8 @@ export interface IInlineEditorActivateOptions {
   onActivated?: () => void;
   /** Called only when the content changed; with a path the change is already written back to BuilderState */
   onCommitted?: (html: string) => void;
+  /** Called after teardown and write-back, including unchanged commits. */
+  onDeactivated?: (reason: 'commit' | 'cancel') => void;
 }
 
 /**
@@ -179,6 +181,7 @@ export class InlineEditorService {
       }
       options.onCommitted?.(value);
     }
+    options.onDeactivated?.('commit');
   }
 
   /** Discard the current edit, restore the pre-edit content, and produce no write-back */
@@ -186,7 +189,9 @@ export class InlineEditorService {
     if (!this.editor) {
       return;
     }
+    const options = this.options;
     this.teardown(this.originalHtml);
+    options?.onDeactivated?.('cancel');
   }
 
   private teardown(restoreHtml: string): void {

@@ -4,12 +4,13 @@
       @if (textContent.title) {
         <app-title [attr.data-path]="'title'" #title [content]="textContent.title" />
       }
-      @if (textContent.body) {
+      @if (textContent.body || (textContent.body === '' && canEditBody())) {
         <div
           #body
           class="text-body"
           contentedit="body"
           contenteditProfile="rich"
+          [contenteditPlaceholder]="textContent.body === '' ? ('BUILDER.INLINE_EDITOR.EDIT_TEXT' | translate) : ''"
           [innerHTML]="textContent.body | safeHtml"
         ></div>
       }

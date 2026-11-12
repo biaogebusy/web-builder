@@ -78,6 +78,24 @@ describe('InlineEditorService', () => {
     expect(builderMock.updatePageContentByPath).toHaveBeenCalledWith('0.body', '');
   });
 
+  it.each(['cancel', 'unchanged', 'changed'] as const)(
+    'notifies the empty target after %s teardown exactly once', action => {
+      host.innerHTML = '';
+      const onDeactivated = vi.fn(() => {
+        expect(service.activeEditor).toBeNull();
+        expect(host.innerHTML).toBe(action === 'changed' ? '<p>New text</p>' : '');
+        expect(builderMock.updatePageContentByPath).toHaveBeenCalledTimes(action === 'changed' ? 1 : 0);
+      });
+      service.activate({ element: host, path: '0.body', onDeactivated });
+      if (action !== 'unchanged') service.activeEditor!.commands.setContent('<p>New text</p>');
+      if (action === 'cancel') service.cancel();
+      else service.commit();
+      service.commit();
+      service.cancel();
+      expect(onDeactivated).toHaveBeenCalledExactlyOnceWith(action === 'cancel' ? 'cancel' : 'commit');
+    }
+  );
+
   it('无 path:不直接写回,落盘交给 onCommitted(custom-template 拼回模板源码)', () => {
     const onCommitted = vi.fn();
     service.activate({ element: host, onCommitted });

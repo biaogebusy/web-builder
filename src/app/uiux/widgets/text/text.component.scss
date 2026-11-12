@@ -15,6 +15,21 @@
     }
   }
   .text-body {
+    &[data-contentedit-placeholder] {
+      @apply min-h-12 px-3 py-3 cursor-text rounded border border-dashed;
+      color: var(--mat-sys-on-surface-variant);
+      background: var(--mat-sys-surface-container-low);
+      border-color: var(--mat-sys-outline);
+
+      &::before {
+        content: attr(data-contentedit-placeholder);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--mat-sys-primary);
+        outline-offset: -2px;
+      }
+    }
     ::ng-deep {
       .text-center {
         margin: 0 auto;
