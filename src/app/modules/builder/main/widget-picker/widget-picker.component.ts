@@ -449,7 +449,6 @@ export class WidgetPickerComponent implements OnInit {
       return;
     }
     const { addType, path, content } = contentValue;
-    const data = cloneDeep(content) as any;
     const widgetContent = cloneDeep(widget);
 
     if (addType === 'widget') {
@@ -458,6 +457,7 @@ export class WidgetPickerComponent implements OnInit {
       return;
     }
 
+    const data = cloneDeep(content) as any;
     if (addType === 'layout') {
       this.builder.updatePageContentByPath(
         path,
