@@ -43,10 +43,10 @@ for (const width of [390, 1440]) {
             const hit = document.elementFromPoint(
               bounds.x + bounds.width / 2, bounds.y + bounds.height / 2
             );
-            const targets = [...component.querySelectorAll(
-              ':scope > app-component-toolbar .mat-mdc-button-touch-target'
-            )].filter(target => target.getBoundingClientRect().width > 0).map(rect);
-            return { label: rect(label), component: rect(component), targets,
+            const buttons = [...component.querySelectorAll(
+              ':scope > app-component-toolbar .actions button'
+            )].filter(button => button.getBoundingClientRect().width > 0).map(rect);
+            return { label: rect(label), component: rect(component), buttons,
               hit: hit?.outerHTML.slice(0, 400),
               receivesPointer: hit === label || !!hit && label.contains(hit) };
           });
@@ -54,14 +54,16 @@ for (const width of [390, 1440]) {
             body: JSON.stringify(geometry, null, 2), contentType: 'application/json',
           });
           expect(geometry.receivesPointer).toBe(true);
-          expect(geometry.targets.length).toBeGreaterThan(0);
+          expect(geometry.buttons.length).toBeGreaterThan(0);
           expect(geometry.label.y).toBeCloseTo(before.y, 0);
-          for (const target of geometry.targets) {
-            expect(target.width).toBeGreaterThanOrEqual(48);
-            expect(target.height).toBeGreaterThanOrEqual(48);
-            expect(target.left).toBeGreaterThanOrEqual(geometry.component.left);
-            expect(target.right).toBeLessThanOrEqual(geometry.component.right);
-            expect(target.bottom).toBeLessThanOrEqual(geometry.label.top);
+          for (const button of geometry.buttons) {
+            // The bar disables Material's invisible halo, so the button itself carries
+            // the WCAG 2.5.8 minimum target size and must stay clear of the content below.
+            expect(button.width).toBeGreaterThanOrEqual(24);
+            expect(button.height).toBeGreaterThanOrEqual(24);
+            expect(button.left).toBeGreaterThanOrEqual(geometry.component.left);
+            expect(button.right).toBeLessThanOrEqual(geometry.component.right);
+            expect(button.bottom).toBeLessThanOrEqual(geometry.label.top);
           }
           await label.click();
           const editor = label.locator('.ProseMirror');
