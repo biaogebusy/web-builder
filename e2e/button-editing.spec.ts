@@ -14,7 +14,7 @@ for (const mode of ['raised', 'stroked', 'flat', 'text']) {
         .locator('.content-wrapper > app-btn');
       const label = host.locator('[data-path="label"]');
       const editor = label.locator('.ProseMirror');
-      await label.click({ position: { x: 2, y: 2 } });
+      await label.click();
       await expect(editor).toBeFocused();
       await page.evaluate(() => new Promise<void>(resolve => {
         requestAnimationFrame(() => resolve());
@@ -57,7 +57,7 @@ for (const mode of ['raised', 'stroked', 'flat', 'text']) {
       expect((await draft(page)).body).toEqual([{ ...original, label: 'Recovered button' }, neighbor]);
       await page.reload();
       await expect(label).toHaveText('Recovered button');
-      await label.click({ position: { x: 2, y: 2 } });
+      await label.click();
       await expect(editor).toBeFocused();
       await editor.press('Escape');
       await expect(label).toHaveText('Recovered button');

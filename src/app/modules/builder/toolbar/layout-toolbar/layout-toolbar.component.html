@@ -1,10 +1,9 @@
 <div
   class="layout-toolbar"
   #toolbar
-  aria-hidden="true"
-  (click)="hideWidgetPicker()"
 >
   <app-btn
+    (btnClick)="hideWidgetPicker()"
     [menu]="menu"
     class="toggle"
     #myMenu

@@ -3,17 +3,15 @@
   width: 100%;
 
   .wrapper {
-    @apply flex justify-between items-center;
+    @apply flex justify-center items-center;
   }
 
   .actions {
-    @apply flex gap-1;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    @apply flex max-w-full flex-wrap items-center justify-center gap-1 p-1;
+    --mat-icon-button-state-layer-size: 48px;
+    --mat-icon-button-icon-color: var(--mat-sys-inverse-on-surface);
     border-radius: 0 0 4px 4px;
-    background-color: #272727;
+    background-color: var(--mat-sys-inverse-surface);
     box-shadow: var(--mat-sys-level0);
 
     .item {
@@ -22,15 +20,10 @@
       white-space: nowrap;
       ::ng-deep {
         .mat-icon {
-          color: rgba(255, 255, 255, 0.8);
+          color: var(--mat-sys-inverse-on-surface);
         }
         .mat-mdc-button-base {
-          color: var(--mat-sys-on-primary);
-        }
-
-        &.mat-mdc-button-base {
-          --mat-icon-button-state-layer-size: 30px;
-          padding: 0;
+          color: var(--mat-sys-inverse-on-surface);
         }
         .custom {
           svg {

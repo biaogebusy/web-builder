@@ -1,8 +1,7 @@
 @use 'mixins/contentedit-placeholder' as contentedit;
 
 .empty-label {
-  // Reserve room for the canvas toolbar and its touch targets above short components.
-  @apply inline-flex items-center gap-1 pt-10;
+  @apply inline-flex items-center gap-1;
 }
 
 .label-edit-target {

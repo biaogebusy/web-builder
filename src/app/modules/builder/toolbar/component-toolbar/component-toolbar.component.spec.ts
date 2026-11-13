@@ -77,6 +77,21 @@ describe('ComponentToolbarComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it.each([false, true])('returns copy focus to its canvas group (nested: %s)', nested => {
+    const group = nested ? document.createElement('app-dynamic-component') : canvasItem;
+    if (nested) {
+      group.tabIndex = 0;
+      fixture.nativeElement.before(group);
+      group.appendChild(fixture.nativeElement);
+    }
+    const content = { type: 'btn', label: 'Copy me' };
+    fixture.componentRef.setInput('content', content);
+    const util = TestBed.inject(UtilitiesService);
+    component.onCopy();
+    expect(util.copy).toHaveBeenCalledWith(JSON.stringify(content));
+    expect(document.activeElement).toBe(group);
+  });
+
   it('should act on the rebound component when its slot is reused', () => {
     // generatePath() walks up to the nearest `.component-item`, so mirror the builder DOM
     const item = document.createElement('div');

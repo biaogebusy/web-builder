@@ -139,6 +139,8 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
       delete this.component().extra;
       delete this.component().relationships;
       this.util.copy(JSON.stringify(this.component()));
+      // Clipboard's temporary textarea hides focus-only controls before focus can return.
+      this.restoreCanvasFocus();
       this.util.openSnackbar(`已复制${this.component().type}JSON`, 'ok', {
         verticalPosition: 'bottom',
       });
@@ -271,11 +273,11 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * The busy state recreates the toolbar button, so focus returns to the stable
-   * canvas group; without it, focus falls to BODY and the toolbar hides.
+   * Clipboard and upload can hide or replace the focused button. Restore the nearest
+   * stable canvas group so nested controls remain reachable as well.
    */
   private restoreCanvasFocus(): void {
-    this.ele.nativeElement.closest('.component-item')?.focus();
+    this.ele.nativeElement.closest('app-dynamic-component[tabindex], .component-item')?.focus();
   }
 
   onPaste(content: any): void {
