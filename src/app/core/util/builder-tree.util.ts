@@ -36,37 +36,31 @@ export function setBuilderTreeValue<T>(root: T[], path: string, value: unknown):
   return child as T[];
 }
 
+/** Inserts an independent copy after the target without mutating the existing tree. */
 export function insertBuilderTreeValueAfter<T>(root: T[], path: string, value: unknown): T[] {
   const lastDotIndex = path.lastIndexOf('.');
-  const parentPath = path.slice(0, lastDotIndex);
-  const targetIndex = Number(path.slice(lastDotIndex + 1));
+  const parentPath = lastDotIndex === -1 ? '' : path.slice(0, lastDotIndex);
+  const targetIndex = getBuilderTargetIndex(path);
+  const targetArray = getBuilderArrayByPath(path, root);
 
-  if (lastDotIndex !== -1) {
-    const targetArray = get(root, parentPath);
-    if (Array.isArray(targetArray)) {
-      const nextArray = [
-        ...targetArray.slice(0, targetIndex + 1),
-        cloneDeep(value),
-        ...targetArray.slice(targetIndex + 1),
-      ];
-      return setBuilderTreeValue(root, parentPath, nextArray);
-    }
+  if (!Array.isArray(targetArray)) {
     return root;
   }
 
-  return [...root.slice(0, targetIndex + 1), cloneDeep(value) as T, ...root.slice(targetIndex + 1)];
+  const nextArray = [
+    ...targetArray.slice(0, targetIndex + 1),
+    cloneDeep(value),
+    ...targetArray.slice(targetIndex + 1),
+  ];
+  return setBuilderTreeValue(root, parentPath, nextArray);
 }
 
+/** Removes the target while retaining references to unaffected nodes. */
 export function removeBuilderTreeValue<T>(root: T[], path: string): T[] {
   const lastDotIndex = path.lastIndexOf('.');
-  const parentPath = path.slice(0, lastDotIndex);
-  const targetIndex = Number(path.slice(lastDotIndex + 1));
-
-  if (lastDotIndex === -1) {
-    return [...root.slice(0, targetIndex), ...root.slice(targetIndex + 1)];
-  }
-
-  const targetArray = get(root, parentPath);
+  const parentPath = lastDotIndex === -1 ? '' : path.slice(0, lastDotIndex);
+  const targetIndex = getBuilderTargetIndex(path);
+  const targetArray = getBuilderArrayByPath(path, root);
 
   if (!Array.isArray(targetArray)) {
     return root;
