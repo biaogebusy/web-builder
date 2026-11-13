@@ -1,9 +1,14 @@
 import { cloneDeep, get } from 'lodash-es';
 
+/** Returns the parent path, using an empty path for root-level targets. */
+export function getBuilderParentPath(path: string): string {
+  const lastDotIndex = path.lastIndexOf('.');
+  return lastDotIndex === -1 ? '' : path.slice(0, lastDotIndex);
+}
+
 export function getBuilderArrayByPath<T>(path: string, body: T[]): T[] {
   if (path.includes('.')) {
-    const parentPath = path.slice(0, path.lastIndexOf('.'));
-    return get(body, parentPath) as T[];
+    return get(body, getBuilderParentPath(path)) as T[];
   }
   return body;
 }
@@ -38,8 +43,7 @@ export function setBuilderTreeValue<T>(root: T[], path: string, value: unknown):
 
 /** Inserts an independent copy after the target without mutating the existing tree. */
 export function insertBuilderTreeValueAfter<T>(root: T[], path: string, value: unknown): T[] {
-  const lastDotIndex = path.lastIndexOf('.');
-  const parentPath = lastDotIndex === -1 ? '' : path.slice(0, lastDotIndex);
+  const parentPath = getBuilderParentPath(path);
   const targetIndex = getBuilderTargetIndex(path);
   const targetArray = getBuilderArrayByPath(path, root);
 
@@ -57,8 +61,7 @@ export function insertBuilderTreeValueAfter<T>(root: T[], path: string, value: u
 
 /** Removes the target while retaining references to unaffected nodes. */
 export function removeBuilderTreeValue<T>(root: T[], path: string): T[] {
-  const lastDotIndex = path.lastIndexOf('.');
-  const parentPath = lastDotIndex === -1 ? '' : path.slice(0, lastDotIndex);
+  const parentPath = getBuilderParentPath(path);
   const targetIndex = getBuilderTargetIndex(path);
   const targetArray = getBuilderArrayByPath(path, root);
 

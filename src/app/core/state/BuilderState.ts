@@ -31,6 +31,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IComponentToolbar } from '@core/interface/combs/IBuilder';
 import {
   getBuilderArrayByPath,
+  getBuilderParentPath,
   getBuilderTargetIndex,
   insertBuilderTreeValueAfter,
   removeBuilderTreeValue,
@@ -463,8 +464,7 @@ export class BuilderState {
     }
     const nextArrs = [...arrs];
     [nextArrs[index], nextArrs[swapIndex]] = [nextArrs[swapIndex], nextArrs[index]];
-    const lastDotIndex = path.lastIndexOf('.');
-    const parentPath = lastDotIndex === -1 ? '' : path.slice(0, lastDotIndex);
+    const parentPath = getBuilderParentPath(path);
     // Immutable update: new page/body references let the currentPage signal notify consumers to re-render
     this.setCurrentPage({
       ...currentPage,
