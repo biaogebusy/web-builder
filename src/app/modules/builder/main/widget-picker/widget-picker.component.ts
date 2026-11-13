@@ -457,17 +457,17 @@ export class WidgetPickerComponent implements OnInit {
       return;
     }
 
-    const data = cloneDeep(content) as any;
     if (addType === 'layout') {
       this.builder.updatePageContentByPath(
         path,
-        this.copyLayoutLastChild(data.elements ?? [], widgetContent),
+        this.copyLayoutLastChild(content.elements ?? [], widgetContent),
         'add'
       );
       this.onLeave();
       return;
     }
 
+    const data = cloneDeep(content) as any;
     const lists = [...(data.elements ?? [])];
     lists.splice(lists.length, 0, widgetContent);
     this.builder.updatePageContentByPath(`${path}.elements`, lists);
@@ -479,8 +479,9 @@ export class WidgetPickerComponent implements OnInit {
     this.builder.closeRightDrawer$.next(true);
   }
 
+  /** Creates an independent column from the last column and the selected widget. */
   copyLayoutLastChild(elements: any[], widget: any): any {
-    const last = Object.assign({}, elements[elements.length - 1]);
+    const last = Object.assign({}, cloneDeep(elements[elements.length - 1]));
     last.elements = [cloneDeep(widget)];
     return last;
   }
