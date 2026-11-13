@@ -481,7 +481,7 @@ export class WidgetPickerComponent implements OnInit {
 
   /** Creates an independent column from the last column and the selected widget. */
   copyLayoutLastChild(elements: any[], widget: any): any {
-    const last = Object.assign({}, cloneDeep(elements[elements.length - 1]));
+    const last = Object.assign({}, cloneDeep({ ...elements[elements.length - 1], elements: [] }));
     last.elements = [cloneDeep(widget)];
     return last;
   }
