@@ -184,7 +184,7 @@ test('nested canvas widgets expose a keyboard focus target for their toolbar', a
       body: JSON.stringify(nestedText),
     },
   });
-  await expect(canvasItem).toBeFocused();
+  await expect(nestedGroup).toBeFocused();
 });
 
 test('restores canvas focus when category loading fails', async ({ context, page }) => {

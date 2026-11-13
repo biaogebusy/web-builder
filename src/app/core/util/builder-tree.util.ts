@@ -46,7 +46,7 @@ export function insertBuilderTreeValueAfter<T>(root: T[], path: string, value: u
     if (Array.isArray(targetArray)) {
       const nextArray = [
         ...targetArray.slice(0, targetIndex + 1),
-        value,
+        cloneDeep(value),
         ...targetArray.slice(targetIndex + 1),
       ];
       return setBuilderTreeValue(root, parentPath, nextArray);

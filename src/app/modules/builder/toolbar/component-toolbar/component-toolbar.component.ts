@@ -136,16 +136,22 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
 
   onCopy(): void {
     if (this.component()) {
-      delete this.component().extra;
-      delete this.component().relationships;
-      this.util.copy(JSON.stringify(this.component()));
+      // Copy clears the source page links before capturing an independent clipboard value.
+      this.removePageReferences(this.component());
+      const snapshot = cloneDeep(this.component());
+      this.util.copy(JSON.stringify(snapshot));
       // Clipboard's temporary textarea hides focus-only controls before focus can return.
       this.restoreCanvasFocus();
       this.util.openSnackbar(`已复制${this.component().type}JSON`, 'ok', {
         verticalPosition: 'bottom',
       });
-      this.storage.store(this.builder.COPYCOMPONENTKEY, this.component());
+      this.storage.store(this.builder.COPYCOMPONENTKEY, snapshot);
     }
+  }
+
+  private removePageReferences(component: Record<string, unknown>): void {
+    delete component['extra'];
+    delete component['relationships'];
   }
 
   /** Saves a snapshot of the current canvas component as a reusable library entry. */
@@ -155,8 +161,7 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
     }
     // Keep the dynamic-input shape and nested settings without retaining the page's block identity.
     const snapshot = cloneDeep(this.content()) as Record<string, unknown>;
-    delete snapshot['extra'];
-    delete snapshot['relationships'];
+    this.removePageReferences(snapshot);
     const body = JSON.stringify(snapshot);
     const form = new FormGroup({
       title: new FormControl(this.type(), {
