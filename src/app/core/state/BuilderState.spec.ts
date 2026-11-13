@@ -1,4 +1,4 @@
-import { DOCUMENT, signal } from '@angular/core';
+import { computed, DOCUMENT, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 import type { IPage } from '@core/interface/IAppConfig';
@@ -810,6 +810,65 @@ describe('BuilderState tree and draft behavior', () => {
     state.markPageSynced({ title: 'Ghost', body: [], nid: '404' });
 
     expect(storage.store).not.toHaveBeenCalled();
+  });
+
+  describe.each([
+    { label: 'empty', flags: [], target: 0 },
+    { label: 'no current page', flags: [false, false], target: 0 },
+    { label: 'multiple current pages', flags: [false, true, true], target: 1 },
+    { label: 'first page current', flags: [true, false], target: 0 },
+  ])('current draft writes: $label', ({ flags, target }) => {
+    const prepare = () => {
+      const pages = flags.map(current => makePage([], { current }));
+      const { state, storage } = createState(pages.length ? pages : [makePage([])]);
+      state.version.set(pages);
+      const read = vi.fn(() => state.version());
+      const version = computed(read);
+      expect(version()).toBe(pages);
+      return { pages, state, storage, read, version };
+    };
+
+    it('marks only the selected draft and keeps repeated marks silent without saving', () => {
+      const { pages, state, storage, read, version } = prepare();
+      state.markCurrentPageDirty();
+      const next = version();
+      if (pages.length) {
+        expect(next).not.toBe(pages);
+        expect(next[target]).not.toBe(pages[target]);
+        expect(next[target]).toEqual({ ...pages[target], dirty: true });
+      } else {
+        expect(next).toBe(pages);
+      }
+      pages.forEach((page, index) => {
+        if (index !== target) expect(next[index]).toBe(page);
+        expect(page.dirty).toBeUndefined();
+      });
+
+      state.markCurrentPageDirty();
+      expect(version()).toBe(next);
+      expect(read).toHaveBeenCalledTimes(pages.length ? 2 : 1);
+      expect(storage.store).not.toHaveBeenCalled();
+    });
+
+    it('replaces only the selected draft and notifies and saves even for an empty list', () => {
+      const { pages, state, storage, read, version } = prepare();
+      const replacement = makePage([], { title: 'Updated', dirty: false });
+      state.setCurrentPage(replacement);
+      const next = version();
+      expect(next).not.toBe(pages);
+      expect(next).toHaveLength(pages.length);
+      if (pages.length) {
+        expect(next[target]).not.toBe(replacement);
+        expect(next[target]).toEqual({ ...replacement, dirty: true });
+      }
+      pages.forEach((page, index) => {
+        if (index !== target) expect(next[index]).toBe(page);
+        expect(page.dirty).toBeUndefined();
+      });
+      expect(replacement.dirty).toBe(false);
+      expect(read).toHaveBeenCalledTimes(2);
+      expect(storage.store).toHaveBeenCalledExactlyOnceWith(state.versionKey, next);
+    });
   });
 
   it('marks the current page dirty without persisting via markCurrentPageDirty', () => {

@@ -1,4 +1,8 @@
-import { BuilderPageState, selectCurrentBuilderPage } from './BuilderPageState';
+import {
+  BuilderPageState,
+  selectCurrentBuilderPage,
+  selectCurrentBuilderPageIndex,
+} from './BuilderPageState';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Injectable, inject, signal, DOCUMENT, DestroyRef } from '@angular/core';
 import { IDynamicInputs, IPage } from '@core/interface/IAppConfig';
@@ -290,8 +294,7 @@ export class BuilderState {
   // Only flip the flag without persisting; callers run saveLocalVersions themselves after finishing the change
   markCurrentPageDirty(): void {
     this.version.update(list => {
-      const currentIndex = list.findIndex(page => page.current === true);
-      const targetIndex = currentIndex === -1 ? 0 : currentIndex;
+      const targetIndex = selectCurrentBuilderPageIndex(list);
       if (!list[targetIndex] || list[targetIndex].dirty) {
         return list;
       }
@@ -435,9 +438,7 @@ export class BuilderState {
   setCurrentPage(page: IPage): void {
     this.version.update(list => {
       const next = [...list];
-      const currentIndex = next.findIndex((item: IPage) => item.current === true);
-      // Keep consistent with the currentPage getter fallback: write back to the first page when nothing is marked current
-      const targetIndex = currentIndex === -1 ? 0 : currentIndex;
+      const targetIndex = selectCurrentBuilderPageIndex(next);
       if (next[targetIndex]) {
         // All callers are content edits, so writing always counts as an unsaved change
         next[targetIndex] = { ...page, dirty: true };
