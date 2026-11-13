@@ -1,4 +1,4 @@
-import { DOCUMENT } from '@angular/core';
+import { DOCUMENT, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 import type { IPage } from '@core/interface/IAppConfig';
@@ -381,6 +381,31 @@ describe('BuilderState tree and draft behavior', () => {
     expect(pageState.currentPage()?.langcode).toBe('zh-hans');
     state.version.set([makePage([], { langcode: 'en', current: false })]);
     expect(pageState.currentPage()?.langcode).toBe('en');
+  });
+
+  it('keeps fresh getter reads independent of the cached public draft selection', () => {
+    const first = makePage([], { title: 'First' });
+    const second = makePage([], { title: 'Second', current: false });
+    const { state } = createState([first, second]);
+    const pageState = TestBed.inject(BuilderPageState);
+    expect(state.currentPage).toBe(first);
+    expect(pageState.currentPage()).toBe(first);
+
+    first.current = false;
+    second.current = true;
+    expect(state.currentPage).toBe(second);
+    expect(pageState.currentPage()).toBe(first);
+    state.version.set([...state.version()]);
+    expect(pageState.currentPage()).toBe(second);
+
+    state.version = signal([first]);
+    expect(state.currentPage).toBe(first);
+    expect(pageState.currentPage()).toBe(second);
+    state.version.set([]);
+    expect(state.currentPage).toBeUndefined();
+    expect(pageState.currentPage()).toBe(second);
+    pageState.version.set([]);
+    expect(pageState.currentPage()).toBeUndefined();
   });
 
   it('updates saved settings for one translation while preserving unsaved canvas content', () => {

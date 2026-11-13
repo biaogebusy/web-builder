@@ -1,4 +1,4 @@
-import { BuilderPageState } from './BuilderPageState';
+import { BuilderPageState, selectCurrentBuilderPage } from './BuilderPageState';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Injectable, inject, signal, DOCUMENT, DestroyRef } from '@angular/core';
 import { IDynamicInputs, IPage } from '@core/interface/IAppConfig';
@@ -429,9 +429,7 @@ export class BuilderState {
   }
 
   get currentPage(): IPage {
-    const list = this.version();
-    const currentIndex = list.findIndex(page => page.current === true);
-    return list[currentIndex] || list[0];
+    return selectCurrentBuilderPage(this.version());
   }
 
   setCurrentPage(page: IPage): void {

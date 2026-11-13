@@ -130,6 +130,26 @@ describe('builderCurrentPageFactory', () => {
     expect(currentPage()).toBe(false);
   });
 
+  it('retains its cached selection until notified without repeating the initial version check', () => {
+    const first: IPage = { title: 'A', body: [], current: true };
+    const second: IPage = { title: 'B', body: [], current: false };
+    const { currentPage, version, checkIsLatestPage } = setup('/builder', [first, second]);
+    expect(currentPage()).toBe(first);
+    expect(checkIsLatestPage).toHaveBeenCalledExactlyOnceWith(first);
+
+    first.current = false;
+    second.current = true;
+    expect(currentPage()).toBe(first);
+    version.set([...version()]);
+    expect(currentPage()).toBe(second);
+    first.current = true;
+    version.set([...version()]);
+    expect(currentPage()).toBe(first);
+    version.set([]);
+    expect(currentPage()).toBe(false);
+    expect(checkIsLatestPage).toHaveBeenCalledExactlyOnceWith(first);
+  });
+
   it('kicks off the latest-page check only on the builder path', () => {
     const pages: IPage[] = [{ title: 'A', body: [], current: true, nid: '1' }];
 
