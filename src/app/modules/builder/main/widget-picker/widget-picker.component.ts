@@ -449,20 +449,20 @@ export class WidgetPickerComponent implements OnInit {
       return;
     }
     const { addType, path, content } = contentValue;
-    const widgetContent = cloneDeep(widget);
-
-    if (addType === 'widget') {
-      this.builder.updatePageContentByPath(path, widgetContent, 'add');
-      this.onLeave();
-      return;
-    }
 
     if (addType === 'layout') {
       this.builder.updatePageContentByPath(
         path,
-        this.copyLayoutLastChild(content.elements ?? [], widgetContent),
+        this.copyLayoutLastChild(content.elements ?? [], widget),
         'add'
       );
+      this.onLeave();
+      return;
+    }
+
+    const widgetContent = cloneDeep(widget);
+    if (addType === 'widget') {
+      this.builder.updatePageContentByPath(path, widgetContent, 'add');
       this.onLeave();
       return;
     }
