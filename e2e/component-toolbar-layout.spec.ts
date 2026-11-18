@@ -76,7 +76,7 @@ for (const width of [390, 1440]) {
           }
         }
         const columnMenu = page.locator('#item-2 .layout-0 > .toolbar')
-          .getByRole('button', { name: 'tune-vertical-variant', exact: true });
+          .getByRole('button', { name: '配置当前栏', exact: true });
         await columnMenu.click();
         await expect(page.getByRole('menu')).toBeVisible();
         await page.keyboard.press('Escape');

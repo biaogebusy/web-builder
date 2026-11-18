@@ -2,15 +2,18 @@
   class="layout-toolbar"
   #toolbar
 >
+  <!-- Keep the tooltip beside its trigger so it cannot cover the component actions above. -->
   <app-btn
     (btnClick)="hideWidgetPicker()"
     [menu]="menu"
     class="toggle"
     #myMenu
+    cdkMonitorSubtreeFocus
     matTooltip="配置当前栏"
-    matTooltipPosition="above"
+    matTooltipPosition="before"
     [content]="{
       label: '',
+      ariaLabel: '配置当前栏',
       mode: 'icon',
       icon: { svg: 'tune-vertical-variant' },
     }"

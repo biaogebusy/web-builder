@@ -1,3 +1,4 @@
+import { CdkMonitorFocus } from '@angular/cdk/a11y';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, inject, ChangeDetectionStrategy, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,6 +20,7 @@ import { IconComponent } from '@uiux/widgets/icon/icon.component';
   templateUrl: './layout-toolbar.component.html',
   styleUrls: ['./layout-toolbar.component.scss'],
   imports: [
+    CdkMonitorFocus,
     MatButtonModule,
     MatDividerModule,
     MatMenuModule,
