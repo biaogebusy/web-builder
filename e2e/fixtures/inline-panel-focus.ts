@@ -1,3 +1,4 @@
+import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from './test';
 import { openTextCanvas, readCurrentDraft as draft } from './text-canvas';
 
@@ -106,10 +107,14 @@ export function testInlinePanelFocus(panelSelector: string, buttonName: string):
         const panel = page.locator(panelSelector);
         const unchanged = await draft(page);
         const openPanel = async () => {
+          await expect(editor).toHaveAccessibleName(type === 'title' ? '编辑标题' : '编辑文本');
           await editor.press('ControlOrMeta+A');
           await page.locator('app-tiptap-bubble-menu')
             .getByRole('button', { name: buttonName, exact: true }).click();
           await expect(panel.getByRole('textbox')).toBeFocused();
+          expect((await new AxeBuilder({ page }).include('#builder-list')
+            .include('app-tiptap-bubble-menu')
+            .withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()).violations).toEqual([]);
         };
         const closePanel = async () => {
           if (close === 'Escape') {

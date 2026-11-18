@@ -12,6 +12,7 @@ import StarterKit from '@tiptap/starter-kit';
 import Highlight from '@tiptap/extension-highlight';
 import BubbleMenu from '@tiptap/extension-bubble-menu';
 import { TextStyleKit } from '@tiptap/extension-text-style';
+import { TranslateService } from '@ngx-translate/core';
 import { BuilderState } from '@core/state/BuilderState';
 import { TiptapBubbleMenuComponent } from '@uiux/combs/other/tiptap-editor/bubble-menu/tiptap-bubble-menu.component';
 import {
@@ -73,6 +74,7 @@ export class InlineEditorService {
   private appRef = inject(ApplicationRef);
   private envInjector = inject(EnvironmentInjector);
   private doc = inject<Document>(DOCUMENT);
+  private translate = inject(TranslateService);
 
   private editor: Editor | null = null;
   private activeElement: HTMLElement | null = null;
@@ -131,7 +133,10 @@ export class InlineEditorService {
       editorProps: {
         attributes: {
           // Style hook (see global styles.scss): inherit host typography, only strip the focus outline
-          class: 'inline-tiptap',
+          'class': 'inline-tiptap',
+          'aria-label': this.translate.instant(
+            `BUILDER.INLINE_EDITOR.${profile === 'inline' ? 'EDIT_TITLE' : 'EDIT_TEXT'}`
+          ),
         },
         handleKeyDown: (_view, event) => {
           if (event.key === 'Escape') {
