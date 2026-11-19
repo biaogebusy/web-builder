@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import type { IUser } from '@core/interface/IUser';
 import type { UserService } from '@core/service/user.service';
 import {
@@ -123,7 +124,13 @@ function createRound(userService: UserService, session: TokenSession): RefreshRo
       take(1),
       catchError(error => {
         release();
-        if (!invalidated && isTokenSessionCurrent(userService, session)) userService.logoutUser();
+        // Temporary endpoint failures do not establish that the session was rejected.
+        const temporaryFailure = error instanceof HttpErrorResponse &&
+          (error.status === 0 || error.status === 408 || error.status === 429 ||
+            error.status >= 500 && error.status < 600);
+        if (!temporaryFailure && !invalidated && isTokenSessionCurrent(userService, session)) {
+          userService.logoutUser();
+        }
         return throwError(() => error);
       }),
       finalize(release),

@@ -212,13 +212,13 @@ describe('authInterceptor', () => {
         expires_at: Date.now() + 10 * 1000,
       }));
       userServiceMock.refreshAccessToken.mockReturnValue(
-        throwError(() => new Error('network error'))
+        throwError(() => new Error('unexpected refresh error'))
       );
 
       const { result } = capture(http.get(`${API}/api/v3/some/endpoint`));
 
       expect(userServiceMock.logoutUser).toHaveBeenCalled();
-      expect((result.error as Error).message).toBe('network error');
+      expect((result.error as Error).message).toBe('unexpected refresh error');
       httpTesting.expectNone(`${API}/api/v3/some/endpoint`);
     });
 
@@ -307,7 +307,7 @@ describe('authInterceptor', () => {
     it('logs the user out when refresh throws an error', () => {
       setup(() => ({ access_token: 'old', refresh_token: 'ref', expires_at: Date.now() + 60_000 }));
       userServiceMock.refreshAccessToken.mockReturnValue(
-        throwError(() => new Error('network error'))
+        throwError(() => new Error('unexpected refresh error'))
       );
 
       const { result } = capture(http.get(`${API}/api/v3/endpoint`));
@@ -315,8 +315,94 @@ describe('authInterceptor', () => {
       const req1 = httpTesting.expectOne(`${API}/api/v3/endpoint`);
       req1.flush('unauth', { status: 401, statusText: 'Unauthorized' });
 
-      expect((result.error as Error).message).toBe('network error');
+      expect((result.error as Error).message).toBe('unexpected refresh error');
       expect(userServiceMock.logoutUser).toHaveBeenCalled();
+    });
+  });
+
+  describe('temporary refresh failures', () => {
+    const tokenUrl = `${API}${environment.oauth.tokenUrl}`;
+    const cases = (['proactive', '401'] as const).flatMap(phase =>
+      [0, 408, 429, 500, 502, 503, 504, 599].map(status => ({ phase, status }))
+    );
+
+    it.each(cases)('keeps the original session on $phase refresh failure $status',
+      ({ phase, status }) => {
+        const stored = { access_token: 'old', refresh_token: 'ref',
+          expires_at: phase === 'proactive' ? 1 : Date.now() + 60_000,
+          current_user: { uid: '7', name: 'A', roles: [] } };
+        setup(() => stored);
+        userServiceMock.refreshAccessToken.mockImplementation(() =>
+          http.post<OAuthTokenResponse>(tokenUrl, {})
+        );
+        const request = capture(http.get(`${API}/api/v3/endpoint`));
+        if (phase === '401') httpTesting.expectOne(`${API}/api/v3/endpoint`)
+          .flush('', { status: 401, statusText: 'Unauthorized' });
+        const refresh = httpTesting.expectOne(tokenUrl);
+        expect(refresh.request.headers.has('Authorization')).toBe(false);
+        if (status === 0) refresh.error(new ProgressEvent('error'));
+        else refresh.flush({ error: 'temporarily_unavailable' },
+          { status, statusText: 'Unavailable' });
+        expect(request.result.error).toBeInstanceOf(HttpErrorResponse);
+        expect((request.result.error as HttpErrorResponse).status).toBe(status);
+        expect(userServiceMock.getStoredUser()).toEqual(stored);
+        expect(userServiceMock.logoutUser).not.toHaveBeenCalled();
+        expect(userServiceMock.applyRefreshedToken).not.toHaveBeenCalled();
+        expect(userServiceMock.refreshAccessToken).toHaveBeenCalledOnce();
+        expect(userServiceMock.userSub$.observed).toBe(false);
+        httpTesting.expectNone(`${API}/api/v3/endpoint`);
+        httpTesting.expectNone(tokenUrl);
+      }
+    );
+
+    it.each([0, 503])('ends a failed queue on %s and refreshes only a later request', status => {
+      setup(() => ({ access_token: 'old', refresh_token: 'ref', expires_at: 1 }));
+      userServiceMock.refreshAccessToken.mockImplementation(() =>
+        http.post<OAuthTokenResponse>(tokenUrl, {})
+      );
+      const first = capture(http.get(`${API}/api/v3/first`));
+      const queued = capture(http.get(`${API}/api/v3/queued`));
+      const refresh = httpTesting.expectOne(tokenUrl);
+      if (status === 0) refresh.error(new ProgressEvent('error'));
+      else refresh.flush({ error: 'server_error' }, { status, statusText: 'Unavailable' });
+      expect(first.result.error).toBeInstanceOf(HttpErrorResponse);
+      expect(queued.result.error).toBe(first.result.error);
+      expect(userServiceMock.logoutUser).not.toHaveBeenCalled();
+      expect(userServiceMock.applyRefreshedToken).not.toHaveBeenCalled();
+      expect(userServiceMock.userSub$.observed).toBe(false);
+      const failure = first.result.error;
+      const later = capture(http.get(`${API}/api/v3/later`));
+      httpTesting.expectOne(tokenUrl).flush({ access_token: 'fresh', refresh_token: 'ref2',
+        token_type: 'Bearer', expires_in: 3600 });
+      const retried = httpTesting.expectOne(`${API}/api/v3/later`);
+      expect(retried.request.headers.get('Authorization')).toBe('Bearer fresh');
+      retried.flush({ ok: true });
+      expect(later.result.completed).toBe(true);
+      expect(userServiceMock.refreshAccessToken).toHaveBeenCalledTimes(2);
+      expect(userServiceMock.applyRefreshedToken).toHaveBeenCalledOnce();
+      expect(userServiceMock.logoutUser).not.toHaveBeenCalled();
+      expect(first.result.error).toBe(failure);
+      expect(queued.result.error).toBe(failure);
+      httpTesting.expectNone(`${API}/api/v3/first`);
+      httpTesting.expectNone(`${API}/api/v3/queued`);
+    });
+
+    it('still ends the original session once when OAuth rejects its refresh token', () => {
+      setup(() => ({ access_token: 'old', refresh_token: 'ref', expires_at: 1 }));
+      userServiceMock.refreshAccessToken.mockImplementation(() =>
+        http.post<OAuthTokenResponse>(tokenUrl, {})
+      );
+      const first = capture(http.get(`${API}/api/v3/first`));
+      const queued = capture(http.get(`${API}/api/v3/queued`));
+      httpTesting.expectOne(tokenUrl).flush({ error: 'invalid_grant' },
+        { status: 400, statusText: 'Bad Request' });
+      expect((first.result.error as HttpErrorResponse).error).toEqual({ error: 'invalid_grant' });
+      expect(queued.result.error).toBe(first.result.error);
+      expect(userServiceMock.logoutUser).toHaveBeenCalledOnce();
+      expect(userServiceMock.applyRefreshedToken).not.toHaveBeenCalled();
+      expect(userServiceMock.userSub$.observed).toBe(false);
+      httpTesting.expectNone(`${API}/api/v3/first`);
+      httpTesting.expectNone(`${API}/api/v3/queued`);
     });
   });
 
