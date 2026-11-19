@@ -32,13 +32,19 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     return next(req);
   }
 
+  const storedUser = userService.getStoredUser();
+  const session = captureTokenSession(storedUser);
+
   if (req.headers.has('Authorization')) {
-    return next(req);
+    if (!session || req.headers.get('Authorization') !== `Bearer ${session.accessToken}`) {
+      return next(req);
+    }
+    return next(req).pipe(
+      catchError(error => handleError(error, req, next, userService, session))
+    );
   }
 
-  const storedUser = userService.getStoredUser();
-
-  if (!storedUser?.access_token) {
+  if (!storedUser?.access_token || !session) {
     return next(req);
   }
 
@@ -50,7 +56,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     return next(addToken(req, storedUser.access_token));
   }
 
-  const session = captureTokenSession(storedUser)!;
   if (shouldProactivelyRefresh(storedUser)) {
     return refreshAndRetry(req, next, userService, session);
   }

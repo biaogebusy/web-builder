@@ -83,6 +83,23 @@ describe('authInterceptor', () => {
   });
 
   describe('pre-auth header / no user', () => {
+    it('refreshes an explicit bearer only when it belongs to the captured stored credentials', () => {
+      setup(() => ({ access_token: 'old', refresh_token: 'ref' }));
+      userServiceMock.refreshAccessToken.mockReturnValue(
+        of({ access_token: 'fresh', expires_in: 3600 })
+      );
+      const request = capture(http.get(`${API}/api/v3/owned`, {
+        headers: { Authorization: 'Bearer old' },
+      }));
+      httpTesting.expectOne(`${API}/api/v3/owned`).flush('',
+        { status: 401, statusText: 'Unauthorized' });
+      const retried = httpTesting.expectOne(`${API}/api/v3/owned`);
+      expect(retried.request.headers.get('Authorization')).toBe('Bearer fresh');
+      retried.flush({ ok: true });
+      expect(request.result.completed).toBe(true);
+      expect(userServiceMock.refreshAccessToken).toHaveBeenCalledOnce();
+    });
+
     it('keeps an existing Authorization header and forwards the request', () => {
       setup(() => null);
       http
