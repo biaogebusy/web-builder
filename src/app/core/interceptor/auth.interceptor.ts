@@ -6,17 +6,20 @@ import {
   HttpInterceptorFn,
   HttpRequest,
 } from '@angular/common/http';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError, filter, switchMap, take } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, switchMap } from 'rxjs/operators';
 import { UserService } from '@core/service/user.service';
 import { IUser } from '@core/interface/IUser';
 import { environment } from 'src/environments/environment';
+import {
+  captureTokenSession,
+  isTokenSessionCurrent,
+  refreshSessionToken,
+  TokenSession,
+} from '@core/util/token-refresh';
 
 const PROACTIVE_REFRESH_LEEWAY_MS = 30 * 1000;
 const ANONYMOUS_PATHS = ['/api/v3/otp/generate', '/api/v3/otp/login'];
-
-let isRefreshing = false;
-const refreshTokenSubject = new BehaviorSubject<string | null>(null);
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const userService = inject(UserService);
@@ -30,13 +33,13 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   if (req.headers.has('Authorization')) {
-    return next(req).pipe(catchError(error => handleError(error, req, next, userService)));
+    return next(req);
   }
 
   const storedUser = userService.getStoredUser();
 
   if (!storedUser?.access_token) {
-    return next(req).pipe(catchError(error => handleError(error, req, next, userService)));
+    return next(req);
   }
 
   // SSR: never refresh; render anonymously when token already expired.
@@ -47,12 +50,15 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     return next(addToken(req, storedUser.access_token));
   }
 
+  const session = captureTokenSession(storedUser)!;
   if (shouldProactivelyRefresh(storedUser)) {
-    return refreshAndRetry(req, next, userService);
+    return refreshAndRetry(req, next, userService, session);
   }
 
   const authReq = addToken(req, storedUser.access_token);
-  return next(authReq).pipe(catchError(error => handleError(error, req, next, userService)));
+  return next(authReq).pipe(
+    catchError(error => handleError(error, req, next, userService, session))
+  );
 };
 
 function isExpired(user: IUser): boolean {
@@ -78,12 +84,12 @@ function handleError(
   error: HttpErrorResponse,
   req: HttpRequest<unknown>,
   next: HttpHandlerFn,
-  userService: UserService
+  userService: UserService,
+  session: TokenSession
 ): Observable<HttpEvent<unknown>> {
   if (error.status === 401 && req.url.includes(environment.apiUrl) && userService.isBrowser) {
-    const storedUser = userService.getStoredUser();
-    if (storedUser?.refresh_token) {
-      return refreshAndRetry(req, next, userService);
+    if (session.refreshToken && isTokenSessionCurrent(userService, session)) {
+      return refreshAndRetry(req, next, userService, session);
     }
   }
   return throwError(() => error);
@@ -92,34 +98,10 @@ function handleError(
 function refreshAndRetry(
   req: HttpRequest<unknown>,
   next: HttpHandlerFn,
-  userService: UserService
+  userService: UserService,
+  session: TokenSession
 ): Observable<HttpEvent<unknown>> {
-  if (!isRefreshing) {
-    isRefreshing = true;
-    refreshTokenSubject.next(null);
-
-    return userService.refreshAccessToken().pipe(
-      switchMap(tokenData => {
-        isRefreshing = false;
-        if (!tokenData) {
-          userService.logoutUser();
-          return throwError(() => new Error('Token refresh failed'));
-        }
-        userService.applyRefreshedToken(tokenData);
-        refreshTokenSubject.next(tokenData.access_token);
-        return next(addToken(req, tokenData.access_token));
-      }),
-      catchError(err => {
-        isRefreshing = false;
-        userService.logoutUser();
-        return throwError(() => err);
-      })
-    );
-  }
-
-  return refreshTokenSubject.pipe(
-    filter(token => token !== null),
-    take(1),
-    switchMap(token => next(addToken(req, token!)))
+  return refreshSessionToken(userService, session).pipe(
+    switchMap(token => next(addToken(req, token)))
   );
 }
