@@ -111,12 +111,27 @@ deployment details out of anything that ships upstream.
 - Seam examples to copy: `pro-ai-chat.ts` registered as one entry in `dynamic-component-loaders.ts`; `TiptapBubbleMenuComponent.ai` (default off) switched on by `InlineEditorService`, with the AI panel behind `@defer`.
 - **Verify before committing**: `git diff --stat master HEAD -- <shared path>` should show only the hook lines; anything else is base work that belongs upstream.
 
+### Fixed test assets
+
+- Store all fixed external test inputs in `../xinshi-docs/stories/assets/testing/`.
+  This applies to unit, integration, browser and business evaluation tests across the project.
+  Register each input in `registry.json` with a stable ID, relative path and SHA256.
+- Read registered inputs through `scripts/test-assets.mjs`. Use `XINSHI_TEST_ASSETS_ROOT`
+  for isolated worktrees and CI. Run `npm run check:test-assets` before dependent checks.
+  Keep versioned evaluation corpora immutable. Change the corpus version when inputs change.
+- Keep test execution code and tested production sources in their owning repositories.
+  Generate runtime databases, exports and reports in temporary directories.
+  Temporary cleanup must not remove the versioned inputs or their only copy.
+- See the [test asset guide](../xinshi-docs/stories/develop/engineering/testing.mdx#fixed-test-assets)
+  for the asset inventory, reader setup and CI prerequisites.
+
 ## Common Commands
 
 - `npm start` — local dev server (proxies API to the backend configured in `config/proxy.config.js`; the target differs per branch)
 - `npm run build` — production build plus static asset precompression (`ng build --configuration production && npm run precompress`)
 - `npm run perf:build` — production measurement build and public initial JS dependency check
 - `npm run check:public-bundle -- <output directory>` — check existing Angular stats and CSR entry
+- `npm run check:test-assets` — verify fixed external test inputs in the documentation repository
 - `npm test` — run unit tests once (Vitest via `@angular/build:unit-test` builder); covers all `src/**` specs except `src/server/**`; setup in `src/test-setup.ts`, shared test providers in `src/test-providers.ts`
 - `npm run test:server` — run server-side specs (`src/server/**`, including Node and SQLite tests) via root `vitest.config.ts`; the two channels split coverage with no overlap
 - `npm run test:unit` — run both unit test channels in sequence on demand
