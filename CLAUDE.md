@@ -116,7 +116,7 @@ deployment details out of anything that ships upstream.
 - Store all fixed external test inputs in `../xinshi-docs/stories/assets/testing/`.
   This applies to unit, integration, browser and business evaluation tests across the project.
   Register each input in `registry.json` with a stable ID, relative path and SHA256.
-- Read registered inputs through `scripts/test-assets.mjs`. Use `XINSHI_TEST_ASSETS_ROOT`
+- Read registered inputs through `scripts/test-assets.cjs`. Use `XINSHI_TEST_ASSETS_ROOT`
   for isolated worktrees and CI. Run `npm run check:test-assets` before dependent checks.
   Keep versioned evaluation corpora immutable. Change the corpus version when inputs change.
 - Keep test execution code and tested production sources in their owning repositories.

@@ -1,9 +1,8 @@
-import { createHash } from 'node:crypto';
-import { lstatSync, readFileSync, realpathSync } from 'node:fs';
-import { dirname, isAbsolute, relative, resolve } from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+const { createHash } = require('node:crypto');
+const { lstatSync, readFileSync, realpathSync } = require('node:fs');
+const { isAbsolute, relative, resolve } = require('node:path');
 
-const appRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const appRoot = resolve(__dirname, '..');
 const exactKeys = (value, keys) =>
   value &&
   typeof value === 'object' &&
@@ -11,7 +10,7 @@ const exactKeys = (value, keys) =>
   Object.keys(value).sort().join() === [...keys].sort().join();
 
 /** Resolve the versioned documentation assets for local, isolated and CI checkouts. */
-export function testAssetsRoot(root = process.env.XINSHI_TEST_ASSETS_ROOT) {
+function testAssetsRoot(root = process.env.XINSHI_TEST_ASSETS_ROOT) {
   return resolve(appRoot, root || '../xinshi-docs/stories/assets/testing');
 }
 
@@ -74,7 +73,7 @@ function checkedAsset(root, asset, expectedHash) {
 }
 
 /** Return a checked fixed input; fail before tests when data is missing or modified. */
-export function testAssetPath(id, options = {}) {
+function testAssetPath(id, options = {}) {
   const root = realpathSync(testAssetsRoot(options.root));
   const asset = registry(root).find(entry => entry.id === id);
   if (!asset) throw new Error(`Unknown test asset: ${id}`);
@@ -82,12 +81,14 @@ export function testAssetPath(id, options = {}) {
 }
 
 /** Verify all registered files and return their identities and absolute paths. */
-export function checkTestAssets(options = {}) {
+function checkTestAssets(options = {}) {
   const root = realpathSync(testAssetsRoot(options.root));
   return registry(root).map(asset => checkedAsset(root, asset));
 }
 
-if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
+module.exports = { testAssetsRoot, testAssetPath, checkTestAssets };
+
+if (require.main === module) {
   try {
     if (process.argv.length !== 2) throw new Error('Usage: npm run check:test-assets');
     console.log(`Verified ${checkTestAssets().length} test assets in ${testAssetsRoot()}`);

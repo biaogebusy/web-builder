@@ -14,7 +14,7 @@
     "prebuild": "node scripts/split-svg-icons.mjs",
     "build":"ng build --configuration production && npm run precompress",
     "precompress": "node scripts/precompress.mjs",
-    "check:test-assets": "node scripts/test-assets.mjs",
+    "check:test-assets": "node scripts/test-assets.cjs",
     "test": "ng test --no-watch",
     "test:server": "vitest run",
     "test:unit": "npm test && npm run test:server",
