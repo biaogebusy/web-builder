@@ -1,146 +1,148 @@
 @let isFullScreen = builderFullScreen();
-@if (isFullScreen) {
-  <div *ngTemplateOutlet="toolbar; context: { isFull: isFullScreen }"></div>
-}
-<!-- placeholder for fixed -->
-<div *ngTemplateOutlet="toolbar; context: { isFull: false }"></div>
-
-<ng-template #toolbar let-isFull="isFull">
-  <div class="builder-toolbar" [class]="{ fixed: isFull }">
-    <div class="wrapper">
-      @if (currentPage(); as page) {
-        <div class="left">
-          <div class="left-info">
-            @if (page.body.length) {
-              <div class="page-title">
-                <div contenteditable="true" (blur)="onTitle($event)">
-                  {{ page.title }}
-                </div>
-                @if (page.translation && page.target) {
-                  <span
-                    class="draft-badge"
-                    role="status"
-                    [attr.aria-label]="'BUILDER.TOOLBAR.TRANSLATION_DRAFT' | translate"
-                    [matTooltip]="
-                      'BUILDER.TOOLBAR.TRANSLATION_DRAFT_TIP'
-                        | translate: { lang: getLangLabel(page.target) }
-                    "
-                  >
-                    <app-icon class="draft-badge-icon" [content]="{ svg: 'translate' }" />
-                    {{ 'BUILDER.TOOLBAR.TRANSLATION_DRAFT' | translate }}
-                  </span>
-                  <span class="lang-badge">{{ getLangLabel(page.target) }}</span>
-                } @else if (!page.uuid) {
-                  <span
-                    class="draft-badge"
-                    role="status"
-                    [attr.aria-label]="'BUILDER.COMMON.UNPUBLISHED' | translate"
-                    [matTooltip]="'BUILDER.TOOLBAR.DRAFT_BADGE_TIP' | translate"
-                  >
-                    <app-icon class="draft-badge-icon" [content]="{ svg: 'tray-arrow-up' }" />
-                    {{ 'BUILDER.COMMON.UNPUBLISHED' | translate }}
-                  </span>
-                } @else if (page.dirty) {
-                  <span
-                    class="draft-badge"
-                    role="status"
-                    [attr.aria-label]="'BUILDER.TOOLBAR.UNSAVED_CHANGES' | translate"
-                    [matTooltip]="'BUILDER.TOOLBAR.UNSAVED_CHANGES_TIP' | translate"
-                  >
-                    <app-icon class="draft-badge-icon" [content]="{ svg: 'pencil-outline' }" />
-                    {{ 'BUILDER.TOOLBAR.UNSAVED_CHANGES' | translate }}
-                  </span>
-                }
-                @if (!page.translation && page.langcode) {
-                  <span class="lang-badge">{{ page.langcode | uppercase }}</span>
-                }
-                <app-icon [content]="{ svg: 'pencil-outline' }" />
+<div class="builder-toolbar">
+  <div class="wrapper">
+    @if (currentPage(); as page) {
+      <div class="left">
+        <div class="left-info">
+          @if (page.body.length) {
+            <div class="page-title">
+              <div
+                contenteditable="true"
+                role="textbox"
+                [attr.aria-label]="'BUILDER.INLINE_EDITOR.EDIT_TITLE' | translate"
+                [attr.title]="page.title"
+                (blur)="onTitle($event)"
+              >
+                {{ page.title }}
               </div>
-              @if (page.changed) {
-                <div class="time">{{ date() | date: 'yyyy-MM-dd HH:mm' }}</div>
+              @if (page.translation && page.target) {
+                <span
+                  class="draft-badge"
+                  role="status"
+                  [attr.aria-label]="'BUILDER.TOOLBAR.TRANSLATION_DRAFT' | translate"
+                  [matTooltip]="
+                    'BUILDER.TOOLBAR.TRANSLATION_DRAFT_TIP'
+                      | translate: { lang: getLangLabel(page.target) }
+                  "
+                >
+                  <app-icon class="draft-badge-icon" [content]="{ svg: 'translate' }" />
+                  {{ 'BUILDER.TOOLBAR.TRANSLATION_DRAFT' | translate }}
+                </span>
+                <span class="lang-badge">{{ getLangLabel(page.target) }}</span>
+              } @else if (!page.uuid) {
+                <span
+                  class="draft-badge"
+                  role="status"
+                  [attr.aria-label]="'BUILDER.COMMON.UNPUBLISHED' | translate"
+                  [matTooltip]="'BUILDER.TOOLBAR.DRAFT_BADGE_TIP' | translate"
+                >
+                  <app-icon class="draft-badge-icon" [content]="{ svg: 'tray-arrow-up' }" />
+                  {{ 'BUILDER.COMMON.UNPUBLISHED' | translate }}
+                </span>
+              } @else if (page.dirty) {
+                <span
+                  class="draft-badge"
+                  role="status"
+                  [attr.aria-label]="'BUILDER.TOOLBAR.UNSAVED_CHANGES' | translate"
+                  [matTooltip]="'BUILDER.TOOLBAR.UNSAVED_CHANGES_TIP' | translate"
+                >
+                  <app-icon class="draft-badge-icon" [content]="{ svg: 'pencil-outline' }" />
+                  {{ 'BUILDER.TOOLBAR.UNSAVED_CHANGES' | translate }}
+                </span>
               }
-            } @else {
-              <div class="page-title">{{ 'BUILDER.TOOLBAR.WELCOME_PAGE' | translate }}</div>
-            }
-          </div>
-          <button aria-label="dropdown menu" mat-icon-button [mat-menu-trigger-for]="menu">
-            <app-icon [content]="{ svg: 'chevron-down' }" />
-          </button>
-          <mat-menu #menu="matMenu">
-            @if (version(); as versionValue) {
-              @for (version of versionValue; track $index; let i = $index) {
-                <button mat-menu-item (click)="onVersion(version, i)">
-                  <div class="flex items-center">
-                    <app-icon class="opacity-70" [content]="{ svg: 'file-outline' }" />
-                    <span matListItemTitle>{{ version.title }}</span>
-                  </div>
-                </button>
+              @if (!page.translation && page.langcode) {
+                <span class="lang-badge">{{ page.langcode | uppercase }}</span>
               }
+              <app-icon [content]="{ svg: 'pencil-outline' }" />
+            </div>
+            @if (page.changed) {
+              <div class="time">{{ date() | date: 'yyyy-MM-dd HH:mm' }}</div>
             }
-            <mat-divider />
-            <button mat-menu-item (click)="onClearHistory()">
-              <div class="flex items-center">
-                <app-icon [content]="{ svg: 'delete-empty-outline', color: 'warn' }" />
-                <span matListItemTitle>{{ 'BUILDER.COMMON.CLEAR_DRAFT' | translate }}</span>
-              </div>
-            </button>
-            <button mat-menu-item (click)="onNewPage()">
-              <div class="flex items-center">
-                <app-icon [content]="{ svg: 'pencil-plus', color: 'primary' }" />
-                <span matListItemTitle>{{ 'BUILDER.COMMON.NEW_DRAFT' | translate }}</span>
-              </div>
-            </button>
-          </mat-menu>
-        </div>
-      }
-      <div class="middle">
-        <app-switch-preview />
-        <app-switch-theme />
-      </div>
-      <div id="toolbar-right" class="right">
-        <mat-slide-toggle
-          [checked]="isFullScreen"
-          (change)="onFullScreen($event)"
-          [matTooltip]="
-            (isFullScreen ? 'BUILDER.TOOLBAR.SHOW_SIDEBAR' : 'BUILDER.TOOLBAR.TOGGLE_FULL_WIDTH')
-              | translate
-          "
-        />
-        @if (page) {
-          @if (page.uuid && !page.translation) {
-            <app-btn
-              class="page-settings-btn"
-              [matTooltip]="'BUILDER.PAGE_LIST.PAGE_PROPS' | translate"
-              (btnClick)="onPageSettings(page)"
-              [content]="{
-                label: 'BUILDER.PAGE_LIST.PAGE_PROPS' | translate,
-                mode: 'icon',
-                icon: { svg: 'cog-outline' },
-              }"
-            />
+          } @else {
+            <div class="page-title">{{ 'BUILDER.TOOLBAR.WELCOME_PAGE' | translate }}</div>
           }
+        </div>
+        <button aria-label="dropdown menu" mat-icon-button [mat-menu-trigger-for]="menu">
+          <app-icon [content]="{ svg: 'chevron-down' }" />
+        </button>
+        <mat-menu #menu="matMenu">
+          @if (version(); as versionValue) {
+            @for (version of versionValue; track $index; let i = $index) {
+              <button mat-menu-item (click)="onVersion(version, i)">
+                <div class="flex items-center">
+                  <app-icon class="opacity-70" [content]="{ svg: 'file-outline' }" />
+                  <span matListItemTitle>{{ version.title }}</span>
+                </div>
+              </button>
+            }
+          }
+          <mat-divider />
+          <button mat-menu-item (click)="onClearHistory()">
+            <div class="flex items-center">
+              <app-icon [content]="{ svg: 'delete-empty-outline', color: 'warn' }" />
+              <span matListItemTitle>{{ 'BUILDER.COMMON.CLEAR_DRAFT' | translate }}</span>
+            </div>
+          </button>
+          <button mat-menu-item (click)="onNewPage()">
+            <div class="flex items-center">
+              <app-icon [content]="{ svg: 'pencil-plus', color: 'primary' }" />
+              <span matListItemTitle>{{ 'BUILDER.COMMON.NEW_DRAFT' | translate }}</span>
+            </div>
+          </button>
+        </mat-menu>
+      </div>
+    }
+    <div class="middle">
+      <app-switch-preview />
+      <app-switch-theme />
+    </div>
+    <div id="toolbar-right" class="right">
+      <mat-slide-toggle
+        [checked]="isFullScreen"
+        (change)="onFullScreen($event)"
+        [aria-label]="
+          (isFullScreen ? 'BUILDER.TOOLBAR.SHOW_SIDEBAR' : 'BUILDER.TOOLBAR.TOGGLE_FULL_WIDTH')
+            | translate
+        "
+        [matTooltip]="
+          (isFullScreen ? 'BUILDER.TOOLBAR.SHOW_SIDEBAR' : 'BUILDER.TOOLBAR.TOGGLE_FULL_WIDTH')
+            | translate
+        "
+      />
+      @if (page) {
+        @if (page.uuid && !page.translation) {
           <app-btn
-            class="submit-btn"
-            (click)="onSubmit(page)"
+            class="page-settings-btn"
+            [matTooltip]="'BUILDER.PAGE_LIST.PAGE_PROPS' | translate"
+            (btnClick)="onPageSettings(page)"
             [content]="{
-              label:
-                (page.translation
-                  ? 'BUILDER.TOOLBAR.SUBMIT_TRANSLATION'
-                  : page.uuid
-                    ? 'BUILDER.TOOLBAR.SUBMIT_UPDATE'
-                    : 'BUILDER.TOOLBAR.SUBMIT_DRAFT'
-                ) | translate,
-              color: (!page.uuid || page.translation) && page.body.length ? 'warn' : 'primary',
-              mode: 'raised',
-              icon: {
-                svg: page.uuid && !page.translation ? 'pencil' : 'tray-arrow-up',
-              },
+              label: 'BUILDER.PAGE_LIST.PAGE_PROPS' | translate,
+              mode: 'icon',
+              icon: { svg: 'cog-outline' },
             }"
           />
         }
-        <app-lang-switch />
-        <app-builder-menu />
-      </div>
+        <app-btn
+          class="submit-btn"
+          (click)="onSubmit(page)"
+          [content]="{
+            label:
+              (page.translation
+                ? 'BUILDER.TOOLBAR.SUBMIT_TRANSLATION'
+                : page.uuid
+                  ? 'BUILDER.TOOLBAR.SUBMIT_UPDATE'
+                  : 'BUILDER.TOOLBAR.SUBMIT_DRAFT'
+              ) | translate,
+            color: (!page.uuid || page.translation) && page.body.length ? 'warn' : 'primary',
+            mode: 'raised',
+            icon: {
+              svg: page.uuid && !page.translation ? 'pencil' : 'tray-arrow-up',
+            },
+          }"
+        />
+      }
+      <app-lang-switch />
+      <app-builder-menu />
     </div>
   </div>
-</ng-template>
+</div>
