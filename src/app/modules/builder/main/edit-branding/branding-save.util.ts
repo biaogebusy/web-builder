@@ -1,5 +1,5 @@
 import { map, Observable } from 'rxjs';
-import type { IBranding, IFooter, IHeader } from '@core/interface/branding/IBranding';
+import type { IBranding } from '@core/interface/branding/IBranding';
 import { NodeService } from '@core/service/node.service';
 
 export const BRANDING_JSON_ENDPOINT = '/api/v1/node/json';
@@ -45,20 +45,11 @@ export function canSaveBranding(
   return dirty && !loading && !saving && hasConfig;
 }
 
-export function buildBrandingUpdateBody(
+/** Serialize one typed section while preserving the rest of the loaded branding. */
+export function buildBrandingUpdateBody<Section extends 'header' | 'footer'>(
   branding: IBranding,
-  section: 'header',
-  value: IHeader
-): { body: string };
-export function buildBrandingUpdateBody(
-  branding: IBranding,
-  section: 'footer',
-  value: IFooter
-): { body: string };
-export function buildBrandingUpdateBody(
-  branding: IBranding,
-  section: 'header' | 'footer',
-  value: IHeader | IFooter
+  section: Section,
+  value: NonNullable<IBranding[NoInfer<Section>]>
 ): { body: string } {
   const updatedBranding =
     section === 'header' ? { ...branding, header: value } : { ...branding, footer: value };

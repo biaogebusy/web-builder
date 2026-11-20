@@ -5,3 +5,6 @@
   }
   <app-footer />
 }
+@if (failed()) {
+  <p role="status">{{ 'PAGE.UNAVAILABLE' | translate }}</p>
+}

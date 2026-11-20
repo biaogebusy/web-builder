@@ -1,0 +1,51 @@
+<div class="toolbar-group">
+  <app-btn
+    [matTooltip]="'BUILDER.TIPTAP.UNDO' | translate"
+    [content]="{
+      mode: 'icon', ariaLabel: 'BUILDER.TIPTAP.UNDO' | translate,
+      icon: { svg: 'arrow-left-top' }, disabled: !state().undo || disabled().includes('undo'),
+    }"
+    (btnClick)="action.emit('undo')"
+  />
+  <app-btn
+    [matTooltip]="'BUILDER.TIPTAP.REDO' | translate"
+    [content]="{
+      mode: 'icon', ariaLabel: 'BUILDER.TIPTAP.REDO' | translate,
+      icon: { svg: 'arrow-right-top' }, disabled: !state().redo || disabled().includes('redo'),
+    }"
+    (btnClick)="action.emit('redo')"
+  />
+</div>
+<label class="heading-control">
+  <span class="sr-only">{{ 'BUILDER.TIPTAP.HEADING' | translate }}</span>
+  <select [formControl]="headingControl" (change)="headingChange.emit(headingControl.value)">
+    @for (level of headings; track level) {
+      <option [ngValue]="level">
+        {{ (level ? 'BUILDER.TIPTAP.H' + level : 'BUILDER.TIPTAP.PARAGRAPH') | translate }}
+      </option>
+    }
+  </select>
+</label>
+<!-- Native toggles expose aria-pressed, which the button widget does not support. -->
+@for (format of formats; track format.action) {
+  <button
+    type="button"
+    mat-icon-button
+    [attr.aria-pressed]="state()[format.action]"
+    [attr.aria-label]="'BUILDER.TIPTAP.' + format.label | translate"
+    [matTooltip]="'BUILDER.TIPTAP.' + format.label | translate"
+    [disabled]="disabled().includes(format.action)"
+    (click)="action.emit(format.action)"
+  >
+    <app-icon [content]="{ svg: format.icon }" />
+  </button>
+}
+<app-btn
+  [matTooltip]="'BUILDER.TIPTAP.LINK' | translate"
+  [content]="{
+    mode: 'icon', ariaLabel: 'BUILDER.TIPTAP.LINK' | translate,
+    icon: { svg: 'link-variant' }, color: state().link ? 'primary' : undefined,
+    disabled: disabled().includes('link'),
+  }"
+  (btnClick)="action.emit('link')"
+/>

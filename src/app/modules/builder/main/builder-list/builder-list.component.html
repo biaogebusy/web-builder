@@ -28,8 +28,8 @@
           />
         </div>
       }
-      <div class="wrapper" [class]="previewClass$ | async">
-        @if (builder.loading()) {
+      <div class="wrapper" [class]="previewClass()">
+        @if (builder.loading() || builder.pageSettingsLoading()) {
           <div class="load">
             <app-loading />
           </div>
@@ -47,6 +47,9 @@
             <div
               id="item-{{ i }}"
               class="component-item"
+              role="group"
+              tabindex="0"
+              [attr.aria-label]="'BUILDER.LIST.CANVAS_COMPONENT' | translate: { index: i + 1 }"
               cdkDrag
               [cdkDragDisabled]="true"
               [cdkDragData]="item"
@@ -70,6 +73,7 @@
                     </button>
                     <button
                       class="new-widget"
+                      [attr.aria-label]="'BUILDER.LIST.SELECT_WIDGET' | translate"
                       [matTooltip]="'BUILDER.LIST.SELECT_WIDGET' | translate"
                       mat-icon-button
                       [matMenuTriggerFor]="menu"
@@ -99,7 +103,7 @@
             </div>
           }
         </div>
-        @if (builder.switchPreview$ | async) {
+        @if (previewClass().preview) {
           <div class="iframe-wrapper">
             <app-iframe class="preview-iframe" [content]="{ url: '/preview' }" />
           </div>
@@ -108,7 +112,7 @@
     </div>
     <app-btn
       class="float-action-btn"
-      [matMenuTriggerFor]="menu"
+      [menu]="menu"
       [content]="{
         mode: 'mini-fab',
         color: 'primary',

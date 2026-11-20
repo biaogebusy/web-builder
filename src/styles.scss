@@ -89,6 +89,11 @@ body {
   border: 0 solid #e5e7eb;
 }
 
+// Material changes all outline widths on focus; the reset must not expose the notch's sides.
+.mdc-notched-outline__notch {
+  border-inline-style: none;
+}
+
 // fix sidebar position sticky
 .mat-drawer-content,
 .mat-drawer-container {

@@ -4,6 +4,7 @@ import {
   Component,
   ComponentRef,
   DestroyRef,
+  ElementRef,
   OnInit,
   ViewContainerRef,
   inject,
@@ -13,16 +14,17 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
+import { firstValueFrom } from 'rxjs';
+import { CommentService } from '@core/service/comment.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { ScreenService } from '@core/service/screen.service';
 import type { IBaseNode, ICommentParams } from '@core/interface/node/INode';
 import { merge } from 'lodash-es';
 import { ContentState } from '@core/state/ContentState';
-import { USER } from '@core/token/token-providers';
-import type { IUser } from '@core/interface/IUser';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TitleComponent } from '@uiux/widgets/title/title.component';
 import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
@@ -43,7 +45,13 @@ export class CommentFormComponent implements OnInit {
   readonly dismiss = output<void>();
 
   readonly editorHost = viewChild.required('editorHost', { read: ViewContainerRef });
+  private plainEditor = viewChild<ElementRef<HTMLTextAreaElement>>('plainEditor');
   readonly editorLoaded = signal(false);
+  /** Plain-text formats use a textarea instead of the rich-text editor. */
+  readonly plainText = signal(false);
+  private textFormat = '';
+  private document = inject(DOCUMENT);
+  private commentService = inject(CommentService);
   readonly editorLoading = signal(false);
   readonly editorError = signal(false);
 
@@ -55,7 +63,6 @@ export class CommentFormComponent implements OnInit {
   screenService = inject(ScreenService);
   utilitiesService = inject(UtilitiesService);
   contentState = inject(ContentState);
-  private user = inject(USER);
   private destroyRef = inject(DestroyRef);
   private editorRef: ComponentRef<TiptapEditorComponent> | null = null;
   private destroyed = false;
@@ -77,15 +84,18 @@ export class CommentFormComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((quote: any) => {
         this.screenService.scrollToAnchor('comment');
-        this.commentContent.set(`
+        const html = `
           <br>
           <em style="color: rgb(136, 136, 136);font-style: italic;">
           ====================<br>${quote.author.title}<br>${quote.author.subTitle}<br>
           ${quote.content}
           </em>
-          `);
+          `;
+        this.commentContent.set(this.plainText() ? this.toPlainText(html) : html);
         // A quote must be visible immediately, so mount the editor when it is still collapsed
-        if (this.editorRef) {
+        if (this.plainText()) {
+          this.plainEditor()?.nativeElement.focus();
+        } else if (this.editorRef) {
           this.syncEditorContent();
         } else {
           this.activateEditor();
@@ -97,6 +107,7 @@ export class CommentFormComponent implements OnInit {
   activateEditor(): void {
     if (
       this.editorRef ||
+      this.editorLoaded() ||
       this.editorLoading() ||
       this.destroyed ||
       !this.screenService.isPlatformBrowser()
@@ -112,6 +123,22 @@ export class CommentFormComponent implements OnInit {
     this.editorError.set(false);
 
     try {
+      const params = this.content().params?.comment as ICommentParams;
+      const schema = await firstValueFrom(this.commentService.getForm(
+        params.type.replace(/^comment--/, ''), this.type() === 'update' ? this.commentId() : undefined
+      ));
+      if (this.destroyed || loadToken !== this.editorLoadToken) {
+        return;
+      }
+      this.textFormat = schema.textFormat;
+      if (schema.editor === 'plain_text') {
+        this.commentContent.set(this.toPlainText(this.commentContent()));
+        this.plainText.set(true);
+        this.editorLoaded.set(true);
+        this.cd.detectChanges();
+        this.plainEditor()?.nativeElement.focus();
+        return;
+      }
       const { TiptapEditorComponent } = await import(
         '@uiux/combs/other/tiptap-editor/tiptap-editor.component'
       );
@@ -146,36 +173,44 @@ export class CommentFormComponent implements OnInit {
     this.editorRef?.instance.setContent(this.commentContent());
   }
 
+  private toPlainText(html: string): string {
+    const template = this.document.createElement('template');
+    template.innerHTML = html.replace(/<br\s*\/?>(?:\n)?|<\/p>/gi, '\n');
+    return template.content.textContent?.trim() ?? '';
+  }
+
   onCancel(): void {
     this.dismiss.emit();
   }
 
   onSubmit(value: string): void {
+    if (this.loading) {
+      return;
+    }
     this.loading = true;
-    const token = (this.user() as IUser)?.access_token;
     const params = this.content().params?.comment as ICommentParams;
-    const type = params.attributes?.field_name || '';
+    const type = params.type.replace(/^comment--/, '');
     // reply/update are handled inside this component; default is add, including for external components
     switch (this.type()) {
       case 'reply':
-        this.reply(value, params, type, token);
+        this.reply(value, params, type);
         break;
       case 'update':
-        this.update(value, params, type, token);
+        this.update(value, params, type);
         break;
       default:
-        this.add(value, params, type, token);
+        this.add(value, params, type);
     }
     this.cd.detectChanges();
   }
 
-  add(value: string, params: ICommentParams, type: string, token: string): void {
+  add(value: string, params: ICommentParams, type: string): void {
     params.attributes.comment_body = {
       value,
-      format: 'full_html',
+      format: this.textFormat || undefined,
     };
     this.nodeService
-      .addComment(type, params, token)
+      .addComment(type, params)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(
         () => {
@@ -192,13 +227,13 @@ export class CommentFormComponent implements OnInit {
       );
   }
 
-  reply(value: string, params: ICommentParams, type: string, token: string): void {
+  reply(value: string, params: ICommentParams, type: string): void {
     const entity = {
       type: params.type,
       attributes: {
         comment_body: {
           value,
-          format: 'full_html',
+          format: this.textFormat || undefined,
         },
       },
       relationships: {
@@ -212,37 +247,34 @@ export class CommentFormComponent implements OnInit {
     };
     const data = merge({}, params, entity);
     this.nodeService
-      .replyComment(type, data, token)
+      .replyComment(type, data)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
         this.commentContent.set('');
         this.syncEditorContent();
         this.done('回复成功！');
         this.cd.detectChanges();
+      }, () => {
+        this.loading = false;
+        this.utilitiesService.openSnackbar('回复失败！');
+        this.cd.detectChanges();
       });
   }
 
-  update(value: string, params: ICommentParams, type: string, token: string): void {
+  update(value: string, params: ICommentParams, type: string): void {
     const entity: ICommentParams = {
       type: params.type,
       id: this.commentId(),
+      relationships: {},
       attributes: {
         comment_body: {
           value,
-          format: 'full_html',
-        },
-      },
-      relationships: {
-        uid: {
-          data: {
-            type: 'user--user',
-            id: (this.user() as IUser)?.id,
-          },
+          format: this.textFormat || undefined,
         },
       },
     };
     this.nodeService
-      .updateComment(type, entity, this.commentId() ?? '', token)
+      .updateComment(type, entity, this.commentId() ?? '')
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(
         () => {

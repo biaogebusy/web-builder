@@ -10,6 +10,10 @@
 .acc-icon {
   margin-right: 0.75rem !important;
 }
+.menu-group-divider {
+  @apply my-3;
+  background-color: var(--mat-sys-outline-variant);
+}
 .mat-accordion {
   .mat-expansion-panel-header,
   .mat-mdc-list {

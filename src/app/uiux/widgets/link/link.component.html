@@ -32,7 +32,12 @@
             [routerLink]="[content().href]"
             [routerLinkActive]="['active']"
             [target]="content().target || '_self'"
-            [routerLinkActiveOptions]="{ exact: true }"
+            [routerLinkActiveOptions]="{
+              paths: 'exact',
+              queryParams: 'subset',
+              matrixParams: 'ignored',
+              fragment: 'ignored',
+            }"
             [queryParams]="content().queryParams"
             [fragment]="content().fragment"
             [class]="classes"

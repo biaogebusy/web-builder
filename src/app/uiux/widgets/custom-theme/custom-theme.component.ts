@@ -15,7 +15,11 @@ import {
   ThemeService,
   ThemeVariant,
 } from '@core/service/theme.service';
+import {
+  generatePalette, generateThemeVars, exportThemeCss,
+} from '@core/util/theme-palette.util';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { downloadBlob } from '@core/util/download-blob';
 import { NodeService } from '@core/service/node.service';
 import { BuilderService } from '@core/service/builder.service';
 import { ScreenService } from '@core/service/screen.service';
@@ -110,7 +114,7 @@ export class CustomThemeComponent implements OnInit {
 
   // Live-generated palette for the seed, recomputed reactively.
   private readonly palette = computed<Record<string, string>>(() =>
-    this.themeService.generatePalette(
+    generatePalette(
       this.seed(),
       this.isDark(),
       [...PREVIEW_ROLES],
@@ -218,32 +222,32 @@ export class CustomThemeComponent implements OnInit {
   // Live preview: regenerate the M3 palette and write CSS vars immediately.
   private preview(): void {
     this.dirty.set(true);
-    this.themeService.applyCustomTheme(this.seed(), this.isDark(), this.variant());
+    this.themeService.applyThemeVars(
+      generateThemeVars(this.seed(), this.isDark(), this.variant()), this.isDark()
+    );
   }
 
   onSave(): void {
-    this.themeService.applyCustomTheme(this.seed(), this.isDark(), this.variant());
-    this.themeService.saveCustomTheme(this.seed(), this.isDark(), this.variant());
+    const vars = generateThemeVars(this.seed(), this.isDark(), this.variant());
+    this.themeService.applyThemeVars(vars, this.isDark());
+    this.themeService.saveCustomTheme(
+      this.seed(), this.isDark(), this.variant(), vars
+    );
     this.dirty.set(false);
     this.util.openSnackbar(this.translate.instant('CUSTOM_THEME.SAVED_TOAST'), 'ok');
   }
 
   // Export the generated palette as a :root CSS block for use outside the app.
   onExportCss(): void {
-    const css = this.themeService.exportThemeCss(this.seed(), this.isDark(), this.variant());
+    const css = exportThemeCss(this.seed(), this.isDark(), this.variant());
     const blob = new Blob([css], { type: 'text/css' });
-    const url = URL.createObjectURL(blob);
-    const anchor = this.document.createElement('a');
-    anchor.href = url;
-    anchor.download = 'custom-theme.css';
-    anchor.click();
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, 'custom-theme.css', { document: this.document, revokeAfterMs: 0 });
     this.util.openSnackbar(this.translate.instant('CUSTOM_THEME.EXPORTED_TOAST'), 'ok');
   }
 
   // Copy the generated CSS variables to the clipboard.
   onCopy(): void {
-    const css = this.themeService.exportThemeCss(this.seed(), this.isDark(), this.variant());
+    const css = exportThemeCss(this.seed(), this.isDark(), this.variant());
     this.document.defaultView?.navigator.clipboard?.writeText(css).then(() => {
       this.util.openSnackbar(this.translate.instant('CUSTOM_THEME.COPIED_TOAST'), 'ok');
     });
@@ -259,7 +263,7 @@ export class CustomThemeComponent implements OnInit {
       seed: this.seed(),
       isDark: this.isDark(),
       variant: this.variant(),
-      vars: this.themeService.generateThemeVars(this.seed(), this.isDark(), this.variant()),
+      vars: generateThemeVars(this.seed(), this.isDark(), this.variant()),
     };
     const body = { ...node.config, customTheme };
     this.saving.set(true);
@@ -279,8 +283,8 @@ export class CustomThemeComponent implements OnInit {
       });
   }
 
-  onReset(): void {
-    this.themeService.restoreSiteTheme();
+  async onReset(): Promise<void> {
+    await this.themeService.restoreSiteTheme();
     this.syncSelection();
     this.dirty.set(false);
     this.util.openSnackbar(this.translate.instant('CUSTOM_THEME.RESET_TOAST'), 'ok');

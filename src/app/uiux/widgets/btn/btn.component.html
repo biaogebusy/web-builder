@@ -1,9 +1,26 @@
 @if (content(); as contentValue) {
   <div [class]="contentValue.iconPosition" *reqRolesIf="contentValue">
+    @if (canEditEmptyLabel()) {
+      <div class="empty-label">
+        @if (contentValue.icon && contentValue.icon.svg) {
+          <app-icon
+            [class.order-1]="contentValue.iconPosition === 'right'"
+            [content]="contentValue.icon"
+          />
+        }
+        <span
+          class="label-edit-target"
+          contentedit="label"
+          contenteditProfile="inline"
+          [contenteditPlaceholder]="'BUILDER.INLINE_EDITOR.EDIT_BUTTON_LABEL' | translate"
+        ></span>
+      </div>
+    } @else {
     @switch (contentValue.mode) {
       @case ('raised') {
         @if (!contentValue.href) {
           <button
+            [matMenuTriggerFor]="menu()"
             [class]="contentValue.classes || ''"
             [class.pill]="contentValue.pill"
             [attr.aria-label]="ariaLabel()"
@@ -26,6 +43,7 @@
           </button>
         } @else {
           <a
+            [matMenuTriggerFor]="menu()"
             [class]="contentValue.classes || ''"
             [class.pill]="contentValue.pill"
             [attr.aria-label]="ariaLabel()"
@@ -53,6 +71,7 @@
       @case ('stroked') {
         @if (!contentValue.href) {
           <button
+            [matMenuTriggerFor]="menu()"
             [class]="contentValue.classes || ''"
             [class.pill]="contentValue.pill"
             [attr.aria-label]="ariaLabel()"
@@ -75,6 +94,7 @@
           </button>
         } @else {
           <a
+            [matMenuTriggerFor]="menu()"
             [class]="contentValue.classes || ''"
             [class.pill]="contentValue.pill"
             [attr.aria-label]="ariaLabel()"
@@ -102,6 +122,7 @@
       @case ('flat') {
         @if (!contentValue.href) {
           <button
+            [matMenuTriggerFor]="menu()"
             [class]="contentValue.classes || ''"
             [class.pill]="contentValue.pill"
             [attr.aria-label]="ariaLabel()"
@@ -124,6 +145,7 @@
           </button>
         } @else {
           <a
+            [matMenuTriggerFor]="menu()"
             [class]="contentValue.classes || ''"
             [class.pill]="contentValue.pill"
             [attr.aria-label]="ariaLabel()"
@@ -151,6 +173,7 @@
       @case ('icon') {
         @if (!contentValue.href) {
           <button
+            [matMenuTriggerFor]="menu()"
             [class]="contentValue.classes || ''"
             [attr.aria-label]="ariaLabel()"
             [disabled]="contentValue.disabled"
@@ -167,6 +190,7 @@
           </button>
         } @else {
           <a
+            [matMenuTriggerFor]="menu()"
             [class]="contentValue.classes || ''"
             [attr.aria-label]="ariaLabel()"
             [disabled]="contentValue.disabled"
@@ -185,6 +209,7 @@
       @case ('fab') {
         @if (contentValue.icon && contentValue.icon.svg) {
           <button
+            [matMenuTriggerFor]="menu()"
             [class]="contentValue.classes || ''"
             [attr.aria-label]="ariaLabel()"
             [disabled]="contentValue.disabled"
@@ -199,6 +224,7 @@
       @case ('mini-fab') {
         @if (contentValue.icon && contentValue.icon.svg) {
           <button
+            [matMenuTriggerFor]="menu()"
             [class]="contentValue.classes || ''"
             [attr.aria-label]="ariaLabel()"
             [disabled]="contentValue.disabled"
@@ -213,6 +239,7 @@
       @default {
         @if (!contentValue.href) {
           <button
+            [matMenuTriggerFor]="menu()"
             [class]="contentValue.classes || ''"
             [attr.aria-label]="ariaLabel()"
             [disabled]="contentValue.disabled"
@@ -234,6 +261,7 @@
           </button>
         } @else {
           <a
+            [matMenuTriggerFor]="menu()"
             [class]="contentValue.classes || ''"
             [attr.aria-label]="ariaLabel()"
             [disabled]="contentValue.disabled"
@@ -257,6 +285,7 @@
           </a>
         }
       }
+    }
     }
   </div>
 }

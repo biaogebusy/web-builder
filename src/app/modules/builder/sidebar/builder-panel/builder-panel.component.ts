@@ -13,9 +13,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { SHARE_IMPORTS } from '@share/share-imports';
 import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import type { IBuilderComponent, IBuilderComponentElement } from '@core/interface/IBuilder';
-import { ScreenService } from '@core/service/screen.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { cloneDeep } from 'lodash-es';
+import { BuilderInsertionService } from '../../main/builder-workspace/builder-insertion.service';
 
 @Component({
   selector: 'app-builder-panel',
@@ -29,7 +29,7 @@ export class BuilderPanelComponent implements OnInit {
   public builder = inject(BuilderState);
   private cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
-  private screenService = inject(ScreenService);
+  private insertion = inject(BuilderInsertionService);
   public fixLabel = signal<string>('');
 
   ngOnInit(): void {
@@ -94,9 +94,6 @@ export class BuilderPanelComponent implements OnInit {
 
   add(content: any): void {
     this.builder.pushComponent(cloneDeep(content));
-    const { body } = this.builder.currentPage;
-    setTimeout(() => {
-      this.screenService.scrollToAnchor(`item-${body.length - 1}`);
-    }, 500);
+    this.insertion.reveal(this.builder.currentPage.body.length - 1, 500, this.destroyRef);
   }
 }

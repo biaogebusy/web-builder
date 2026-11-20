@@ -1,34 +1,101 @@
-<div class="manage-media">
-  <div class="media-grid">
-    <div class="sidebar">
-      <div class="col-control hidden md:block">
-        <mat-slider max="12" min="1" step="1">
-          <input matSliderThumb [(ngModel)]="manageMediaConfig().row" />
-        </mat-slider>
-      </div>
-      <form [formGroup]="form" (keydown.enter)="onEnter($event)">
+<div class="manage-media" [class.managing]="content().mode === 'manage'">
+  <div class="media-grid" [class.guest]="!signedIn()">
+    @if (signedIn()) {
+    <div class="toolbar">
+      <form
+        class="toolbar-filters"
+        [attr.aria-label]="'MANAGE.MEDIA.FILTERS' | translate"
+        [formGroup]="form"
+        (keydown.enter)="onEnter($event)"
+      >
+        <app-icon
+          class="search-icon"
+          [content]="{ svg: 'magnify', inline: true }"
+          aria-hidden="true"
+        />
         <app-formly
-          [classes]="'form-field-width-auto'"
+          class="filter-fields"
+          [content]="{ uiTheme: 'shadcn' }"
+          [classes]="'media-filter-fields'"
           [form]="form"
           [fields]="fields()"
           [model]="model"
         />
       </form>
-      <div class="action">
+      <div class="toolbar-actions">
+        @if (content().mode === 'manage') {
+          <label>
+            <span class="sr-only">{{ 'MANAGE.MEDIA.KIND' | translate }}</span>
+            <select [value]="form.value.kind || ''"
+              (change)="form.patchValue({kind: $any($event.target).value}); onSearch(form.value)">
+              <option value="">{{ 'MANAGE.MEDIA.ALL_KINDS' | translate }}</option>
+              @for (kind of kinds; track kind) {
+                <option [value]="kind">{{ ('MANAGE.MEDIA.KIND_' + kind) | translate }}</option>
+              }
+            </select>
+          </label>
+        }
+        @if (capabilities().canViewAll) {
+          <label>
+            <span class="sr-only">{{ 'MANAGE.MEDIA.SCOPE' | translate }}</span>
+            <select [value]="form.value.scope || 'all'"
+              (change)="form.patchValue({scope: $any($event.target).value}); onSearch(form.value)">
+              <option value="all">{{ 'MANAGE.MEDIA.ALL_OWNERS' | translate }}</option>
+              <option value="mine">{{ 'MANAGE.MEDIA.MINE' | translate }}</option>
+            </select>
+          </label>
+        }
+        <div class="col-control" [matTooltip]="'MANAGE.MEDIA.THUMBNAIL_SIZE' | translate">
+          <app-icon
+            class="size-icon"
+            [content]="{ svg: 'view-grid-outline', inline: true }"
+            aria-hidden="true"
+          />
+          <input
+            class="thumbnail-range"
+            type="range"
+            min="1"
+            max="12"
+            step="1"
+            [(ngModel)]="manageMediaConfig().row"
+            [attr.aria-label]="'MANAGE.MEDIA.THUMBNAIL_SIZE' | translate"
+          />
+          <app-icon
+            class="size-icon"
+            [content]="{ svg: 'image-outline', inline: true }"
+            aria-hidden="true"
+          />
+        </div>
+        @if (canUpload()) {
         <app-btn
-          (click)="onUpload()"
+          class="upload-action"
+          (btnClick)="onUpload()"
           [content]="{
             label: 'MANAGE.MEDIA.UPLOAD' | translate,
             color: 'primary',
-            mode: 'raised',
+            mode: 'flat',
             icon: { svg: 'upload-outline' },
           }"
         />
+        }
       </div>
     </div>
+    }
     <div class="inner">
-      @if (loading()) {
-        <div class="load">
+      @if (!signedIn()) {
+        <div class="empty login-required" role="status" [class.is-leaving]="signingIn()">
+          <app-icon class="empty-icon" [content]="{ svg: 'account-outline', inline: true }" />
+          <div class="empty-title">{{ 'MANAGE.MEDIA.LOGIN_TITLE' | translate }}</div>
+          <div class="empty-desc">{{ 'MANAGE.MEDIA.LOGIN_DESC' | translate }}</div>
+          <app-btn (btnClick)="onLogin()" [content]="{
+            label: 'MANAGE.MEDIA.LOGIN' | translate,
+            color: 'primary',
+            mode: 'flat',
+          }" />
+        </div>
+      } @else {
+      @if (loading() && !visibleAssets()) {
+        <div class="load" role="status" [attr.aria-label]="'MANAGE.MEDIA.LOADING' | translate">
           <app-loading />
         </div>
       }
@@ -37,85 +104,120 @@
           <mat-progress-bar mode="determinate" color="primary" [value]="progress" />
         </div>
       }
-      @if (mediaAssets(); as assets) {
-        @if ($any(assets).rows.length) {
+      @if (content().mode === 'manage' && selectedIds().length) {
+        <div class="selection-toolbar" role="group"
+          [attr.aria-label]="'MANAGE.MEDIA.BATCH_ACTIONS' | translate">
+          <span class="selection-count" role="status" aria-live="polite">
+            {{ 'MANAGE.MEDIA.SELECTED_COUNT' | translate: { count: selectedIds().length } }}
+          </span>
+          <app-btn (btnClick)="selectLoaded()" [content]="{
+            label: (infiniteScroll() ? 'MANAGE.MEDIA.SELECT_LOADED' : 'MANAGE.MEDIA.SELECT_PAGE') | translate,
+            mode: 'text',
+          }" />
+          <app-btn (btnClick)="clearSelection()" [content]="{
+            label: 'MANAGE.MEDIA.CLEAR_SELECTION' | translate, mode: 'text',
+          }" />
+          <app-btn class="batch-delete"
+            (btnClick)="bulkDelete(selectedIds())"
+            [content]="{
+              label: 'MANAGE.MEDIA.BULK_DELETE' | translate: { count: selectedIds().length },
+              mode: 'stroked', icon: { svg: 'trash-can-outline' },
+            }"
+          />
+        </div>
+      }
+      <div
+        #scrollViewport
+        class="media-scroll"
+        role="region"
+        tabindex="0"
+        [attr.aria-label]="'MANAGE.MEDIA.RESULTS' | translate"
+        [attr.aria-busy]="loading()"
+      >
+      @if (visibleAssets(); as assets) {
+        @if (assets.rows.length) {
           <div class="viewport" [style.--cols]="manageMediaConfig().row">
-            @for (item of $any(assets).rows; track item.id ?? item.uuid) {
-              <div class="masonry-item">
-                <div class="actions" [matTooltip]="item.title">
-                  @if (content().mode === 'manage') {
-                    <app-btn
-                      *reqRolesIf="{
-                        params: { reqRoles: ['administrator'] },
-                      }"
-                      class="btn icon-delete"
-                      [matTooltip]="'MANAGE.MEDIA.DELETE' | translate"
-                      matTooltipPosition="above"
-                      (click)="onDelete(item.uuid)"
-                      [content]="{
-                        label: '',
-                        mode: 'icon',
-                        icon: { svg: 'delete' },
-                      }"
-                    />
-                    <app-btn
-                      class="btn"
-                      [matTooltip]="'MANAGE.MEDIA.RENAME' | translate"
-                      matTooltipPosition="above"
-                      (click)="onRename(item)"
-                      [content]="{
-                        label: '',
-                        mode: 'icon',
-                        icon: { svg: 'pencil-outline' },
-                      }"
-                    />
-                    <app-btn
-                      class="btn"
-                      [matTooltip]="'MANAGE.MEDIA.COPY_PATH' | translate"
-                      matTooltipPosition="above"
-                      (click)="onCopy(item)"
-                      [content]="{
-                        label: '',
-                        mode: 'icon',
-                        icon: { svg: 'content-copy' },
-                      }"
-                    />
-                  }
-                  <app-btn
-                    class="btn"
-                    [matTooltip]="'MANAGE.MEDIA.SELECT' | translate"
-                    matTooltipPosition="above"
-                    (click)="onSelect(item)"
-                    [content]="{
-                      label: '',
-                      mode: 'icon',
-                      icon: { svg: 'checkbox-marked-outline' },
-                    }"
-                  />
-                </div>
-                @if (content().mode === 'manage') {
-                  <div class="delete">
-                    <mat-checkbox (change)="onChange($event.checked, item.uuid)" />
-                  </div>
-                }
-                <div
-                  role="button"
-                  tabindex="0"
-                  (click)="onPreview(item)"
-                  (keyup.enter)="onPreview(item)"
+            @for (item of assets.rows; track item.uuid || item.id) {
+              <div class="masonry-item" [class.is-selected]="isSelected(item)">
+                <!-- A native button makes the complete image the first keyboard target. -->
+                <button
+                  type="button"
+                  (click)="content().mode === 'manage' ? onPreview(item) : onSelect(item)"
                   class="box"
-                  [class]="{ selected: isSelected(item) }"
+                  [disabled]="content().mode !== 'manage' && !canSelect(item)"
+                  [matTooltip]="content().mode !== 'manage' && !canSelect(item)
+                    ? ('MANAGE.MEDIA.INCOMPATIBLE_SELECTION' | translate) : ''"
+                  [attr.aria-label]="
+                    ((content().mode === 'manage' ? 'MANAGE.MEDIA.PREVIEW' : 'MANAGE.MEDIA.SELECT')
+                      | translate) + ': ' + item.title
+                  "
+                  [attr.aria-pressed]="content().mode === 'manage' ? null : isSelected(item)"
                 >
                   @if (item.src) {
-                    <img
-                      class="media-img"
-                      ngSrc="{{ item.src }}"
-                      priority
-                      width="480"
-                      height="360"
-                      alt="{{ item.title || '媒体' }}"
-                    />
+                    <img class="media-img" [ngSrc]="item.src" width="480" height="360" alt="" />
+                  } @else {
+                    <app-icon [content]="{ svg: item.kind === 'audio' ? 'music-note-outline'
+                      : item.kind === 'video' ? 'video-outline' : 'file-document-outline' }" />
                   }
+                  @if (content().mode !== 'manage') {
+                    <span class="selection-indicator" aria-hidden="true">
+                      <app-icon [content]="{
+                        svg: isSelected(item) ? 'checkbox-marked' : 'checkbox-blank-outline',
+                      }" />
+                    </span>
+                  }
+                </button>
+                @if (content().mode === 'manage') {
+                  <div class="batch-checkbox">
+                    <mat-checkbox
+                      [aria-label]="('MANAGE.MEDIA.BATCH_SELECT' | translate) + ': ' + item.title"
+                      [checked]="isSelected(item)"
+                      [disabled]="!item.uuid || !item.canRemove"
+                      (change)="onChange($event.checked, item.uuid)"
+                    />
+                  </div>
+                }
+                <div class="media-caption">
+                  <span class="media-name" [title]="item.title">{{ item.title }}</span>
+                  <!-- The menu trigger belongs on the native button for focus and ARIA state. -->
+                  <button
+                    type="button"
+                    mat-icon-button
+                    class="media-more"
+                    #mediaActions="matMenuTrigger"
+                    [matMenuTriggerFor]="mediaMenu"
+                    [attr.aria-label]="('MANAGE.MEDIA.MORE_ACTIONS' | translate) + ': ' + item.title"
+                  >
+                    <app-icon [content]="{ svg: 'dots-horizontal' }" />
+                  </button>
+                  <mat-menu #mediaMenu="matMenu">
+                    <div class="media-menu-title">{{ item.title }}</div>
+                    <button mat-menu-item class="media-menu-item"
+                      (click)="mediaActions.closeMenu(); onPreview(item)">
+                      <app-icon [content]="{ svg: 'magnify-plus-outline' }" />
+                      <span>{{ 'MANAGE.MEDIA.PREVIEW' | translate }}</span>
+                    </button>
+                    @if (item.canRename) {
+                    <button mat-menu-item class="media-menu-item"
+                      (click)="mediaActions.closeMenu(); onRename(item)">
+                      <app-icon [content]="{ svg: 'pencil-outline' }" />
+                      <span>{{ 'MANAGE.MEDIA.RENAME' | translate }}</span>
+                    </button>
+                    }
+                    <button mat-menu-item class="media-menu-item" (click)="onCopy(item)">
+                      <app-icon [content]="{ svg: 'content-copy' }" />
+                      <span>{{ 'MANAGE.MEDIA.COPY_PATH' | translate }}</span>
+                    </button>
+                    @if (item.canRemove) {
+                    <div class="media-menu-danger">
+                      <button mat-menu-item class="media-menu-item"
+                        (click)="mediaActions.closeMenu(); onDelete(item.uuid)">
+                        <app-icon [content]="{ svg: 'delete-outline' }" />
+                        <span>{{ 'MANAGE.MEDIA.DELETE' | translate }}</span>
+                      </button>
+                    </div>
+                    }
+                  </mat-menu>
                 </div>
               </div>
             }
@@ -133,37 +235,50 @@
             }
           </div>
         }
-      }
-      <div class="bottom">
-        @if (deletedLists.length) {
-          <div class="action">
-            <app-btn
-              (click)="bulkDelete(deletedLists)"
-              [content]="{
-                color: 'warn',
-                mode: 'raised',
-                label: 'MANAGE.MEDIA.BULK_DELETE' | translate: { count: deletedLists.length },
-                icon: { svg: 'trash-can-outline' },
-              }"
-            />
-          </div>
-        }
-        @if (mediaAssets(); as assets) {
-          <div class="page">
-            @if ($any(assets).pager && $any(assets).rows.length) {
-              <mat-paginator
-                (page)="onPageChange($event)"
-                [length]="$any(assets).pager.totalItems"
-                [pageSize]="$any(assets).pager.itemsPerPage"
-                [showFirstLastButtons]="true"
-                [hidePageSize]="true"
-                [pageIndex]="$any(assets).pager.currentPage"
-                aria-label="Select page"
+        @if (infiniteScroll() && (assets.rows.length || hasMore())) {
+          <div #loadMoreTrigger class="scroll-status">
+            <span role="status" aria-live="polite">
+              {{ 'MANAGE.MEDIA.LOADED_COUNT' | translate: {
+                count: assets.rows.length,
+              } }}
+            </span>
+            @if (hasMore() && !loadError()) {
+              <app-btn
+                (btnClick)="loadMore()"
+                [content]="{
+                  label: (loading() ? 'MANAGE.MEDIA.LOADING' : 'MANAGE.MEDIA.LOAD_MORE') | translate,
+                  disabled: loading(),
+                }"
               />
             }
           </div>
         }
+      }
       </div>
+      @if (loadError()) {
+        <div class="load-error" role="alert">
+          <span>{{ 'MANAGE.MEDIA.LOAD_FAILED' | translate }}</span>
+          <app-btn
+            (btnClick)="retryLoad()"
+            [content]="{
+              label: 'MANAGE.MEDIA.RETRY' | translate,
+              mode: 'stroked',
+            }"
+          />
+        </div>
+      }
+      <div class="bottom">
+        @if (!infiniteScroll() && visibleAssets()) {
+          <app-btn (btnClick)="onPageChange(pageIndex() - 1)" [content]="{
+            label: 'MANAGE.MEDIA.PREVIOUS' | translate, disabled: pageIndex() === 0 || loading(),
+          }" />
+          <span>{{ pageIndex() + 1 }}</span>
+          <app-btn (btnClick)="onPageChange(pageIndex() + 1)" [content]="{
+            label: 'MANAGE.MEDIA.NEXT' | translate, disabled: !hasMore() || loading(),
+          }" />
+        }
+      </div>
+      }
     </div>
   </div>
 </div>

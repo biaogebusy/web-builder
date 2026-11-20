@@ -1,4 +1,5 @@
 @use 'mixins/amixin' as *;
+@use 'mixins/contentedit-placeholder' as contentedit;
 :host {
   display: block;
 }
@@ -145,5 +146,8 @@
     .line-style {
       display: none;
     }
+  }
+  .title-header {
+    @include contentedit.target;
   }
 }

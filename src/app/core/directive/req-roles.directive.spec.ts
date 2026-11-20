@@ -11,7 +11,7 @@ import { IUser } from '@core/interface/IUser';
   standalone: true,
   imports: [ReqRolesDirective],
   template: `
-    <div *reqRolesIf="content()" class="target">Secret Content</div>
+    <div *reqRolesIf="content()" class="target">{{ content()?.label || 'Secret Content' }}</div>
   `,
 })
 class TestComponent {
@@ -79,6 +79,43 @@ describe('ReqRolesDirective', () => {
 
   it('hides content when reqRolesIf is falsy', () => {
     const { getTarget } = setup();
+    expect(getTarget()).toBeNull();
+  });
+
+  it('retains the allowed view when content changes for the same user', () => {
+    const { fixture, component, getTarget } = setup(createUser(['editor']));
+    component.content.set({ label: 'Before', params: { reqRoles: ['editor'] } });
+    fixture.detectChanges();
+    const original = getTarget().nativeElement;
+    component.content.set({ label: 'After', params: { reqRoles: ['editor'] } });
+    fixture.detectChanges();
+    expect(getTarget().nativeElement).toBe(original);
+    expect(original.textContent).toContain('After');
+  });
+
+  it('recreates an allowed view when the authenticated account changes', () => {
+    const { fixture, component, userSignal, getTarget } = setup(createUser(['editor'], '7'));
+    component.content.set({ params: { reqRoles: ['editor'] } });
+    fixture.detectChanges();
+    const original = getTarget().nativeElement;
+    userSignal.set(createUser(['editor'], '8'));
+    fixture.detectChanges();
+    expect(getTarget().nativeElement).not.toBe(original);
+  });
+
+  it('removes an allowed view when roles are revoked or its content is removed', () => {
+    const { fixture, component, userSignal, getTarget } = setup(createUser(['editor']));
+    component.content.set({ params: { reqRoles: ['editor'] } });
+    fixture.detectChanges();
+    expect(getTarget()).not.toBeNull();
+    userSignal.set(createUser(['viewer']));
+    fixture.detectChanges();
+    expect(getTarget()).toBeNull();
+    userSignal.set(createUser(['editor']));
+    fixture.detectChanges();
+    expect(getTarget()).not.toBeNull();
+    component.content.set(null);
+    fixture.detectChanges();
     expect(getTarget()).toBeNull();
   });
 

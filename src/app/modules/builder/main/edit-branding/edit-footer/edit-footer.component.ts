@@ -1,3 +1,6 @@
+import { confirmBrandingLanguageSwitch } from '../branding-language-switch';
+import { BrandingSaveService } from '../branding-save.service';
+import { BrandingEditorContextService } from '../branding-editor-context.service';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -25,29 +28,22 @@ import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { FORM_IMPORTS } from '@uiux/combs/form/form-imports';
 import { provideXinshiFormly } from '@uiux/combs/form/formly-feature.config';
 import { shadcnFormOptions } from '@uiux/combs/form/formly-shadcn/formly-shadcn.config';
-import { merge, shareReplay } from 'rxjs';
+import { merge } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import { IBranding, IFooter } from '@core/interface/branding/IBranding';
-import { IDialog } from '@core/interface/IDialog';
-import { ContentService } from '@core/service/content.service';
-import { NodeService } from '@core/service/node.service';
-import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { HasUnsavedChanges } from '@core/guards/unsaved-changes.guard';
 import { TranslateService } from '@ngx-translate/core';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { BrandingPreviewComponent } from '../branding-preview/branding-preview.component';
-import { formatBrandingJson, getBrandingJsonError, mergeBrandingJson } from '../branding-json.util';
-import { buildFooterConfig } from '../branding-config.util';
 import {
-  BRANDING_JSON_ENDPOINT,
-  IBrandingNode,
-  buildBrandingUpdateBody,
-  canSaveBranding,
-  listBrandingNodes,
-  pickBrandingNode,
-} from '../branding-save.util';
+  changeBrandingJson,
+  toggleBrandingJsonEditMode,
+  updateBrandingJsonPreview,
+} from '../branding-json-state';
+import { buildFooterConfig } from '../branding-config.util';
+import { canSaveBranding } from '../branding-save.util';
 import {
   appendBrandingChild,
   appendBrandingItem,
@@ -86,11 +82,13 @@ interface FooterMenuGroup {
     NgxSkeletonLoaderModule,
     BrandingPreviewComponent,
   ],
-  providers: [provideXinshiFormly()],
+  providers: [provideXinshiFormly(), BrandingSaveService, BrandingEditorContextService],
 })
 export class EditFooterComponent implements OnInit, HasUnsavedChanges {
-  loading = signal(false);
-  saving = signal(false);
+  private readonly editorContext = inject(BrandingEditorContextService);
+  loading = this.editorContext.loading;
+  private readonly brandingSave = inject(BrandingSaveService);
+  saving = this.brandingSave.saving;
   dirty = signal(false);
   branding = signal<IBranding | null>(null);
   footer = signal<IFooter | null>(null);
@@ -104,7 +102,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
   // Language switcher: rendered only for multi-language deployments with more than one language configured
   langs = environment.langs ?? [];
   showLangSwitch = environment.multiLang && this.langs.length > 1;
-  brandingNodes = signal<IBrandingNode[]>([]);
+  brandingNodes = this.editorContext.nodes;
   activeSection = signal<string>('params');
   showJson = signal(false);
   previewBranding = signal<IBranding | null>(null);
@@ -120,7 +118,9 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
   jsonError = signal('');
 
   canSave = computed(() =>
-    canSaveBranding(this.dirty(), this.loading(), this.saving(), !!this.footer())
+    canSaveBranding(
+      this.dirty(), this.loading(), this.saving(), this.editorContext.ready() && !!this.footer()
+    )
   );
 
   paramsForm = new UntypedFormGroup({});
@@ -188,16 +188,11 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
 
   private route = inject(ActivatedRoute);
   private router = inject(Router);
-  private contentService = inject(ContentService);
-  private builderService = inject(BuilderService);
-  private nodeService = inject(NodeService);
   private util = inject(UtilitiesService);
   private snackBar = inject(MatSnackBar);
   private dialog = inject(MatDialog);
   private destroyRef = inject(DestroyRef);
   private translate = inject(TranslateService);
-  /** Branding node list fetched once, shared by param-less entry resolution and language-switcher graying out */
-  private brandingNodes$ = listBrandingNodes(this.nodeService).pipe(shareReplay(1));
 
   hasUnsavedChanges(): boolean {
     return this.dirty();
@@ -212,35 +207,17 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
   }
 
   ngOnInit(): void {
-    if (this.showLangSwitch) {
-      this.brandingNodes$
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(nodes => this.brandingNodes.set(nodes));
-    }
-    this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
-      const { uuid, langcode } = params;
-      if (uuid) {
-        this.initNode(uuid, langcode ?? '');
-        return;
-      }
-      // Entering directly from the management center/menu or switching language has no uuid; resolve the branding node by alias + target language
-      const target = langcode || this.nodeService.getLang(this.nodeService.pageUrl)?.langCode;
-      this.brandingNodes$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(nodes => {
-        const node = pickBrandingNode(nodes, target);
-        if (!node) {
-          this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.MISSING_NODE'));
-          return;
-        }
-        this.initNode(node.uuid, node.langcode);
-      });
+    this.editorContext.connect(!!this.showLangSwitch, {
+      selectNode: node => this.initNode(node.uuid, node.langcode),
+      applyBranding: branding => this.applyBranding(branding),
     });
+    this.listenFormChanges();
   }
 
   private initNode(uuid: string, langcode: string): void {
     this.nodeUuid.set(uuid);
     this.nodeLangcode.set(langcode);
     this.queryParams = { uuid, langcode };
-    this.loadData();
   }
 
   // ── Content-language switch ──
@@ -259,22 +236,7 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
       this.navigateToLang(langCode);
       return;
     }
-    // The canDeactivate guard only intercepts route leaves, not query-param changes on the same route; confirm manually here
-    const config: IDialog = {
-      title: this.translate.instant('BUILDER.EDIT_BRANDING.SWITCH_LANG_TITLE'),
-      yesLabel: this.translate.instant('BUILDER.EDIT_BRANDING.SWITCH_LANG_YES'),
-      noLabel: this.translate.instant('BUILDER.EDIT_BRANDING.SWITCH_LANG_NO'),
-      inputData: {
-        content: {
-          type: 'text',
-          fullWidth: true,
-          body: this.translate.instant('BUILDER.EDIT_BRANDING.SWITCH_LANG_CONFIRM'),
-        },
-      },
-    };
-    this.dialog
-      .open(DialogComponent, { width: '360px', data: config })
-      .afterClosed()
+    confirmBrandingLanguageSwitch(this.dialog, this.translate)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(result => {
         if (result) {
@@ -289,37 +251,27 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
     this.router.navigate([], { relativeTo: this.route, queryParams: { langcode: langCode } });
   }
 
+  /** Refresh the selected node through the component's current read scope. */
   loadData(): void {
-    this.loading.set(true);
-    // The loaded language must match the node being saved: build the language prefix from the node langcode, not the current URL
-    this.contentService
-      .loadBranding(`/${this.nodeLangcode()}/`)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: branding => {
-          this.branding.set(branding);
-          const footer = branding.footer ?? ({ params: { mode: 'light' } } as IFooter);
-          this.footer.set(footer);
-          this.menuItems.set([...(footer.mainMenu ?? [])]);
-          this.mobileMenuItems.set([...(footer.mobileMenu ?? [])]);
+    this.editorContext.reload();
+  }
 
-          this.initParamsFields(footer);
-          this.initBrandFields(footer);
-          this.initSocialFields(footer);
-          this.initNewsletterFields(footer);
-          this.initBottomFields(footer);
-          this.initFixBarFields(footer);
-          this.initDynamic(footer);
-          this.updateJsonPreview();
-          this.loading.set(false);
-          this.dirty.set(false);
-          this.listenFormChanges();
-        },
-        error: () => {
-          this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.LOAD_FAIL'));
-          this.loading.set(false);
-        },
-      });
+  private applyBranding(branding: IBranding): void {
+    this.branding.set(branding);
+    const footer = branding.footer ?? ({ params: { mode: 'light' } } as IFooter);
+    this.footer.set(footer);
+    this.menuItems.set([...(footer.mainMenu ?? [])]);
+    this.mobileMenuItems.set([...(footer.mobileMenu ?? [])]);
+
+    this.initParamsFields(footer);
+    this.initBrandFields(footer);
+    this.initSocialFields(footer);
+    this.initNewsletterFields(footer);
+    this.initBottomFields(footer);
+    this.initFixBarFields(footer);
+    this.initDynamic(footer);
+    this.updateJsonPreview();
+    this.dirty.set(false);
   }
 
   private listenFormChanges(): void {
@@ -346,13 +298,9 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
     if (!this.footer()) {
       return;
     }
-    try {
-      const built = this.buildFooter();
-      this.jsonPreview.set(formatBrandingJson(built));
-      this.updateLivePreview(built);
-    } catch {
-      /* skip */
-    }
+    updateBrandingJsonPreview(this, () => this.buildFooter(), value => {
+      this.updateLivePreview(value);
+    });
   }
 
   private updateLivePreview(footer: IFooter): void {
@@ -363,25 +311,13 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
   }
 
   toggleJsonEditMode(): void {
-    if (!this.jsonEditMode()) {
-      this.customJson = this.jsonPreview();
-      this.jsonError.set('');
-    }
-    this.jsonEditMode.set(!this.jsonEditMode());
+    toggleBrandingJsonEditMode(this);
   }
 
   onJsonChange(value: string): void {
-    this.customJson = value;
-    this.markDirty();
-    const error = getBrandingJsonError(value);
-    this.jsonError.set(error);
-    if (!error) {
-      try {
-        this.updateLivePreview(mergeBrandingJson(this.buildFooter(), value));
-      } catch {
-        // keep last valid preview
-      }
-    }
+    changeBrandingJson(this, value, () => this.buildFooter(), config => {
+      this.updateLivePreview(config);
+    });
   }
 
   // ── Field init (unchanged) ──
@@ -900,47 +836,18 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
     );
   }
 
+  /** Save this editor's section without sharing draft state with other editors. */
   onSave(): void {
-    if (!this.nodeUuid()) {
-      this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.NOT_FOUND_NODE'));
-      return;
-    }
-
-    this.saving.set(true);
-    const branding = this.branding()!;
-    let footer = this.buildFooter();
-
-    if (this.jsonEditMode() && this.customJson) {
-      try {
-        footer = mergeBrandingJson(footer, this.customJson);
-        this.jsonError.set('');
-      } catch {
-        this.saving.set(false);
-        this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.JSON_FORMAT_ERROR'), 'ok');
-        return;
-      }
-    }
-
-    this.builderService
-      .updateAttributes(
-        { uuid: this.nodeUuid(), langcode: this.nodeLangcode() },
-        BRANDING_JSON_ENDPOINT,
-        buildBrandingUpdateBody(branding, 'footer', footer),
-        {}
-      )
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: res => {
-          this.saving.set(false);
-          if (res) {
-            this.dirty.set(false);
-            this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.FOOTER_UPDATE_SUCCESS'), 'ok');
-          }
-        },
-        error: () => {
-          this.saving.set(false);
-          this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.UPDATE_FAIL'));
-        },
-      });
+    if (!this.editorContext.ready()) return;
+    this.brandingSave.save(
+      {
+        node: { uuid: this.nodeUuid(), langcode: this.nodeLangcode() },
+        branding: this.branding()!,
+        section: 'footer',
+        buildSection: () => this.buildFooter(),
+        customJson: this.jsonEditMode() ? this.customJson : undefined,
+      },
+      { dirty: this.dirty, jsonError: this.jsonError }
+    );
   }
 }

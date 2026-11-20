@@ -1,3 +1,4 @@
+import { menuHoverState } from '../menu-hover';
 import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -16,8 +17,6 @@ import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 import { ScreenService } from '@core/service/screen.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { BaseComponent } from '@uiux/base/base.widget';
-import { fromEvent, of } from 'rxjs';
-import { mergeMap, delay, takeUntil } from 'rxjs/operators';
 import { LinkComponent } from '@uiux/widgets/link/link.component';
 
 @Component({
@@ -43,41 +42,10 @@ export class HoverMenuComponent extends BaseComponent implements OnInit {
     }
   }
   initActionEvent(): void {
-    const megaMenu = this.eleRef.nativeElement;
-    const enter = fromEvent(megaMenu, 'mouseenter');
-    const leave = fromEvent(megaMenu, 'mouseleave');
-
-    enter
-      .pipe(
-        mergeMap(event => {
-          return of(event).pipe(delay(100), takeUntil(leave));
-        }),
-        takeUntilDestroyed(this.destroyRef)
-      )
-      .subscribe(() => {
-        this.active = true;
-        this.cd.detectChanges();
-      });
-
-    leave
-      .pipe(
-        mergeMap(event => {
-          return of(event).pipe(delay(100), takeUntil(enter));
-        }),
-        takeUntilDestroyed(this.destroyRef)
-      )
-      .subscribe(() => {
-        this.active = false;
-        this.cd.detectChanges();
-      });
-
-    this.screenState.stickyMenu$
+    menuHoverState(this.eleRef.nativeElement, this.screenState.stickyMenu$)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(sticky => {
-        if (!sticky) {
-          return;
-        }
-        this.active = false;
+      .subscribe(active => {
+        this.active = active;
         this.cd.detectChanges();
       });
   }

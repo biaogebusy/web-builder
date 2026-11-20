@@ -1,3 +1,5 @@
+@use '@angular/material' as mat;
+
 .cdk-overlay-container {
   --mat-dialog-container-max-width: 80vw;
   .mat-mdc-dialog-container {
@@ -6,7 +8,7 @@
       overflow-y: visible;
       .dialog-colse-outside-btn {
         .mat-icon {
-          color: #fff;
+          color: var(--mat-sys-inverse-on-surface);
         }
       }
       .mat-mdc-dialog-content {
@@ -17,6 +19,17 @@
   .manage-media-dialog {
     .mat-mdc-dialog-content {
       max-height: none;
+    }
+    @media (max-width: 600px), (max-height: 600px) {
+      width: calc(100vw - 24px) !important;
+      max-width: calc(100vw - 24px) !important;
+      --media-panel-height: calc(100dvh - 92px);
+      .mat-mdc-dialog-container .mat-mdc-dialog-content {
+        @apply pt-14 px-3 pb-3;
+      }
+      .dialog-colse-outside-btn {
+        @apply top-2 right-2 z-10;
+      }
     }
   }
 
@@ -142,6 +155,15 @@
         overflow: hidden;
       }
     }
+  }
+
+  .page-deletion-dialog .dialog-actions .mat-primary {
+    @include mat.button-overrides((
+      text-label-text-color: var(--mat-sys-on-error),
+      text-state-layer-color: var(--mat-sys-on-error),
+      text-ripple-color: color-mix(in srgb, var(--mat-sys-on-error) 12%, transparent),
+    ));
+    background: var(--mat-sys-error);
   }
 
   .layout-toolbar-menu {

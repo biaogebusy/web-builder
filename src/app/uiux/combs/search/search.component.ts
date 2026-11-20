@@ -7,6 +7,7 @@ import {
   DestroyRef,
   ElementRef,
   input,
+  viewChild,
 } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -15,9 +16,9 @@ import { NodeService } from '@core/service/node.service';
 import { RouteService } from '@core/service/route.service';
 import { BaseComponent } from '../../base/base.widget';
 import { FormService } from '@core/service/form.service';
-import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
+import { catchError, debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 import { ScreenService } from '@core/service/screen.service';
-import { Subject } from 'rxjs';
+import { EMPTY, Subject } from 'rxjs';
 import type { ISearch } from '@core/interface/combs/ISearch';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SearchHeaderComponent } from './search-header/search-header.component';
@@ -55,6 +56,7 @@ export class SearchComponent extends BaseComponent implements OnInit {
   private cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
   private ele = inject(ElementRef);
+  private list = viewChild(SearchListComponent);
 
   ngOnInit(): void {
     this.valueChange$
@@ -77,6 +79,13 @@ export class SearchComponent extends BaseComponent implements OnInit {
           const state = this.getParamsState(formValue, options);
           const langCode = this.nodeService.resolveLangCode(this.ele);
           return this.nodeService.fetch(api, this.getApiParams(state), langCode).pipe(
+            // A failed read must not end later filter and page requests.
+            catchError(() => {
+              this.loading = false;
+              this.list()?.restorePage();
+              this.cd.detectChanges();
+              return EMPTY;
+            }),
             tap(data => {
               this.updateList(data, formValue, options);
               this.loading = false;

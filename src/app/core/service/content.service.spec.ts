@@ -68,6 +68,172 @@ describe('ContentService', () => {
   });
 
   describe('loadPageContent', () => {
+    it.each(['browser', 'server'] as const)(
+      'loads the published /404 page without replacing the document status on the %s', async platform => {
+        setup({ platform });
+        const first = firstValueFrom(service.loadPageContent('/about', false, true));
+        http.expectOne(`${LANDING}?content=%2Fabout&public=true`).flush({
+          title: 'Withdrawn title', publicPageKey: 'node:1:en:1',
+          body: [{ type: 'text', body: 'Withdrawn body' }],
+        });
+        await first;
+
+        const customPage = {
+          title: 'Page not found',
+          body: [{ type: 'text', classes: 'text-center', body: '<p>Return to the homepage</p>' }],
+          meta: [{ name: 'description', content: 'Custom missing page' }],
+          config: { headerMode: { transparent: false } },
+        };
+        const pending = firstValueFrom(service.loadPageContent('/about', true, true));
+        const request = http.expectOne(`${LANDING}?content=%2Fabout&public=true`);
+        expect(request.request.transferCache).toBe(false);
+        expect(request.request.cache).toBe('no-store');
+        request.flush({ body: [{ type: 'text', body: 'Legacy configured JSON is ignored' }] },
+          { status: 404, statusText: 'Not Found' });
+        const fallbackRequest = http.expectOne(`${LANDING}?content=%2F404&public=true`);
+        expect(fallbackRequest.request.transferCache).toBe(false);
+        expect(fallbackRequest.request.cache).toBe('no-store');
+        fallbackRequest.flush({
+          ...customPage, nid: '404', uuid: 'page-404', published: true,
+          publicPageKey: 'node:404:en:1', unavailable: false,
+        });
+        const page = await pending;
+        expect(page).toEqual({ ...customPage, unavailable: true });
+        expect(tags.updateTags).toHaveBeenCalledWith(page);
+        expect(service.getCachedPageContent('/about', true)).toBe(page);
+        expect(requestContext.publicPageStatus).toBe(404);
+        expect(requestContext.publicPage).toBeUndefined();
+
+        const restored = firstValueFrom(service.loadPageContent('/about', false, true));
+        http.expectOne(`${LANDING}?content=%2Fabout&public=true`).flush({
+          title: 'Republished', body: [], publicPageKey: 'node:1:en:2',
+        });
+        await expect(restored).resolves.toMatchObject({ title: 'Republished' });
+        expect(requestContext.publicPageStatus).toBe(200);
+      }
+    );
+
+    it('uses the current language for /404 and accepts wrapped component inputs', async () => {
+      const body = [{ content: { type: 'text', body: 'Custom 404 content' } }];
+      const pending = firstValueFrom(service.loadPageContent('/en/about', true, true));
+      http.expectOne(`/en${LANDING}?content=%2Fabout&public=true`)
+        .flush({}, { status: 404, statusText: 'Not Found' });
+      http.expectOne(`/en${LANDING}?content=%2F404&public=true`).flush({
+        title: 404, body, meta: [null], config: 'invalid', publicPageKey: 'node:404:en:1',
+      });
+      await expect(pending).resolves.toEqual({ title: '', body, unavailable: true });
+    });
+
+    it.each([
+      null, [], '<html>Proxy error</html>', {}, { body: [] }, { body: 'invalid' },
+      { body: [null] }, { body: [{}] }, { body: [{ type: '' }] },
+    ])('uses the default unavailable page for invalid 404 content: %j', async payload => {
+      const pending = firstValueFrom(service.loadPageContent('/about', true, true));
+      http.expectOne(`${LANDING}?content=%2Fabout&public=true`)
+        .flush({}, { status: 404, statusText: 'Not Found' });
+      http.expectOne(`${LANDING}?content=%2F404&public=true`).flush(
+        payload && typeof payload === 'object' && !Array.isArray(payload)
+          ? { ...payload, publicPageKey: 'node:404:en:1' } : payload
+      );
+      await expect(pending).resolves.toEqual({ title: '', body: [], unavailable: true });
+      expect(requestContext.publicPageStatus).toBe(404);
+    });
+
+    it.each([403, 404, 503])('stops after /404 returns HTTP %i', async status => {
+      const pending = firstValueFrom(service.loadPageContent('/about', false, true));
+      http.expectOne(`${LANDING}?content=%2Fabout&public=true`)
+        .flush({}, { status: 404, statusText: 'Not Found' });
+      http.expectOne(`${LANDING}?content=%2F404&public=true`).flush({
+        title: 'Unpublished 404', body: [{ type: 'text', body: 'Private 404 content' }],
+      }, { status, statusText: 'Failure' });
+      await expect(pending).resolves.toEqual({ title: '', body: [], unavailable: true });
+      expect(requestContext.publicPageStatus).toBe(404);
+      expect(requestContext.publicPage).toBeUndefined();
+    });
+
+    it.each(['/404', '/404/', '/en/404&preview=true'])(
+      'does not request a missing /404 page again: %s', async path => {
+        const pending = firstValueFrom(service.loadPageContent(path, false, true));
+        http.expectOne(request => request.url.includes('content=%2F404'))
+          .flush({}, { status: 404, statusText: 'Not Found' });
+        await expect(pending).resolves.toEqual({ title: '', body: [], unavailable: true });
+        expect(requestContext.publicPageStatus).toBe(404);
+      }
+    );
+
+    it('does not accept a /404 response without publication verification', async () => {
+      const pending = firstValueFrom(service.loadPageContent('/about', false, true));
+      http.expectOne(`${LANDING}?content=%2Fabout&public=true`)
+        .flush({}, { status: 404, statusText: 'Not Found' });
+      http.expectOne(`${LANDING}?content=%2F404&public=true`).flush({
+        title: 'Legacy draft', body: [{ type: 'text', body: 'Private 404 content' }],
+      });
+      await expect(pending).resolves.toEqual({ title: '', body: [], unavailable: true });
+    });
+
+    it.each([500, 503])('does not request /404 or display a body from HTTP %i', async status => {
+      const pending = firstValueFrom(service.loadPageContent('/about', false, true));
+      http.expectOne(`${LANDING}?content=%2Fabout&public=true`).flush({
+        title: 'Unverified content', body: [{ type: 'text', body: 'Do not render' }],
+      }, { status, statusText: 'Failure' });
+      await expect(pending).resolves.toEqual({ title: '', body: [], unavailable: true });
+      expect(requestContext.publicPageStatus).toBe(503);
+    });
+
+    it('does not expose a legacy response that lacks public publication verification', async () => {
+      const pending = firstValueFrom(service.loadPageContent('/about', false, true));
+      http.expectOne(`${LANDING}?content=%2Fabout&public=true`)
+        .flush({ title: 'Privileged legacy draft', published: false, body: [{ type: 'text', body: 'Draft' }] });
+      await expect(pending).resolves.toEqual({ title: '', body: [], unavailable: true });
+      expect(requestContext.publicPageStatus).toBe(503);
+    });
+
+    it('rechecks public publication after a successful read and removes withdrawn content', async () => {
+      const first = firstValueFrom(service.loadPageContent('/about', false, true));
+      const request = http.expectOne(`${LANDING}?content=%2Fabout&public=true`);
+      expect(request.request.transferCache).toBe(false);
+      request.flush({ title: 'Published title', body: [], publicPageKey: 'node:1:en:1' });
+      await first;
+
+      const second = firstValueFrom(service.loadPageContent('/about', false, true));
+      http.expectOne(`${LANDING}?content=%2Fabout&public=true`)
+        .flush({}, { status: 404, statusText: 'Not Found' });
+      http.expectOne(`${LANDING}?content=%2F404&public=true`)
+        .flush({}, { status: 404, statusText: 'Not Found' });
+      await expect(second).resolves.toMatchObject({ body: [], unavailable: true });
+      expect(service.getCachedPageContent('/about', true)?.title).toBe('');
+      expect(requestContext.publicPageStatus).toBe(404);
+      expect(requestContext.publicPage).toBeUndefined();
+    });
+
+    it('keeps public and builder reads separate and prevents query overrides', async () => {
+      const draft = firstValueFrom(service.loadPageContent('/about', false));
+      http.expectOne(`${LANDING}?content=%2Fabout`).flush({ title: 'Draft', published: false });
+      await draft;
+      const publicRead = firstValueFrom(service.loadPageContent('/about&public=false', false, true));
+      http.expectOne(`${LANDING}?content=%2Fabout&public=true`)
+        .flush({}, { status: 404, statusText: 'Not Found' });
+      http.expectOne(`${LANDING}?content=%2F404&public=true`)
+        .flush({}, { status: 404, statusText: 'Not Found' });
+      await expect(publicRead).resolves.toMatchObject({ unavailable: true });
+      expect(service.getCachedPageContent('/about')?.title).toBe('Draft');
+    });
+
+    it('records public authority for SSR and fails closed on a later unavailable source', async () => {
+      setup({ platform: 'server' });
+      const first = firstValueFrom(service.loadPageContent('/about', false, true));
+      http.expectOne(`${LANDING}?content=%2Fabout&public=true`)
+        .flush({ body: [], publicPageKey: 'node:1:en:4' });
+      await first;
+      expect(requestContext.publicPage).toEqual({ url: `${LANDING}?content=%2Fabout&public=true`, key: 'node:1:en:4' });
+      const second = firstValueFrom(service.loadPageContent('/about', false, true));
+      http.expectOne(`${LANDING}?content=%2Fabout&public=true`)
+        .flush({}, { status: 503, statusText: 'Unavailable' });
+      await expect(second).resolves.toMatchObject({ unavailable: true });
+      expect(requestContext.publicPageStatus).toBe(503);
+      expect(requestContext.publicPage).toBeUndefined();
+    });
+
     it('requests the landing page endpoint for the current path', async () => {
       const pending = firstValueFrom(service.loadPageContent());
 
@@ -190,6 +356,94 @@ describe('ContentService', () => {
     });
   });
 
+  describe('builder page recovery', () => {
+    const path = '/builder/default-page';
+    const endpoint = `${LANDING}?content=%2Fbuilder%2Fdefault-page`;
+    const read = () => firstValueFrom(service.loadPageContent(path, false));
+    const rejectRead = (status: number) => {
+      const request = http.expectOne(endpoint);
+      if (status === 0) request.error(new ProgressEvent('error'));
+      else request.flush('Unavailable', { status, statusText: 'Unavailable' });
+    };
+    const exhaustRetry = async (status: number) => {
+      rejectRead(status);
+      await vi.advanceTimersByTimeAsync(500);
+      rejectRead(status);
+    };
+
+    beforeEach(() => {
+      vi.useFakeTimers();
+      vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    });
+    afterEach(() => vi.useRealTimers());
+
+    it.each([0, 503])('shares a fresh read after HTTP %i without evicting other pages', async status => {
+      const otherPaths = ['/en/builder/default-page', '/builder/other'];
+      for (const otherPath of otherPaths) {
+        const pending = firstValueFrom(service.loadPageContent(otherPath, false));
+        http.expectOne(request => request.url !== endpoint).flush({ title: otherPath, body: [] });
+        await pending;
+      }
+      const first = read();
+      const concurrent = read();
+      await exhaustRetry(status);
+      await expect(Promise.all([first, concurrent])).resolves.toEqual([{}, {}]);
+
+      const recovered = { title: 'Recovered default page', body: [] };
+      const next = read();
+      const shared = read();
+      http.expectOne(endpoint).flush(recovered);
+      await expect(Promise.all([next, shared])).resolves.toEqual([recovered, recovered]);
+      expect(service.getCachedPageContent(path)).toEqual(recovered);
+      await expect(read()).resolves.toEqual(recovered);
+      for (const otherPath of otherPaths) {
+        await expect(firstValueFrom(service.loadPageContent(otherPath, false)))
+          .resolves.toEqual({ title: otherPath, body: [] });
+      }
+      http.expectNone(() => true);
+      expect(tags.updateTags).not.toHaveBeenCalled();
+    });
+
+    it('allows another visit after repeated failures without background reads', async () => {
+      for (let visit = 0; visit < 2; visit++) {
+        const pending = read();
+        await exhaustRetry(503);
+        await expect(pending).resolves.toEqual({});
+        await vi.advanceTimersByTimeAsync(10_000);
+        http.expectNone(endpoint);
+      }
+      const pending = read();
+      http.expectOne(endpoint).flush({ title: 'Recovered', body: [] });
+      await expect(pending).resolves.toEqual({ title: 'Recovered', body: [] });
+    });
+
+    it.each([403, 404])('keeps the existing stable HTTP %i fallback cached', async status => {
+      const pending = read();
+      await exhaustRetry(status);
+      await expect(pending).resolves.toEqual({});
+      await expect(read()).resolves.toEqual({});
+      http.expectNone(endpoint);
+    });
+
+    it('keeps a successful empty page cached', async () => {
+      const pending = read();
+      http.expectOne(endpoint).flush({ title: 'Empty page', body: [] });
+      await pending;
+      await expect(read()).resolves.toEqual({ title: 'Empty page', body: [] });
+      http.expectNone(endpoint);
+    });
+
+    it.each([0, 503])('keeps HTTP %i shared within a degraded SSR render', async status => {
+      setup({ platform: 'server' });
+      const pending = read();
+      rejectRead(status);
+      await expect(pending).resolves.toEqual({});
+      await expect(read()).resolves.toEqual({});
+      http.expectNone(endpoint);
+      expect(requestContext.degradedReasons).toEqual(['page-content']);
+    });
+  });
+
   it('ignores array payloads when updating the page state', () => {
     service.updatePage([] as unknown as IPage);
 
@@ -265,7 +519,188 @@ describe('ContentService', () => {
     });
   });
 
+  describe.each(['branding', 'config'] as const)('%s failure recovery', kind => {
+    const endpoint = `${LANDING}?content=%2Fcore%2F${kind === 'branding' ? 'branding' : 'base'}`;
+    const recovered = kind === 'branding' ? { header: [] } : { animate: true };
+    const read = (path = '/about') => {
+      if (kind === 'branding') return lastValueFrom(service.loadBranding(path));
+      const config = {};
+      return service.loadConfig(config, path).then(() => config);
+    };
+    const fail = async (status: number) => {
+      for (let attempt = 0; attempt <= (kind === 'branding' ? 1 : 2); attempt++) {
+        if (attempt) await vi.advanceTimersByTimeAsync(kind === 'branding' ? 500 : 1000);
+        const request = http.expectOne(endpoint);
+        if (status === 0) request.error(new ProgressEvent('error'));
+        else request.flush('Unavailable', { status, statusText: 'Unavailable' });
+      }
+    };
+
+    beforeEach(() => {
+      vi.useFakeTimers();
+      vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    });
+    afterEach(() => vi.useRealTimers());
+
+    it.each([0, 503])('shares failures and recovers the same language after HTTP %i', async status => {
+      const first = read();
+      const concurrent = read();
+      await fail(status);
+      expect(await Promise.all([first, concurrent])).toEqual([{}, {}]);
+
+      const english = read('/en/about');
+      http.expectOne(`/en${endpoint}`).flush(recovered);
+      await english;
+      const retry = read();
+      const sharedRetry = read();
+      http.expectOne(endpoint).flush(recovered);
+      expect(await Promise.all([retry, sharedRetry])).toEqual([recovered, recovered]);
+      expect(await read()).toEqual(recovered);
+      expect(await read('/en/about')).toEqual(recovered);
+      http.expectNone(() => true);
+    });
+
+    it.each([403, 404])('keeps the existing stable HTTP %i fallback cached', async status => {
+      const first = read();
+      await fail(status);
+      expect(await first).toEqual({});
+      expect(await read()).toEqual({});
+      http.expectNone(endpoint);
+    });
+
+    it('keeps one degraded SSR read without adding another render request', async () => {
+      setup({ platform: 'server' });
+      const first = read();
+      http.expectOne(endpoint).flush('Unavailable', { status: 503, statusText: 'Unavailable' });
+      expect(await first).toEqual({});
+      expect(requestContext.degraded).toBe(true);
+      expect(await read()).toEqual({});
+      http.expectNone(endpoint);
+    });
+  });
+
+  it('recovers branding on the next read after both attempts time out', async () => {
+    vi.useFakeTimers();
+    vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    try {
+      const endpoint = `${LANDING}?content=%2Fcore%2Fbranding`;
+      const first = lastValueFrom(service.loadBranding());
+      const attempt = http.expectOne(endpoint);
+      await vi.advanceTimersByTimeAsync(5000);
+      expect(attempt.cancelled).toBe(true);
+      await vi.advanceTimersByTimeAsync(500);
+      const retried = http.expectOne(endpoint);
+      await vi.advanceTimersByTimeAsync(5000);
+      expect(retried.cancelled).toBe(true);
+      expect(await first).toEqual({});
+      const recovered = lastValueFrom(service.loadBranding());
+      http.expectOne(endpoint).flush({ header: [] });
+      expect(await recovered).toEqual({ header: [] });
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it('does not replace the active configuration with a late language response', async () => {
+    const config = {};
+    const previous = service.loadConfig(config, '/en/about');
+    const current = service.loadConfig(config, '/about');
+    http.expectOne(`${LANDING}?content=%2Fcore%2Fbase`).flush({ animate: true });
+    await current;
+    http.expectOne(`/en${LANDING}?content=%2Fcore%2Fbase`).flush({ animate: false });
+    await previous;
+    expect(config).toEqual({ animate: true });
+  });
+
   describe('loadUIUX', () => {
+    it.each([0, 503])('recovers a captured feed after HTTP %i for new and existing readers', status => {
+      const feed = service.loadUIUX();
+      const existing = vi.fn();
+      const first = feed.subscribe(existing);
+      const failed = http.expectOne('/api/v3/node/component');
+      if (status === 0) failed.error(new ProgressEvent('error'));
+      else failed.flush('Unavailable', { status, statusText: 'Unavailable' });
+      expect(existing).toHaveBeenLastCalledWith([]);
+      http.expectNone('/api/v3/node/component');
+
+      const reopened = vi.fn();
+      const second = feed.subscribe(reopened);
+      const concurrent = feed.subscribe();
+      try {
+        const recovery = http.expectOne('/api/v3/node/component');
+        concurrent.unsubscribe();
+        expect(recovery.cancelled).toBe(false);
+        recovery.flush([{ id: 2 }]);
+        expect(existing).toHaveBeenLastCalledWith([{ id: 2 }]);
+        expect(reopened).toHaveBeenLastCalledWith([{ id: 2 }]);
+        const cached = vi.fn();
+        feed.subscribe(cached).unsubscribe();
+        expect(cached).toHaveBeenLastCalledWith([{ id: 2 }]);
+        http.expectNone('/api/v3/node/component');
+      } finally {
+        first.unsubscribe();
+        second.unsubscribe();
+        concurrent.unsubscribe();
+      }
+    });
+
+    it.each([200, 403, 404])('keeps an empty HTTP %i result until explicit refresh', status => {
+      const feed = service.loadUIUX();
+      const first = feed.subscribe();
+      http.expectOne('/api/v3/node/component').flush([], { status, statusText: 'Response' });
+      first.unsubscribe();
+      const values = vi.fn();
+      const reopened = feed.subscribe(values);
+      try {
+        expect(values).toHaveBeenLastCalledWith([]);
+        http.expectNone('/api/v3/node/component');
+        service.reloadUIUX();
+        http.expectOne('/api/v3/node/component').flush([{ id: 3 }]);
+        expect(values).toHaveBeenLastCalledWith([{ id: 3 }]);
+      } finally {
+        reopened.unsubscribe();
+      }
+    });
+
+    it('recovers a failed refresh without splitting the shared stream or retrying in the background', () => {
+      const feed = service.loadUIUX();
+      const values = vi.fn();
+      const existing = feed.subscribe(values);
+      http.expectOne('/api/v3/node/component').flush([{ id: 1 }]);
+      service.reloadUIUX();
+      http.expectOne('/api/v3/node/component')
+        .flush('Unavailable', { status: 503, statusText: 'Unavailable' });
+      expect(values).toHaveBeenLastCalledWith([]);
+      http.expectNone('/api/v3/node/component');
+      const reopened = feed.subscribe();
+      try {
+        http.expectOne('/api/v3/node/component')
+          .flush('Unavailable', { status: 503, statusText: 'Unavailable' });
+        http.expectNone('/api/v3/node/component');
+        service.reloadUIUX();
+        http.expectOne('/api/v3/node/component').flush([{ id: 4 }]);
+        expect(values).toHaveBeenLastCalledWith([{ id: 4 }]);
+        feed.subscribe().unsubscribe();
+        http.expectNone('/api/v3/node/component');
+      } finally {
+        existing.unsubscribe();
+        reopened.unsubscribe();
+      }
+    });
+
+    it('keeps a failed SSR read shared within the same render', () => {
+      setup({ platform: 'server' });
+      const feed = service.loadUIUX();
+      const first = feed.subscribe();
+      http.expectOne('/api/v3/node/component')
+        .flush('Unavailable', { status: 503, statusText: 'Unavailable' });
+      first.unsubscribe();
+      const values = vi.fn();
+      feed.subscribe(values).unsubscribe();
+      expect(values).toHaveBeenLastCalledWith([]);
+      http.expectNone('/api/v3/node/component');
+    });
+
     it('shares one request across subscribers and refreshes on demand', async () => {
       const first = firstValueFrom(service.loadUIUX());
       http.expectOne('/api/v3/node/component').flush([{ id: 1 }]);

@@ -1,5 +1,9 @@
 @use 'variable/breakpoint' as *;
 
+.public-unavailable {
+  @apply flex min-h-64 items-center justify-center p-6 text-center;
+}
+
 .page-toolbar {
   @apply fixed right-5 top-20 md:right-10 md:top-40 z-[1000];
 }

@@ -5,16 +5,25 @@ import {
   effect,
   inject,
   input,
+  output,
   signal,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
 import { Editor } from '@tiptap/core';
 import { TOOLBAR_TOOLTIP_ABOVE, ToolbarKeynavDirective } from '@core/directive/toolbar-keynav.directive';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
+import { IconComponent } from '@uiux/widgets/icon/icon.component';
+import type { TiptapToolbarState } from '../toolbar/tiptap-toolbar.component';
 import { TiptapImagePanelComponent } from '../image-panel/tiptap-image-panel.component';
 import { TiptapLinkPanelComponent } from '../link-panel/tiptap-link-panel.component';
 import { ALIGN_ORDER, alignIcon as resolveAlignIcon } from '../tiptap-extensions';
+
+/** Selection formats shared with editor hosts that own their command execution. */
+export type TiptapBubbleState = Pick<TiptapToolbarState, 'bold' | 'italic' | 'underline' | 'link'>;
+/** Bounded inline commands supported by the shared floating toolbar. */
+export type TiptapBubbleAction = keyof TiptapBubbleState | 'clearFormat';
 
 /** Normalize rgb()/#rgb to the #rrggbb format required by input[type=color] */
 function toHex(value: string | undefined, fallback: string): string {
@@ -52,7 +61,9 @@ function toHex(value: string | undefined, fallback: string): string {
   imports: [
     TranslateModule,
     MatTooltipModule,
+    MatButtonModule,
     BtnComponent,
+    IconComponent,
     TiptapImagePanelComponent,
     TiptapLinkPanelComponent,
     ToolbarKeynavDirective,
@@ -60,8 +71,17 @@ function toHex(value: string | undefined, fallback: string): string {
   providers: [TOOLBAR_TOOLTIP_ABOVE],
 })
 export class TiptapBubbleMenuComponent {
-  /** The currently active editor; no buttons render when null */
+  /** Native rich-text editor; restricted hosts supply selectionState instead. */
   readonly editor = input<Editor | null>(null);
+  /** Optional detached state for hosts that validate and execute their own inline commands. */
+  readonly selectionState = input<TiptapBubbleState | null>(null);
+  /** Inline command requested when selectionState is supplied. */
+  readonly action = output<TiptapBubbleAction>();
+  readonly inlineFormats = [
+    { action: 'bold', label: 'BOLD', icon: 'format-bold' },
+    { action: 'italic', label: 'ITALIC', icon: 'format-italic' },
+    { action: 'underline', label: 'UNDERLINE', icon: 'format-underline' },
+  ] as const;
 
   private cdr = inject(ChangeDetectorRef);
 
@@ -96,17 +116,37 @@ export class TiptapBubbleMenuComponent {
     }
   }
 
+  /** Read formats from the owning host or the local rich-text editor. */
+  isFormatActive(format: keyof TiptapBubbleState): boolean {
+    return this.selectionState()?.[format] ?? this.editor()?.isActive(format) ?? false;
+  }
+
+  /** Delegate restricted-host commands; rich-text editors retain their native command chain. */
+  format(action: Exclude<TiptapBubbleAction, 'link'>): void {
+    if (this.selectionState()) { this.action.emit(action); return; }
+    const chain = this.editor()?.chain().focus();
+    if (action === 'bold') chain?.toggleBold().run();
+    else if (action === 'italic') chain?.toggleItalic().run();
+    else if (action === 'underline') chain?.toggleUnderline().run();
+    else chain?.unsetAllMarks().run();
+  }
+
   openLinkPanel(): void {
+    if (this.selectionState()) { this.action.emit('link'); return; }
+    if (this.linkPanelOpen()) return;
+    this.editor()?.view.focus();
     this.stylePanelOpen.set(false);
     this.linkPanelOpen.set(true);
   }
 
   closeLinkPanel(): void {
+    // Restore focus before removing the input, which would otherwise trigger a canvas blur commit.
+    this.editor()?.view.focus();
     this.linkPanelOpen.set(false);
-    this.editor()?.commands.focus();
   }
 
   toggleStylePanel(): void {
+    this.editor()?.view.focus();
     this.linkPanelOpen.set(false);
     this.stylePanelOpen.update(open => !open);
   }

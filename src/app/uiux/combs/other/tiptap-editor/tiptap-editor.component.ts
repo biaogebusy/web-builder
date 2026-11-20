@@ -26,15 +26,16 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Editor } from '@tiptap/core';
 import { filter, take, takeUntil } from 'rxjs';
-import type { IDialog } from '@core/interface/IDialog';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
-import { MEDIA_ASSETS } from '@core/token/token-providers';
+import { BUILDER_CONFIG } from '@core/token/token-providers';
 import { TOOLBAR_TOOLTIP_ABOVE, ToolbarKeynavDirective } from '@core/directive/toolbar-keynav.directive';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
 import { TiptapBubbleMenuComponent } from './bubble-menu/tiptap-bubble-menu.component';
 import { TiptapLinkPanelComponent } from './link-panel/tiptap-link-panel.component';
+import { TiptapToolbarComponent } from './toolbar/tiptap-toolbar.component';
+import type { TiptapToolbarAction, TiptapToolbarState } from './toolbar/tiptap-toolbar.component';
 import {
   buildRichExtensions,
   alignIcon as resolveAlignIcon,
@@ -55,6 +56,7 @@ import {
     IconComponent,
     TiptapBubbleMenuComponent,
     TiptapLinkPanelComponent,
+    TiptapToolbarComponent,
     ToolbarKeynavDirective,
   ],
   providers: [TOOLBAR_TOOLTIP_ABOVE],
@@ -71,7 +73,7 @@ export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
   readonly autofocus = input(false);
   readonly htmlChange = output<string>();
   /** The media library is route-scoped to Builder; public forms keep only direct upload. */
-  readonly mediaLibraryAvailable = inject(MEDIA_ASSETS, { optional: true }) !== null;
+  readonly mediaLibraryAvailable = inject(BUILDER_CONFIG, { optional: true }) !== null;
 
   private readonly editorElement = viewChild.required<ElementRef<HTMLDivElement>>('tiptapEditor');
   /** Host element of the shared bubble component, handed to the BubbleMenu extension for positioning */
@@ -89,6 +91,7 @@ export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
   private destroyRef = inject(DestroyRef);
 
   public editor = signal<Editor | null>(null);
+  readonly toolbarState = signal<TiptapToolbarState | null>(null);
   /** Toolbar has been projected into the external container; the box no longer renders a duplicate */
   public toolbarDetached = signal(false);
   /** Link editing panel (shared child component): on open it carries the link address at the cursor */
@@ -127,7 +130,8 @@ export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
         this.htmlChange.emit(editor.isEmpty ? '' : editor.getHTML());
       },
       // Tiptap events fire outside Angular; under zoneless we must manually schedule change detection to refresh the toolbar active state
-      onTransaction: () => {
+      onTransaction: ({ editor }) => {
+        this.refreshToolbar(editor);
         this.cdr.markForCheck();
       },
       editorProps: {
@@ -138,6 +142,39 @@ export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
       },
     });
     this.editor.set(editor);
+    this.refreshToolbar(editor);
+  }
+
+  private refreshToolbar(editor: Editor): void {
+    this.toolbarState.set({
+      undo: editor.can().undo(), redo: editor.can().redo(),
+      heading: editor.isActive('heading') ? editor.getAttributes('heading')['level'] : 0,
+      bold: editor.isActive('bold'), italic: editor.isActive('italic'),
+      underline: editor.isActive('underline'), bulletList: editor.isActive('bulletList'),
+      orderedList: editor.isActive('orderedList'), link: editor.isActive('link'),
+    });
+  }
+
+  /** Execute common formatting through this HTML editor's own command chain. */
+  toolbarAction(action: TiptapToolbarAction): void {
+    const editor = this.editor();
+    if (!editor) return;
+    if (action === 'link') { this.openLinkPanel(); return; }
+    const chain = editor.chain().focus();
+    if (action === 'undo') chain.undo().run();
+    else if (action === 'redo') chain.redo().run();
+    else if (action === 'bold') chain.toggleBold().run();
+    else if (action === 'italic') chain.toggleItalic().run();
+    else if (action === 'underline') chain.toggleUnderline().run();
+    else if (action === 'bulletList') chain.toggleBulletList().run();
+    else chain.toggleOrderedList().run();
+  }
+
+  /** Apply a semantic heading or return the selected block to a paragraph. */
+  setHeading(level: number): void {
+    const chain = this.editor()?.chain().focus();
+    if (level === 0) chain?.setParagraph().run();
+    else chain?.setHeading({ level: level as 1 | 2 | 3 | 4 | 5 | 6 }).run();
   }
 
   /** Project the toolbar into an external container via portal; the view still belongs to this component (styles, change detection unaffected) */
@@ -196,36 +233,38 @@ export class TiptapEditorComponent implements AfterViewInit, OnDestroy {
     let dialogOpened = false;
 
     try {
-      const [{ MatDialog }, { BuilderState }, { ManageService }, { DialogComponent }] =
-        await Promise.all([
-          import('@angular/material/dialog'),
-          import('@core/state/BuilderState'),
-          import('@core/service/manage.service'),
-          import('@uiux/widgets/dialog/dialog.component'),
-        ]);
+      const [
+        { MatDialog },
+        { BuilderState },
+        { ManageService },
+        { DialogComponent },
+        { buildMediaDialogConfig },
+      ] = await Promise.all([
+        import('@angular/material/dialog'),
+        import('@core/state/BuilderState'),
+        import('@core/service/manage.service'),
+        import('@uiux/widgets/dialog/dialog.component'),
+        import('@core/util/media-dialog'),
+      ]);
       if (this.destroyed || editor.isDestroyed || this.editor() !== editor) {
         return;
       }
 
       const time = new Date();
-      const config: IDialog = {
-        disableActions: true,
-        inputData: {
-          content: {
-            type: 'manage-media',
-            time,
-            fullWidth: true,
-          },
-        },
-      };
-      const dialogRef = this.injector.get(MatDialog).open(DialogComponent, {
-        width: '85vw',
-        panelClass: this.injector.get(ManageService).mediaDialogClass,
-        data: config,
-        // ManageMediaComponent depends on Builder route tokens such as
-        // BUILDER_CONFIG and MEDIA_ASSETS, so preserve the click-site injector.
-        injector: this.environmentInjector,
-      });
+
+      const dialogRef = this.injector.get(MatDialog).open(
+        DialogComponent,
+        buildMediaDialogConfig(
+          { purpose: 'web-image', time },
+          {
+            width: '85vw',
+            panelClass: this.injector.get(ManageService).mediaDialogClass,
+            // ManageMediaComponent depends on Builder route tokens such as
+            // BUILDER_CONFIG and BUILDER_CONFIG, so preserve the click-site injector.
+            injector: this.environmentInjector,
+          }
+        )
+      );
       dialogOpened = true;
       dialogRef
         .afterClosed()

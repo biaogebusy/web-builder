@@ -244,6 +244,12 @@ export interface Guard {
 }
 
 export interface IPage {
+  /** CMS publication state, independent of local unsaved changes. */
+  published?: boolean;
+  /** Source identity for validating cached public HTML. */
+  publicPageKey?: string;
+  /** The public URL cannot currently display this page. */
+  unavailable?: boolean;
   meta?: JsonObject[];
   config?: IPageConfig;
   title: string;

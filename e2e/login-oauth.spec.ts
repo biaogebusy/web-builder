@@ -1,4 +1,5 @@
-import { expect, test, type Page } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { expect, test } from './fixtures/test';
 
 // The chain these specs guard is the one unit tests structurally cannot reach: it spans a real
 // browser navigation, sessionStorage that has to survive it, and a single-use authorization code.
@@ -56,15 +57,14 @@ async function stubCoreConfig(page: Page): Promise<void> {
 }
 
 /**
- * Captures authorize hand-offs. Aborting rather than fulfilling matters: fulfilling would commit a
- * new document, and `addInitScript` re-runs on every document — it would write the stale stash back
- * over the fresh one the retry just created. An aborted navigation leaves the tab where it is.
+ * A 204 response keeps the current document and its sessionStorage accessible. Aborting can open
+ * Chrome's error document; a 200 would re-run addInitScript and overwrite the fresh retry stash.
  */
 async function captureAuthorize(page: Page): Promise<URL[]> {
   const seen: URL[] = [];
   await page.route('**/oauth/authorize*', async route => {
     seen.push(new URL(route.request().url()));
-    await route.abort();
+    await route.fulfill({ status: 204 });
   });
   return seen;
 }

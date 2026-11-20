@@ -1,7 +1,9 @@
 import { NavigationEnd, Router } from '@angular/router';
 import { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { ContentService } from '@core/service/content.service';
-import { Observable, firstValueFrom, forkJoin, from, interval } from 'rxjs';
+import { EMPTY, Observable, firstValueFrom, forkJoin, from, fromEvent, interval, of } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { ContentState } from '@core/state/ContentState';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -10,42 +12,30 @@ import { UserService } from '@core/service/user.service';
 import { IUser } from '@core/interface/IUser';
 import { INotify } from '@core/interface/widgets/IWidgets';
 import {
+  catchError,
   distinctUntilChanged,
   filter,
   map,
+  mergeWith,
   shareReplay,
   startWith,
   switchMap,
   take,
 } from 'rxjs/operators';
 import { NotifyService } from '@core/service/notify.service';
-import { BuilderState } from '@core/state/BuilderState';
 import { ScreenService } from '@core/service/screen.service';
 import { NodeService } from '@core/service/node.service';
-import { IManageAssets } from '@core/interface/manage/IManage';
 import { ILanguage } from '@core/interface/IEnvironment';
 import { CookieService } from 'ngx-cookie-service';
 import { ComponentService } from '@core/service/component.service';
-import {
-  computed,
-  DestroyRef,
-  DOCUMENT,
-  inject,
-  Injector,
-  signal,
-  Signal,
-  WritableSignal,
-} from '@angular/core';
+import { DestroyRef, DOCUMENT, inject, Injector, PLATFORM_ID, signal, WritableSignal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IBuilderConfig } from '@core/interface/IBuilder';
-import { BuilderService } from '@core/service/builder.service';
-import { getFileType } from '@core/util/file-type.util';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { resolveTheme, THEMKEY } from '@core/util/theme.util';
+import { ThemeService } from '@core/service/theme.service';
 
 export { THEMKEY } from '@core/util/theme.util';
-export const DEBUG_ANIMATE_KEY = 'debugAnimate';
-const BUILDERPATH = '/builder';
 
 /** Options for {@link pageContentFactory}. */
 export interface IPageContentFactoryOptions {
@@ -66,19 +56,31 @@ export function pageContentFactory(
   const componentService = inject(ComponentService);
   const destroyRef = inject(DestroyRef);
   const coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  const doc = inject(DOCUMENT);
+  const browser = isPlatformBrowser(inject(PLATFORM_ID));
+  const revisit$ = browser && doc.defaultView
+    ? fromEvent(doc.defaultView, 'focus').pipe(
+        mergeWith(fromEvent(doc, 'visibilitychange').pipe(filter(() => !doc.hidden))),
+        map(() => getInitialPageUrl(contentService.pageUrl))
+      )
+    : EMPTY;
 
   const initialPageUrl = getInitialPageUrl(contentService.pageUrl);
-  const cachedPage = contentService.getCachedPageContent(initialPageUrl);
+  const cachedPage = contentService.getCachedPageContent(
+    initialPageUrl, shouldPreloadPageComponents(initialPageUrl)
+  );
   const pageContent = signal<IPage | undefined | false>(cachedPage ?? false);
   if (cachedPage) {
     contentState.pageConfig.set(cachedPage.config);
   }
+  let initialRead = true;
   router.events
     .pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd),
       startWith(null),
       map(event => (event ? contentService.pageUrl : initialPageUrl)),
       distinctUntilChanged(),
+      mergeWith(revisit$),
       // Angular caches route-level injectors on the route config, so this
       // subscription outlives PageComponent and keeps seeing every navigation.
       // Without the guard, entering /builder or /me fetches CMS content for
@@ -89,9 +91,14 @@ export function pageContentFactory(
           (!!options.builderPages && isBuilderCustomPageUrl(pageUrl))
       ),
       switchMap(pageUrl => {
+        if (!initialRead && shouldPreloadPageComponents(pageUrl)) {
+          pageContent.set(false);
+          contentState.drawerOpened.set(false);
+        }
+        initialRead = false;
         return forkJoin({
           config: from(contentService.loadConfig(coreConfig, pageUrl)),
-          page: contentService.loadPageContent(pageUrl),
+          page: contentService.loadPageContent(pageUrl, true, shouldPreloadPageComponents(pageUrl)),
         }).pipe(
           switchMap(({ page }) =>
             from(componentService.preloadComponentTypes(page)).pipe(map(() => page))
@@ -109,70 +116,7 @@ export function pageContentFactory(
   return pageContent;
 }
 
-export function builderFullScreenFactory(): WritableSignal<boolean> {
-  const router = inject(Router);
-  const builder = inject(BuilderState);
-  const destroyRef = inject(DestroyRef);
-  const isFull = signal(false);
-
-  router.events.pipe(takeUntilDestroyed(destroyRef)).subscribe(event => {
-    if (event instanceof NavigationEnd) {
-      if (event.url.includes(BUILDERPATH)) {
-        isFull.set(false);
-      }
-    }
-  });
-  builder.fullScreen$.pipe(takeUntilDestroyed(destroyRef)).subscribe(state => {
-    isFull.set(state);
-  });
-  return isFull;
-}
-
-export function builderCurrentPageFactory(): Signal<IPage | undefined | false> {
-  const router = inject(Router);
-  const injector = inject(Injector);
-  const builder = inject(BuilderState);
-
-  // Always use the BuilderState.version signal as the data source (consistent with the
-  // version panel/toolbar); changes from other contexts (/preview new tab or iframe) are
-  // bridged into the signal by BuilderState's storage event
-  const currentPage = computed<IPage | undefined | false>(() => {
-    const version = builder.version();
-    if (!version.length) {
-      return false;
-    }
-    return version.find((page: IPage) => page.current === true) || version[0];
-  });
-
-  if (router.url.includes(BUILDERPATH)) {
-    const found = currentPage();
-    if (found) {
-      injector.get(BuilderService).checkIsLatestPage(found);
-    }
-  }
-
-  return currentPage;
-}
-
-export function debugAnimateFactory(): WritableSignal<boolean> {
-  const builder = inject(BuilderState);
-  const storage = inject(LocalStorageService);
-  const destroyRef = inject(DestroyRef);
-  const isDebugAnimate = storage.retrieve(DEBUG_ANIMATE_KEY);
-  const debugAnimate = signal<boolean>(!!isDebugAnimate);
-
-  setTimeout(() => {
-    builder.renderMarkers(isDebugAnimate);
-  }, 2000);
-
-  builder.debugAnimate$.pipe(takeUntilDestroyed(destroyRef)).subscribe(state => {
-    storage.store(DEBUG_ANIMATE_KEY, state);
-    debugAnimate.set(state);
-  });
-
-  return debugAnimate;
-}
-
+/** Combines allowed notification sources in configuration order on each poll. */
 export function notifyFactory(coreConfig: ICoreConfig): WritableSignal<INotify[] | boolean> {
   const notifyService = inject(NotifyService);
   const destroyRef = inject(DestroyRef);
@@ -186,29 +130,36 @@ export function notifyFactory(coreConfig: ICoreConfig): WritableSignal<INotify[]
     source
       .pipe(
         startWith(0),
-        switchMap(() => notifyService.getWatchList()),
-        map(res => {
-          let lists: INotify[] = [];
-          Object.keys(res).forEach((item: any) => {
-            const message = res[item].rows.map((list: any) => ({
+        switchMap(() => notifyService.getWatchList().pipe(
+          catchError((error: unknown) => {
+            if (error instanceof HttpErrorResponse &&
+                (error.status === 0 || (error.status >= 500 && error.status < 600))) {
+              // Keep the last complete list and let the next scheduled poll read again.
+              return EMPTY;
+            }
+            throw error;
+          })
+        )),
+        map(res =>
+          Object.keys(res).flatMap(item => {
+            const api = apis[Number(item)];
+            return res[item].rows.map((list: any) => ({
               link: {
                 href: list.url,
                 label: list.title,
               },
               icon: {
-                svg: apis[item].icon,
+                svg: api.icon,
                 inline: true,
-                color: apis[item].color,
+                color: api.color,
               },
               message: list.message,
               date: list.date,
-              action: apis[item].action,
+              action: api.action,
               uuid: list.uuid,
             }));
-            lists = [...message];
-          });
-          return lists;
-        }),
+          })
+        ),
         takeUntilDestroyed(destroyRef)
       )
       .subscribe((res: INotify[]) => {
@@ -228,8 +179,13 @@ export const apiUrlFactory = () => {
 export function initApp(coreConfig: object): any {
   const contentService = inject(ContentService);
   const componentService = inject(ComponentService);
+  const injector = inject(Injector);
   componentService.registerDynamicComponent();
-  return () => contentService.loadConfig(coreConfig);
+  return async () => {
+    await contentService.loadConfig(coreConfig);
+    // Resolve legacy seed-only palettes before rendering; stored vars need no generator.
+    await injector.get(ThemeService).initTheme();
+  };
 }
 
 export function preloadInitialDynamicComponents(): Promise<void> {
@@ -244,7 +200,7 @@ export function preloadInitialDynamicComponents(): Promise<void> {
   return firstValueFrom(
     forkJoin({
       branding: contentService.loadBranding(pageUrl),
-      page: contentService.loadPageContent(pageUrl, false),
+      page: contentService.loadPageContent(pageUrl, false, true),
     })
   )
     .then(content => componentService.preloadComponentTypes(content))
@@ -327,45 +283,6 @@ export function userFactory(): WritableSignal<IUser | boolean> {
     user.set(u);
   });
   return user;
-}
-
-export function mediaAssetsFactory(): WritableSignal<IManageAssets | boolean> {
-  const api = '/api/v2/media';
-  const nodeService = inject(NodeService);
-  const contentState = inject(ContentState);
-  const userService = inject(UserService);
-  const cookieService = inject(CookieService);
-  const key = userService.localUserKey;
-  const destroyRef = inject(DestroyRef);
-  const assets = signal<IManageAssets | boolean>(false);
-  let noCache = false;
-  if (cookieService.check(key)) {
-    noCache = true;
-  }
-  // on form search change
-  contentState.mediaAssetsFormChange$
-    .pipe(takeUntilDestroyed(destroyRef))
-    .subscribe((value: any) => {
-      const params = nodeService.getApiParams({ ...value, noCache });
-      nodeService
-        .fetch(api, params)
-        .pipe(take(1))
-        .subscribe(res => {
-          assets.set({
-            rows: res.rows.map((item: any) => {
-              const type = getFileType(item.source);
-              return {
-                ...item,
-                src: type === 'svg' ? item.source : item.thumb,
-                title: decodeURIComponent(item.title),
-              };
-            }),
-            pager: nodeService.handlePager(res.pager, res.rows.length),
-          });
-        });
-    });
-
-  return assets;
 }
 
 export function getBuilderConfig(): Observable<IBuilderConfig> {

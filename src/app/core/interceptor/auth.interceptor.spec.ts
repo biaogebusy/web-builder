@@ -2,17 +2,15 @@ import { TestBed } from '@angular/core/testing';
 import {
   HttpClient,
   HttpErrorResponse,
+  HttpInterceptorFn,
   provideHttpClient,
   withInterceptors,
 } from '@angular/common/http';
-import {
-  HttpTestingController,
-  provideHttpClientTesting,
-} from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { authInterceptor } from '@core/interceptor/auth.interceptor';
 import { UserService } from '@core/service/user.service';
-import { IUser } from '@core/interface/IUser';
-import { Observable, of, throwError } from 'rxjs';
+import { IUser, OAuthTokenResponse } from '@core/interface/IUser';
+import { Observable, Subject, of, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 const API = environment.apiUrl;
@@ -43,11 +41,7 @@ describe('authInterceptor', () => {
   };
 
   afterEach(() => {
-    try {
-      httpTesting.verify();
-    } catch {
-      // Error-path tests may leave requests in an errored state.
-    }
+    httpTesting.verify({ ignoreCancelled: true });
     TestBed.resetTestingModule();
     vi.restoreAllMocks();
   });
@@ -89,6 +83,23 @@ describe('authInterceptor', () => {
   });
 
   describe('pre-auth header / no user', () => {
+    it('refreshes an explicit bearer only when it belongs to the captured stored credentials', () => {
+      setup(() => ({ access_token: 'old', refresh_token: 'ref' }));
+      userServiceMock.refreshAccessToken.mockReturnValue(
+        of({ access_token: 'fresh', expires_in: 3600 })
+      );
+      const request = capture(http.get(`${API}/api/v3/owned`, {
+        headers: { Authorization: 'Bearer old' },
+      }));
+      httpTesting.expectOne(`${API}/api/v3/owned`).flush('',
+        { status: 401, statusText: 'Unauthorized' });
+      const retried = httpTesting.expectOne(`${API}/api/v3/owned`);
+      expect(retried.request.headers.get('Authorization')).toBe('Bearer fresh');
+      retried.flush({ ok: true });
+      expect(request.result.completed).toBe(true);
+      expect(userServiceMock.refreshAccessToken).toHaveBeenCalledOnce();
+    });
+
     it('keeps an existing Authorization header and forwards the request', () => {
       setup(() => null);
       http
@@ -108,7 +119,7 @@ describe('authInterceptor', () => {
     });
 
     it('forwards anonymously when the stored user has no access_token', () => {
-      setup(() => ({ access_token: '' } as Partial<IUser>));
+      setup(() => ({ access_token: '' }) as Partial<IUser>);
       http.get(`${API}/api/v3/some/endpoint`).subscribe();
       const req = httpTesting.expectOne(`${API}/api/v3/some/endpoint`);
       expect(req.request.headers.has('Authorization')).toBe(false);
@@ -201,13 +212,13 @@ describe('authInterceptor', () => {
         expires_at: Date.now() + 10 * 1000,
       }));
       userServiceMock.refreshAccessToken.mockReturnValue(
-        throwError(() => new Error('network error'))
+        throwError(() => new Error('unexpected refresh error'))
       );
 
       const { result } = capture(http.get(`${API}/api/v3/some/endpoint`));
 
       expect(userServiceMock.logoutUser).toHaveBeenCalled();
-      expect((result.error as Error).message).toBe('network error');
+      expect((result.error as Error).message).toBe('unexpected refresh error');
       httpTesting.expectNone(`${API}/api/v3/some/endpoint`);
     });
 
@@ -296,7 +307,7 @@ describe('authInterceptor', () => {
     it('logs the user out when refresh throws an error', () => {
       setup(() => ({ access_token: 'old', refresh_token: 'ref', expires_at: Date.now() + 60_000 }));
       userServiceMock.refreshAccessToken.mockReturnValue(
-        throwError(() => new Error('network error'))
+        throwError(() => new Error('unexpected refresh error'))
       );
 
       const { result } = capture(http.get(`${API}/api/v3/endpoint`));
@@ -304,8 +315,327 @@ describe('authInterceptor', () => {
       const req1 = httpTesting.expectOne(`${API}/api/v3/endpoint`);
       req1.flush('unauth', { status: 401, statusText: 'Unauthorized' });
 
-      expect((result.error as Error).message).toBe('network error');
+      expect((result.error as Error).message).toBe('unexpected refresh error');
       expect(userServiceMock.logoutUser).toHaveBeenCalled();
+    });
+  });
+
+  describe('temporary refresh failures', () => {
+    const tokenUrl = `${API}${environment.oauth.tokenUrl}`;
+    const cases = (['proactive', '401'] as const).flatMap(phase =>
+      [0, 408, 429, 500, 502, 503, 504, 599].map(status => ({ phase, status }))
+    );
+
+    it.each(cases)('keeps the original session on $phase refresh failure $status',
+      ({ phase, status }) => {
+        const stored = { access_token: 'old', refresh_token: 'ref',
+          expires_at: phase === 'proactive' ? 1 : Date.now() + 60_000,
+          current_user: { uid: '7', name: 'A', roles: [] } };
+        setup(() => stored);
+        userServiceMock.refreshAccessToken.mockImplementation(() =>
+          http.post<OAuthTokenResponse>(tokenUrl, {})
+        );
+        const request = capture(http.get(`${API}/api/v3/endpoint`));
+        if (phase === '401') httpTesting.expectOne(`${API}/api/v3/endpoint`)
+          .flush('', { status: 401, statusText: 'Unauthorized' });
+        const refresh = httpTesting.expectOne(tokenUrl);
+        expect(refresh.request.headers.has('Authorization')).toBe(false);
+        if (status === 0) refresh.error(new ProgressEvent('error'));
+        else refresh.flush({ error: 'temporarily_unavailable' },
+          { status, statusText: 'Unavailable' });
+        expect(request.result.error).toBeInstanceOf(HttpErrorResponse);
+        expect((request.result.error as HttpErrorResponse).status).toBe(status);
+        expect(userServiceMock.getStoredUser()).toEqual(stored);
+        expect(userServiceMock.logoutUser).not.toHaveBeenCalled();
+        expect(userServiceMock.applyRefreshedToken).not.toHaveBeenCalled();
+        expect(userServiceMock.refreshAccessToken).toHaveBeenCalledOnce();
+        expect(userServiceMock.userSub$.observed).toBe(false);
+        httpTesting.expectNone(`${API}/api/v3/endpoint`);
+        httpTesting.expectNone(tokenUrl);
+      }
+    );
+
+    it.each([0, 503])('ends a failed queue on %s and refreshes only a later request', status => {
+      setup(() => ({ access_token: 'old', refresh_token: 'ref', expires_at: 1 }));
+      userServiceMock.refreshAccessToken.mockImplementation(() =>
+        http.post<OAuthTokenResponse>(tokenUrl, {})
+      );
+      const first = capture(http.get(`${API}/api/v3/first`));
+      const queued = capture(http.get(`${API}/api/v3/queued`));
+      const refresh = httpTesting.expectOne(tokenUrl);
+      if (status === 0) refresh.error(new ProgressEvent('error'));
+      else refresh.flush({ error: 'server_error' }, { status, statusText: 'Unavailable' });
+      expect(first.result.error).toBeInstanceOf(HttpErrorResponse);
+      expect(queued.result.error).toBe(first.result.error);
+      expect(userServiceMock.logoutUser).not.toHaveBeenCalled();
+      expect(userServiceMock.applyRefreshedToken).not.toHaveBeenCalled();
+      expect(userServiceMock.userSub$.observed).toBe(false);
+      const failure = first.result.error;
+      const later = capture(http.get(`${API}/api/v3/later`));
+      httpTesting.expectOne(tokenUrl).flush({ access_token: 'fresh', refresh_token: 'ref2',
+        token_type: 'Bearer', expires_in: 3600 });
+      const retried = httpTesting.expectOne(`${API}/api/v3/later`);
+      expect(retried.request.headers.get('Authorization')).toBe('Bearer fresh');
+      retried.flush({ ok: true });
+      expect(later.result.completed).toBe(true);
+      expect(userServiceMock.refreshAccessToken).toHaveBeenCalledTimes(2);
+      expect(userServiceMock.applyRefreshedToken).toHaveBeenCalledOnce();
+      expect(userServiceMock.logoutUser).not.toHaveBeenCalled();
+      expect(first.result.error).toBe(failure);
+      expect(queued.result.error).toBe(failure);
+      httpTesting.expectNone(`${API}/api/v3/first`);
+      httpTesting.expectNone(`${API}/api/v3/queued`);
+    });
+
+    it('still ends the original session once when OAuth rejects its refresh token', () => {
+      setup(() => ({ access_token: 'old', refresh_token: 'ref', expires_at: 1 }));
+      userServiceMock.refreshAccessToken.mockImplementation(() =>
+        http.post<OAuthTokenResponse>(tokenUrl, {})
+      );
+      const first = capture(http.get(`${API}/api/v3/first`));
+      const queued = capture(http.get(`${API}/api/v3/queued`));
+      httpTesting.expectOne(tokenUrl).flush({ error: 'invalid_grant' },
+        { status: 400, statusText: 'Bad Request' });
+      expect((first.result.error as HttpErrorResponse).error).toEqual({ error: 'invalid_grant' });
+      expect(queued.result.error).toBe(first.result.error);
+      expect(userServiceMock.logoutUser).toHaveBeenCalledOnce();
+      expect(userServiceMock.applyRefreshedToken).not.toHaveBeenCalled();
+      expect(userServiceMock.userSub$.observed).toBe(false);
+      httpTesting.expectNone(`${API}/api/v3/first`);
+      httpTesting.expectNone(`${API}/api/v3/queued`);
+    });
+  });
+
+  describe('refresh failure and session ownership', () => {
+    it.each(['error', 'empty'] as const)('ends every queued request on refresh %s', outcome => {
+      setup(() => ({ access_token: 'old', refresh_token: 'ref', expires_at: Date.now() + 60_000 }));
+      const refresh = new Subject();
+      userServiceMock.refreshAccessToken.mockReturnValue(refresh);
+      const first = capture(http.get(`${API}/api/v3/first`));
+      const second = capture(http.get(`${API}/api/v3/second`));
+      try {
+        httpTesting
+          .expectOne(`${API}/api/v3/first`)
+          .flush('', { status: 401, statusText: 'Unauthorized' });
+        httpTesting
+          .expectOne(`${API}/api/v3/second`)
+          .flush('', { status: 401, statusText: 'Unauthorized' });
+        if (outcome === 'error') refresh.error(new Error('refresh offline'));
+        else refresh.complete();
+        expect(first.result.error).toBeTruthy();
+        expect(second.result.error).toBe(first.result.error);
+        expect(userServiceMock.logoutUser).toHaveBeenCalledTimes(1);
+      } finally {
+        first.unsubscribe();
+        second.unsubscribe();
+      }
+    });
+
+    it('does not revive a failed queue when a later account refreshes', () => {
+      let stored: Partial<IUser> = {
+        access_token: 'account-a',
+        refresh_token: 'refresh-a',
+        expires_at: Date.now() + 60_000,
+        current_user: { uid: '7', name: 'A', roles: [] },
+      };
+      setup(() => stored);
+      const refresh = new Subject();
+      userServiceMock.refreshAccessToken
+        .mockReturnValueOnce(refresh)
+        .mockReturnValueOnce(of({ access_token: 'account-b-new', expires_in: 3600 }));
+      const first = capture(http.get(`${API}/api/v3/first`));
+      const queued = capture(http.get(`${API}/api/v3/queued`));
+      try {
+        for (const name of ['first', 'queued'])
+          httpTesting
+            .expectOne(`${API}/api/v3/${name}`)
+            .flush('', { status: 401, statusText: 'Unauthorized' });
+        refresh.error(new Error('failed'));
+        stored = {
+          access_token: 'account-b',
+          refresh_token: 'refresh-b',
+          expires_at: 1,
+          current_user: { uid: '8', name: 'B', roles: [] },
+        };
+        const later = capture(http.get(`${API}/api/v3/later`));
+        httpTesting.expectOne(`${API}/api/v3/later`).flush({ ok: true });
+        httpTesting.expectNone(`${API}/api/v3/queued`);
+        expect(queued.result.error).toBe(first.result.error);
+        later.unsubscribe();
+      } finally {
+        first.unsubscribe();
+        queued.unsubscribe();
+      }
+    });
+
+    it.each([401, 403, 404, 503, 0])(
+      'keeps application error %s separate from a successful refresh',
+      status => {
+        setup(() => ({ access_token: 'old', refresh_token: 'ref', expires_at: 1 }));
+        userServiceMock.refreshAccessToken.mockReturnValue(
+          of({ access_token: 'fresh', expires_in: 3600 })
+        );
+        const request = capture(http.get(`${API}/api/v3/endpoint`));
+        const pending = httpTesting.expectOne(`${API}/api/v3/endpoint`);
+        if (status) pending.flush('', { status, statusText: 'Failed' });
+        else pending.error(new ProgressEvent('error'));
+        expect((request.result.error as HttpErrorResponse).status).toBe(status);
+        expect(userServiceMock.logoutUser).not.toHaveBeenCalled();
+        request.unsubscribe();
+      }
+    );
+
+    it('does not refresh a request whose 401 arrives after its account changed', () => {
+      let stored: Partial<IUser> = {
+        access_token: 'account-a',
+        refresh_token: 'refresh-a',
+        expires_at: Date.now() + 60_000,
+        current_user: { uid: '7', name: 'A', roles: [] },
+      };
+      setup(() => stored);
+      userServiceMock.refreshAccessToken.mockReturnValue(
+        of({ access_token: 'account-b-new', expires_in: 3600 })
+      );
+      const request = capture(http.get(`${API}/api/v3/late`));
+      stored = {
+        access_token: 'account-b',
+        refresh_token: 'refresh-b',
+        expires_at: 1,
+        current_user: { uid: '8', name: 'B', roles: [] },
+      };
+      httpTesting
+        .expectOne(`${API}/api/v3/late`)
+        .flush('', { status: 401, statusText: 'Unauthorized' });
+      try {
+        expect(userServiceMock.refreshAccessToken).not.toHaveBeenCalled();
+        httpTesting.expectNone(`${API}/api/v3/late`);
+        expect(request.result.error).toBeTruthy();
+      } finally {
+        request.unsubscribe();
+      }
+    });
+  });
+
+  describe('refresh cancellation and session changes', () => {
+    const account = (token: string, uid = '7'): Partial<IUser> => ({
+      access_token: token,
+      refresh_token: `refresh-${token}`,
+      expires_at: 1,
+      current_user: { uid, name: uid, roles: [] },
+    });
+
+    it.each(['logout', 'account', 'credentials'] as const)(
+      'cancels all waiters on %s before the stored cookie changes',
+      change => {
+        let stored = account('a');
+        setup(() => stored);
+        const refresh = new Subject<OAuthTokenResponse>();
+        const cancelled = vi.fn();
+        userServiceMock.refreshAccessToken.mockReturnValue(
+          new Observable(sub => {
+            const source = refresh.subscribe(sub);
+            return () => {
+              source.unsubscribe();
+              cancelled();
+            };
+          })
+        );
+        const first = capture(http.get(`${API}/api/v3/first`));
+        const queued = capture(http.get(`${API}/api/v3/queued`));
+        const nextUser =
+          change === 'logout' ? false : account('b', change === 'account' ? '8' : '7');
+        userServiceMock.userSub$.next(nextUser);
+        stored = nextUser || account('signed-out');
+        expect(first.result.error).toBeTruthy();
+        expect(queued.result.error).toBe(first.result.error);
+        expect(cancelled).toHaveBeenCalledTimes(1);
+        refresh.next({ access_token: 'late', token_type: 'Bearer', expires_in: 3600 });
+        refresh.error(new Error('late failure'));
+        expect(userServiceMock.applyRefreshedToken).not.toHaveBeenCalled();
+        expect(userServiceMock.logoutUser).not.toHaveBeenCalled();
+        httpTesting.expectNone(`${API}/api/v3/first`);
+        httpTesting.expectNone(`${API}/api/v3/queued`);
+      }
+    );
+
+    it('lets a remaining waiter finish when only one caller cancels', () => {
+      setup(() => account('a'));
+      const refresh = new Subject<OAuthTokenResponse>();
+      userServiceMock.refreshAccessToken.mockReturnValue(refresh);
+      const first = capture(http.get(`${API}/api/v3/first`));
+      const queued = capture(http.get(`${API}/api/v3/queued`));
+      first.unsubscribe();
+      expect(refresh.observed).toBe(true);
+      refresh.next({ access_token: 'fresh', token_type: 'Bearer', expires_in: 3600 });
+      httpTesting.expectNone(`${API}/api/v3/first`);
+      httpTesting.expectOne(`${API}/api/v3/queued`).flush({ ok: true });
+      expect(queued.result.completed).toBe(true);
+      expect(userServiceMock.refreshAccessToken).toHaveBeenCalledTimes(1);
+    });
+
+    it('releases the refresh when all callers cancel and permits a new round', () => {
+      setup(() => account('a'));
+      const refresh = new Subject<OAuthTokenResponse>();
+      userServiceMock.refreshAccessToken
+        .mockReturnValueOnce(refresh)
+        .mockReturnValueOnce(of({ access_token: 'fresh', expires_in: 3600 }));
+      const first = capture(http.get(`${API}/api/v3/first`));
+      const queued = capture(http.get(`${API}/api/v3/queued`));
+      first.unsubscribe();
+      queued.unsubscribe();
+      expect(refresh.observed).toBe(false);
+      expect(userServiceMock.userSub$.observed).toBe(false);
+      expect(userServiceMock.logoutUser).not.toHaveBeenCalled();
+      const later = capture(http.get(`${API}/api/v3/later`));
+      httpTesting.expectOne(`${API}/api/v3/later`).flush({ ok: true });
+      expect(later.result.completed).toBe(true);
+      expect(userServiceMock.refreshAccessToken).toHaveBeenCalledTimes(2);
+    });
+
+    it('checks ownership for each token delivery after another waiter switches accounts', () => {
+      let stored = account('a');
+      setup(() => stored);
+      const refresh = new Subject<OAuthTokenResponse>();
+      userServiceMock.refreshAccessToken.mockReturnValue(refresh);
+      const switchAccount = () => {
+        stored = account('b', '8');
+      };
+      const switchInterceptor: HttpInterceptorFn = (req, next) => {
+        switchAccount();
+        return next(req);
+      };
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule({
+        providers: [
+          provideHttpClient(withInterceptors([authInterceptor, switchInterceptor])),
+          provideHttpClientTesting(),
+          { provide: UserService, useValue: userServiceMock },
+        ],
+      });
+      http = TestBed.inject(HttpClient);
+      httpTesting = TestBed.inject(HttpTestingController);
+      const first = capture(http.get(`${API}/api/v3/first`));
+      const queued = capture(http.get(`${API}/api/v3/queued`));
+      refresh.next({ access_token: 'fresh', token_type: 'Bearer', expires_in: 3600 });
+      httpTesting.expectOne(`${API}/api/v3/first`).flush({ ok: true });
+      httpTesting.expectNone(`${API}/api/v3/queued`);
+      expect(first.result.completed).toBe(true);
+      expect(queued.result.error).toBeTruthy();
+      expect(userServiceMock.logoutUser).not.toHaveBeenCalled();
+    });
+
+    it('does not replace an explicit token after a 401', () => {
+      setup(() => account('a'));
+      const request = capture(
+        http.get(`${API}/api/v3/custom`, {
+          headers: { Authorization: 'Bearer custom' },
+        })
+      );
+      httpTesting
+        .expectOne(`${API}/api/v3/custom`)
+        .flush('', { status: 401, statusText: 'Unauthorized' });
+      expect((request.result.error as HttpErrorResponse).status).toBe(401);
+      expect(userServiceMock.refreshAccessToken).not.toHaveBeenCalled();
     });
   });
 
@@ -353,12 +683,13 @@ describe('authInterceptor', () => {
     });
 
     it('starts a brand-new refresh on a later 401 after an earlier refresh finished', () => {
-      // Locks the module-level isRefreshing reset: a completed refresh must not
-      // leave the interceptor stuck in the "queued" branch for the next 401.
+      // A completed refresh must release the round before another request needs it.
       setup(() => ({ access_token: 'old', refresh_token: 'ref', expires_at: Date.now() + 60_000 }));
       userServiceMock.refreshAccessToken
         .mockReturnValueOnce(of({ access_token: 'fresh-1', refresh_token: 'r1', expires_in: 3600 }))
-        .mockReturnValueOnce(of({ access_token: 'fresh-2', refresh_token: 'r2', expires_in: 3600 }));
+        .mockReturnValueOnce(
+          of({ access_token: 'fresh-2', refresh_token: 'r2', expires_in: 3600 })
+        );
 
       // First cycle: 401 → refresh → retry with fresh-1.
       http.get(`${API}/api/v3/first`).subscribe();
@@ -383,17 +714,40 @@ describe('authInterceptor', () => {
 
 // --- helpers ---
 
-function createUserServiceMock(
-  userFactory: () => Partial<IUser> | null,
-  isBrowser: boolean
-) {
-  return {
-    getStoredUser: vi.fn(() => userFactory() as IUser | null),
+function createUserServiceMock(userFactory: () => Partial<IUser> | null, isBrowser: boolean) {
+  let original: Partial<IUser> | null = null;
+  let refreshed: Partial<IUser> = {};
+  const mock = {
+    userSub$: new Subject<IUser | boolean>(),
+    getStoredUser: vi.fn(() => {
+      const user = userFactory();
+      if (
+        user &&
+        original &&
+        user.access_token === original.access_token &&
+        user.refresh_token === original.refresh_token &&
+        user.current_user?.uid === original.current_user?.uid
+      ) {
+        return { ...user, ...refreshed } as IUser;
+      }
+      return user as IUser | null;
+    }),
     refreshAccessToken: vi.fn(() => of(null)),
-    applyRefreshedToken: vi.fn(),
+    applyRefreshedToken: vi.fn((token: OAuthTokenResponse) => {
+      original = userFactory();
+      const next = {
+        ...token,
+        refresh_token: token.refresh_token ?? original?.refresh_token,
+        expires_at: Date.now() + token.expires_in * 1000,
+      };
+      mock.userSub$.next({ ...original, ...next } as IUser);
+      refreshed = next;
+      return { ...original, ...refreshed };
+    }),
     logoutUser: vi.fn(),
     isBrowser,
     getLoginState: vi.fn(() => of(false)),
     getLoginStatus: vi.fn(() => of(false)),
   } as any;
+  return mock;
 }

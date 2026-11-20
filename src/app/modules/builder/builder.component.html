@@ -1,5 +1,5 @@
 @let rightContent = builder.rightContent$ | async;
-<div class="builder-wrapper">
+<div class="builder-wrapper" [class.mobile-navigation-hidden]="hideSidebarOnMobile()">
   <mat-drawer-container class="builder-drawer-container">
     <mat-drawer
       #drawer
@@ -23,6 +23,7 @@
             class="right-drawer"
             [class]="rightContent?.classes"
             #builderRightDrawer
+            (closedStart)="onRightDrawerClosed()"
             [style]="{
               overflow: builderRightDrawer.opened ? 'visible' : 'auto',
             }"
@@ -31,7 +32,17 @@
           >
             <div class="right-header">
               @if (rightContent?.title) {
-                <h2 class="right-title">{{ rightContent?.title }}</h2>
+                <h2 class="right-title">
+                  <span>{{ rightContent?.title }}</span>
+                  @if (rightContent?.titleContext; as context) {
+                    <span class="language-context">
+                      <strong>{{ context.label }}</strong>
+                      @if (context.description) {
+                        <span>{{ context.description }}</span>
+                      }
+                    </span>
+                  }
+                </h2>
               }
               <app-btn
                 [matTooltip]="'BUILDER.ROOT.COLLAPSE' | translate"

@@ -7,7 +7,7 @@ export interface IHubEntry {
   /** i18n key */
   desc: string;
   link: string;
-  /** MDI icon name (served by the backend /assets/mdi.svg), shared by cards and sidebar submenus */
+  /** MDI icon name (served per icon from /assets/svg-icons/), shared by cards and sidebar submenus */
   icon: string;
   /** Required roles; entry hiding and route guards are a double safeguard (guards live on each route) */
   reqRoles?: string[];
@@ -56,19 +56,19 @@ export const HUB_GROUPS: IHubGroup[] = [
         label: 'BUILDER.HUB.HEADER_ENTRY',
         desc: 'BUILDER.HUB.HEADER_ENTRY_DESC',
         link: '/builder/edit-branding/header',
-        icon: 'page-layout-header',
+        icon: 'border-top-variant',
       },
       {
         label: 'BUILDER.HUB.FOOTER_ENTRY',
         desc: 'BUILDER.HUB.FOOTER_ENTRY_DESC',
         link: '/builder/edit-branding/footer',
-        icon: 'page-layout-footer',
+        icon: 'border-bottom-variant',
       },
       {
         label: 'BUILDER.HUB.UIUX_ENTRY',
         desc: 'BUILDER.HUB.UIUX_ENTRY_DESC',
         link: '/builder/node/uiux',
-        icon: 'puzzle-outline',
+        icon: 'view-quilt-outline',
         reqRoles: ['administrator'],
       },
     ],
@@ -76,12 +76,6 @@ export const HUB_GROUPS: IHubGroup[] = [
   {
     title: 'BUILDER.HUB.SYSTEM_TITLE',
     entries: [
-      {
-        label: 'BUILDER.HUB.SETTINGS_ENTRY',
-        desc: 'BUILDER.HUB.SETTINGS_ENTRY_DESC',
-        link: '/builder/settings',
-        icon: 'cog-outline',
-      },
       {
         // "Builder" is fixed, so it earns a permanent entry here; the site-specific
         // page groups are listed by the hub's dynamic page-group section instead
@@ -96,6 +90,12 @@ export const HUB_GROUPS: IHubGroup[] = [
         link: '/builder/config-check',
         icon: 'clipboard-check-outline',
       },
+      {
+        label: 'BUILDER.HUB.SETTINGS_ENTRY',
+        desc: 'BUILDER.HUB.SETTINGS_ENTRY_DESC',
+        link: '/builder/settings',
+        icon: 'cog-outline',
+      },
     ],
   },
 ];
@@ -103,7 +103,7 @@ export const HUB_GROUPS: IHubGroup[] = [
 /** i18n keys for the sidebar "Manage" menu, prefetched via translate.stream */
 export const HUB_MENU_KEYS: string[] = [
   'BUILDER.HUB.MENU',
-  ...HUB_GROUPS.flatMap(group => group.entries.map(entry => entry.label)),
+  ...HUB_GROUPS.flatMap(group => [group.title, ...group.entries.map(entry => entry.label)]),
 ];
 
 /**
@@ -113,9 +113,9 @@ export const HUB_MENU_KEYS: string[] = [
  * Only fixed management entries are included: publish entries are generated
  * dynamically from the site's actual content types and vary in number (5 by
  * default, more can be enabled via core_config), which would stretch a
- * permanent sidebar menu, so they only appear on the hub page. The sidebar is
- * a flat quick channel for returning users (no descriptions); the hub is the
- * hub with explanations - the two serve different purposes.
+ * permanent sidebar menu, so they only appear on the hub page. Section labels
+ * retain the hub's organization without repeating its entry descriptions.
+ * The landing-page list remains available through its hub card.
  */
 export function buildHubMenu(translate: (key: string) => string): IMainMenu {
   return {
@@ -123,12 +123,15 @@ export function buildHubMenu(translate: (key: string) => string): IMainMenu {
     href: '/builder/hub',
     icon: { svg: 'view-grid-outline' },
     child: HUB_GROUPS.flatMap(group =>
-      group.entries.map(entry => ({
-        label: translate(entry.label),
-        href: entry.link,
-        icon: { svg: entry.icon },
-        ...(entry.reqRoles ? { params: { reqRoles: entry.reqRoles } } : {}),
-      }))
+      group.entries
+        .filter(entry => entry.link !== '/builder/page-list')
+        .map(entry => ({
+          group: translate(group.title),
+          label: translate(entry.label),
+          href: entry.link,
+          icon: { svg: entry.icon },
+          ...(entry.reqRoles ? { params: { reqRoles: entry.reqRoles } } : {}),
+        }))
     ),
   };
 }

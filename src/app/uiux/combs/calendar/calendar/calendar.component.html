@@ -1,10 +1,13 @@
-<div class="calendar">
+<div class="calendar" [class.responsive-calendar]="responsive()">
   @if (loading()) {
     <div class="loading-inner">
       <app-loading />
     </div>
   }
   @if (isBrowser) {
-    <full-calendar #calendar [options]="options()" />
+    @if (responsive() && options()?.timeZone; as timeZone) {
+      <p class="calendar-zone">{{ timeZone }}</p>
+    }
+    <full-calendar #calendar [options]="calendarOptions()" />
   }
 </div>

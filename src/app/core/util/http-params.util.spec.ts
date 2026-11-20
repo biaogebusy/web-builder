@@ -86,4 +86,64 @@ describe('http params util', () => {
       version: ['1', '2'],
     });
   });
+
+  it.each(['repeat', 'plus', 'comma'] as const)('preserves empty/zero/false in %s arrays', arrayFormat => {
+    const params = { value: ['', 0, false, null, undefined], empty: '', missing: null };
+    const separator = arrayFormat === 'repeat' ? '&value=' : arrayFormat === 'plus' ? '+' : ',';
+    expect(buildQueryString(params, { arrayFormat })).toBe(`value=0${separator}false`);
+    expect(buildQueryString(params, { arrayFormat, skipEmptyString: false }))
+      .toBe(`value=${separator}0${separator}false&empty=`);
+    expect(buildQueryString({ values: [], missing: undefined }, { arrayFormat })).toBe('');
+  });
+
+  it('repeats encoded values and independently controls key/value encoding', () => {
+    const params = { 'filter[tag]': ['a+b', '研发 & x'] };
+    expect(buildQueryString(params)).toBe(
+      'filter%5Btag%5D=a%2Bb&filter%5Btag%5D=%E7%A0%94%E5%8F%91%20%26%20x'
+    );
+    expect(buildQueryString(params, { encodeValues: false })).toBe(
+      'filter%5Btag%5D=a+b&filter%5Btag%5D=研发 & x'
+    );
+    expect(buildQueryString(params, { encodeKeys: false, encodeValues: false })).toBe(
+      'filter[tag]=a+b&filter[tag]=研发 & x'
+    );
+  });
+
+  it('keeps repeat RFC3986 punctuation encoding and joined-array encoding unchanged', () => {
+    expect(buildQueryString({ q: '!\'()*~' })).toBe('q=%21%27%28%29%2A~');
+    expect(buildQueryString({ q: '!\'()*~' }, { arrayFormat: 'plus' })).toBe('q=!\'()*~');
+  });
+
+  it('parses shallow Drupal keys, repeated values, plus signs and bare flags', () => {
+    expect(queryStringToParams('?filter%5Btag%5D=a+b&filter[tag]=c%2Bd&flag&empty=&=ignored'))
+      .toEqual({ 'filter[tag]': ['a b', 'c+d'], 'flag': '', 'empty': '' });
+    expect(queryStringToParams('tags[]=a&tags[]=b&filter[a=b]=x=y'))
+      .toEqual({ 'tags[]': ['a', 'b'], 'filter[a=b]': 'x=y' });
+  });
+
+  it('tolerates malformed escapes without partially decoding them', () => {
+    expect(queryStringToParams('q=%E0%A4%A+value&x=%ZZ%5B'))
+      .toEqual({ q: '%E0%A4%A value', x: '%ZZ[' });
+  });
+
+  it('ignores empty keys and inherited object names', () => {
+    expect(queryStringToParams('__proto__=x&constructor=y&toString=z&hasOwnProperty=q&&ok=1'))
+      .toEqual({ ok: '1' });
+    expect(queryStringToParams('')).toEqual({});
+  });
+
+  it('retains the existing parser parameter and duplicate limits', () => {
+    const query = Array.from({ length: 1001 }, (_, i) => `key${i}=v`).join('&');
+    const parsed = queryStringToParams(query);
+    expect(Object.keys(parsed)).toHaveLength(1000);
+    expect(parsed['key1000']).toBeUndefined();
+    const duplicates = Array.from({ length: 20 }, (_, i) => `key=${i}`).join('&');
+    expect(queryStringToParams(duplicates)['key']).toHaveLength(20);
+    expect(queryStringToParams(`${duplicates}&key=20`)['key']).toBe('[object Object]');
+  });
+
+  it('retains enclosing bracket keys and combines aliases in parser order', () => {
+    expect(queryStringToParams('[a]=1&a=2&[a]=3&[]=x&[]=y&[__proto__]=ignored'))
+      .toEqual({ a: ['1', '3', '2'], 0: 'x', 1: 'y' });
+  });
 });

@@ -32,6 +32,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { BuilderMenuComponent } from '../builder-menu/builder-menu.component';
 import { SwitchPreviewComponent } from '../switch-preview/switch-preview.component';
 import { environment } from 'src/environments/environment';
+import { getPageParams } from '@core/util/builder-page.util';
 
 @Component({
   selector: 'app-builder-toolbar',
@@ -104,6 +105,16 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
       this.builder.markCurrentPageDirty();
       this.builder.saveLocalVersions();
     }
+  }
+
+  /** Opens settings for the saved page without submitting local canvas edits. */
+  onPageSettings(page: IPage): void {
+    if (!page.uuid || page.translation) return;
+    this.builderService.openPageSetting(
+      { uuid: page.uuid, langcode: page.langcode },
+      '/api/v1/node/landing_page',
+      getPageParams(['uid', 'group', 'cover', 'cover.field_media_image'])
+    );
   }
 
   onClearHistory(): void {
@@ -213,8 +224,11 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
           .updateLandingPage(submittedPage, false)
           .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe(res => {
-            const { status, message } = res;
             this.builder.loading.set(false);
+            if (res === false) {
+              return;
+            }
+            const { status, message } = res;
             if (status) {
               // Keep the local record on success: mark it as synced and load the latest server version in place
               this.builder.markPageSynced(submittedPage);
@@ -243,12 +257,16 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
               takeUntilDestroyed(this.destroyRef),
               catchError(() => {
                 this.builder.loading.set(false);
-                return of({ status: false });
+                return of({ status: false, message: '', data: undefined });
               })
             )
             .subscribe(res => {
-              const { status, message } = res;
               this.builder.loading.set(false);
+              // The service already showed the failure reason; do not replace it.
+              if (res === false) {
+                return;
+              }
+              const { status, message } = res;
               if (status) {
                 // Keep the local record on success: attach the server nid and reload, promoting the draft in place
                 const nid = res?.data?.nid;
@@ -256,7 +274,9 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
                   this.builder.markPageSynced(submittedPage, { nid: String(nid) });
                   this.builderService.loadPage({ nid: String(nid) }, true);
                 }
-                this.util.openSnackbar(message, 'ok');
+                if (message) {
+                  this.util.openSnackbar(message, 'ok');
+                }
                 this.builder.updateSuccess$.next(true);
               } else {
                 this.util.openSnackbar(this.translate.instant('BUILDER.TOOLBAR.CREATE_FAILED'), 'ok');

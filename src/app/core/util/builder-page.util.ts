@@ -13,11 +13,6 @@ export function getApiLang(langcode?: string): string {
   return lang;
 }
 
-// Translation = non-default-language version on a multilingual site; the default language is the source language of the node itself
-export function isTranslationLang(langcode?: string): boolean {
-  return Boolean(environment.multiLang) && Boolean(getApiLang(langcode));
-}
-
 export function getPageParams(include: string[]): string {
   const apiParams = new DrupalJsonApiParams();
   apiParams.addCustomParam({ noCache: true });

@@ -71,10 +71,16 @@ export class UserComponent implements OnInit {
     }
   }
 
+  /** Prevent a cleared login from becoming an unrestricted collection read. */
   getUser(): any {
+    const uid = (this.user() as IUser)?.current_user?.uid;
+    if (!uid) {
+      void this.route.navigate(['/me/login']);
+      return;
+    }
     const people = {};
     this.userService
-      .getUserById((this.user() as IUser)?.current_user?.uid)
+      .getUserById(uid)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(res => {
       const info = res.data[0];

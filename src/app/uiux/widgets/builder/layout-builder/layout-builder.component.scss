@@ -16,7 +16,7 @@
     }
 
     .toolbar {
-      @apply hidden absolute z-[1000];
+      @apply hidden relative z-[1000];
     }
 
     .placeholder {
@@ -41,15 +41,6 @@
         &.item-layout-builder {
           @apply w-full;
         }
-        ::ng-deep {
-          .component-toolbar {
-            .actions {
-              top: auto;
-              bottom: 100%;
-              border-radius: 4px 4px 0 0;
-            }
-          }
-        }
         .block-toolbar {
           // Static-flow position lands right below .component (the popper's bottom anchor), so only horizontal centering is needed
           @apply absolute left-1/2 -translate-x-1/2 opacity-0 pointer-events-none whitespace-nowrap;
@@ -65,9 +56,6 @@
           @apply py-6;
         }
       }
-    }
-    > .toolbar {
-      @apply right-[2px] top-[2px];
     }
   }
 

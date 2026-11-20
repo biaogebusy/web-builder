@@ -6,18 +6,25 @@ import {
   EnvironmentInjector,
   Injector,
   OnInit,
+  afterNextRender,
   inject,
   input,
+  signal,
 } from '@angular/core';
-import { BuilderState } from '@core/state/BuilderState';
+import { CONTENT_EDITOR } from '@core/token/content-editor.token';
 import { generatePath } from '@core/util/dom-path.util';
 @Directive({
    selector: '[contentedit]',
   host: {
     '[attr.data-path]': 'contentedit()',
+    '[attr.data-contentedit-placeholder]': 'showPlaceholder() ? contenteditPlaceholder() : null',
+    '[attr.role]': 'showPlaceholder() ? "button" : null',
+    '[attr.tabindex]': 'showPlaceholder() ? 0 : null',
+    '[attr.aria-label]': 'showPlaceholder() ? contenteditPlaceholder() : null',
     '(blur)': 'onBlur($event)',
     '(paste)': 'onPaste($event)',
     '(click)': 'onClick($event)',
+    '(keydown)': 'onKeydown($event)',
   },
 })
 export class ContenteditDirective implements AfterViewInit, OnInit {
@@ -28,12 +35,19 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
    * 'inline' is single-line tiptap (headings): inline marks only, Enter commits, no paragraph wrapper
    */
   readonly contenteditProfile = input<'plain' | 'rich' | 'inline'>('plain');
+  /** Optional empty-text label; kept outside the editable HTML. */
+  readonly contenteditPlaceholder = input('');
+  private readonly editing = signal(false);
+
+  protected showPlaceholder(): boolean {
+    return !!this.componentItem && !!this.contenteditPlaceholder() && !this.editing();
+  }
 
   private componentItem: Element | null = null;
   // Original content at edit start, used to skip unchanged saves and avoid extra version snapshots
   private originalHtml: string | null = null;
   private el = inject(ElementRef);
-  private builder = inject(BuilderState);
+  private editor = inject(CONTENT_EDITOR, { optional: true });
   private injector = inject(Injector);
   private destroyRef = inject(DestroyRef);
   // Race between directive destruction (re-render/route change) and an in-flight dynamic
@@ -42,7 +56,7 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
     this.destroyRef.onDestroy(() => (this.destroyed = true));
-    this.componentItem = this.el.nativeElement.closest('.component-item');
+    this.componentItem = this.editor ? this.el.nativeElement.closest('.component-item') : null;
   }
 
   onBlur(event: FocusEvent): void {
@@ -57,7 +71,7 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
       return;
     }
     const path = generatePath(currentTarget);
-    this.builder.updatePageContentByPath(path, currentTarget.innerHTML);
+    this.editor?.updatePageContentByPath(path, currentTarget.innerHTML);
   }
 
   /**
@@ -93,7 +107,16 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
     selection.addRange(range);
   }
 
-  onClick(event: MouseEvent): void {
+  /** Activate an empty rich-text target without intercepting keys inside the editor. */
+  onKeydown(event: KeyboardEvent): void {
+    if (!this.showPlaceholder() || event.target !== event.currentTarget ||
+        (event.key !== 'Enter' && event.key !== ' ')) {
+      return;
+    }
+    this.onClick(event);
+  }
+
+  onClick(event: MouseEvent | KeyboardEvent): void {
     const currentTarget = event.currentTarget as HTMLElement | null;
     if (!this.componentItem || !currentTarget) {
       return;
@@ -125,7 +148,8 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
       );
     } else if (this.contenteditProfile() !== 'plain') {
       const profile = this.contenteditProfile() as 'rich' | 'inline';
-      const clickCoords = { x: event.clientX, y: event.clientY };
+      const clickCoords = event instanceof MouseEvent
+        ? { x: event.clientX, y: event.clientY } : undefined;
       // Only triggered inside the builder canvas; dynamically load the tiptap inline editor
       // so public pages never pull it into the first bundle. Do not open the right text panel:
       // it injects a <p> wrapper into the element (see InlineEditComponent.initTextView),
@@ -141,6 +165,17 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
             path,
             profile,
             clickCoords,
+            onActivated: () => this.editing.set(true),
+            onDeactivated: reason => {
+              this.editing.set(false);
+              if (reason === 'cancel' && !this.destroyed && this.showPlaceholder()) {
+                afterNextRender(() => {
+                  if (!this.destroyed && this.showPlaceholder() && currentTarget.isConnected) {
+                    currentTarget.focus();
+                  }
+                }, { injector: this.injector });
+              }
+            },
           });
         }
       );

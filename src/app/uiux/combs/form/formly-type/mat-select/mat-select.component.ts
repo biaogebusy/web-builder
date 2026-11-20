@@ -17,10 +17,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { NodeService } from '@core/service/node.service';
+import { IconService } from '@core/service/icon.service';
 import { FieldType, FieldTypeConfig, FormlyModule } from '@ngx-formly/core';
 import { of, ReplaySubject } from 'rxjs';
 import { catchError, take } from 'rxjs/operators';
-import * as mdi from '@mdi/js';
 
 @Component({
   selector: 'app-mat-select',
@@ -48,6 +48,7 @@ export class MatSelectComponent extends FieldType<FieldTypeConfig> implements On
   public matOptions = signal<any>([]);
   fieldConfig: any;
   private nodeService = inject(NodeService);
+  private iconService = inject(IconService);
   private destroyRef = inject(DestroyRef);
   constructor() {
     super();
@@ -55,13 +56,15 @@ export class MatSelectComponent extends FieldType<FieldTypeConfig> implements On
 
   ngOnInit(): void {
     this.fieldConfig = this.field;
+    if (this.fieldConfig.defaultValue) {
+      this.formControl.setValue(this.fieldConfig.defaultValue);
+    }
     if (this.fieldConfig.props.api || this.fieldConfig.props?.type === 'icon') {
       this.getOptionsFromApi();
     } else {
       this.matOptions.set(this.props.options || []);
       this.filteredOptions.next(this.matOptions().slice());
     }
-    this.setOptions();
     // listen for search field value changes
     this.searchCtrl.valueChanges
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -73,17 +76,16 @@ export class MatSelectComponent extends FieldType<FieldTypeConfig> implements On
   getOptionsFromApi(): void {
     const { api, type, nocache, options = [] } = this.fieldConfig.props;
     if (type === 'icon') {
-      const icons = Object.keys(mdi)
-        .filter(key => key.startsWith('mdi'))
-        .map(key => {
-          const name = key.replace('mdi', '');
-          const hyphenated = name.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-          return {
-            label: `${hyphenated}`,
-            value: `${hyphenated}`,
-          };
+      this.setOptions([]);
+      this.iconService
+        .getIconNames()
+        .pipe(catchError(() => of([])), takeUntilDestroyed(this.destroyRef))
+        .subscribe(names => {
+          this.setOptions(names.map(name => ({ label: name, value: name })));
+          if (this.searchCtrl.value) {
+            this.filterMulti();
+          }
         });
-      this.setOptions(icons);
     } else {
       this.nodeService
         .fetch(api || '', nocache ? 'noCache=true' : '')
@@ -102,17 +104,16 @@ export class MatSelectComponent extends FieldType<FieldTypeConfig> implements On
   }
 
   setOptions(options?: any[]): void {
-    const { defaultValue } = this.fieldConfig;
     if (options) {
       this.matOptions.set([...options]);
+      const value = this.formControl.value;
       // load the initial options
       this.filteredOptions.next([
-        { label: defaultValue, value: defaultValue },
+        ...(value && !options.some(option => option.value === value)
+          ? [{ label: value, value }]
+          : []),
         ...this.matOptions().slice(),
       ]);
-    }
-    if (defaultValue) {
-      this.formControl.setValue(defaultValue);
     }
   }
 

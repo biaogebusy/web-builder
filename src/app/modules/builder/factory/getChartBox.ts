@@ -1,3 +1,4 @@
+import { getWidgetClassesField } from './getCommon';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { getChart } from './getChart';
 
@@ -34,15 +35,7 @@ export function getChartBox(widget: any): FormlyFieldConfig {
               },
             ],
           },
-          {
-            key: 'classes',
-            type: 'input',
-            className: 'w-full',
-            defaultValue: widget.classes ?? '',
-            props: {
-              label: 'BUILDER.FACTORY.WIDGET_CLASS',
-            },
-          },
+          getWidgetClassesField(widget.classes),
         ],
       },
       // Forward the inner chart config so the chart type, legend, axes etc.

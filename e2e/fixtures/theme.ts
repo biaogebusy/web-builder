@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -32,7 +33,7 @@ declare global {
 @Component({
   selector: 'theme-samples',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatButtonModule, MatFormFieldModule, MatInputModule],
+  imports: [MatButtonModule, MatButtonToggleModule, MatFormFieldModule, MatInputModule],
   template: `
     <div class="shad-card">
       <p>Card text</p>
@@ -40,6 +41,11 @@ declare global {
       <button mat-raised-button>Update</button>
     </div>
     <div class="shad-popover">Popover text</div>
+    <button mat-fab extended>Create page</button>
+    <mat-button-toggle-group value="selected" aria-label="View mode">
+      <mat-button-toggle value="selected">Selected view</mat-button-toggle>
+      <mat-button-toggle value="other">Other view</mat-button-toggle>
+    </mat-button-toggle-group>
     <mat-form-field appearance="outline">
       <mat-label>Material input</mat-label>
       <input matInput value="Input text" />

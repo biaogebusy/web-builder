@@ -1,4 +1,5 @@
-import { Component, forwardRef, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, forwardRef, inject, ChangeDetectionStrategy, signal, TemplateRef } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { FormGroup } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
@@ -14,6 +15,7 @@ import { DynamicComponentComponent } from '../builder/dynamic-component/dynamic-
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.scss'],
   imports: [
+    NgTemplateOutlet,
     MatButtonModule,
     MatDialogModule,
     MatTooltipModule,
@@ -24,6 +26,8 @@ import { DynamicComponentComponent } from '../builder/dynamic-component/dynamic-
 })
 export class DialogComponent {
   public data = inject<IDialog>(MAT_DIALOG_DATA);
+  /** Content-owned actions retain their bindings when rendered in the shared footer. */
+  readonly customActions = signal<TemplateRef<unknown> | null>(null);
   private dialogRef = inject(MatDialogRef);
 
 

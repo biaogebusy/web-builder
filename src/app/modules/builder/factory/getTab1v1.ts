@@ -1,3 +1,4 @@
+import { getWidgetClassesField } from './getCommon';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
 export function getTab1v1(widget: any): FormlyFieldConfig {
@@ -24,15 +25,7 @@ export function getTab1v1(widget: any): FormlyFieldConfig {
               },
             ],
           },
-          {
-            key: 'classes',
-            type: 'input',
-            className: 'w-full',
-            defaultValue: widget.classes ?? '',
-            props: {
-              label: 'BUILDER.FACTORY.WIDGET_CLASS',
-            },
-          },
+          getWidgetClassesField(widget.classes),
         ],
       },
     ],

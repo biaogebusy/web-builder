@@ -97,7 +97,12 @@ export class ComponentService {
       if (typeof record['type'] === 'string' && this.componentLoaders.has(record['type'])) {
         types.add(record['type']);
       }
-      Object.values(record).forEach(visit);
+      Object.entries(record).forEach(([key, nested]) => {
+        // IDynamicInputs.extra is editor metadata, not a renderable component descriptor.
+        if (key !== 'extra') {
+          visit(nested);
+        }
+      });
     };
 
     visit(value);

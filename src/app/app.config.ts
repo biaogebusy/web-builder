@@ -12,7 +12,9 @@ import {
   withIncrementalHydration,
 } from '@angular/platform-browser';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
-import { provideRouter, TitleStrategy, withInMemoryScrolling, withPreloading } from '@angular/router';
+import {
+  provideRouter, TitleStrategy, withInMemoryScrolling, withPreloading, withRouterConfig,
+} from '@angular/router';
 import zhHans from '@angular/common/locales/zh-Hans';
 import { registerLocaleData } from '@angular/common';
 import { provideNgxWebstorage, withLocalStorage, withNgxWebstorageConfig } from 'ngx-webstorage';
@@ -21,6 +23,7 @@ import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppComponent } from './app.component';
 import { routes } from './app.routes';
 import { authInterceptor } from '@core/interceptor/auth.interceptor';
+import { cmsCsrfInterceptor } from '@core/interceptor/cms-csrf.interceptor';
 import { ssrTimeoutInterceptor } from '@core/interceptor/ssr-timeout.interceptor';
 import {
   API_URL,
@@ -61,9 +64,13 @@ export const appConfig: ApplicationConfig = {
     provideAppInitializer(() => preloadInitialDynamicComponents()),
     provideAppInitializer(() => inject(IconService).loadSvgResources()),
     provideZonelessChangeDetection(),
-    provideHttpClient(withFetch(), withInterceptors([authInterceptor, ssrTimeoutInterceptor])),
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([authInterceptor, cmsCsrfInterceptor, ssrTimeoutInterceptor])
+    ),
     provideRouter(
       routes,
+      withRouterConfig({ canceledNavigationResolution: 'computed' }),
       withPreloading(SelectivePreloadingStrategy),
       withInMemoryScrolling({
         scrollPositionRestoration: 'enabled',

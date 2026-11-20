@@ -1,4 +1,7 @@
 @use 'mixins/amixin' as *;
+:host {
+  @apply block min-w-0;
+}
 .calendar {
   @apply relative;
   .loading-inner {
@@ -88,6 +91,76 @@
           color: var(--mat-sys-primary);
         }
       }
+    }
+  }
+}
+
+.responsive-calendar {
+  @apply min-w-0;
+  container-type: inline-size;
+
+  .calendar-zone {
+    @apply mb-3 text-sm break-words;
+  }
+
+  ::ng-deep .fc {
+    --fc-border-color: var(--mat-sys-outline-variant);
+    --fc-page-bg-color: var(--mat-sys-surface);
+    --fc-neutral-bg-color: var(--mat-sys-surface-container);
+    --fc-list-event-hover-bg-color: var(--mat-sys-surface-container);
+    --fc-today-bg-color: var(--mat-sys-surface-container-high);
+    @apply min-w-0 text-sm;
+    color: var(--mat-sys-on-surface);
+
+    .fc-header-toolbar {
+      @apply flex-wrap gap-2;
+
+      .fc-toolbar-chunk:last-child {
+        @apply transform-none;
+
+        button { @apply transform-none min-h-11 min-w-11; }
+      }
+    }
+
+    .fc-toolbar-title { @apply text-base break-words; }
+    .fc-header-toolbar .fc-button {
+      background: var(--mat-sys-primary);
+      color: var(--mat-sys-on-primary);
+
+      &:hover, &:focus, &:active {
+        @apply opacity-100;
+        background: var(--mat-sys-primary);
+        color: var(--mat-sys-on-primary);
+      }
+    }
+    .fc-list-table { @apply table-fixed w-full; }
+    .fc-list-day-text, .fc-list-day-side-text { @apply whitespace-normal; }
+    .fc-list-event-title, .fc-event-title { overflow-wrap: anywhere; }
+    .fc-event-title { @apply line-clamp-none; }
+    .fc-day-other .fc-daygrid-day-top { @apply opacity-100; }
+    .fc-day-other .fc-daygrid-day-number { color: var(--mat-sys-on-surface-variant); }
+    .fc-daygrid-event { @apply block; }
+    .fc-day-today { background: var(--mat-sys-surface-container-high); }
+    .fc-daygrid-day.fc-day-today { background: var(--mat-sys-surface-container-high); }
+    .fc-list-day-cushion { background: var(--mat-sys-surface-container); }
+    .fc-list-empty { background: var(--mat-sys-surface); }
+    .fc-list-event-graphic { @apply hidden; }
+    .fc-list-event-time { @apply w-40 whitespace-normal; }
+    .fc-button:focus-visible {
+      outline: 2px solid var(--mat-sys-primary);
+      outline-offset: 2px;
+    }
+  }
+
+  @container (width < 640px) {
+    ::ng-deep .fc {
+      .fc-list-table, .fc-list-table tbody, .fc-list-day, .fc-list-day > th {
+        @apply block w-full;
+      }
+      .fc-list-event { @apply flex flex-col w-full; }
+      .fc-list-event-time { @apply block w-full pb-0; }
+      .fc-list-event-title { @apply block w-full pt-1; }
+      .fc-list-day-text, .fc-list-day-side-text { @apply float-none block; }
     }
   }
 }

@@ -22,7 +22,6 @@ export const createConfigServiceMock = () => ({
 });
 
 export const createAmapServiceMock = () => ({
-  markers$: new Subject<unknown>(),
   load: vi.fn(() => of(false)),
   getMarker: vi.fn(() => ({})),
 });

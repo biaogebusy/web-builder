@@ -18,6 +18,7 @@ import { NodeService } from '@core/service/node.service';
 import { NodeFieldFormService } from '@core/service/node-field-form.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 
+import { contentFormFixture } from '@core/testing/content-form.fixture';
 import { NodeAddComponent } from './node-add.component';
 
 /** Backend content types exceed the default open list; used to verify filtering */
@@ -49,7 +50,11 @@ describe('NodeAddComponent', () => {
   ) => {
     const nodeServiceMock = createNodeServiceMock();
     nodeServiceMock.fetch = vi.fn((api: string) =>
-      api === '/api/v1/node_type/node_type' ? of(NODE_TYPE_RESPONSE) : of({})
+      api === '/api/v3/node-form/types'
+        ? of({ data: NODE_TYPE_RESPONSE.data.map(type => ({
+            value: type.attributes.drupal_internal__type, label: type.attributes.name, desc: '',
+          })) })
+        : api.startsWith('/api/v3/node-form/') ? of(contentFormFixture()) : of({})
     );
     await TestBed.configureTestingModule({
       imports: [NodeAddComponent],
@@ -85,6 +90,7 @@ describe('NodeAddComponent', () => {
 
     fixture = TestBed.createComponent(NodeAddComponent);
     component = fixture.componentInstance;
+    component.formSchema.set(contentFormFixture());
     return nodeServiceMock;
   };
 
@@ -95,7 +101,7 @@ describe('NodeAddComponent', () => {
     extraProviders: any[] = [],
     routeQuery: Record<string, string> = {}
   ) => {
-    const attributes = {
+    const attributes: any = {
       title: 'Old title',
       status: true,
       changed: '2026-01-01T00:00:00+00:00',
@@ -107,8 +113,11 @@ describe('NodeAddComponent', () => {
       {},
       {
         getAllowedNodeTypes: () => of([{ label: '博客', value: 'blog' }]),
-        getForm: () => of({ fields: [], meta: [] }),
-        getModerationStates: () => of([]),
+        getForm: () => of({ schema: contentFormFixture({
+          moderated: typeof attributes.moderation_state === 'string',
+          defaults: { state: attributes.moderation_state ?? (attributes.status ? 'published' : 'unpublished'),
+            promote: !!attributes.promote, sticky: !!attributes.sticky },
+        }), fields: [], meta: [] }),
         buildModel: () => ({}),
         buildPayload: () => ({ attributes: {}, relationships: {} }),
       },
@@ -130,6 +139,81 @@ describe('NodeAddComponent', () => {
     component.ngOnInit();
     return nodeServiceMock;
   };
+
+  it('普通作者保存时不提交管理字段,即使本地草稿带有旧值', async () => {
+    const nodeServiceMock = await setup();
+    component.type.set('blog');
+    component.formSchema.set(contentFormFixture({ baseFields: { title: 'headline' }, states: [], canDelete: false }));
+    component.onSubmit({ title: 'Blog', state: 'published', promote: true, sticky: true,
+      path_alias: '/override', revision_log: 'Note' }, { id: 1 });
+    expect(nodeServiceMock.addEntity).toHaveBeenCalledWith(
+      '/api/v1/node/blog', { headline: 'Blog' }, {}, undefined
+    );
+  });
+
+  it('maps writable base fields and normalizes aliases before creating content', async () => {
+    const nodeServiceMock = await setup();
+    component.type.set('blog');
+    component.formSchema.set(contentFormFixture({ baseFields: {
+      title: 'headline', status: 'published', promote: 'featured', sticky: 'pinned',
+      path: 'url', revision_log: 'revision_note',
+    } }));
+    component.onSubmit({
+      title: 'Blog', state: 'unpublished', promote: true, sticky: false,
+      path_alias: '  guide  ', revision_log: 'First revision',
+    }, { id: 1 });
+    expect(nodeServiceMock.addEntity).toHaveBeenCalledExactlyOnceWith(
+      '/api/v1/node/blog', {
+        headline: 'Blog', published: false, featured: true,
+        url: { alias: '/guide' }, revision_note: 'First revision',
+      }, {}, undefined
+    );
+  });
+
+  it('omits an unchanged alias after normalization when editing content', async () => {
+    const nodeServiceMock = await setupEdit();
+    component.onSubmit({ title: 'New', path_alias: '  old-alias  ' }, { id: 1 });
+    expect(nodeServiceMock.updateEntity).toHaveBeenCalledExactlyOnceWith(
+      '/api/v1/node/blog', 'u1', { title: 'New' }, {}, undefined
+    );
+  });
+
+  it('字段权限失败阻止提交,重试成功后恢复表单', async () => {
+    let fail = true;
+    const nodeServiceMock = await setup({}, {
+      getAllowedNodeTypes: () => of([]),
+      getForm: () => fail ? throwError(() => ({ status: 403 }))
+        : of({ schema: contentFormFixture({ baseFields: { title: 'title' }, states: [] }), fields: [], meta: [] }),
+    }, { type: 'blog' });
+    component.ngOnInit();
+    expect(component.loadErrorKey()).toBe('BUILDER.NODE_ADD.FORM_ACCESS_DENIED');
+    expect(component.accessDenied()).toBe(true);
+    expect(component.formReady()).toBe(false);
+    component.onSubmit({ title: 'Partial' }, { id: 1 });
+    expect(nodeServiceMock.addEntity).not.toHaveBeenCalled();
+    fail = false;
+    component.retry();
+    expect(component.formReady()).toBe(true);
+    expect(component.accessDenied()).toBe(false);
+    expect(component.mainFields().map(field => field.key)).toEqual(['title']);
+    expect(component.publishFields()).toEqual([]);
+    expect(component.promotionFields()).toEqual([]);
+  });
+
+  it.each([
+    [401, 'BUILDER.NODE_ADD.FORM_SIGN_IN_REQUIRED'],
+    [422, 'BUILDER.NODE_ADD.FORM_UNSUPPORTED'],
+    [503, 'BUILDER.NODE_ADD.LOAD_FORM_ERROR'],
+  ])('does not present HTTP %s as missing content permissions', async (status, key) => {
+    await setup({}, {
+      getAllowedNodeTypes: () => of([]),
+      getForm: () => throwError(() => ({ status })),
+    }, { type: 'blog' });
+    component.ngOnInit();
+    expect(component.loadErrorKey()).toBe(key);
+    expect(component.accessDenied()).toBe(false);
+    expect(component.formReady()).toBe(false);
+  });
 
   it('should create', async () => {
     await setup();
@@ -179,6 +263,7 @@ describe('NodeAddComponent', () => {
         getAllowedNodeTypes: () => of([{ label: '博客', value: 'blog' }]),
         getForm: () =>
           of({
+            schema: contentFormFixture(),
             fields: [
               { key: 'body', type: 'tiptap', props: { label: '正文' } },
               { key: 'field_tags', type: 'mat-select', props: {} },
@@ -188,7 +273,6 @@ describe('NodeAddComponent', () => {
               { key: 'field_tags', fieldType: 'entity_reference' },
             ],
           }),
-        getModerationStates: () => of([]),
         buildModel: () => ({}),
       }
     );
@@ -211,6 +295,7 @@ describe('NodeAddComponent', () => {
         getAllowedNodeTypes: () => of([{ label: '博客', value: 'blog' }]),
         getForm: () =>
           of({
+            schema: contentFormFixture(),
             fields: [
               { key: 'body', type: 'tiptap', props: {} },
               { key: 'field_extra', type: 'tiptap', props: {} },
@@ -220,7 +305,6 @@ describe('NodeAddComponent', () => {
               { key: 'field_extra', fieldType: 'text_long' },
             ],
           }),
-        getModerationStates: () => of([]),
         buildModel: () => ({}),
       }
     );
@@ -266,9 +350,10 @@ describe('NodeAddComponent', () => {
     expect(lang).toBe('en');
   });
 
-  it('配置为审核类型时新建写 moderation_state 而非 status', async () => {
+  it('服务端确认审核类型时新建写 moderation_state 而非 status', async () => {
     const nodeServiceMock = await setup({ builder: { nodeTypes: { moderated: ['blog'] } } });
     component.type.set('blog');
+    component.formSchema.set(contentFormFixture({ moderated: true }));
 
     component.onSubmit({ title: 'Hi' }, { id: 1 });
 
@@ -277,30 +362,20 @@ describe('NodeAddComponent', () => {
     expect(attrs.status).toBeUndefined();
   });
 
-  it('审核类型的状态选项来自后台工作流,新建默认已发布', async () => {
-    await setup(
-      {},
-      {
-        getAllowedNodeTypes: () => of([{ label: '博客', value: 'blog' }]),
-        getForm: () => of({ fields: [], meta: [] }),
-        getModerationStates: () =>
-          of([
-            { value: 'published', label: '已发布' },
-            { value: 'draft', label: '草稿' },
-            { value: 'archived', label: '已归档' },
-          ]),
-        buildModel: () => ({}),
-      }
-    );
+  it('审核表单仅显示后台允许的状态并使用后台默认值', async () => {
+    const schema = contentFormFixture({ moderated: true,
+      states: [{ value: 'draft', label: '草稿' }],
+      defaults: { state: 'draft', promote: false, sticky: false },
+    });
+    await setup({}, {
+      getAllowedNodeTypes: () => of([{ label: '博客', value: 'blog' }]),
+      getForm: () => of({ fields: [], meta: [], schema }),
+      buildModel: () => ({}),
+    });
     component.ngOnInit();
-
     const stateField = component.publishFields().find(field => field.key === 'state');
-    expect(stateField?.props?.['options']).toEqual([
-      { label: '已发布', value: 'published' },
-      { label: '草稿', value: 'draft' },
-      { label: '已归档', value: 'archived' },
-    ]);
-    expect(component.model().state).toBe('published');
+    expect(stateField?.props?.options).toEqual([{ value: 'draft', label: '草稿' }]);
+    expect(component.model().state).toBe('draft');
   });
 
   it('非审核类型的状态选项为已发布/未发布,编辑回填当前状态', async () => {
@@ -398,7 +473,7 @@ describe('NodeAddComponent', () => {
   it('节点受内容审核时按 moderation_state 流转,不写 status', async () => {
     const nodeServiceMock = await setupEdit({ moderation_state: 'draft', status: false });
 
-    component.onSubmit({ title: 'New', path_alias: '/old-alias' }, { id: 1 });
+    component.onSubmit({ title: 'New', path_alias: '/old-alias', state: 'published' }, { id: 1 });
 
     const attrs = (nodeServiceMock.updateEntity as any).mock.calls[0][2];
     expect(attrs.moderation_state).toBe('published');
@@ -427,8 +502,7 @@ describe('NodeAddComponent', () => {
       {},
       {
         getAllowedNodeTypes: () => of([{ label: '博客', value: 'blog' }]),
-        getForm: () => of({ fields: [], meta: [] }),
-        getModerationStates: () => of([]),
+        getForm: () => of({ schema: contentFormFixture(), fields: [], meta: [] }),
         buildModel: () => ({}),
       },
       { type: 'blog', uuid: 'u1' }
@@ -515,10 +589,10 @@ describe('NodeAddComponent', () => {
       {
         getAllowedNodeTypes: () => of([{ label: '博客', value: 'blog' }]),
         getForm: () => of({
+          schema: contentFormFixture(),
           fields: [{ key: 'body', type: 'tiptap', props: {} }],
           meta: [{ key: 'body', fieldType: 'text_long' }],
         }),
-        getModerationStates: () => of([]),
         buildModel: () => ({}),
         buildPayload: () => ({ attributes: {}, relationships: {} }),
       }
@@ -588,8 +662,7 @@ describe('NodeAddComponent', () => {
       {},
       {
         getAllowedNodeTypes: () => of([{ label: '博客', value: 'blog' }]),
-        getForm: () => of({ fields: [], meta: [] }),
-        getModerationStates: () => of([]),
+        getForm: () => of({ schema: contentFormFixture(), fields: [], meta: [] }),
         buildModel: () => ({}),
       },
       { type: 'blog', uuid: 'u1' },
@@ -637,8 +710,7 @@ describe('NodeAddComponent', () => {
       {},
       {
         getAllowedNodeTypes: () => of([{ label: '博客', value: 'blog' }]),
-        getForm: () => of({ fields: [], meta: [] }),
-        getModerationStates: () => of([]),
+        getForm: () => of({ schema: contentFormFixture(), fields: [], meta: [] }),
         buildModel: () => ({}),
       },
       { type: 'blog', uuid: 'u1' },
@@ -772,8 +844,7 @@ describe('NodeAddComponent', () => {
       {},
       {
         getAllowedNodeTypes: () => of([{ label: '博客', value: 'blog' }]),
-        getForm: () => of({ fields: [], meta: [] }),
-        getModerationStates: () => of([]),
+        getForm: () => of({ schema: contentFormFixture(), fields: [], meta: [] }),
         buildModel: () => ({}),
       },
       { type: 'blog', uuid: 'u1' }
@@ -807,7 +878,7 @@ describe('NodeAddComponent', () => {
     expect(en?.exists).toBe(true);
     expect(en?.state).toBe('unpublished');
     // Machine states render through translate (identity in specs)
-    expect(component.stateLabel('unpublished')).toBe('BUILDER.NODE_ADD.STATE_UNPUBLISHED');
+    expect(component.stateLabel('unpublished')).toBe('Unpublished');
     const zh = component.translations().find(t => t.langCode === 'zh-hans');
     expect(zh?.current).toBe(true);
     expect(zh?.state).toBe('unpublished');
@@ -865,7 +936,13 @@ describe('NodeAddComponent', () => {
       {},
       {
         getAllowedNodeTypes: () => of([{ label: '应用中心', value: 'json' }]),
-        getModerationStates: () => of([]),
+        getForm: () => of({ fields: [{ key: 'body', type: 'json' }],
+          meta: [{ key: 'body', fieldType: 'text_long', jsonFormat: true, textFormat: 'json' }],
+          schema: contentFormFixture() }),
+        buildModel: () => ({ body: { a: 1 } }),
+        buildPayload: (meta: any, value: any) => ({ attributes: {
+          body: { value: JSON.stringify(value.body), format: meta[0].textFormat },
+        }, relationships: {} }),
       },
       { type: 'json', uuid: 'u1' }
     );
@@ -948,9 +1025,8 @@ describe('NodeAddComponent 路由切换', () => {
           { label: '博客', value: 'blog' },
         ]),
       getForm: vi.fn((bundle: string) =>
-        getFormByBundle ? getFormByBundle(bundle) : of({ fields: [], meta: [] }).pipe(delay(1))
+        getFormByBundle ? getFormByBundle(bundle) : of({ schema: contentFormFixture(), fields: [], meta: [] }).pipe(delay(1))
       ),
-      getModerationStates: () => of([]),
       buildModel: () => ({}),
       buildPayload: () => ({ attributes: {}, relationships: {} }),
     };
@@ -1023,10 +1099,11 @@ describe('NodeAddComponent 路由切换', () => {
     const { harness } = await setupHarness(bundle =>
       bundle === 'article'
         ? of({
+            schema: contentFormFixture(),
             fields: [{ key: 'field_article_only', type: 'input', props: {} }],
             meta: [{ key: 'field_article_only', fieldType: 'string' }],
           }).pipe(delay(30))
-        : of({ fields: [], meta: [] }).pipe(delay(1))
+        : of({ schema: contentFormFixture(), fields: [], meta: [] }).pipe(delay(1))
     );
     await harness.navigateByUrl('/builder/node/add/article', NodeAddComponent);
     // Switch to blog while article's field introspection (slow) is in flight: same route config, component reused

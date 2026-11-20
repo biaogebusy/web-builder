@@ -348,3 +348,16 @@ export function getGridLayoutConfig(content: any): FormlyFieldConfig[] {
     },
   ];
 }
+
+/** Create an independent class-name field for each component settings form. */
+export function getWidgetClassesField(classes: string | undefined): FormlyFieldConfig {
+  return {
+    key: 'classes',
+    type: 'input',
+    className: 'w-full',
+    defaultValue: classes ?? '',
+    props: {
+      label: 'BUILDER.FACTORY.WIDGET_CLASS',
+    },
+  };
+}

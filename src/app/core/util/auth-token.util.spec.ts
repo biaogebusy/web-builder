@@ -172,6 +172,16 @@ describe('auth-token util', () => {
       expect(isMatchCurrentRole(['admin'], ['anonymous'])).toBe(false);
     });
 
+    it('matches exact role names and ignores duplicates', () => {
+      expect(isMatchCurrentRole(['editor', 'editor'], ['editor', 'editor'])).toBe(true);
+      expect(isMatchCurrentRole(['admin'], ['administrator', 'Admin'])).toBe(false);
+    });
+
+    it('fails closed when a roles value is missing at runtime', () => {
+      expect(isMatchCurrentRole(undefined as never, ['editor'])).toBe(false);
+      expect(isMatchCurrentRole(['editor'], null as never)).toBe(false);
+    });
+
     it('returns false when either array is empty', () => {
       expect(isMatchCurrentRole([], ['admin'])).toBe(false);
       expect(isMatchCurrentRole(['admin'], [])).toBe(false);

@@ -13,6 +13,7 @@ export class NotifyService {
   private user = inject(USER);
   private nodeService = inject(NodeService);
 
+  /** Reads allowed sources using their original configuration indexes. */
   getWatchList(): Observable<any> {
     const userVal = this.user();
     if (!userVal || typeof userVal !== 'object') {
@@ -21,17 +22,14 @@ export class NotifyService {
     const obj: any = {};
     const params = { noCache: 1 };
     const apiList = this.coreConfig?.notify?.api;
-    const finalList = apiList?.filter(api => {
-      if (!api.reqRoles || api.reqRoles.length === 0) {
-        return true;
+    apiList?.forEach((api, index) => {
+      if (
+        !api.reqRoles?.length ||
+        isMatchCurrentRole(api.reqRoles, userVal.current_user.roles)
+      ) {
+        obj[index] = this.nodeService.getNodes(api.get, '', params);
       }
-      return isMatchCurrentRole(api.reqRoles || [], userVal.current_user.roles);
     });
-    if (finalList && finalList?.length > 0) {
-      finalList.forEach((list: any, index: number) => {
-        obj[index] = this.nodeService.getNodes(list.get, '', params);
-      });
-    }
 
     return forkJoin(obj);
   }

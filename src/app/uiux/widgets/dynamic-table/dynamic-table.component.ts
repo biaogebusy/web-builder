@@ -50,6 +50,8 @@ import type { IDynamicTable } from '../../../core/interface/widgets/IWidgets';
 })
 export class DynamicTableComponent implements AfterViewInit {
   readonly content = input.required<IDynamicTable>();
+  /** Render primitive cells as text without navigation, dialogs, or nested components. */
+  readonly plainText = input(false);
   readonly form = input<UntypedFormGroup>();
 
   readonly sort = viewChild(MatSort);
@@ -72,7 +74,8 @@ export class DynamicTableComponent implements AfterViewInit {
         this.dataSource.sort = sort;
       }
       if (content.elements) {
-        this.isExpand = content.elements.some((item: any) => isArray(item.expand));
+        this.isExpand = !this.plainText() &&
+          content.elements.some((item: any) => isArray(item.expand));
         this.displayedColumns = content.header.map((item: any) => item.key);
         this.columnsToDisplayWithExpand = this.isExpand
           ? [...this.displayedColumns, 'expand']

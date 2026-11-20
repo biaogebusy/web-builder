@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { DOCUMENT, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import type { IMediaAttr } from '@core/interface/manage/IManage';
+import type { IMediaUploadResult } from '@core/interface/manage/IManage';
 import { BuilderState } from '@core/state/BuilderState';
 import { API_URL, USER } from '@core/token/token-providers';
 import { TranslateService } from '@ngx-translate/core';
-import { firstValueFrom, of } from 'rxjs';
+import { firstValueFrom, of, Observable } from 'rxjs';
 import { CommentService } from './comment.service';
 import { NodeService } from './node.service';
 import { UtilitiesService } from './utilities.service';
@@ -17,7 +17,10 @@ describe('NodeService media API', () => {
     TestBed.resetTestingModule();
   });
 
-  function createService(post = vi.fn(() => of({})), user: unknown = signal(true)) {
+  function createService(
+    post: (url: string, body?: unknown, options?: unknown) => Observable<unknown> = vi.fn(() => of({})),
+    user: unknown = signal(true)
+  ) {
     const utilitiesService = {
       openSnackbar: vi.fn(),
       dismissSnackbar: vi.fn(),
@@ -43,55 +46,12 @@ describe('NodeService media API', () => {
     };
   }
 
-  it('uploads the file, creates its media entity, and returns the existing media shape', async () => {
-    const fileData = {
-      id: 'file-1',
-      attributes: {
-        filename: 'hero image.png',
-        uri: { url: '/sites/default/files/hero-image.png' },
-      },
-    };
-    const post = vi.fn((url: string, _body?: unknown, _options?: unknown) => {
-      return url.endsWith('/field_media_image') ? of({ data: fileData }) : of({});
-    });
+  it('returns the completed catalog identities through the shared upload service', async () => {
+    const post = vi.fn(() => of({ uuid: 'media-1', fileId: 'file-1', source: '/hero.png' }));
     const { service } = createService(post);
-    const createMediaImage = vi.spyOn(service, 'createMediaImage');
-    const imageData = new ArrayBuffer(8);
-
-    const result = await firstValueFrom(service.uploadImage('hero image.png', imageData));
-
-    expect(result).toEqual({ ...fileData.attributes, uuid: 'file-1' });
-    expect(createMediaImage).toHaveBeenCalledWith(fileData);
-    expect(post).toHaveBeenNthCalledWith(
-      1,
-      '/api/v1/media/image/field_media_image',
-      imageData,
-      expect.any(Object)
-    );
-    const uploadOptions = post.mock.calls[0][2] as {
-      headers: { get: (name: string) => string | null };
-    };
-    expect(uploadOptions.headers.get('Accept')).toBe('application/vnd.api+json');
-    expect(uploadOptions.headers.get('Content-Type')).toBe('application/octet-stream');
-    expect(uploadOptions.headers.get('Content-Disposition')).toBe(
-      'file; filename="hero%20image.png"'
-    );
-    expect(post).toHaveBeenNthCalledWith(
-      2,
-      '/api/v1/media/image',
-      {
-        data: {
-          type: 'media--image',
-          attributes: { name: 'hero image.png' },
-          relationships: {
-            field_media_image: {
-              data: { type: 'file--file', id: 'file-1' },
-            },
-          },
-        },
-      },
-      expect.any(Object)
-    );
+    const result = await firstValueFrom(service.uploadImage('hero.png', new ArrayBuffer(8)));
+    expect(result).toMatchObject({ uuid: 'media-1', mediaId: 'media-1', fileId: 'file-1' });
+    expect(post).toHaveBeenCalledTimes(1);
   });
 
   it('keeps the editor image picker file selection and insertion sequence', () => {
@@ -114,14 +74,14 @@ describe('NodeService media API', () => {
 
     vi.stubGlobal('FileReader', FileReaderStub);
     vi.spyOn(service, 'uploadImage').mockReturnValue(
-      of({ uri: { url: '/sites/default/files/editor.png' } } as IMediaAttr)
+      of({ uri: { url: '/sites/default/files/editor.png' } } as IMediaUploadResult)
     );
     const insert = vi.fn();
 
     service.pickAndUploadImage(insert);
 
     expect(input.type).toBe('file');
-    expect(input.accept).toBe('image/png, image/gif, image/jpeg, image/bmp, image/x-icon');
+    expect(input.accept).toBe('image/png,image/gif,image/jpeg,image/webp,image/svg+xml');
     expect(service.uploadImage).toHaveBeenCalledWith('editor.png', expect.any(ArrayBuffer));
     expect(insert).toHaveBeenCalledWith('/sites/default/files/editor.png');
   });

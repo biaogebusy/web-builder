@@ -1,3 +1,8 @@
+import {
+  BuilderPageState,
+  selectCurrentBuilderPage,
+  selectCurrentBuilderPageIndex,
+} from './BuilderPageState';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Injectable, inject, signal, DOCUMENT, DestroyRef } from '@angular/core';
 import { IDynamicInputs, IPage } from '@core/interface/IAppConfig';
@@ -9,8 +14,8 @@ import {
 } from '@core/interface/IBuilder';
 import { ICard1v1 } from '@core/interface/widgets/ICard';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { LocalStorageService } from 'ngx-webstorage';
-import { Subject } from 'rxjs';
+import { LIB_CONFIG, LocalStorageService } from 'ngx-webstorage';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { cloneDeep, get, map } from 'lodash-es';
 
 import { ScreenService } from '@core/service/screen.service';
@@ -26,6 +31,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IComponentToolbar } from '@core/interface/combs/IBuilder';
 import {
   getBuilderArrayByPath,
+  getBuilderParentPath,
   getBuilderTargetIndex,
   insertBuilderTreeValueAfter,
   removeBuilderTreeValue,
@@ -50,17 +56,25 @@ export class BuilderState {
   public themeMode = signal<'light' | 'dark'>('light');
   public rightContent$ = new Subject<IBuilderDynamicContent>();
   public closeRightDrawer$ = new Subject<boolean>();
+  /** Reports a UI close or shell destruction without issuing another close command. */
+  readonly rightDrawerClosed$ = new Subject<void>();
   public fixedChange$ = new Subject<boolean>();
   public animateDisable$ = new Subject<boolean>();
   public fullScreen$ = new Subject<boolean>();
   public debugAnimate$ = new Subject<boolean>();
   public selectedMedia$ = new Subject<ISelectedMedia>();
-  public switchPreview$ = new Subject<'xs' | 'sm' | 'md' | 'xs-md' | 'none'>();
+  // Replays the current breakpoint so views created mid-preview (e.g. the fixed full-screen
+  // toolbar) start in sync instead of assuming 'none'
+  public switchPreview$ = new BehaviorSubject<'xs' | 'sm' | 'md' | 'xs-md' | 'none'>('none');
   public revealCode$ = new Subject<string>();
   public pendingPageLoad = signal<IBuilderPendingPageLoad | null>(null);
 
   public loading = signal(true);
+  /** Keeps settings reads independent of canvas loading and delayed local updates. */
+  readonly pageSettingsLoading = signal(false);
   public updateSuccess$ = new Subject<boolean>();
+  /** Cancels pending canvas reads before a new local or remote page selection. */
+  readonly pageSelection$ = new Subject<void>();
   public COPYCOMPONENTKEY = 'cck';
   public COPYWIDGETKEY = 'cwk';
   private destroyRef = inject(DestroyRef);
@@ -70,7 +84,7 @@ export class BuilderState {
     body: [],
   };
 
-  public version = signal<IPage[]>([]);
+  public version = inject(BuilderPageState).version;
 
   versionKey = 'version';
 
@@ -78,11 +92,20 @@ export class BuilderState {
   private util = inject(UtilitiesService);
   private screenService = inject(ScreenService);
   private storage = inject(LocalStorageService);
+  // Track removals without adding identifiers to persisted local drafts.
+  private pendingVersionIndex?: number;
+  private versionSelectionTimer?: ReturnType<typeof setTimeout>;
+  private pageUpdateTimer?: ReturnType<typeof setTimeout>;
+  private pageSelectionId = 0;
 
   // Component path currently being edited in the code editor, read across external callers
   public editingCodePath = signal<string | null>(null);
 
   constructor() {
+    this.destroyRef.onDestroy(() => {
+      this.cancelVersionSelection();
+      this.cancelPageUpdate();
+    });
     const localVersion = this.storage.retrieve(this.versionKey);
     if (localVersion?.length) {
       this.version.set(localVersion);
@@ -101,21 +124,29 @@ export class BuilderState {
     if (!this.screenService.isPlatformBrowser()) {
       return;
     }
-    // Key prefix must match withNgxWebstorageConfig({ separator: ':' }) in app.config
-    const storageKey = `ngx-webstorage:${this.versionKey}`;
-    window.addEventListener('storage', (event: StorageEvent) => {
+    const { prefix = 'ngx-webstorage', separator = '|', caseSensitive = false } = inject(LIB_CONFIG);
+    const versionKey = caseSensitive ? this.versionKey : this.versionKey.toLowerCase();
+    const storageKey = `${prefix}${separator}${versionKey}`;
+    const onStorage = (event: StorageEvent) => {
       if (event.key !== storageKey || !event.newValue) {
         return;
       }
       try {
         const version = JSON.parse(event.newValue);
         if (Array.isArray(version) && version.length > 0) {
+          if (this.pendingVersionIndex !== undefined || this.pageUpdateTimer !== undefined) {
+            this.cancelVersionSelection();
+            this.cancelPageUpdate();
+            this.loading.set(false);
+          }
           this.version.set(version);
         }
       } catch {
         // Keep the in-memory state if the data is malformed
       }
-    });
+    };
+    window.addEventListener('storage', onStorage);
+    this.destroyRef.onDestroy(() => window.removeEventListener('storage', onStorage));
   }
 
   queuePageLoad(page: IBuilderPendingPageLoad): void {
@@ -186,6 +217,18 @@ export class BuilderState {
     } else if (!next.some(page => page.current)) {
       next[0] = { ...next[0], current: true };
     }
+    if (removedCurrent) {
+      this.beginPageSelection();
+      this.loading.set(false);
+    } else if (this.pendingVersionIndex !== undefined) {
+      const pendingIndex = next.indexOf(versions[this.pendingVersionIndex]);
+      if (pendingIndex < 0) {
+        this.cancelVersionSelection();
+        this.loading.set(false);
+      } else {
+        this.pendingVersionIndex = pendingIndex;
+      }
+    }
     this.version.set(next);
     // Only the page being edited owns the right drawer, so leave it open for background removals
     if (removedCurrent) {
@@ -233,11 +276,26 @@ export class BuilderState {
     this.saveLocalVersions();
   }
 
+  /** Applies saved settings without replacing the canvas or clearing its unsaved changes. */
+  updatePageSettings(
+    page: Pick<IPage, 'uuid' | 'langcode'>,
+    settings: Partial<Pick<IPage, 'title' | 'published' | 'meta' | 'config'>>
+  ): void {
+    const index = this.findPageIndex(page);
+    if (index < 0) {
+      return;
+    }
+    this.version.update(list => list.map((item, i) => i === index ? {
+      ...item, ...settings,
+      ...(settings.config ? { config: { ...item.config, ...settings.config } } : {}),
+    } : item));
+    this.saveLocalVersions();
+  }
+
   // Only flip the flag without persisting; callers run saveLocalVersions themselves after finishing the change
   markCurrentPageDirty(): void {
     this.version.update(list => {
-      const currentIndex = list.findIndex(page => page.current === true);
-      const targetIndex = currentIndex === -1 ? 0 : currentIndex;
+      const targetIndex = selectCurrentBuilderPageIndex(list);
       if (!list[targetIndex] || list[targetIndex].dirty) {
         return list;
       }
@@ -272,6 +330,7 @@ export class BuilderState {
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(result => {
           if (result) {
+            this.beginPageSelection();
             this.version.set([
               {
                 title: '未命名',
@@ -280,6 +339,7 @@ export class BuilderState {
                 time: new Date().toLocaleString(),
               },
             ]);
+            this.loading.set(false);
             this.closeRightDrawer$.next(true);
             this.saveLocalVersions();
           }
@@ -292,30 +352,77 @@ export class BuilderState {
   }
 
   initPage(version: IPage[]): void {
+    this.beginPageSelection();
     this.loading.set(true);
     this.version.set(version);
     this.updatePage();
   }
 
+  /** Select a local draft after the canvas delay, replacing any pending local selection. */
   showVersionPage(index: number): void {
+    if (!Number.isInteger(index) || index < 0 || index >= this.version().length) {
+      return;
+    }
+    this.beginPageSelection();
     this.loading.set(true);
-    setTimeout(() => {
-      // reset current
-      this.version.update(list => {
-        const next = list.map(item => ({ ...item, current: false }));
-        if (next[index]) {
-          next[index].current = true;
-        }
-        return next;
-      });
+    this.pendingVersionIndex = index;
+    this.versionSelectionTimer = setTimeout(() => {
+      const selectedIndex = this.pendingVersionIndex;
+      this.pendingVersionIndex = undefined;
+      this.versionSelectionTimer = undefined;
+      if (selectedIndex === undefined || !this.version()[selectedIndex]) {
+        this.loading.set(false);
+        return;
+      }
+      this.version.update(list => list.map((item, itemIndex) => ({
+        ...item, current: itemIndex === selectedIndex,
+      })));
 
       this.saveLocalVersions();
       this.loading.set(false);
     }, 600);
   }
 
+  /** Start a remote canvas read and return a completion callback for this selection only. */
+  beginPageLoad(): () => void {
+    // Initialization can still depend on the delayed save when a remote read starts.
+    if (this.pageUpdateTimer !== undefined) {
+      this.saveLocalVersions();
+    }
+    this.beginPageSelection();
+    const selectionId = this.pageSelectionId;
+    this.loading.set(true);
+    return () => {
+      if (!this.destroyRef.destroyed && selectionId === this.pageSelectionId) {
+        this.loading.set(false);
+      }
+    };
+  }
+
+  private beginPageSelection(): void {
+    // Invalidate completion callbacks before notifying the reads that will finalize.
+    this.pageSelectionId++;
+    this.cancelVersionSelection();
+    this.cancelPageUpdate();
+    this.pageSelection$.next();
+  }
+
+  private cancelVersionSelection(): void {
+    clearTimeout(this.versionSelectionTimer);
+    this.versionSelectionTimer = undefined;
+    this.pendingVersionIndex = undefined;
+  }
+
+  private cancelPageUpdate(): void {
+    clearTimeout(this.pageUpdateTimer);
+    this.pageUpdateTimer = undefined;
+  }
+
+  /** Save and reveal the latest canvas update after its rendering delay. */
   updatePage(index?: number): void {
-    setTimeout(() => {
+    this.cancelPageUpdate();
+    this.pageUpdateTimer = setTimeout(() => {
+      this.pageUpdateTimer = undefined;
       this.saveLocalVersions();
 
       if (index !== undefined) {
@@ -326,17 +433,13 @@ export class BuilderState {
   }
 
   get currentPage(): IPage {
-    const list = this.version();
-    const currentIndex = list.findIndex(page => page.current === true);
-    return list[currentIndex] || list[0];
+    return selectCurrentBuilderPage(this.version());
   }
 
   setCurrentPage(page: IPage): void {
     this.version.update(list => {
       const next = [...list];
-      const currentIndex = next.findIndex((item: IPage) => item.current === true);
-      // Keep consistent with the currentPage getter fallback: write back to the first page when nothing is marked current
-      const targetIndex = currentIndex === -1 ? 0 : currentIndex;
+      const targetIndex = selectCurrentBuilderPageIndex(next);
       if (next[targetIndex]) {
         // All callers are content edits, so writing always counts as an unsaved change
         next[targetIndex] = { ...page, dirty: true };
@@ -361,8 +464,7 @@ export class BuilderState {
     }
     const nextArrs = [...arrs];
     [nextArrs[index], nextArrs[swapIndex]] = [nextArrs[swapIndex], nextArrs[index]];
-    const lastDotIndex = path.lastIndexOf('.');
-    const parentPath = lastDotIndex === -1 ? '' : path.slice(0, lastDotIndex);
+    const parentPath = getBuilderParentPath(path);
     // Immutable update: new page/body references let the currentPage signal notify consumers to re-render
     this.setCurrentPage({
       ...currentPage,
@@ -468,20 +570,16 @@ export class BuilderState {
   }
 
   loadNewPage(page: IPage, close?: boolean): void {
+    this.beginPageSelection();
     const currentPage = { ...page, current: true, time: new Date().toLocaleString() };
-    const langcode = this.getPageIdentityLang(page);
+    // Match stored identity, so an anonymous draft still loads as a new local copy.
+    const somePageIndex = this.findPageIndex({
+      uuid: page.uuid,
+      nid: page.nid,
+      langcode: this.getPageIdentityLang(page),
+    });
     this.version.update(list => {
       const next = list.map(version => ({ ...version, current: false }));
-      const somePageIndex = next.findIndex(item => {
-        const itemLangcode = this.getPageIdentityLang(item);
-        if (page.uuid && item.uuid && item.uuid === page.uuid && itemLangcode === langcode) {
-          return true;
-        }
-        if (page.nid && item.nid && item.nid === page.nid && itemLangcode === langcode) {
-          return true;
-        }
-        return false;
-      });
       if (somePageIndex > -1) {
         next[somePageIndex] = currentPage;
       } else {
@@ -490,6 +588,7 @@ export class BuilderState {
       return next;
     });
 
+    this.loading.set(false);
     this.closeRightDrawer$.next(close ?? true);
     this.saveLocalVersions();
   }

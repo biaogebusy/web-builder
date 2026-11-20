@@ -50,6 +50,18 @@ describe('builder tree utilities', () => {
     expect(removeBuilderTreeValue(body, '0.missing.0')).toBe(body);
   });
 
+  it.each([false, true])('isolates inserted nested data from its source (nested: %s)', nested => {
+    const source = { type: 'card', nested: { label: 'Original' } };
+    const inserted = nested
+      ? insertBuilderTreeValueAfter([{ elements: [source] }], '0.elements.0', source)[0].elements[1]
+      : insertBuilderTreeValueAfter([source], '0', source)[1];
+
+    source.nested.label = 'Source edit';
+    expect(inserted.nested.label).toBe('Original');
+    inserted.nested.label = 'Inserted edit';
+    expect(source.nested.label).toBe('Source edit');
+  });
+
   it('removes a root-level value without mutating the original body', () => {
     const body = [{ type: 'text' }, { type: 'img' }, { type: 'hero' }];
 

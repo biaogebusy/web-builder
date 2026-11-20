@@ -11,6 +11,7 @@ import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SHARE_IMPORTS } from '@share/share-imports';
 import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
+import type { JsonApiListResponse } from '@core/interface/node/IDrupal';
 import { NodeService } from '@core/service/node.service';
 import { NodeFieldFormService } from '@core/service/node-field-form.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -153,26 +154,40 @@ export class NodeManageComponent implements OnInit {
           this.onLoadError('所有内容类型均加载失败');
           return;
         }
-        const merged = results
-          .flatMap((res, i) =>
-            (res?.data || []).map((node: any) => ({
-              row: this.toRow(node, sources[i].type),
-              key: this.sourceKey(sources[i]),
-            }))
-          )
-          .sort((a, b) =>
-            a.row.changed === b.row.changed ? 0 : a.row.changed < b.row.changed ? 1 : -1
-          );
-        const consumed = merged.slice(0, PAGE_SIZE);
-        const nextOffsets = { ...offsets };
-        consumed.forEach(item => {
-          nextOffsets[item.key] = (nextOffsets[item.key] ?? 0) + 1;
-        });
+        const { rows, nextOffsets, hasNext } = this.mergePage(results, sources, offsets);
         this.allOffsets[this.page() + 1] = nextOffsets;
-        this.rows.set(consumed.map(item => item.row));
-        this.hasNext.set(merged.length > PAGE_SIZE || results.some(res => !!res?.links?.next));
+        this.rows.set(rows);
+        this.hasNext.set(hasNext);
         this.loading.set(false);
       });
+  }
+
+  private mergePage(
+    results: readonly (JsonApiListResponse | null)[],
+    sources: readonly { type: string; lang: string }[],
+    offsets: Readonly<Record<string, number>>
+  ) {
+    const merged = results
+      .flatMap((res, i) =>
+        (res?.data || []).map(node => ({
+          row: this.toRow(node, sources[i].type),
+          key: this.sourceKey(sources[i]),
+        }))
+      )
+      .sort((a, b) =>
+        a.row.changed === b.row.changed ? 0 : a.row.changed < b.row.changed ? 1 : -1
+      );
+    const consumed = merged.slice(0, PAGE_SIZE);
+    const nextOffsets = { ...offsets };
+    // Unconsumed records must remain available to later pages of the merged list.
+    consumed.forEach(item => {
+      nextOffsets[item.key] = (nextOffsets[item.key] ?? 0) + 1;
+    });
+    return {
+      rows: consumed.map(item => item.row),
+      nextOffsets,
+      hasNext: merged.length > PAGE_SIZE || results.some(res => !!res?.links?.next),
+    };
   }
 
   /**

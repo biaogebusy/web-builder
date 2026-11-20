@@ -51,15 +51,24 @@
     @if (config) {
       @for (item of config.menu; track item) {
         <div
+          #menuItem
           class="item"
           [routerLinkActive]="['active']"
-          [routerLinkActiveOptions]="{ exact: true }"
+          [routerLinkActiveOptions]="{
+            paths: 'exact',
+            queryParams: 'subset',
+            matrixParams: 'ignored',
+            fragment: 'ignored',
+          }"
           [matTooltip]="item.label"
           [matTooltipDisabled]="item.child ? true : false"
           matTooltipPosition="right"
         >
           @if (item.icon) {
-            <app-icon [routerLink]="item.href" [content]="item.icon" />
+            <a class="menu-trigger" [routerLink]="item.href" [attr.aria-label]="item.label"
+              [attr.tabindex]="item.href ? null : 0" [attr.role]="item.href ? null : 'button'">
+              <app-icon [content]="item.icon" />
+            </a>
           }
           @if (item.child) {
             <div class="child">
@@ -67,20 +76,33 @@
                 <div class="title">{{ item.label }}</div>
                 <div class="child-menu">
                   <mat-list>
-                    @for (item of item.child; track item) {
-                      <a
-                        mat-list-item
-                        [routerLink]="item.href"
-                        [routerLinkActive]="['active']"
-                        [routerLinkActiveOptions]="{ exact: true }"
-                        (click)="onHiddeRightDrawer()"
-                        *reqRolesIf="item"
-                      >
-                        @if (item.icon) {
-                          <app-icon class="child-icon" [content]="item.icon" />
-                        }
-                        {{ item.label }}
-                      </a>
+                    @for (group of item.child | menuGroups: user(); track $index) {
+                      @if (!$first) {
+                        <hr class="menu-group-divider" />
+                      }
+                      @if (group.label) {
+                        <h2 class="menu-group-heading sr-only">{{ group.label }}</h2>
+                      }
+                      @for (item of group.items; track item) {
+                        <a
+                          mat-list-item
+                          [class.grouped-menu-item]="!!group.label"
+                          [routerLink]="item.href"
+                          [routerLinkActive]="['active']"
+                          [routerLinkActiveOptions]="{
+                            paths: 'exact',
+                            queryParams: 'subset',
+                            matrixParams: 'ignored',
+                            fragment: 'ignored',
+                          }"
+                          (click)="onSelectChildMenu(menuItem)"
+                        >
+                          @if (item.icon) {
+                            <app-icon class="child-icon" [content]="item.icon" />
+                          }
+                          {{ item.label }}
+                        </a>
+                      }
                     }
                   </mat-list>
                 </div>
@@ -113,6 +135,7 @@
             [content]="{
               label: '',
               mode: 'icon',
+              ariaLabel: (mode === 'light' ? 'BUILDER.SIDEBAR.TOGGLE_DARK' : 'BUILDER.SIDEBAR.TOGGLE_LIGHT') | translate,
               icon: {
                 svg: mode === 'light' ? 'white-balance-sunny' : 'moon-waning-crescent',
               },
@@ -126,16 +149,22 @@
           <app-user-menu />
         }
         <div class="toggle">
-          <div class="wrapper" role="button" tabindex="0" (click)="onToggle()" (keyup.enter)="onToggle()">
+          <button
+            class="wrapper"
+            type="button"
+            [attr.aria-label]="(sidebarDrawer().opened ? 'BUILDER.SIDEBAR.COLLAPSE' : 'BUILDER.SIDEBAR.EXPAND') | translate"
+            [attr.aria-expanded]="sidebarDrawer().opened"
+            (click)="onToggle()"
+          >
             @if (sidebarDrawer().opened) {
               <app-icon [content]="{ svg: 'chevron-left' }">
-                <div class="text">{{ 'BUILDER.SIDEBAR.COLLAPSE' | translate }}</div>
+                <span class="text">{{ 'BUILDER.SIDEBAR.COLLAPSE' | translate }}</span>
               </app-icon>
             }
             @if (!sidebarDrawer().opened) {
               <app-icon [matTooltip]="'BUILDER.SIDEBAR.EXPAND' | translate" [content]="{ svg: 'chevron-right' }" />
             }
-          </div>
+          </button>
         </div>
       </div>
     }

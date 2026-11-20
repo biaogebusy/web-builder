@@ -6,8 +6,47 @@ import { BuilderService } from '@core/service/builder.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { vi } from 'vitest';
 import { LocalStorageService } from 'ngx-webstorage';
+import { CookieService } from 'ngx-cookie-service';
+import { Subject } from 'rxjs';
 
-import { builderCurrentPageFactory, themeFactory } from './factory';
+import { initApp, themeFactory } from './factory';
+import { ContentService } from '@core/service/content.service';
+import { ComponentService } from '@core/service/component.service';
+import { ThemeService } from '@core/service/theme.service';
+import { builderCurrentPageFactory } from './builder-factory';
+import { NodeService } from '@core/service/node.service';
+import { UserService } from '@core/service/user.service';
+import { ContentState } from '@core/state/ContentState';
+
+describe('initApp', () => {
+  it('waits for config and the selected theme before allowing bootstrap', async () => {
+    let resolveConfig!: () => void;
+    let resolveTheme!: () => void;
+    const configReady = new Promise<void>(resolve => { resolveConfig = resolve; });
+    const themeReady = new Promise<void>(resolve => { resolveTheme = resolve; });
+    const theme = { initTheme: vi.fn(() => themeReady) };
+    const createTheme = vi.fn(() => theme);
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: ContentService, useValue: { loadConfig: () => configReady } },
+        { provide: ComponentService, useValue: { registerDynamicComponent: vi.fn() } },
+        { provide: ThemeService, useFactory: createTheme },
+      ],
+    });
+    const initializer = TestBed.runInInjectionContext(() => initApp({}));
+    const ready = vi.fn();
+    const pending = initializer().then(ready);
+    expect(createTheme).not.toHaveBeenCalled();
+    expect(theme.initTheme).not.toHaveBeenCalled();
+    resolveConfig();
+    await configReady;
+    expect(theme.initTheme).toHaveBeenCalledOnce();
+    expect(ready).not.toHaveBeenCalled();
+    resolveTheme();
+    await pending;
+    expect(ready).toHaveBeenCalledOnce();
+  });
+});
 
 describe('themeFactory', () => {
   afterEach(() => TestBed.resetTestingModule());
@@ -89,6 +128,26 @@ describe('builderCurrentPageFactory', () => {
     version.set([]);
 
     expect(currentPage()).toBe(false);
+  });
+
+  it('retains its cached selection until notified without repeating the initial version check', () => {
+    const first: IPage = { title: 'A', body: [], current: true };
+    const second: IPage = { title: 'B', body: [], current: false };
+    const { currentPage, version, checkIsLatestPage } = setup('/builder', [first, second]);
+    expect(currentPage()).toBe(first);
+    expect(checkIsLatestPage).toHaveBeenCalledExactlyOnceWith(first);
+
+    first.current = false;
+    second.current = true;
+    expect(currentPage()).toBe(first);
+    version.set([...version()]);
+    expect(currentPage()).toBe(second);
+    first.current = true;
+    version.set([...version()]);
+    expect(currentPage()).toBe(first);
+    version.set([]);
+    expect(currentPage()).toBe(false);
+    expect(checkIsLatestPage).toHaveBeenCalledExactlyOnceWith(first);
   });
 
   it('kicks off the latest-page check only on the builder path', () => {

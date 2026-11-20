@@ -2,6 +2,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  TemplateRef,
+  viewChild,
+  viewChildren,
   computed,
   inject,
   input,
@@ -9,6 +12,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
+import { MatTooltip } from '@angular/material/tooltip';
 import { IPage } from '@core/interface/IAppConfig';
 import { IPageMeta, IPageRevisionPanel } from '@core/interface/IBuilder';
 import { IDialog } from '@core/interface/IDialog';
@@ -21,7 +25,6 @@ import {
   formatToExtraData,
   getApiLang,
   getPageParams,
-  isTranslationLang,
 } from '@core/util/builder-page.util';
 import { appendQueryParams } from '@core/util/http-params.util';
 import { SHARE_IMPORTS } from '@share/share-imports';
@@ -29,7 +32,8 @@ import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { PageDeletionService } from '../../service/page-deletion.service';
+import { finalize, map, switchMap, takeUntil } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -38,6 +42,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./page-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SHARE_IMPORTS, WIDGETS_IMPORTS],
+  providers: [PageDeletionService],
 })
 export class PageItemComponent {
   /** Page meta rendered by this row */
@@ -50,6 +55,10 @@ export class PageItemComponent {
   public readonly langs = environment.langs;
   public readonly showLanguage =
     environment.multiLang && Boolean(environment.langs && environment.langs.length > 1);
+  /** Shares verification and confirmation with the page settings entry. */
+  readonly deletion = inject(PageDeletionService);
+  private draftChoice = viewChild<TemplateRef<unknown>>('draftChoice');
+  private tooltips = viewChildren(MatTooltip);
   private currentPage = inject(BUILDER_CURRENT_PAGE);
   private builder = inject(BuilderState);
   private dialog = inject(MatDialog);
@@ -94,7 +103,34 @@ export class PageItemComponent {
   /** True when this page has a local version with changes not saved to the server. */
   readonly dirty = computed(() => this.builder.isPageDirty(this.page()));
 
+  /** Workflow state takes precedence for display; public access still uses published. */
+  readonly publicationState = computed(() => {
+    const page = this.page();
+    return page.moderation_state || (typeof page.published === 'boolean'
+      ? page.published ? 'published' : 'unpublished' : undefined);
+  });
+
+  /** Known states use the UI locale; other states retain their CMS label. */
+  readonly publicationLabel = computed(() => {
+    const state = this.publicationState();
+    if (state === 'unpublished') return 'BUILDER.PAGE_LIST.UNPUBLISHED';
+    if (state === 'draft') return 'BUILDER.NODE_ADD.STATE_DRAFT';
+    if (state === 'published') return 'BUILDER.NODE_ADD.STATE_PUBLISHED';
+    return this.page().moderation_state_label || state;
+  });
+
   readonly previewUrl = computed(() => appendQueryParams(this.page().url || '', { preview: true }));
+
+  /** Prepare clipped text before Material handles pointer entry; keyboard focus opens it directly. */
+  updateOverflowTooltip(tooltip: MatTooltip, text: HTMLElement, showImmediately = false): void {
+    tooltip.message = text.scrollWidth > text.clientWidth ? text.textContent?.trim() || '' : '';
+    if (showImmediately) tooltip.show(0);
+  }
+
+  /** Close row hints when the containing list handles Escape. */
+  hideTooltips(): void {
+    this.tooltips().forEach(tooltip => tooltip.hide(0));
+  }
 
   /** Title click: the page is already open, so opening it again would be a no-op */
   loadPage(): void {
@@ -118,39 +154,25 @@ export class PageItemComponent {
     this.loadPageFromServer();
   }
 
-  // Dismissing the dialog keeps the draft, so unsaved work is only ever lost by a deliberate click
   private openDraftChoiceDialog(localPage: IPage): void {
-    const config: IDialog = {
-      title: this.translate.instant('BUILDER.PAGE_LIST.OPEN_DRAFT_TITLE'),
-      noLabel: this.translate.instant('BUILDER.PAGE_LIST.OPEN_DRAFT_KEEP'),
-      yesLabel: this.translate.instant('BUILDER.PAGE_LIST.OPEN_DRAFT_SERVER'),
-      inputData: {
-        content: {
-          type: 'text',
-          fullWidth: true,
-          body: this.translate.instant('BUILDER.PAGE_LIST.OPEN_DRAFT_CONFIRM', {
-            title: this.page().title,
-          }),
-        },
-      },
-    };
-    this.dialog
-      .open(DialogComponent, { width: '340px', data: config })
+    const template = this.draftChoice();
+    if (!template) return;
+    this.dialog.open(template, { width: '400px', autoFocus: '[data-draft-cancel]' })
       .afterClosed()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(fromServer => {
-        if (fromServer) {
-          this.loadPageFromServer();
-          return;
-        }
-        this.loadLocalDraft(localPage);
+      .pipe(takeUntil(this.builder.pageSelection$), takeUntilDestroyed(this.destroyRef))
+      .subscribe(choice => {
+        if (choice === 'server') this.loadPageFromServer();
+        if (choice === 'local') this.loadLocalDraft(localPage);
       });
   }
 
   private loadLocalDraft(localPage: IPage): void {
     const page = this.page();
     this.builder.loading.set(false);
-    this.builder.loadNewPage(localPage);
+    this.builder.loadNewPage({
+      ...localPage,
+      ...(typeof page.published === 'boolean' ? { published: page.published } : {}),
+    });
     this.util.openSnackbar(
       this.translate.instant('BUILDER.PAGE_LIST.LOADING_LOCAL_DRAFT', { title: page.title }),
       'ok'
@@ -221,8 +243,6 @@ export class PageItemComponent {
   }
 
   updatePageSetting(): void {
-    this.builder.loading.set(true);
-
     this.builderService.openPageSetting(
       this.page(),
       '/api/v1/node/landing_page',
@@ -254,7 +274,7 @@ export class PageItemComponent {
       return;
     }
     const lang = this.langs?.find(l => l.langCode === targetlang);
-    this.builder.loading.set(true);
+    const finishLoading = this.builder.beginPageLoad();
     this.nodeService
       .fetch(`/api/v3/landingPage/json/${currentPage.nid}`, { noCache: 1 }, targetlang)
       .pipe(
@@ -272,11 +292,12 @@ export class PageItemComponent {
             )
             .pipe(map((source: IPage) => ({ source })));
         }),
-        takeUntilDestroyed(this.destroyRef)
+        takeUntil(this.builder.pageSelection$),
+        takeUntilDestroyed(this.destroyRef),
+        finalize(finishLoading)
       )
       .subscribe({
         next: ({ existing, source }: { existing?: IPage; source?: IPage }) => {
-          this.builder.loading.set(false);
           if (existing) {
             this.util.openSnackbar(
               this.translate.instant('BUILDER.PAGE_LIST.TRANSLATION_EXISTS', {
@@ -292,7 +313,6 @@ export class PageItemComponent {
           this.openCreateTranslationDialog(currentPage, targetlang, source as IPage, label);
         },
         error: () => {
-          this.builder.loading.set(false);
           this.util.openSnackbar(
             this.translate.instant('BUILDER.PAGE_LIST.LOAD_TRANSLATION_FAIL', {
               title: currentPage.title,
@@ -327,7 +347,7 @@ export class PageItemComponent {
     this.dialog
       .open(DialogComponent, { width: '340px', data: config })
       .afterClosed()
-      .pipe(takeUntilDestroyed(this.destroyRef))
+      .pipe(takeUntil(this.builder.pageSelection$), takeUntilDestroyed(this.destroyRef))
       .subscribe(result => {
         if (!result) return;
         this.util.openSnackbar(
@@ -349,96 +369,32 @@ export class PageItemComponent {
       });
   }
 
+  /** Deletes only the scope confirmed against current CMS language metadata. */
   deletePage(): void {
     const page = this.page();
-    const translation = this.isTranslation();
-    const lang = this.getLangLabel(page.langcode);
-    const config: IDialog = translation
-      ? {
-          title: this.translate.instant('BUILDER.PAGE_SETTING.DELETE_TRANSLATION_TITLE'),
-          noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
-          yesLabel: this.translate.instant('BUILDER.PAGE_SETTING.DELETE_TRANSLATION'),
-          inputData: {
-            content: {
-              type: 'text',
-              fullWidth: true,
-              body: this.translate.instant('BUILDER.PAGE_SETTING.DELETE_TRANSLATION_CONFIRM', {
-                title: page.title,
-                lang,
-              }),
-            },
-          },
-        }
-      : {
-          title: this.translate.instant('BUILDER.PAGE_LIST.DELETE_TITLE'),
-          noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
-          yesLabel: this.translate.instant('BUILDER.PAGE_SETTING.DELETE'),
-          inputData: {
-            content: {
-              type: 'text',
-              fullWidth: true,
-              body: this.translate.instant(
-                environment.multiLang
-                  ? 'BUILDER.PAGE_SETTING.DELETE_ALL_LANG_CONFIRM'
-                  : 'BUILDER.PAGE_LIST.DELETE_CONFIRM',
-                { title: page.title }
-              ),
-            },
-          },
-        };
-    this.dialog
-      .open(DialogComponent, { width: '340px', data: config })
-      .afterClosed()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(result => {
-        if (!result) return;
-        this.builder.loading.set(true);
-        const request$ = translation
-          ? this.builderService.deleteTranslation(page.nid, page.langcode)
-          : this.nodeService.deleteEntity('/api/v1/node/landing_page', page.uuid);
-        request$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
-          next: () => {
-            this.builder.loading.set(false);
-            this.builder.deleteLocalPageByPage(page, !translation);
-            this.util.openSnackbar(
-              translation
-                ? this.translate.instant('BUILDER.PAGE_SETTING.DELETE_TRANSLATION_SUCCESS', {
-                    title: page.title,
-                    lang,
-                  })
-                : this.translate.instant('BUILDER.PAGE_SETTING.DELETE_SUCCESS', {
-                    title: page.title,
-                  }),
-              'ok'
-            );
-            this.refresh.emit();
-          },
-          error: err => {
-            this.builder.loading.set(false);
-            if (err.status === 403) {
-              this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_SETTING.NO_PERMISSION'));
-            } else {
-              this.util.openSnackbar(
-                translation
-                  ? this.translate.instant('BUILDER.PAGE_SETTING.DELETE_TRANSLATION_FAIL', {
-                      title: page.title,
-                      lang,
-                    })
-                  : this.translate.instant('BUILDER.PAGE_SETTING.DELETE_FAIL', {
-                      title: page.title,
-                    })
-              );
-            }
-          },
-        });
-      });
+    this.deletion.delete(page).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(scope => {
+      if (!scope) return;
+      this.builder.deleteLocalPageByPage(page, scope === 'page');
+      this.refresh.emit();
+    });
+  }
+
+  /** The server identifies the original version; the site language is not evidence. */
+  readonly deleteLabel = computed(() => this.page().default_langcode === true
+    ? 'BUILDER.PAGE_SETTING.DELETE_ALL_LANG'
+    : this.page().default_langcode === false
+      ? 'BUILDER.PAGE_SETTING.DELETE_TRANSLATION' : 'BUILDER.PAGE_SETTING.REVIEW_DELETE');
+
+  /** Known existing versions open directly; unknown metadata retains an honest neutral label. */
+  languageAction(langcode: string): string {
+    const languages = this.page().translation_languages;
+    if (!languages) return 'BUILDER.PAGE_LIST.OPEN_LANG';
+    return languages.includes(langcode)
+      ? 'BUILDER.PAGE_LIST.EDIT_LANG' : 'BUILDER.PAGE_LIST.CREATE_LANG';
   }
 
   getLangLabel(code: string): string {
     return this.langs?.find(l => l.langCode === code)?.label ?? code;
   }
 
-  isTranslation(): boolean {
-    return isTranslationLang(this.page().langcode);
-  }
 }

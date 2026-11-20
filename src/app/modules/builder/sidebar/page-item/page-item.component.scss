@@ -7,18 +7,20 @@
 }
 
 .item {
-  @apply relative flex min-w-0 flex-col p-3;
+  @apply relative flex min-w-0 flex-col gap-0.5 px-3 py-2;
   border-bottom: 1px solid var(--mat-sys-outline-variant);
   transition:
     background-color 120ms ease,
     box-shadow 120ms ease;
+
+  &:focus-within { background-color: var(--mat-sys-surface-container-low); }
 
   &:hover {
     background-color: var(--mat-sys-surface-container-low);
   }
 
   .item-header {
-    @apply flex min-w-0 items-start justify-between gap-2;
+    @apply flex min-w-0 items-center justify-between gap-2;
   }
 
   .title-block {
@@ -30,11 +32,17 @@
   }
 
   .title-btn {
-    @apply line-clamp-2 w-full cursor-pointer p-0 text-left;
+    @apply block w-full cursor-pointer p-0 text-left leading-6;
+
     background: none;
     border: none;
     color: var(--mat-sys-on-surface);
     font: inherit;
+
+    &::after {
+      @apply absolute inset-0;
+      content: '';
+    }
 
     &:hover,
     &:focus-visible {
@@ -57,26 +65,40 @@
     }
   }
 
+  // Keep the stretched row action separate from the text tooltip's hover target.
+  .title-text { @apply relative z-[1] block truncate; }
+
   .language-badge,
   .status-badge {
-    @apply rounded px-1.5 py-0.5 text-[10px] font-medium leading-4;
+    @apply inline-flex items-center rounded px-1.5 text-xs font-medium leading-5;
   }
 
   .language-badge {
-    color: var(--mat-sys-on-primary-container);
-    background-color: var(--mat-sys-primary-container);
+    color: var(--mat-sys-on-surface-variant);
+    background-color: var(--mat-sys-surface-container);
   }
 
-  // Alignment only: the trigger keeps the stock mat-icon-button look and hover state layer
+  .language-row {
+    @apply relative z-[1] inline-flex items-center text-xs;
+    color: var(--mat-sys-on-surface-variant);
+  }
+
   .more-trigger {
-    @apply -mr-2 -mt-2 shrink-0;
+    @apply relative z-[1] -mr-1 shrink-0;
+    --mat-icon-button-state-layer-size: 24px;
+    --mat-icon-button-touch-target-display: none;
+    --mat-icon-button-icon-size: 18px;
+    @apply p-0.5;
+    ::ng-deep .mat-icon { @apply h-5 w-5 text-xl; }
   }
 
-  .status-row {
-    @apply flex min-w-0 flex-wrap items-center gap-1;
+  .status-row,
+  .editing-row {
+    @apply flex min-w-0 flex-wrap items-center gap-1.5;
   }
 
   .current-badge {
+    @apply whitespace-nowrap;
     color: var(--mat-sys-on-primary-container);
     background-color: var(--mat-sys-primary-container);
   }
@@ -91,17 +113,40 @@
     background-color: var(--mat-sys-error-container);
   }
 
+  .publication-badge {
+    @apply relative z-[1] inline-flex min-h-6 cursor-pointer items-center border-0 bg-transparent;
+    color: var(--mat-sys-on-surface-variant);
+
+    &:hover {
+      box-shadow: inset 0 0 0 1px var(--mat-sys-outline);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--mat-sys-primary);
+      outline-offset: 2px;
+    }
+
+  }
+
+  .draft-badge {
+    color: var(--mat-sys-on-surface-variant);
+  }
+
+  .published-badge {
+    color: var(--mat-sys-primary);
+  }
+
   .url-row {
     @apply flex min-w-0 items-center justify-between gap-2;
   }
 
   .url-link {
-    @apply min-w-0 flex-1 truncate font-mono text-xs;
+    @apply relative z-[1] min-w-0 flex-1 truncate text-xs leading-5;
     color: var(--mat-sys-on-surface-variant);
   }
 
   .preview-link {
-    @apply inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full no-underline;
+    @apply relative z-[1] inline-flex h-6 w-6 shrink-0 items-center justify-center rounded no-underline;
     color: var(--mat-sys-primary);
 
     &:hover {
@@ -124,7 +169,7 @@
   }
 
   .meta {
-    @apply flex min-w-0 items-center justify-between gap-2 overflow-hidden text-xs opacity-70;
+    @apply flex min-w-0 items-center justify-between gap-2 text-xs leading-4;
     color: var(--mat-sys-on-surface-variant);
   }
 
@@ -138,7 +183,7 @@
   }
 
   .meta-item {
-    @apply min-w-0 truncate;
+    @apply relative z-[1] min-w-0 truncate;
   }
 
   .taxonomy {
@@ -155,6 +200,7 @@
 
   &.active {
     background-color: var(--mat-sys-surface-container-high);
+    .title-btn { color: var(--mat-sys-primary); }
     box-shadow: inset 3px 0 0 var(--mat-sys-primary);
   }
 
@@ -185,4 +231,11 @@
   .page-item-menu__delete:not([disabled]) {
     color: var(--mat-sys-error);
   }
+}
+
+.draft-page-title { @apply font-semibold; overflow-wrap: anywhere; }
+.draft-actions { @apply flex flex-wrap gap-2 px-6 pb-6; }
+
+@media (prefers-reduced-motion: reduce) {
+  .item { transition: none; }
 }

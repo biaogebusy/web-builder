@@ -17,9 +17,145 @@ import {
   createUtilitiesServiceMock,
 } from '@core/testing/mocks';
 import { provideBuilderMocks } from '@modules/builder/testing/mocks';
-import { of } from 'rxjs';
+import { of, Subject } from 'rxjs';
+import { LocalStorageService } from 'ngx-webstorage';
 
 import { PageItemComponent } from './page-item.component';
+
+describe('PageItemComponent translation selection with real builder state', () => {
+  let state: BuilderState;
+  let fixture: ComponentFixture<PageItemComponent>;
+  let node: ReturnType<typeof createNodeServiceMock>;
+  let util: ReturnType<typeof createUtilitiesServiceMock>;
+  let confirm: Subject<boolean>;
+  const openDialog = vi.fn();
+  const page = (nid = '12', langcode = 'en'): IPage => ({
+    nid, langcode, title: `Translation ${nid}`, body: [], status: true,
+  });
+  const row = (nid = '12') => {
+    const result = TestBed.createComponent(PageItemComponent);
+    result.componentRef.setInput('page', { nid, langcode: 'zh-hans', title: `Source ${nid}` });
+    vi.spyOn(result.debugElement.injector.get(MatDialog), 'open').mockImplementation(openDialog);
+    return result;
+  };
+
+  beforeEach(async () => {
+    node = createNodeServiceMock();
+    util = createUtilitiesServiceMock();
+    confirm = new Subject<boolean>();
+    openDialog.mockReset().mockReturnValue({ afterClosed: () => confirm });
+    await TestBed.configureTestingModule({
+      imports: [PageItemComponent, MatIconTestingModule],
+      providers: [
+        provideRouter([]),
+        ...provideBuilderMocks(), BuilderState,
+        { provide: NodeService, useValue: node },
+        { provide: UtilitiesService, useValue: util },
+        { provide: LocalStorageService, useValue: {
+          retrieve: () => [{ nid: '1', title: 'Unsaved canvas', body: [], dirty: true, current: true }],
+          store: vi.fn(),
+        } },
+      ],
+    }).compileComponents();
+    state = TestBed.inject(BuilderState);
+    fixture = row();
+  });
+
+  afterEach(() => TestBed.resetTestingModule());
+
+  it.each(['same row', 'other row'])('keeps the latest translation from %s', source => {
+    const first = new Subject<IPage>();
+    const latest = new Subject<IPage>();
+    node.fetch.mockReturnValueOnce(first).mockReturnValueOnce(latest);
+    fixture.componentInstance.createLangVersion('en');
+    const next = source === 'same row' ? fixture : row('13');
+    next.componentInstance.createLangVersion('en');
+    expect(first.observed).toBe(false);
+    first.error(new Error('Superseded translation'));
+    expect(state.loading()).toBe(true);
+    expect(util.openSnackbar).not.toHaveBeenCalled();
+    latest.next(page(source === 'same row' ? '12' : '13'));
+    expect(state.currentPage.title).toBe(source === 'same row' ? 'Translation 12' : 'Translation 13');
+    expect(state.loading()).toBe(false);
+  });
+
+  it.each(['target', 'source'])('cancels the %s read when another canvas read starts', stage => {
+    const read = new Subject<IPage>();
+    if (stage === 'source') node.fetch.mockReturnValueOnce(of(page('12', 'zh-hans')));
+    node.fetch.mockReturnValueOnce(read);
+    fixture.componentInstance.createLangVersion('en');
+    const finish = state.beginPageLoad();
+    read.next(page());
+    expect(read.observed).toBe(false);
+    expect(state.currentPage).toMatchObject({ title: 'Unsaved canvas', dirty: true });
+    expect(state.loading()).toBe(true);
+    expect(openDialog).not.toHaveBeenCalled();
+    finish();
+    expect(state.loading()).toBe(false);
+  });
+
+  it('takes loading ownership from the earlier canvas read', () => {
+    const finishEarlier = state.beginPageLoad();
+    const read = new Subject<IPage>();
+    node.fetch.mockReturnValueOnce(read);
+    fixture.componentInstance.createLangVersion('en');
+    finishEarlier();
+    expect(state.loading()).toBe(true);
+    read.next(page());
+    expect(state.currentPage.title).toBe('Translation 12');
+    expect(state.loading()).toBe(false);
+  });
+
+  it('lets a local dirty translation replace a pending remote translation', () => {
+    const read = new Subject<IPage>();
+    node.fetch.mockReturnValueOnce(read);
+    fixture.componentInstance.createLangVersion('en');
+    const local = { ...page('13', 'zh-hans'), title: 'Local translation', dirty: true,
+      current: false, translation: true as const, target: 'en' };
+    state.version.update(pages => [...pages, local]);
+    row('13').componentInstance.createLangVersion('en');
+    read.next(page());
+    expect(read.observed).toBe(false);
+    expect(node.fetch).toHaveBeenCalledOnce();
+    expect(state.currentPage).toMatchObject({ title: 'Local translation', dirty: true });
+  });
+
+  it.each(['failure', 'empty'])('ends loading after %s and permits retry', result => {
+    const read = new Subject<IPage>();
+    node.fetch.mockReturnValueOnce(read);
+    fixture.componentInstance.createLangVersion('en');
+    if (result === 'failure') read.error(new Error('Unavailable'));
+    else read.complete();
+    expect(state.loading()).toBe(false);
+    expect(state.currentPage).toMatchObject({ title: 'Unsaved canvas', dirty: true });
+    node.fetch.mockReturnValueOnce(of(page()));
+    fixture.componentInstance.createLangVersion('en');
+    expect(state.currentPage.title).toBe('Translation 12');
+  });
+
+  it('ends the pending load when its row is destroyed', () => {
+    const read = new Subject<IPage>();
+    node.fetch.mockReturnValueOnce(read);
+    fixture.componentInstance.createLangVersion('en');
+    fixture.destroy();
+    expect(read.observed).toBe(false);
+    expect(state.loading()).toBe(false);
+    expect(state.currentPage.title).toBe('Unsaved canvas');
+  });
+
+  it.each(['local', 'remote'])('ignores the old confirmation after a new %s selection', selection => {
+    node.fetch.mockReturnValueOnce(of(page('12', 'zh-hans')))
+      .mockReturnValueOnce(of(page('12', 'zh-hans')));
+    fixture.componentInstance.createLangVersion('en');
+    expect(openDialog).toHaveBeenCalledOnce();
+    if (selection === 'local') state.loadNewPage({ title: 'New local draft', body: [] });
+    else state.beginPageLoad();
+    const expected = state.currentPage;
+    confirm.next(true);
+    expect(state.currentPage).toEqual(expected);
+    expect(state.loading()).toBe(selection === 'remote');
+  });
+});
 
 describe('PageItemComponent', () => {
   let component: PageItemComponent;
@@ -31,7 +167,8 @@ describe('PageItemComponent', () => {
   const currentPage = signal<IPage | undefined | false>(undefined);
 
   // MatDialog comes from modules in the component's standalone imports, so spy the real instance
-  const confirmWith = (result: boolean) => {
+  const confirmWith = (result: boolean | string | undefined) => {
+    fixture.detectChanges();
     const dialog = fixture.debugElement.injector.get(MatDialog);
     return vi
       .spyOn(dialog, 'open')
@@ -40,6 +177,14 @@ describe('PageItemComponent', () => {
 
   const setPage = (page: Partial<IPageMeta>) => {
     fixture.componentRef.setInput('page', page as IPageMeta);
+  };
+
+  const verifyLanguage = (langcode: string, original: boolean) => {
+    nodeService.fetch.mockReturnValue(of({ data: {
+      id: 'uuid-7', type: 'node--landing_page', attributes: {
+        langcode, default_langcode: original, drupal_internal__nid: 7,
+      },
+    } }));
   };
 
   beforeEach(async () => {
@@ -71,6 +216,21 @@ describe('PageItemComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('labels an unpublished page separately from unsaved edits and keeps editing available', () => {
+    setPage({ nid: '12', title: 'Draft', url: '/draft', published: false });
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('.unpublished-badge')?.textContent)
+      .toContain('BUILDER.PAGE_LIST.UNPUBLISHED');
+    expect(fixture.nativeElement.querySelector('.unsaved-badge')).toBeNull();
+    expect(fixture.nativeElement.querySelector('.preview-link')).toBeNull();
+    component.loadPage();
+    expect(builderService.loadPage).toHaveBeenCalled();
+    fixture.componentRef.setInput('page', { nid: '12', title: 'Published', url: '/draft', published: true });
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('.unpublished-badge')).toBeNull();
+    expect(fixture.nativeElement.querySelector('.preview-link')).not.toBeNull();
+  });
+
   it('warns instead of loading when the page misses its nid', () => {
     setPage({ langcode: 'en' });
 
@@ -78,6 +238,38 @@ describe('PageItemComponent', () => {
 
     expect(util.openSnackbar).toHaveBeenCalledWith('BUILDER.PAGE_LIST.CHECK_LANDING_VIEW', 'ok');
     expect(builderService.loadPage).not.toHaveBeenCalled();
+  });
+
+  it.each([
+    ['unpublished', false, 'BUILDER.PAGE_LIST.UNPUBLISHED'],
+    ['draft', false, 'BUILDER.NODE_ADD.STATE_DRAFT'],
+    ['published', true, 'BUILDER.NODE_ADD.STATE_PUBLISHED'],
+  ] as const)('displays the CMS %s state without treating it as an unsaved canvas',
+    (state, published, label) => {
+      setPage({ nid: '12', url: '/page', published, moderation_state: state });
+      fixture.detectChanges();
+      expect(fixture.nativeElement.querySelector('.publication-badge')?.textContent)
+        .toContain(label);
+      expect(fixture.nativeElement.querySelector('.unsaved-badge')).toBeNull();
+      expect(!!fixture.nativeElement.querySelector('.preview-link')).toBe(published);
+    });
+
+  it('keeps public preview governed by publication when a workflow state is present', () => {
+    setPage({ nid: '12', url: '/page', published: true, moderation_state: 'draft' });
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('.draft-badge')).not.toBeNull();
+    expect(fixture.nativeElement.querySelector('.preview-link')).not.toBeNull();
+  });
+
+  it('uses a custom workflow label and does not infer an unavailable state', () => {
+    setPage({ nid: '12', published: false,
+      moderation_state: 'review', moderation_state_label: 'Editorial review' });
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('.publication-badge')?.textContent)
+      .toContain('Editorial review');
+    setPage({ nid: '12' });
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('.publication-badge')).toBeNull();
   });
 
   it('loads the selected page into the builder', () => {
@@ -115,13 +307,23 @@ describe('PageItemComponent', () => {
       dirty: true,
     };
     builderState.getLocalPageByPage.mockReturnValue(localPage);
-    confirmWith(false);
+    confirmWith('local');
 
     component.loadPage();
 
     expect(builderState.loadNewPage).toHaveBeenCalledWith(localPage);
     expect(builderService.loadPage).not.toHaveBeenCalled();
     expect(util.openSnackbar).toHaveBeenCalledWith('BUILDER.PAGE_LIST.LOADING_LOCAL_DRAFT', 'ok');
+  });
+
+  it('uses the list publication state when opening an older local draft', () => {
+    const localPage: IPage = { nid: '12', title: 'Local changes', body: [], dirty: true, published: true };
+    setPage({ nid: '12', title: 'Draft', published: false });
+    builderState.getLocalPageByPage.mockReturnValue(localPage);
+    confirmWith('local');
+    component.loadPage();
+    expect(builderState.loadNewPage).toHaveBeenCalledWith({ ...localPage, published: false });
+    expect(localPage.published).toBe(true);
   });
 
   it('discards the local version only when the server copy is explicitly chosen', () => {
@@ -132,12 +334,23 @@ describe('PageItemComponent', () => {
       body: [],
       dirty: true,
     });
-    confirmWith(true);
+    confirmWith('server');
 
     component.loadPage();
 
     expect(builderService.loadPage).toHaveBeenCalledWith({ nid: '12', langcode: 'zh-hans' });
     expect(builderState.loadNewPage).not.toHaveBeenCalled();
+  });
+
+  it.each([undefined, false, ''])('keeps the current page when draft choice is dismissed: %s', result => {
+    builderState.getLocalPageByPage.mockReturnValue({ nid: '12', title: 'Draft', body: [], dirty: true });
+    confirmWith(result);
+    const loaded = vi.fn();
+    component.pageLoad.subscribe(loaded);
+    component.loadPage();
+    expect(builderState.loadNewPage).not.toHaveBeenCalled();
+    expect(builderService.loadPage).not.toHaveBeenCalled();
+    expect(loaded).not.toHaveBeenCalled();
   });
 
   it('opens a clean page from the server without asking anything', () => {
@@ -397,6 +610,7 @@ describe('PageItemComponent', () => {
     confirmWith(true);
     setPage({ nid: '7', uuid: 'uuid-7', langcode: 'en', title: 'Home' });
 
+    verifyLanguage('en', false);
     component.deletePage();
 
     expect(builderService.deleteTranslation).toHaveBeenCalledWith('7', 'en');
@@ -411,6 +625,7 @@ describe('PageItemComponent', () => {
     confirmWith(true);
     setPage({ nid: '7', uuid: 'uuid-7', langcode: 'zh-hans', title: 'Home' });
 
+    verifyLanguage('zh-hans', true);
     component.deletePage();
 
     expect(nodeService.deleteEntity).toHaveBeenCalledWith('/api/v1/node/landing_page', 'uuid-7');
@@ -425,6 +640,7 @@ describe('PageItemComponent', () => {
     const open = confirmWith(false);
     setPage({ nid: '7', uuid: 'uuid-7', langcode: 'zh-hans', title: 'Home' });
 
+    verifyLanguage('zh-hans', true);
     component.deletePage();
 
     const config: any = open.mock.calls[0][1];
@@ -433,22 +649,33 @@ describe('PageItemComponent', () => {
     expect(builderService.deleteTranslation).not.toHaveBeenCalled();
   });
 
-  it('flags non default language pages as translations', () => {
-    setPage({ langcode: 'en' });
-    expect(component.isTranslation()).toBe(true);
+  it('uses the CMS original flag independently of the site default language', () => {
+    setPage({ langcode: 'zh-hans', default_langcode: false });
+    expect(component.deleteLabel()).toBe('BUILDER.PAGE_SETTING.DELETE_TRANSLATION');
 
-    setPage({ langcode: 'zh-hans' });
-    expect(component.isTranslation()).toBe(false);
+    setPage({ langcode: 'en', default_langcode: true });
+    expect(component.deleteLabel()).toBe('BUILDER.PAGE_SETTING.DELETE_ALL_LANG');
   });
 
-  // The default language is the norm on every row, so only translations earn a badge
-  it('badges the language of translation rows only', () => {
+  it('labels the language on both original and translated rows', () => {
     fixture.detectChanges();
-    expect(fixture.nativeElement.querySelector('.language-badge')).toBeNull();
+    expect(fixture.nativeElement.querySelector('.language-badge')?.textContent.trim()).toBe('中文');
 
     setPage({ nid: '12', uuid: 'uuid-12', langcode: 'en', title: 'Home' });
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelector('.language-badge')?.textContent.trim()).toBe('EN');
+  });
+
+  it('distinguishes existing versions, new drafts and unknown language metadata', () => {
+    setPage({ langcode: 'en', default_langcode: true, translation_languages: ['en', 'zh-hans'] });
+    expect(component.languageAction('zh-hans')).toBe('BUILDER.PAGE_LIST.EDIT_LANG');
+    expect(component.languageAction('fr')).toBe('BUILDER.PAGE_LIST.CREATE_LANG');
+    expect(component.deleteLabel()).toBe('BUILDER.PAGE_SETTING.DELETE_ALL_LANG');
+    setPage({ langcode: 'zh-hans', default_langcode: false });
+    expect(component.deleteLabel()).toBe('BUILDER.PAGE_SETTING.DELETE_TRANSLATION');
+    expect(component.languageAction('en')).toBe('BUILDER.PAGE_LIST.OPEN_LANG');
+    setPage({ langcode: 'zh-hans' });
+    expect(component.deleteLabel()).toBe('BUILDER.PAGE_SETTING.REVIEW_DELETE');
   });
 
   it('asks the owning list to refresh once the page is deleted', () => {
@@ -458,6 +685,7 @@ describe('PageItemComponent', () => {
     const refresh = vi.fn();
     component.refresh.subscribe(refresh);
 
+    verifyLanguage('zh-hans', true);
     component.deletePage();
 
     expect(refresh).toHaveBeenCalled();

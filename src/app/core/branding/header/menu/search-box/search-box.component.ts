@@ -13,7 +13,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NodeService } from '@core/service/node.service';
-import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { FormService } from '@core/service/form.service';
 import { isEmpty, omitBy } from 'lodash-es';
@@ -72,7 +73,12 @@ export class SearchBoxComponent extends BaseComponent implements OnInit {
         distinctUntilChanged(
           (previous, current) => JSON.stringify(previous) === JSON.stringify(current)
         ),
-        switchMap(params => this.nodeService.fetch('content', this.getApiParams(params))),
+        switchMap(params =>
+          this.nodeService.fetch('content', this.getApiParams(params)).pipe(
+            // Keep later input changes active when this suggestion request fails.
+            catchError(() => of({ rows: [] }))
+          )
+        ),
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe(data => {

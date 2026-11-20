@@ -28,7 +28,8 @@ import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
 })
 export class IframeComponent implements OnInit {
   private user = inject(USER);
-  private pageContent = inject(PAGE_CONTENT);
+  // Optional: the builder canvas renders this for the device preview without a PAGE_CONTENT
+  private pageContent = inject(PAGE_CONTENT, { optional: true });
 
   readonly content = input.required<IIframe>();
   public url = signal('');
@@ -72,7 +73,7 @@ export class IframeComponent implements OnInit {
 
     if (content?.url.includes(':nid')) {
       effect(() => {
-        const page = this.pageContent();
+        const page = this.pageContent?.();
         if (page && typeof page === 'object') {
           const nid = page.config?.node?.nid;
           if (nid) {

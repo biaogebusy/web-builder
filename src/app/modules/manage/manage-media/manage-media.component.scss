@@ -1,43 +1,142 @@
 @use 'mixins/amixin' as *;
 .manage-media {
-  @apply relative overflow-hidden h-[70vh];
+  @apply relative overflow-hidden;
+  height: var(--media-panel-height, 70dvh);
+  container: media-panel / inline-size;
   .mat-drawer-container {
     height: 100%;
   }
   .media-grid {
-    @apply grid grid-cols-12 gap-3 md:gap-5 h-full;
-    // Mobile: sidebar stacks on top (auto), grid fills the rest and scrolls.
+    @apply grid grid-cols-1 gap-3 md:gap-5 h-full;
     grid-template-rows: auto minmax(0, 1fr);
-    @media (min-width: 960px) {
-      // Desktop: sidebar and grid sit side by side in a single row.
-      grid-template-rows: none;
+    &.guest {
+      grid-template-rows: minmax(0, 1fr);
     }
   }
-  .sidebar {
-    background-color: var(--mat-sys-background);
-    @apply flex flex-col p-3 col-span-12 md:col-span-3 xl:col-span-2;
-    .action {
-      @apply flex justify-center items-center my-2 sm:my-5;
+  .toolbar {
+    @apply flex flex-wrap items-center justify-start gap-3 min-w-0 border-0 border-b border-solid pb-3;
+    border-color: var(--mat-sys-outline-variant);
+    --shadcn-control-height: 40px;
+    --shadcn-radius-sm: 8px;
+    --mat-button-filled-container-height: 40px;
+    --mat-button-filled-container-shape: 8px;
+    --mat-button-filled-horizontal-padding: 16px;
+    .toolbar-filters {
+      @apply relative flex-none w-fit min-w-0 max-w-full;
+    }
+    .search-icon {
+      @apply absolute left-3 top-2.5 z-10 w-5 h-5 text-xl leading-none pointer-events-none;
+      color: var(--mat-sys-on-surface-variant);
+    }
+    .filter-fields {
+      @apply block min-w-0;
+    }
+    ::ng-deep .media-filter-fields > formly-field > formly-group {
+      @apply flex flex-wrap items-start justify-start gap-2.5;
+      > formly-field {
+        @apply flex-none w-40 min-w-0 max-w-full m-0;
+      }
+      > .media-search-field {
+        @apply w-60;
+      }
+      formly-shadcn-form-field {
+        @apply mb-0;
+      }
+      .shad-label {
+        @apply sr-only;
+      }
+      .shad-input {
+        @apply shadow-none;
+      }
+    }
+    ::ng-deep .media-search-field input.shad-input {
+      @apply pl-10;
+    }
+    .toolbar-actions {
+      @apply flex flex-wrap shrink-0 items-center gap-3;
+    }
+    .toolbar-actions label {
+      @apply flex flex-col gap-1 text-xs;
+      color: var(--mat-sys-on-surface);
+      select {
+        @apply rounded-lg border border-solid px-3 min-h-10 text-sm;
+        background: var(--mat-sys-surface);
+        border-color: var(--mat-sys-outline);
+      }
+    }
+    .col-control {
+      @apply flex items-center gap-2 h-10 px-1;
+      color: var(--mat-sys-on-surface-variant);
+    }
+    .size-icon {
+      @apply flex shrink-0 w-4 h-4 text-base leading-none;
+    }
+    .thumbnail-range {
+      @apply w-24 min-w-12 h-10 m-0 p-0 cursor-pointer appearance-none bg-transparent;
+      &::-webkit-slider-runnable-track {
+        @apply h-1 rounded-full;
+        background-color: var(--mat-sys-outline-variant);
+      }
+      &::-moz-range-track {
+        @apply h-1 rounded-full;
+        background-color: var(--mat-sys-outline-variant);
+      }
+      &::-webkit-slider-thumb {
+        @apply appearance-none w-3 h-3 -mt-1 rounded-full;
+        background-color: var(--mat-sys-on-surface-variant);
+      }
+      &::-moz-range-thumb {
+        @apply w-3 h-3 border-0 rounded-full;
+        background-color: var(--mat-sys-on-surface-variant);
+      }
+      &:focus-visible {
+        @apply outline outline-2 outline-offset-2 rounded;
+        outline-color: var(--mat-sys-primary);
+      }
+    }
+    .upload-action {
+      @apply shrink-0;
     }
   }
   .inner {
     box-sizing: border-box;
-    @apply overflow-auto h-full flex flex-col col-span-12 md:col-span-9 xl:col-span-10;
-    .viewport {
+    @apply relative min-h-0 min-w-0 h-full flex flex-col;
+    .media-scroll {
       @include scrollbar(var(--mat-sys-primary));
-      @apply grid gap-1 overflow-auto w-full flex-1 content-start;
+      @apply overflow-auto min-h-0 min-w-0 flex-1 flex flex-col;
+      &:focus-visible {
+        @apply outline outline-2 -outline-offset-2;
+        outline-color: var(--mat-sys-primary);
+      }
+    }
+    .viewport {
+      @apply grid gap-3 w-full shrink-0 content-start;
       // Columns follow the container width (this panel often lives in a narrow
       // drawer, where viewport breakpoints would misreport). --cols is the
       // per-tile column span over a 12-col grid (slider value): a larger span
-      // means wider tiles / fewer columns. Tiles never shrink below 120px.
+      // means wider tiles / fewer columns. Tiles never shrink below 144px.
       grid-template-columns: repeat(
         auto-fill,
-        minmax(max(min(100%, 120px), calc(var(--cols, 2) / 12 * 100%)), 1fr)
+        minmax(max(min(100%, 144px), calc(var(--cols, 2) / 12 * 100%)), 1fr)
       );
+    }
+    .scroll-status {
+      @apply flex shrink-0 flex-col items-center justify-center gap-1 py-3 text-xs;
+      color: var(--mat-sys-on-surface-variant);
+    }
+    .load-error {
+      @apply flex shrink-0 flex-wrap items-center justify-center gap-3 py-3 text-sm;
+      color: var(--mat-sys-error);
     }
     .empty {
       @apply flex flex-1 flex-col items-center justify-center text-center gap-2 px-6 py-10;
       color: var(--mat-sys-outline);
+      &.login-required {
+        @apply transition-opacity duration-200 motion-reduce:transition-none;
+        &.is-leaving {
+          @apply opacity-0;
+        }
+      }
       .empty-title {
         @apply text-lg font-medium;
         color: var(--mat-sys-on-surface);
@@ -52,9 +151,6 @@
     }
     .bottom {
       @apply flex flex-wrap justify-between items-center gap-2;
-      .action {
-        @apply flex left-5 bottom-10;
-      }
       .page {
         @apply flex-auto;
         .mat-mdc-paginator {
@@ -69,7 +165,7 @@
     }
   }
   .media-img {
-    @apply w-full h-full object-contain;
+    @apply absolute inset-0 w-full h-full object-contain;
   }
   .empty-icon {
     @apply w-16 h-16;
@@ -77,96 +173,110 @@
   }
 }
 
-.masonry-item {
-  border: 1px solid transparent;
-  @apply aspect-[4/3] box-border  cursor-pointer relative;
-  .selected {
-    position: relative;
-    &:after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      box-sizing: border-box;
-      z-index: 2;
-      border: 3px solid var(--mat-sys-primary);
+@container media-panel (max-width: 480px) {
+  .manage-media .toolbar {
+    .toolbar-filters {
+      @apply basis-full;
     }
-  }
-  .delete {
-    @apply absolute left-2 bottom-1 z-10;
-    ::ng-deep {
-      .mat-mdc-checkbox {
-        &:not(.mat-mdc-checkbox-checked) {
-          .mdc-checkbox__background {
-            @apply bg-white/75 border;
-          }
-        }
+    .toolbar-actions {
+      @apply w-full gap-3;
+    }
+    .toolbar-actions label {
+      @apply flex flex-col gap-1 text-xs;
+      color: var(--mat-sys-on-surface);
+      select {
+        @apply rounded-lg border border-solid px-3 min-h-10 text-sm;
+        background: var(--mat-sys-surface);
+        border-color: var(--mat-sys-outline);
       }
     }
-  }
-  .actions {
-    @apply flex items-center absolute z-10 opacity-90 right-1 top-1 h-7 px-1;
-    background-color: var(--mat-sys-inverse-surface);
-    border-radius: 4px;
-    .btn {
-      @apply block h-6 w-6 rounded-[4px];
-      &:hover {
-        background-color: #8080807a;
+    .col-control {
+      @apply min-w-0;
+      .thumbnail-range {
+        @apply w-16;
       }
     }
-
-    ::ng-deep {
-      .icon-delete {
-        &:hover {
-          .mat-icon {
-            color: var(--mat-sys-error);
-          }
-        }
+    ::ng-deep .media-filter-fields > formly-field > formly-group {
+      > formly-field {
+        @apply flex-1 w-auto;
       }
-      .mat-icon {
-        color: var(--mat-sys-on-primary);
+      > .media-search-field {
+        @apply flex-none w-full;
       }
-      .mdc-icon-button {
-        --mat-icon-button-state-layer-size: 24px;
-        --mat-icon-button-icon-size: 22px;
-        padding: 0px;
-        .mat-icon {
-          line-height: 1;
-          svg {
-            width: 16px;
-            height: 16px;
-          }
-        }
-        .mat-mdc-button-touch-target {
-          width: 30px;
-          height: 30px;
-        }
-      }
-    }
-  }
-  .box {
-    @apply w-full h-full bg-gray-200 p-1 box-border;
-  }
-  &:hover {
-    .box {
-      opacity: 0.8;
     }
   }
 }
 
-// On pointer devices keep the clean hover-reveal; touch devices (hover: none)
-// have no hover, so the toolbar stays visible and stays reachable.
-@media (hover: hover) {
-  .masonry-item {
-    .actions {
-      display: none;
-    }
-    &:hover .actions {
-      display: flex;
+.masonry-item {
+  @apply relative min-w-0 overflow-hidden rounded-lg border;
+  border-color: var(--mat-sys-outline-variant);
+  background: var(--mat-sys-surface);
+  &.is-selected {
+    border-color: var(--mat-sys-primary);
+    box-shadow: inset 0 0 0 1px var(--mat-sys-primary);
+  }
+  .box {
+    @apply relative block aspect-[4/3] w-full overflow-hidden border-0 p-0 cursor-pointer;
+    background: var(--mat-sys-surface-container);
+    &:focus-visible {
+      @apply outline outline-2 -outline-offset-2;
+      outline-color: var(--mat-sys-primary);
     }
   }
+}
+
+.batch-checkbox {
+  @apply absolute left-1 top-1 flex h-11 w-11 items-center justify-center rounded-md;
+}
+
+.selection-indicator {
+  @apply absolute left-1 top-1 flex h-11 w-11 items-center justify-center pointer-events-none;
+  color: var(--mat-sys-on-surface-variant);
+  .is-selected & { color: var(--mat-sys-primary); }
+}
+
+.media-caption {
+  @apply flex min-h-11 min-w-0 items-center pl-2;
+}
+.media-name {
+  @apply min-w-0 flex-1 truncate text-sm leading-5;
+  color: var(--mat-sys-on-surface);
+}
+.media-more {
+  @apply block h-11 w-11 shrink-0 p-2.5;
+  color: var(--mat-sys-on-surface-variant);
+  --mat-icon-button-state-layer-size: 44px;
+  --mat-icon-button-icon-size: 24px;
+}
+
+.media-menu-title {
+  @apply max-w-[280px] break-words border-b px-4 py-2 text-sm leading-5;
+  color: var(--mat-sys-on-surface-variant);
+  border-color: var(--mat-sys-outline-variant);
+}
+.media-menu-item {
+  @apply min-h-11;
+  app-icon { @apply mr-3 inline-flex align-middle; }
+}
+.media-menu-danger {
+  @apply mt-1 border-t pt-1;
+  border-color: var(--mat-sys-outline-variant);
+  .media-menu-item { color: var(--mat-sys-error); }
+}
+
+.selection-toolbar {
+  @apply mb-3 flex shrink-0 flex-wrap items-center gap-2 rounded-lg border px-3 py-2;
+  background: var(--mat-sys-surface-container-low);
+  border-color: var(--mat-sys-outline-variant);
+  --mat-button-text-container-height: 44px;
+  --mat-button-outlined-container-height: 44px;
+  --mat-button-text-label-text-size: 14px;
+  --mat-button-outlined-label-text-size: 14px;
+}
+.selection-count { @apply mr-auto text-sm font-medium; }
+.batch-delete {
+  --mat-button-outlined-label-text-color: var(--mat-sys-error);
+  --mat-button-outlined-outline-color: var(--mat-sys-error);
 }
 
 .load {

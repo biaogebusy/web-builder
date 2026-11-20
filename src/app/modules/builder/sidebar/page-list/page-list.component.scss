@@ -1,80 +1,98 @@
 @use 'mixins/amixin' as *;
+
+:host { @apply block min-w-0; }
+
 .page-list {
-  @apply relative rounded-md m-3;
-  background-color: var(--mat-sys-background);
-  box-shadow: var(--mat-sys-level1);
-  .reload {
-    @apply z-10 absolute top-1 right-2 cursor-pointer;
-    transform: scale(0.8);
+  @apply relative m-3 overflow-hidden rounded-xl border border-solid;
+  color: var(--mat-sys-on-surface);
+  background: var(--mat-sys-surface);
+  border-color: var(--mat-sys-outline-variant);
+}
+
+.list-header {
+  @apply flex min-w-0 items-center justify-between gap-1 px-3 pt-2 pb-1;
+  ::ng-deep .title-header { @apply m-0 text-base leading-6 font-semibold #{!important}; }
+}
+
+.header-actions {
+  @apply flex shrink-0 items-center;
+  --mat-icon-button-state-layer-size: 36px;
+  --mat-icon-button-touch-target-display: none;
+}
+
+.search-form {
+  @apply px-3 pt-1;
+  --mat-form-field-container-height: 44px;
+  --mat-form-field-container-vertical-padding: 10px;
+
+  ::ng-deep {
+    .mat-mdc-form-field-subscript-wrapper { @apply hidden; }
+    .page-list-filters { @apply pt-3; }
+    .mat-mdc-form-field { @apply w-full text-sm; }
+    .mat-mdc-text-field-wrapper { @apply rounded-lg; }
+    .mat-mdc-form-field-infix { @apply min-w-0; }
   }
-  .form {
-    padding: 10px;
-    ::ng-deep {
-      .mdc-text-field--filled:not(.mdc-text-field--disabled) {
-        background-color: transparent;
-      }
-      .mat-mdc-form-field-subscript-wrapper {
-        display: none;
-      }
-      .tabs-type {
-        .tab-field {
-          @apply mt-0 mb-0;
-          --mat-form-field-filled-active-indicator-color: rgba(0, 0, 0, 0.2);
-        }
-        .item {
-          margin: 10px 0 0 0;
-        }
-      }
-    }
+
+  &:not(.filters-open) ::ng-deep .page-list-filters { @apply hidden; }
+}
+
+.filter-toolbar {
+  @apply flex min-w-0 items-center justify-between gap-1 px-2 py-1;
+  --mat-button-text-container-height: 32px;
+  --mat-button-text-horizontal-padding: 8px;
+}
+
+.filter-toggle {
+  @apply text-xs;
+  color: var(--mat-sys-on-surface-variant);
+  &.is-filtered { color: var(--mat-sys-primary); }
+  app-icon { @apply inline-flex h-4 w-4 shrink-0; }
+  ::ng-deep .mat-icon { @apply h-4 w-4 text-base leading-none; }
+}
+
+.filter-toggle-content { @apply flex items-center justify-center gap-1; }
+
+.filter-count {
+  @apply inline-flex min-w-4 items-center justify-center rounded px-1 text-xs;
+  background: var(--mat-sys-primary-container);
+  color: var(--mat-sys-on-primary-container);
+}
+
+.list-count { @apply pr-2 text-xs; color: var(--mat-sys-on-surface-variant); }
+.lists-wrapper { @apply relative border-t border-solid; border-color: var(--mat-sys-outline-variant); }
+.loading-indicator { @apply absolute inset-x-0 top-0 z-10; }
+
+.lists {
+  @apply relative overflow-auto;
+  height: clamp(320px, 54vh, 520px);
+  overscroll-behavior: contain;
+  @include scrollbar(var(--mat-sys-outline));
+}
+
+.list-state {
+  @apply flex min-h-64 flex-col items-center justify-center gap-3 px-5 py-8 text-center;
+  h3 { @apply m-0 text-sm font-semibold; }
+  p { @apply m-0 text-xs leading-5; color: var(--mat-sys-on-surface-variant); }
+  .state-icon {
+    @apply mb-1 flex h-12 w-12 items-center justify-center rounded-xl;
+    color: var(--mat-sys-on-surface-variant);
+    background: var(--mat-sys-surface-container);
   }
-  app-title {
-    margin: 0 10px;
+}
+
+.pager {
+  --mat-icon-button-touch-target-display: none;
+  @apply block border-t border-solid;
+  border-color: var(--mat-sys-outline-variant);
+  background: transparent;
+  ::ng-deep {
+    .mat-mdc-paginator-container { @apply min-h-12 justify-between px-2; }
+    .mat-mdc-paginator-range-actions { @apply w-full min-w-0 justify-between; }
+    .mat-mdc-paginator-range-label { @apply m-0 mr-auto pl-1 text-xs; white-space: normal; }
+    .mat-mdc-icon-button { @apply shrink-0; }
   }
-  .lists-wrapper {
-    position: relative;
-    // the fades are decoration: without this they swallow clicks on the first and last row
-    &::after,
-    &::before {
-      content: '';
-      position: absolute;
-      z-index: 10;
-      pointer-events: none;
-      width: 100%;
-      height: 20px;
-      left: 0;
-    }
-    &:after {
-      bottom: 0;
-      background: linear-gradient(180deg, transparent 0%, var(--mat-sys-background) 80%);
-    }
-    &::before {
-      top: 0;
-      background: linear-gradient(0deg, transparent 0%, var(--mat-sys-background) 80%);
-    }
-  }
-  .lists {
-    // px-1 + the row's own p-2 puts the row text 24px from the sidebar edge, as in the group page
-    @apply py-4 px-1;
-    position: relative;
-    height: 450px;
-    max-height: 45vh;
-    overflow: auto;
-    @include scrollbar(var(--mat-sys-primary));
-    .loading-wrapper {
-      @apply flex justify-center py-6;
-    }
-  }
-  .pager {
-    ::ng-deep {
-      .mat-mdc-paginator-range-label {
-        margin: 0;
-        white-space: nowrap;
-        @apply line-clamp-1 opacity-70;
-      }
-      button {
-        --mat-icon-button-state-layer-size: 40px;
-        padding: 8px;
-      }
-    }
-  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-indicator { ::ng-deep * { animation: none !important; } }
 }

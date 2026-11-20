@@ -1,12 +1,14 @@
-import { DOCUMENT } from '@angular/core';
+import { computed, DOCUMENT, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 import type { IPage } from '@core/interface/IAppConfig';
-import { LocalStorageService } from 'ngx-webstorage';
+import { LocalStorageService, withNgxWebstorageConfig } from 'ngx-webstorage';
 import { vi } from 'vitest';
+import { of } from 'rxjs';
 
 import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { BuilderPageState } from './BuilderPageState';
 import { BuilderState } from './BuilderState';
 
 const makePage = (body: any[], extra: Partial<IPage> = {}): IPage => ({
@@ -21,7 +23,14 @@ describe('BuilderState tree and draft behavior', () => {
     TestBed.resetTestingModule();
   });
 
-  const createState = (pages: IPage[], isBrowser = false) => {
+  const createState = (
+    pages: IPage[],
+    isBrowser = false,
+    storageConfig: Parameters<typeof withNgxWebstorageConfig>[0] = {
+      separator: ':',
+      caseSensitive: true,
+    }
+  ) => {
     const storage = {
       retrieve: vi.fn(() => pages),
       store: vi.fn(),
@@ -30,6 +39,7 @@ describe('BuilderState tree and draft behavior', () => {
     TestBed.configureTestingModule({
       providers: [
         BuilderState,
+        ...withNgxWebstorageConfig(storageConfig).providers,
         { provide: DOCUMENT, useValue: document },
         { provide: LocalStorageService, useValue: storage },
         { provide: MatDialog, useValue: { open: vi.fn(), getDialogById: vi.fn() } },
@@ -46,6 +56,375 @@ describe('BuilderState tree and draft behavior', () => {
       storage,
     };
   };
+
+  describe('delayed local draft selection', () => {
+    const drafts = () => ['A', 'B', 'C'].map((title, index) =>
+      makePage([], { title, current: index === 0 }));
+
+    beforeEach(() => vi.useFakeTimers());
+    afterEach(() => vi.useRealTimers());
+
+    it('keeps only the latest selection and its full loading delay', () => {
+      const { state, storage } = createState(drafts());
+      state.showVersionPage(1);
+      vi.advanceTimersByTime(200);
+      state.showVersionPage(2);
+      vi.advanceTimersByTime(400);
+
+      expect(state.currentPage.title).toBe('A');
+      expect(state.loading()).toBe(true);
+      expect(storage.store).not.toHaveBeenCalled();
+      vi.advanceTimersByTime(200);
+      expect(state.currentPage).toMatchObject({ title: 'C', current: true });
+      expect(state.loading()).toBe(false);
+      expect(storage.store).toHaveBeenCalledOnce();
+    });
+
+    it('keeps the selected draft when an earlier background draft is removed', () => {
+      const { state } = createState(drafts());
+      state.showVersionPage(2);
+      state.deleteLocalPage(1);
+      expect(state.loading()).toBe(true);
+      vi.advanceTimersByTime(600);
+
+      expect(state.version()).toEqual([
+        makePage([], { title: 'A', current: false }),
+        makePage([], { title: 'C', current: true }),
+      ]);
+      expect(state.loading()).toBe(false);
+    });
+
+    it('keeps the current draft when the pending selection is deleted', () => {
+      const { state, storage } = createState(drafts());
+      state.showVersionPage(1);
+      state.deleteLocalPage(1);
+      expect(state.loading()).toBe(false);
+      vi.advanceTimersByTime(600);
+
+      expect(state.currentPage).toMatchObject({ title: 'A', current: true });
+      expect(state.version().map(page => page.title)).toEqual(['A', 'C']);
+      expect(storage.store).toHaveBeenCalledOnce();
+    });
+
+    it('does not replace a newly loaded draft with an older selection', () => {
+      const { state, storage } = createState(drafts());
+      state.showVersionPage(2);
+      state.loadNewPage(makePage([], { title: 'New draft' }));
+      vi.advanceTimersByTime(600);
+
+      expect(state.currentPage).toMatchObject({ title: 'New draft', current: true });
+      expect(storage.store).toHaveBeenCalledOnce();
+    });
+
+    it('preserves reinitialization and its loading delay', () => {
+      const { state } = createState(drafts());
+      state.showVersionPage(2);
+      vi.advanceTimersByTime(200);
+      state.initPage([makePage([], { title: 'Initialized draft' })]);
+      vi.advanceTimersByTime(400);
+
+      expect(state.currentPage.current).toBe(true);
+      expect(state.loading()).toBe(true);
+      vi.advanceTimersByTime(200);
+      expect(state.currentPage).toMatchObject({ title: 'Initialized draft', current: true });
+      expect(state.loading()).toBe(false);
+    });
+
+    it('keeps the fallback selection after deleting the current draft', () => {
+      const { state, storage } = createState(drafts());
+      state.showVersionPage(2);
+      state.deleteLocalPage(0);
+      vi.advanceTimersByTime(600);
+
+      expect(state.currentPage).toMatchObject({ title: 'B', current: true });
+      expect(storage.store).toHaveBeenCalledOnce();
+    });
+
+    it('preserves edits to an unsaved draft while its selection is pending', () => {
+      const { state } = createState(drafts());
+      state.showVersionPage(2);
+      state.version.update(list => list.map((page, index) => index === 2
+        ? { ...page, title: 'Renamed draft', dirty: true } : page));
+      state.deleteLocalPage(1);
+      vi.advanceTimersByTime(600);
+
+      expect(state.currentPage).toMatchObject({ title: 'Renamed draft', dirty: true, current: true });
+    });
+
+    it('does not let an invalid index cancel a valid pending selection', () => {
+      const { state } = createState(drafts());
+      state.showVersionPage(1);
+      for (const index of [-1, 3, 0.5, Number.NaN]) state.showVersionPage(index);
+      vi.advanceTimersByTime(600);
+
+      expect(state.currentPage).toMatchObject({ title: 'B', current: true });
+    });
+
+    it('does not persist a pending selection after state destruction', () => {
+      const { state, storage } = createState(drafts());
+      state.showVersionPage(1);
+      TestBed.resetTestingModule();
+      vi.advanceTimersByTime(600);
+
+      expect(storage.store).not.toHaveBeenCalled();
+      expect(state.currentPage).toMatchObject({ title: 'A', current: true });
+    });
+
+    it.each([false, true])('respects the clear-history decision (confirmed: %s)', async confirmed => {
+      await import('@uiux/widgets/dialog/dialog.component');
+      const { state } = createState(drafts());
+      const open = vi.spyOn(TestBed.inject(MatDialog), 'open').mockReturnValue({
+        afterClosed: () => of(confirmed),
+      } as any);
+      state.showVersionPage(2);
+      state.clearAllHistory();
+      await vi.waitFor(() => expect(open).toHaveBeenCalledOnce());
+      vi.advanceTimersByTime(600);
+
+      expect(state.currentPage).toMatchObject({
+        title: confirmed ? '未命名' : 'C', current: true,
+      });
+      expect(state.loading()).toBe(false);
+    });
+
+    it.each([false, true])('handles external replacement during selection (valid: %s)', valid => {
+      const { state, storage } = createState(drafts(), true);
+      state.showVersionPage(2);
+      window.dispatchEvent(new StorageEvent('storage', {
+        key: 'ngx-webstorage:version',
+        newValue: valid ? JSON.stringify([makePage([], { title: 'External draft' })]) : '{broken',
+      }));
+      vi.advanceTimersByTime(600);
+
+      expect(state.currentPage).toMatchObject({
+        title: valid ? 'External draft' : 'C', current: true,
+      });
+      expect(storage.store).toHaveBeenCalledTimes(valid ? 0 : 1);
+      expect(state.loading()).toBe(false);
+    });
+
+    it('tracks the selection through removal of all languages of another page', () => {
+      const { state } = createState([
+        makePage([], { title: 'A' }),
+        makePage([], { nid: '7', langcode: 'en', current: false }),
+        makePage([], { nid: '7', langcode: 'zh-hans', current: false }),
+        makePage([], { title: 'D', current: false }),
+      ]);
+      state.showVersionPage(3);
+      state.deleteLocalPageByPage({ nid: '7' }, true);
+      vi.advanceTimersByTime(600);
+
+      expect(state.currentPage).toMatchObject({ title: 'D', current: true });
+      expect(state.version()).toHaveLength(2);
+    });
+  });
+
+  describe('delayed canvas updates', () => {
+    const drafts = () => [
+      makePage([{ type: 'text', body: 'First' }, { type: 'text', body: 'Second' }]),
+      makePage([], { title: 'Other draft', current: false }),
+    ];
+    const drop = (state: BuilderState, currentIndex = 0) =>
+      state.dropComponent({ previousIndex: 1, currentIndex } as any);
+
+    beforeEach(() => vi.useFakeTimers());
+    afterEach(() => vi.useRealTimers());
+
+    it('persists initialization and finishes loading after the full delay', () => {
+      const { state, storage } = createState([]);
+      expect(state.loading()).toBe(true);
+      vi.advanceTimersByTime(599);
+      expect(storage.store).not.toHaveBeenCalled();
+      vi.advanceTimersByTime(1);
+      expect(storage.store).toHaveBeenCalledWith('version', state.version());
+      expect(state.loading()).toBe(false);
+    });
+
+    it('keeps only the latest drop scroll while saving every edit immediately', () => {
+      const { state, storage } = createState(drafts());
+      const screen = TestBed.inject(ScreenService);
+      drop(state);
+      expect(storage.store).toHaveBeenCalledOnce();
+      vi.advanceTimersByTime(200);
+      state.transferComponent({ currentIndex: 1,
+        item: { data: { type: 'text', body: 'Inserted' } } } as any);
+      expect(storage.store).toHaveBeenCalledTimes(2);
+      expect(state.currentPage.body).toEqual([
+        { type: 'text', body: 'Second' }, { type: 'text', body: 'Inserted' },
+        { type: 'text', body: 'First' },
+      ]);
+      vi.advanceTimersByTime(400);
+      expect(screen.scrollToAnchor).not.toHaveBeenCalled();
+      expect(storage.store).toHaveBeenCalledTimes(2);
+      vi.advanceTimersByTime(200);
+      expect(screen.scrollToAnchor).toHaveBeenCalledExactlyOnceWith('item-1');
+      expect(storage.store).toHaveBeenCalledTimes(3);
+    });
+
+    it('does not finish a later local selection or scroll its canvas', () => {
+      const { state, storage } = createState(drafts());
+      const screen = TestBed.inject(ScreenService);
+      drop(state);
+      vi.advanceTimersByTime(200);
+      state.showVersionPage(1);
+      vi.advanceTimersByTime(400);
+      expect(state.loading()).toBe(true);
+      expect(screen.scrollToAnchor).not.toHaveBeenCalled();
+      expect(storage.store).toHaveBeenCalledOnce();
+      vi.advanceTimersByTime(200);
+      expect(state.currentPage.title).toBe('Other draft');
+      expect(state.version()[0].body[0]).toMatchObject({ body: 'Second' });
+      expect(state.loading()).toBe(false);
+      expect(storage.store).toHaveBeenCalledTimes(2);
+    });
+
+    it('preserves the new initialization delay and saves the new drafts once', () => {
+      const { state, storage } = createState(drafts());
+      state.initPage([makePage([], { title: 'First initialization' })]);
+      vi.advanceTimersByTime(200);
+      state.initPage([makePage([], { title: 'Latest initialization' })]);
+      vi.advanceTimersByTime(400);
+      expect(state.loading()).toBe(true);
+      expect(storage.store).not.toHaveBeenCalled();
+      vi.advanceTimersByTime(200);
+      expect(state.loading()).toBe(false);
+      expect(storage.store).toHaveBeenCalledExactlyOnceWith('version', state.version());
+      expect(state.currentPage.title).toBe('Latest initialization');
+    });
+
+    it.each(['load', 'delete'] as const)('cancels the old scroll after %s replaces the page', action => {
+      const { state, storage } = createState(drafts());
+      const screen = TestBed.inject(ScreenService);
+      drop(state);
+      if (action === 'load') state.loadNewPage(makePage([], { title: 'Loaded draft' }));
+      else state.deleteLocalPage(0);
+      expect(storage.store).toHaveBeenCalledTimes(2);
+      vi.advanceTimersByTime(600);
+      expect(screen.scrollToAnchor).not.toHaveBeenCalled();
+      expect(storage.store).toHaveBeenCalledTimes(2);
+      expect(state.currentPage.title).toBe(action === 'load' ? 'Loaded draft' : 'Other draft');
+    });
+
+    it('keeps a pending scroll when only a background draft is deleted', () => {
+      const { state, storage } = createState(drafts());
+      const screen = TestBed.inject(ScreenService);
+      drop(state);
+      state.deleteLocalPage(1);
+      vi.advanceTimersByTime(600);
+      expect(screen.scrollToAnchor).toHaveBeenCalledExactlyOnceWith('item-0');
+      expect(storage.store).toHaveBeenCalledTimes(3);
+      expect(state.currentPage.body[0]).toMatchObject({ body: 'Second' });
+    });
+
+    it.each([false, true])('handles external replacement during initialization (valid: %s)', valid => {
+      const { state, storage } = createState(drafts(), true);
+      state.initPage([makePage([], { title: 'Initialized draft' })]);
+      const selection = vi.fn();
+      state.pageSelection$.subscribe(selection);
+      window.dispatchEvent(new StorageEvent('storage', {
+        key: 'ngx-webstorage:version',
+        newValue: valid ? JSON.stringify([makePage([], { title: 'External draft' })]) : '{broken',
+      }));
+      expect(state.loading()).toBe(!valid);
+      vi.advanceTimersByTime(600);
+      expect(state.currentPage.title).toBe(valid ? 'External draft' : 'Initialized draft');
+      expect(storage.store).toHaveBeenCalledTimes(valid ? 0 : 1);
+      expect(selection).not.toHaveBeenCalled();
+    });
+
+    it('does not scroll or write back an external replacement after a drop', () => {
+      const { state, storage } = createState(drafts(), true);
+      const screen = TestBed.inject(ScreenService);
+      drop(state);
+      window.dispatchEvent(new StorageEvent('storage', {
+        key: 'ngx-webstorage:version',
+        newValue: JSON.stringify([makePage([], { title: 'External draft' })]),
+      }));
+      vi.advanceTimersByTime(600);
+      expect(screen.scrollToAnchor).not.toHaveBeenCalled();
+      expect(storage.store).toHaveBeenCalledOnce();
+      expect(state.currentPage.title).toBe('External draft');
+    });
+
+    it('does not run pending canvas work after state destruction', () => {
+      const { state, storage } = createState(drafts());
+      const screen = TestBed.inject(ScreenService);
+      drop(state);
+      TestBed.resetTestingModule();
+      vi.advanceTimersByTime(600);
+      expect(screen.scrollToAnchor).not.toHaveBeenCalled();
+      expect(storage.store).toHaveBeenCalledOnce();
+    });
+
+    it.each([false, true])('respects the clear-history decision after a drop (%s)', async confirmed => {
+      await import('@uiux/widgets/dialog/dialog.component');
+      const { state, storage } = createState(drafts());
+      const screen = TestBed.inject(ScreenService);
+      const open = vi.spyOn(TestBed.inject(MatDialog), 'open').mockReturnValue({
+        afterClosed: () => of(confirmed),
+      } as any);
+      drop(state);
+      state.clearAllHistory();
+      await vi.waitFor(() => expect(open).toHaveBeenCalledOnce());
+      vi.advanceTimersByTime(600);
+      expect(screen.scrollToAnchor).toHaveBeenCalledTimes(confirmed ? 0 : 1);
+      expect(storage.store).toHaveBeenCalledTimes(2);
+      expect(state.currentPage.title).toBe(confirmed ? '未命名' : 'Test page');
+    });
+  });
+
+  it('shares restored and updated drafts with public language readers', () => {
+    const { state } = createState([makePage([], { langcode: 'en' })]);
+    const pageState = TestBed.inject(BuilderPageState);
+    expect(pageState.currentPage()?.langcode).toBe('en');
+    state.setCurrentPage(makePage([], { langcode: 'zh-hans' }));
+    expect(pageState.currentPage()?.langcode).toBe('zh-hans');
+    state.version.set([makePage([], { langcode: 'en', current: false })]);
+    expect(pageState.currentPage()?.langcode).toBe('en');
+  });
+
+  it('keeps fresh getter reads independent of the cached public draft selection', () => {
+    const first = makePage([], { title: 'First' });
+    const second = makePage([], { title: 'Second', current: false });
+    const { state } = createState([first, second]);
+    const pageState = TestBed.inject(BuilderPageState);
+    expect(state.currentPage).toBe(first);
+    expect(pageState.currentPage()).toBe(first);
+
+    first.current = false;
+    second.current = true;
+    expect(state.currentPage).toBe(second);
+    expect(pageState.currentPage()).toBe(first);
+    state.version.set([...state.version()]);
+    expect(pageState.currentPage()).toBe(second);
+
+    state.version = signal([first]);
+    expect(state.currentPage).toBe(first);
+    expect(pageState.currentPage()).toBe(second);
+    state.version.set([]);
+    expect(state.currentPage).toBeUndefined();
+    expect(pageState.currentPage()).toBe(second);
+    pageState.version.set([]);
+    expect(pageState.currentPage()).toBeUndefined();
+  });
+
+  it('updates saved settings for one translation while preserving unsaved canvas content', () => {
+    const body = [{ type: 'text', body: 'Unsaved content' }];
+    const page = makePage(body, { uuid: 'page-1', langcode: 'en', published: true, dirty: true,
+      config: { node: { nid: '12' }, headerMode: { transparent: true } } });
+    const other = makePage([], { uuid: 'page-1', langcode: 'zh-hans', published: true });
+    const { state, storage } = createState([page, other]);
+    state.updatePageSettings({ uuid: 'page-1', langcode: 'en' }, {
+      published: false, title: 'Updated title', config: { headerMode: { transparent: false } },
+    });
+    expect(state.version()[0]).toEqual({ ...page, published: false, title: 'Updated title',
+      config: { node: { nid: '12' }, headerMode: { transparent: false } } });
+    expect(state.version()[0].body).toBe(body);
+    expect(state.version()[1]).toBe(other);
+    expect(storage.store).toHaveBeenCalledOnce();
+    state.updatePageSettings({ uuid: 'missing', langcode: 'en' }, { published: false });
+    expect(storage.store).toHaveBeenCalledOnce();
+  });
 
   it('resolves root and nested component paths', () => {
     const body = [
@@ -297,6 +676,53 @@ describe('BuilderState tree and draft behavior', () => {
     });
   });
 
+  it('replaces the first matching page even when a later page matches the UUID', () => {
+    const first = makePage([], { nid: '7', uuid: 'first', langcode: 'en' });
+    const later = makePage([], { nid: '8', uuid: 'later', langcode: 'en', current: false });
+    const { state, storage } = createState([first, later]);
+
+    state.loadNewPage(makePage([], { nid: '7', uuid: 'later', langcode: 'en', title: 'Loaded' }));
+
+    expect(state.version()).toHaveLength(2);
+    expect(state.version()[0]).toMatchObject({ title: 'Loaded', current: true });
+    expect(state.version()[1]).toEqual(later);
+    expect(storage.store).toHaveBeenCalledExactlyOnceWith('version', state.version());
+  });
+
+  it('loads an anonymous draft as a new copy while lookup still supports object references', () => {
+    const original = makePage([], { title: 'Anonymous draft' });
+    const { state, storage } = createState([original]);
+    expect(state.getLocalPageByPage(original)).toBe(original);
+
+    state.loadNewPage(original, false);
+
+    expect(state.version()).toHaveLength(2);
+    expect(state.version()[0]).toMatchObject({ title: 'Anonymous draft', current: true });
+    expect(state.version()[1]).toEqual({ ...original, current: false });
+    expect(storage.store).toHaveBeenCalledOnce();
+  });
+
+  it('replaces a translation draft by its saved target identity and keeps the source', () => {
+    const source = makePage([], { nid: '7', langcode: 'en', current: false });
+    const draft = makePage([], { nid: '7', langcode: 'en', translation: true, target: 'zh-hans' });
+    const { state } = createState([source, draft]);
+
+    state.loadNewPage(makePage([], { nid: '7', langcode: 'zh-hans', title: 'Saved translation' }));
+
+    expect(state.version()).toHaveLength(2);
+    expect(state.version()[0]).toEqual(source);
+    expect(state.version()[1]).toMatchObject({ title: 'Saved translation', current: true });
+    expect(state.currentPage.translation).toBeUndefined();
+    expect(state.currentPage.target).toBeUndefined();
+  });
+
+  it.each([undefined, ''])('preserves an unspecified language identity: %s', langcode => {
+    const { state } = createState([makePage([], { uuid: 'page' })]);
+    state.loadNewPage(makePage([], { uuid: 'page', langcode, title: 'Loaded' }));
+    expect(state.version()).toHaveLength(1);
+    expect(state.currentPage.title).toBe('Loaded');
+  });
+
   it('finds a local page by nid and language and reports its dirty state', () => {
     const source = makePage([], { nid: '7', langcode: 'zh-hans', dirty: true });
     const translation = makePage([], { nid: '7', langcode: 'en', current: false });
@@ -386,6 +812,65 @@ describe('BuilderState tree and draft behavior', () => {
     expect(storage.store).not.toHaveBeenCalled();
   });
 
+  describe.each([
+    { label: 'empty', flags: [], target: 0 },
+    { label: 'no current page', flags: [false, false], target: 0 },
+    { label: 'multiple current pages', flags: [false, true, true], target: 1 },
+    { label: 'first page current', flags: [true, false], target: 0 },
+  ])('current draft writes: $label', ({ flags, target }) => {
+    const prepare = () => {
+      const pages = flags.map(current => makePage([], { current }));
+      const { state, storage } = createState(pages.length ? pages : [makePage([])]);
+      state.version.set(pages);
+      const read = vi.fn(() => state.version());
+      const version = computed(read);
+      expect(version()).toBe(pages);
+      return { pages, state, storage, read, version };
+    };
+
+    it('marks only the selected draft and keeps repeated marks silent without saving', () => {
+      const { pages, state, storage, read, version } = prepare();
+      state.markCurrentPageDirty();
+      const next = version();
+      if (pages.length) {
+        expect(next).not.toBe(pages);
+        expect(next[target]).not.toBe(pages[target]);
+        expect(next[target]).toEqual({ ...pages[target], dirty: true });
+      } else {
+        expect(next).toBe(pages);
+      }
+      pages.forEach((page, index) => {
+        if (index !== target) expect(next[index]).toBe(page);
+        expect(page.dirty).toBeUndefined();
+      });
+
+      state.markCurrentPageDirty();
+      expect(version()).toBe(next);
+      expect(read).toHaveBeenCalledTimes(pages.length ? 2 : 1);
+      expect(storage.store).not.toHaveBeenCalled();
+    });
+
+    it('replaces only the selected draft and notifies and saves even for an empty list', () => {
+      const { pages, state, storage, read, version } = prepare();
+      const replacement = makePage([], { title: 'Updated', dirty: false });
+      state.setCurrentPage(replacement);
+      const next = version();
+      expect(next).not.toBe(pages);
+      expect(next).toHaveLength(pages.length);
+      if (pages.length) {
+        expect(next[target]).not.toBe(replacement);
+        expect(next[target]).toEqual({ ...replacement, dirty: true });
+      }
+      pages.forEach((page, index) => {
+        if (index !== target) expect(next[index]).toBe(page);
+        expect(page.dirty).toBeUndefined();
+      });
+      expect(replacement.dirty).toBe(false);
+      expect(read).toHaveBeenCalledTimes(2);
+      expect(storage.store).toHaveBeenCalledExactlyOnceWith(state.versionKey, next);
+    });
+  });
+
   it('marks the current page dirty without persisting via markCurrentPageDirty', () => {
     const { state, storage } = createState([makePage([], { nid: '42' })]);
 
@@ -395,33 +880,62 @@ describe('BuilderState tree and draft behavior', () => {
     expect(storage.store).not.toHaveBeenCalled();
   });
 
-  it('syncs the version signal when another context writes the draft storage', () => {
-    const { state } = createState([makePage([], { title: 'Local' })], true);
+  it.each([
+    { config: { separator: ':', caseSensitive: true }, key: 'ngx-webstorage:version' },
+    { config: { separator: '|', caseSensitive: true }, key: 'ngx-webstorage|version' },
+    { config: {}, key: 'ngx-webstorage|version' },
+    { config: { prefix: 'drafts', separator: '/' }, key: 'drafts/version' },
+    { config: { prefix: '', separator: '' }, key: 'version' },
+  ])('syncs external drafts using the configured key $key', ({ config, key }) => {
+    const { state, storage } = createState([makePage([], { title: 'Local' })], true, config);
 
     window.dispatchEvent(
       new StorageEvent('storage', {
-        key: 'ngx-webstorage:version',
+        key,
         newValue: JSON.stringify([{ title: '外部更新', body: [], current: true }]),
       })
     );
 
     expect(state.currentPage.title).toBe('外部更新');
+    expect(TestBed.inject(BuilderPageState).currentPage()?.title).toBe('外部更新');
+    expect(storage.store).not.toHaveBeenCalled();
   });
 
-  it('ignores foreign, empty, and malformed storage events', () => {
+  it.each([':', '|'])('ignores invalid external drafts with separator %s', separator => {
+    const { state, storage } = createState([makePage([], { title: 'Local' })], true, { separator });
+    const storageKey = `ngx-webstorage${separator}version`;
+    const initialVersion = state.version();
+
+    for (const key of [
+      `ngx-webstorage${separator}other`,
+      `ngx-webstorage${separator === ':' ? '|' : ':'}version`,
+      `foreign${separator}version`,
+      `${storageKey}-backup`,
+      null,
+    ]) {
+      window.dispatchEvent(new StorageEvent('storage', { key, newValue: '[{}]' }));
+      expect(state.version()).toBe(initialVersion);
+    }
+    for (const newValue of ['[]', '{broken', '{}', 'null', 'false', '', null]) {
+      window.dispatchEvent(new StorageEvent('storage', { key: storageKey, newValue }));
+      expect(state.version()).toBe(initialVersion);
+    }
+
+    expect(storage.store).not.toHaveBeenCalled();
+  });
+
+  it('stops syncing external drafts when the state is destroyed', () => {
     const { state } = createState([makePage([], { title: 'Local' })], true);
+    const initialVersion = state.version();
+    TestBed.resetTestingModule();
 
     window.dispatchEvent(
-      new StorageEvent('storage', { key: 'ngx-webstorage:other', newValue: '[{}]' })
+      new StorageEvent('storage', {
+        key: 'ngx-webstorage:version',
+        newValue: JSON.stringify([makePage([], { title: 'External' })]),
+      })
     );
-    window.dispatchEvent(
-      new StorageEvent('storage', { key: 'ngx-webstorage:version', newValue: JSON.stringify([]) })
-    );
-    window.dispatchEvent(
-      new StorageEvent('storage', { key: 'ngx-webstorage:version', newValue: '{broken' })
-    );
-    window.dispatchEvent(new StorageEvent('storage', { key: 'ngx-webstorage:version' }));
 
-    expect(state.currentPage.title).toBe('Local');
+    expect(state.version()).toBe(initialVersion);
   });
 });

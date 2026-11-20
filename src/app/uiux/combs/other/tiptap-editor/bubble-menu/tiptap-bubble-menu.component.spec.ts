@@ -41,6 +41,34 @@ describe('TiptapBubbleMenuComponent', () => {
     fixture.destroy();
   });
 
+  it.each([
+    ['link', 'closeLinkPanel'],
+    ['link', 'toggleStylePanel'],
+    ['style', 'openLinkPanel'],
+    ['style', 'toggleStylePanel'],
+  ] as const)('restores focus before removing %s through %s', async (source, action) => {
+    editor = createEditor(false);
+    fixture.componentRef.setInput('editor', editor);
+    await fixture.whenStable();
+    editor.commands.setTextSelection({ from: 1, to: 4 });
+    if (source === 'link') fixture.componentInstance.openLinkPanel();
+    else fixture.componentInstance.toggleStylePanel();
+    await fixture.whenStable();
+    const input = fixture.nativeElement.querySelector(source === 'link'
+      ? 'app-tiptap-link-panel input' : '.style-panel select');
+    input.focus();
+
+    fixture.componentInstance[action]();
+
+    expect(document.activeElement).toBe(editor.view.dom);
+    expect(editor.state.selection.from).toBe(1);
+    expect(editor.state.selection.to).toBe(4);
+    expect(editor.getHTML()).toBe('<p>hello</p>');
+    await fixture.whenStable();
+    expect(fixture.nativeElement.querySelector(source === 'link'
+      ? 'app-tiptap-link-panel' : '.style-panel')).toBeNull();
+  });
+
   it('样式面板:应用字色/字号到选区,空值恢复默认字号', () => {
     editor = createEditor(true);
     fixture.componentRef.setInput('editor', editor);
@@ -90,4 +118,44 @@ describe('TiptapBubbleMenuComponent', () => {
 
     expect(fixture.componentInstance.colorValue(editor, 'color', '#000000')).toBe('#ff0000');
   });
+  it('renders only supported inline commands for a host-owned selection', async () => {
+    fixture.componentRef.setInput('selectionState', {
+      bold: true, italic: false, underline: false, link: false,
+    });
+    const commands: string[] = [];
+    fixture.componentInstance.action.subscribe(command => commands.push(command));
+    await fixture.whenStable();
+    const buttons = Array.from(fixture.nativeElement.querySelectorAll('button')) as HTMLButtonElement[];
+    expect(buttons.map(button => button.getAttribute('aria-label'))).toEqual([
+      'BUILDER.TIPTAP.BOLD', 'BUILDER.TIPTAP.ITALIC', 'BUILDER.TIPTAP.UNDERLINE',
+      'BUILDER.TIPTAP.LINK', 'BUILDER.TIPTAP.CLEAR_FORMAT',
+    ]);
+    expect(buttons[0].getAttribute('aria-pressed')).toBe('true');
+    const pointer = new MouseEvent('mousedown', { bubbles: true, cancelable: true });
+    buttons[0].dispatchEvent(pointer);
+    expect(pointer.defaultPrevented).toBe(true);
+    buttons[0].click();
+    buttons[3].click();
+    buttons[4].click();
+    await fixture.whenStable();
+    expect(commands).toEqual(['bold', 'link', 'clearFormat']);
+    expect(fixture.nativeElement.querySelector('app-tiptap-link-panel')).toBeNull();
+  });
+
+  it('keeps native rich-text formatting when no host-owned state is supplied', async () => {
+    editor = createEditor(false);
+    editor.setOptions({ editorProps: { handleScrollToSelection: () => true } });
+    fixture.componentRef.setInput('editor', editor);
+    editor.commands.setTextSelection({ from: 1, to: 6 });
+    await fixture.whenStable();
+    const bold = fixture.nativeElement.querySelector('[aria-label="BUILDER.TIPTAP.BOLD"]');
+    bold.click();
+    await fixture.whenStable();
+    expect(editor.getHTML()).toContain('<strong>hello</strong>');
+    expect(bold.getAttribute('aria-pressed')).toBe('true');
+    fixture.nativeElement.querySelector('[aria-label="BUILDER.TIPTAP.CLEAR_FORMAT"]').click();
+    await fixture.whenStable();
+    expect(editor.getHTML()).toBe('<p>hello</p>');
+  });
+
 });

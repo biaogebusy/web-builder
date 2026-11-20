@@ -1,4 +1,3 @@
-import { intersection } from 'lodash-es';
 import type { IUser, OAuthTokenResponse } from '@core/interface/IUser';
 
 export function getJwtExpirationTime(accessToken?: string): number | null {
@@ -51,5 +50,6 @@ export function getCookieExpirationDate(seconds: number): Date {
 }
 
 export function isMatchCurrentRole(roles: string[], currentUserRoles: string[]): boolean {
-  return intersection(currentUserRoles, roles).length > 0;
+  return Array.isArray(currentUserRoles) && Array.isArray(roles) &&
+    currentUserRoles.some(role => roles.includes(role));
 }

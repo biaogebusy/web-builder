@@ -1,11 +1,16 @@
 <p align="center">
 <img src="src/assets/images/logo/logo-white.png" alt="logo" width="100px"/>
 </p>
-<h1 align="center">信使 Web builder<br>AI 生成UI和工具应用的低代码平台</h1>
+<h1 align="center">信使 Web builder<br>AI 驱动的可视化页面生产、内容管理与发布平台</h1>
 
 <p align="center">
   <br>
-  <i>AI 生成UI和工具应用的低代码平台，国内首款开源的基于 Drupal 作为 Headless 的低代码，基于 TailwindCss，通过拖拽可视化快速构建现代化响应式UI、动态自定义组件、多主题、多语言的网站应用。AI-powered UI generation and publishing low code platform, built on TailwindCSS, enabling rapid drag-and-drop visual creation of modern responsive UIs, dynamic customizable components, multi-theme, and multi-language web applications.
+  <i>信使 Web Builder 不只是响应式 UI 编辑器：它将 AI 驱动的可视化 Builder、Drupal 内容管理和页面发布连接在一起。
+    你可以通过拖拽和代码模式构建页面与自定义组件，也可以通过 AI 对话生成页面、组件和图片，使用项目设计规范统一体验，经过预览、审批和版本管理后发布到网站或小程序。
+    AI-powered visual page production and publishing platform that connects a drag-and-drop builder,
+    Drupal CMS, and an AI workspace. Build pages and custom components visually or in code,
+    generate UI and images through chat, apply project design systems, review changes, and publish
+    multilingual web applications and mini-program pages.
     </i>
   <br>
 </p>

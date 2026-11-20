@@ -64,13 +64,8 @@
     position: relative;
     min-height: 66px;
     .add-new-section {
-      @apply flex gap-2 items-center;
-      position: absolute;
-      z-index: 0;
-      opacity: 0;
-      left: 50%;
-      bottom: -18px;
-      transform: translateX(-50%);
+      // Insertion controls need their own touch area below short components as well.
+      @apply relative invisible flex min-h-14 gap-2 items-center justify-center;
       .section-btn-content {
         @apply flex;
       }
@@ -91,10 +86,17 @@
         border: 1px solid var(--mat-sys-error);
       }
     }
-    &:hover {
-      .add-new-section {
-        opacity: 1;
+    &:hover,
+    &:focus-within,
+    &:has(> .add-new-section [aria-expanded='true']) {
+      > .add-new-section {
+        visibility: visible;
         z-index: 999;
+      }
+    }
+    &:focus-within {
+      ::ng-deep > app-dynamic-component > .component-toolbar {
+        visibility: visible;
       }
     }
     ::ng-deep {
@@ -107,19 +109,19 @@
         display: block;
         box-sizing: content-box;
         padding: 2px;
-        &:hover {
+        &:hover,
+        &:focus-within {
           z-index: 10;
           outline-offset: -2px;
           outline: 1px dashed var(--mat-sys-primary);
           > .component-toolbar {
-            display: block !important;
+            visibility: visible;
           }
         }
         > .component-toolbar {
-          position: absolute;
-          left: 0;
-          top: 0px;
-          width: 100%;
+          // Keep toolbar hit targets outside content without moving it on hover or focus.
+          @apply relative invisible w-full;
+          display: block !important;
           z-index: 999;
           line-height: 1;
         }
@@ -214,20 +216,24 @@
 
   ::ng-deep {
     .layout-builder {
-      @apply pt-[30px];
       .layout {
         @apply p-0;
-        &:hover {
+        &:hover,
+        &:focus-within {
           outline-offset: -2px;
           outline: 1px dashed var(--mat-sys-primary);
           > .toolbar {
-            display: block !important;
+            visibility: visible;
           }
+        }
+        > .toolbar {
+          @apply invisible min-h-12 justify-end;
+          display: flex !important;
         }
         // Once the menu opens, the backdrop blocks :hover, so keep the trigger button visible;
         // otherwise the trigger's rect is 0 and the overlay anchors to the top-left of the screen
         > .toolbar:has(.mat-mdc-menu-trigger[aria-expanded='true']) {
-          display: block !important;
+          visibility: visible;
         }
       }
       .layout-inner {

@@ -38,6 +38,7 @@ describe('BuilderToolbarComponent', () => {
     createLandingPage: vi.fn(),
     updateLandingPage: vi.fn(),
     loadPage: vi.fn(),
+    openPageSetting: vi.fn(),
   };
   const util = { openSnackbar: vi.fn() };
   const storage = { retrieve: vi.fn(), observe: vi.fn(() => of([])), store: vi.fn() };
@@ -71,6 +72,17 @@ describe('BuilderToolbarComponent', () => {
     component = TestBed.runInInjectionContext(() => new BuilderToolbarComponent());
   });
 
+  it('opens settings for the current language without saving canvas changes', () => {
+    const page: IPage = { uuid: 'page-42', nid: '42', langcode: 'en',
+      title: 'Unsaved edits', dirty: true, body: [{ type: 'text' }] };
+    component.onPageSettings(page);
+    expect(builderService.openPageSetting).toHaveBeenCalledWith(
+      { uuid: 'page-42', langcode: 'en' }, '/api/v1/node/landing_page', expect.anything()
+    );
+    expect(builderService.updateLandingPage).not.toHaveBeenCalled();
+    expect(page.dirty).toBe(true);
+  });
+
   it('keeps the draft and upgrades it in place after creating a page', () => {
     const page: IPage = {
       title: 'New page',
@@ -87,6 +99,37 @@ describe('BuilderToolbarComponent', () => {
     expect(builder.deleteLocalPageByPage).not.toHaveBeenCalled();
     expect(builder.markPageSynced).toHaveBeenCalledWith(page, { nid: '42' });
     expect(builderService.loadPage).toHaveBeenCalledWith({ nid: '42' }, true);
+  });
+
+  it('preserves the draft and does not replace a failure toast already shown by the service', () => {
+    const page: IPage = { title: 'Unsaved page', body: [{ type: 'text' }] };
+    builder.currentPage = page;
+    builderService.createLandingPage.mockReturnValue(of(false));
+
+    component.onSubmit(page);
+
+    expect(util.openSnackbar).not.toHaveBeenCalled();
+    expect(builder.loading.set).toHaveBeenLastCalledWith(false);
+    expect(builder.markPageSynced).not.toHaveBeenCalled();
+    expect(builder.deleteLocalPageByPage).not.toHaveBeenCalled();
+    expect(builder.updateSuccess$.next).not.toHaveBeenCalled();
+    expect(builderService.loadPage).not.toHaveBeenCalled();
+    expect(builder.currentPage).toBe(page);
+  });
+
+  it('keeps an existing page dirty when the update service has reported a failure', () => {
+    const page: IPage = { nid: '42', uuid: 'page-42', title: 'Edited page', body: [{ type: 'text' }] };
+    builder.currentPage = page;
+    builderService.updateLandingPage.mockReturnValue(of(false));
+
+    component.onSubmit(page);
+
+    expect(util.openSnackbar).toHaveBeenCalledExactlyOnceWith('BUILDER.TOOLBAR.UPDATING', 'ok');
+    expect(builder.loading.set).toHaveBeenLastCalledWith(false);
+    expect(builder.markPageSynced).not.toHaveBeenCalled();
+    expect(builderService.loadPage).not.toHaveBeenCalled();
+    expect(builder.updateSuccess$.next).not.toHaveBeenCalled();
+    expect(builder.currentPage).toBe(page);
   });
 
   it('deletes the translation draft history after submitting a translation', () => {

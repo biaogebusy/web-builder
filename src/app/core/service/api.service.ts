@@ -3,9 +3,10 @@ import { Injectable, inject, DOCUMENT } from '@angular/core';
 import { ILanguage } from '@core/interface/IEnvironment';
 import { IPager } from '@core/interface/widgets/IWidgets';
 import { API_URL } from '@core/token/token-providers';
-import { buildQueryString, QueryParams } from '@core/util/http-params.util';
+import { appendQueryParams, buildQueryString, QueryParams } from '@core/util/http-params.util';
 import { getLangPrefix } from '@core/util/language.util';
-import { camelCase, result } from 'lodash-es';
+import camelCase from 'lodash-es/camelCase';
+import result from 'lodash-es/result';
 import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -119,22 +120,31 @@ export class ApiService {
       encodeKeys: false,
     });
   }
+
+  /** Keeps collection reads on the common headers and Drupal query encoding. */
+  protected getCollection(
+    path: string,
+    type: string,
+    params: QueryParams | string | null | undefined = ''
+  ): Observable<unknown> {
+    return this.http.get<unknown>(
+      appendQueryParams(`${this.apiUrl}${path}/${type}`, params, {
+        arrayFormat: 'plus',
+        encodeKeys: false,
+      }),
+      this.httpOptionsOfCommon
+    );
+  }
+
+  /** Keeps Views page numbering and the existing zero-page row-count fallback. */
   handlePager(pager: any, length?: number): IPager {
     const { current_page, total_pages, total_items, items_per_page } = pager;
-    if (current_page === null && total_pages === 0) {
-      return {
-        itemsPerPage: length || total_items,
-        currentPage: 0,
-        totalItems: total_items,
-        totalPages: total_pages,
-      };
-    } else {
-      return {
-        itemsPerPage: items_per_page,
-        currentPage: current_page,
-        totalItems: total_items,
-        totalPages: total_pages,
-      };
-    }
+    const useFallback = current_page === null && total_pages === 0;
+    return {
+      itemsPerPage: useFallback ? length || total_items : items_per_page,
+      currentPage: useFallback ? 0 : current_page,
+      totalItems: total_items,
+      totalPages: total_pages,
+    };
   }
 }

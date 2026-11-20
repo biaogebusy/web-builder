@@ -7,7 +7,7 @@
     }
   }
   .upload-thumb {
-    @apply w-full aspect-[4/3] object-cover rounded;
+    @apply w-20 h-16 object-contain rounded;
   }
   .empty-state {
     @apply flex flex-col gap-5 justify-center items-center;
@@ -43,13 +43,15 @@
     @apply flex flex-col gap-3;
   }
   .table-row {
-    @apply flex justify-between items-center gap-2 truncate;
+    @apply flex flex-wrap justify-between items-center gap-2 py-3;
+    border-bottom: 1px solid var(--mat-sys-outline-variant);
   }
   .row-left {
-    @apply flex items-center gap-2;
+    @apply flex flex-wrap flex-1 min-w-0 items-center gap-2;
   }
   .file-name {
-    @apply text-gray-700;
+    @apply break-all;
+    color: var(--mat-sys-on-surface);
   }
   .copy-btn {
     @apply cursor-pointer;
@@ -57,4 +59,8 @@
   .table-divider {
     @apply my-3;
   }
+}
+
+.upload-error {
+  color: var(--mat-sys-error);
 }

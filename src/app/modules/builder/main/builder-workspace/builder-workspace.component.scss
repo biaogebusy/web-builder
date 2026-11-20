@@ -2,7 +2,7 @@
 @use 'mixins/amixin' as *;
 
 .toolbar-host {
-  @apply block relative z-10;
+  @apply block shrink-0 relative z-10;
 }
 
 .builder-workspace {
@@ -41,7 +41,8 @@
   }
 }
 .builder-main {
-  height: calc(100% - 56px) !important;
+  @apply flex-1 min-h-0;
+  height: auto !important;
 }
 
 .mat-drawer-container {
