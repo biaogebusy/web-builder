@@ -39,13 +39,12 @@ describe('NodeService comment façade', () => {
     const service = TestBed.inject(NodeService);
     const content = { params: { comment: {} } };
 
-    service.addComment('comment_body', { id: 'comment-1' }, 'token').subscribe();
+    service.addComment('comment_body', { id: 'comment-1' }).subscribe();
     service.getCommentsWitchChild(content, 2).subscribe();
 
     expect(commentService.addComment).toHaveBeenCalledWith(
       'comment_body',
-      { id: 'comment-1' },
-      'token'
+      { id: 'comment-1' }
     );
     expect(service.getCommentType(content)).toBe('comment_body');
     expect(service.getCommentRelEntityId(content)).toBe('node-1');

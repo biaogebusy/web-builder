@@ -6,7 +6,6 @@ import { IBranding } from '../interface/branding/IBranding';
 import { INotify } from '@core/interface/widgets/IWidgets';
 import { IBuilderConfig, IUiux, IWidgets } from '@core/interface/IBuilder';
 import { ILanguage } from '@core/interface/IEnvironment';
-import { IManageAssets } from '@core/interface/manage/IManage';
 
 // app state
 export const API_URL = new InjectionToken<string>('api url');
@@ -18,7 +17,6 @@ export const THEME = new InjectionToken<string>('current theme');
 export const USER = new InjectionToken<Signal<IUser | boolean>>('user');
 export const NOTIFY_CONTENT = new InjectionToken<Signal<INotify[] | boolean>>('notify content');
 
-export const MEDIA_ASSETS = new InjectionToken<Signal<IManageAssets | boolean>>('media assets');
 
 // builder
 export const BUILDER_CONFIG = new InjectionToken<Observable<IBuilderConfig>>('builder config');

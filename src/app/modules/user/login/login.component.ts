@@ -2,6 +2,7 @@ import {
   Component,
   OnInit,
   inject,
+  input,
   DestroyRef,
   signal,
   computed,
@@ -14,7 +15,7 @@ import {
   UntypedFormBuilder,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
@@ -36,7 +37,7 @@ import type { IIcon } from '@core/interface/widgets/IIcon';
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
 import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
 import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
-import { Subscription, interval } from 'rxjs';
+import { EMPTY, Subscription, filter, interval, switchMap, takeUntil, timer } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
@@ -90,6 +91,8 @@ const CODE_VALID_MINUTES = 5;
   ],
 })
 export class LoginComponent implements OnInit {
+  /** The destination requested by a login dialog, independent of the current page URL. */
+  readonly content = input<{ returnUrl?: string }>();
   public coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   public user = inject(USER);
   public currentUser = computed(() => {
@@ -145,19 +148,27 @@ export class LoginComponent implements OnInit {
     this.destroyRef.onDestroy(() => this.authAbort.abort());
     if (this.screenService.isPlatformBrowser()) {
       this.watchBfcacheRestore();
-      this.userService.userSub$.pipe(takeUntilDestroyed()).subscribe((currentUser: any) => {
-        if (!currentUser) {
-          return;
-        }
-        if (this.inDialog) {
-          this.dialogRef?.close(true);
-          return;
-        }
-        setTimeout(() => {
-          const { returnUrl = this.coreConfig.login.loginRedirect, ...queryParams } =
-            this.route.snapshot.queryParams;
-          this.router.navigate([returnUrl], { queryParams });
-        }, 2000);
+      this.userService.userSub$.pipe(
+        switchMap(currentUser => {
+          if (!currentUser) return EMPTY;
+          if (this.inDialog) {
+            this.dialogRef?.close(true);
+            return EMPTY;
+          }
+          // A pending guarded destination owns login continuation, even if it loads slowly.
+          const navigation = this.router.getCurrentNavigation();
+          if (navigation && navigation.extractedUrl.toString() !== this.router.url) return EMPTY;
+          return timer(2000).pipe(takeUntil(
+            this.router.events.pipe(filter(event => event instanceof NavigationStart))
+          ));
+        }),
+        takeUntilDestroyed()
+      ).subscribe(() => {
+        const { returnUrl = this.coreConfig.login.loginRedirect, ...queryParams } =
+          this.route.snapshot.queryParams;
+        const target = this.router.parseUrl(returnUrl || '/');
+        target.queryParams = { ...queryParams, ...target.queryParams };
+        this.router.navigateByUrl(target);
       });
     }
   }
@@ -215,7 +226,7 @@ export class LoginComponent implements OnInit {
     this.resetMessages();
     this.loading.set(true);
     const mode: OAuthMode = this.inDialog ? 'popup' : 'redirect';
-    const { returnUrl } = this.route.snapshot.queryParams;
+    const returnUrl = this.content()?.returnUrl ?? this.route.snapshot.queryParams['returnUrl'];
     this.requestAuthorize({ mode, returnUrl, signal: this.authAbort.signal }, provider)
       .catch(error => {
         console.error('Authorize failed:', error);

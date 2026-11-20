@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IComment } from '@core/interface/node/INode';
-import { CORE_CONFIG, USER } from '@core/token/token-providers';
-import { appendQueryParams, type QueryParams } from '@core/util/http-params.util';
+import { CORE_CONFIG } from '@core/token/token-providers';
+import { appendQueryParams } from '@core/util/http-params.util';
 import {
   buildCommentsParams,
   buildCommentsPidParams,
@@ -13,14 +13,11 @@ import {
 import { forkJoin, map, Observable, switchMap } from 'rxjs';
 import { ApiService } from './api.service';
 
-type ApiQueryParams = QueryParams | string | null | undefined;
-
 @Injectable({
   providedIn: 'root',
 })
 export class CommentService extends ApiService {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
-  private user = inject(USER);
 
   private readonly commentGetPath = '/api/v1/comment';
 
@@ -38,17 +35,17 @@ export class CommentService extends ApiService {
   }
 
   /** Creates a comment using the caller's permitted text format. */
-  addComment(type: string, entityData: any, token: string): Observable<any> {
+  addComment(type: string, entityData: any): Observable<any> {
     return this.writeComment(type, entityData);
   }
 
   /** Updates body fields without changing the comment author. */
-  updateComment(type: string, entityData: any, uuid: string, token: string): Observable<any> {
+  updateComment(type: string, entityData: any, uuid: string): Observable<any> {
     return this.writeComment(type, entityData, uuid);
   }
 
   /** Replies using the same format policy as a new comment. */
-  replyComment(type: string, entityData: any, token: string): Observable<any> {
+  replyComment(type: string, entityData: any): Observable<any> {
     return this.writeComment(type, entityData);
   }
 
@@ -100,28 +97,19 @@ export class CommentService extends ApiService {
     return mapComment(comment, level, this.coreConfig?.defaultAvatar);
   }
 
+  /** Keeps the two-stage read and completion behavior of the comment tree. */
   getCommentsWitchChild(content: any, timeStamp = 1): Observable<any> {
-    const user = this.user();
-    const token = typeof user === 'object' ? user.access_token : undefined;
     const path = this.commentGetPath;
     const type = this.getCommentType(content);
     const { params } = this.getCommentsParams(content, timeStamp);
-    return this.getNodes(path, type, params).pipe(
+    return this.getCollection(path, type, params).pipe(
       switchMap((data: any) => {
-        const lists = data.data
-          .filter((list: any) => {
-            if (list.pid.id) {
-              return false;
-            } else {
-              return true;
-            }
-          })
-          .map((comment: any) => {
-            return this.handleComment(comment, 1);
-          });
-        const obj: any = {};
-        lists.map((item: any) => {
-          obj[item.id] = this.getNodes(
+        const lists: IComment[] = data.data
+          .filter((list: any) => !list.pid.id)
+          .map((comment: any) => this.handleComment(comment, 1));
+        const childRequests: Record<string, Observable<IComment[]>> = {};
+        lists.forEach(item => {
+          childRequests[item.id] = this.getCollection(
             path,
             type,
             this.getCommentsPidParams(item.id, timeStamp)
@@ -130,18 +118,12 @@ export class CommentService extends ApiService {
               if (!childs.data) {
                 return [];
               }
-              return childs.data.map((child: any) => {
-                return this.handleComment(child, 2);
-              });
+              return childs.data.map((child: any) => this.handleComment(child, 2));
             })
           );
         });
-        return forkJoin(obj).pipe(
-          map((comments: any) => {
-            return lists.map((item: any) => {
-              return Object.assign(item, { child: comments[item.id] });
-            });
-          })
+        return forkJoin(childRequests).pipe(
+          map(comments => lists.map(item => Object.assign(item, { child: comments[item.id] })))
         );
       })
     );
@@ -150,17 +132,6 @@ export class CommentService extends ApiService {
   getCustomApiComment(uuid: string, timeStamp = 1): Observable<any> {
     return this.http.get<IComment[]>(
       appendQueryParams(`${this.apiUrl}/api/v3/comment/comment/${uuid}`, { timeStamp }),
-      this.httpOptionsOfCommon
-    );
-  }
-
-  private getNodes(path: string, type: string, params: ApiQueryParams = ''): Observable<any> {
-    const apiPath = `${this.apiUrl}${path}/${type}`;
-    return this.http.get<any>(
-      appendQueryParams(apiPath, params, {
-        arrayFormat: 'plus',
-        encodeKeys: false,
-      }),
       this.httpOptionsOfCommon
     );
   }

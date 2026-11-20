@@ -1,6 +1,8 @@
+import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogRef } from '@angular/material/dialog';
-import { provideRouter } from '@angular/router';
+import { provideRouter, Router } from '@angular/router';
+import { RouterTestingHarness } from '@angular/router/testing';
 import { OAUTH_POPUP_BLOCKED, OAUTH_POPUP_TIMEOUT, UserService } from '@core/service/user.service';
 import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -12,11 +14,78 @@ import {
   provideCoreMocks,
 } from '@core/testing/mocks';
 import { TranslateService } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of, Subject } from 'rxjs';
 
 import { LoginComponent } from './login.component';
 
 const clickEvent = (): Event => ({ preventDefault: vi.fn() }) as unknown as Event;
+
+@Component({ template: 'Destination' })
+class LoginDestination {}
+
+describe('standalone login navigation lifecycle', () => {
+  let router: Router;
+  let pending: Subject<boolean>;
+  let userService: ReturnType<typeof createUserServiceMock>;
+
+  beforeEach(async () => {
+    pending = new Subject();
+    userService = createUserServiceMock();
+    TestBed.configureTestingModule({
+      providers: [
+        provideRouter([
+          { path: 'me/login', component: LoginComponent },
+          { path: 'slow', component: LoginDestination, canActivate: [() => pending] },
+          { path: '**', component: LoginDestination },
+        ]),
+        ...provideCoreMocks(),
+        { provide: UserService, useValue: userService },
+        { provide: CORE_CONFIG, useValue: { login: {} } },
+        { provide: MatDialogRef, useValue: null },
+        { provide: ScreenService, useValue: { isPlatformBrowser: () => true } },
+      ],
+    }).overrideComponent(LoginComponent, { set: { template: '', imports: [] } });
+    router = TestBed.inject(Router);
+    await RouterTestingHarness.create('/me/login?returnUrl=%2Fold%3Ftab%3Ddetails%23contact');
+    vi.useFakeTimers();
+  });
+
+  afterEach(() => vi.useRealTimers());
+
+  it('preserves the full destination after the standalone success delay', async () => {
+    userService.userSub$.next({ uid: 7 });
+    await vi.advanceTimersByTimeAsync(1999);
+    expect(router.url).toMatch(/^\/me\/login/);
+    await vi.advanceTimersByTimeAsync(1);
+    expect(router.url).toBe('/old?tab=details#contact');
+  });
+
+  it('cancels the old redirect when the login page is destroyed', async () => {
+    userService.userSub$.next({ uid: 7 });
+    await router.navigateByUrl('/new');
+    await vi.advanceTimersByTimeAsync(2500);
+    expect(router.url).toBe('/new');
+  });
+
+  it.each([false, true])('keeps a newer pending navigation, already started=%s', async started => {
+    if (!started) userService.userSub$.next({ uid: 7 });
+    const navigation = router.navigateByUrl('/slow');
+    await vi.advanceTimersByTimeAsync(0);
+    if (started) userService.userSub$.next({ uid: 7 });
+    await vi.advanceTimersByTimeAsync(2500);
+    expect(router.url).toMatch(/^\/me\/login/);
+    pending.next(true);
+    expect(await navigation).toBe(true);
+    expect(router.url).toBe('/slow');
+  });
+
+  it('cancels the redirect if the user logs out before the delay finishes', async () => {
+    userService.userSub$.next({ uid: 7 });
+    userService.userSub$.next(false);
+    await vi.advanceTimersByTimeAsync(2500);
+    expect(router.url).toMatch(/^\/me\/login/);
+  });
+});
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -56,6 +125,14 @@ describe('LoginComponent', () => {
       returnUrl: undefined,
       signal: expect.any(AbortSignal),
     });
+  });
+
+  it('passes the requested destination to OAuth without using the background page URL', () => {
+    fixture.componentRef.setInput('content', { returnUrl: '/builder?filter=draft#details' });
+    component.login();
+    expect(userService.startAuthorize).toHaveBeenCalledWith(expect.objectContaining({
+      returnUrl: '/builder?filter=draft#details',
+    }));
   });
 
   it('falls back to localized copy instead of echoing an unmapped backend message', () => {

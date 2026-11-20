@@ -43,28 +43,38 @@ export class ScreenService {
     return rect.top > (window.innerHeight || this.document.documentElement.clientHeight);
   }
 
-  scrollToAnchor(anchor: string, maxWait = 5000): void {
+  /** Reveal an anchor when available, returning a cancellation function for pending work. */
+  scrollToAnchor(anchor: string, maxWait = 5000): () => void {
+    let searchTimer: ReturnType<typeof setInterval> | undefined;
+    let scrollTimer: ReturnType<typeof setTimeout> | undefined;
+    const cancel = () => {
+      clearInterval(searchTimer);
+      clearTimeout(scrollTimer);
+      searchTimer = undefined;
+      scrollTimer = undefined;
+    };
     const selector = '#' + anchor;
     const element = this.document.querySelector(selector);
     if (element) {
-      this.revealAndScroll(element);
-      return;
+      scrollTimer = this.revealAndScroll(element);
+      return cancel;
     }
     const interval = 100;
     let elapsed = 0;
-    const timer = setInterval(() => {
+    searchTimer = setInterval(() => {
       elapsed += interval;
       const el = this.document.querySelector(selector);
       if (el) {
-        clearInterval(timer);
-        this.revealAndScroll(el);
+        clearInterval(searchTimer);
+        scrollTimer = this.revealAndScroll(el);
       } else if (elapsed >= maxWait) {
-        clearInterval(timer);
+        clearInterval(searchTimer);
       }
     }, interval);
+    return cancel;
   }
 
-  private revealAndScroll(el: Element): void {
+  private revealAndScroll(el: Element): ReturnType<typeof setTimeout> {
     // Strip AOS animation attributes from the target and its ancestors so it is immediately visible
     let node: Element | null = el;
     while (node) {
@@ -74,7 +84,7 @@ export class ScreenService {
       }
       node = node.parentElement;
     }
-    setTimeout(() => {
+    return setTimeout(() => {
       el.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
     }, 100);
   }

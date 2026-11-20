@@ -3,8 +3,7 @@
   ::ng-deep {
     .mat-mdc-icon-button {
       &.mat-mdc-button-base {
-        --mat-icon-button-state-layer-size: 30px;
-        padding: 0;
+        --mat-icon-button-state-layer-size: 48px;
       }
       svg {
         width: 16px !important;
@@ -16,10 +15,10 @@
   .toggle {
     @apply block;
     border-bottom-left-radius: 4px;
-    background-color: #272727;
+    background-color: var(--mat-sys-inverse-surface);
     ::ng-deep {
       .mat-icon {
-        color: rgba(255, 255, 255, 0.8);
+        color: var(--mat-sys-inverse-on-surface);
       }
     }
   }

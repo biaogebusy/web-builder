@@ -10,7 +10,7 @@ import {
 } from '@core/testing/mocks';
 import { provideBuilderMocks } from '@modules/builder/testing/mocks';
 import { LocalStorageService } from 'ngx-webstorage';
-import { Observable, of, Subject, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject, throwError } from 'rxjs';
 
 import { WebformPickerService } from './webform/webform-picker.service';
 import { WidgetPickerComponent } from './widget-picker.component';
@@ -58,8 +58,10 @@ describe('WidgetPickerComponent', () => {
       ],
     },
   ];
+  let library: BehaviorSubject<ReturnType<typeof makeLibrary>>;
 
   beforeEach(async () => {
+    library = new BehaviorSubject(makeLibrary());
     vi.clearAllMocks();
     webformPicker.getWebforms.mockReturnValue(
       of([{ id: 'contact', title: '联系我们', description: '客服表单' }])
@@ -76,7 +78,7 @@ describe('WidgetPickerComponent', () => {
         { provide: UtilitiesService, useValue: util },
         { provide: LocalStorageService, useValue: storage },
         { provide: WebformPickerService, useValue: webformPicker },
-        { provide: UIUX, useValue: of(makeLibrary()) },
+        { provide: UIUX, useValue: library },
       ],
     }).compileComponents();
 
@@ -87,6 +89,18 @@ describe('WidgetPickerComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('renders an empty library and receives recovery without retaining previous components', () => {
+    library.next([]);
+    fixture.detectChanges();
+    expect(component.widgetGroups().map(group => group.id)).toEqual(['webform']);
+    expect(component.visibleItems()).toHaveLength(1);
+    expect(fixture.nativeElement.textContent).not.toContain('Hero 1v1');
+    library.next(makeLibrary());
+    fixture.detectChanges();
+    expect(component.visibleItems()).toHaveLength(4);
+    expect(fixture.nativeElement.textContent).toContain('Hero 1v1');
   });
 
   describe('single-level category navigation', () => {
@@ -143,6 +157,32 @@ describe('WidgetPickerComponent', () => {
       component.searchQuery.set('zzzzz');
       expect(component.visibleItems()).toEqual([]);
       expect(component.isSearching()).toBe(true);
+    });
+
+    it('keeps library order and matches labels, marks and categories as one search text', () => {
+      const groups = component.widgetGroups();
+      expect(component.visibleItems().map(hit => hit.item.id)).toEqual([
+        'hero-1v1', 'hero-2v1', 'card-1v1', 'webform:contact',
+      ]);
+      expect(component.visibleItems()[0].group).toBe(groups[0]);
+      expect(component.visibleItems()[0].item).toBe(groups[0].child[0]);
+
+      component.searchQuery.set(' HERO 1V1 大标题 ');
+      expect(component.visibleItems().map(hit => hit.item.id)).toEqual(['hero-1v1']);
+      component.searchQuery.set('首屏');
+      expect(component.visibleItems().map(hit => hit.item.id)).toEqual(['hero-1v1', 'hero-2v1']);
+      component.selectCategory(2);
+      component.searchQuery.set('   ');
+      expect(component.visibleItems().map(hit => hit.item.id)).toEqual(['card-1v1']);
+    });
+
+    it.each([-1, 99])('keeps invalid category %s empty unless a search is active', index => {
+      component.selectCategory(index);
+      expect(component.visibleItems()).toEqual([]);
+      component.searchQuery.set('hero');
+      expect(component.visibleItems().map(hit => hit.item.id)).toEqual(['hero-1v1', 'hero-2v1']);
+      component.clearSearch();
+      expect(component.visibleItems()).toEqual([]);
     });
   });
 

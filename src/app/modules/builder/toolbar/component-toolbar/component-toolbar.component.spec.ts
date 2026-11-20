@@ -13,6 +13,7 @@ import { BuilderState } from '@core/state/BuilderState';
 import { USER } from '@core/token/token-providers';
 import { provideUiuxMocks } from '@uiux/testing/mocks';
 import { Subject, of, throwError } from 'rxjs';
+import { LocalStorageService } from 'ngx-webstorage';
 
 import { ComponentToolbarComponent } from './component-toolbar.component';
 
@@ -24,6 +25,7 @@ describe('ComponentToolbarComponent', () => {
   const contentService = { reloadUIUX: vi.fn() };
   let closed$: Subject<boolean>;
   const dialog = { open: vi.fn(), getDialogById: vi.fn() };
+  const storage = { store: vi.fn(), observe: () => of(null) };
   const categories = [{
     uuid: 'sections',
     label: 'Sections',
@@ -52,6 +54,7 @@ describe('ComponentToolbarComponent', () => {
         { provide: USER, useValue: user },
         { provide: MatDialog, useValue: dialog },
         { provide: ContentService, useValue: contentService },
+        { provide: LocalStorageService, useValue: storage },
       ],
     }).compileComponents();
 
@@ -75,6 +78,21 @@ describe('ComponentToolbarComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it.each([false, true])('returns copy focus to its canvas group (nested: %s)', nested => {
+    const group = nested ? document.createElement('app-dynamic-component') : canvasItem;
+    if (nested) {
+      group.tabIndex = 0;
+      fixture.nativeElement.before(group);
+      group.appendChild(fixture.nativeElement);
+    }
+    const content = { type: 'btn', label: 'Copy me' };
+    fixture.componentRef.setInput('content', content);
+    const util = TestBed.inject(UtilitiesService);
+    component.onCopy();
+    expect(util.copy).toHaveBeenCalledWith(JSON.stringify(content));
+    expect(document.activeElement).toBe(group);
   });
 
   it('should act on the rebound component when its slot is reused', () => {
@@ -103,6 +121,29 @@ describe('ComponentToolbarComponent', () => {
     expect(builder.showComponentSetting).toHaveBeenCalledWith(chart, expect.anything(), '0');
 
     item.remove();
+  });
+
+  it.each([false, true])('keeps the copy snapshot after source edits (wrapped: %s)', wrapped => {
+    const widget = {
+      type: 'layout-builder',
+      elements: [{ type: 'text', body: 'Copied text', extra: { label: 'Keep nested metadata' } }],
+    };
+    const clean = wrapped ? { content: widget, fullWidth: true } : widget;
+    const expected = JSON.stringify(clean);
+    const source = { ...clean, extra: { uuid: 'source-block' }, relationships: { page: 'source' } };
+    fixture.componentRef.setInput('content', source);
+
+    component.onCopy();
+
+    expect(source).not.toHaveProperty('extra');
+    expect(source).not.toHaveProperty('relationships');
+    expect(TestBed.inject(UtilitiesService).copy).toHaveBeenCalledWith(expected);
+    widget.elements[0].body = 'Changed after copying';
+    widget.elements[0].extra.label = 'Changed nested metadata';
+    fixture.componentRef.setInput('content', { type: 'btn', label: 'Rebound slot' });
+    expect(storage.store).toHaveBeenCalledExactlyOnceWith(
+      TestBed.inject(BuilderState).COPYCOMPONENTKEY, JSON.parse(expected)
+    );
   });
 
   it('only allows administrators and the Drupal root user to upload', () => {

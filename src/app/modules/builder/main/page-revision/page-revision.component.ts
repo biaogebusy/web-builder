@@ -22,6 +22,7 @@ import { SHARE_IMPORTS } from '@share/share-imports';
 import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TranslateService } from '@ngx-translate/core';
+import type { Subscription } from 'rxjs';
 import {
   RevisionDiffComponent,
   type IRevisionDiffData,
@@ -60,6 +61,7 @@ export class PageRevisionComponent implements OnInit {
   private userService = inject(UserService);
   private destroyRef = inject(DestroyRef);
   private translate = inject(TranslateService);
+  private listRequest?: Subscription;
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -72,12 +74,14 @@ export class PageRevisionComponent implements OnInit {
   }
 
   load(): void {
+    // A save can reload the list before its previous request has completed.
+    this.listRequest?.unsubscribe();
     const { nid, langcode } = this.content().content;
     this.loading.set(true);
     this.error.set(false);
     this.forbidden.set(false);
     this.selectedVids.set([]);
-    this.builderService
+    this.listRequest = this.builderService
       .getPageRevisions({ nid, langcode })
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({

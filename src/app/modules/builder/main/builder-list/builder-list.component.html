@@ -29,7 +29,7 @@
         </div>
       }
       <div class="wrapper" [class]="previewClass()">
-        @if (builder.loading()) {
+        @if (builder.loading() || builder.pageSettingsLoading()) {
           <div class="load">
             <app-loading />
           </div>
@@ -73,6 +73,7 @@
                     </button>
                     <button
                       class="new-widget"
+                      [attr.aria-label]="'BUILDER.LIST.SELECT_WIDGET' | translate"
                       [matTooltip]="'BUILDER.LIST.SELECT_WIDGET' | translate"
                       mat-icon-button
                       [matMenuTriggerFor]="menu"
@@ -111,7 +112,7 @@
     </div>
     <app-btn
       class="float-action-btn"
-      [matMenuTriggerFor]="menu"
+      [menu]="menu"
       [content]="{
         mode: 'mini-fab',
         color: 'primary',

@@ -48,9 +48,9 @@ const GROUP_LINKS = [
   '/builder/edit-branding/header',
   '/builder/edit-branding/footer',
   '/builder/node/uiux',
-  '/builder/settings',
   '/builder/pages/Builder',
   '/builder/config-check',
+  '/builder/settings',
 ];
 
 describe('HubComponent', () => {

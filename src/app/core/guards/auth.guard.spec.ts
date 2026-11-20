@@ -1,6 +1,6 @@
 import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { CanActivateFn, Router, UrlTree } from '@angular/router';
+import { CanActivateFn, Router, UrlTree, provideRouter } from '@angular/router';
 import { authGuard } from '@core/guards/auth.guard';
 import { ScreenService } from '@core/service/screen.service';
 import { UserService } from '@core/service/user.service';
@@ -19,14 +19,9 @@ describe('authGuard', () => {
     const { browser = true, coreConfig = {}, loggedIn = false } = options;
 
     TestBed.resetTestingModule();
-    const router = {
-      navigate: vi.fn(() => Promise.resolve(true)),
-      createUrlTree: vi.fn(commands => '/' + commands.join('/')),
-      parseUrl: vi.fn(() => ({} as UrlTree)),
-    };
     TestBed.configureTestingModule({
       providers: [
-        { provide: Router, useValue: router },
+        provideRouter([]),
         { provide: ScreenService, useValue: { isPlatformBrowser: vi.fn(() => browser) } },
         {
           provide: UserService,
@@ -68,16 +63,13 @@ describe('authGuard', () => {
   });
 
   it('redirects an anonymous user on /my/* to the login page', async () => {
-    await runGuard('/my/settings', {
+    const result = await runGuard('/my/settings', {
       coreConfig: { guard: { authGuard: true, defaultFrontLoginPage: '/me/login' } },
       loggedIn: false,
     });
 
-    const router = TestBed.inject(Router) as unknown as { navigate: ReturnType<typeof vi.fn> };
-    expect(router.navigate).toHaveBeenCalledWith(
-      ['/me/login'],
-      { queryParams: { returnUrl: '/my/settings' } }
-    );
+    expect(TestBed.inject(Router).serializeUrl(result as UrlTree))
+      .toBe('/me/login?returnUrl=%2Fmy%2Fsettings');
   });
 
   it('allows a logged-in user through', async () => {
@@ -99,16 +91,13 @@ describe('authGuard', () => {
   });
 
   it('falls back to /me/login when no custom login page is configured', async () => {
-    await runGuard('/my/settings', {
+    const result = await runGuard('/my/settings', {
       coreConfig: { guard: { authGuard: true } },
       loggedIn: false,
     });
 
-    const router = TestBed.inject(Router) as unknown as { navigate: ReturnType<typeof vi.fn> };
-    expect(router.navigate).toHaveBeenCalledWith(
-      ['/me/login'],
-      expect.objectContaining({ queryParams: { returnUrl: '/my/settings' } })
-    );
+    expect(TestBed.inject(Router).serializeUrl(result as UrlTree))
+      .toBe('/me/login?returnUrl=%2Fmy%2Fsettings');
   });
 
   it('triggers auth check when the authGuard config flag is true, even for non-/my paths', async () => {

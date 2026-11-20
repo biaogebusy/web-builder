@@ -34,7 +34,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { IDialog } from '@core/interface/IDialog';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
-import { IBuilderComponent, IUiux } from '@core/interface/IBuilder';
+import { IUiux } from '@core/interface/IBuilder';
 import { UIUX } from '@core/token/token-providers';
 import { Observable, forkJoin, of } from 'rxjs';
 import { catchError, map, skip, switchMap, take, tap } from 'rxjs/operators';
@@ -48,6 +48,13 @@ interface IComponentItem {
   content: any;
   l1Label: string;
   l2Label: string;
+}
+
+interface ComponentFormValue {
+  title: string;
+  icon: string;
+  category: string[];
+  body?: object;
 }
 
 interface GroupL1Row {
@@ -82,7 +89,6 @@ interface IGroupView {
 interface ICategoryOption {
   id: string;
   name: string;
-  l1Name: string;
 }
 
 type TableRow = GroupL1Row | GroupL2Row | IComponentItem;
@@ -144,19 +150,16 @@ export class NodeUiuxComponent {
   groupCount = computed(() => this.orderedUiuxData().length);
 
   totalCount = computed(() =>
-    this.orderedUiuxData().reduce((sum, l1) => {
-      const elements = Array.isArray(l1.elements) ? (l1.elements as IBuilderComponent[]) : [];
-      return sum + elements.reduce((s, l2) => s + (l2.child?.length || 0), 0);
-    }, 0)
+    this.tableRows().reduce((sum, row) => sum + ('isL1Group' in row ? row.count : 0), 0)
   );
 
   visibleItemUuids = computed<string[]>(() => {
     const ids: string[] = [];
     this.filteredRows().forEach(row => {
-      if (!('uuid' in row) || !(row as IComponentItem).uuid) {
+      if (!('uuid' in row) || !row.uuid) {
         return;
       }
-      ids.push((row as IComponentItem).uuid);
+      ids.push(row.uuid);
     });
     return ids;
   });
@@ -182,13 +185,13 @@ export class NodeUiuxComponent {
   isItemSelected = (uuid: string): boolean => this.selectedIds().has(uuid);
 
   trackRow = (_: number, row: TableRow): string => {
-    if ((row as GroupL1Row).isL1Group) {
-      return `l1:${(row as GroupL1Row).name}`;
+    if ('isL1Group' in row) {
+      return `l1:${row.name}`;
     }
-    if ((row as GroupL2Row).isL2Group) {
-      return `l2:${(row as GroupL2Row).name}`;
+    if ('isL2Group' in row) {
+      return `l2:${row.name}`;
     }
-    return `item:${(row as IComponentItem).uuid}`;
+    return `item:${row.uuid}`;
   };
 
   toggleSelect(uuid: string, checked: boolean): void {
@@ -275,7 +278,7 @@ export class NodeUiuxComponent {
   tableRows = computed<TableRow[]>(() => {
     const rows: TableRow[] = [];
     this.orderedUiuxData().forEach(l1 => {
-      const elements = Array.isArray(l1.elements) ? (l1.elements as IBuilderComponent[]) : [];
+      const elements = Array.isArray(l1.elements) ? l1.elements : [];
       const l1Count = elements.reduce((s, l2) => s + (l2.child?.length || 0), 0);
       rows.push({ isL1Group: true, name: l1.label, icon: l1.icon || null, count: l1Count });
       elements.forEach(l2 => {
@@ -303,8 +306,8 @@ export class NodeUiuxComponent {
       const expanded = this.expandedGroups();
       let currentL1 = '';
       return rows.filter(row => {
-        if ((row as GroupL1Row).isL1Group) {
-          currentL1 = (row as GroupL1Row).name;
+        if ('isL1Group' in row) {
+          currentL1 = row.name;
           return true;
         }
         return expanded.has(currentL1);
@@ -340,19 +343,19 @@ export class NodeUiuxComponent {
     };
 
     rows.forEach(row => {
-      if ((row as GroupL1Row).isL1Group) {
+      if ('isL1Group' in row) {
         flushL1();
-        currentL1 = row as GroupL1Row;
+        currentL1 = row;
         currentL2 = null;
         return;
       }
-      if ((row as GroupL2Row).isL2Group) {
+      if ('isL2Group' in row) {
         flushL2();
-        currentL2 = row as GroupL2Row;
+        currentL2 = row;
         return;
       }
 
-      const item = row as IComponentItem;
+      const item = row;
       const matches = item.label.toLowerCase().includes(q) ||
         (item.icon || '').toLowerCase().includes(q);
       if (matches) {
@@ -369,21 +372,19 @@ export class NodeUiuxComponent {
   groupTree = computed<IGroupView[]>(() => {
     const tree: IGroupView[] = [];
     this.filteredRows().forEach(row => {
-      if ((row as GroupL1Row).isL1Group) {
-        const l1 = row as GroupL1Row;
-        tree.push({ name: l1.name, icon: l1.icon, count: l1.count, subGroups: [] });
+      if ('isL1Group' in row) {
+        tree.push({ name: row.name, icon: row.icon, count: row.count, subGroups: [] });
         return;
       }
       const group = tree[tree.length - 1];
       if (!group) {
         return;
       }
-      if ((row as GroupL2Row).isL2Group) {
-        const l2 = row as GroupL2Row;
-        group.subGroups.push({ name: l2.name, count: l2.count, items: [] });
+      if ('isL2Group' in row) {
+        group.subGroups.push({ name: row.name, count: row.count, items: [] });
         return;
       }
-      group.subGroups[group.subGroups.length - 1]?.items.push(row as IComponentItem);
+      group.subGroups[group.subGroups.length - 1]?.items.push(row);
     });
     return tree;
   });
@@ -447,13 +448,8 @@ export class NodeUiuxComponent {
       .subscribe({
         next: cats => {
           this.loading.set(false);
-          const form = new UntypedFormGroup({
-            title: new FormControl('', Validators.required),
-            icon: new FormControl(''),
-            category: new FormControl([]),
-            body: new FormControl({}),
-          });
           const model = { title: '', icon: '', category: [], body: {} };
+          const form = this.createComponentForm(model);
           this.dialog
             .open(DialogComponent, {
               width: '900px',
@@ -470,24 +466,14 @@ export class NodeUiuxComponent {
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe(confirmed => {
               if (confirmed !== true) return;
-              const { title, icon, category, body } = form.value;
-              const trimmedTitle = title?.trim();
-              if (!trimmedTitle) {
-                this.util.openSnackbar(
-                  this.translate.instant('BUILDER.NODE_UIUX.TITLE_REQUIRED'),
-                  this.okLabel
-                );
-                return;
-              }
+              const metadata = this.componentMetadata(form.value);
+              if (!metadata) return;
+              const { body } = form.value;
               const bodyValue = body && typeof body === 'object' ? body : {};
-              const catData = (category || []).map((id: string) => ({
-                type: 'taxonomy_term--component_type', id,
-              }));
               this.loading.set(true);
               this.nodeService
                 .addEntity('/api/v1/node/component', {
-                  title: trimmedTitle,
-                  icon: icon || null,
+                  ...metadata.attributes,
                   body: JSON.stringify(bodyValue),
                 })
                 .pipe(
@@ -496,7 +482,7 @@ export class NodeUiuxComponent {
                       { uuid: res.data.id },
                       '/api/v1/node/component',
                       {},
-                      { category: { data: catData } }
+                      metadata.relationships
                     )
                   ),
                   takeUntilDestroyed(this.destroyRef)
@@ -546,12 +532,8 @@ export class NodeUiuxComponent {
           const currentCatIds: string[] = (node?.data?.relationships?.category?.data || []).map(
             (c: any) => c.id
           );
-          const form = new UntypedFormGroup({
-            title: new FormControl(item.label, Validators.required),
-            icon: new FormControl(item.icon || ''),
-            category: new FormControl(currentCatIds),
-          });
           const model = { title: item.label, icon: item.icon || '', category: currentCatIds };
+          const form = this.createComponentForm(model);
           this.dialog
             .open(DialogComponent, {
               width: '500px',
@@ -567,25 +549,15 @@ export class NodeUiuxComponent {
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe(confirmed => {
               if (confirmed !== true) return;
-              const { title, icon, category } = form.value;
-              const trimmedTitle = title?.trim();
-              if (!trimmedTitle) {
-                this.util.openSnackbar(
-                  this.translate.instant('BUILDER.NODE_UIUX.TITLE_REQUIRED'),
-                  this.okLabel
-                );
-                return;
-              }
+              const metadata = this.componentMetadata(form.value);
+              if (!metadata) return;
               this.loading.set(true);
-              const catData = (category || []).map((id: string) => ({
-                type: 'taxonomy_term--component_type', id,
-              }));
               this.builderService
                 .updateAttributes(
                   { uuid: item.uuid },
                   '/api/v1/node/component',
-                  { title: trimmedTitle, icon: icon || null },
-                  { category: { data: catData } }
+                  metadata.attributes,
+                  metadata.relationships
                 )
                 .pipe(takeUntilDestroyed(this.destroyRef))
                 .subscribe({
@@ -781,11 +753,6 @@ export class NodeUiuxComponent {
             );
             if (real) parentMap.set(t.id, real.id);
           });
-          const getL1 = (id: string, depth = 0): string => {
-            if (depth > 5) return nameMap.get(id) || id;
-            const pid = parentMap.get(id);
-            return pid ? getL1(pid, depth + 1) : (nameMap.get(id) || id);
-          };
           const getPath = (id: string, depth = 0): string => {
             if (depth > 5) return nameMap.get(id) || id;
             const pid = parentMap.get(id);
@@ -795,7 +762,6 @@ export class NodeUiuxComponent {
           return allTerms.map((t: any) => ({
             id: t.id,
             name: getPath(t.id),
-            l1Name: getL1(t.id),
           }));
         }),
         tap(cats => {
@@ -803,6 +769,32 @@ export class NodeUiuxComponent {
           this.categoriesLoaded.set(true);
         })
       );
+  }
+
+  private createComponentForm(model: ComponentFormValue): UntypedFormGroup {
+    const form = new UntypedFormGroup({
+      title: new FormControl(model.title, Validators.required),
+      icon: new FormControl(model.icon),
+      category: new FormControl(model.category),
+    });
+    if (model.body !== undefined) form.addControl('body', new FormControl(model.body));
+    return form;
+  }
+
+  private componentMetadata({ title, icon, category }: ComponentFormValue) {
+    const trimmedTitle = title?.trim();
+    if (!trimmedTitle) {
+      this.util.openSnackbar(
+        this.translate.instant('BUILDER.NODE_UIUX.TITLE_REQUIRED'), this.okLabel
+      );
+      return null;
+    }
+    return {
+      attributes: { title: trimmedTitle, icon: icon || null },
+      relationships: { category: { data: (category || []).map(id => ({
+        type: 'taxonomy_term--component_type', id,
+      })) } },
+    };
   }
 
   private buildFormDialog(

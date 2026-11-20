@@ -77,6 +77,7 @@ echarts.use([
 // Import the theme
 import { ScreenService } from '@core/service/screen.service';
 import { ConfigService } from '@core/service/config.service';
+import { ChartHost } from '@core/util/chart-host';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
 
@@ -105,6 +106,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   readonly style = input<any>();
   readonly echarts = viewChild('echarts', { read: ElementRef });
   private chart?: echarts.EChartsType;
+  private readonly chartHost = new ChartHost<echarts.EChartsType>();
 
   private theme = signal<object>({});
   private screenService = inject(ScreenService);
@@ -137,15 +139,13 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.chart = echarts.init(this.echarts()!.nativeElement, this.theme());
+      this.chart = this.chartHost.ensure(this.echarts()!.nativeElement,
+        host => echarts.init(host, this.theme()));
       this.applyOption(this.content());
-      const resize = new ResizeObserver(() => this.chart?.resize());
-      resize.observe(this.echarts()!.nativeElement);
       let themeTimer: ReturnType<typeof setTimeout> | undefined;
       this.destroyRef.onDestroy(() => {
-        resize.disconnect();
         clearTimeout(themeTimer);
-        this.chart?.dispose();
+        this.chartHost.dispose();
         this.chart = undefined;
       });
       // Re-apply the palette when the user switches theme: switchChange$ emits

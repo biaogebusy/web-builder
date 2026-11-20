@@ -36,7 +36,7 @@
               </div>
               @if (i > 0) {
                 <app-btn
-                  (click)="onDelete(i)"
+                  (click)="$event.stopPropagation(); onDelete(i)"
                   class="delete"
                   [matTooltip]="'BUILDER.VERSION.DELETE' | translate"
                   [content]="{

@@ -32,6 +32,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { BuilderMenuComponent } from '../builder-menu/builder-menu.component';
 import { SwitchPreviewComponent } from '../switch-preview/switch-preview.component';
 import { environment } from 'src/environments/environment';
+import { getPageParams } from '@core/util/builder-page.util';
 
 @Component({
   selector: 'app-builder-toolbar',
@@ -104,6 +105,16 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
       this.builder.markCurrentPageDirty();
       this.builder.saveLocalVersions();
     }
+  }
+
+  /** Opens settings for the saved page without submitting local canvas edits. */
+  onPageSettings(page: IPage): void {
+    if (!page.uuid || page.translation) return;
+    this.builderService.openPageSetting(
+      { uuid: page.uuid, langcode: page.langcode },
+      '/api/v1/node/landing_page',
+      getPageParams(['uid', 'group', 'cover', 'cover.field_media_image'])
+    );
   }
 
   onClearHistory(): void {

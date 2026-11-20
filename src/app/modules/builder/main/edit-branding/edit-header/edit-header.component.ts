@@ -1,3 +1,6 @@
+import { confirmBrandingLanguageSwitch } from '../branding-language-switch';
+import { BrandingSaveService } from '../branding-save.service';
+import { BrandingEditorContextService } from '../branding-editor-context.service';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -26,28 +29,21 @@ import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
 import { FORM_IMPORTS } from '@uiux/combs/form/form-imports';
 import { provideXinshiFormly } from '@uiux/combs/form/formly-feature.config';
 import { shadcnFormOptions } from '@uiux/combs/form/formly-shadcn/formly-shadcn.config';
-import { merge, shareReplay } from 'rxjs';
+import { merge } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import { IBranding, IHeader, IMainMenu } from '@core/interface/branding/IBranding';
-import { IDialog } from '@core/interface/IDialog';
-import { ContentService } from '@core/service/content.service';
-import { NodeService } from '@core/service/node.service';
-import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { HasUnsavedChanges } from '@core/guards/unsaved-changes.guard';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { BrandingPreviewComponent } from '../branding-preview/branding-preview.component';
-import { formatBrandingJson, getBrandingJsonError, mergeBrandingJson } from '../branding-json.util';
-import { buildHeaderConfig } from '../branding-config.util';
 import {
-  BRANDING_JSON_ENDPOINT,
-  IBrandingNode,
-  buildBrandingUpdateBody,
-  canSaveBranding,
-  listBrandingNodes,
-  pickBrandingNode,
-} from '../branding-save.util';
+  changeBrandingJson,
+  toggleBrandingJsonEditMode,
+  updateBrandingJsonPreview,
+} from '../branding-json-state';
+import { buildHeaderConfig } from '../branding-config.util';
+import { canSaveBranding } from '../branding-save.util';
 import {
   appendBrandingChild,
   appendBrandingItem,
@@ -81,11 +77,13 @@ import {
     NgxSkeletonLoaderModule,
     BrandingPreviewComponent,
   ],
-  providers: [provideXinshiFormly()],
+  providers: [provideXinshiFormly(), BrandingSaveService, BrandingEditorContextService],
 })
 export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
-  loading = signal(false);
-  saving = signal(false);
+  private readonly editorContext = inject(BrandingEditorContextService);
+  loading = this.editorContext.loading;
+  private readonly brandingSave = inject(BrandingSaveService);
+  saving = this.brandingSave.saving;
   dirty = signal(false);
   branding = signal<IBranding | null>(null);
   header = signal<IHeader | null>(null);
@@ -98,7 +96,7 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
   // Language switcher: rendered only for multi-language deployments with more than one language configured
   langs = environment.langs ?? [];
   showLangSwitch = environment.multiLang && this.langs.length > 1;
-  brandingNodes = signal<IBrandingNode[]>([]);
+  brandingNodes = this.editorContext.nodes;
   activeSection = signal<string>('params');
   showJson = signal(false);
   previewBranding = signal<IBranding | null>(null);
@@ -111,7 +109,9 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
 
   // Save button state
   canSave = computed(() =>
-    canSaveBranding(this.dirty(), this.loading(), this.saving(), !!this.header())
+    canSaveBranding(
+      this.dirty(), this.loading(), this.saving(), this.editorContext.ready() && !!this.header()
+    )
   );
 
   paramsForm = new UntypedFormGroup({});
@@ -163,16 +163,11 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
 
   private route = inject(ActivatedRoute);
   private router = inject(Router);
-  private contentService = inject(ContentService);
-  private builderService = inject(BuilderService);
-  private nodeService = inject(NodeService);
   private util = inject(UtilitiesService);
   private snackBar = inject(MatSnackBar);
   private dialog = inject(MatDialog);
   private destroyRef = inject(DestroyRef);
   private translate = inject(TranslateService);
-  /** Branding node list fetched once, shared by param-less entry resolution and language-switcher graying out */
-  private brandingNodes$ = listBrandingNodes(this.nodeService).pipe(shareReplay(1));
 
   // #1 canDeactivate
   hasUnsavedChanges(): boolean {
@@ -188,35 +183,17 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
   }
 
   ngOnInit(): void {
-    if (this.showLangSwitch) {
-      this.brandingNodes$
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(nodes => this.brandingNodes.set(nodes));
-    }
-    this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
-      const { uuid, langcode } = params;
-      if (uuid) {
-        this.initNode(uuid, langcode ?? '');
-        return;
-      }
-      // Entering directly from the management center/menu or switching language has no uuid; resolve the branding node by alias + target language
-      const target = langcode || this.nodeService.getLang(this.nodeService.pageUrl)?.langCode;
-      this.brandingNodes$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(nodes => {
-        const node = pickBrandingNode(nodes, target);
-        if (!node) {
-          this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.MISSING_NODE'));
-          return;
-        }
-        this.initNode(node.uuid, node.langcode);
-      });
+    this.editorContext.connect(!!this.showLangSwitch, {
+      selectNode: node => this.initNode(node.uuid, node.langcode),
+      applyBranding: branding => this.applyBranding(branding),
     });
+    this.listenFormChanges();
   }
 
   private initNode(uuid: string, langcode: string): void {
     this.nodeUuid.set(uuid);
     this.nodeLangcode.set(langcode);
     this.queryParams = { uuid, langcode };
-    this.loadData();
   }
 
   // ── Content-language switch ──
@@ -235,22 +212,7 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
       this.navigateToLang(langCode);
       return;
     }
-    // The canDeactivate guard only intercepts route leaves, not query-param changes on the same route; confirm manually here
-    const config: IDialog = {
-      title: this.translate.instant('BUILDER.EDIT_BRANDING.SWITCH_LANG_TITLE'),
-      yesLabel: this.translate.instant('BUILDER.EDIT_BRANDING.SWITCH_LANG_YES'),
-      noLabel: this.translate.instant('BUILDER.EDIT_BRANDING.SWITCH_LANG_NO'),
-      inputData: {
-        content: {
-          type: 'text',
-          fullWidth: true,
-          body: this.translate.instant('BUILDER.EDIT_BRANDING.SWITCH_LANG_CONFIRM'),
-        },
-      },
-    };
-    this.dialog
-      .open(DialogComponent, { width: '360px', data: config })
-      .afterClosed()
+    confirmBrandingLanguageSwitch(this.dialog, this.translate)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(result => {
         if (result) {
@@ -265,33 +227,23 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
     this.router.navigate([], { relativeTo: this.route, queryParams: { langcode: langCode } });
   }
 
+  /** Refresh the selected node through the component's current read scope. */
   loadData(): void {
-    this.loading.set(true);
-    // The loaded language must match the node being saved: build the language prefix from the node langcode, not the current URL
-    this.contentService
-      .loadBranding(`/${this.nodeLangcode()}/`)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: branding => {
-          this.branding.set(branding);
-          this.header.set(branding.header);
-          this.menuItems.set([...(branding.header.mainMenu || [])]);
+    this.editorContext.reload();
+  }
 
-          this.initParamsFields(branding.header);
-          this.initLogoFields(branding.header);
-          this.initSearchFields(branding.header);
-          this.initActionsFields(branding.header);
-          this.initTopFields(branding.header);
-          this.updateJsonPreview();
-          this.loading.set(false);
-          this.dirty.set(false);
-          this.listenFormChanges();
-        },
-        error: () => {
-          this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.LOAD_FAIL'));
-          this.loading.set(false);
-        },
-      });
+  private applyBranding(branding: IBranding): void {
+    this.branding.set(branding);
+    this.header.set(branding.header);
+    this.menuItems.set([...(branding.header.mainMenu || [])]);
+
+    this.initParamsFields(branding.header);
+    this.initLogoFields(branding.header);
+    this.initSearchFields(branding.header);
+    this.initActionsFields(branding.header);
+    this.initTopFields(branding.header);
+    this.updateJsonPreview();
+    this.dirty.set(false);
   }
 
   // #3 Listen to form changes → update JSON preview + dirty flag
@@ -318,13 +270,9 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
     if (!this.header()) {
       return;
     }
-    try {
-      const built = this.buildHeader();
-      this.jsonPreview.set(formatBrandingJson(built));
-      this.updateLivePreview(built);
-    } catch {
-      // skip
-    }
+    updateBrandingJsonPreview(this, () => this.buildHeader(), value => {
+      this.updateLivePreview(value);
+    });
   }
 
   private updateLivePreview(header: IHeader): void {
@@ -334,28 +282,14 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
     }
   }
 
-  // #3 Toggle JSON edit mode
   toggleJsonEditMode(): void {
-    if (!this.jsonEditMode()) {
-      this.customJson = this.jsonPreview();
-      this.jsonError.set('');
-    }
-    this.jsonEditMode.set(!this.jsonEditMode());
+    toggleBrandingJsonEditMode(this);
   }
 
-  // #5 Validate JSON on input
   onJsonChange(value: string): void {
-    this.customJson = value;
-    this.markDirty();
-    const error = getBrandingJsonError(value);
-    this.jsonError.set(error);
-    if (!error) {
-      try {
-        this.updateLivePreview(mergeBrandingJson(this.buildHeader(), value));
-      } catch {
-        // keep last valid preview
-      }
-    }
+    changeBrandingJson(this, value, () => this.buildHeader(), config => {
+      this.updateLivePreview(config);
+    });
   }
 
   initParamsFields(header: IHeader): void {
@@ -873,48 +807,18 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
     );
   }
 
+  /** Save this editor's section without sharing draft state with other editors. */
   onSave(): void {
-    if (!this.nodeUuid()) {
-      this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.NOT_FOUND_NODE'));
-      return;
-    }
-
-    this.saving.set(true);
-    const branding = this.branding()!;
-    let header = this.buildHeader();
-
-    // #3 + #5 JSON edit mode merge with error handling
-    if (this.jsonEditMode() && this.customJson) {
-      try {
-        header = mergeBrandingJson(header, this.customJson);
-        this.jsonError.set('');
-      } catch {
-        this.saving.set(false);
-        this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.JSON_FORMAT_ERROR'), 'ok');
-        return;
-      }
-    }
-
-    this.builderService
-      .updateAttributes(
-        { uuid: this.nodeUuid(), langcode: this.nodeLangcode() },
-        BRANDING_JSON_ENDPOINT,
-        buildBrandingUpdateBody(branding, 'header', header),
-        {}
-      )
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: res => {
-          this.saving.set(false);
-          if (res) {
-            this.dirty.set(false);
-            this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.HEADER_UPDATE_SUCCESS'), 'ok');
-          }
-        },
-        error: () => {
-          this.saving.set(false);
-          this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.UPDATE_FAIL'));
-        },
-      });
+    if (!this.editorContext.ready()) return;
+    this.brandingSave.save(
+      {
+        node: { uuid: this.nodeUuid(), langcode: this.nodeLangcode() },
+        branding: this.branding()!,
+        section: 'header',
+        buildSection: () => this.buildHeader(),
+        customJson: this.jsonEditMode() ? this.customJson : undefined,
+      },
+      { dirty: this.dirty, jsonError: this.jsonError }
+    );
   }
 }

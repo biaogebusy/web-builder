@@ -32,6 +32,7 @@ http {
   access_log off;
   proxy_cache_path /tmp/cache-test keys_zone=proxy_cache_panel:1m;
   limit_conn_zone $binary_remote_addr zone=perip:1m;
+  limit_conn_zone "$server_name:$binary_remote_addr" zone=static_perip:1m;
   limit_conn_zone $server_name zone=perserver:1m;
   limit_req_zone $binary_remote_addr zone=auth_login:1m rate=5r/m;
   map $http_upgrade $connection_upgrade { default upgrade; '' close; }
@@ -132,6 +133,15 @@ echo json_encode($http_response_header);
     assert.notEqual(first['x-origin-request'], second['x-origin-request']);
     privateResponse(second);
   });
+  await t.test('public documents always reach the Node publication check', () => {
+    const first = request('/public-page?policy=allowed');
+    const second = request('/public-page?policy=allowed');
+    assert.notEqual(first['x-origin-request'], second['x-origin-request']);
+    assert.notEqual(second['x-proxy-cache'], 'HIT');
+    const plainFirst = request('/public-page');
+    const plainSecond = request('/public-page');
+    assert.notEqual(plainFirst['x-origin-request'], plainSecond['x-origin-request']);
+  });
   await t.test('only explicit public shared lifetimes are cached across language prefixes', () => {
     for (const prefix of ['', '/en', '/zh-hans', '/ja', '/pt-br']) {
       for (const policy of ['allowed', 'reordered']) {
@@ -167,7 +177,7 @@ echo json_encode($http_response_header);
         assert.equal(first['x-origin-cookie'], headers[0].slice(8));
       }
     }
-    for (const flag of ['nocache=1', 'noCache=true', 'no_cache=1', 'preview=1']) {
+    for (const flag of ['nocache=1', 'noCache=true', 'no_cache=1', 'preview=1', 'public=true']) {
       const url = `${path}&${flag}`;
       const first = request(url);
       const second = request(url);

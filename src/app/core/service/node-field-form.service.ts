@@ -159,11 +159,16 @@ export class NodeFieldFormService {
     );
   }
 
-  /** Loads a form using create access or the specific entity's update access. */
-  getForm(bundle: string, uuid?: string, lang?: string): Observable<INodeForm> {
+  /** Reads current field and publication permissions without loading control options. */
+  getSchema(bundle: string, uuid?: string, lang?: string): Observable<INodeFormSchema> {
     const path = `/api/v3/node-form/${encodeURIComponent(bundle)}` +
       (uuid ? `/${encodeURIComponent(uuid)}` : '');
-    return this.nodeService.fetch(path, lang ? { lang } : {}).pipe(
+    return this.nodeService.fetch(path, lang ? { lang } : {});
+  }
+
+  /** Loads a form using create access or the specific entity's update access. */
+  getForm(bundle: string, uuid?: string, lang?: string): Observable<INodeForm> {
+    return this.getSchema(bundle, uuid, lang).pipe(
       map((schema: INodeFormSchema) => this.buildForm(schema)),
       switchMap(form => this.resolveTermOptions(form))
     );

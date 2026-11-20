@@ -6,6 +6,7 @@ import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { IUiux } from '@core/interface/IBuilder';
 import { UIUX } from '@core/token/token-providers';
+import type { FormlyFieldConfig } from '@ngx-formly/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, of, Subject, throwError } from 'rxjs';
 
@@ -87,6 +88,119 @@ describe('NodeUiuxComponent', () => {
 
     component = TestBed.runInInjectionContext(() => new NodeUiuxComponent());
     component.categoriesLoaded.set(true);
+  });
+
+  describe('category loading', () => {
+    const term = (id: string, name?: string, parent?: string) => ({
+      id,
+      attributes: { name },
+      relationships: {
+        parent: { data: parent ? [{ type: 'taxonomy_term--component_type', id: parent }] : [] },
+      },
+    });
+    const options = () => {
+      const fields: FormlyFieldConfig[] =
+        dialog.open.mock.lastCall![1].data.inputData.content.fields;
+      return fields.find(field => field.key === 'category')?.props?.options;
+    };
+
+    beforeEach(() => component.categoriesLoaded.set(false));
+
+    for (const mode of ['create', 'edit'] as const) {
+      const open = () => mode === 'create' ? component.onAdd() : component.onEdit(heroItem);
+
+      it(`loads ordered category paths once for ${mode} and reuses them on the next open`, () => {
+        const response$ = new Subject<unknown>();
+        nodeService.fetch.mockReturnValueOnce(response$);
+        if (mode === 'edit') {
+          nodeService.fetch.mockReturnValueOnce(of({ data: { relationships: {
+            category: { data: [{ id: 'leaf' }] },
+          } } }));
+        }
+
+        open();
+
+        expect(nodeService.fetch).toHaveBeenNthCalledWith(
+          1, '/api/v1/taxonomy_term/component_type', 'include=parent&page[limit]=200'
+        );
+        expect(component.loading()).toBe(true);
+        expect(dialog.open).not.toHaveBeenCalled();
+        response$.next({
+          data: [term('leaf', 'Leaf', 'branch'), term('branch', 'Branch', 'root'),
+            term('missing', undefined, 'unknown')],
+          included: [term('root', 'Root'), term('branch', 'Updated branch')],
+        });
+        const expected = [
+          { value: 'leaf', label: 'Root > Updated branch > Leaf' },
+          { value: 'branch', label: 'Root > Updated branch' },
+          { value: 'missing', label: 'unknown > missing' },
+        ];
+        expect(options()).toEqual(expected);
+        expect(component.loading()).toBe(false);
+        expect(component.categoriesLoaded()).toBe(true);
+        expect(response$.observed).toBe(false);
+        expect(dialog.open.mock.lastCall![1].data.inputData.content.form.value.category)
+          .toEqual(mode === 'edit' ? ['leaf'] : []);
+        closed$.next(false);
+
+        component.onAdd();
+
+        expect(nodeService.fetch).toHaveBeenCalledTimes(mode === 'edit' ? 2 : 1);
+        expect(options()).toEqual(expected);
+        expect(nodeService.addEntity).not.toHaveBeenCalled();
+        expect(builderService.updateAttributes).not.toHaveBeenCalled();
+      });
+
+      it(`reports a failed category load during ${mode} and allows a retry`, () => {
+        const response$ = new Subject<unknown>();
+        nodeService.fetch.mockReturnValueOnce(response$);
+        open();
+
+        response$.error(new Error('Categories unavailable'));
+
+        expect(component.loading()).toBe(false);
+        expect(component.categoriesLoaded()).toBe(false);
+        expect(dialog.open).not.toHaveBeenCalled();
+        expect(util.openSnackbar).toHaveBeenCalledWith(
+          mode === 'create' ? 'BUILDER.NODE_UIUX.LOAD_CATEGORIES_FAILED'
+            : 'BUILDER.NODE_UIUX.LOAD_COMPONENT_FAILED',
+          'BUILDER.COMMON.OK'
+        );
+
+        open();
+
+        expect(nodeService.fetch).toHaveBeenCalledTimes(mode === 'edit' ? 4 : 2);
+        expect(component.categoriesLoaded()).toBe(true);
+        expect(options()).toEqual([]);
+      });
+    }
+
+    it('caches an empty category response without refetching', () => {
+      nodeService.fetch.mockReturnValueOnce(of({}));
+      component.onAdd();
+      expect(options()).toEqual([]);
+      closed$.next(false);
+
+      component.onAdd();
+
+      expect(component.categoriesLoaded()).toBe(true);
+      expect(nodeService.fetch).toHaveBeenCalledTimes(1);
+      expect(options()).toEqual([]);
+    });
+
+    it('cancels a pending category load when the component is destroyed', () => {
+      const response$ = new Subject<unknown>();
+      nodeService.fetch.mockReturnValueOnce(response$);
+      component.onAdd();
+      expect(response$.observed).toBe(true);
+
+      TestBed.resetTestingModule();
+      response$.next({ data: [term('late', 'Late')] });
+
+      expect(response$.observed).toBe(false);
+      expect(component.categoriesLoaded()).toBe(false);
+      expect(dialog.open).not.toHaveBeenCalled();
+    });
   });
 
   it('searches components inside collapsed groups and hides unmatched groups', () => {
@@ -202,6 +316,50 @@ describe('NodeUiuxComponent', () => {
     expect(pending.totalCount()).toBe(0);
   });
 
+  it('counts all components independently of search and expansion and follows feed updates', () => {
+    seedGroups();
+    uiux$.next([
+      ...uiux$.value,
+      { label: 'Empty', icon: '', type: 'component', elements: [] },
+      { label: 'Samples', icon: '', type: 'sample', elements: { label: 'Pages', elements: [] } },
+    ]);
+    expect(component.totalCount()).toBe(2);
+    expect(component.groupCount()).toBe(3);
+    component.expandedGroups.set(new Set());
+    expect(component.visibleItemUuids()).toEqual([]);
+    expect(component.totalCount()).toBe(2);
+
+    component.onSearch('button');
+    expect(component.visibleItemUuids()).toEqual(['button-uuid']);
+    expect(component.totalCount()).toBe(2);
+    uiux$.next([{
+      label: 'Widget', icon: '', type: 'base',
+      elements: [{ label: 'Controls', child: [{ uuid: 'new-button', label: 'Button' }] }],
+    }]);
+    expect(component.totalCount()).toBe(1);
+    expect(component.visibleItemUuids()).toEqual(['new-button']);
+
+    uiux$.next([]);
+    expect(component.totalCount()).toBe(0);
+    expect(component.groupTree()).toEqual([]);
+  });
+
+  it('counts components without UUIDs but excludes them and group rows from selection', () => {
+    uiux$.next([{
+      label: 'Widget', icon: '', type: 'base',
+      elements: [{ label: 'Controls', child: [
+        { uuid: 'button', label: 'Button' }, { label: 'Unsaved' },
+      ] }],
+    }]);
+    component.expandedGroups.set(new Set(['Widget']));
+    expect(component.totalCount()).toBe(2);
+    expect(component.visibleItemUuids()).toEqual(['button']);
+    expect(component.groupTree()[0].subGroups[0].items).toHaveLength(2);
+    component.toggleSelectAll(true);
+    expect([...component.selectedIds()]).toEqual(['button']);
+    expect(component.isAllSelected()).toBe(true);
+  });
+
   it('does not start creating when the dialog close button is used', () => {
     component.onAdd();
 
@@ -273,6 +431,60 @@ describe('NodeUiuxComponent', () => {
       { category: { data: [{ type: 'taxonomy_term--component_type', id: 'cat-1' }] } }
     );
     expect(contentService.reloadUIUX).toHaveBeenCalled();
+  });
+
+  for (const mode of ['create', 'edit'] as const) {
+    it(`rejects a blank title in the ${mode} form without writing`, () => {
+      if (mode === 'create') component.onAdd();
+      else component.onEdit(heroItem);
+      const form = dialog.open.mock.calls[0][1].data.inputData.content.form;
+      form.patchValue({ title: '  ' });
+
+      closed$.next(true);
+
+      expect(nodeService.addEntity).not.toHaveBeenCalled();
+      expect(builderService.updateAttributes).not.toHaveBeenCalled();
+      expect(component.loading()).toBe(false);
+      expect(util.openSnackbar).toHaveBeenCalledWith(
+        'BUILDER.NODE_UIUX.TITLE_REQUIRED', 'BUILDER.COMMON.OK'
+      );
+    });
+  }
+
+  it('creates the JSON body before assigning categories to the returned component', () => {
+    const created$ = new Subject<{ data: { id: string } }>();
+    nodeService.addEntity.mockReturnValueOnce(created$);
+    component.onAdd();
+    const form = dialog.open.mock.calls[0][1].data.inputData.content.form;
+    form.patchValue({ title: '  Card  ', icon: '', category: ['cat-1'], body: { type: 'card' } });
+
+    closed$.next(true);
+
+    expect(nodeService.addEntity).toHaveBeenCalledWith('/api/v1/node/component', {
+      title: 'Card', icon: null, body: '{"type":"card"}',
+    });
+    expect(builderService.updateAttributes).not.toHaveBeenCalled();
+    created$.next({ data: { id: 'new-uuid' } });
+    expect(builderService.updateAttributes).toHaveBeenCalledWith(
+      { uuid: 'new-uuid' }, '/api/v1/node/component', {},
+      { category: { data: [{ type: 'taxonomy_term--component_type', id: 'cat-1' }] } }
+    );
+    created$.complete();
+  });
+
+  it('updates trimmed metadata with an empty category relationship and no body', () => {
+    component.onEdit(heroItem);
+    const form = dialog.open.mock.calls[0][1].data.inputData.content.form;
+    expect(form.contains('body')).toBe(false);
+    form.patchValue({ title: '  Renamed  ', icon: 'star', category: [] });
+
+    closed$.next(true);
+
+    expect(nodeService.addEntity).not.toHaveBeenCalled();
+    expect(builderService.updateAttributes).toHaveBeenCalledWith(
+      { uuid: 'hero-uuid' }, '/api/v1/node/component',
+      { title: 'Renamed', icon: 'star' }, { category: { data: [] } }
+    );
   });
 
   it('shows an error and clears loading when updating fails', () => {

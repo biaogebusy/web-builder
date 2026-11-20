@@ -17,6 +17,11 @@ The Drupal backends are sibling directories of this repo (not inside it); check 
 
 - `../pro` — the pro deployment checkout of this frontend (branch `pro`). It merges `master` in and carries the deployment-specific delta; the same thin-seam rules as downstream CMS branches apply.
 
+## Sibling Docker Deployment Repository
+
+- `../builder-docker` — a Docker deployment kit for trial users to install the web builder frontend and its CMS backend quickly. `docker-compose.yml` defines the PHP (`wodby/drupal-php`), nginx (`wodby/nginx`), MariaDB (`wodby/mariadb`) and frontend Node services. `install.sh` reads `.env` for ports, database credentials, image tags and the Drupal root password, then installs the CMS baseline from `init.d/` (`drupal.sql`, `services.yml`). The kit installs the base stack: the `web-builder` frontend checkout plus `builder-cms`.
+- When a change in this repository affects that kit, update `../builder-docker` in the same delivery. Sync at least: image tags in `.env` (`PHP_TAG`, `NGINX_TAG`, `MARIADB_TAG`) when required runtime versions change; CORS origins in `init.d/services.yml`; `init.d/drupal.sql` when the installed CMS baseline changes; and the install steps in `README.md` and `install.sh` when the production environment shape or build inputs change. Read the actual files in `../builder-docker` before each sync; do not assume they still match this repository's local configuration.
+
 ## Sibling Documentation Repository
 
 - `../xinshi-docs/stories/` is the single maintenance location for feature, architecture, API, operations, and WBS documentation. See the [documentation index](../xinshi-docs/stories/develop/engineering/documentation.mdx). Keep the relevant MDX in sync when behavior changes; this application retains only `docs/README.md` and source entry points, not duplicate specifications. Documentation-only changes do not require application tests; follow the documentation repository's instructions for index generation, builds, and link checks.
@@ -24,6 +29,31 @@ The Drupal backends are sibling directories of this repo (not inside it); check 
 - Maintain the [frontend API catalog](../xinshi-docs/stories/develop/api/frontend-api-catalog.mdx) when adding, changing or removing frontend API calls. Record the frontend scope, method, path, authentication, CSRF policy, purpose, caller and backend authority. Follow the documentation repository checks. Shared CMS authentication policy belongs in the shared interceptor; custom CMS writes declare `cmsWriteContext()` in their owning service.
 
 - When work involves architecture or complex process logic, you may add architecture diagrams or flowcharts to the corresponding documentation in `../xinshi-docs/stories/` when they help clarify component relationships or process steps.
+
+### Continuous refactoring
+
+- Treat refactoring that preserves existing behavior and UI as routine project maintenance.
+  This rule applies to all project areas.
+- Control code growth across the project. Before adding code, search for and reuse existing
+  services, helpers and contracts. Keep responsibilities cohesive and dependencies explicit.
+- Add abstractions only for demonstrated shared behavior. Avoid speculative frameworks,
+  duplicate execution paths and unnecessary dependencies. Remove replaced code within the task scope.
+- Record implementation and test line additions, deletions and net changes separately in the tracker.
+  State the commits and path scope. Explain net growth, the reuse considered and the required new
+  responsibility. Do not count downstream merges twice or trade correctness for fewer lines.
+- Before development, fixes or reviews, read the
+  [project refactoring tracker](../xinshi-docs/stories/develop/engineering/continuous-refactoring.mdx).
+  Identify open items that affect the task and keep each change within the active task scope.
+- Record candidates, repository and branch scope, refactoring type, source evidence, risks and
+  acceptance criteria in the tracker. For completed work, record the actual type and supporting
+  evidence. Keep defect fixes and feature changes separate from equivalent refactoring.
+- When refactoring affects base functionality, implement and validate it in `xinshi-base/master`
+  first. After the required checks pass, merge the base changes into the downstream branch,
+  including `xinshi-pro/pro`, then validate affected downstream behavior. Classify by dependency;
+  base functionality remains base even when an optional feature uses it. Keep deployment-specific
+  changes downstream. Record base and downstream validation separately.
+- At handoff, update affected items with evidence, status and the next action. Briefly remind the
+  user of relevant unfinished items. Keep item lists and progress in the tracker, not here.
 
 ### Documentation writing (ASD-STE100)
 
@@ -50,6 +80,20 @@ MDX, Markdown, source README files, and repository guidance.
   programmatically, then review meaning and procedure order. Follow the documentation
   repository's instructions for index generation, builds, and link checks.
 
+### Chinese interface copy
+
+- Review Chinese interface text with the [terminology and writing rules](../xinshi-docs/stories/develop/engineering/terminology.mdx).
+- Use Chinese punctuation in Chinese prose. Keep code, URLs, interpolation tokens and technical syntax unchanged.
+- For one short status message and its consequence or recovery action, prefer one coherent sentence.
+  Connect related clauses with a comma and use one sentence-ending mark, for example:
+  “页面已发布，聊天中的后续修改不会自动更新此页面。”
+- Keep independent instructions, qualifications and paragraph topics in separate sentences or lists.
+  Multiple full stops in a genuine paragraph are valid; never judge correctness by punctuation count alone.
+- Omit full stops from short button labels, field labels and headings. Use a question mark for confirmation questions.
+- When changing interface copy, review matching translations and hardcoded UI messages by meaning.
+  Preserve conditions, action order, numbers and placeholders; update affected exact-text checks.
+  Use punctuation scans to find candidates, not to replace punctuation across the project automatically.
+
 ## Branches & Deployments
 
 - **`master` is the open-source base branch and the single source of truth.** Downstream deployment branches build on it: they merge `master` in, never the other way. Anything that is not part of the base product stays out of `master`.
@@ -67,10 +111,27 @@ deployment details out of anything that ships upstream.
 - Seam examples to copy: `pro-ai-chat.ts` registered as one entry in `dynamic-component-loaders.ts`; `TiptapBubbleMenuComponent.ai` (default off) switched on by `InlineEditorService`, with the AI panel behind `@defer`.
 - **Verify before committing**: `git diff --stat master HEAD -- <shared path>` should show only the hook lines; anything else is base work that belongs upstream.
 
+### Fixed test assets
+
+- Store all fixed external test inputs in `../xinshi-docs/stories/assets/testing/`.
+  This applies to unit, integration, browser and business evaluation tests across the project.
+  Register each input in `registry.json` with a stable ID, relative path and SHA256.
+- Read registered inputs through `scripts/test-assets.cjs`. Use `XINSHI_TEST_ASSETS_ROOT`
+  for isolated worktrees and CI. Run `npm run check:test-assets` before dependent checks.
+  Keep versioned evaluation corpora immutable. Change the corpus version when inputs change.
+- Keep test execution code and tested production sources in their owning repositories.
+  Generate runtime databases, exports and reports in temporary directories.
+  Temporary cleanup must not remove the versioned inputs or their only copy.
+- See the [test asset guide](../xinshi-docs/stories/develop/engineering/testing.mdx#fixed-test-assets)
+  for the asset inventory, reader setup and CI prerequisites.
+
 ## Common Commands
 
 - `npm start` — local dev server (proxies API to the backend configured in `config/proxy.config.js`; the target differs per branch)
 - `npm run build` — production build plus static asset precompression (`ng build --configuration production && npm run precompress`)
+- `npm run perf:build` — production measurement build and public initial JS dependency check
+- `npm run check:public-bundle -- <output directory>` — check existing Angular stats and CSR entry
+- `npm run check:test-assets` — verify fixed external test inputs in the documentation repository
 - `npm test` — run unit tests once (Vitest via `@angular/build:unit-test` builder); covers all `src/**` specs except `src/server/**`; setup in `src/test-setup.ts`, shared test providers in `src/test-providers.ts`
 - `npm run test:server` — run server-side specs (`src/server/**`, including Node and SQLite tests) via root `vitest.config.ts`; the two channels split coverage with no overlap
 - `npm run test:unit` — run both unit test channels in sequence on demand
@@ -204,6 +265,9 @@ Angular SSR via `@angular/ssr` (`outputMode: server`). Express entry point: `src
   - When shared code (used on public pages) needs builder behavior, gate it: dynamic `import('@modules/builder/...')` triggered only inside the canvas (see `ContenteditDirective`), or wrap builder-only template regions in `@defer` (see `dynamic-component` / `layout-builder` toolbars)
   - Editor libraries reachable from public registries (e.g., `tiptap-editor` in `DYNAMIC_COMPONENT_LOADERS` / formly types) must stay behind their lazy loaders — never import them eagerly from shared code
   - Before adding such a dependency, verify: does any public-page chunk now pull it in?
+  - After changing routes or shared imports, run `npm run perf:build`. Its initial JS check rejects
+    Builder, Tiptap, ProseMirror, Monaco and JSONEditor runtime inputs in the static entry graph.
+    Check other public lazy paths separately; this command does not validate all public chunks or CSS.
 - Use `npm install` only (not yarn or pnpm) — respects `package-lock.json`
 - ESLint rules: single quotes, semicolons required, max line length 100 (warnings), `any` type is allowed
 - Angular self-closing tags preferred in templates

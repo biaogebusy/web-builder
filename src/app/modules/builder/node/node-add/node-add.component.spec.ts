@@ -151,6 +151,33 @@ describe('NodeAddComponent', () => {
     );
   });
 
+  it('maps writable base fields and normalizes aliases before creating content', async () => {
+    const nodeServiceMock = await setup();
+    component.type.set('blog');
+    component.formSchema.set(contentFormFixture({ baseFields: {
+      title: 'headline', status: 'published', promote: 'featured', sticky: 'pinned',
+      path: 'url', revision_log: 'revision_note',
+    } }));
+    component.onSubmit({
+      title: 'Blog', state: 'unpublished', promote: true, sticky: false,
+      path_alias: '  guide  ', revision_log: 'First revision',
+    }, { id: 1 });
+    expect(nodeServiceMock.addEntity).toHaveBeenCalledExactlyOnceWith(
+      '/api/v1/node/blog', {
+        headline: 'Blog', published: false, featured: true,
+        url: { alias: '/guide' }, revision_note: 'First revision',
+      }, {}, undefined
+    );
+  });
+
+  it('omits an unchanged alias after normalization when editing content', async () => {
+    const nodeServiceMock = await setupEdit();
+    component.onSubmit({ title: 'New', path_alias: '  old-alias  ' }, { id: 1 });
+    expect(nodeServiceMock.updateEntity).toHaveBeenCalledExactlyOnceWith(
+      '/api/v1/node/blog', 'u1', { title: 'New' }, {}, undefined
+    );
+  });
+
   it('字段权限失败阻止提交,重试成功后恢复表单', async () => {
     let fail = true;
     const nodeServiceMock = await setup({}, {

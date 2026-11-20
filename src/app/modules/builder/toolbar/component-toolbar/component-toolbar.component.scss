@@ -3,17 +3,16 @@
   width: 100%;
 
   .wrapper {
-    @apply flex justify-between items-center;
+    @apply flex justify-center items-center;
   }
 
   .actions {
-    @apply flex gap-1;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    @apply flex max-w-full flex-wrap items-center justify-center gap-1;
+    --mat-icon-button-state-layer-size: 30px;
+    --mat-icon-button-touch-target-display: none;
+    --mat-icon-button-icon-color: var(--mat-sys-inverse-on-surface);
     border-radius: 0 0 4px 4px;
-    background-color: #272727;
+    background-color: var(--mat-sys-inverse-surface);
     box-shadow: var(--mat-sys-level0);
 
     .item {
@@ -22,21 +21,24 @@
       white-space: nowrap;
       ::ng-deep {
         .mat-icon {
-          color: rgba(255, 255, 255, 0.8);
+          color: var(--mat-sys-inverse-on-surface);
         }
         .mat-mdc-button-base {
-          color: var(--mat-sys-on-primary);
+          color: var(--mat-sys-inverse-on-surface);
         }
-
-        &.mat-mdc-button-base {
-          --mat-icon-button-state-layer-size: 30px;
-          padding: 0;
+        // Center geometrically: baseline alignment offsets the svg from the button middle.
+        .mat-mdc-icon-button {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
         }
         .custom {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
           svg {
             width: 16px !important;
             height: 16px !important;
-            line-height: 16px !important;
           }
         }
       }
@@ -50,9 +52,6 @@
     ::ng-deep {
       .mat-divider {
         height: 16px;
-        top: 50%;
-        transform: translateY(-50%);
-        position: relative;
         border-right-color: var(--mat-sys-surface-dim);
       }
     }

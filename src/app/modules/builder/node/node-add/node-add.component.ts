@@ -28,6 +28,7 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 import { Subject, Subscription, combineLatest, forkJoin, Observable, of, throwError } from 'rxjs';
 import { catchError, debounceTime, map, startWith, switchMap, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { buildNodeBaseFieldAttributes } from './node-base-field-payload';
 
 /** A language row in the translations panel */
 export interface INodeTranslation {
@@ -827,7 +828,13 @@ export class NodeAddComponent implements OnInit {
       attributes[titleKey] = title;
     }
     const relationships = payload.relationships;
-    Object.assign(attributes, this.buildBaseFieldAttributes(value, state, lang));
+    Object.assign(attributes, buildNodeBaseFieldAttributes(value, state, {
+      originalNode: this.originalNode,
+      schema: this.formSchema(),
+      creatingTranslation: this.creatingTranslation(),
+      editUuid: uuid,
+      lang,
+    }));
     const path = `/api/v1/node/${type}`;
     const request$ = uuid
       ? this.creatingTranslation()
@@ -838,80 +845,6 @@ export class NodeAddComponent implements OnInit {
       next: res => this.onSubmitSuccess(!!uuid, res),
       error: err => this.showSubmitError(err),
     });
-  }
-
-  /**
-   * Node base fields: publish state, promote/sticky, revision note, URL alias, language.
-   * - Moderated types cannot write status directly
-   *   (403: Cannot edit the published field of moderated entities); the state
-   *   select value is the moderation_state, and the workflow decides the
-   *   actual publish. Other types map published/unpublished to status.
-   * - On edit, state/alias are only submitted when actually changed (minimal
-   *   diff), avoiding unnecessary permission-check failures (status needs
-   *   administer nodes, path needs the url alias permission).
-   */
-  private buildBaseFieldAttributes(
-    value: any,
-    state: string,
-    lang?: string
-  ): Record<string, any> {
-    const attrs: Record<string, any> = {};
-    // Creating a translation has no baseline of its own (originalNode is the
-    // source translation): base fields submit with create semantics
-    const original = this.creatingTranslation() ? null : this.originalNode;
-    if (this.isModeratedType()) {
-      if (!original || original.attributes?.moderation_state !== state) {
-        attrs.moderation_state = state;
-      }
-    } else {
-      const publish = state === 'published';
-      if (!original || !!original.attributes?.status !== publish) {
-        attrs.status = publish;
-      }
-    }
-    // Promote/sticky: on edit submit only when changed; on create only when checked,
-    // so an unchecked box leaves the type's backend defaults untouched
-    const promote = !!value.promote;
-    const sticky = !!value.sticky;
-    if (original ? !!original.attributes?.promote !== promote : promote) {
-      attrs.promote = promote;
-    }
-    if (original ? !!original.attributes?.sticky !== sticky : sticky) {
-      attrs.sticky = sticky;
-    }
-    if (value.revision_log) {
-      attrs.revision_log = value.revision_log;
-    }
-    const alias = this.normalizeAlias(value.path_alias);
-    const originalAlias = original?.attributes?.path?.alias ?? '';
-    if (original ? alias !== originalAlias : alias) {
-      attrs.path = { alias: alias || null };
-    }
-    // On create in a non-default language, carry langcode explicitly so the node language matches the site prefix
-    // (a translation-creating PATCH relies on the language prefix alone; a langcode attribute would retarget the node)
-    if (!this.originalNode && !this.editUuid() && lang) {
-      attrs.langcode = lang;
-    }
-    const writable = this.formSchema()?.baseFields ?? {};
-    return Object.fromEntries(
-      Object.entries(attrs)
-        .filter(([key]) => !!writable[key])
-        .map(([key, fieldValue]) => [writable[key], fieldValue])
-    );
-  }
-
-  /** Drupal determines whether this entity uses a moderation workflow. */
-  private isModeratedType(): boolean {
-    return this.formSchema()?.moderated ?? false;
-  }
-
-  /** Normalize the alias to a path starting with /; empty values return '' */
-  private normalizeAlias(raw: any): string {
-    const alias = typeof raw === 'string' ? raw.trim() : '';
-    if (!alias) {
-      return '';
-    }
-    return alias.startsWith('/') ? alias : `/${alias}`;
   }
 
   /**

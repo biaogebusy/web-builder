@@ -1,9 +1,15 @@
+@use '@angular/material' as mat;
+
+:host {
+  @apply flex min-h-0 flex-1 flex-col;
+}
+
 .page-setting-wrapper {
-  @apply flex gap-5;
+  @apply flex min-h-0 flex-1 flex-col;
 }
 
 .page-setting {
-  @apply relative;
+  @apply relative min-h-0 flex-1 overflow-y-auto px-5 pt-3 pb-5;
 }
 
 .load {
@@ -12,5 +18,35 @@
 }
 
 .actions {
-  @apply flex justify-center items-center gap-3 my-5;
+  @apply grid grid-cols-3 items-stretch gap-2;
+
+  ::ng-deep {
+    app-btn > div {
+      @apply h-full;
+    }
+
+    .mdc-button {
+      @apply h-full min-h-10 w-full min-w-0 whitespace-normal px-2 py-2;
+    }
+  }
+}
+
+.delete-page {
+  @include mat.button-overrides((
+    filled-container-color: var(--mat-sys-error),
+    filled-label-text-color: var(--mat-sys-on-error),
+    filled-state-layer-color: var(--mat-sys-on-error),
+    filled-ripple-color: color-mix(in srgb, var(--mat-sys-on-error) 12%, transparent),
+  ));
+}
+
+.settings-footer {
+  @apply shrink-0 px-5 py-4;
+  border-top: 1px solid var(--mat-sys-outline-variant);
+  background: var(--mat-sys-surface);
+}
+
+.save-scope {
+  @apply mb-3 text-xs leading-5;
+  color: var(--mat-sys-on-surface-variant);
 }

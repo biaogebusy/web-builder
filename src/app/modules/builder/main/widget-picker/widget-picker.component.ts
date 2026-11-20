@@ -72,7 +72,7 @@ export class WidgetPickerComponent implements OnInit {
 
   public bcData = signal<any>(false);
   public hoveredWidget = signal<IBuilderComponentElement | null>(null);
-  public widgets = signal<IUiux>({ label: '', icon: '', type: 'base', elements: [] });
+  public widgets = signal<IUiux | undefined>(undefined);
   public searchQuery = signal('');
   /** Index of the selected category chip; 0 = "All", 1..n map to widgetGroups() */
   public activeCategoryIndex = signal(0);
@@ -102,7 +102,7 @@ export class WidgetPickerComponent implements OnInit {
   }));
 
   public widgetGroups = computed<IBuilderComponent[]>(() => {
-    const elements = this.widgets().elements;
+    const elements = this.widgets()?.elements;
     const groups = Array.isArray(elements) ? elements : [];
     // The webform endpoint is optional, so a deployment that did not enable it
     // must not get a category whose only possible content is an error
@@ -120,34 +120,21 @@ export class WidgetPickerComponent implements OnInit {
    */
   public visibleItems = computed<ISearchHit[]>(() => {
     const q = this.searchQuery().trim().toLowerCase();
-    const groups = this.widgetGroups();
-    if (q) {
-      const hits: ISearchHit[] = [];
-      for (const group of groups) {
-        for (const item of group.child) {
-          const haystack = [item.label, item.mark, group.label]
-            .filter(Boolean)
-            .join(' ')
-            .toLowerCase();
-          if (haystack.includes(q)) hits.push({ item, group });
-        }
+    let groups = this.widgetGroups();
+    // Search spans every category; only an empty query uses the selected chip.
+    if (!q) {
+      const idx = this.activeCategoryIndex();
+      if (idx !== 0) {
+        const group = groups[idx - 1];
+        groups = group ? [group] : [];
       }
-      return hits;
     }
-    const idx = this.activeCategoryIndex();
-    // Index 0 is the "All" synthetic chip — flatten everything
-    if (idx === 0) {
-      const all: ISearchHit[] = [];
-      for (const group of groups) {
-        for (const item of group.child) {
-          all.push({ item, group });
-        }
-      }
-      return all;
-    }
-    const group = groups[idx - 1];
-    if (!group) return [];
-    return group.child.map(item => ({ item, group }));
+    const items = groups.flatMap(group => group.child.map(item => ({ item, group })));
+    return q
+      ? items.filter(({ item, group }) =>
+          [item.label, item.mark, group.label].filter(Boolean).join(' ').toLowerCase().includes(q)
+        )
+      : items;
   });
 
   /** Number of results shown; used in the result count line */
@@ -462,25 +449,25 @@ export class WidgetPickerComponent implements OnInit {
       return;
     }
     const { addType, path, content } = contentValue;
-    const data = cloneDeep(content) as any;
-    const widgetContent = cloneDeep(widget);
-
-    if (addType === 'widget') {
-      this.builder.updatePageContentByPath(path, widgetContent, 'add');
-      this.onLeave();
-      return;
-    }
 
     if (addType === 'layout') {
       this.builder.updatePageContentByPath(
         path,
-        this.copyLayoutLastChild(data.elements ?? [], widgetContent),
+        this.copyLayoutLastChild(content.elements ?? [], widget),
         'add'
       );
       this.onLeave();
       return;
     }
 
+    const widgetContent = cloneDeep(widget);
+    if (addType === 'widget') {
+      this.builder.updatePageContentByPath(path, widgetContent, 'add');
+      this.onLeave();
+      return;
+    }
+
+    const data = cloneDeep(content) as any;
     const lists = [...(data.elements ?? [])];
     lists.splice(lists.length, 0, widgetContent);
     this.builder.updatePageContentByPath(`${path}.elements`, lists);
@@ -492,8 +479,9 @@ export class WidgetPickerComponent implements OnInit {
     this.builder.closeRightDrawer$.next(true);
   }
 
+  /** Creates an independent column from the last column and the selected widget. */
   copyLayoutLastChild(elements: any[], widget: any): any {
-    const last = Object.assign({}, elements[elements.length - 1]);
+    const last = Object.assign({}, cloneDeep({ ...elements[elements.length - 1], elements: [] }));
     last.elements = [cloneDeep(widget)];
     return last;
   }

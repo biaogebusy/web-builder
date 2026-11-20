@@ -133,10 +133,10 @@ test('edit-only account uses an entity-specific form without create options', as
 });
 
 test('comment author uses a plain-text editor and the comment bundle without an author override', async ({ context, page }) => {
-  await session(context, page, '/preview');
-  await page.addInitScript(() => {
-    localStorage.setItem('ngx-webstorage:version', JSON.stringify([{
-      title: 'Comment regression', current: true, body: [{
+  await session(context, page, '/preview?nid=comment-regression');
+  await context.route('**/api/v3/landingPage/json/comment-regression*', route => route.fulfill({
+    json: {
+      status: true, title: 'Comment regression', body: [{ type: 'json', attributes: { body: {
         type: 'question', title: 'Comment regression', body: '<p>Question</p>',
         editor: { placeholder: '填写评论', action: { label: '提交评论' } },
         params: { comment: { type: 'comment--discussion',
@@ -146,9 +146,10 @@ test('comment author uses a plain-text editor and the comment bundle without an 
             uid: { data: { type: 'user--user', id: 'legacy-author' } },
           },
         } },
+      } },
       }],
-    }]));
-  });
+    },
+  }));
   await context.route('**/api/v3/comment-form/discussion', route => route.fulfill({ json: {
     key: 'comment_body', textFormat: 'plain_text', editor: 'plain_text',
   } }));
@@ -161,13 +162,7 @@ test('comment author uses a plain-text editor and the comment bundle without an 
     return route.fulfill({ json: { data: [] } });
   });
   await page.goto('/me/login/callback?code=test-code&state=test-state');
-  await expect(page).toHaveURL(/\/preview$/);
-  // Hosts can initialize BuilderState before browser storage is ready. Sync the fixture draft
-  // through the same event that a separate editor tab sends after the preview has opened.
-  await expect(page.locator('app-preview')).toBeAttached();
-  await page.evaluate(() => window.dispatchEvent(new StorageEvent('storage', {
-    key: 'ngx-webstorage:version', newValue: localStorage.getItem('ngx-webstorage:version'),
-  })));
+  await expect(page).toHaveURL(/\/preview\?nid=comment-regression$/);
   await page.getByRole('button', { name: '回答', exact: true }).click();
   const form = page.locator('app-comment-form');
   await form.getByRole('button', { name: '填写评论', exact: true }).click();

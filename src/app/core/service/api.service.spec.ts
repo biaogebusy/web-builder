@@ -70,4 +70,25 @@ describe('ApiService url and pager helpers', () => {
 
     expect(pager).toEqual({ itemsPerPage: 10, currentPage: 2, totalItems: 95, totalPages: 10 });
   });
+
+  it.each([undefined, 0])('uses the total when the fallback length is %s', length => {
+    const pager = createService().handlePager(
+      { current_page: null, total_pages: 0, total_items: 7, items_per_page: 10 },
+      length
+    );
+
+    expect(pager).toEqual({ itemsPerPage: 7, currentPage: 0, totalItems: 7, totalPages: 0 });
+  });
+
+  it.each([
+    [0, 0],
+    [null, 1],
+  ])('keeps page %s and total pages %s outside the fallback', (currentPage, totalPages) => {
+    const pager = createService().handlePager(
+      { current_page: currentPage, total_pages: totalPages, total_items: 7, items_per_page: 10 },
+      3
+    );
+
+    expect(pager).toEqual({ itemsPerPage: 10, currentPage, totalItems: 7, totalPages });
+  });
 });

@@ -14,7 +14,6 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { getLibraryAsset } from '@core/config/library-assets';
 import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 import { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import type { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
@@ -32,7 +31,7 @@ import layoutBuilder from './schema/layoutBuilder.schema.json';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
 import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
-import { JSONEDITOR_ASSETS } from './jsoneditor.assets';
+import { loadJsonEditorAssets } from '@uiux/combs/other/jsoneditor/jsoneditor.loader';
 declare let window: any;
 @Component({
   selector: 'app-jsoneditor',
@@ -72,11 +71,7 @@ export class JsoneditorComponent implements AfterViewInit, OnDestroy {
       });
     try {
       this.loadLibrary.set(true);
-      const source = this.coreConfig.librariesUseLocal ? 'local' : 'cdn';
-      await this.util.loadStyle(getLibraryAsset(JSONEDITOR_ASSETS, source, 'style'));
-      await this.util.loadScriptWithoutAmd(
-        getLibraryAsset(JSONEDITOR_ASSETS, source, 'script')
-      );
+      await loadJsonEditorAssets(this.util, this.coreConfig.librariesUseLocal);
       this.loadLibrary.set(false);
 
       const { schemaType = '', data } = this.content();

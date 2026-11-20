@@ -18,12 +18,14 @@ import { BuilderToolbarComponent } from '../../toolbar/builder-toolbar/builder-t
 import { BuilderVersionComponent } from '../../sidebar/builder-version/builder-version.component';
 import { BuilderShowcaseComponent } from '../builder-showcase/builder-showcase.component';
 import { BuilderListComponent } from '../builder-list/builder-list.component';
+import { BuilderInsertionService } from './builder-insertion.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-builder-workspace',
   templateUrl: './builder-workspace.component.html',
   styleUrl: './builder-workspace.component.scss',
+  providers: [BuilderInsertionService],
   imports: [
     SHARE_IMPORTS,
     WIDGETS_IMPORTS,
@@ -62,31 +64,33 @@ export class BuilderWorkspaceComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit(): void {
-    if (this.screenSerivce.isPlatformBrowser()) {
-      this.builderConfig
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe((config: IBuilderConfig) => {
-          if (!config) {
-            return;
-          }
-          const { tour } = config;
-          if (tour?.enable) {
-            this.tourService.init(tour);
-          }
-        });
-    }
+    if (!this.screenSerivce.isPlatformBrowser()) return;
+    this.builderConfig
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((config: IBuilderConfig) => {
+        if (!config) {
+          return;
+        }
+        const { tour } = config;
+        if (tour?.enable) {
+          this.tourService.init(tour);
+        }
+      });
 
-    this.doc.addEventListener('keydown', (event: any) => {
-      const isFull = this.storage.retrieve('builderFullScreen');
-      const {
-        code,
-        target: { localName },
-      } = event;
-      if ((code === 'KeyS' && localName === 'body') || localName === 'mat-drawer') {
-        this.storage.store('builderFullScreen', !isFull);
-        this.builder.fullScreen$.next(!isFull);
-      }
-    });
+    const toggleFullWidth = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement | null;
+      if (
+        event.code !== 'KeyS' || event.ctrlKey || event.metaKey || event.altKey || event.shiftKey ||
+        event.repeat || event.isComposing || event.defaultPrevented || target?.isContentEditable ||
+        (target?.localName !== 'body' && target?.localName !== 'mat-drawer')
+      ) return;
+      // Navigation and viewport changes can reset the visible layout without updating storage.
+      const isFull = !this.builderFullScreen();
+      this.storage.store('builderFullScreen', isFull);
+      this.builder.fullScreen$.next(isFull);
+    };
+    this.doc.addEventListener('keydown', toggleFullWidth);
+    this.destroyRef.onDestroy(() => this.doc.removeEventListener('keydown', toggleFullWidth));
   }
 }
 

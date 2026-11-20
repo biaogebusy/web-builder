@@ -24,16 +24,27 @@ describe('node comment utilities', () => {
     expect(getCommentRelEntityId({})).toBe('');
   });
 
-  it('builds the parent and child comment query parameters', () => {
-    const parent = buildCommentsParams(content, 3, '/api/v1/comment');
+  it.each([
+    ['node-1', 'node-1', 3],
+    ['n/中文 +&?=', 'n%2F%E4%B8%AD%E6%96%87%20%2B%26%3F%3D', 0],
+    ['', '', -1],
+  ] as const)('preserves complete root and child queries for ID %j', (id, encodedId, timeStamp) => {
+    const requestContent = { params: { comment: {
+      ...content.params.comment,
+      relationships: { entity_id: { data: { id } } },
+    } } };
+    const fields = 'include=uid%2Cuid.user_picture%2Cpid' +
+      '&fields[user--user]=name%2Cuser_picture&fields[file--file]=uri%2Curl' +
+      `&sort=-created&jsonapi_include=1&timeStamp=${timeStamp}`;
 
-    expect(parent.path).toBe('/api/v1/comment');
-    expect(parent.type).toBe('discussion');
-    expect(parent.params).toContain('filter[entity_id.id]=node-1');
-    expect(parent.params).toContain('jsonapi_include=1');
-    expect(parent.params).toContain('timeStamp=3');
-    expect(buildCommentsPidParams('comment-1', 4)).toContain('filter[pid.id]=comment-1');
-    expect(buildCommentsPidParams('comment-1', 4)).toContain('timeStamp=4');
+    expect(buildCommentsParams(requestContent, timeStamp, '/api/v1/comment')).toEqual({
+      path: '/api/v1/comment',
+      type: 'discussion',
+      params: (id ? `filter[entity_id.id]=${encodedId}&` : '') + fields,
+    });
+    expect(buildCommentsPidParams(id, timeStamp)).toBe(
+      (id ? `filter[pid.id]=${encodedId}&` : '') + fields
+    );
   });
 
   it('maps API comments to the public comment DTO and uses the avatar fallback', () => {

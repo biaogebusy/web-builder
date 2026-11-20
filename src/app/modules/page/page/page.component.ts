@@ -7,6 +7,8 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
+import { TextComponent } from '@uiux/widgets/text/text.component';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { CORE_CONFIG, PAGE_CONTENT, USER } from '@core/token/token-providers';
 import { ContentState } from '@core/state/ContentState';
@@ -33,6 +35,8 @@ import { MenuComponent } from '@core/branding/header/menu/menu.component';
   styleUrls: ['./page.component.scss'],
   imports: [
     NgTemplateOutlet,
+    TranslatePipe,
+    TextComponent,
     MatSidenavModule,
     LoadingBarModule,
     HeaderComponent,

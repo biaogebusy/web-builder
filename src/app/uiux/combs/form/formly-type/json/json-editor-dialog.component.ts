@@ -2,12 +2,11 @@ import { AfterViewInit, Component, ElementRef, inject, ChangeDetectionStrategy, 
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { getLibraryAsset } from '@core/config/library-assets';
 import { ICoreConfig } from '@core/interface/IAppConfig';
 import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
-import { JSONEDITOR_ASSETS } from '@uiux/combs/other/jsoneditor/jsoneditor.assets';
+import { loadJsonEditorAssets } from '@uiux/combs/other/jsoneditor/jsoneditor.loader';
 
 declare let window: any;
 
@@ -37,11 +36,7 @@ export class JsonEditorDialogComponent implements AfterViewInit {
 
   async ngAfterViewInit(): Promise<void> {
     if (!this.screenService.isPlatformBrowser()) return;
-    const source = this.coreConfig.librariesUseLocal ? 'local' : 'cdn';
-    await this.util.loadStyle(getLibraryAsset(JSONEDITOR_ASSETS, source, 'style'));
-    await this.util.loadScriptWithoutAmd(
-      getLibraryAsset(JSONEDITOR_ASSETS, source, 'script')
-    );
+    await loadJsonEditorAssets(this.util, this.coreConfig.librariesUseLocal);
 
     this.editor = new window.JSONEditor(this.editorHost().nativeElement, {
       mode: 'code',

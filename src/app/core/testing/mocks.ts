@@ -31,7 +31,6 @@ import {
   CORE_CONFIG,
   DEBUG_ANIMATE,
   LANG,
-  MEDIA_ASSETS,
   NOTIFY_CONTENT,
   PAGE_CONTENT,
   THEME,
@@ -82,6 +81,7 @@ export const createBuilderStateMock = () => ({
   themeMode: signal<'light' | 'dark'>('light'),
   rightContent$: new Subject<unknown>(),
   closeRightDrawer$: new Subject<boolean>(),
+  rightDrawerClosed$: new Subject<void>(),
   fixedChange$: new Subject<boolean>(),
   animateDisable$: new Subject<boolean>(),
   fullScreen$: new Subject<boolean>(),
@@ -91,7 +91,10 @@ export const createBuilderStateMock = () => ({
   revealCode$: new Subject<string>(),
   pendingPageLoad: signal(null),
   loading: signal(false),
+  pageSettingsLoading: signal(false),
   updateSuccess$: new Subject<boolean>(),
+  pageSelection$: new Subject<void>(),
+  beginPageLoad: vi.fn(() => vi.fn()),
   COPYCOMPONENTKEY: 'cck',
   COPYWIDGETKEY: 'cwk',
   version: signal<IPage[]>([]),
@@ -203,7 +206,6 @@ export const createNodeServiceMock = () => ({
   checkReqRule: vi.fn(() => false),
   checkNodeAccess: vi.fn(() => of({})),
   uploadImage: vi.fn(() => of({})),
-  createMediaImage: vi.fn(() => of(undefined)),
   pickAndUploadImage: vi.fn(),
 });
 
@@ -297,8 +299,7 @@ export const createManageServiceMock = () => ({
   deleteMedia: vi.fn(() => of({})),
   updateMediaName: vi.fn(() => of({})),
   getMediaImage: vi.fn(() => of({})),
-  getUrlIncluded: vi.fn(() => ''),
-  handlerJsonApiParams: vi.fn(() => ({ type: '', params: '' })),
+  getMediaFile: vi.fn(() => of(new Blob())),
 });
 
 export const createStorageServiceMock = () => ({
@@ -364,7 +365,6 @@ export function provideCoreMocks(): (Provider | EnvironmentProviders)[] {
     { provide: THEME, useValue: 'light' },
     { provide: USER, useValue: signal(false) },
     { provide: NOTIFY_CONTENT, useValue: signal(false) },
-    { provide: MEDIA_ASSETS, useValue: signal(false) },
     { provide: BUILDER_CONFIG, useValue: of({}) },
     { provide: BUILDER_CURRENT_PAGE, useValue: signal(undefined) },
     { provide: DEBUG_ANIMATE, useValue: signal(false) },

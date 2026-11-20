@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { DOCUMENT, signal } from '@angular/core';
+import { DOCUMENT } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
+import { API_URL, CORE_CONFIG } from '@core/token/token-providers';
 import { firstValueFrom, of, throwError, Observable } from 'rxjs';
 import { CommentService } from './comment.service';
 
@@ -24,7 +24,6 @@ describe('CommentService', () => {
         { provide: DOCUMENT, useValue: document },
         { provide: HttpClient, useValue: http },
         { provide: CORE_CONFIG, useValue: { defaultAvatar: '/default-avatar.png' } },
-        { provide: USER, useValue: signal(false) },
       ],
     });
 
@@ -38,9 +37,9 @@ describe('CommentService', () => {
     const { service, http } = createService();
     const entityData = { id: 'comment-1', attributes: { subject: 'Hello' } };
 
-    service.addComment('comment_body', entityData, 'token').subscribe();
-    service.updateComment('comment_body', entityData, 'uuid-1', 'token').subscribe();
-    service.replyComment('comment_body', entityData, 'token').subscribe();
+    service.addComment('comment_body', entityData).subscribe();
+    service.updateComment('comment_body', entityData, 'uuid-1').subscribe();
+    service.replyComment('comment_body', entityData).subscribe();
 
     const body = JSON.stringify({ data: { ...entityData, relationships: {} } });
     expect(http.post).toHaveBeenNthCalledWith(
@@ -68,7 +67,7 @@ describe('CommentService', () => {
     await firstValueFrom(service.updateComment('blog_comment', {
       type: 'comment--blog_comment', attributes: { comment_body: { value: '<p>Hi</p>', format: 'full_html' } },
       relationships: { uid: { data: { type: 'user--user', id: 'other' } } },
-    }, 'comment-id', 'token'));
+    }, 'comment-id'));
     expect(get).toHaveBeenCalledWith('https://example.com/api/v3/comment-form/blog_comment/comment-id', expect.any(Object));
     expect(JSON.parse(http.patch.mock.calls[0][1]).data).toEqual({
       type: 'comment--blog_comment', attributes: { body: { value: '<p>Hi</p>', format: 'basic_html' } },
@@ -80,7 +79,7 @@ describe('CommentService', () => {
     const { service, http } = createService(vi.fn(() => of({ key: 'comment_body', textFormat: 'plain_text', editor: 'plain_text' })));
     await firstValueFrom(service.addComment('blog_comment', {
       attributes: { comment_body: { value: '<p>Hello &amp; welcome</p><p>Again</p>' } },
-    }, 'token'));
+    }));
     expect(JSON.parse(http.post.mock.calls[0][1]).data.attributes.comment_body).toEqual({
       value: 'Hello & welcome\nAgain', format: 'plain_text',
     });
@@ -90,7 +89,7 @@ describe('CommentService', () => {
     const { service, http } = createService(vi.fn(() => throwError(() => ({ status: 403 }))));
     await expect(firstValueFrom(service.addComment('blog_comment', {
       attributes: { comment_body: { value: '<p>Hi</p>' } },
-    }, 'token'))).rejects.toMatchObject({ status: 403 });
+    }))).rejects.toMatchObject({ status: 403 });
     expect(http.post).not.toHaveBeenCalled();
   });
 

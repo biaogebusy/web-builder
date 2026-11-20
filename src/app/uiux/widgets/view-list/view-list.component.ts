@@ -29,7 +29,7 @@ import { USER } from '@core/token/token-providers';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { isEmpty, merge } from 'lodash-es';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import { Observable, of } from 'rxjs';
+import { of, Subscription } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { BtnComponent } from '../btn/btn.component';
 import { DynamicComponentComponent } from '../builder/dynamic-component/dynamic-component.component';
@@ -64,10 +64,11 @@ export class ViewListComponent extends BaseComponent implements OnInit, AfterVie
   readonly model = input<any>({});
   public table: any;
   public loading = true;
-  public pager: IPager;
-  public noAuth: boolean;
+  public pager: IPager | undefined;
+  public noAuth = false;
   public canShow = false;
   private first = true;
+  private request?: Subscription;
 
   private cd = inject(ChangeDetectorRef);
   private nodeService = inject(NodeService);
@@ -106,9 +107,15 @@ export class ViewListComponent extends BaseComponent implements OnInit, AfterVie
   }
 
   getViews(options = {}): void {
+    // Filters, pages and dialog refreshes share one current read.
+    this.request?.unsubscribe();
+    this.noAuth = false;
     const isRole = this.userService.checkShow(this.content(), this.user() as IUser);
     if (!isRole) {
       this.canShow = false;
+      this.loading = false;
+      this.table = undefined;
+      this.pager = undefined;
       this.cd.detectChanges();
       return;
     }
@@ -121,34 +128,33 @@ export class ViewListComponent extends BaseComponent implements OnInit, AfterVie
       return;
     }
     const langCode = this.nodeService.resolveLangCode(this.ele);
-    this.nodeService
+    this.request = this.nodeService
       .fetch(apiType, params, langCode)
       .pipe(
-        catchError((error: any) => {
-          if (error.status === 403) {
-            return of(false);
-          }
-          return of(error.status);
+        catchError((error: { status?: number }) => {
+          this.noAuth = error.status === 403;
+          return of(null);
         }),
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe(res => {
+        this.loading = false;
         if (!res) {
-          this.noAuth = true;
-          this.loading = false;
+          this.noAuth ||= res === false;
+          this.table = undefined;
+          this.pager = undefined;
           this.cd.detectChanges();
           return;
         }
         if (emptyHidden && isEmpty(res.rows)) {
           this.canShow = false;
+          this.table = undefined;
+          this.pager = undefined;
           this.cd.detectChanges();
           return;
         }
 
-        if (emptyHidden && !isEmpty(res.rows)) {
-          this.canShow = true;
-          this.cd.detectChanges();
-        }
+        this.canShow = true;
         this.table = {
           header: this.content()?.header || [],
           elements: res.rows,
@@ -156,7 +162,6 @@ export class ViewListComponent extends BaseComponent implements OnInit, AfterVie
           params: this.content()?.tableParams || {},
         };
         this.pager = this.handlePager(res.pager, res.rows.length);
-        this.loading = false;
         this.cd.detectChanges();
       });
   }

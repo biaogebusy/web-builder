@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, forwardRef, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, forwardRef, inject, input } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { IMainMenu } from '@core/interface/branding/IBranding';
 import { CheckChildMenuActiveDirective } from '@core/directive/check-child-menu-active.directive';
-import { ReqRolesDirective } from '@core/directive/req-roles.directive';
+import { MenuGroupsPipe } from '@core/pipe/menu-groups.pipe';
+import { USER } from '@core/token/token-providers';
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
 import { LinkComponent } from '@uiux/widgets/link/link.component';
 import { DynamicMenuComponent } from '../dynamic-menu/dynamic-menu.component';
@@ -17,7 +18,7 @@ import { DynamicMenuComponent } from '../dynamic-menu/dynamic-menu.component';
     MatExpansionModule,
     MatListModule,
     CheckChildMenuActiveDirective,
-    ReqRolesDirective,
+    MenuGroupsPipe,
     IconComponent,
     LinkComponent,
     DynamicMenuComponent,
@@ -26,6 +27,7 @@ import { DynamicMenuComponent } from '../dynamic-menu/dynamic-menu.component';
 })
 export class AccordionMenuComponent {
   readonly content = input<IMainMenu[]>();
+  protected readonly user = inject(USER);
   panelOpenState = false;
   constructor() {}
 }

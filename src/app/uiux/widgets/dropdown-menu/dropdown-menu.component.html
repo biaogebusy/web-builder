@@ -1,5 +1,5 @@
 <div class="dropdown-menu">
-  <app-btn [content]="content().btn" [matMenuTriggerFor]="menu" />
+  <app-btn [content]="content().btn" [menu]="menu" />
   <mat-menu #menu="matMenu">
     @for (item of content().child; track item) {
       <button mat-menu-item>

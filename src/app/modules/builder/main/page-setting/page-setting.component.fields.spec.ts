@@ -1,6 +1,7 @@
 import { signal } from '@angular/core';
 import type { FormlyFieldConfig } from '@ngx-formly/core';
 import { Subject, of } from 'rxjs';
+import { contentFormFixture } from '@core/testing/content-form.fixture';
 import { PageSettingComponent } from './page-setting.component';
 
 function createFacade(type: 'node--landing_page' | 'node--json') {
@@ -11,6 +12,12 @@ function createFacade(type: 'node--landing_page' | 'node--json') {
   const component = Object.create(PageSettingComponent.prototype) as any;
 
   component.loading = signal(false);
+  component.publicationLoading = signal(false);
+  component.publicationFailed = signal(false);
+  component.savedPublicationState = signal('');
+  component.selectedPublicationState = signal('');
+  component.nodeForms = { getSchema: vi.fn(() => of(contentFormFixture())) };
+  component.model = {};
   component.fields = [];
   component.screenService = { isPlatformBrowser: vi.fn(() => true) };
   component.translate = { instant };
@@ -74,7 +81,7 @@ function getTab(fields: FormlyFieldConfig[], key?: string): FormlyFieldConfig[] 
 }
 
 function getField(fields: FormlyFieldConfig[], key: string): FormlyFieldConfig {
-  const field = getTab(fields, undefined).find(item => item.key === key);
+  const field = getTabs(fields).flatMap(tab => tab.fieldGroup ?? []).find(item => item.key === key);
   if (!field) {
     throw new Error(`Missing field: ${key}`);
   }
@@ -90,6 +97,7 @@ describe('PageSettingComponent fields façade', () => {
     ).toEqual([
       [undefined, 'BUILDER.PAGE_SETTING.BASIC'],
       ['meta_tags', 'BUILDER.PAGE_SETTING.SEO'],
+      [undefined, 'BUILDER.PAGE_SETTING.INFORMATION'],
     ]);
     const basicKeys = getTab(component.fields, undefined).map(
       (field: FormlyFieldConfig) => field.key
@@ -97,15 +105,11 @@ describe('PageSettingComponent fields façade', () => {
     expect(basicKeys).toEqual([
       'title',
       'alias',
+      'publicationState',
       'page_group',
       'cover',
       'is_transparent',
       'transparent_style',
-      'author',
-      'changed',
-      'type',
-      'landcode',
-      'id',
     ]);
     expect(getField(component.fields, 'title').defaultValue).toBe('Page title');
     expect(getField(component.fields, 'alias').defaultValue).toBe('/en/landing');
@@ -132,7 +136,9 @@ describe('PageSettingComponent fields façade', () => {
       ['keywords', ''],
       ['robots', 'noindex, nofollow'],
     ]);
-    expect(instant.mock.calls.map(([key]) => key)).toEqual([
+    expect(instant.mock.calls.map(([key]) => key).filter(key =>
+      !key.startsWith('BUILDER.PAGE_SETTING.STATE') && !key.startsWith('BUILDER.NODE_ADD.STATE')
+    )).toEqual([
       'BUILDER.PAGE_SETTING.TITLE',
       'BUILDER.PAGE_SETTING.URL_ALIAS',
       'BUILDER.PAGE_SETTING.AUTHOR',
@@ -160,6 +166,7 @@ describe('PageSettingComponent fields façade', () => {
       'BUILDER.PAGE_SETTING.SEO_ROBOTS_DEFAULT',
       'BUILDER.PAGE_SETTING.SEO_ROBOTS_INDEX',
       'BUILDER.PAGE_SETTING.SEO_ROBOTS_NOINDEX',
+      'BUILDER.PAGE_SETTING.INFORMATION',
     ]);
     expect(getCommonField.mock.calls.map(([key]) => key)).toEqual([
       'title',
@@ -178,11 +185,14 @@ describe('PageSettingComponent fields façade', () => {
     const { component } = createFacade('node--json');
 
     // node--json has no Drupal meta_tags field, so it gets no SEO tab
-    expect(getTabs(component.fields).map((tab: FormlyFieldConfig) => tab.key)).toEqual([undefined]);
+    expect(getTabs(component.fields).map((tab: FormlyFieldConfig) => tab.key))
+      .toEqual([undefined, undefined]);
     const basicKeys = getTab(component.fields, undefined).map(
       (field: FormlyFieldConfig) => field.key
     );
-    expect(basicKeys).toEqual(['title', 'alias', 'author', 'changed', 'type', 'landcode', 'id']);
+    expect(basicKeys).toEqual(['title', 'alias']);
+    expect(getTabs(component.fields)[1].fieldGroup!.map(field => field.key))
+      .toEqual(['author', 'changed', 'type', 'landcode', 'id']);
   });
 
   it('keeps transparent style visibility tied to is_transparent', () => {

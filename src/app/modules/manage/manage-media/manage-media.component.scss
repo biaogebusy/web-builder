@@ -1,6 +1,7 @@
 @use 'mixins/amixin' as *;
 .manage-media {
-  @apply relative overflow-hidden h-[70vh];
+  @apply relative overflow-hidden;
+  height: var(--media-panel-height, 70dvh);
   container: media-panel / inline-size;
   .mat-drawer-container {
     height: 100%;
@@ -8,9 +9,12 @@
   .media-grid {
     @apply grid grid-cols-1 gap-3 md:gap-5 h-full;
     grid-template-rows: auto minmax(0, 1fr);
+    &.guest {
+      grid-template-rows: minmax(0, 1fr);
+    }
   }
   .toolbar {
-    @apply flex flex-wrap items-start justify-start gap-3 min-w-0 border-0 border-b border-solid pb-3;
+    @apply flex flex-wrap items-center justify-start gap-3 min-w-0 border-0 border-b border-solid pb-3;
     border-color: var(--mat-sys-outline-variant);
     --shadcn-control-height: 40px;
     --shadcn-radius-sm: 8px;
@@ -50,6 +54,15 @@
     }
     .toolbar-actions {
       @apply flex flex-wrap shrink-0 items-center gap-3;
+    }
+    .toolbar-actions label {
+      @apply flex flex-col gap-1 text-xs;
+      color: var(--mat-sys-on-surface);
+      select {
+        @apply rounded-lg border border-solid px-3 min-h-10 text-sm;
+        background: var(--mat-sys-surface);
+        border-color: var(--mat-sys-outline);
+      }
     }
     .col-control {
       @apply flex items-center gap-2 h-10 px-1;
@@ -97,14 +110,14 @@
       }
     }
     .viewport {
-      @apply grid gap-1 w-full shrink-0 content-start;
+      @apply grid gap-3 w-full shrink-0 content-start;
       // Columns follow the container width (this panel often lives in a narrow
       // drawer, where viewport breakpoints would misreport). --cols is the
       // per-tile column span over a 12-col grid (slider value): a larger span
-      // means wider tiles / fewer columns. Tiles never shrink below 120px.
+      // means wider tiles / fewer columns. Tiles never shrink below 144px.
       grid-template-columns: repeat(
         auto-fill,
-        minmax(max(min(100%, 120px), calc(var(--cols, 2) / 12 * 100%)), 1fr)
+        minmax(max(min(100%, 144px), calc(var(--cols, 2) / 12 * 100%)), 1fr)
       );
     }
     .scroll-status {
@@ -118,6 +131,12 @@
     .empty {
       @apply flex flex-1 flex-col items-center justify-center text-center gap-2 px-6 py-10;
       color: var(--mat-sys-outline);
+      &.login-required {
+        @apply transition-opacity duration-200 motion-reduce:transition-none;
+        &.is-leaving {
+          @apply opacity-0;
+        }
+      }
       .empty-title {
         @apply text-lg font-medium;
         color: var(--mat-sys-on-surface);
@@ -132,9 +151,6 @@
     }
     .bottom {
       @apply flex flex-wrap justify-between items-center gap-2;
-      .action {
-        @apply flex left-5 bottom-10;
-      }
       .page {
         @apply flex-auto;
         .mat-mdc-paginator {
@@ -149,7 +165,7 @@
     }
   }
   .media-img {
-    @apply w-full h-full object-contain;
+    @apply absolute inset-0 w-full h-full object-contain;
   }
   .empty-icon {
     @apply w-16 h-16;
@@ -164,6 +180,15 @@
     }
     .toolbar-actions {
       @apply w-full gap-3;
+    }
+    .toolbar-actions label {
+      @apply flex flex-col gap-1 text-xs;
+      color: var(--mat-sys-on-surface);
+      select {
+        @apply rounded-lg border border-solid px-3 min-h-10 text-sm;
+        background: var(--mat-sys-surface);
+        border-color: var(--mat-sys-outline);
+      }
     }
     .col-control {
       @apply min-w-0;
@@ -183,95 +208,75 @@
 }
 
 .masonry-item {
-  border: 1px solid transparent;
-  @apply aspect-[4/3] box-border  cursor-pointer relative;
-  .selected {
-    position: relative;
-    &:after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      box-sizing: border-box;
-      z-index: 2;
-      border: 3px solid var(--mat-sys-primary);
-    }
-  }
-  .delete {
-    @apply absolute left-2 bottom-1 z-10;
-    ::ng-deep {
-      .mat-mdc-checkbox {
-        &:not(.mat-mdc-checkbox-checked) {
-          .mdc-checkbox__background {
-            @apply bg-white/75 border;
-          }
-        }
-      }
-    }
-  }
-  .actions {
-    @apply flex items-center absolute z-10 opacity-90 right-1 top-1 h-7 px-1;
-    background-color: var(--mat-sys-inverse-surface);
-    border-radius: 4px;
-    .btn {
-      @apply block h-6 w-6 rounded-[4px];
-      &:hover {
-        background-color: #8080807a;
-      }
-    }
-
-    ::ng-deep {
-      .icon-delete {
-        &:hover {
-          .mat-icon {
-            color: var(--mat-sys-error);
-          }
-        }
-      }
-      .mat-icon {
-        color: var(--mat-sys-on-primary);
-      }
-      .mdc-icon-button {
-        --mat-icon-button-state-layer-size: 24px;
-        --mat-icon-button-icon-size: 22px;
-        padding: 0px;
-        .mat-icon {
-          line-height: 1;
-          svg {
-            width: 16px;
-            height: 16px;
-          }
-        }
-        .mat-mdc-button-touch-target {
-          width: 30px;
-          height: 30px;
-        }
-      }
-    }
+  @apply relative min-w-0 overflow-hidden rounded-lg border;
+  border-color: var(--mat-sys-outline-variant);
+  background: var(--mat-sys-surface);
+  &.is-selected {
+    border-color: var(--mat-sys-primary);
+    box-shadow: inset 0 0 0 1px var(--mat-sys-primary);
   }
   .box {
-    @apply w-full h-full bg-gray-200 p-1 box-border;
-  }
-  &:hover {
-    .box {
-      opacity: 0.8;
+    @apply relative block aspect-[4/3] w-full overflow-hidden border-0 p-0 cursor-pointer;
+    background: var(--mat-sys-surface-container);
+    &:focus-visible {
+      @apply outline outline-2 -outline-offset-2;
+      outline-color: var(--mat-sys-primary);
     }
   }
 }
 
-// On pointer devices keep the clean hover-reveal; touch devices (hover: none)
-// have no hover, so the toolbar stays visible and stays reachable.
-@media (hover: hover) {
-  .masonry-item {
-    .actions {
-      display: none;
-    }
-    &:hover .actions {
-      display: flex;
-    }
-  }
+.batch-checkbox {
+  @apply absolute left-1 top-1 flex h-11 w-11 items-center justify-center rounded-md;
+}
+
+.selection-indicator {
+  @apply absolute left-1 top-1 flex h-11 w-11 items-center justify-center pointer-events-none;
+  color: var(--mat-sys-on-surface-variant);
+  .is-selected & { color: var(--mat-sys-primary); }
+}
+
+.media-caption {
+  @apply flex min-h-11 min-w-0 items-center pl-2;
+}
+.media-name {
+  @apply min-w-0 flex-1 truncate text-sm leading-5;
+  color: var(--mat-sys-on-surface);
+}
+.media-more {
+  @apply block h-11 w-11 shrink-0 p-2.5;
+  color: var(--mat-sys-on-surface-variant);
+  --mat-icon-button-state-layer-size: 44px;
+  --mat-icon-button-icon-size: 24px;
+}
+
+.media-menu-title {
+  @apply max-w-[280px] break-words border-b px-4 py-2 text-sm leading-5;
+  color: var(--mat-sys-on-surface-variant);
+  border-color: var(--mat-sys-outline-variant);
+}
+.media-menu-item {
+  @apply min-h-11;
+  app-icon { @apply mr-3 inline-flex align-middle; }
+}
+.media-menu-danger {
+  @apply mt-1 border-t pt-1;
+  border-color: var(--mat-sys-outline-variant);
+  .media-menu-item { color: var(--mat-sys-error); }
+}
+
+.selection-toolbar {
+  @apply mb-3 flex shrink-0 flex-wrap items-center gap-2 rounded-lg border px-3 py-2;
+  background: var(--mat-sys-surface-container-low);
+  border-color: var(--mat-sys-outline-variant);
+  --mat-button-text-container-height: 44px;
+  --mat-button-outlined-container-height: 44px;
+  --mat-button-text-label-text-size: 14px;
+  --mat-button-outlined-label-text-size: 14px;
+}
+.selection-count { @apply mr-auto text-sm font-medium; }
+.batch-delete {
+  --mat-button-outlined-label-text-color: var(--mat-sys-error);
+  --mat-button-outlined-outline-color: var(--mat-sys-error);
 }
 
 .load {

@@ -145,6 +145,8 @@ export interface IHeaderSearch {
 
 export interface IMainMenu extends ILink {
   label: string;
+  /** Optional section label for adjacent entries in a submenu. */
+  group?: string;
   classes?: string;
   href?: string;
   queryParams?: QueryParams;

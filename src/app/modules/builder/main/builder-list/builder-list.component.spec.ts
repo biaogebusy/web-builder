@@ -1,9 +1,11 @@
 import { signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+import { MatIconTestingModule } from '@angular/material/icon/testing';
 import type { IPage } from '@core/interface/IAppConfig';
 import { BuilderService } from '@core/service/builder.service';
 import { UserService } from '@core/service/user.service';
+import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_CURRENT_PAGE, USER } from '@core/token/token-providers';
 import { provideBuilderMocks } from '@modules/builder/testing/mocks';
@@ -23,7 +25,7 @@ describe('BuilderListComponent', () => {
     user.set(true);
     currentPage.set(undefined);
     await TestBed.configureTestingModule({
-      imports: [BuilderListComponent],
+      imports: [BuilderListComponent, MatIconTestingModule],
       providers: [
         provideRouter([]),
         ...provideBuilderMocks(),
@@ -86,5 +88,21 @@ describe('BuilderListComponent', () => {
 
     expect(el.querySelector('.wrapper')?.classList).toContain('preview-sm');
     expect(el.querySelector('app-iframe')).not.toBeNull();
+  });
+
+  it('keeps the loading overlay until both canvas and settings work finish', async () => {
+    TestBed.inject(UtilitiesService).initAnimate = vi.fn();
+    currentPage.set({ title: 'Page', body: [{ type: 'text' }] });
+    const state = TestBed.inject(BuilderState);
+    state.loading.set(true);
+    state.pageSettingsLoading.set(true);
+    await fixture.whenStable();
+    expect(fixture.nativeElement.querySelector('app-loading')).not.toBeNull();
+    state.loading.set(false);
+    await fixture.whenStable();
+    expect(fixture.nativeElement.querySelector('app-loading')).not.toBeNull();
+    state.pageSettingsLoading.set(false);
+    await fixture.whenStable();
+    expect(fixture.nativeElement.querySelector('app-loading')).toBeNull();
   });
 });

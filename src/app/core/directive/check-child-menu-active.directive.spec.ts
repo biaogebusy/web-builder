@@ -91,8 +91,7 @@ describe('CheckChildMenuActiveDirective', () => {
     });
 
     it('considers the parent own <a class="active"> as a matching child', () => {
-      // querySelectorAll('a[class~=active]') selects all descendant <a>s
-      // including the parent link itself.
+      // The parent's own anchor is also a descendant of the directive host.
       const { fixture } = setup();
       fixture.detectChanges();
       vi.advanceTimersByTime(0);
@@ -102,7 +101,87 @@ describe('CheckChildMenuActiveDirective', () => {
     });
   });
 
+  describe('pending updates', () => {
+    it('cancels the initial update when its menu is destroyed before the timer runs', () => {
+      const { fixture } = setup();
+      fixture.autoDetectChanges();
+      const parent: HTMLElement = fixture.nativeElement.querySelector('.parent');
+      expect(parent.classList.contains('active')).toBe(false);
+
+      fixture.destroy();
+      vi.advanceTimersByTime(0);
+
+      expect(parent.classList.contains('active')).toBe(false);
+    });
+
+    it('cancels queued navigation updates and ignores events after destruction', () => {
+      const { fixture, events$ } = setup();
+      fixture.autoDetectChanges();
+      vi.advanceTimersByTime(0);
+      const parent: HTMLElement = fixture.nativeElement.querySelector('.parent');
+      parent.querySelector('a.active')!.classList.remove('active');
+      for (let id = 1; id <= 3; id++) {
+        events$.next(new NavigationEnd(id, `/page-${id}`, `/page-${id}`));
+      }
+      expect(parent.classList.contains('active')).toBe(true);
+
+      fixture.destroy();
+      events$.next(new NavigationEnd(4, '/after-destroy', '/after-destroy'));
+      vi.advanceTimersByTime(0);
+
+      expect(parent.classList.contains('active')).toBe(true);
+    });
+
+    it('defers rapid navigation updates until descendant links have their latest state', () => {
+      const { fixture, events$ } = setup();
+      fixture.autoDetectChanges();
+      vi.advanceTimersByTime(0);
+      const parent: HTMLElement = fixture.nativeElement.querySelector('.parent');
+      const link = parent.querySelector('a.active')!;
+
+      link.classList.remove('active');
+      events$.next(new NavigationEnd(1, '/other', '/other'));
+      expect(parent.classList.contains('active')).toBe(true);
+      link.classList.add('active');
+      events$.next(new NavigationEnd(2, '/a/child2', '/a/child2'));
+      vi.advanceTimersByTime(0);
+      expect(parent.classList.contains('active')).toBe(true);
+
+      link.classList.remove('active');
+      events$.next(new NavigationEnd(3, '/other', '/other'));
+      expect(parent.classList.contains('active')).toBe(true);
+      vi.advanceTimersByTime(0);
+      expect(parent.classList.contains('active')).toBe(false);
+    });
+  });
+
   describe('router navigation', () => {
+    it('does not rewrite parent classes when navigation keeps their active state', async () => {
+      vi.useRealTimers();
+      const { fixture, events$ } = setup();
+      await fixture.whenStable();
+      const parent: HTMLElement = fixture.nativeElement.querySelector('.parent');
+      const solo: HTMLElement = fixture.nativeElement.querySelector('.parent-solo');
+      await vi.waitFor(() => expect(parent.classList.contains('active')).toBe(true));
+      vi.useFakeTimers();
+
+      const observer = new MutationObserver(() => undefined);
+      for (const element of [parent, solo]) {
+        observer.observe(element, { attributes: true, attributeFilter: ['class'] });
+      }
+      const mutations: number[] = [];
+      for (let id = 1; id <= 3; id++) {
+        events$.next(new NavigationEnd(id, `/a/child2?visit=${id}`, '/a/child2'));
+        vi.advanceTimersByTime(0);
+        mutations.push(observer.takeRecords().length);
+      }
+      observer.disconnect();
+
+      expect(parent.classList.contains('active')).toBe(true);
+      expect(solo.classList.contains('active')).toBe(false);
+      expect(mutations).toEqual([0, 0, 0]);
+    });
+
     it('re-runs updateClasses after NavigationEnd events', () => {
       const { fixture, events$ } = setup();
       fixture.detectChanges();

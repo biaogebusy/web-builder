@@ -7,6 +7,7 @@ interface PageSettingFieldsOptions {
   getCommonField: (key: string, defaultValue: any) => FormlyFieldConfig;
   onCoverInit: (field: FormlyFieldConfig) => void;
   translate: (key: string) => string;
+  publicationField?: FormlyFieldConfig;
 }
 
 export function buildPageSettingFields({
@@ -15,6 +16,7 @@ export function buildPageSettingFields({
   getCommonField,
   onCoverInit,
   translate,
+  publicationField,
 }: PageSettingFieldsOptions): FormlyFieldConfig[] {
   const {
     type,
@@ -30,7 +32,7 @@ export function buildPageSettingFields({
     },
   } = data;
   const user = included.find(item => item.type === 'user--user');
-  const basicFields = [
+  const basicFields: FormlyFieldConfig[] = [
     getCommonField('title', title.trim()),
     getCommonField(
       'alias',
@@ -40,6 +42,8 @@ export function buildPageSettingFields({
         langcode,
       })
     ),
+  ];
+  const informationFields = [
     {
       key: 'author',
       type: 'input',
@@ -62,6 +66,7 @@ export function buildPageSettingFields({
     basicFields.splice(
       2,
       0,
+      ...(publicationField ? [publicationField] : []),
       {
         key: 'page_group',
         type: 'mat-select',
@@ -141,6 +146,10 @@ export function buildPageSettingFields({
   if (type === 'node--landing_page') {
     tabs.push(getCommonField('meta_tags', decodeMetaTags(meta_tags)));
   }
+  tabs.push({
+    props: { label: translate('BUILDER.PAGE_SETTING.INFORMATION') },
+    fieldGroup: informationFields,
+  });
 
   return [
     {

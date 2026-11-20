@@ -9,7 +9,7 @@ import type { IArticleAccess } from '@core/interface/node/IArticle';
 import type { IComment } from '@core/interface/node/INode';
 import type { IUser } from '@core/interface/IUser';
 import { BuilderPageState } from '@core/state/BuilderPageState';
-import { IMediaAttr } from '@core/interface/manage/IManage';
+import type { IMediaUploadResult } from '@core/interface/manage/IManage';
 import { appendQueryParams, QueryParams } from '@core/util/http-params.util';
 import { resolveNodeLangCode } from '@core/util/node-lang.util';
 import { environment } from 'src/environments/environment';
@@ -98,14 +98,7 @@ export class NodeService extends ApiService {
 
   // params can use for noCache
   getNodes(path: string, type: string, params: ApiQueryParams = ''): Observable<any> {
-    const apiPath = `${this.apiUrl}${path}/${type}`;
-    return this.http.get<any>(
-      appendQueryParams(apiPath, params, {
-        arrayFormat: 'plus',
-        encodeKeys: false,
-      }),
-      this.httpOptionsOfCommon
-    );
+    return this.getCollection(path, type, params);
   }
 
   /**
@@ -131,19 +124,9 @@ export class NodeService extends ApiService {
     return this.http.delete<any>(`${this.apiUrl}${path}/${id}`, this.optionsWithBearerToken());
   }
 
-  // path: /api/v1/taxonomy_term/page_group
-  // langCode: pass the non-default language so write requests use the language prefix
-  // (e.g. /en/api/v1/...) and hit the corresponding translation
+  /** Create an entity, using langCode for a non-default language prefix. */
   addEntity(path: string, attr: any, relationships?: any, langCode?: string): Observable<any> {
-    const post = {
-      data: {
-        type: this.getEntityType(path),
-        attributes: {
-          ...attr,
-        },
-        ...(relationships && Object.keys(relationships).length > 0 ? { relationships } : {}),
-      },
-    };
+    const post = this.entityPayload(path, attr, relationships);
     return this.http.post<any>(
       `${this.apiUrl}${this.writeLangPrefix(langCode)}${path}`,
       JSON.stringify(post),
@@ -174,6 +157,7 @@ export class NodeService extends ApiService {
     return `${arr[arr.length - 2]}--${arr[arr.length - 1]}`;
   }
 
+  /** Update an entity, using langCode for a non-default language prefix. */
   updateEntity(
     path: string,
     uuid: string,
@@ -181,21 +165,29 @@ export class NodeService extends ApiService {
     relationships?: any,
     langCode?: string
   ): Observable<any> {
-    const post = {
-      data: {
-        type: this.getEntityType(path),
-        id: uuid,
-        attributes: {
-          ...attr,
-        },
-        ...(relationships && Object.keys(relationships).length > 0 ? { relationships } : {}),
-      },
-    };
+    const post = this.entityPayload(path, attr, relationships, uuid);
     return this.http.patch<any>(
       `${this.apiUrl}${this.writeLangPrefix(langCode)}${path}/${uuid}`,
       JSON.stringify(post),
       this.optionsWithBearerToken()
     );
+  }
+
+  private entityPayload(
+    path: string,
+    attr: Record<string, unknown>,
+    relationships?: Record<string, unknown> | null,
+    uuid?: string
+  ) {
+    return {
+      data: {
+        type: this.getEntityType(path),
+        // Create requests have no server identity; JSON serialization omits an undefined id.
+        id: uuid,
+        attributes: { ...attr },
+        ...(relationships && Object.keys(relationships).length > 0 ? { relationships } : {}),
+      },
+    };
   }
 
   private writeLangPrefix(langCode?: string): string {
@@ -206,16 +198,16 @@ export class NodeService extends ApiService {
     return attr?.path?.alias ? attr.path.alias : `/node/${attr.drupal_internal__nid}`;
   }
 
-  addComment(type: string, entityData: any, token: string): Observable<any> {
-    return this.commentService.addComment(type, entityData, token);
+  addComment(type: string, entityData: any): Observable<any> {
+    return this.commentService.addComment(type, entityData);
   }
 
-  updateComment(type: string, entityData: any, uuid: string, token: string): Observable<any> {
-    return this.commentService.updateComment(type, entityData, uuid, token);
+  updateComment(type: string, entityData: any, uuid: string): Observable<any> {
+    return this.commentService.updateComment(type, entityData, uuid);
   }
 
-  replyComment(type: string, entityData: any, token: string): Observable<any> {
-    return this.commentService.replyComment(type, entityData, token);
+  replyComment(type: string, entityData: any): Observable<any> {
+    return this.commentService.replyComment(type, entityData);
   }
 
   getCommentType(content: any): string {
@@ -297,14 +289,11 @@ export class NodeService extends ApiService {
     }
   }
 
-  uploadImage(fileName: string, imageData: any): Observable<IMediaAttr> {
-    return this.mediaUploadService.uploadImage(fileName, imageData, data =>
-      this.createMediaImage(data)
-    );
-  }
-
-  createMediaImage(data: any): Observable<void> {
-    return this.mediaUploadService.createMediaImage(data);
+  /** Uploads an image in the current consumer context and returns media and file identities. */
+  uploadImage(
+    fileName: string, imageData: ArrayBuffer, canCreateMedia: () => boolean = () => true
+  ): Observable<IMediaUploadResult> {
+    return this.mediaUploadService.uploadImage(fileName, imageData, canCreateMedia);
   }
 
   /** Editor-implementation-agnostic image upload: pick a file, upload it, then hand the URL back via the callback */

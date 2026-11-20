@@ -50,13 +50,30 @@
       @apply flex flex-col h-full;
       overflow: hidden;
     }
+
+    &.page-settings-drawer {
+      @apply w-full;
+      max-width: 420px;
+    }
+
+    &.page-settings-drawer ::ng-deep {
+      .right-content {
+        @apply flex flex-col overflow-hidden;
+      }
+
+      .right-content > app-dynamic-component,
+      .right-content > app-dynamic-component > .content-wrapper {
+        @apply flex min-h-0 flex-1 flex-col;
+      }
+    }
   }
   .builder {
     @apply flex-1 overflow-auto h-full;
   }
 
   @media (max-width: 599px) {
-    &.mobile-navigation-hidden {
+    &.mobile-navigation-hidden,
+    &:has(.page-settings-drawer.mat-drawer-opened) {
       .sidebar-drawer {
         @apply hidden;
       }
@@ -83,7 +100,17 @@
   height: 50px;
   border-bottom: 1px solid var(--mat-sys-surface-dim);
   .right-title {
-    @apply text-base;
+    @apply flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1 text-base;
+  }
+  .language-context {
+    @apply flex flex-wrap items-center gap-x-2 text-sm font-normal;
+    color: var(--mat-sys-on-surface-variant);
+  }
+  &:has(.language-context) {
+    @apply h-auto min-h-[50px] py-2;
+    > app-btn {
+      @apply shrink-0;
+    }
   }
 }
 .right-content {

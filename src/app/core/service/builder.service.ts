@@ -4,11 +4,11 @@ import { cmsWriteContext } from '@core/config/cms-http-context';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ApiService } from './api.service';
 import type { IPage } from '@core/interface/IAppConfig';
-import { firstValueFrom, Observable, of, Subscription, throwError, timer } from 'rxjs';
+import { firstValueFrom, merge, Observable, of, Subscription, throwError, timer } from 'rxjs';
 import { UtilitiesService } from './utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { NodeService } from './node.service';
-import { catchError, filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { catchError, filter, finalize, map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -62,6 +62,13 @@ export class BuilderService extends ApiService {
   private translate = inject(TranslateService);
   private versionCheckSub?: Subscription;
   private versionDialogOpen = false;
+  private drawerReadRequest?: Subscription;
+  private readonly drawerReadCancelled$ = merge(
+    this.builder.pageSelection$,
+    this.builder.rightContent$,
+    this.builder.closeRightDrawer$.pipe(filter(Boolean)),
+    this.builder.rightDrawerClosed$
+  );
 
   constructor() {
     super();
@@ -71,15 +78,20 @@ export class BuilderService extends ApiService {
     page: { langcode?: string; nid: string; isTemplate?: boolean },
     openSetting = false
   ): void {
+    const finishLoading = this.builder.beginPageLoad();
     const { langcode, nid, isTemplate } = page;
     const lang = getApiLang(langcode);
     this.nodeService
       .fetch(`/api/v3/landingPage/json/${nid}`, { noCache: 1 }, lang)
-      .pipe(take(1))
+      .pipe(
+        take(1),
+        takeUntil(this.builder.pageSelection$),
+        takeUntilDestroyed(this.destroyRef),
+        finalize(finishLoading)
+      )
       .subscribe({
         next: (content: IPage) => {
           const { body, status, uuid } = content;
-          this.builder.loading.set(false);
           if (status) {
             this.builder.loadNewPage(formatToExtraData(content, isTemplate));
             this.util.openSnackbar(
@@ -135,50 +147,60 @@ export class BuilderService extends ApiService {
           }
         },
         error: () => {
-          this.builder.loading.set(false);
           this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_LIST.LOAD_PAGE_FAIL'), 'ok');
         },
       });
   }
 
+  /** Loads page JSON only while its drawer selection remains active. */
   loadPageJSON(page: { langcode?: string; nid: string }): void {
+    this.drawerReadRequest?.unsubscribe();
     const { langcode, nid } = page;
     const lang = getApiLang(langcode);
-    this.nodeService
+    this.drawerReadRequest = this.nodeService
       .fetch(`/api/v3/landingPage/json/${nid}`, { noCache: 1 }, lang)
-      .pipe(take(1))
-      .subscribe((content: IPage) => {
-        const { status } = content;
-        if (status) {
-          const jsonWidget: IJsoneditor = {
-            type: 'jsoneditor',
-            data: formatToExtraData(content),
-            classes: 'full-height',
-            schemaType: 'page',
-            fullWidth: true,
-            actions: [
-              {
-                type: 'updatePage',
-                label: '更新JSON',
-                params: {
-                  nid,
-                  langcode,
+      .pipe(
+        take(1),
+        takeUntil(this.drawerReadCancelled$),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe({
+        next: (content: IPage) => {
+          const { status } = content;
+          if (status) {
+            const jsonWidget: IJsoneditor = {
+              type: 'jsoneditor',
+              data: formatToExtraData(content),
+              classes: 'full-height',
+              schemaType: 'page',
+              fullWidth: true,
+              actions: [
+                {
+                  type: 'updatePage',
+                  label: '更新JSON',
+                  params: {
+                    nid,
+                    langcode,
+                  },
                 },
+              ],
+            };
+            this.builder.rightContent$.next({
+              title: 'JSON',
+              mode: 'over',
+              hasBackdrop: true,
+              style: {
+                width: '800px',
               },
-            ],
-          };
-          this.builder.rightContent$.next({
-            title: 'JSON',
-            mode: 'over',
-            hasBackdrop: true,
-            style: {
-              width: '800px',
-            },
-            elements: [jsonWidget],
-          });
-        } else {
-          this.util.openSnackbar('该页面非builder创建，请到后台编辑', 'ok');
-        }
+              elements: [jsonWidget],
+            });
+          } else {
+            this.util.openSnackbar('该页面非builder创建，请到后台编辑', 'ok');
+          }
+        },
+        error: () => {
+          this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_LIST.LOAD_PAGE_FAIL'), 'ok');
+        },
       });
   }
 
@@ -212,13 +234,17 @@ export class BuilderService extends ApiService {
    * being rejected as stale.
    */
   loadPageRevision(page: { langcode?: string; nid: string; vid: string }): void {
+    const finishLoading = this.builder.beginPageLoad();
     const { vid } = page;
-    this.builder.loading.set(true);
     this.getPageRevision(page)
-      .pipe(take(1))
+      .pipe(
+        take(1),
+        takeUntil(this.builder.pageSelection$),
+        takeUntilDestroyed(this.destroyRef),
+        finalize(finishLoading)
+      )
       .subscribe({
         next: (content: IPage) => {
-          this.builder.loading.set(false);
           if (!content?.status) {
             this.util.openSnackbar(this.translate.instant('BUILDER.REVISION.LOAD_FAIL'), 'ok');
             return;
@@ -233,7 +259,6 @@ export class BuilderService extends ApiService {
           this.util.openSnackbar(this.translate.instant('BUILDER.REVISION.LOADED', { vid }), 'ok');
         },
         error: () => {
-          this.builder.loading.set(false);
           this.util.openSnackbar(this.translate.instant('BUILDER.REVISION.LOAD_FAIL'), 'ok');
         },
       });
@@ -388,14 +413,19 @@ export class BuilderService extends ApiService {
     this.versionCheckSub?.unsubscribe();
     this.versionCheckSub = timer(0, VERSION_CHECK_INTERVAL)
       .pipe(
-        filter(() => this.router.url.includes(BUILDERPATH) && !this.versionDialogOpen),
+        filter(() => this.router.url.includes(BUILDERPATH)
+          && !this.versionDialogOpen && !this.builder.loading()),
         map(() => this.getLocalCurrentPage()),
         filter((localPage): localPage is IPage => Boolean(localPage?.nid)),
         switchMap(localPage => {
-          const lang = getApiLang(localPage.langcode);
+          const lang = getApiLang(this.builder.getPageIdentityLang(localPage));
           return this.nodeService
             .fetch(`/api/v3/landingPage/json/${localPage.nid}`, { noCache: 1 }, lang)
             .pipe(
+              takeUntil(this.builder.pageSelection$),
+              filter((serverPage: IPage) => serverPage?.status === true
+                && serverPage.nid === localPage.nid && Boolean(serverPage.langcode)
+                && getApiLang(serverPage.langcode) === lang),
               map((serverPage: IPage) => ({ localPage, serverPage })),
               catchError(() => of(null))
             );
@@ -429,7 +459,7 @@ export class BuilderService extends ApiService {
   private promptLatestUpdate(localPage: IPage, serverPage: IPage): void {
     const config: IDialog = {
       title: `当前页面不是最新版本`,
-      titleClasses: 'text-red-500',
+      titleClasses: 'text-warn',
       yesLabel: '确认更新',
       noLabel: '取消',
       inputData: {
@@ -448,9 +478,16 @@ export class BuilderService extends ApiService {
 
     dialogRef
       .afterClosed()
-      .pipe(take(1))
+      .pipe(
+        take(1),
+        takeUntil(this.builder.pageSelection$),
+        takeUntilDestroyed(this.destroyRef),
+        finalize(() => {
+          this.versionDialogOpen = false;
+          dialogRef.close();
+        })
+      )
       .subscribe(result => {
-        this.versionDialogOpen = false;
         if (result) {
           this.builder.loadNewPage(formatToExtraData(serverPage));
         }
@@ -658,11 +695,17 @@ export class BuilderService extends ApiService {
    * still goes through JSON:API node deletion, which cascades to all language versions.
    */
   deleteTranslation(nid: string | number, langcode: string): Observable<any> {
-    return this.http.post(
+    return this.http.post<{ status: boolean }>(
       `${this.apiUrl}${LANDING_PAGE_API.translate}/delete/${nid}/${langcode}`,
       {},
       { ...this.optionsWithBearerToken(), context: cmsWriteContext() }
-    );
+    ).pipe(map((response: unknown) => {
+      if (!response || typeof response !== 'object' || !('status' in response) ||
+        response.status !== true) {
+        throw new Error('The CMS did not confirm translation deletion.');
+      }
+      return response;
+    }));
   }
 
   updateAttributes(
@@ -776,14 +819,17 @@ export class BuilderService extends ApiService {
     return lang ? `/${lang}` : '';
   }
 
+  /** Loads settings only while their drawer selection remains active. */
   openPageSetting(
     page: { uuid: string; langcode?: string },
     api: string,
     params: QueryParams | string
   ): void {
+    this.drawerReadRequest?.unsubscribe();
+    this.builder.pageSettingsLoading.set(true);
     const { uuid, langcode } = page;
     const lang = getApiLang(langcode);
-    this.nodeService
+    this.drawerReadRequest = this.nodeService
       .fetch(`${api}/${uuid}`, params, lang)
       .pipe(
         catchError((error: any) => {
@@ -791,17 +837,34 @@ export class BuilderService extends ApiService {
           this.util.openSnackbar(statusText, 'ok');
           return of(false);
         }),
-        take(1)
+        take(1),
+        takeUntil(this.drawerReadCancelled$),
+        takeUntilDestroyed(this.destroyRef),
+        finalize(() => this.builder.pageSettingsLoading.set(false))
       )
       .subscribe(res => {
         if (res) {
+          const attributes = res.data?.attributes;
+          const language = res.data?.type === 'node--landing_page' && attributes?.langcode
+            ? {
+                label: environment.langs?.find(item => item.langCode === attributes.langcode)?.label
+                  ?? attributes.langcode,
+                description: attributes.default_langcode === true
+                  ? this.translate.instant('BUILDER.PAGE_LIST.ORIGINAL_VERSION')
+                  : attributes.default_langcode === false
+                    ? this.translate.instant('BUILDER.PAGE_LIST.TRANSLATED_VERSION') : undefined,
+              }
+            : undefined;
           this.builder.rightContent$.next({
-            title: '页面配置',
+            title: this.translate.instant('BUILDER.PAGE_LIST.PAGE_PROPS'),
+            titleContext: language,
             mode: 'over',
             hasBackdrop: true,
+            classes: 'page-settings-drawer',
             style: {
-              padding: '14px',
-              'max-width': 'calc(100vw - 80px)',
+              'padding': '0',
+              'width': '100%',
+              'max-width': '100vw',
             },
             elements: [
               {
@@ -812,7 +875,6 @@ export class BuilderService extends ApiService {
             ],
           });
         }
-        this.builder.loading.set(false);
       });
   }
 

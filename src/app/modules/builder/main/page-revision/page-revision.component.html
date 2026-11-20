@@ -1,8 +1,8 @@
 <div class="page-revision">
   <h3 class="revision-page-title">{{ content().content.title }}</h3>
   @if (loading()) {
-    <div class="state">
-      <app-spinner />
+    <div class="state" role="status" [attr.aria-label]="'APP.LOADING' | translate">
+      <app-spinner [content]="{ size: 40 }" aria-hidden="true" />
     </div>
   } @else if (forbidden()) {
     <div class="state">
@@ -40,7 +40,7 @@
             class="revision-select"
             [checked]="isSelected(revision.vid)"
             [disabled]="!isSelected(revision.vid) && canCompare()"
-            [attr.aria-label]="'BUILDER.REVISION.COMPARE_ARIA' | translate: { vid: revision.vid }"
+            [aria-label]="'BUILDER.REVISION.COMPARE_ARIA' | translate: { vid: revision.vid }"
             (change)="toggleCompare(revision.vid)"
           />
           <button

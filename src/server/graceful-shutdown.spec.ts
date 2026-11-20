@@ -1,5 +1,5 @@
 // @vitest-environment node
-// Real sockets and Node timers (`unref`) are under test; jsdom replaces the timers.
+// Real sockets and Node timers are under test; jsdom replaces the timers.
 import { createServer, get, type Server, type ServerResponse } from 'node:http';
 import type { AddressInfo } from 'node:net';
 
@@ -100,5 +100,93 @@ describe('graceful shutdown', () => {
     expect(exit).toHaveBeenCalledWith(0);
     expect(error).toHaveBeenCalledWith('[Shutdown] hook failed:', 'broken');
     error.mockRestore();
+  });
+
+  it('starts background drain synchronously and waits even without an HTTP listener', async () => {
+    const { createGracefulShutdown, onShutdownStart, onShutdown } = await load();
+    let release!: () => void;
+    const pending = new Promise<void>(resolve => { release = resolve; });
+    const begin = vi.fn(() => pending);
+    const cleanup = vi.fn();
+    const exit = vi.fn();
+    onShutdownStart(begin);
+    onShutdown(cleanup);
+    const shutdown = createGracefulShutdown(undefined, exit);
+    shutdown('SIGTERM');
+    shutdown('SIGINT');
+    expect(begin).toHaveBeenCalledOnce();
+    expect(cleanup).not.toHaveBeenCalled();
+    release();
+    await vi.waitFor(() => expect(exit).toHaveBeenCalledExactlyOnceWith(0));
+    expect(cleanup).toHaveBeenCalledOnce();
+  });
+
+  it.each(['http', 'background'])(
+    'waits for both drains when %s finishes first', async first => {
+      const { createGracefulShutdown, onShutdownStart } = await load();
+      let release!: () => void;
+      const background = new Promise<void>(resolve => { release = resolve; });
+      let receive!: (res: ServerResponse) => void;
+      const received = new Promise<ServerResponse>(resolve => { receive = resolve; });
+      const server = await listen(receive);
+      const body = request(server);
+      const res = await received;
+      const exit = vi.fn();
+      onShutdownStart(() => background);
+      createGracefulShutdown(server, exit)('SIGTERM');
+      if (first === 'http') { res.end('done'); await body; }
+      else release();
+      await new Promise(resolve => setTimeout(resolve, 20));
+      expect(exit).not.toHaveBeenCalled();
+      if (first === 'http') release();
+      else { res.end('done'); await body; }
+      await vi.waitFor(() => expect(exit).toHaveBeenCalledExactlyOnceWith(0));
+    }
+  );
+
+  it('shares one deadline and finalizes once despite late HTTP and background completion', async () => {
+    vi.useFakeTimers();
+    process.env['SHUTDOWN_GRACE_MS'] = '50';
+    try {
+      const { createGracefulShutdown, onShutdownStart, onShutdown } = await load();
+      let closed!: () => void;
+      let release!: () => void;
+      const background = new Promise<void>(resolve => { release = resolve; });
+      const server = { close: vi.fn(callback => { closed = callback; }),
+        closeIdleConnections: vi.fn(), closeAllConnections: vi.fn() };
+      const cleanup = vi.fn();
+      const exit = vi.fn();
+      onShutdownStart(() => background);
+      onShutdown(cleanup);
+      createGracefulShutdown(server as unknown as Server, exit)('SIGTERM');
+      await vi.advanceTimersByTimeAsync(20);
+      closed();
+      await vi.advanceTimersByTimeAsync(29);
+      expect(exit).not.toHaveBeenCalled();
+      await vi.advanceTimersByTimeAsync(1);
+      expect(exit).toHaveBeenCalledExactlyOnceWith(0);
+      expect(server.closeAllConnections).toHaveBeenCalledOnce();
+      release();
+      closed();
+      await vi.runAllTimersAsync();
+      expect(cleanup).toHaveBeenCalledOnce();
+      expect(exit).toHaveBeenCalledOnce();
+    } finally { vi.useRealTimers(); }
+  });
+
+  it('keeps draining other work when a start hook throws or rejects', async () => {
+    const { createGracefulShutdown, onShutdownStart } = await load();
+    const error = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    const exit = vi.fn();
+    const later = vi.fn();
+    try {
+      onShutdownStart(() => { throw new Error('start failed'); });
+      onShutdownStart(async () => { throw new Error('drain failed'); });
+      onShutdownStart(later);
+      createGracefulShutdown(undefined, exit)('SIGTERM');
+      expect(later).toHaveBeenCalledOnce();
+      await vi.waitFor(() => expect(exit).toHaveBeenCalledExactlyOnceWith(0));
+      expect(error).toHaveBeenCalledTimes(2);
+    } finally { error.mockRestore(); }
   });
 });

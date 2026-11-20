@@ -4,6 +4,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { IPage } from '@core/interface/IAppConfig';
 import { BuilderService } from '@core/service/builder.service';
 import { BuilderState } from '@core/state/BuilderState';
+import { selectCurrentBuilderPage } from '@core/state/BuilderPageState';
 import { LocalStorageService } from 'ngx-webstorage';
 
 export const DEBUG_ANIMATE_KEY = 'debugAnimate';
@@ -41,7 +42,7 @@ export function builderCurrentPageFactory(): Signal<IPage | undefined | false> {
     if (!version.length) {
       return false;
     }
-    return version.find((page: IPage) => page.current === true) || version[0];
+    return selectCurrentBuilderPage(version);
   });
 
   if (router.url.includes(BUILDERPATH)) {

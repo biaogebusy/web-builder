@@ -1,9 +1,7 @@
-import { signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { USER } from '@core/token/token-providers';
 import {
   createNodeServiceMock,
   createUtilitiesServiceMock,
@@ -33,7 +31,6 @@ describe('CommentFormComponent', () => {
         { provide: NodeService, useValue: nodeService },
         { provide: CommentService, useValue: commentService },
         { provide: UtilitiesService, useValue: util },
-        { provide: USER, useValue: signal({ id: 'u-1', access_token: 'tok-1' }) },
       ],
     }).compileComponents();
 
@@ -53,7 +50,7 @@ describe('CommentFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('adds a comment with the rich-text body and the user token, then resets the editor', () => {
+  it('adds a comment with the rich-text body, then resets the editor', () => {
     component.commentContent.set('<p>草稿</p>');
 
     component.onSubmit('<p>你好</p>');
@@ -65,8 +62,7 @@ describe('CommentFormComponent', () => {
         attributes: expect.objectContaining({
           comment_body: { value: '<p>你好</p>', format: undefined },
         }),
-      }),
-      'tok-1'
+      })
     );
     expect(component.commentContent()).toBe('');
     expect(component.loading).toBe(false);
@@ -85,8 +81,7 @@ describe('CommentFormComponent', () => {
         relationships: expect.objectContaining({
           pid: { data: { type: 'comment--comment', id: 'comment-9' } },
         }),
-      }),
-      'tok-1'
+      })
     );
     expect(util.openSnackbar).toHaveBeenCalledWith('回复成功！');
   });
@@ -103,8 +98,7 @@ describe('CommentFormComponent', () => {
         id: 'comment-9',
         relationships: {},
       }),
-      'comment-9',
-      'tok-1'
+      'comment-9'
     );
   });
 
@@ -142,6 +136,6 @@ describe('CommentFormComponent', () => {
       attributes: expect.objectContaining({ comment_body: {
         value: expect.stringContaining('Quoted <tag>'), format: 'plain_text',
       } }),
-    }), 'tok-1');
+    }));
   });
 });

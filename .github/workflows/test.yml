@@ -20,9 +20,19 @@ jobs:
     env:
       NODE_OPTIONS: --max-old-space-size=6144
       NG_BUILD_MAX_WORKERS: "2"
+      XINSHI_TEST_ASSETS_ROOT: .test-assets/xinshi-docs/stories/assets/testing
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Checkout fixed test assets
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ vars.TEST_ASSETS_REPOSITORY || 'biaogebusy/xinshi-docs' }}
+          ref: ${{ vars.TEST_ASSETS_REF || 'master' }}
+          token: ${{ secrets.TEST_ASSETS_TOKEN || github.token }}
+          path: .test-assets/xinshi-docs
+          persist-credentials: false
 
       - name: Use Node.js
         uses: actions/setup-node@v4
@@ -39,10 +49,13 @@ jobs:
             ${{ runner.os }}-node22-angular-${{ hashFiles('package-lock.json', 'angular.json', 'tsconfig*.json') }}-
 
       - name: NPM Install
-        run: npm ci
+        run: bash scripts/ci-install.sh
+
+      - name: Verify fixed test assets
+        run: npm run check:test-assets
 
       - name: Unit tests
         run: npm run test:unit
 
       - name: CI and deployment regressions
-        run: node --test scripts/ci-changes.test.mjs scripts/deploy-assets.test.mjs
+        run: node --test scripts/test-assets.test.mjs scripts/ci-install.test.mjs scripts/ci-changes.test.mjs scripts/deploy-assets.test.mjs
