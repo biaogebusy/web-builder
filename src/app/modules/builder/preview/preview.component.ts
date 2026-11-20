@@ -5,8 +5,10 @@ import {
   DestroyRef,
   OnInit,
   afterNextRender,
+  effect,
   inject,
   signal,
+  untracked,
 } from '@angular/core';
 import { SHARE_IMPORTS } from '@share/share-imports';
 import { WIDGETS_IMPORTS } from '@uiux/widgets/widgets-imports';
@@ -45,6 +47,13 @@ export class PreviewComponent implements OnInit {
   private disconnectAosObserver?: () => void;
 
   constructor() {
+    if (!this.route.snapshot.queryParamMap.get('nid')) {
+      effect(() => {
+        const page = this.builder.currentPage;
+        // Metadata writes must not become dependencies of the shared draft subscription.
+        untracked(() => this.showPage(page));
+      });
+    }
     afterNextRender({
       read: () => {
         this.disconnectAosObserver = this.util.intersectionObserver('[data-aos]', this.doc);
@@ -58,7 +67,6 @@ export class PreviewComponent implements OnInit {
     const nid = params.get('nid');
     const langcode = params.get('lang') ?? undefined;
     if (!nid) {
-      this.showPage(this.builder.currentPage);
       return;
     }
     const local = this.builder.getLocalPageByPage({ nid, langcode });
